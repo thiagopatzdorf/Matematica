@@ -1,5 +1,8 @@
 # Lean 4 + Mathlib: cota de esfera, verificada pelo kernel
 
+The note is [paper/main.pdf](paper/main.pdf), source [paper/main.tex](paper/main.tex). Tag `v0.2.0`.
+
+
 Estado (2026-10-01): `lake build` completo **passa** (8934 jobs, 34 s, pico 7,6 GB, Lean 4.34.1 + Mathlib v4.34.1,
 medido numa VM e2-standard-8). Nenhum `sorry`, nenhum `native_decide`, e todo `#print axioms` mostra no máximo
 `propext, Classical.choice, Quot.sound`.

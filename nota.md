@@ -1,4 +1,7 @@
 # A cota de esfera, verificada pelo kernel
+
+O paper, em inglês: [PDF](paper/main.pdf). A página pública é https://genesisinnovation.io/provas/paper.
+
 ## O que o Lean aceitou, e o que ainda não é teorema.
 
 Uma cota de cobertura só vale como teorema quando o kernel confere a conta. Esta página publica o que passou e o arquivo que produz esse passe. O que não passou não entra na lista.
