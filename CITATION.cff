@@ -1,0 +1,23 @@
+cff-version: 1.2.0
+title: The sphere-covering bound in Lean
+message: If you use this work, please cite it using the metadata from this file.
+type: software
+authors:
+  - family-names: Patzdorf
+    given-names: Thiago
+    affiliation: Universidade de Caxias do Sul
+    email: thiagosleman@gmail.com
+repository-code: https://github.com/thiagopatzdorf/Matematica
+url: https://genesisinnovation.io/provas/paper.pdf
+license: CC-BY-4.0
+version: 0.2.1
+date-released: 2026-10-01
+preferred-citation:
+  type: article
+  title: The sphere-covering bound in Lean
+  authors:
+    - family-names: Patzdorf
+      given-names: Thiago
+      affiliation: Universidade de Caxias do Sul
+  year: 2026
+  url: https://genesisinnovation.io/provas/paper.pdf
