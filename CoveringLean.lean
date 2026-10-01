@@ -6,4 +6,12 @@ import CoveringLean.A5_Frontier
 import CoveringLean.A6_Finite
 import CoveringLean.A6b_Hamming
 import CoveringLean.A6c_Search
+import CoveringLean.A6e_Excess
 import CoveringLean.Chain
+import CoveringLean.SearchCore
+import CoveringLean.SearchSound
+import CoveringLean.SearchBridgeA2
+import CoveringLean.C1_CoverCheck
+import CoveringLean.K2_Core
+import CoveringLean.K2_Loop
+import CoveringLean.K3_Bridge
