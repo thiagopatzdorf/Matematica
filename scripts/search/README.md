@@ -25,6 +25,7 @@ com o dígito `i` igual à coordenada `i` (o caractere `i` da linha no arquivo `
 | `patch_opt.c` | otimizador de remendo (SA com listas invertidas, palavras + retas) |
 | `expand.py` | JSON de estrutura → lista de palavras (Python puro, para conferência cruzada) |
 | `verify.py` | verificador independente (numpy, dilatação de Hamming); imprime o sha256 canônico |
+| `coset_sa.c` | base com muitas classes laterais livres: SA direto no espaço de síndromes |
 | `xs.sh` | varre `base_search exactT` por um intervalo da lista de classes |
 
 Compilar:
@@ -39,6 +40,8 @@ Compilar:
     base_search exact q n R "A"
     base_search exactT q n R T "A" [m=200] [maxprint=1000]
     base_search canon q n R "A"
+    base_search beam  q n R t B1 br Bk "A"        # t classes quaisquer (B1=0: nível 2 exato)
+    base_search subexh q n R t "A" g1 g2 ...       # exaustivo com S ⊂ <g1,g2,...>
 
 - **enum** percorre **todas** as classes de equivalência (monomial) de códigos `[n,k]_q`
   não degenerados: órbitas de `PGL(k,q)` sobre multiconjuntos de `n` pontos de
@@ -59,6 +62,14 @@ Compilar:
   ótimo. O `exactT` lista todos os trios com órfãs `<= T` e poda de forma exata: as órfãs
   contadas numa amostra `Y ⊂ X` já são cota inferior, então só os `s2` com `cnt_Y <= T`
   são conferidos em `X` inteiro. Custo em `[9,3]_7`: ~70–90 s por classe com `T=6`.
+- **beam** (t qualquer): o nível 2 é exato (todo `s1`, com `s2` ótimo via DFT, a correlação
+  cruzada de `O` com `Bc`) e os níveis seguintes mantêm os `Bk` melhores estados, com `br`
+  extensões cada. *Medido:* em `[8,3]_7` com t=5 ele dá 3 órfãs onde existe conjunto com 2
+  (as sub-bases boas não são as de menor contagem nos níveis intermediários).
+- **subexh** (t qualquer, exato dentro de um subespaço): todos os `(t-1)`-subconjuntos de
+  `V \ {0}` com `V = <g1,…>` em bitsets (AND incremental das translações `Bc+e`). Com
+  `|V| = 343` e t=5 são ~9·10^7 folhas em ~17 s. Serve para varrer os superespaços do
+  subespaço de uma base boa conhecida.
 - **canon** dá a forma canônica de um `A` qualquer, para saber se duas bases são a mesma classe.
 
 Saída: uma linha JSON por classe, `{"A": …, "nBc": …, "orphans": …, "coset_syndromes": [0,s1,s2]}`
@@ -89,6 +100,22 @@ lista arbitrária de palavras como base. O programa:
    descoberto e sai o de menor perda entre 3 sorteados do mesmo tipo. Ao zerar o resíduo,
    grava `prefixo_M<M>.txt` + `.json` e encolhe (tira uma palavra, ou troca uma reta por
    `q-1` palavras gulosas) e continua.
+
+Opções extras: `--wls N` (pesos de quebra: a cada N movimentos, cada ponto descoberto ganha
++1 de peso; com N pequeno diverge) e `--group g.json` (simetria prescrita: os candidatos
+"tipo 1" viram órbitas livres de um grupo de isometrias que fixa a base; formato
+`{"elements":[[src[n],escala[n],transl[n]],…]}`, com y_i = escala_i·x_{src_i} + transl_i).
+*Medido* na base de 6 órfãs: órbitas de grupos de ordem 9 e 18 cobrem mal (sobreposição
+dentro da órbita), muito pior que palavras soltas.
+
+### coset_sa
+
+    coset_sa q n R "H" t secs seed T0 T1 saida [init.txt]
+
+A base vira um conjunto livre de `t` síndromes de um código menor (ex.: as 21 classes do
+`[9,2]_7` contido no `[9,3]_7` da base de 6 órfãs, com H = `[I|A]` mais a linha
+`000000001`). Mede o quão rígida é a base: *medido*, as 21 classes não saem de 42 órfãs
+(= 6×7) em ~10^5 movimentos, porque cada troca isolada perde milhares de síndromes privadas.
 
 O JSON de saída traz `A`, `coset_syndromes`, `lines` (`[[g,rep],…]`), `gens`/`reps` (quando
 há uma só direção, no formato do `gen.py` da frente 2b) e `words`. Para refazer a lista:

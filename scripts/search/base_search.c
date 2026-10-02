@@ -196,6 +196,19 @@ static Res beam(Kit *K, int t, int B1, int br, int Bk){
   return R;
 }
 
+/* subexh: exaustivo sobre (t-1)-subconjuntos de um subespaço V (gerado pelas síndromes
+ * dadas) para a base {0} ∪ S, S ⊂ V. Bitsets das translações Bc+e, AND incremental. */
+static uint64_t **TB; static int nE, *Ev, tt, bestO, bestS[16], curS[16]; static long nodes; static int WB;
+static void subexh_rec(int depth, int start, const uint64_t *acc){
+  if (depth == tt){ int c = 0; for (int i = 0; i < WB; i++) c += __builtin_popcountll(acc[i]); nodes++;
+    if (c < bestO){ bestO = c; memcpy(bestS, curS, sizeof curS); printf("  órfãs=%d S=", c); for (int j = 1; j < tt; j++) printf("%d ", curS[j]); printf("\n"); fflush(stdout); } return; }
+  uint64_t nb[4096];
+  for (int i = start; i < nE; i++){
+    for (int w = 0; w < WB; w++) nb[w] = acc[w] & TB[i][w];
+    curS[depth] = Ev[i]; subexh_rec(depth + 1, i + 1, nb);
+  }
+}
+
 static void print_A(const Kit *K, char *buf){
   int p = 0;
   for (int i = 0; i < K->r; i++){ for (int j = 0; j < K->k; j++) buf[p++] = '0' + K->H[i][K->r + j]; buf[p++] = ' '; }
@@ -336,6 +349,26 @@ int main(int argc, char **argv){
     printf("{\"q\":%d,\"n\":%d,\"R\":%d,\"A\":\"%s\",\"nBc\":%ld,\"t\":%d,\"orphans\":%d,\"coset_syndromes\":[0", K.q, K.n, K.R, A, K.nBc, t, R.orph);
     for (int j = 1; j < t; j++) printf(",%d", R.s[j]);
     printf("],\"exact\":false,\"secs\":%.2f}\n", kit_now() - t0);
+    return 0; }
+  if (!strcmp(argv[1], "subexh")){ /* subexh q n R t A g1 g2 ... (geradores de V como inteiros) */
+    K.q = atoi(argv[2]); K.n = atoi(argv[3]); K.R = atoi(argv[4]); tt = atoi(argv[5]); const char *A = argv[6];
+    int rows = 1; for (const char *p = A; *p; p++) if (*p == ' ') rows++;
+    K.r = rows; K.k = K.n - K.r; kit_init_tables(&K); kit_set_A(&K, A); kit_compute_ball(&K);
+    int ng = argc - 7; int *gens = malloc(sizeof(int) * ng); for (int i = 0; i < ng; i++) gens[i] = atoi(argv[7 + i]);
+    /* span */
+    uint8_t *inV = calloc(K.N, 1); int *V = malloc(sizeof(int) * K.N); int nv = 1; V[0] = 0; inV[0] = 1;
+    for (int g = 0; g < ng; g++){ int cur = nv; for (int i = 0; i < cur; i++){ int x = V[i]; for (int c = 1; c < K.q; c++){ x = kit_add(&K, x, gens[g]); if (!inV[x]){ inV[x] = 1; V[nv++] = x; } } } }
+    WB = (int)((K.N + 63) / 64); if (WB > 4096){ fprintf(stderr, "N grande demais para subexh\n"); return 2; }
+    nE = 0; Ev = malloc(sizeof(int) * nv); TB = malloc(sizeof(uint64_t*) * nv);
+    for (int i = 1; i < nv; i++){ int e = V[i]; Ev[nE] = e; TB[nE] = calloc(WB, 8); for (long j = 0; j < K.nBc; j++){ int v = kit_add(&K, K.Bc[j], e); TB[nE][v >> 6] |= 1ULL << (v & 63); } nE++; }
+    uint64_t *acc = calloc(WB, 8); for (long j = 0; j < K.nBc; j++) acc[K.Bc[j] >> 6] |= 1ULL << (K.Bc[j] & 63);
+    printf("|V|=%d, enumerando %d-subconjuntos de V\\{0}\n", nv, tt - 1); fflush(stdout);
+    bestO = 1 << 30; double t0 = kit_now();
+    /* simetria escalar: 1º elemento canônico */
+    uint64_t nb[4096];
+    for (int i = 0; i < nE; i++){ if (!is_scal_canon(&K, Ev[i])) continue; for (int w = 0; w < WB; w++) nb[w] = acc[w] & TB[i][w]; curS[1] = Ev[i]; subexh_rec(2, i + 1, nb); }
+    printf("{\"q\":%d,\"n\":%d,\"R\":%d,\"A\":\"%s\",\"t\":%d,\"V\":%d,\"orphans\":%d,\"coset_syndromes\":[0", K.q, K.n, K.R, A, tt, nv, bestO);
+    for (int j = 1; j < tt; j++) printf(",%d", bestS[j]); printf("],\"nodes\":%ld,\"secs\":%.1f}\n", nodes, kit_now() - t0);
     return 0; }
   if (!strcmp(argv[1], "canon")){ /* canon q n R A : forma canônica do código de H=[I|A] */
     q_ = K.q = atoi(argv[2]); nn_ = K.n = atoi(argv[3]); K.R = atoi(argv[4]);

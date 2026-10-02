@@ -77,6 +77,9 @@ static int32_t *pidx;           /* palavra -> índice no resíduo, ou -1 */
 static W32 *resid; static long nres;
 static uint16_t *cntw;          /* nº de pontos do resíduo na bola de cada palavra */
 static int ndir; static W32 dirs[64];
+static int ngrp, gsrc[1024][16], gsc[1024][16], gtr[1024][16]; static int ecost1; /* --group: órbitas como candidatos */
+static W32 gapply(int g, W32 w){ int x[16], y = 0; W32 r = 0; for (int i = 0; i < n; i++){ x[i] = w % q; w /= q; } for (int i = 0; i < n; i++){ y = (gsc[g][i] * x[gsrc[g][i]] + gtr[g][i]) % q; r += (W32)(y * pwn[i]); } return r; }
+static int orbit(W32 w, W32 *o){ int no = 0; for (int g = 0; g < ngrp; g++){ W32 x = gapply(g, w); int d = 0; for (int j = 0; j < no; j++) if (o[j] == x) d = 1; if (!d) o[no++] = x; } return no; }
 static int32_t *lineid[64];     /* palavra -> candidato-reta (por direção) ou -1 */
 static int32_t *wcand;          /* palavra -> candidato-palavra ou -1 */
 static long ncand, capcand;
@@ -133,11 +136,12 @@ static int M_base;
 static W32 *basew; static long nbasew;
 
 static void save(void){
-  int M = (int)nbasew + q * nsel[1] + nsel[0];
+  int M = (int)nbasew + ecost1 * nsel[1] + nsel[0];
   char fn[600]; snprintf(fn, sizeof fn, "%s_M%d.txt", outp, M);
   FILE *F = fopen(fn, "w"); char s[32];
   for (long i = 0; i < nbasew; i++){ word_str(basew[i], s); fprintf(F, "%s\n", s); }
   for (int i = 0; i < nsel[1]; i++){ long c = sl[1][i]; W32 w = cword[c];
+    if (ngrp){ W32 o[1024]; int no = orbit(w, o); for (int k = 0; k < no; k++){ word_str(o[k], s); fprintf(F, "%s\n", s); } continue; }
     for (int k = 0; k < q; k++){ word_str(w, s); fprintf(F, "%s\n", s); w = wadd(w, dirs[cdir[c]]); } }
   for (int i = 0; i < nsel[0]; i++){ word_str(cword[sl[0][i]], s); fprintf(F, "%s\n", s); }
   fclose(F);
@@ -148,9 +152,13 @@ static void save(void){
   else fprintf(F, ",\"frozen\":\"%s\"", frozen_file);
   fprintf(F, ",\"dirs\":["); for (int d = 0; d < ndir; d++){ word_str(dirs[d], s); fprintf(F, "%s\"%s\"", d ? "," : "", s); } fprintf(F, "]");
   if (ndir == 1){ word_str(dirs[0], s); fprintf(F, ",\"gens\":\"%s\"", s); }
-  fprintf(F, ",\"lines\":["); for (int i = 0; i < nsel[1]; i++){ char g[32]; word_str(dirs[cdir[sl[1][i]]], g); word_str(cword[sl[1][i]], s); fprintf(F, "%s[\"%s\",\"%s\"]", i ? "," : "", g, s); } fprintf(F, "]");
-  fprintf(F, ",\"reps\":["); for (int i = 0; i < nsel[1]; i++){ word_str(cword[sl[1][i]], s); fprintf(F, "%s\"%s\"", i ? "," : "", s); } fprintf(F, "]");
-  fprintf(F, ",\"words\":["); for (int i = 0; i < nsel[0]; i++){ word_str(cword[sl[0][i]], s); fprintf(F, "%s\"%s\"", i ? "," : "", s); } fprintf(F, "]}\n");
+  if (!ngrp){ fprintf(F, ",\"lines\":["); for (int i = 0; i < nsel[1]; i++){ char g[32]; word_str(dirs[cdir[sl[1][i]]], g); word_str(cword[sl[1][i]], s); fprintf(F, "%s[\"%s\",\"%s\"]", i ? "," : "", g, s); } fprintf(F, "]");
+  fprintf(F, ",\"reps\":["); for (int i = 0; i < nsel[1]; i++){ word_str(cword[sl[1][i]], s); fprintf(F, "%s\"%s\"", i ? "," : "", s); } fprintf(F, "]"); }
+  fprintf(F, ",\"words\":["); int first = 1;
+  if (ngrp) for (int i = 0; i < nsel[1]; i++){ W32 o[1024]; int no = orbit(cword[sl[1][i]], o); for (int k = 0; k < no; k++){ word_str(o[k], s); fprintf(F, "%s\"%s\"", first ? "" : ",", s); first = 0; } }
+  for (int i = 0; i < nsel[0]; i++){ word_str(cword[sl[0][i]], s); fprintf(F, "%s\"%s\"", first ? "" : ",", s); first = 0; } fprintf(F, "]");
+  if (ngrp){ fprintf(F, ",\"group_order\":%d,\"orbit_reps\":[", ngrp); for (int i = 0; i < nsel[1]; i++){ word_str(cword[sl[1][i]], s); fprintf(F, "%s\"%s\"", i ? "," : "", s); } fprintf(F, "]"); }
+  fprintf(F, "}\n");
   fclose(F);
   printf("SOLVED M=%d (base %ld + %d retas x %d + %d palavras) -> %s_M%d.txt\n", M, nbasew, nsel[1], q, nsel[0], outp, M); fflush(stdout);
 }
@@ -162,7 +170,7 @@ int main(int argc, char **argv){
   char *js = slurp(argv[1]);
   q = (int)jint(js, "q", 7); n = (int)jint(js, "n", 9); R = (int)jint(js, "R", 4);
   int L = 36, Wn = 8, tauw = 0, taul = 0, ndirs_auto = 1; double secs = 600, T0 = 1.2, T1 = 0.3; long cyc = 2000000, wls = 0; unsigned long long seed = 1;
-  char dirarg[1024] = "", initf[512] = "";
+  char dirarg[1024] = "", initf[512] = "", grpf[512] = "";
   for (int i = 2; i < argc; i++){
     if (!strcmp(argv[i], "--dirs")) snprintf(dirarg, sizeof dirarg, "%s", argv[++i]);
     else if (!strcmp(argv[i], "--ndirs")) ndirs_auto = atoi(argv[++i]);
@@ -177,6 +185,7 @@ int main(int argc, char **argv){
     else if (!strcmp(argv[i], "--T1")) T1 = atof(argv[++i]);
     else if (!strcmp(argv[i], "--cyc")) cyc = atol(argv[++i]);
     else if (!strcmp(argv[i], "--wls")) wls = atol(argv[++i]);
+    else if (!strcmp(argv[i], "--group")) snprintf(grpf, sizeof grpf, "%s", argv[++i]);
     else if (!strcmp(argv[i], "--out")) outp = argv[++i];
     else { fprintf(stderr, "opção desconhecida %s\n", argv[i]); return 2; }
   }
@@ -186,6 +195,16 @@ int main(int argc, char **argv){
   cd = 1; while (pwn[cd + 1] <= 2401 && cd + 1 <= n) cd++;
   CH = pwn[cd]; nch = (n + cd - 1) / cd;
   add3 = kit_mk_add(q, cd, CH);
+  ecost1 = q;
+  if (grpf[0]){ /* {"order":g,"elements":[[src[n],scal[n],trans[n]],...]} */
+    char *gj = slurp(grpf); const char *p = strstr(gj, "\"elements\""); if (!p){ fprintf(stderr, "grupo sem elements\n"); return 2; }
+    /* todos os inteiros depois de "elements", em blocos de 3n (src, scal, trans) */
+    int vals[64], nv = 0;
+    for (; *p; ){ if (isdigit((unsigned char)*p)){ vals[nv++] = (int)strtol(p, (char**)&p, 10);
+        if (nv == 3 * n){ for (int i = 0; i < n; i++){ gsrc[ngrp][i] = vals[i]; gsc[ngrp][i] = vals[n + i]; gtr[ngrp][i] = vals[2 * n + i]; } ngrp++; nv = 0; } }
+      else p++; }
+    ecost1 = ngrp; free(gj); printf("grupo: %d elementos (órbitas livres viram candidatos de custo %d)\n", ngrp, ngrp);
+  }
   double t0 = kit_now();
 
   /* ---- base ---- */
@@ -240,7 +259,7 @@ int main(int argc, char **argv){
   uint8_t *vis = malloc(NW);
   long *dscore = calloc(ndir, sizeof(long)); int *dmax = calloc(ndir, sizeof(int));
   int keepdirs = (dirarg[0] || frozen_mode) ? ndir : ndirs_auto;
-  if (ndir > keepdirs){
+  if (ndir > keepdirs && !ngrp){
     for (int d = 0; d < ndir; d++){
       memset(vis, 0, NW); int top[64] = {0};
       for (long w = 0; w < NW; w++){ if (vis[w]) continue; W32 x = (W32)w; int s = 0; for (int k = 0; k < q; k++){ vis[x] = 1; s += cntw[x]; x = wadd(x, dirs[d]); }
@@ -256,13 +275,16 @@ int main(int argc, char **argv){
   wcand = malloc(sizeof(int32_t) * NW);
   for (long w = 0; w < NW; w++) wcand[w] = (cntw[w] >= tauw) ? (int32_t)new_cand(0, (W32)w, 0) : -1;
   long nwc = ncand;
-  if (!taul){ /* corte das retas: as ~300k de maior cota */
+  if (!taul && !ngrp){ /* corte das retas: as ~300k de maior cota */
     long lh[65536 / 8] = {0};
     for (int d = 0; d < ndir; d++){ memset(vis, 0, NW);
       for (long w = 0; w < NW; w++){ if (vis[w]) continue; W32 x = (W32)w; int s = 0; for (int k = 0; k < q; k++){ vis[x] = 1; s += cntw[x]; x = wadd(x, dirs[d]); } lh[s < 8191 ? s : 8191]++; } }
     long acc = 0; taul = 8191; while (taul > 1 && acc + lh[taul - 1] < 300000L * 1){ taul--; acc += lh[taul]; }
   }
-  for (int d = 0; d < ndir; d++){
+  if (ngrp){ ndir = 1; lineid[0] = malloc(sizeof(int32_t) * NW); for (long w = 0; w < NW; w++) lineid[0][w] = -1;
+    W32 o[1024]; for (long w = 0; w < NW; w++){ if (cntw[w] < tauw || lineid[0][w] >= 0) continue; int no = orbit((W32)w, o); int mn = 1; for (int j = 0; j < no; j++) if (o[j] < (W32)w) mn = 0;
+      if (!mn || no != ngrp) continue; long c = new_cand(1, (W32)w, 0); for (int j = 0; j < no; j++) lineid[0][o[j]] = (int32_t)c; } }
+  else for (int d = 0; d < ndir; d++){
     lineid[d] = malloc(sizeof(int32_t) * NW); for (long w = 0; w < NW; w++) lineid[d][w] = -1;
     memset(vis, 0, NW);
     for (long w = 0; w < NW; w++){ if (vis[w]) continue; W32 x = (W32)w; int s = 0; for (int k = 0; k < q; k++){ vis[x] = 1; s += cntw[x]; x = wadd(x, dirs[d]); }
@@ -331,10 +353,10 @@ int main(int argc, char **argv){
       if (nsel[ty] == 0) break;
       long worst = -1; int wl = 1 << 30; for (int i = 0; i < nsel[ty]; i++){ long c = sl[ty][i]; int l = loss_c(c); if (l < wl){ wl = l; worst = c; } }
       rem_c(worst);
-      if (ty == 1){ for (int k = 0; k < q - 1 && nunc; k++){ long best = -1; int bg = -1; for (long ui = 0; ui < nunc; ui++){ int32_t p = unc[ui]; for (long i = poff[p]; i < poff[p + 1]; i++){ long c = plist[i]; if (ctype[c] || sel[c]) continue; int g = gain_c(c); if (g > bg){ bg = g; best = c; } } } if (best >= 0) add_c(best); }
-        while (nsel[0] < q - 1){ long c; do c = kit_rnd() % ncand; while (ctype[c] || sel[c]); add_c(c); } }
+      if (ty == 1){ for (int k = 0; k < ecost1 - 1 && nunc; k++){ long best = -1; int bg = -1; for (long ui = 0; ui < nunc; ui++){ int32_t p = unc[ui]; for (long i = poff[p]; i < poff[p + 1]; i++){ long c = plist[i]; if (ctype[c] || sel[c]) continue; int g = gain_c(c); if (g > bg){ bg = g; best = c; } } } if (best >= 0) add_c(best); }
+        while (nsel[0] < ecost1 - 1){ long c; do c = kit_rnd() % ncand; while (ctype[c] || sel[c]); add_c(c); } }
       bestU = nunc;
-      printf("encolheu para %d retas + %d palavras (M=%ld), descobertos %ld (%.0fs)\n", nsel[1], nsel[0], nbasew + q * nsel[1] + nsel[0], nunc, kit_now() - t0); fflush(stdout);
+      printf("encolheu para %d retas + %d palavras (M=%ld), descobertos %ld (%.0fs)\n", nsel[1], nsel[0], nbasew + ecost1 * nsel[1] + nsel[0], nunc, kit_now() - t0); fflush(stdout);
       if (!nunc){ save(); }
       continue;
     }
