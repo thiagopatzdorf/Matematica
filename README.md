@@ -5,7 +5,7 @@ The note is [paper/main.pdf](paper/main.pdf), source [paper/main.tex](paper/main
 
 Estado (2026-10-02), Lean 4.34.1 + Mathlib v4.34.1, VM e2-highmem-8:
 
-* `lake build` (alvo padrão, biblioteca `CoveringLean`): **passa**, 8942 jobs, 32 s, pico 7,7 GB.
+* `lake build` (alvo padrão, agora com `SynCheck`/`SynBridge`, clone limpo): **passa**, 8944 jobs, 4 min 16 s, pico 10,0 GB. Também roda no CI do GitHub a cada push.
 * `lake build CoveringHeavy` (`K_2(6,1) = 12` e as oito cotas superiores): **passa**, 9181 jobs, 1 h 54 min de relógio (~9,3 h de CPU), pico 9,4 GB por processo.
 * `lake build CoveringSyn` (os quatro certificados por síndromes): **passa**, @@SYNREADME@@.
 
@@ -61,6 +61,13 @@ otimizador de remendo (112 palavras). Ver `data/structured/` e `ledger/`.
 `K5(9,5) ≤ 50`, `K5(9,4) ≤ 250`, `K7(8,3) ≤ 1893`), todos abaixo das tabelas que conferimos e checados por três
 verificadores independentes fora do Lean; **ainda não são teoremas Lean**. `K5(10,4) ≤ 625` é um código linear
 `[10,4]_5`; falta conferir as tabelas de comprimento de Davydov–Marcugini–Pambianco.
+
+## Formato estruturado e verificador oficial
+
+Cada código de `data/codes/` tem uma descrição estruturada em `data/structured/` (cosets de um código linear,
+cosets de subcódigos, palavras soltas, proveniência e sha256 canônico), e `tools/verify/verify.c` (C, sem
+dependências) confere todos: `tools/verify/check_all.sh`, também no CI (`.github/workflows/verify-codes.yml`).
+Especificação e números em [docs/code-format.md](docs/code-format.md).
 
 ## O que está provado (biblioteca inteira)
 

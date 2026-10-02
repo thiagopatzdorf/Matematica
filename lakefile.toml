@@ -23,3 +23,10 @@ name = "CoveringLean"
 name = "CoveringHeavy"
 srcDir = "."
 roots = ["CoveringLean.SearchK6ge12", "CoveringLean.K3_K7_9_4_Final", "CoveringLean.K3_K7_8_3_Final", "CoveringLean.K3_K5_7_2_Final", "CoveringLean.K3_K4_10_4_Final", "CoveringLean.K3_K5_9_3_Final", "CoveringLean.K3_K5_10_4_Final", "CoveringLean.K3_K5_9_5_Final", "CoveringLean.K3_K5_9_4_Final"]
+
+# Certificados por síndromes (CoveringLean/Syn*.lean, gerados por scripts/syndrome/gen_syn.py):
+# K_7(9,4) ≤ 1351, ≤ 1285, ≤ 1141 e K_7(8,3) ≤ 1887. Fora do alvo padrão; `lake build CoveringSyn`.
+[[lean_lib]]
+name = "CoveringSyn"
+srcDir = "."
+roots = ["CoveringLean.Syn_K1351", "CoveringLean.Syn_K1285", "CoveringLean.Syn_K1141", "CoveringLean.Syn_K1887"]

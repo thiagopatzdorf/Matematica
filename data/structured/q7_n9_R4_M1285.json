@@ -1,0 +1,104 @@
+{
+ "format": "covering-code/v1",
+ "q": 7,
+ "n": 9,
+ "R": 4,
+ "M": 1285,
+ "digit_convention": "word text s[0]..s[n-1]; integer w = sum_k s[k]*q^k; digit k = (w // q^k) % q",
+ "linear_base": {
+  "k": 3,
+  "generator": [
+   "165653100",
+   "242340010",
+   "551665001"
+  ],
+  "info_columns": [
+   6,
+   7,
+   8
+  ],
+  "parity_check": [
+   "100000652",
+   "010000132",
+   "001000256",
+   "000100141",
+   "000010231",
+   "000001402"
+  ],
+  "check_columns": [
+   0,
+   1,
+   2,
+   3,
+   4,
+   5
+  ],
+  "coset_syndromes": [
+   "000000",
+   "363122",
+   "414655"
+  ]
+ },
+ "subcode_cosets": [
+  {
+   "generators": [
+    "165653100"
+   ],
+   "reps": [
+    "002113056",
+    "003023345",
+    "003166503",
+    "006003233",
+    "006432254",
+    "010322051",
+    "012233223",
+    "012640022",
+    "013302646",
+    "015162012",
+    "016412462",
+    "016560142",
+    "020601352",
+    "023011105",
+    "024621464",
+    "026532636",
+    "030310511",
+    "031220100",
+    "031363335",
+    "031421241",
+    "034200065",
+    "041046360",
+    "041506401",
+    "044616224",
+    "045350355",
+    "045526513",
+    "046043616",
+    "051215630",
+    "052125226",
+    "054036461",
+    "055105114",
+    "061335104",
+    "062404520",
+    "063624010",
+    "065514343",
+    "066424632"
+   ]
+  }
+ ],
+ "patch_words": [
+  "065405511",
+  "110541111",
+  "126162510",
+  "421333411"
+ ],
+ "provenance": {
+  "generator": "scripts/search/gen.py (3 cosets de [9,3]_7 H=[I6|A] + cosets de subcódigo + palavras soltas)",
+  "commit": null,
+  "seed": null,
+  "command": "python3 scripts/search/gen.py data/search/p1285.json data/codes/q7_n9_R4_M1285.txt",
+  "date": "2026-10-02",
+  "agent": "James.V1",
+  "repo_commit": null,
+  "notes": "regenerado byte a byte (sha256 do arquivo 89cbd6b2...) a partir de p1285.json, copiado da VM lean-build2 (~/h/s2/b). Estrutura registrada com --dims 3,1 para bater com o gerador."
+ },
+ "canonical_sha256": "aa388cc9642bc064527a0237b60522ba558491291a2adf02ab1e4d8d3f756c1f"
+}

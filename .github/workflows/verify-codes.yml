@@ -1,0 +1,73 @@
+# Confere os códigos de cobertura com o verificador oficial e compila a biblioteca Lean (alvo padrão).
+# Repo público: runner hospedado do GitHub sem custo. Ações fixadas por SHA (comentário = versão).
+name: verify-codes
+
+on:
+  push:
+    paths:
+      - "data/**"
+      - "tools/**"
+      - "scripts/codes/**"
+      - "scripts/search/**"
+      - "scripts/loop/**"
+      - "scripts/publish/**"
+      - "ledger/**"
+      - "tests/**"
+      - "CoveringLean/**"
+      - "CoveringLean.lean"
+      - "lakefile.toml"
+      - "lake-manifest.json"
+      - "lean-toolchain"
+      - ".github/workflows/verify-codes.yml"
+  pull_request:
+    paths:
+      - "data/**"
+      - "tools/**"
+      - "scripts/codes/**"
+      - "scripts/search/**"
+      - "scripts/loop/**"
+      - "scripts/publish/**"
+      - "ledger/**"
+      - "tests/**"
+      - "CoveringLean/**"
+      - "CoveringLean.lean"
+      - "lakefile.toml"
+      - "lake-manifest.json"
+      - "lean-toolchain"
+      - ".github/workflows/verify-codes.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    name: verificador oficial + formato estruturado
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - name: Compilar o verificador (C99, -Werror)
+        run: cc -O2 -std=c99 -Wall -Wextra -Werror -o tools/verify/verify tools/verify/verify.c
+      - name: check_all (todo data/codes cobre; todo JSON expande para o mesmo sha256 canônico)
+        run: time tools/verify/check_all.sh
+      # pytest e não unittest: os testes do ledger usam o conftest.py (sys.path e fixtures);
+      # com unittest eles nem importam (ModuleNotFoundError: targets, genesis_page, record_loop).
+      - name: Testes (verificador, formato, ledger, loop, publicação)
+        run: |
+          python3 -m pip install --quiet pytest==8.4.2
+          python3 -m pytest -q tests
+
+  lean:
+    name: lake build (alvo padrão)
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      # instala o elan/toolchain de lean-toolchain, baixa o cache do Mathlib (lake exe cache get)
+      # e roda `lake build` do alvo padrão (CoveringLean). CoveringHeavy (~12 h de CPU) fica fora.
+      - uses: leanprover/lean-action@50fcf42d2e460296f1a34b402e990d1b24f8b596 # v1.6.0
+        with:
+          auto-config: false
+          use-mathlib-cache: true
+          build: true

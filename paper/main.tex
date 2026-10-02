@@ -170,7 +170,7 @@ Every candidate was checked by programs independent of the one that found it bef
 
 \section{What the kernel accepted}
 On 2 October 2026, on a virtual machine of type \texttt{e2-highmem-8}, Lean~4.34.1 and Mathlib~v4.34.1:
-\texttt{lake build} finished @@LIGHT@@;
+\texttt{lake build} (default target, from a fresh clone) finished $8944$ jobs in $4$\,min\,$16$\,s, peak $10.0$\,GB;
 \texttt{lake build CoveringHeavy} (the prefix certificates and $K_2(6,1)=12$) finished $9181$ jobs in $1$\,h\,$54$\,min, about $9.3$ CPU-hours, at most $9.4$\,GB per process;
 \texttt{lake build CoveringSyn} (the four syndrome certificates) finished @@SYN@@.
 \texttt{\#print axioms} on Theorems~\ref{thm:k794}, \ref{thm:ge11}, \ref{thm:eq12} and on every declaration of Table~\ref{tab:other} reports \texttt{propext}, \texttt{Classical.\allowbreak choice} and \texttt{Quot.\allowbreak sound} only.
