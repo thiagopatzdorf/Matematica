@@ -1,0 +1,13 @@
+{
+  "claim_ids": [
+    "k2-6-1-lb-12",
+    "k2-6-1-eq-12",
+    "k7-9-4-ub-1351"
+  ],
+  "created": "2026-10-02T23:03:19Z",
+  "created_by": "agente-c",
+  "kind": "nao_reproduzido",
+  "next_step": "rodar numa máquina com RAM >= 9 GB por módulo e registrar com formal.registrar_formal",
+  "reason": "lake build CoveringHeavy (~12,4 h de CPU, 133 módulos) não foi executado; axiomas desses dois teoremas só DECLARADOS no README/paper",
+  "residual_id": "res-heavy-build-not-reproduced"
+}

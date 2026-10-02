@@ -1,0 +1,18 @@
+{
+  "command": [
+    "python3",
+    "tools/campaign/verify_cover_dilation.py",
+    "/home/user/Matematica/data/codes/q5_n9_R4_M250.txt"
+  ],
+  "host": "vm (Linux x86_64)",
+  "output_sha256": "0627284fa2d5ad7388529a4923052d2da64fb2c4d2112f0785a671a9e266eb3d",
+  "output_tail": "q=5 n=9 R=4 M=250 points=1953125 uncovered=0 sha256=b818a971c86488280ed74c524398dae5561dd1e231de6d734b7206cbfd9a478c verifier=dilation-numpy\n",
+  "repo_commit": "bc3a3d727557e081fd0cabcc3580ede7e0da3e13",
+  "result": "PASS",
+  "run_id": "run-01790982641120211359-25630c9c",
+  "runtime_s": 0.255,
+  "subject_id": "w-q5-n9-r4-m250",
+  "subject_sha256": "c605e57c41117da0141fdd88dc3972598fb4dd6e02bedc3edd477330f3bf5922",
+  "ts": "2026-10-02T23:10:41Z",
+  "verifier_id": "verify-py-dilation"
+}

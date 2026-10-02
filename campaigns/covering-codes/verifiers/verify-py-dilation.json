@@ -1,0 +1,24 @@
+{
+  "build": [],
+  "command": [
+    "python3",
+    "tools/campaign/verify_cover_dilation.py",
+    "{witness}"
+  ],
+  "compartilha_logica_com": [],
+  "fail_exit_codes": [
+    1
+  ],
+  "independence_group": "python-numpy-dilation",
+  "language": "python",
+  "notes": "Escrito NESTA campanha pelo mesmo agente que a registra: independente em linguagem, código e algoritmo (dilatação do indicador do código no grid, sem enumerar bolas), mas NÃO em autoria nem em especificação do formato. Concorda com verify-c em positivos e negativos (tests/test_campaign_verifier.py).",
+  "registered": "2026-10-02T23:03:19Z",
+  "source_files": [
+    {
+      "path": "tools/campaign/verify_cover_dilation.py",
+      "sha256": "4d4723092410fb43f75bdd8396a3c7d048c6993975777ab6e7dafc8bf97d8fbd"
+    }
+  ],
+  "timeout_s": 300,
+  "verifier_id": "verify-py-dilation"
+}

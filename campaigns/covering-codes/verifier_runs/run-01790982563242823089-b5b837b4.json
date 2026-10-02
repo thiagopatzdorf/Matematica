@@ -1,0 +1,17 @@
+{
+  "command": [
+    "/tmp/gm-verif-zi351t0w/verify",
+    "/home/user/Matematica/data/codes/q5_n10_R4_M625.txt"
+  ],
+  "host": "vm (Linux x86_64)",
+  "output_sha256": "d25ebb05d5187a0f13e8be11faee7f15cdf9af37b75004283950376e9568b951",
+  "output_tail": "q=5 n=10 R=4 M=625 points=9765625 uncovered=0 sha256=9e6866710516586faa66b91b5130c4d3c2c4c6857c5d38abfa554ecd37ef42e7\n",
+  "repo_commit": "bc3a3d727557e081fd0cabcc3580ede7e0da3e13",
+  "result": "PASS",
+  "run_id": "run-01790982563242823089-b5b837b4",
+  "runtime_s": 0.222,
+  "subject_id": "w-q5-n10-r4-m625",
+  "subject_sha256": "ba1ec554be784e105c9c729c0cb5ea08c5cf10d120ee617ede96d864a83e53b9",
+  "ts": "2026-10-02T23:09:23Z",
+  "verifier_id": "verify-c"
+}

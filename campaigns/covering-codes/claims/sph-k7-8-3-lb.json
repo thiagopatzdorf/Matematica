@@ -1,0 +1,87 @@
+{
+  "bound": {
+    "direction": "lower",
+    "parameters": {
+      "R": 3,
+      "n": 8,
+      "q": 7
+    },
+    "value": 439
+  },
+  "claim_id": "sph-k7-8-3-lb",
+  "counterexample_search": {
+    "method": "cota de esfera: contraexemplo seria um código menor que cobre; o kernel prova que não existe",
+    "result": "nenhum",
+    "status": "completed"
+  },
+  "created": "2026-10-02T23:09:31Z",
+  "created_by": "agente-c",
+  "created_role": "PROPOSER",
+  "depends_on": [
+    "sphere-covering-general"
+  ],
+  "evidence": {
+    "counterexamples": [],
+    "experiments": [],
+    "external_reproductions": [],
+    "formal": [
+      "f-sph-k7-8-3"
+    ],
+    "literature": [],
+    "proofs": [],
+    "verifier_runs": [],
+    "witnesses": []
+  },
+  "formal_verification_blockers": [
+    "falta statement_review: o Lean certifica o enunciado formal, não que ele é o enunciado pretendido; um revisor humano/independente precisa ler"
+  ],
+  "history": [
+    {
+      "actor": "agente-c",
+      "from": null,
+      "reason": "criado",
+      "role": "PROPOSER",
+      "to": "IDEA",
+      "ts": "2026-10-02T23:09:31Z"
+    },
+    {
+      "actor": "agente-c",
+      "from": "IDEA",
+      "reason": "evidência anexada: formal=f-sph-k7-8-3",
+      "role": "PROPOSER",
+      "to": "IDEA",
+      "ts": "2026-10-02T23:09:31Z"
+    },
+    {
+      "actor": "migrate_covering.py",
+      "from": "IDEA",
+      "reason": "registro formal medido válido",
+      "role": "FORMALIZER",
+      "to": "PROVED",
+      "ts": "2026-10-02T23:09:31Z"
+    }
+  ],
+  "kind": "theorem",
+  "reviewed_by": [],
+  "scope": {
+    "assumptions": [],
+    "domain": "q=7, n=8, R=3",
+    "problem": "K_7(8,3) >= 439"
+  },
+  "statement": "Todo C : Finset (Fin 8 -> ZMod 7) com Covers 3 C tem pelo menos 439 palavras (CoveringChain.SPH_K7_8_3_lb).",
+  "status": "PROVED",
+  "trust_boundary": [
+    {
+      "component": "kernel do Lean 4 v4.34.1 + Mathlib v4.34.1 (lean-toolchain, lake-manifest.json)",
+      "trusted_for": "a correção das inferências e das decisões `decide +kernel`"
+    },
+    {
+      "component": "axiomas propext, Classical.choice, Quot.sound",
+      "trusted_for": "lógica clássica e extensionalidade (medido via #print axioms, no alvo padrão)"
+    },
+    {
+      "component": "definições Covers/IsK/ball/hammingDist (CoveringA2, CoveringA6, Mathlib)",
+      "trusted_for": "que o enunciado formal é o enunciado pretendido: REVISÃO HUMANA PENDENTE (README:73-74)"
+    }
+  ]
+}

@@ -1,0 +1,8 @@
+{
+  "created": "2026-10-02T23:03:19Z",
+  "created_by": "agente-c",
+  "kind": "inconsistencia",
+  "next_step": "atualizar README/paper ou explicar",
+  "reason": "data/codes tem M1285 (K_7(9,4)) e M1887 (K_7(8,3)) melhores que os 1351/1893 do README/paper; README diz 'três verificadores independentes' e só há 1 (+este 2º)",
+  "residual_id": "res-readme-vs-data"
+}

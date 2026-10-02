@@ -1,0 +1,76 @@
+{
+  "claim_id": "h2-gap-nondecreasing",
+  "counterexample_search": {
+    "status": "not_started"
+  },
+  "created": "2026-10-02T23:09:31Z",
+  "created_by": "agente-c",
+  "created_role": "PROPOSER",
+  "depends_on": [],
+  "evidence": {
+    "counterexamples": [
+      "cx-h2-gap-nondecreasing"
+    ],
+    "experiments": [],
+    "external_reproductions": [],
+    "formal": [
+      "f-h2-counterexample"
+    ],
+    "literature": [],
+    "proofs": [],
+    "verifier_runs": [],
+    "witnesses": []
+  },
+  "history": [
+    {
+      "actor": "agente-c",
+      "from": null,
+      "reason": "criado",
+      "role": "PROPOSER",
+      "to": "IDEA",
+      "ts": "2026-10-02T23:09:31Z"
+    },
+    {
+      "actor": "agente-c",
+      "from": "IDEA",
+      "reason": "evidência anexada: formal=f-h2-counterexample",
+      "role": "PROPOSER",
+      "to": "IDEA",
+      "ts": "2026-10-02T23:09:31Z"
+    },
+    {
+      "actor": "agente-c",
+      "from": "IDEA",
+      "reason": "hipótese registrada para ser refutada",
+      "role": "PROPOSER",
+      "to": "CONJECTURE",
+      "ts": "2026-10-02T23:09:31Z"
+    },
+    {
+      "actor": "migrate_covering.py",
+      "from": "CONJECTURE",
+      "reason": "evidência anexada: counterexamples=cx-h2-gap-nondecreasing",
+      "role": "COUNTEREXAMPLE_HUNTER",
+      "to": "CONJECTURE",
+      "ts": "2026-10-02T23:09:31Z"
+    },
+    {
+      "actor": "migrate_covering.py",
+      "from": "CONJECTURE",
+      "reason": "H2_counterexample_uncond medido no kernel",
+      "role": "COUNTEREXAMPLE_HUNTER",
+      "to": "REFUTED",
+      "ts": "2026-10-02T23:09:31Z"
+    }
+  ],
+  "kind": "conjecture",
+  "reviewed_by": [],
+  "scope": {
+    "assumptions": [],
+    "domain": "q=2, R=1",
+    "problem": "H2 de A6c_Search"
+  },
+  "statement": "H2: o gap K_q(n,R) - ceil(esfera) é não decrescente em n (hipótese do autor, A6c_Search.lean:8-12).",
+  "status": "REFUTED",
+  "trust_boundary": []
+}

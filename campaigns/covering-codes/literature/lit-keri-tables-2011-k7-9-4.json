@@ -1,0 +1,32 @@
+{
+  "assumptions": [
+    "não reconferido por esta campanha"
+  ],
+  "authors": [
+    "Gábor Kéri"
+  ],
+  "bound": {
+    "direction": "upper",
+    "parameters": {
+      "R": 4,
+      "n": 9,
+      "q": 7
+    },
+    "value": 1843
+  },
+  "claim_ids": [
+    "k7-9-4-ub-1351"
+  ],
+  "date_read": "2026-10-01",
+  "exact_bound": "K_7(9,4) <= 1843",
+  "exact_statement": "README.md:28 e paper/main.tex:80: K_7(9,4) <= 1843. 'date_read' é a data que o README declara para a conferência do autor (2026-10-01); esta campanha NÃO releu a tabela.",
+  "formalized": false,
+  "literature_id": "lit-keri-tables-2011-k7-9-4",
+  "open_questions": [],
+  "reproduced": false,
+  "title": "Tables for bounds on covering codes",
+  "url": "https://old.sztaki.hu/~keri/codes/",
+  "version": "tabelas on-line, ano 2011 (edição não identificada no repositório)",
+  "version_date": null,
+  "year": 2011
+}

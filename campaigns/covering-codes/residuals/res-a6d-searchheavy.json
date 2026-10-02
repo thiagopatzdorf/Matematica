@@ -1,0 +1,9 @@
+{
+  "created": "2026-10-02T23:03:19Z",
+  "created_by": "agente-c",
+  "file": "CoveringLean/A6d_SearchHeavy.lean",
+  "kind": "fora_da_biblioteca",
+  "next_step": "apagar (pelo templo: com volta) ou arquivar",
+  "reason": "DECLARADO: não compila (README:71, obsoleto com A6e e SearchK6ge12). Não executado aqui (risco de OOM).",
+  "residual_id": "res-a6d-searchheavy"
+}

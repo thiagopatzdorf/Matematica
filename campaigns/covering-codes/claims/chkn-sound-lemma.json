@@ -1,0 +1,73 @@
+{
+  "claim_id": "chkn-sound-lemma",
+  "counterexample_search": {
+    "method": "lema provado no kernel",
+    "result": "nenhum",
+    "status": "completed"
+  },
+  "created": "2026-10-02T23:09:31Z",
+  "created_by": "agente-c",
+  "created_role": "PROPOSER",
+  "depends_on": [],
+  "evidence": {
+    "counterexamples": [],
+    "experiments": [],
+    "external_reproductions": [],
+    "formal": [
+      "f-chkn-sound"
+    ],
+    "literature": [],
+    "proofs": [],
+    "verifier_runs": [],
+    "witnesses": []
+  },
+  "history": [
+    {
+      "actor": "agente-c",
+      "from": null,
+      "reason": "criado",
+      "role": "PROPOSER",
+      "to": "IDEA",
+      "ts": "2026-10-02T23:09:31Z"
+    },
+    {
+      "actor": "agente-c",
+      "from": "IDEA",
+      "reason": "evidência anexada: formal=f-chkn-sound",
+      "role": "PROPOSER",
+      "to": "IDEA",
+      "ts": "2026-10-02T23:09:31Z"
+    },
+    {
+      "actor": "migrate_covering.py",
+      "from": "IDEA",
+      "reason": "registro formal medido válido",
+      "role": "FORMALIZER",
+      "to": "PROVED",
+      "ts": "2026-10-02T23:09:31Z"
+    }
+  ],
+  "kind": "lemma",
+  "reviewed_by": [],
+  "scope": {
+    "assumptions": [],
+    "domain": "SearchCore",
+    "problem": "correção da busca com poda"
+  },
+  "statement": "SC.chkN n S d s = true -> (fronteira refutada) -> Ref n s (SC.chkN_sound).",
+  "status": "PROVED",
+  "trust_boundary": [
+    {
+      "component": "kernel do Lean 4 v4.34.1 + Mathlib v4.34.1 (lean-toolchain, lake-manifest.json)",
+      "trusted_for": "a correção das inferências e das decisões `decide +kernel`"
+    },
+    {
+      "component": "axiomas propext, Classical.choice, Quot.sound",
+      "trusted_for": "lógica clássica e extensionalidade (medido via #print axioms, no alvo padrão)"
+    },
+    {
+      "component": "definições Covers/IsK/ball/hammingDist (CoveringA2, CoveringA6, Mathlib)",
+      "trusted_for": "que o enunciado formal é o enunciado pretendido: REVISÃO HUMANA PENDENTE (README:73-74)"
+    }
+  ]
+}

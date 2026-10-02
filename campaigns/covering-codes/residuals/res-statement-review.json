@@ -1,0 +1,25 @@
+{
+  "claim_ids": [
+    "cert-of-go-lemma",
+    "chkn-sound-lemma",
+    "even-inter-ball1-binary",
+    "excess-bound-lemma",
+    "k2-6-1-lb-11",
+    "k2-6-1-ub-12",
+    "sph-k4-10-4-lb",
+    "sph-k5-10-4-lb",
+    "sph-k5-7-2-lb",
+    "sph-k5-9-3-lb",
+    "sph-k5-9-4-lb",
+    "sph-k5-9-5-lb",
+    "sph-k7-8-3-lb",
+    "sph-k7-9-4-lb",
+    "sphere-covering-general"
+  ],
+  "created": "2026-10-02T23:03:19Z",
+  "created_by": "agente-c",
+  "kind": "revisao_humana",
+  "next_step": "um revisor lê Covers/IsK/ball e os enunciados e registra claim_review(scope='statement')",
+  "reason": "FORMALLY_VERIFIED exige statement_review por revisor que não seja o autor; README:73-74 diz que a revisão dos enunciados é humana e pendente",
+  "residual_id": "res-statement-review"
+}

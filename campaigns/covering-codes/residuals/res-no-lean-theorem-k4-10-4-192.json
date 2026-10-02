@@ -1,0 +1,10 @@
+{
+  "claim_id": "k4-10-4-ub-192",
+  "created": "2026-10-02T23:03:19Z",
+  "created_by": "agente-c",
+  "instance": "k4-10-4",
+  "kind": "sem_teorema_lean",
+  "next_step": "gerar C1_Data_*.lean + folhas K3 (scripts/k794/gen.py) e rodar o alvo pesado, ou provar por síndromes (docs/code-format.md)",
+  "reason": "só verificação computacional (2 verificadores); sem teorema Lean (README:69)",
+  "residual_id": "res-no-lean-theorem-k4-10-4-192"
+}

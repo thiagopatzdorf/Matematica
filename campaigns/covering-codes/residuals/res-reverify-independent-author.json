@@ -1,0 +1,8 @@
+{
+  "created": "2026-10-02T23:03:19Z",
+  "created_by": "agente-c",
+  "kind": "independencia",
+  "next_step": "outro agente/humano escreve um 3º verificador ou confirma estes",
+  "reason": "o 2º verificador (verify-py-dilation) foi escrito pelo mesmo agente que registrou a campanha; INDEPENDENTLY_REPRODUCED é independência de código, não de autoria",
+  "residual_id": "res-reverify-independent-author"
+}

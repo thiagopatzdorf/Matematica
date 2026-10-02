@@ -1,0 +1,35 @@
+{
+  "build": [
+    [
+      "cc",
+      "-O2",
+      "-std=c99",
+      "-Wall",
+      "-Wextra",
+      "-Werror",
+      "-o",
+      "{workdir}/verify",
+      "tools/verify/verify.c"
+    ]
+  ],
+  "command": [
+    "{workdir}/verify",
+    "{witness}"
+  ],
+  "compartilha_logica_com": [],
+  "fail_exit_codes": [
+    1
+  ],
+  "independence_group": "c-ballmark-verify.c",
+  "language": "c",
+  "notes": "Verificador oficial do repositório (marca bolas de raio R num bitset). Escrito antes desta campanha.",
+  "registered": "2026-10-02T23:03:19Z",
+  "source_files": [
+    {
+      "path": "tools/verify/verify.c",
+      "sha256": "48c3f8723d704ffbbf03ab229728533a3535b8fe5dcd249aed229ce42b89cf98"
+    }
+  ],
+  "timeout_s": 120,
+  "verifier_id": "verify-c"
+}

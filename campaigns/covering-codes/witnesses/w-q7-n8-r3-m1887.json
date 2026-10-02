@@ -1,0 +1,21 @@
+{
+  "M": 1887,
+  "R": 3,
+  "canonical_sha256": "98531afbd8afbcec54ec01d441836ce706f8702ece4df594447789af6732643b",
+  "canonical_sha256_declared_in_structured": "98531afbd8afbcec54ec01d441836ce706f8702ece4df594447789af6732643b",
+  "claim_ids": [],
+  "created": "2026-10-02T23:03:19Z",
+  "created_by": "agente-c",
+  "format": "covering-code/v1 (lista plana, uma palavra por linha)",
+  "implementation": "maestro (VM lean-build2, ~/h/s2/maestro): mesmos 5 cosets de [8,3]_7 do 1893 + 172 palavras",
+  "n": 8,
+  "path": "data/codes/q7_n8_R3_M1887.txt",
+  "produced_by": "exp-prior-search-unrecorded",
+  "q": 7,
+  "sha256": "98531afbd8afbcec54ec01d441836ce706f8702ece4df594447789af6732643b",
+  "structured_description": {
+    "path": "data/structured/q7_n8_R3_M1887.json",
+    "sha256": "7f04560ba1117d2e26548fab51180a24b3bfbf288ad11f64018c1ddc83ae2c97"
+  },
+  "witness_id": "w-q7-n8-r3-m1887"
+}

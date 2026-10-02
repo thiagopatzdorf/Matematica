@@ -1,0 +1,29 @@
+{
+  "canonical_sha256": "54dbdade1337432303847d2fd0d1c13b506de08ba518e1694c5fb37ed0e81162",
+  "created": "2026-10-02T23:03:19Z",
+  "created_by": "agente-c",
+  "format": "covering-code/v1",
+  "group": "Zq",
+  "kind": "code-structure",
+  "linear_base_dim": 3,
+  "linear_cosets": 3,
+  "patch_words": 0,
+  "provenance": {
+    "agent": "James.V1",
+    "command": null,
+    "commit": "56a8cce",
+    "date": "2026-10-01",
+    "generator": "lincov (Mapika/coldcase) para os 3 cosets de [9,3]_7; remendo de 322 palavras sem registro",
+    "notes": "structure.py mostrou que as 322 palavras do remendo são 46 cosets de uma reta (subcódigo [9,1]_7).",
+    "repo_commit": "562fa42",
+    "seed": null
+  },
+  "structure_id": "s-q7-n9-r4-m1351",
+  "subcode_blocks": [
+    {
+      "generators": 1,
+      "reps": 46
+    }
+  ],
+  "witness": "w-q7-n9-r4-m1351"
+}

@@ -1,0 +1,32 @@
+{
+  "assumptions": [
+    "valor do banco Lean do autor citado no README; não reconferido"
+  ],
+  "authors": [
+    "Andreas Florath"
+  ],
+  "bound": {
+    "direction": "upper",
+    "parameters": {
+      "R": 1,
+      "n": 6,
+      "q": 2
+    },
+    "value": 12
+  },
+  "claim_ids": [
+    "k2-6-1-ub-12"
+  ],
+  "date_read": "2026-10-02",
+  "exact_bound": "K_2(6,1) <= 12",
+  "exact_statement": "idem: K_2(6,1) <= 12 no banco Lean dele (README.md:25-26), não reconferido.",
+  "formalized": true,
+  "literature_id": "lit-florath-2606-09600-ub",
+  "open_questions": [],
+  "reproduced": false,
+  "title": "Formal Foundations and Proof-Carrying Certificates for q-ary Covering Codes in Lean 4",
+  "url": "https://arxiv.org/abs/2606.09600",
+  "version": "v1",
+  "version_date": "2026-06-08",
+  "year": 2026
+}

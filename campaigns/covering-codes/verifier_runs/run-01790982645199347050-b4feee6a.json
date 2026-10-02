@@ -1,0 +1,17 @@
+{
+  "command": [
+    "/tmp/gm-verif-kk31no75/verify",
+    "/home/user/Matematica/data/codes/q7_n9_R4_M1351.txt"
+  ],
+  "host": "vm (Linux x86_64)",
+  "output_sha256": "fa16824ca0844b7c883ce18218461c7f77aa6ee392e8eebce1d9dabbcb29e3a1",
+  "output_tail": "q=7 n=9 R=4 M=1351 points=40353607 uncovered=0 sha256=54dbdade1337432303847d2fd0d1c13b506de08ba518e1694c5fb37ed0e81162\n",
+  "repo_commit": "bc3a3d727557e081fd0cabcc3580ede7e0da3e13",
+  "result": "PASS",
+  "run_id": "run-01790982645199347050-b4feee6a",
+  "runtime_s": 0.576,
+  "subject_id": "w-q7-n9-r4-m1351",
+  "subject_sha256": "6d1b0e1abb8079df06a28d5301607d3d5247e0f2005d72e13f695ce26f6e6b52",
+  "ts": "2026-10-02T23:10:45Z",
+  "verifier_id": "verify-c"
+}

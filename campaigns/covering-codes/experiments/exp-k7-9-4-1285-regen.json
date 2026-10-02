@@ -1,0 +1,37 @@
+{
+  "command": [
+    "python3",
+    "scripts/search/gen.py",
+    "data/search/p1285.json",
+    "<saída>"
+  ],
+  "created": "2026-10-02T23:03:19Z",
+  "created_by": "agente-c",
+  "description": "Regenera o código de 1285 palavras com o gerador versionado a partir de data/search/p1285.json.",
+  "experiment_id": "exp-k7-9-4-1285-regen",
+  "implementation": "scripts/search/gen.py",
+  "instances": [
+    "k7-9-4"
+  ],
+  "kind": "search",
+  "ranges": null,
+  "repo_commit": "bc3a3d727557e081fd0cabcc3580ede7e0da3e13",
+  "result": {
+    "executado_neste_run": true,
+    "identico_byte_a_byte": true,
+    "rc": 0,
+    "sha256_regenerado": "89cbd6b290a10d8d708e9783a405b8a12ce5efd6a8ea2ee17568b3ee25c50f31",
+    "sha256_witness": "89cbd6b290a10d8d708e9783a405b8a12ce5efd6a8ea2ee17568b3ee25c50f31",
+    "stdout": "1285 1285"
+  },
+  "source_files": [
+    {
+      "path": "scripts/search/gen.py",
+      "sha256": "9f4b725a8fcc0ce22dc0a98ab56e932fbaa31db954b7493a9383ff18a28f024c"
+    },
+    {
+      "path": "data/search/p1285.json",
+      "sha256": "622157c86a315117947d8683226fe4a7ad8fd6b02a6d1cf550d8e8691f7ca190"
+    }
+  ]
+}

@@ -1,0 +1,17 @@
+{
+  "command": [
+    "/tmp/gm-verif-4ewcpwlq/verify",
+    "/home/user/Matematica/data/codes/q4_n10_R4_M192.txt"
+  ],
+  "host": "vm (Linux x86_64)",
+  "output_sha256": "e60c2798f5ff0a766738198552b99e6859f0c8db4912e0917c5731b5a660a65b",
+  "output_tail": "q=4 n=10 R=4 M=192 points=1048576 uncovered=0 sha256=907b0f19b29b83a89bc17b77b944c5f2ee27019abcd2d161a6861f4855149b30\n",
+  "repo_commit": "bc3a3d727557e081fd0cabcc3580ede7e0da3e13",
+  "result": "PASS",
+  "run_id": "run-01790982638840937146-4cedc4a6",
+  "runtime_s": 0.181,
+  "subject_id": "w-q4-n10-r4-m192",
+  "subject_sha256": "83c0f109876b9773867e2e3680e2e04862c3ad641df47d8c56139445403d7410",
+  "ts": "2026-10-02T23:10:38Z",
+  "verifier_id": "verify-c"
+}

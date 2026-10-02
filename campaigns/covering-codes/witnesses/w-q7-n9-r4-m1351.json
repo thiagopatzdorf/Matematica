@@ -1,0 +1,21 @@
+{
+  "M": 1351,
+  "R": 4,
+  "canonical_sha256": "54dbdade1337432303847d2fd0d1c13b506de08ba518e1694c5fb37ed0e81162",
+  "canonical_sha256_declared_in_structured": "54dbdade1337432303847d2fd0d1c13b506de08ba518e1694c5fb37ed0e81162",
+  "claim_ids": [],
+  "created": "2026-10-02T23:03:19Z",
+  "created_by": "agente-c",
+  "format": "covering-code/v1 (lista plana, uma palavra por linha)",
+  "implementation": "lincov (Mapika/coldcase) para os 3 cosets de [9,3]_7; remendo de 322 palavras sem registro",
+  "n": 9,
+  "path": "data/codes/q7_n9_R4_M1351.txt",
+  "produced_by": "exp-k7-9-4-1351-lincov",
+  "q": 7,
+  "sha256": "6d1b0e1abb8079df06a28d5301607d3d5247e0f2005d72e13f695ce26f6e6b52",
+  "structured_description": {
+    "path": "data/structured/q7_n9_R4_M1351.json",
+    "sha256": "d6461c8d7fcb564ce81a259c881b4c43287a6240303ff89d844058d0fc67bd45"
+  },
+  "witness_id": "w-q7-n9-r4-m1351"
+}
