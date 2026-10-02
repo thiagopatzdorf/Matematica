@@ -1,0 +1,42 @@
+{
+  "descricao": "Estado NOSSO por célula K_q(n,R). Fonte de verdade escrita à mão (ou pelo scripts/loop/record_loop.py); build.py mescla isto com as cotas publicadas e gera cells.json. Ver README.md.",
+  "atualizado": "2026-10-02",
+  "cells": {
+    "7,9,4": {
+      "ours_computational": {"M": 1285, "file": "data/codes/q7_n9_R4_M1285.txt", "sha256": "89cbd6b290a10d8d708e9783a405b8a12ce5efd6a8ea2ee17568b3ee25c50f31", "provenance": "P-1285"},
+      "ours_lean": {"M": 1351, "declaration": "CoveringKernel.K7_9_4_le_1351_kernel", "tag": "v0.3.0", "file": "data/codes/q7_n9_R4_M1351.txt", "sha256": "6d1b0e1abb8079df06a28d5301607d3d5247e0f2005d72e13f695ce26f6e6b52", "provenance": "P-1351"}
+    },
+    "7,8,3": {
+      "ours_computational": {"M": 1887, "file": "data/codes/q7_n8_R3_M1887.txt", "sha256": "98531afbd8afbcec54ec01d441836ce706f8702ece4df594447789af6732643b", "provenance": "P-1887"},
+      "ours_lean": {"M": 1893, "declaration": "CoveringKernel.K7_8_3_le_1893_kernel", "tag": null, "tag_pendente": "v0.4.0", "file": "data/codes/q7_n8_R3_M1893.txt", "sha256": "07e2f3c1c65608b037fb13a2e85fd9ea25c2ace2bcc9e30a128e1833c2d06e28", "provenance": "P-legado"}
+    },
+    "5,10,4": {
+      "ours_computational": null,
+      "ours_lean": {"M": 625, "declaration": "CoveringKernel.K5_10_4_le_625_kernel", "tag": null, "tag_pendente": "v0.4.0", "file": "data/codes/q5_n10_R4_M625.txt", "sha256": "ba1ec554be784e105c9c729c0cb5ea08c5cf10d120ee617ede96d864a83e53b9", "provenance": "P-legado"}
+    },
+    "5,9,3": {
+      "ours_computational": null,
+      "ours_lean": {"M": 1250, "declaration": "CoveringKernel.K5_9_3_le_1250_kernel", "tag": null, "tag_pendente": "v0.4.0", "file": "data/codes/q5_n9_R3_M1250.txt", "sha256": "334d055a45bcc7fffd7cc7ed5cefd719e8787587ced1b66b44cc85785a6bdea6", "provenance": "P-legado"}
+    },
+    "5,7,2": {
+      "ours_computational": null,
+      "ours_lean": {"M": 500, "declaration": "CoveringKernel.K5_7_2_le_500_kernel", "tag": null, "tag_pendente": "v0.4.0", "file": "data/codes/q5_n7_R2_M500.txt", "sha256": "52a85f1b069e06df3c8503a3001e90d8d8170139e05b4ced05c5b8dabe5c27c3", "provenance": "P-legado"}
+    },
+    "5,9,4": {
+      "ours_computational": null,
+      "ours_lean": {"M": 250, "declaration": "CoveringKernel.K5_9_4_le_250_kernel", "tag": null, "tag_pendente": "v0.4.0", "file": "data/codes/q5_n9_R4_M250.txt", "sha256": "c605e57c41117da0141fdd88dc3972598fb4dd6e02bedc3edd477330f3bf5922", "provenance": "P-legado"}
+    },
+    "4,10,4": {
+      "ours_computational": null,
+      "ours_lean": {"M": 192, "declaration": "CoveringKernel.K4_10_4_le_192_kernel", "tag": null, "tag_pendente": "v0.4.0", "file": "data/codes/q4_n10_R4_M192.txt", "sha256": "83c0f109876b9773867e2e3680e2e04862c3ad641df47d8c56139445403d7410", "provenance": "P-legado"}
+    },
+    "5,9,5": {
+      "ours_computational": null,
+      "ours_lean": {"M": 50, "declaration": "CoveringKernel.K5_9_5_le_50_kernel", "tag": null, "tag_pendente": "v0.4.0", "file": "data/codes/q5_n9_R5_M50.txt", "sha256": "136e55ebc1151ce5b1eaac414f6735209e8d4f4136352018b516d65140b58499", "provenance": "P-legado"}
+    },
+    "2,6,1": {
+      "ours_computational": null,
+      "ours_lean": {"M": 12, "exact": true, "declaration": "SC.K_2_6_1_eq12", "tag": "v0.3.0", "file": null, "sha256": null, "provenance": null}
+    }
+  }
+}

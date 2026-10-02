@@ -1,0 +1,168 @@
+#!/usr/bin/env python3
+"""Publica uma NOVA VERSÃO de um registro do Zenodo (PDF + metadados do .zenodo.json).
+
+Generaliza o script que publicou a v0.3.0 (registro 23085770, DOI conceitual
+10.5281/zenodo.23085769). Passos com --publicar:
+
+  1. POST  /deposit/depositions/<record>/actions/newversion
+  2. GET   rascunho (links.latest_draft); apaga os arquivos herdados
+  3. PUT   o PDF no bucket do rascunho
+  4. PUT   metadados montados do .zenodo.json
+  5. POST  /actions/publish
+
+SECO É O PADRÃO: confere o PDF e o .zenodo.json localmente e mostra o plano,
+sem rede. `--conferir` (ainda seco) faz só o GET do registro atual.
+
+O token vem SÓ da variável de ambiente ZENODO_TOKEN e nunca é impresso:
+toda mensagem passa por `redigir`. No repositório não há segredo nenhum.
+
+Uso:
+    python3 scripts/publish/zenodo_newversion.py --record 23085770 \\
+        --pdf paper/main.pdf --zenodo-json .zenodo.json            # seco
+    ZENODO_TOKEN=... python3 scripts/publish/zenodo_newversion.py ... --publicar
+"""
+from __future__ import annotations
+
+import argparse
+import datetime as dt
+import hashlib
+import json
+import os
+import sys
+import urllib.error
+import urllib.request
+from pathlib import Path
+
+API = {"zenodo": "https://zenodo.org/api/deposit/depositions",
+       "sandbox": "https://sandbox.zenodo.org/api/deposit/depositions"}
+CAMPOS_OBRIGATORIOS = ("title", "description", "creators", "version", "keywords")
+
+
+class ErroZenodo(RuntimeError):
+    pass
+
+
+def redigir(texto: str, token: str | None) -> str:
+    """Tira o token de qualquer texto antes de ir para a tela ou exceção."""
+    texto = str(texto)
+    if token:
+        texto = texto.replace(token, "***")
+    return texto
+
+
+def montar_metadados(z: dict, data_publicacao: str) -> dict:
+    faltando = [c for c in CAMPOS_OBRIGATORIOS if not z.get(c)]
+    if faltando:
+        raise ErroZenodo(f".zenodo.json sem {faltando}")
+    desc = z["description"]
+    if not desc.lstrip().startswith("<"):
+        desc = "<p>" + desc + "</p>"
+    return {
+        "title": z["title"],
+        "upload_type": z.get("upload_type", "publication"),
+        "publication_type": z.get("publication_type", "preprint"),
+        "description": desc,
+        "creators": z["creators"],
+        "access_right": z.get("access_right", "open"),
+        "license": z.get("license", "cc-by-4.0"),
+        "language": z.get("language", "eng"),
+        "version": z["version"],
+        "keywords": z["keywords"],
+        "related_identifiers": z.get("related_identifiers", []),
+        "publication_date": data_publicacao,
+    }
+
+
+class Cliente:
+    """HTTP mínimo. `abrir` é injetável para teste (padrão: urllib)."""
+
+    def __init__(self, token: str, base: str, abrir=None):
+        self.token = token
+        self.base = base
+        self.abrir = abrir or (lambda req, timeout: urllib.request.urlopen(req, timeout=timeout))
+
+    def req(self, metodo: str, url: str, dados: bytes | None = None, ct: str | None = None):
+        h = {"Authorization": f"Bearer {self.token}"}
+        if ct:
+            h["Content-Type"] = ct
+        r = urllib.request.Request(url, data=dados, headers=h, method=metodo)
+        try:
+            with self.abrir(r, timeout=180) as x:
+                b = x.read()
+                return x.status, (json.loads(b) if b else {})
+        except urllib.error.HTTPError as e:
+            corpo = e.read()[:400].decode("utf-8", "replace")
+            return e.code, redigir(corpo, self.token)
+
+    def exigir(self, etapa: str, res):
+        s, corpo = res
+        if s >= 300:
+            raise ErroZenodo(redigir(f"{etapa}: HTTP {s} {corpo}", self.token))
+        return corpo
+
+
+def publicar(cli: Cliente, record: str, pdf: Path, nome_arquivo: str, meta: dict, log=print) -> dict:
+    nv = cli.exigir("newversion", cli.req("POST", f"{cli.base}/{record}/actions/newversion"))
+    draft = cli.exigir("rascunho", cli.req("GET", nv["links"]["latest_draft"]))
+    did = draft["id"]
+    for f in draft.get("files", []):
+        s, _ = cli.req("DELETE", f"{cli.base}/{did}/files/{f['id']}")
+        log(f"apagou arquivo herdado do rascunho: HTTP {s}")
+    up = cli.exigir("upload", cli.req("PUT", draft["links"]["bucket"] + "/" + nome_arquivo,
+                                      pdf.read_bytes(), "application/octet-stream"))
+    log(f"pdf enviado: checksum {up.get('checksum')}")
+    cli.exigir("metadados", cli.req("PUT", f"{cli.base}/{did}",
+                                    json.dumps({"metadata": meta}).encode(), "application/json"))
+    pub = cli.exigir("publish", cli.req("POST", f"{cli.base}/{did}/actions/publish"))
+    log(f"PUBLICADO {pub.get('doi')} {pub.get('links', {}).get('record_html')} conceito {pub.get('conceptdoi')}")
+    return pub
+
+
+def main(argv=None, abrir=None, ambiente=None) -> int:
+    ap = argparse.ArgumentParser(description=__doc__.splitlines()[0],
+                                 formatter_class=argparse.RawDescriptionHelpFormatter, epilog=__doc__)
+    ap.add_argument("--record", required=True, help="id de qualquer versão do registro (ex.: 23085770)")
+    ap.add_argument("--pdf", type=Path, required=True)
+    ap.add_argument("--zenodo-json", type=Path, required=True)
+    ap.add_argument("--nome-arquivo", help="nome do PDF no Zenodo (padrão: covering-codes-lean-kernel-v<versão>.pdf)")
+    ap.add_argument("--data-publicacao", default=dt.date.today().isoformat())
+    ap.add_argument("--sandbox", action="store_true", help="usa sandbox.zenodo.org")
+    ap.add_argument("--conferir", action="store_true", help="seco, mas faz o GET do registro atual")
+    ap.add_argument("--publicar", action="store_true", help="publica de verdade (padrão: seco)")
+    a = ap.parse_args(argv)
+    env = os.environ if ambiente is None else ambiente
+    token = env.get("ZENODO_TOKEN", "").strip() or None
+
+    try:
+        if not a.pdf.is_file():
+            raise ErroZenodo(f"PDF não encontrado: {a.pdf}")
+        z = json.loads(a.zenodo_json.read_text(encoding="utf-8"))
+        meta = montar_metadados(z, a.data_publicacao)
+        nome = a.nome_arquivo or f"covering-codes-lean-kernel-v{meta['version']}.pdf"
+        pdf_b = a.pdf.read_bytes()
+        print(f"registro {a.record} ({'sandbox' if a.sandbox else 'zenodo'}); versão {meta['version']}; "
+              f"data {a.data_publicacao}")
+        print(f"pdf {a.pdf}: {len(pdf_b)} bytes, sha256 {hashlib.sha256(pdf_b).hexdigest()} -> {nome}")
+        print(f"título: {meta['title']}")
+        print(f"ZENODO_TOKEN: {'presente, ' + str(len(token)) + ' caracteres' if token else 'ausente'}")
+        base = API["sandbox" if a.sandbox else "zenodo"]
+        if not a.publicar:
+            if a.conferir:
+                if not token:
+                    raise ErroZenodo("--conferir precisa de ZENODO_TOKEN")
+                cli = Cliente(token, base, abrir)
+                dep = cli.exigir("registro atual", cli.req("GET", f"{base}/{a.record}"))
+                print(f"registro atual: doi {dep.get('doi')} versão {dep.get('metadata', {}).get('version')}")
+            print("SECO: faria newversion, trocaria o PDF, gravaria os metadados e publicaria. Use --publicar.")
+            return 0
+        if not token:
+            raise ErroZenodo("ZENODO_TOKEN ausente no ambiente")
+        publicar(Cliente(token, base, abrir), a.record, a.pdf, nome, meta)
+        return 0
+    except ErroZenodo as e:
+        print("ERRO: " + redigir(e, token), file=sys.stderr)
+        return 2
+
+
+if __name__ == "__main__":
+    sys.exit(main())
