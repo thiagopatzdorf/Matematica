@@ -108,6 +108,13 @@ Opções extras: `--wls N` (pesos de quebra: a cada N movimentos, cada ponto des
 *Medido* na base de 6 órfãs: órbitas de grupos de ordem 9 e 18 cobrem mal (sobreposição
 dentro da órbita), muito pior que palavras soltas.
 
+`--r2a1` (com `--init` de uma solução completa): remove-2/insere-1 **exaustivo** sobre as
+palavras soltas. Para cada par, os pontos que ficam descobertos têm de caber na bola de uma
+única palavra de `F_q^n` (qualquer uma, não só candidata): enumera a bola do primeiro ponto
+descoberto e confere a distância aos demais. Achou: grava `prefixo_M<M-1>.json` e sai com 0.
+Não achou: certifica ótimo local e sai com 1. *Medido:* o 1140 é ótimo local
+(6105 pares em ~35 s).
+
 ### coset_sa
 
     coset_sa q n R "H" t secs seed T0 T1 saida [init.txt]

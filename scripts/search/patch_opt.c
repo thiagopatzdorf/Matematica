@@ -169,7 +169,7 @@ int main(int argc, char **argv){
   if (argc < 2){ fprintf(stderr, "uso: patch_opt base.json [opções] (ver cabeçalho)\n"); return 2; }
   char *js = slurp(argv[1]);
   q = (int)jint(js, "q", 7); n = (int)jint(js, "n", 9); R = (int)jint(js, "R", 4);
-  int L = 36, Wn = 8, tauw = 0, taul = 0, ndirs_auto = 1; double secs = 600, T0 = 1.2, T1 = 0.3; long cyc = 2000000, wls = 0; unsigned long long seed = 1;
+  int L = 36, Wn = 8, tauw = 0, taul = 0, ndirs_auto = 1; double secs = 600, T0 = 1.2, T1 = 0.3; long cyc = 2000000, wls = 0; int r2a1 = 0; unsigned long long seed = 1;
   char dirarg[1024] = "", initf[512] = "", grpf[512] = "";
   for (int i = 2; i < argc; i++){
     if (!strcmp(argv[i], "--dirs")) snprintf(dirarg, sizeof dirarg, "%s", argv[++i]);
@@ -185,6 +185,7 @@ int main(int argc, char **argv){
     else if (!strcmp(argv[i], "--T1")) T1 = atof(argv[++i]);
     else if (!strcmp(argv[i], "--cyc")) cyc = atol(argv[++i]);
     else if (!strcmp(argv[i], "--wls")) wls = atol(argv[++i]);
+    else if (!strcmp(argv[i], "--r2a1")) r2a1 = 1;
     else if (!strcmp(argv[i], "--group")) snprintf(grpf, sizeof grpf, "%s", argv[++i]);
     else if (!strcmp(argv[i], "--out")) outp = argv[++i];
     else { fprintf(stderr, "opção desconhecida %s\n", argv[i]); return 2; }
@@ -344,6 +345,52 @@ int main(int argc, char **argv){
     add_c(best);
   }
   printf("inicial: %d retas + %d palavras, descobertos %ld\n", nsel[1], nsel[0], nunc); fflush(stdout);
+  if (r2a1 && nunc == 0){
+    /* remove-2/insere-1 exaustivo sobre as palavras soltas: para cada par, os pontos que
+     * ficam descobertos precisam caber na bola de UMA palavra x (qualquer de q^n, não só
+     * candidatos): enumera a bola do 1º ponto descoberto e confere a distância aos demais. */
+    int nw0 = nsel[0]; long tried = 0; double tr0 = kit_now();
+    long *fixw = malloc(sizeof(long) * nw0); for (int i = 0; i < nw0; i++) fixw[i] = sl[0][i]; /* rem/add reordenam sl[0] */
+    int *dg = malloc(sizeof(int) * nres * n); for (long pp = 0; pp < nres; pp++){ W32 x = resid[pp]; for (int i = 0; i < n; i++){ dg[pp * n + i] = x % q; x /= q; } }
+    for (int a = 0; a < nw0; a++) for (int b = a + 1; b < nw0; b++){
+      long ca = fixw[a], cb = fixw[b];
+      rem_c(ca); rem_c(cb); tried++;
+      W32 found = 0; int ok = 0;
+      if (nunc == 0) ok = 2;
+      else {
+        int32_t p0 = unc[0]; W32 x0 = resid[p0]; int d0[16]; W32 tmpx = x0; for (int i = 0; i < n; i++){ d0[i] = tmpx % q; tmpx /= q; }
+        /* enumeração da bola de p0 (iterativa por suporte) */
+        int pos[8], val[8];
+        for (int w = 0; w <= R && !ok; w++){
+          for (int i = 0; i < w; i++) pos[i] = i;
+          while (!ok){
+            for (int i = 0; i < w; i++) val[i] = 1;
+            while (!ok){
+              int y[16]; memcpy(y, d0, sizeof(int) * n); for (int i = 0; i < w; i++) y[pos[i]] = (d0[pos[i]] + val[i]) % q;
+              int good = 1;
+              for (long u = 1; u < nunc && good; u++){ int32_t pu = unc[u]; int dd = 0; for (int i = 0; i < n; i++) if (y[i] != dg[pu * n + i]){ if (++dd > R) break; } if (dd > R) good = 0; }
+              if (good){ ok = 1; found = 0; for (int i = 0; i < n; i++) found += (W32)(y[i] * pwn[i]); break; }
+              int j = w - 1; while (j >= 0 && val[j] == q - 1){ val[j] = 1; j--; } if (j < 0) break; val[j]++;
+            }
+            int j = w - 1; while (j >= 0 && pos[j] == n - w + j) j--; if (j < 0) break; pos[j]++; for (int i = j + 1; i < w; i++) pos[i] = pos[i - 1] + 1;
+          }
+        }
+      }
+      if (ok){
+        /* grava: palavras atuais (sem a,b) + x */
+        int M = (int)nbasew + ecost1 * nsel[1] + nsel[0] + (ok == 1);
+        char fn[600]; snprintf(fn, sizeof fn, "%s_M%d.json", outp, M); FILE *F = fopen(fn, "w"); char s2[32];
+        fprintf(F, "{\"q\":%d,\"n\":%d,\"R\":%d,\"M\":%d,\"A\":\"%s\",\"coset_syndromes\":[", q, n, R, M, baseA); for (int j = 0; j < t_cos; j++) fprintf(F, "%s%d", j ? "," : "", csyn[j]);
+        fprintf(F, "],\"words\":["); int first = 1;
+        for (int i = 0; i < nsel[0]; i++){ word_str(cword[sl[0][i]], s2); fprintf(F, "%s\"%s\"", first ? "" : ",", s2); first = 0; }
+        if (ok == 1){ word_str(found, s2); fprintf(F, "%s\"%s\"", first ? "" : ",", s2); }
+        fprintf(F, "]}\n"); fclose(F);
+        printf("R2A1: par (%d,%d) trocado -> M=%d em %s (%.1fs, %ld pares)\n", a, b, M, fn, kit_now() - tr0, tried); return 0;
+      }
+      add_c(ca); add_c(cb);
+    }
+    printf("R2A1: nenhum par substituível por 1 palavra (%ld pares, %.1fs) -> ótimo local\n", tried, kit_now() - tr0); return 1;
+  }
   long it = 0; long bestU = nunc; double tl = t0 + secs;
   if (!nunc) save();
   while (kit_now() < tl){
