@@ -2,176 +2,182 @@
 \usepackage{amsmath,amssymb,amsthm}
 \usepackage{booktabs}
 \usepackage[hidelinks]{hyperref}
+\hypersetup{pdftitle={Covering codes checked by the Lean kernel: K7(9,4) <= 1351 and K2(6,1) = 12},pdfauthor={Thiago Patzdorf}}
+\pdfstringdefDisableCommands{\def\\{ }\def\le{<=}}
 \usepackage[margin=1in]{geometry}
 
 \newtheorem{theorem}{Theorem}
+\newtheorem{lemma}[theorem]{Lemma}
 \theoremstyle{definition}
 \newtheorem{definition}[theorem]{Definition}
+\theoremstyle{remark}
+\newtheorem*{remark}{Remark}
 
-\title[The sphere-covering bound in Lean]{The sphere-covering bound in Lean}
+\title[Covering codes checked by the Lean kernel]{Covering codes checked by the Lean kernel:\\ $K_7(9,4)\le 1351$ and $K_2(6,1)=12$}
 \author{Thiago Patzdorf}
 \address{Universidade de Caxias do Sul, Brazil}
 \email{thiagosleman@gmail.com}
-\date{1 October 2026}
+\date{2 October 2026}
 
 \begin{document}
 \begin{abstract}
-We formalize the classical sphere-covering lower bound on the covering number $K_q(n,R)$ in Lean~4, against Mathlib~v4.34.1.
-The library proves that every code over $\mathbb{Z}/q\mathbb{Z}$ of length $n$ which covers the space at Hamming radius $R$ has at least $\lceil q^n/V\rceil$ words, where $V$ is the size of a Hamming ball, and it checks eight numerical instances, including $K_7(9,4)\ge 221$.
-The same archive determines several small covering numbers exactly, among them $K_2(7,1)=16$ by the binary Hamming code of length~$7$, and it exhibits a $12$-word covering of $(\mathbb{F}_2)^6$ at radius~$1$.
-It does not prove matching upper bounds for the eight instances, does not decide whether those lower bounds improve the literature, and leaves $K_2(6,1)\ge 11$ conditional on a search the kernel did not finish.
+We report three results on the covering number $K_q(n,R)$, each proved in Lean~4 against Mathlib~v4.34.1 and checked by the kernel, with no \texttt{sorry} and no \texttt{native\_decide}.
+First, an explicit code of $1351$ words covers $(\mathbb{Z}/7\mathbb{Z})^9$ at Hamming radius $4$, so $K_7(9,4)\le 1351$; the best upper bound we found in the literature is $1475$.
+Second, $K_2(6,1)\ge 11$ follows from a short double-counting argument with no search.
+Third, $K_2(6,1)=12$, a classical value, is proved by a pruned search whose soundness is itself a theorem, split into $38$ kernel decisions.
+The same library contains a formal proof of the sphere-covering bound and eight numerical instances of it; those instances are below the best known lower bounds and are kept only as a test of the arithmetic.
+Seven further codes improve the tables we consulted but are verified by computer only.
 \end{abstract}
 \maketitle
 
 \section{Introduction}
-The covering number $K_q(n,R)$ is the least cardinality of a code $C\subseteq A^n$, with $|A|=q$, such that every word of $A^n$ lies at Hamming distance at most $R$ from some word of $C$.
-The sphere-covering bound, already in Hamming and in the form recorded by Cohen, Honkala, Litsyn and Lobstein, says that if $V$ is the number of words in a ball of radius $R$, then
-\begin{equation}\label{eq:sphere}
-  q^n \le K_q(n,R)\cdot V,
-\end{equation}
-and therefore $K_q(n,R)\ge \lceil q^n/V\rceil$.
-The inequality is classical.
-What is not automatic is the arithmetic: for the cells in Table~\ref{tab:cells}, $V$ has up to six digits and $q^n$ up to eight, and a hand evaluation of the ceiling is a place to slip.
+The covering number $K_q(n,R)$ is the least cardinality of a code $C\subseteq A^n$, with $|A|=q$, such that every word of $A^n$ lies at Hamming distance at most $R$ from some word of $C$~\cite{cohen1997}.
+Upper bounds come from constructions and lower bounds from counting; the tables of Kéri~\cite{keri} and the recent work of Gijswijt and Polak~\cite{gp2025} and of Marosi~\cite{marosi2026} record the current state.
 
-This note reports a machine-checked proof of the bound and of eight of those ceilings, in the Lean~4 theorem prover~\cite{lean4} on top of Mathlib~\cite{mathlib}.
-The source that was built is the tag \texttt{v0.\allowbreak 2.\allowbreak 0} of \url{https://github.com/thiagopatzdorf/Matematica}.
-A theorem below is a claim only when it is the name of a declaration in that tree and that declaration is imported by \texttt{CoveringLean.\allowbreak lean}.
-Two files in the tree, \texttt{A5b\_\allowbreak Stress.\allowbreak lean} and \texttt{A6d\_\allowbreak SearchHeavy.\allowbreak lean}, are not imported.
-Nothing in them is claimed.
+Upper bounds are certificates: a list of words and the claim that it covers.
+Checking the claim is a finite computation, but for $q^n$ in the tens of millions it is done by programs that are rarely audited.
+Florath~\cite{florath2026} built a Lean library of covering-code bounds whose derivations are replayed by the kernel; it formalizes the sphere-covering bound and records many cells.
+This note adds a certificate that the kernel checks word by word for a cell where the code is new, and a formal determination of a small classical value.
+
+The proofs use Lean~4~\cite{lean4} and Mathlib~\cite{mathlib}. The source is \url{https://github.com/thiagopatzdorf/Matematica}, tag \texttt{v0.\allowbreak 3.\allowbreak 0}.
+A statement below is a claim only when it is the name of a declaration in that tree.
+The default target \texttt{CoveringLean} builds in seconds; the two search certificates form the target \texttt{CoveringHeavy}.
 
 \section{Definitions}
-In the development \texttt{CoveringA2} the alphabet is $\mathbb{Z}/q\mathbb{Z}$ and a word is a function $\mathtt{Fin}\, n \to \mathtt{ZMod}\, q$.
-Distance is Mathlib's \texttt{hammingDist}.
-The ball of radius $R$ about $c$ is the finite set of words at distance at most $R$ from $c$, and $C$ covers at radius $R$ when every word of the space lies in the ball of some element of $C$.
-The closed volume used for the numerical bound is
-\begin{equation}\label{eq:V}
-  V(q,n,R) = \sum_{i=0}^{R} \binom{n}{i}(q-1)^i,
-\end{equation}
-which is \texttt{CoveringA3.\allowbreak V}.
-The eight final statements do not define $K_q(n,R)$.
-Each says: every covering code has at least the stated number of words.
-That is the lower bound $K_q(n,R)\ge c$, not the determination of $K_q(n,R)$.
+In the development \texttt{CoveringA2} a word is a function $\mathtt{Fin}\,n\to\mathtt{ZMod}\,q$, distance is Mathlib's \texttt{hammingDist}, and
+\[
+  \texttt{Covers}\;R\;C \;:\iff\; \forall x,\ \exists c\in C,\ \mathrm{d}(x,c)\le R .
+\]
+In \texttt{CoveringA6} the alphabet is $\mathtt{Fin}\,q$, with the same distance and the same notion of covering, and
+\[
+  \texttt{IsK}\;q\;n\;R\;k \;:\iff\; \bigl(\exists C,\ |C|=k \wedge \texttt{Covers}\;R\;C\bigr) \wedge \forall C,\ |C|<k \to \neg\,\texttt{Covers}\;R\;C ,
+\]
+which is the equality $K_q(n,R)=k$.
 
-A second development, \texttt{CoveringA6}, uses the alphabet $\mathtt{Fin}\, q$ rather than $\mathbb{Z}/q\mathbb{Z}$, still with Mathlib's Hamming distance.
-There \texttt{IsK}\,$q$\,$n$\,$R$\,$k$ is the proposition that some code of size $k$ covers and no code of size less than $k$ does, so it is the equality $K_q(n,R)=k$.
-The two developments are not fused into one definition of $K$.
-The statements below name the development they come from.
+\section{An upper bound: $K_7(9,4)\le 1351$}
 
-\section{The bound}
-The argument in the library has four steps, each a theorem.
-
-\begin{theorem}[volume]
-The number of words of Hamming weight at most $R$ in $(\mathbb{Z}/q\mathbb{Z})^n$ equals $V(q,n,R)$.
-The generating function $\sum_x X^{\mathrm{wt}(x)} = \bigl(1+(q-1)X\bigr)^n$ is \texttt{CoveringA1.\allowbreak weight\_\allowbreak genfun}; the ball at the origin is \texttt{CoveringA1.\allowbreak ball\_\allowbreak zero\_\allowbreak card}.
+\begin{theorem}\label{thm:k794}
+There is $C\subseteq(\mathbb{Z}/7\mathbb{Z})^9$ with $|C|=1351$ that covers at radius $4$.
+In Lean: \texttt{CoveringKernel.\allowbreak K7\_\allowbreak 9\_\allowbreak 4\_\allowbreak le\_\allowbreak 1351\_\allowbreak kernel}, stated as
+\[
+  \exists\, C : \mathtt{Finset}\,(\mathtt{Fin}\,9\to\mathtt{ZMod}\,7),\quad C.\mathtt{card}=1351 \;\wedge\; \texttt{Covers}\;4\;C .
+\]
 \end{theorem}
 
-\begin{theorem}[translation]
-For every centre $c$, the ball of radius $R$ about $c$ has the same cardinality as the ball about the origin (\texttt{CoveringA2.\allowbreak ball\_\allowbreak card\_\allowbreak indep}).
-The space itself has cardinality $q^n$ (\texttt{CoveringA2.\allowbreak card\_\allowbreak space}).
+\subsection*{The code}
+Words are encoded as natural numbers $\sum_i w_i 7^i$ and listed in strictly increasing order in \texttt{C1\_\allowbreak Data\_\allowbreak K7\_\allowbreak 9\_\allowbreak 4}; the same list is the text file \texttt{data/\allowbreak codes/\allowbreak q7\_\allowbreak n9\_\allowbreak R4\_\allowbreak M1351.\allowbreak txt}, whose canonical SHA-256 begins \texttt{54dbdade}.
+The code is three cosets of a $[9,3]_7$ linear code ($1029$ words) together with $322$ words added greedily to cover what the cosets miss.
+It was found with the generator \texttt{lincov} of Marosi's public repository \texttt{Mapika/coldcase}, which accompanies~\cite{marosi2026}; the program that added the last $322$ words was not recorded.
+The theorem does not depend on how the code was found.
+
+\subsection*{The proof}
+A Boolean function \texttt{go} walks the coordinates one at a time, keeping for each prefix the codewords still within reach and their remaining budget of mismatches; \texttt{go\_\allowbreak sound} proves that \texttt{go} returning \texttt{true} implies that every word has a codeword at distance at most $R$.
+\texttt{covers\_\allowbreak of\_\allowbreak go} turns that into \texttt{Covers}, using that Mathlib's distance agrees with the digit-wise count, and \texttt{cert\_\allowbreak of\_\allowbreak go} adds the cardinality, from a kernel check that every entry is below $7^9$ and the list is strictly increasing.
+\texttt{go\_\allowbreak split} lets the first four coordinates be fixed in advance, so the computation becomes $7^4=2401$ leaf theorems, each closed by \texttt{decide +kernel}, grouped in $95$ files that the build compiles in parallel.
+The same pipeline accepts the binary Hamming code of length $7$ and rejects a copy of it with one word replaced; both are tests in the library.
+
+\begin{remark}
+The best upper bound we found is $K_7(9,4)\le 1475$, by Marosi~\cite{marosi2026} (arXiv version 3, September 2026); Kéri's tables~\cite{keri} give $1843$.
+The best lower bound we know is $264$.
+That the bound is new is our reading of those sources on 1 October 2026, not something the kernel checks.
+\end{remark}
+
+\section{A lower bound without search: $K_2(6,1)\ge 11$}
+
+\begin{lemma}\label{lem:even}
+For distinct $a,c\in(\mathbb{F}_2)^6$, the balls of radius $1$ about $a$ and $c$ meet in $0$ or $2$ words.
+\end{lemma}
+\begin{proof}
+At distance $1$ the intersection is $\{a,c\}$; at distance $2$ it is the two words between them; at distance at least $3$ it is empty.
+In Lean the case $a=0$ is a kernel decision over $64$ words (\texttt{even\_\allowbreak inter\_\allowbreak zero}), and translation gives the general case (\texttt{inter\_\allowbreak card\_\allowbreak translate}).
+\end{proof}
+
+\begin{theorem}\label{thm:ge11}
+Every code that covers $(\mathbb{F}_2)^6$ at radius $1$ has at least $11$ words (\texttt{CoveringA6.\allowbreak K\_\allowbreak 2\_\allowbreak 6\_\allowbreak 1\_\allowbreak ge\_\allowbreak 11}).
+\end{theorem}
+\begin{proof}
+Let $K=|C|$ and let $m(y)$ be the number of codewords whose ball contains $y$, so $m(y)\ge 1$ and $\sum_y m(y)=7K$.
+For each $x$ put $S(x)=\sum_{y\in B(x)} m(y)=\sum_{c\in C}|B(x)\cap B(c)|$.
+Then $S(x)\ge 7$, and if $x\notin C$ every term is even by Lemma~\ref{lem:even}, so $S(x)\ge 8$.
+Summing $S(x)+[x\in C]\ge 8$ over all $64$ words and using $\sum_x S(x)=7\sum_y m(y)=49K$ gives $50K\ge 512$, hence $K\ge 11$.
+The counting is \texttt{excess\_\allowbreak bound}, stated for any family of symmetric balls of size $7$ with even pairwise intersections.
+\end{proof}
+
+This replaces a hypothesis that the previous version of this note left open: the statement \texttt{no\_\allowbreak cover\_\allowbreak 2\_\allowbreak 6\_\allowbreak 1\_\allowbreak le10\_\allowbreak uncond} is the earlier conditional one with the condition removed.
+
+\section{An exact value: $K_2(6,1)=12$}
+
+\begin{theorem}\label{thm:eq12}
+\texttt{SC.\allowbreak K\_\allowbreak 2\_\allowbreak 6\_\allowbreak 1\_\allowbreak eq12} : \texttt{IsK}\;2\;6\;1\;12.
 \end{theorem}
 
-\begin{theorem}[sphere covering]\label{thm:sphere}
-If $C$ covers at radius $R$, then $q^n \le |C|\cdot |B(0,R)|$ (\texttt{CoveringA2.\allowbreak sphere\_\allowbreak covering}).
-If that volume does not divide $q^n$, the inequality is strict (\texttt{CoveringA2.\allowbreak no\_\allowbreak perfect}).
-In the natural numbers, $\lceil q^n/V\rceil \le |C|$ (\texttt{CoveringA2.\allowbreak ceil\_\allowbreak bound}).
-Equality $|C|\cdot V = q^n$ forces the balls about the codewords to be pairwise disjoint (\texttt{CoveringA2.\allowbreak equality\_\allowbreak iff\_\allowbreak perfect}).
-\end{theorem}
+The value is classical~\cite{sk1968}.
+The upper bound is an explicit $12$-word code (\texttt{code12}, encodings $0,1,2,15,28,23,57,58,59,39,44,52$).
+For the lower bound, a search \texttt{chkN} on $64$-bit masks takes a state (words still allowed, covered set, forbidden centres), picks the least uncovered word, and branches on the centres that could cover it, forbidding at each branch the siblings already tried.
+It prunes when the remaining words cannot cover what is left, at $7$ words per centre.
+\texttt{chkN\_\allowbreak sound} proves that a \texttt{true} answer means no completion exists.
+A translation argument lets one assume the word $63$ is in the code.
+The search from that root is cut at depth $2$ into $38$ states, each refuted by \texttt{decide +kernel} in its own file.
+The Lean database of Florath~\cite{florath2026} records $10\le K_2(6,1)\le 12$ at this cell.
 
-\begin{theorem}[identification]
-\texttt{CoveringChain.\allowbreak ball\_\allowbreak zero\_\allowbreak eq\_\allowbreak V} identifies the geometric ball of \texttt{CoveringA2}, cut out by \texttt{hammingDist}, with the closed sum~\eqref{eq:V}.
-\texttt{CoveringChain.\allowbreak sphere\_\allowbreak covering\_\allowbreak formula} is Theorem~\ref{thm:sphere} with that sum in place of the abstract volume.
-\end{theorem}
+\section{The sphere-covering bound}
+The library also proves the sphere-covering bound $q^n\le |C|\cdot V$ (\texttt{CoveringA2.\allowbreak sphere\_\allowbreak covering}), its strict form when $V\nmid q^n$, and eight numerical instances \texttt{CoveringChain.\allowbreak SPH\_\allowbreak K*\_\allowbreak lb}, among them $K_7(9,4)\ge 221$.
+This was the content of version~0.2 of this note.
+The bound had already been formalized by Florath~\cite{florath2026}, and all eight instances are below the best lower bounds in the literature (for $K_7(9,4)$, $264$), so they are not claimed as results.
 
-The eight numerical theorems apply the formula to a cell whose volume and ceiling have been evaluated.
-For each row of Table~\ref{tab:cells}, \texttt{CoveringA3.\allowbreak cell\_\allowbreak $\ldots$} packages the equalities $V(q,n,R)=v$ and $\lceil q^n/v\rceil = c$, together with the one-step obstruction $q^n \not\le (c-1)\,v$.
-The obstruction says that the ceiling is sharp as a consequence of the sphere bound.
-It does not say that a code of size $c$ exists.
+\section{Other codes, not formalized}
+The repository contains seven more codes, each checked by three independent programs outside Lean (Table~\ref{tab:other}).
+They are below the upper bounds in the tables we consulted, but none is a Lean theorem yet.
+For $q=4$ our literature search was weaker than for $q\ge 5$, and $K_5(10,4)\le 625$ is a linear $[10,4]_5$ code, which should still be compared with the tables of Davydov, Marcugini and Pambianco on linear covering codes.
 
 \begin{table}[ht]
 \centering
-\begin{tabular}{@{}rrrrrl@{}}
+\begin{tabular}{@{}lrrl@{}}
 \toprule
-$q$ & $n$ & $R$ & $V$ & $\lceil q^n/V\rceil$ & declaration \\
+cell & ours & previous & source of previous \\
 \midrule
-5 & 7 & 2 & 365 & 215 & \texttt{SPH\_\allowbreak K5\_\allowbreak 7\_\allowbreak 2\_\allowbreak lb} \\
-4 & 10 & 4 & 20686 & 51 & \texttt{SPH\_\allowbreak K4\_\allowbreak 10\_\allowbreak 4\_\allowbreak lb} \\
-5 & 9 & 3 & 5989 & 327 & \texttt{SPH\_\allowbreak K5\_\allowbreak 9\_\allowbreak 3\_\allowbreak lb} \\
-5 & 10 & 4 & 62201 & 158 & \texttt{SPH\_\allowbreak K5\_\allowbreak 10\_\allowbreak 4\_\allowbreak lb} \\
-5 & 9 & 5 & 167269 & 12 & \texttt{SPH\_\allowbreak K5\_\allowbreak 9\_\allowbreak 5\_\allowbreak lb} \\
-5 & 9 & 4 & 38245 & 52 & \texttt{SPH\_\allowbreak K5\_\allowbreak 9\_\allowbreak 4\_\allowbreak lb} \\
-7 & 8 & 3 & 13153 & 439 & \texttt{SPH\_\allowbreak K7\_\allowbreak 8\_\allowbreak 3\_\allowbreak lb} \\
-7 & 9 & 4 & 182791 & 221 & \texttt{SPH\_\allowbreak K7\_\allowbreak 9\_\allowbreak 4\_\allowbreak lb} \\
+$K_5(7,2)$ & 500 & 525 & Kéri \\
+$K_4(10,4)$ & 192 & 208 & Kéri \\
+$K_5(9,3)$ & 1250 & 1275 & Kéri \\
+$K_5(10,4)$ & 625 & 875 & Kéri \\
+$K_5(9,5)$ & 50 & 55 & Kéri \\
+$K_5(9,4)$ & 250 & 255 & Kéri \\
+$K_7(8,3)$ & 1893 & 2337 & Kéri \\
 \bottomrule
 \end{tabular}
-\caption{Instances of the sphere-covering bound checked in \texttt{CoveringChain}. Each entry is a lower bound on every covering code, not a construction.}
-\label{tab:cells}
+\caption{Upper bounds verified by computer, not by the kernel.}
+\label{tab:other}
 \end{table}
 
-In particular, every covering of $(\mathbb{Z}/7\mathbb{Z})^9$ at radius $4$ has at least $221$ words.
-The library contains no theorem $K_7(9,4)\le 1351$, and it contains no list of $1351$ words.
-
-\section{Exact values}
-On top of the lower bound, the library determines a few covering numbers completely.
-
-\begin{theorem}
-If $R \ge n$, then one word covers and $K_q(n,R)=1$ (\texttt{CoveringA4.\allowbreak K\_\allowbreak eq\_\allowbreak one\_\allowbreak of\_\allowbreak le}).
-For $n\ge 1$, $K_q(n,n-1)=q$: there is a covering of size $q$, and every covering has at least $q$ words (\texttt{CoveringA4.\allowbreak K\_\allowbreak pred\_\allowbreak eq\_\allowbreak q}).
-\end{theorem}
-
-\begin{theorem}
-In \texttt{CoveringA6}, the following equalities hold:
-$K_2(2,1)=2$, $K_2(3,1)=2$, $K_2(4,1)=4$, $K_3(3,2)=3$, and $K_2(7,1)=16$.
-\end{theorem}
-
-The last of these is the binary Hamming code of length $7$.
-It is defined as the kernel of the parity-check matrix whose columns are $1,\ldots,7$.
-The kernel checks that the code has $16$ words, that it covers at radius $1$, that every ball of radius $1$ has $8$ words, that $|C|\cdot 8 = 2^7$, and that distinct codewords have disjoint balls.
-The sphere bound is therefore met with equality, and no code of size $15$ covers.
-
-\begin{theorem}
-The twelve words of $(\mathbb{F}_2)^6$ with integer encodings
-\[
-  0,1,2,15,28,23,57,58,59,39,44,52
-\]
-form a code of cardinality $12$ which covers at radius $1$ (\texttt{CoveringA6.\allowbreak code12\_\allowbreak card}, \texttt{CoveringA6.\allowbreak code12\_\allowbreak covers}).
-Hence $K_2(6,1)\le 12$.
-\end{theorem}
-
 \section{What the kernel accepted}
-The build that this note refers to is \texttt{lake build} of \texttt{CoveringLean} at Lean~4.34.1 and Mathlib tag \texttt{v4.\allowbreak 34.\allowbreak 1}.
-On 1 October 2026, on a virtual machine of type \texttt{e2-standard-8}, that build finished $8934$ jobs in $34$ seconds, with a peak resident set of $7.6$\,GB.
-The library imports no \texttt{sorry} and no \texttt{native\_\allowbreak decide}.
-Declarations proved by \texttt{decide +kernel} were reduced in the kernel, not by a native evaluator.
-\texttt{\#print axioms} on \texttt{CoveringChain.\allowbreak sphere\_\allowbreak covering\_\allowbreak formula} and on each of the eight \texttt{SPH\_\allowbreak K*\_\allowbreak lb} theorems reports at most \texttt{propext}, \texttt{Classical.\allowbreak choice} and \texttt{Quot.\allowbreak sound}.
-
-Rebuilding requires \texttt{elan}, then \texttt{lake exe cache get} and \texttt{lake build} in the source tree.
-Running \texttt{decide +kernel} by hand on the universe of a large function type is a different computation: it asked for $17$ to $24$\,GB and is not part of the build above.
+On 1 October 2026, on a virtual machine of type \texttt{e2-highmem-8}, Lean~4.34.1 and Mathlib~v4.34.1:
+\texttt{lake build} finished $8942$ jobs in $32$\,s with a peak of $7.7$\,GB;
+\texttt{lake build CoveringHeavy} finished $9073$ jobs in $1$\,h\,$41$\,min with up to eight modules in parallel, about $12.4$ CPU-hours in total, at most $8.8$\,GB per process.
+\texttt{\#print axioms} on Theorems~\ref{thm:k794}, \ref{thm:ge11} and~\ref{thm:eq12} reports \texttt{propext}, \texttt{Classical.\allowbreak choice} and \texttt{Quot.\allowbreak sound} only.
 
 \section{What is not a theorem}
-The archive does not prove an upper bound for any row of Table~\ref{tab:cells}.
-A lower bound of $221$ is not a construction, and it is not a claim that $221$ is the covering number.
-
-The statement ``no code of size at most $10$ covers $(\mathbb{F}_2)^6$ at radius $1$'' is \texttt{CoveringA6.\allowbreak no\_\allowbreak cover\_\allowbreak 2\_\allowbreak 6\_\allowbreak 1\_\allowbreak le10}, and its hypothesis is
-\[
-  \texttt{refuted}\; 64\; 7\; \texttt{bm6}\; \texttt{nbr6}\; 10\; 0 \;=\; \texttt{true}.
-\]
-The file that would discharge that hypothesis by a kernel decision, \texttt{A6d\_\allowbreak SearchHeavy.\allowbreak lean}, is not imported, does not build, and ran out of memory when it was tried.
-Until that equality is itself a theorem, $K_2(6,1)\ge 11$ is not a theorem.
-The unconditional facts at this parameter are the sphere-covering method in general and the explicit upper bound $K_2(6,1)\le 12$.
-
-The library does not compare Table~\ref{tab:cells} with the published tables of covering numbers, and it does not prove that any of the eight ceilings is new.
-The sphere bound is not new.
-The checked object is the proof.
+Novelty is a reading of the literature, not a checked fact.
+The seven codes of Table~\ref{tab:other} are not Lean theorems.
+That the formal statements say what is intended is a human review: the reader should check the statements of Theorems~\ref{thm:k794}, \ref{thm:ge11}, \ref{thm:eq12} and the definitions of \texttt{Covers} and \texttt{IsK}.
+Two files in the tree, \texttt{A5b\_\allowbreak Stress.\allowbreak lean} and \texttt{A6d\_\allowbreak SearchHeavy.\allowbreak lean}, are not imported and are not claimed.
 
 \begin{thebibliography}{9}
-\bibitem{hamming1950}
-R.~W. Hamming, \emph{Error detecting and error correcting codes}, Bell System Technical Journal \textbf{29} (1950), 147--160.
 \bibitem{cohen1997}
 G.~Cohen, I.~Honkala, S.~Litsyn and A.~Lobstein, \emph{Covering Codes}, North-Holland, 1997.
+\bibitem{florath2026}
+A.~Florath, \emph{Formal foundations and proof-carrying certificates for $q$-ary covering codes in Lean~4}, arXiv:2606.09600, 2026.
+\bibitem{gp2025}
+D.~Gijswijt and S.~Polak, \emph{Semidefinite lower bounds for covering codes}, arXiv:2504.01932, 2025.
+\bibitem{keri}
+G.~Kéri, \emph{Tables for bounds on covering codes}, \url{https://old.sztaki.hu/~keri/codes/}, 2011.
 \bibitem{lean4}
-L.~de~Moura and S.~Ullrich, \emph{The Lean~4 theorem prover and programming language}, Automated Deduction---CADE~28, Lecture Notes in Computer Science \textbf{12699}, Springer, 2021, 625--635.
+L.~de~Moura and S.~Ullrich, \emph{The Lean~4 theorem prover and programming language}, CADE~28, LNCS \textbf{12699}, Springer, 2021, 625--635.
+\bibitem{marosi2026}
+M.~Marosi, \emph{New upper and lower bounds on covering codes $K_q(n,R)$ for alphabets of size $5\le q\le 21$}, arXiv:2608.19872, 2026.
 \bibitem{mathlib}
 The Mathlib Community, \emph{Mathlib}, \url{https://github.com/leanprover-community/mathlib4}, release v4.34.1.
+\bibitem{sk1968}
+R.~G. Stanton and J.~G. Kalbfleisch, \emph{Covering problems for dichotomized matchings}, Aequationes Math. \textbf{1} (1968), 94--103.
 \end{thebibliography}
 
 \end{document}

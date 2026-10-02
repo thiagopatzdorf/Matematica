@@ -1,7 +1,7 @@
 # Lean 4 + Mathlib: cotas de cobertura, verificadas pelo kernel
 
-The note is [paper/main.pdf](paper/main.pdf), source [paper/main.tex](paper/main.tex). Tag `v0.2.1` (o paper ainda
-descreve só a cota de esfera; os resultados novos abaixo entram na próxima versão).
+The note is [paper/main.pdf](paper/main.pdf), source [paper/main.tex](paper/main.tex). Tag `v0.3.0`; DOI conceitual
+[10.5281/zenodo.23085769](https://doi.org/10.5281/zenodo.23085769) (aponta sempre para a versão mais nova).
 
 Estado (2026-10-01), Lean 4.34.1 + Mathlib v4.34.1, VM e2-highmem-8:
 
