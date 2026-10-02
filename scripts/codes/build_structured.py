@@ -54,6 +54,18 @@ PROVENANCE = {
                  "lean-build2 (~/h/s2/b). Estrutura registrada com --dims 3,1 para bater com o gerador.",
         "dims": [3, 1],
     },
+    "q7_n9_R4_M1141": {
+        "generator": "kit de busca do agente E (scripts/search na branch feat/kit-de-busca): enumeração exata das "
+                     "6362 classes de [9,3]_7 + otimizador de remendo",
+        "commit": None,
+        "seed": None,
+        "command": None,
+        "date": "2026-10-02",
+        "agent": "James.V1",
+        "repo_commit": None,
+        "notes": "base H=[I6|A], A=666 065 652 643 621 615, síndromes 0, 7708, 4191 (6 órfãs, 2058 pontos) + 112 "
+                 "palavras; achado na VM lean-build2 (~/h/s2/e). Provado no Lean por Syn.K7_9_4_le_1141_syn.",
+    },
     "q7_n8_R3_M1887": {
         "generator": "maestro (VM lean-build2, ~/h/s2/maestro): mesmos 5 cosets de [8,3]_7 do 1893 + 172 palavras",
         "commit": None,

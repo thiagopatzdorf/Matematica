@@ -15,3 +15,5 @@ import CoveringLean.C1_CoverCheck
 import CoveringLean.K2_Core
 import CoveringLean.K2_Loop
 import CoveringLean.K3_Bridge
+import CoveringLean.SynCheck
+import CoveringLean.SynBridge
