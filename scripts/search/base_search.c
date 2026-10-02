@@ -151,7 +151,29 @@ static int exactT(Kit *K, int T, int m, int maxprint, int *bs1, int *bs2){
  *  (2) blocos de L1: s2 = y + (-b); agrupando -b pela metade alta, o bloco-alvo de metade alta
  *      H recebe só de -b com alta H - y_alta. Cada bloco são LO contadores uint8 (343 bytes),
  *      somados para todo y de Y e conferidos antes do próximo bloco. */
-static int exactT2(Kit *K, int T, double mu, int maxprint, int *bs1, int *bs2){
+/* Simetria do trio (usada quando sym=1): um trio {a,b,c} tem 3 diferenças; ordenando as classes
+ * escalares de diferença pela classe projetiva da metade ALTA (alta nula por último), basta achar
+ * cada trio pela sua diferença mínima d: transladando e escalando, ele vira {0,s1,s2} com s1 = d e
+ * as outras duas diferenças (s2 e s2-s1) de chave >= chave(s1). Logo só servem blocos-alvo H com
+ * pc(H) >= pc(s1_alta) e pc(H - s1_alta) >= pc(s1_alta): em média ~1/3 dos blocos. Os blocos
+ * pulados não contêm trio que já não seja achado por outra diferença dele. */
+static int *pcH;
+static void build_pcH(const Kit *K){
+  const int HI = (int)K->HI, q = K->q, d = K->hi_d;
+  pcH = malloc(sizeof(int) * HI);
+  int *idx = malloc(sizeof(int) * HI), nc = 0;
+  for (int h = 1; h < HI; h++){ int x = h; while (x % q == 0) x /= q; idx[h] = (x % q == 1) ? nc++ : -1; }
+  for (int h = 1; h < HI; h++){
+    for (int lam = 1; lam < q; lam++){
+      int y = 0, x = h, p = 1; for (int i = 0; i < d; i++){ y += ((x % q) * lam % q) * p; x /= q; p *= q; }
+      if (idx[y] >= 0){ pcH[h] = idx[y]; break; }
+    }
+  }
+  pcH[0] = nc;                     /* alta nula: maior chave */
+  free(idx);
+}
+
+static int exactT2(Kit *K, int T, double mu, int maxprint, int *bs1, int *bs2, int sym){
   kit_compute_ball(K);
   const int LO = (int)K->LO, HI = (int)K->HI;
   /* -b agrupado pela metade alta: off[h]..off[h+1] em lst (metade baixa) */
@@ -164,14 +186,17 @@ static int exactT2(Kit *K, int T, double mu, int maxprint, int *bs1, int *bs2){
   if (m > 250) m = 250;            /* contador uint8: cnt_Y <= m */
   if (m < 1) m = 1;
   uint8_t blk[4096];
+  if (sym && !pcH) build_pcH(K);
   int best = 1 << 30, printed = 0;
   for (long s1 = 1; s1 < K->N; s1++){
     if (!is_scal_canon(K, s1)) continue;
+    const int h1 = (int)(s1 / LO), j1 = sym ? pcH[h1] : 0, nh1 = K->neghi[h1];
     int nx = 0;
     for (long i = 0; i < K->nBc; i++){ int b = K->Bc[i]; if (!K->inB[kit_sub(K, b, (int)s1)]) Xbuf[nx++] = b; }
     int my = nx < m ? nx : m;
     for (int i = 0; i < my; i++){ int j = i + (int)(kit_rnd() % (nx - i)); int t = Xbuf[i]; Xbuf[i] = Xbuf[j]; Xbuf[j] = t; }
     for (int H = 0; H < HI; H++){
+      if (sym && (pcH[H] < j1 || pcH[K->addhi[H * HI + nh1]] < j1)) continue;
       memset(blk, 0, LO);
       for (int i = 0; i < my; i++){ int y = Xbuf[i];
         int g = K->addhi[H * HI + K->neghi[y / LO]];          /* alta de -b = H - y_alta */
@@ -393,13 +418,14 @@ int main(int argc, char **argv){
     double t0 = kit_now(); int s1 = 0, s2 = 0; int b = exactT(&K, T, m, mp, &s1, &s2);
     printf("{\"q\":%d,\"n\":%d,\"R\":%d,\"A\":\"%s\",\"nBc\":%ld,\"t\":3,\"T\":%d,\"orphans\":%d,\"coset_syndromes\":[0,%d,%d],\"exact\":true,\"secs\":%.1f}\n", K.q, K.n, K.R, A, K.nBc, T, b > T ? -1 : b, s1, s2, kit_now() - t0);
     return 0; }
-  if (!strcmp(argv[1], "exactT2")){ /* exactT2 q n R T A [mu=18] [maxprint] -- mesmo resultado, ver exactT2 */
+  if (!strcmp(argv[1], "exactT2")){ /* exactT2 q n R T A [mu=18] [maxprint] [sym=1] -- mesmo resultado, ver exactT2 */
     K.q = atoi(argv[2]); K.n = atoi(argv[3]); K.R = atoi(argv[4]); int T = atoi(argv[5]); const char *A = argv[6];
     double mu = argc > 7 ? atof(argv[7]) : 18.0; int mp = argc > 8 ? atoi(argv[8]) : 1000;
     int rows = 1; for (const char *p = A; *p; p++) if (*p == ' ') rows++;
     K.r = rows; K.k = K.n - K.r; kit_init_tables(&K); kit_set_A(&K, A); alloc_eval(&K);
     if (K.LO > 4096){ fprintf(stderr, "exactT2: LO=%ld > 4096 (bloco)\n", K.LO); return 2; }
-    double t0 = kit_now(); int s1 = 0, s2 = 0; int b = exactT2(&K, T, mu, mp, &s1, &s2);
+    int sym = argc > 9 ? atoi(argv[9]) : 1;
+    double t0 = kit_now(); int s1 = 0, s2 = 0; int b = exactT2(&K, T, mu, mp, &s1, &s2, sym);
     printf("{\"q\":%d,\"n\":%d,\"R\":%d,\"A\":\"%s\",\"nBc\":%ld,\"t\":3,\"T\":%d,\"orphans\":%d,\"coset_syndromes\":[0,%d,%d],\"exact\":true,\"secs\":%.1f}\n", K.q, K.n, K.R, A, K.nBc, T, b > T ? -1 : b, s1, s2, kit_now() - t0);
     return 0; }
   if (!strcmp(argv[1], "beam")){ /* beam q n R t B1 br Bk A */
