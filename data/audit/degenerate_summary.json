@@ -1,0 +1,130 @@
+{
+ "pgl2_massa": {
+  "3": {
+   "orbitas": 1,
+   "massa": 56,
+   "esperado": 56,
+   "ok": true
+  },
+  "4": {
+   "orbitas": 3,
+   "massa": 238,
+   "esperado": 238,
+   "ok": true
+  },
+  "5": {
+   "orbitas": 5,
+   "massa": 672,
+   "esperado": 672,
+   "ok": true
+  },
+  "6": {
+   "orbitas": 11,
+   "massa": 1568,
+   "esperado": 1568,
+   "ok": true
+  },
+  "7": {
+   "orbitas": 18,
+   "massa": 3256,
+   "esperado": 3256,
+   "ok": true
+  },
+  "8": {
+   "orbitas": 33,
+   "massa": 6231,
+   "esperado": 6231,
+   "ok": true
+  }
+ },
+ "por_tipo": {
+  "(ii) z=0 sem_referencial": 78,
+  "(i) z=1 com_referencial": 1006,
+  "(i) z=1 sem_referencial": 43,
+  "(i) z=2 com_referencial": 165,
+  "(i) z=2 sem_referencial": 24,
+  "(i) z=3 com_referencial": 32,
+  "(i) z=3 sem_referencial": 12,
+  "(i) z=4 com_referencial": 5,
+  "(i) z=4 sem_referencial": 6,
+  "(i) z=5 com_referencial": 1,
+  "(i) z=5 sem_referencial": 2,
+  "(i) z=6 sem_referencial": 1
+ },
+ "massa": {
+  "z=0,sem_referencial": {
+   "orbitas": 78,
+   "massa": 34304557,
+   "esperado": 34304557,
+   "ok": true
+  },
+  "z=1,com_referencial": {
+   "orbitas": 1006,
+   "massa": 4409080074,
+   "esperado": 4409080074,
+   "ok": true
+  },
+  "z=1,sem_referencial": {
+   "orbitas": 43,
+   "massa": 16718898,
+   "esperado": 16718898,
+   "ok": true
+  },
+  "z=2,com_referencial": {
+   "orbitas": 165,
+   "massa": 545606964,
+   "esperado": 545606964,
+   "ok": true
+  },
+  "z=2,sem_referencial": {
+   "orbitas": 24,
+   "massa": 7468482,
+   "esperado": 7468482,
+   "ok": true
+  },
+  "z=3,com_referencial": {
+   "orbitas": 32,
+   "massa": 58418388,
+   "esperado": 58418388,
+   "ok": true
+  },
+  "z=3,sem_referencial": {
+   "orbitas": 12,
+   "massa": 2958718,
+   "esperado": 2958718,
+   "ok": true
+  },
+  "z=4,com_referencial": {
+   "orbitas": 5,
+   "massa": 4926852,
+   "esperado": 4926852,
+   "ok": true
+  },
+  "z=4,sem_referencial": {
+   "orbitas": 6,
+   "massa": 977550,
+   "esperado": 977550,
+   "ok": true
+  },
+  "z=5,com_referencial": {
+   "orbitas": 1,
+   "massa": 234612,
+   "esperado": 234612,
+   "ok": true
+  },
+  "z=5,sem_referencial": {
+   "orbitas": 2,
+   "massa": 234612,
+   "esperado": 234612,
+   "ok": true
+  },
+  "z=6,sem_referencial": {
+   "orbitas": 1,
+   "massa": 26068,
+   "esperado": 26068,
+   "ok": true
+  }
+ },
+ "total_degeneradas": 1375,
+ "massa_ok": true
+}
