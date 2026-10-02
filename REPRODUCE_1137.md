@@ -52,8 +52,9 @@ As saídas desta rodada estão em `verification/outputs/`.
 ## 3. Lean (build do zero)
 
 ```bash
-lake clean
 lake exe cache get        # baixa o Mathlib pré-compilado da versão fixada
+lake clean CoveringLean   # limpa só o projeto (`lake clean` sem argumento apaga também o Mathlib
+                          # e obriga a recompilá-lo do fonte, o que leva horas)
 lake build CoveringSyn    # certificados por síndromes (fora do alvo padrão), incluindo Syn_K1137
 ```
 
@@ -65,4 +66,13 @@ import CoveringLean.Syn_K1137
 #print axioms Syn.K7_9_4_le_1137_syn   -- [propext, Classical.choice, Quot.sound]
 ```
 
-Detalhes, tempos e logs estão em `LEAN_REVIEW.md`.
+Atenção: `lake build` sozinho **não** compila o teorema, porque `Syn_K1137` está fora do alvo padrão.
+Medido: 318 s, com pico de 6,8 GB num processo, em 4 núcleos.
+
+Para conferir que a lista de palavras dentro do Lean é o witness:
+
+```bash
+python3 verification/lean/decode_synData.py .   # sha256 df3e8d52…a102, idêntico a code_1137.txt
+```
+
+Detalhes, tempos e logs estão em `LEAN_REVIEW.md`. Os ataques ao Lean estão em `LEAN_RED_TEAM.md`.
