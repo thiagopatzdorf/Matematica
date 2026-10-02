@@ -42,6 +42,7 @@ Compilar:
     base_search canon q n R "A"
     base_search beam  q n R t B1 br Bk "A"        # t classes quaisquer (B1=0: nível 2 exato)
     base_search subexh q n R t "A" g1 g2 ...       # exaustivo com S ⊂ <g1,g2,...>
+    base_search swap2 q n R "A" s1 s2 ...          # vizinhança exata de troca-2 da base {0,s1,...}
 
 - **enum** percorre **todas** as classes de equivalência (monomial) de códigos `[n,k]_q`
   não degenerados: órbitas de `PGL(k,q)` sobre multiconjuntos de `n` pontos de
@@ -70,6 +71,9 @@ Compilar:
   `V \ {0}` com `V = <g1,…>` em bitsets (AND incremental das translações `Bc+e`). Com
   `|V| = 343` e t=5 são ~9·10^7 folhas em ~17 s. Serve para varrer os superespaços do
   subespaço de uma base boa conhecida.
+- **swap2**: troca quaisquer 2 das t síndromes por quaisquer 2 de `F_q^r` (bitsets das N
+  translações de `Bc`; memória `N²/8` bytes, então só serve para `r` pequeno). *Medido:* a
+  base de 2 órfãs do 1887 em `K_7(8,3)` é ótimo local de troca-2 (174 s).
 - **canon** dá a forma canônica de um `A` qualquer, para saber se duas bases são a mesma classe.
 
 Saída: uma linha JSON por classe, `{"A": …, "nBc": …, "orphans": …, "coset_syndromes": [0,s1,s2]}`

@@ -370,6 +370,29 @@ int main(int argc, char **argv){
     printf("{\"q\":%d,\"n\":%d,\"R\":%d,\"A\":\"%s\",\"t\":%d,\"V\":%d,\"orphans\":%d,\"coset_syndromes\":[0", K.q, K.n, K.R, A, tt, nv, bestO);
     for (int j = 1; j < tt; j++) printf(",%d", bestS[j]); printf("],\"nodes\":%ld,\"secs\":%.1f}\n", nodes, kit_now() - t0);
     return 0; }
+  if (!strcmp(argv[1], "swap2")){ /* swap2 q n R "A" s1 s2 ... : vizinhança exata de troca-2 (e troca-1) da base {0,s1,...} */
+    K.q = atoi(argv[2]); K.n = atoi(argv[3]); K.R = atoi(argv[4]); const char *A = argv[5];
+    int rows = 1; for (const char *p = A; *p; p++) if (*p == ' ') rows++;
+    K.r = rows; K.k = K.n - K.r; kit_init_tables(&K); kit_set_A(&K, A); kit_compute_ball(&K);
+    int t = argc - 5; int S[16]; S[0] = 0; for (int i = 1; i < t; i++) S[i] = atoi(argv[5 + i]);
+    int W = (int)((K.N + 63) / 64); long N = K.N;
+    uint64_t *T = calloc((size_t)N * W, 8); /* T[s] = Bc + s */
+    for (long s2 = 0; s2 < N; s2++) for (long j = 0; j < K.nBc; j++){ int v = kit_add(&K, K.Bc[j], (int)s2); T[s2 * W + (v >> 6)] |= 1ULL << (v & 63); }
+    double t0 = kit_now(); int best = 1 << 30;
+    { uint64_t acc[4096]; for (int w = 0; w < W; w++){ acc[w] = ~0ULL; for (int i = 0; i < t; i++) acc[w] &= T[(long)S[i] * W + w]; } int c = 0; for (int w = 0; w < W; w++) c += __builtin_popcountll(acc[w]); printf("base atual: %d órfãs\n", c); best = c; }
+    for (int a = 0; a < t; a++) for (int b = a + 1; b < t; b++){
+      uint64_t acc[4096]; for (int w = 0; w < W; w++){ acc[w] = ~0ULL; for (int i = 0; i < t; i++) if (i != a && i != b) acc[w] &= T[(long)S[i] * W + w]; }
+      uint64_t ax[4096];
+      for (long x = 0; x < N; x++){
+        for (int w = 0; w < W; w++) ax[w] = acc[w] & T[x * W + w];
+        for (long y = x + 1; y < N; y++){
+          int c = 0; const uint64_t *ty = T + y * W;
+          for (int w = 0; w < W && c < best; w++) c += __builtin_popcountll(ax[w] & ty[w]);
+          if (c < best){ best = c; printf("  órfãs=%d trocando (%d,%d) por (%ld,%ld) [%.0fs]\n", c, S[a], S[b], x, y, kit_now() - t0); fflush(stdout); }
+        }
+      }
+    }
+    printf("swap2: melhor %d (%.0fs)\n", best, kit_now() - t0); return 0; }
   if (!strcmp(argv[1], "canon")){ /* canon q n R A : forma canônica do código de H=[I|A] */
     q_ = K.q = atoi(argv[2]); nn_ = K.n = atoi(argv[3]); K.R = atoi(argv[4]);
     const char *A = argv[5]; int rows = 1; for (const char *p = A; *p; p++) if (*p == ' ') rows++;
