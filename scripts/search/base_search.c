@@ -142,6 +142,58 @@ static int exactT(Kit *K, int T, int m, int maxprint, int *bs1, int *bs2){
   return best;
 }
 
+/* exactT2: o MESMO conjunto de trios que exactT (a poda por amostra é exata para qualquer
+ * Y ⊂ X), reorganizado para caber no cache. Medido em 2026-10-02: o exactT levava 57 s por
+ * classe num núcleo local e 307 s por vCPU numa e2-highcpu-8 com 8 processos -- o cnt[] de
+ * 235 KB recebe m·|Bc| incrementos em endereços aleatórios e as 8 cópias disputam L2/L3.
+ *  (1) amostra adaptativa: m = ceil(mu·N/|Bc|) (média de cnt_Y por s2 ≈ mu), em vez de m fixo:
+ *      o trabalho por s1 fica ≈ mu·N, constante, em vez de crescer com |Bc|;
+ *  (2) blocos de L1: s2 = y + (-b); agrupando -b pela metade alta, o bloco-alvo de metade alta
+ *      H recebe só de -b com alta H - y_alta. Cada bloco são LO contadores uint8 (343 bytes),
+ *      somados para todo y de Y e conferidos antes do próximo bloco. */
+static int exactT2(Kit *K, int T, double mu, int maxprint, int *bs1, int *bs2){
+  kit_compute_ball(K);
+  const int LO = (int)K->LO, HI = (int)K->HI;
+  /* -b agrupado pela metade alta: off[h]..off[h+1] em lst (metade baixa) */
+  int *off = calloc(HI + 1, sizeof(int)), *lst = malloc(sizeof(int) * K->nBc);
+  for (long j = 0; j < K->nBc; j++){ int nb = kit_neg(K, K->Bc[j]); off[nb / LO + 1]++; }
+  for (int h = 0; h < HI; h++) off[h + 1] += off[h];
+  int *pos = malloc(sizeof(int) * HI); memcpy(pos, off, sizeof(int) * HI);
+  for (long j = 0; j < K->nBc; j++){ int nb = kit_neg(K, K->Bc[j]); lst[pos[nb / LO]++] = nb % LO; }
+  int m = (int)(mu * (double)K->N / (double)K->nBc + 0.999);
+  if (m > 250) m = 250;            /* contador uint8: cnt_Y <= m */
+  if (m < 1) m = 1;
+  uint8_t blk[4096];
+  int best = 1 << 30, printed = 0;
+  for (long s1 = 1; s1 < K->N; s1++){
+    if (!is_scal_canon(K, s1)) continue;
+    int nx = 0;
+    for (long i = 0; i < K->nBc; i++){ int b = K->Bc[i]; if (!K->inB[kit_sub(K, b, (int)s1)]) Xbuf[nx++] = b; }
+    int my = nx < m ? nx : m;
+    for (int i = 0; i < my; i++){ int j = i + (int)(kit_rnd() % (nx - i)); int t = Xbuf[i]; Xbuf[i] = Xbuf[j]; Xbuf[j] = t; }
+    for (int H = 0; H < HI; H++){
+      memset(blk, 0, LO);
+      for (int i = 0; i < my; i++){ int y = Xbuf[i];
+        int g = K->addhi[H * HI + K->neghi[y / LO]];          /* alta de -b = H - y_alta */
+        const int *row = K->addlo + (y % LO) * LO;
+        for (int u = off[g]; u < off[g + 1]; u++) blk[row[lst[u]]]++; }
+      for (int l = 0; l < LO; l++){
+        if (blk[l] > T) continue;
+        long s2 = l + (long)LO * H;
+        if (s2 == 0 || s2 == s1) continue;
+        int o = blk[l];
+        for (int i = my; i < nx && o <= T; i++) if (!K->inB[kit_sub(K, Xbuf[i], (int)s2)]) o++;
+        if (o <= T){
+          if (o < best){ best = o; *bs1 = (int)s1; *bs2 = (int)s2; }
+          if (printed < maxprint){ printf("TRIO orphans=%d s1=%ld s2=%ld\n", o, s1, s2); printed++; }
+        }
+      }
+    }
+  }
+  free(off); free(lst); free(pos);
+  return best;
+}
+
 /* ---------- beam: t classes laterais quaisquer (t>=2) ----------
  * Nível 1: os B1 melhores s1 (um por classe escalar) pela autocorrelação c(s1).
  * Nível j: para cada estado (conjunto parcial, órfãs O), conta |O ∩ (Bc+s)| para TODO s
@@ -339,6 +391,15 @@ int main(int argc, char **argv){
     int rows = 1; for (const char *p = A; *p; p++) if (*p == ' ') rows++;
     K.r = rows; K.k = K.n - K.r; kit_init_tables(&K); kit_set_A(&K, A); alloc_eval(&K);
     double t0 = kit_now(); int s1 = 0, s2 = 0; int b = exactT(&K, T, m, mp, &s1, &s2);
+    printf("{\"q\":%d,\"n\":%d,\"R\":%d,\"A\":\"%s\",\"nBc\":%ld,\"t\":3,\"T\":%d,\"orphans\":%d,\"coset_syndromes\":[0,%d,%d],\"exact\":true,\"secs\":%.1f}\n", K.q, K.n, K.R, A, K.nBc, T, b > T ? -1 : b, s1, s2, kit_now() - t0);
+    return 0; }
+  if (!strcmp(argv[1], "exactT2")){ /* exactT2 q n R T A [mu=18] [maxprint] -- mesmo resultado, ver exactT2 */
+    K.q = atoi(argv[2]); K.n = atoi(argv[3]); K.R = atoi(argv[4]); int T = atoi(argv[5]); const char *A = argv[6];
+    double mu = argc > 7 ? atof(argv[7]) : 18.0; int mp = argc > 8 ? atoi(argv[8]) : 1000;
+    int rows = 1; for (const char *p = A; *p; p++) if (*p == ' ') rows++;
+    K.r = rows; K.k = K.n - K.r; kit_init_tables(&K); kit_set_A(&K, A); alloc_eval(&K);
+    if (K.LO > 4096){ fprintf(stderr, "exactT2: LO=%ld > 4096 (bloco)\n", K.LO); return 2; }
+    double t0 = kit_now(); int s1 = 0, s2 = 0; int b = exactT2(&K, T, mu, mp, &s1, &s2);
     printf("{\"q\":%d,\"n\":%d,\"R\":%d,\"A\":\"%s\",\"nBc\":%ld,\"t\":3,\"T\":%d,\"orphans\":%d,\"coset_syndromes\":[0,%d,%d],\"exact\":true,\"secs\":%.1f}\n", K.q, K.n, K.R, A, K.nBc, T, b > T ? -1 : b, s1, s2, kit_now() - t0);
     return 0; }
   if (!strcmp(argv[1], "beam")){ /* beam q n R t B1 br Bk A */
