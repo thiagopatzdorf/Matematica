@@ -44,6 +44,7 @@ def main():
     ap.add_argument("dir")
     ap.add_argument("--saida", default="ledger.jsonl")
     ap.add_argument("--local-import", default=None, help="diretório com as cópias dos resultados locais")
+    ap.add_argument("--prefixo", default="fz-", help="prefixo dos diretórios de resultado (fz- ou fzd-)")
     a = ap.parse_args()
     classes = [json.loads(l) for l in open(os.path.join(a.dir, "classes_sorted.jsonl"))]
     N = len(classes)
@@ -52,7 +53,7 @@ def main():
         locais = {os.path.basename(f) for f in glob.glob(os.path.join(a.local_import, "c_*.out"))}
     achados = {}
     estranhos, divergentes, a_trocado, nao_exato, dup = [], [], [], [], 0
-    for f in sorted(glob.glob(os.path.join(a.dir, "fz-*", "*"))):
+    for f in sorted(glob.glob(os.path.join(a.dir, a.prefixo + "*", "*"))):
         nome = os.path.basename(f)
         m = re.fullmatch(r"c_(\d+)\.out", nome)
         if not m:
@@ -84,7 +85,7 @@ def main():
             "sha256_file": hashlib.sha256(open(f, "rb").read()).hexdigest(),
         }
         reg["versao"], reg["commit"] = versao(os.path.getmtime(f), nome in locais)
-        if d["nBc"] != classes[L - 1]["nBc"]:
+        if "nBc" in classes[L - 1] and d["nBc"] != classes[L - 1]["nBc"]:
             divergentes.append((L, "nBc", f))
         if L in achados:
             dup += 1
