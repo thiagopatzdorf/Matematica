@@ -32,6 +32,7 @@
 #include <math.h>
 #include <complex.h>
 
+int cmp_int(const void *a, const void *b);
 /* ---------- DFT em Z_q^r ---------- */
 static double complex *W; /* raízes q-ésimas */
 static void dft(const Kit *K, double complex *a, int inv){
@@ -141,6 +142,60 @@ static int exactT(Kit *K, int T, int m, int maxprint, int *bs1, int *bs2){
   return best;
 }
 
+/* ---------- beam: t classes laterais quaisquer (t>=2) ----------
+ * Nível 1: os B1 melhores s1 (um por classe escalar) pela autocorrelação c(s1).
+ * Nível j: para cada estado (conjunto parcial, órfãs O), conta |O ∩ (Bc+s)| para TODO s
+ * de uma vez por DFT (correlação cruzada), gera as br melhores extensões; mantém os Bk
+ * melhores estados distintos. Exato por nível; heurístico entre níveis (largura finita). */
+typedef struct { int s[16]; int orph; } St;
+static int cmp_st(const void *a, const void *b){ return ((St*)a)->orph - ((St*)b)->orph; }
+static double complex *FO;
+static void corr_counts(const Kit *K, const uint8_t *inO, int *out){
+  for (long i = 0; i < K->N; i++) FO[i] = inO[i];
+  dft(K, FO, 0);
+  for (long i = 0; i < K->N; i++) FO[i] *= conj(FB[i]);
+  dft(K, FO, 1);
+  for (long i = 0; i < K->N; i++) out[i] = (int)lround(creal(FO[i]));
+}
+static Res beam(Kit *K, int t, int B1, int br, int Bk){
+  kit_compute_ball(K);
+  /* FB = DFT(Bc) e c(s) */
+  for (long i = 0; i < K->N; i++) FB[i] = 0;
+  for (long i = 0; i < K->nBc; i++) FB[K->Bc[i]] = 1;
+  dft(K, FB, 0);
+  { double complex *a = FO; for (long i = 0; i < K->N; i++) a[i] = FB[i] * conj(FB[i]); dft(K, a, 1); for (long i = 0; i < K->N; i++) cX[i] = (int)lround(creal(a[i])); }
+  long nc = 0; for (long s = 1; s < K->N; s++) if (is_scal_canon(K, s)) cand[nc++] = (int)s;
+  if (B1 > 0){ qsort(cand, nc, sizeof(int), cmp_c); if (nc > B1) nc = B1; }
+  St *cur = malloc(sizeof(St) * (Bk > nc ? Bk : nc)), *nxt = malloc(sizeof(St) * ((Bk > nc ? Bk : nc) * (long)br + 16));
+  int ncur = 0;
+  for (long i = 0; i < nc; i++){ St x = {{0}, cX[cand[i]]}; x.s[1] = cand[i]; cur[ncur++] = x; }
+  uint8_t *inO = calloc(K->N, 1); int *cc = malloc(sizeof(int) * K->N);
+  for (int lev = 2; lev < t; lev++){
+    int nn = 0;
+    for (int a = 0; a < ncur; a++){
+      memset(inO, 0, K->N);
+      for (long i = 0; i < K->nBc; i++){ int b = K->Bc[i], ok = 1; for (int u = 1; u < lev; u++) if (K->inB[kit_sub(K, b, cur[a].s[u])]){ ok = 0; break; } if (ok) inO[b] = 1; }
+      corr_counts(K, inO, cc);
+      for (int u = 0; u < lev; u++) cc[cur[a].s[u]] = 1 << 30;
+      /* br melhores */
+      int bs[64], bv[64], nb = 0;
+      for (long s = 1; s < K->N; s++){ int v = cc[s]; if (nb < br || v < bv[nb - 1]){ int i = nb < br ? nb++ : br - 1; while (i > 0 && bv[i - 1] > v){ bv[i] = bv[i - 1]; bs[i] = bs[i - 1]; i--; } bv[i] = v; bs[i] = (int)s; } }
+      for (int i = 0; i < nb; i++){ St x = cur[a]; x.s[lev] = bs[i]; x.orph = bv[i]; nxt[nn++] = x; }
+    }
+    qsort(nxt, nn, sizeof(St), cmp_st);
+    /* dedupe por conjunto ordenado */
+    ncur = 0;
+    for (int i = 0; i < nn && ncur < Bk; i++){
+      int srt[16]; memcpy(srt, nxt[i].s, sizeof srt); qsort(srt + 1, lev, sizeof(int), cmp_int);
+      int dup = 0; for (int j = 0; j < ncur && !dup; j++){ int s2[16]; memcpy(s2, cur[j].s, sizeof s2); qsort(s2 + 1, lev, sizeof(int), cmp_int); if (cur[j].orph == nxt[i].orph && !memcmp(s2, srt, sizeof(int) * (lev + 1))) dup = 1; }
+      if (!dup) cur[ncur++] = nxt[i];
+    }
+  }
+  Res R = { cur[0].orph, {0}, t }; memcpy(R.s, cur[0].s, sizeof R.s);
+  free(cur); free(nxt); free(inO); free(cc);
+  return R;
+}
+
 static void print_A(const Kit *K, char *buf){
   int p = 0;
   for (int i = 0; i < K->r; i++){ for (int j = 0; j < K->k; j++) buf[p++] = '0' + K->H[i][K->r + j]; buf[p++] = ' '; }
@@ -150,7 +205,7 @@ static void print_A(const Kit *K, char *buf){
 static void alloc_eval(Kit *K){
   cX = malloc(sizeof(int) * K->N); FB = malloc(sizeof(double complex) * K->N);
   cnt = malloc(sizeof(uint16_t) * K->N); Xbuf = malloc(sizeof(int) * K->N); inX = calloc(K->N, 1);
-  cand = malloc(sizeof(int) * K->N); NBL = malloc(sizeof(int) * K->N); NBH = malloc(sizeof(int) * K->N);
+  FO = malloc(sizeof(double complex) * K->N); cand = malloc(sizeof(int) * K->N); NBL = malloc(sizeof(int) * K->N); NBH = malloc(sizeof(int) * K->N);
   W = malloc(sizeof(double complex) * K->q);
   for (int i = 0; i < K->q; i++) W[i] = cexp(2.0 * M_PI * I * i / K->q);
 }
@@ -198,7 +253,7 @@ static int mat_inv(int M[6][6], int R[6][6]){
   for (int i = 0; i < k; i++) for (int j = 0; j < k; j++) R[i][j] = a[i][k + j];
   return 1;
 }
-static int cmp_int(const void *a, const void *b){ return *(int*)a - *(int*)b; }
+int cmp_int(const void *a, const void *b){ return *(int*)a - *(int*)b; }
 static int nn_;
 /* imagem ordenada de S pelo referencial (idx[0..k]); devolve 0 se não está em posição geral */
 static int frame_image(const int *S, const int *fr, int *out){
@@ -273,6 +328,15 @@ int main(int argc, char **argv){
     double t0 = kit_now(); int s1 = 0, s2 = 0; int b = exactT(&K, T, m, mp, &s1, &s2);
     printf("{\"q\":%d,\"n\":%d,\"R\":%d,\"A\":\"%s\",\"nBc\":%ld,\"t\":3,\"T\":%d,\"orphans\":%d,\"coset_syndromes\":[0,%d,%d],\"exact\":true,\"secs\":%.1f}\n", K.q, K.n, K.R, A, K.nBc, T, b > T ? -1 : b, s1, s2, kit_now() - t0);
     return 0; }
+  if (!strcmp(argv[1], "beam")){ /* beam q n R t B1 br Bk A */
+    K.q = atoi(argv[2]); K.n = atoi(argv[3]); K.R = atoi(argv[4]); int t = atoi(argv[5]), B1 = atoi(argv[6]), br = atoi(argv[7]), Bk = atoi(argv[8]); const char *A = argv[9];
+    int rows = 1; for (const char *p = A; *p; p++) if (*p == ' ') rows++;
+    K.r = rows; K.k = K.n - K.r; kit_init_tables(&K); kit_set_A(&K, A); alloc_eval(&K);
+    double t0 = kit_now(); Res R = beam(&K, t, B1, br, Bk);
+    printf("{\"q\":%d,\"n\":%d,\"R\":%d,\"A\":\"%s\",\"nBc\":%ld,\"t\":%d,\"orphans\":%d,\"coset_syndromes\":[0", K.q, K.n, K.R, A, K.nBc, t, R.orph);
+    for (int j = 1; j < t; j++) printf(",%d", R.s[j]);
+    printf("],\"exact\":false,\"secs\":%.2f}\n", kit_now() - t0);
+    return 0; }
   if (!strcmp(argv[1], "canon")){ /* canon q n R A : forma canônica do código de H=[I|A] */
     q_ = K.q = atoi(argv[2]); nn_ = K.n = atoi(argv[3]); K.R = atoi(argv[4]);
     const char *A = argv[5]; int rows = 1; for (const char *p = A; *p; p++) if (*p == ' ') rows++;
@@ -311,7 +375,7 @@ int main(int argc, char **argv){
           acc++;
           if (evalflag){
             code_from_points(&K, S);
-            Res R = evaluate(&K, t, nS1, 0);
+            Res R = nS1 < 0 ? beam(&K, t, 0, 8, -nS1) : evaluate(&K, t, nS1, 0);
             char Ab[128]; print_A(&K, Ab);
             printf("{\"pts\":[");
             for (int i = 0; i < nn_; i++) printf("%s%d", i ? "," : "", S[i]);
