@@ -52,6 +52,17 @@
       "agente": null,
       "lacuna": "Anteriores à regra. O README da v0.3 diz que foram checados por três verificadores independentes, mas não registra como foram gerados (K5(10,4) ≤ 625 é um código linear [10,4]_5).",
       "gap": "predate the provenance rule; checked by three independent verifiers, but how they were generated was not recorded (K_5(10,4) ≤ 625 is a linear [10,4]_5 code)."
+    },
+    "P-1141": {
+      "codigo": "data/codes/q7_n9_R4_M1141.txt",
+      "gerador": "kit de busca do agente E: enumeração exata das 6362 classes de [9,3]_7 + otimizador de remendo",
+      "commit": null,
+      "seed": null,
+      "comando": null,
+      "data": "2026-10-02",
+      "agente": "agente E (subagente Claude, VM lean-build2)",
+      "lacuna": "Seed e comando exatos não registrados; a estrutura (base com 6 órfãs + 112 palavras) está em data/structured/q7_n9_R4_M1141.json.",
+      "gap": "the exact seed and command of the patch search were not recorded; the structure is in data/structured/q7_n9_R4_M1141.json."
     }
   }
 }

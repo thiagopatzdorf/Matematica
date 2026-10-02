@@ -77,7 +77,7 @@ def test_publicar_faz_newversion_apaga_herdado_sobe_pdf_metadados_e_publica_ness
     metodos = [(m, u.rsplit("/", 2)[-2:]) for m, u, _ in falso.chamadas]
     assert [m for m, _ in metodos] == ["POST", "GET", "DELETE", "PUT", "PUT", "POST"]
     assert falso.chamadas[0][1].endswith("/23085770/actions/newversion")
-    assert falso.chamadas[3][1].endswith("/covering-codes-lean-kernel-v0.3.0.pdf")
+    assert falso.chamadas[3][1].endswith("/covering-codes-lean-kernel-v0.4.0.pdf")
     assert all(auth == f"Bearer {TOKEN}" for _, _, auth in falso.chamadas)
     out = capsys.readouterr()
     assert "PUBLICADO 10.5281/zenodo.1" in out.out
@@ -115,16 +115,16 @@ def test_nenhum_segredo_no_codigo_de_publicacao():
     assert 'environ.get("ZENODO_TOKEN"' in fonte or "ZENODO_TOKEN" in fonte
 
 
-def test_pagina_genesis_mostra_as_nove_cotas_lean_e_as_duas_so_computacionais(ledger_recortado, tmp_path):
+def test_pagina_genesis_mostra_as_nove_cotas_lean_e_nenhuma_so_computacional(ledger_recortado, tmp_path):
     saida = tmp_path / "p.html"
     genesis_page.main(["--ledger", str(ledger_recortado / "cells.json"), "--doi", "10.5281/zenodo.23092580",
-                       "--tag", "v0.3.0", "--data", "2026-10-02", "--saida", str(saida)])
+                       "--tag", "v0.4.0", "--data", "2026-10-02", "--saida", str(saida)])
     html = saida.read_text()
     assert html.count('<span class="ok">Lean kernel</span>:') == 9
-    assert html.count('<span class="cp">computer only</span> (not yet a Lean theorem)') == 2
-    for decl in ("CoveringKernel.K7_9_4_le_1351_kernel", "SC.K_2_6_1_eq12", "CoveringKernel.K5_9_5_le_50_kernel"):
+    assert html.count('<span class="cp">computer only</span> (not yet a Lean theorem)') == 0
+    for decl in ("Syn.K7_9_4_le_1141_syn", "Syn.K7_8_3_le_1887_syn", "SC.K_2_6_1_eq12", "CoveringKernel.K5_9_5_le_50_kernel"):
         assert decl in html
-    assert "<b>≤ 1285</b>" in html and "<b>≤ 1887</b>" in html
+    assert "<b>≤ 1141</b>" in html and "<b>≤ 1887</b>" in html
     assert 'name="citation_doi" content="10.5281/zenodo.23092580"' in html
     assert "1475 <span" in html  # a melhor superior publicada que batemos em K7(9,4)
     assert "the origin of the 322 greedily added words was not recorded" in html
