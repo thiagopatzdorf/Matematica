@@ -1,24 +1,25 @@
 # Lean 4 + Mathlib: cotas de cobertura, verificadas pelo kernel
 
-The note is [paper/main.pdf](paper/main.pdf), source [paper/main.tex](paper/main.tex). Tag `v0.4.0`; DOI conceitual
+The note is [paper/main.pdf](paper/main.pdf), source [paper/main.tex](paper/main.tex). Tag `v0.5.0`; DOI conceitual
 [10.5281/zenodo.23085769](https://doi.org/10.5281/zenodo.23085769) (aponta sempre para a versão mais nova).
 
 Estado (2026-10-02), Lean 4.34.1 + Mathlib v4.34.1, VM e2-highmem-8:
 
 * `lake build` (alvo padrão, agora com `SynCheck`/`SynBridge`, clone limpo): **passa**, 8944 jobs, 4 min 16 s, pico 10,0 GB. Também roda no CI do GitHub a cada push.
 * `lake build CoveringHeavy` (`K_2(6,1) = 12` e as oito cotas superiores): **passa**, 9181 jobs, 1 h 54 min de relógio (~9,3 h de CPU), pico 9,4 GB por processo.
-* `lake build CoveringSyn` (os quatro certificados por síndromes): **passa**, 8983 jobs, 10 min 35 s de relógio (~37 min de CPU para os quatro), pico 6,9 GB por processo.
+* `lake build CoveringSyn` (os quatro certificados por síndromes da v0.4): **passa**, 8983 jobs, 10 min 35 s de relógio (~37 min de CPU para os quatro), pico 6,9 GB por processo.
+* `lake build CoveringLean.Syn_K1137` (v0.5, `K_7(9,4) ≤ 1137`): **passa**, 2 min 41 s em 8 núcleos (331 s de CPU), pico 6,7 GB; `#print axioms` só `propext, Classical.choice, Quot.sound`.
 
 Nenhum `sorry`, nenhum `native_decide`, e todo `#print axioms` mostra no máximo `propext, Classical.choice, Quot.sound`.
 
-## v0.4: `K_7(9,4) ≤ 1141` e mais sete cotas superiores, todas no kernel
+## v0.5: `K_7(9,4) ≤ 1137` e mais sete cotas superiores, todas no kernel
 
 Um teorema `∃ C : Finset (Fin n → ZMod q), C.card = M ∧ Covers R C` por célula. Em cada célula a lista em Lean
 decodifica para o arquivo de `data/codes/` com o mesmo sha256 canônico.
 
 | célula | nossa | anterior | declaração | certificado |
 |---|---:|---:|---|---|
-| `K_7(9,4)` | **1141** | 1475 (Marosi 2026) | `Syn.K7_9_4_le_1141_syn` (também `…_1285_syn`, `…_1351_syn`, `CoveringKernel.K7_9_4_le_1351_kernel`) | síndromes |
+| `K_7(9,4)` | **1137** | 1475 (Marosi, arXiv:2608.19872v3) | `Syn.K7_9_4_le_1137_syn` (também `…_1141_syn`, `…_1285_syn`, `…_1351_syn`, `CoveringKernel.K7_9_4_le_1351_kernel`) | síndromes |
 | `K_7(8,3)` | 1887 | 2337 (Kéri) | `Syn.K7_8_3_le_1887_syn` (também `CoveringKernel.K7_8_3_le_1893_kernel`) | síndromes |
 | `K_5(10,4)` | 625 | 875 | `CoveringKernel.K5_10_4_le_625_kernel` | prefixos |
 | `K_5(9,3)` | 1250 | 1275 | `CoveringKernel.K5_9_3_le_1250_kernel` | prefixos |
@@ -29,11 +30,17 @@ decodifica para o arquivo de `data/codes/` com o mesmo sha256 canônico.
 
 **Dois certificados.** Prefixos (`K2_*`, `K3_*`, lib `CoveringHeavy`): ~12 h de CPU para `(Z/7)^9`. Síndromes
 (`SynCheck` só com o núcleo do Lean, `SynBridge` com Mathlib, lib `CoveringSyn`): o mesmo 1351 em ~8 min de CPU,
-folhas ≤ 1,8 GB; o 1141 em ~9 min. Gerador: `scripts/syndrome/gen_syn.py` (lê o formato `covering-code/v1`).
+folhas ≤ 1,8 GB; o 1141 em ~9 min, o 1137 em 5,5 min. Gerador: `scripts/syndrome/gen_syn.py` (lê o formato `covering-code/v1`).
 
 **Como os códigos foram achados:** todos são cosets de um código linear + remendo. O 1141 vem da enumeração das
 6362 classes de `[9,3]_7`, com avaliação exata das síndromes órfãs (6, contra 27 da base original), e de um
-otimizador de remendo (112 palavras). Ver `data/structured/` e `ledger/`.
+otimizador de remendo (112 palavras); o 1137 usa a mesma base com 108 palavras, achadas por LNS com subproblema exato
+(ILP no HiGHS). Nessa base o remendo precisa de pelo menos ⌈2058/24⌉ = 86 palavras (uma bola de raio 4 cobre no máximo 24
+dos 2058 pontos órfãos); o intervalo 86–108 está em aberto. Ver `data/structured/` e `ledger/`.
+
+**Varredura das bases (em auditoria, fora das afirmações):** `docs/audit/` na branch `feat/kit-de-busca`. A lista de
+6362 classes é completa (fórmula de massa); o mínimo exato de órfãs por classe e as 1375 classes degeneradas estão sendo
+fechados com teste diferencial e verificador independente.
 
 ## Resultados da v0.3
 

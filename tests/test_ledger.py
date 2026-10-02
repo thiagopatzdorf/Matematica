@@ -13,13 +13,13 @@ def _celulas(ldir):
     return {(c["q"], c["n"], c["R"]): c for c in build.carregar(ldir / "cells.json")["cells"]}
 
 
-def test_k7_9_4_publicado_e_marosi_1475_mas_o_melhor_conhecido_e_o_nosso_1141_no_lean(ledger_recortado):
+def test_k7_9_4_publicado_e_marosi_1475_mas_o_melhor_conhecido_e_o_nosso_1137_no_lean(ledger_recortado):
     c = _celulas(ledger_recortado)[(7, 9, 4)]
     assert c["published"]["ub"] == {"value": 1475, "source": "marosi_2026", "ref": build.ROTULO["marosi_2026"]}
     assert c["published"]["sources"]["keri_2011"]["ub"] == 1843
     assert c["published"]["lb"]["value"] == 264
-    assert c["ours_lean"]["M"] == 1141 and c["ours_lean"]["declaration"] == "Syn.K7_9_4_le_1141_syn"
-    assert c["best"] == {"ub": 1141, "holder": "ours_lean", "beats_published": True}
+    assert c["ours_lean"]["M"] == 1137 and c["ours_lean"]["declaration"] == "Syn.K7_9_4_le_1137_syn"
+    assert c["best"] == {"ub": 1137, "holder": "ours_lean", "beats_published": True}
     assert c["status"] == "ours_lean"
     assert c["marosi_attacked"]["ub"] is True
 

@@ -63,6 +63,17 @@
       "agente": "agente E (subagente Claude, VM lean-build2)",
       "lacuna": "Seed e comando exatos não registrados; a estrutura (base com 6 órfãs + 112 palavras) está em data/structured/q7_n9_R4_M1141.json.",
       "gap": "the exact seed and command of the patch search were not recorded; the structure is in data/structured/q7_n9_R4_M1141.json."
+    },
+    "P-1137": {
+      "codigo": "data/codes/q7_n9_R4_M1137.txt",
+      "gerador": "kit de busca (feat/kit-de-busca be52cc2): mesma base de 6 órfãs do 1141 + patch_opt (recozimento, partida do zero) e patch_lns (LNS com ILP exato no HiGHS)",
+      "commit": "be52cc2",
+      "seed": null,
+      "comando": null,
+      "data": "2026-10-02",
+      "agente": "agente E (subagente Claude, contêiner local + VM lean-build2)",
+      "lacuna": "Seed e comando exatos não registrados; os parâmetros que reconstroem o código estão em data/search/p1137.json e a estrutura (base com 6 órfãs + 108 palavras) em data/structured/q7_n9_R4_M1137.json.",
+      "gap": "the exact seed and command of the patch search were not recorded; data/search/p1137.json rebuilds the code and data/structured/q7_n9_R4_M1137.json has its structure (6-orphan base + 108 words)."
     }
   }
 }
