@@ -1,0 +1,14 @@
+{
+ "thr": 24,
+ "n_types": 9,
+ "n_x": 3087,
+ "c_low": 19,
+ "lp_only": true,
+ "status": 0,
+ "message": "Optimization terminated successfully. (HiGHS Status 7: Optimal)",
+ "secs": 119.22242975234985,
+ "primal": 85.74999999999575,
+ "dual_bound": null,
+ "n_high_used": 86,
+ "y": 1.062286244771787e-12
+}

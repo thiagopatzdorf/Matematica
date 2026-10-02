@@ -1,0 +1,133 @@
+{
+ "A": "666 065 652 643 621 615",
+ "trio": [
+  0,
+  4191,
+  7708
+ ],
+ "orphan_syndromes": [
+  19141,
+  37272,
+  63434,
+  75935,
+  89846,
+  111459
+ ],
+ "P_size": 2058,
+ "max_points_of_P_in_one_ball": 24,
+ "hist_ball_coverage_by_syndrome_type": {
+  "0": 3,
+  "3": 276,
+  "4": 621,
+  "5": 3510,
+  "6": 9604,
+  "7": 13176,
+  "8": 20097,
+  "9": 20382,
+  "10": 17406,
+  "11": 11016,
+  "12": 8697,
+  "13": 5670,
+  "14": 3231,
+  "15": 1896,
+  "16": 864,
+  "17": 702,
+  "18": 435,
+  "19": 54,
+  "24": 9
+ },
+ "words_with_coverage_k": {
+  "0": 1029,
+  "3": 94668,
+  "4": 213003,
+  "5": 1203930,
+  "6": 3294172,
+  "7": 4519368,
+  "8": 6893271,
+  "9": 6991026,
+  "10": 5970258,
+  "11": 3778488,
+  "12": 2983071,
+  "13": 1944810,
+  "14": 1108233,
+  "15": 650328,
+  "16": 296352,
+  "17": 240786,
+  "18": 149205,
+  "19": 18522,
+  "24": 3087
+ },
+ "hist_number_of_orphan_cosets_touched": {
+  "0": 1029,
+  "1": 0,
+  "2": 21609,
+  "3": 372498,
+  "4": 3895794,
+  "5": 12669048,
+  "6": 23393629
+ },
+ "max_coverage_single_orphan_coset": 4,
+ "per_orphan_max": [
+  4,
+  4,
+  4,
+  4,
+  4,
+  4
+ ],
+ "words_touching_each_orphan_coset": [
+  36741817,
+  36741817,
+  36741817,
+  36741817,
+  36741817,
+  36741817
+ ],
+ "words_touching_exactly_one_orphan_coset": 0,
+ "hist_types_by_coverage_of_orphan0": [
+  10530,
+  48187,
+  43380,
+  14364,
+  1188
+ ],
+ "profiles_of_max_coverage_types": {
+  "(4, 4, 4, 4, 4, 4)": 9
+ },
+ "max_coverage_types": [
+  5960,
+  11892,
+  13654,
+  32373,
+  49666,
+  51578,
+  83916,
+  93522,
+  104890
+ ],
+ "max_coverage_types_affine_span_dim": 2,
+ "max_coverage_types_centroid": "246260",
+ "max_coverage_types_touching_all_6": 9,
+ "max_total_given_touched": {
+  "0": 0,
+  "1": 0,
+  "2": 6,
+  "3": 7,
+  "4": 10,
+  "5": 13,
+  "6": 24
+ },
+ "LB_trivial": 86,
+ "LP_aggregated_value": 85.75,
+ "LP_exact_value": "2058/24 = 85.75",
+ "LP_dual_certificate": "u_p = 1/24 para todo p em P; viabilidade = max_sigma sum_t Nb[t-sigma] = 24",
+ "UB_patch_size": 108,
+ "UB_patch_covers_P": true,
+ "UB_patch_coverage_hist": {
+  "18": 24,
+  "24": 84
+ },
+ "UB_patch_sum_of_coverage": 2448,
+ "UB_patch_excess_multiplicity": 390,
+ "gap_UB_minus_LB": 22
+}
