@@ -7,7 +7,7 @@ Estado (2026-10-02), Lean 4.34.1 + Mathlib v4.34.1, VM e2-highmem-8:
 
 * `lake build` (alvo padrão, agora com `SynCheck`/`SynBridge`, clone limpo): **passa**, 8944 jobs, 4 min 16 s, pico 10,0 GB. Também roda no CI do GitHub a cada push.
 * `lake build CoveringHeavy` (`K_2(6,1) = 12` e as oito cotas superiores): **passa**, 9181 jobs, 1 h 54 min de relógio (~9,3 h de CPU), pico 9,4 GB por processo.
-* `lake build CoveringSyn` (os quatro certificados por síndromes): **passa**, @@SYNREADME@@.
+* `lake build CoveringSyn` (os quatro certificados por síndromes): **passa**, 8983 jobs, 10 min 35 s de relógio (~37 min de CPU para os quatro), pico 6,9 GB por processo.
 
 Nenhum `sorry`, nenhum `native_decide`, e todo `#print axioms` mostra no máximo `propext, Classical.choice, Quot.sound`.
 
