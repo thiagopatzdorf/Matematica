@@ -33,14 +33,15 @@ global de 6 (erro de arredondamento 1,4e-12).
 | 1 | 10 | exactT × exactT2 × verify_trios | 3 = 3 = 3 órbitas, IGUAIS |
 | 1 | 30 | exactT × exactT2 | 1992 = 1992 órbitas (órfãs de 6 a 30), IGUAIS |
 | 1, 2, 3, 5 | 30 | três implementações | **em andamento** (lento: a poda quase não age com T = 30) |
-| 2 | 25 | exactT × exactT2 sym=0 × sym=1 × sementes 1 e 2 × FFT | **em andamento** (fila do red team) |
+| 2 | 25 | exactT2 sym=1, semente 1 (mu=18, m≈201) × semente 2 (mu=5, m≈56) | **78 = 78 órbitas, IGUAIS** (18 com 21 órfãs, 36 com 24, 24 com 25; mínimo 21): a poda não depende da amostra Y |
+| 2 | 25 | exactT × exactT2 sym=0 × sym=1 × FFT | **em andamento** (fila do red team) |
 
 ## Limites deste teste
 
 - O `verify_trios` não é independente no método, só na implementação. A única contagem sem poda é a
   FFT, até agora numa classe.
 - A semente da amostra Y é fixa no binário oficial. A independência em relação a Y é garantida pelo
-  argumento (a poda vale para qualquer Y ⊂ X); o teste empírico com sementes diferentes está na fila
-  do red team.
+  argumento (a poda vale para qualquer Y ⊂ X); o teste empírico com duas sementes e dois tamanhos de amostra na classe 2 (T=25) deu conjuntos
+  idênticos.
 - Recontar as 7737 classes sem o `exactT2` custaria ~550 h de CPU com a FFT ou ~200–400 h com o
   `verify_trios`. Não foi feito.
