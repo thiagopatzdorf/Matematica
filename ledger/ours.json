@@ -7,7 +7,7 @@
       "ours_lean": {"M": 1351, "declaration": "CoveringKernel.K7_9_4_le_1351_kernel", "tag": "v0.3.0", "file": "data/codes/q7_n9_R4_M1351.txt", "sha256": "6d1b0e1abb8079df06a28d5301607d3d5247e0f2005d72e13f695ce26f6e6b52", "provenance": "P-1351"}
     },
     "7,8,3": {
-      "ours_computational": {"M": 1887, "file": "data/codes/q7_n8_R3_M1887.txt", "sha256": "557cf336b0a6134f3c860524b167d837f98d96354dd89bac182342ded784f251", "provenance": "P-1887"},
+      "ours_computational": {"M": 1887, "file": "data/codes/q7_n8_R3_M1887.txt", "sha256": "98531afbd8afbcec54ec01d441836ce706f8702ece4df594447789af6732643b", "provenance": "P-1887"},
       "ours_lean": {"M": 1893, "declaration": "CoveringKernel.K7_8_3_le_1893_kernel", "tag": null, "tag_pendente": "v0.4.0", "file": "data/codes/q7_n8_R3_M1893.txt", "sha256": "07e2f3c1c65608b037fb13a2e85fd9ea25c2ace2bcc9e30a128e1833c2d06e28", "provenance": "P-legado"}
     },
     "5,10,4": {

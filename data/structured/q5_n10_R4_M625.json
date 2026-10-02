@@ -1,0 +1,55 @@
+{
+ "format": "covering-code/v1",
+ "q": 5,
+ "n": 10,
+ "R": 4,
+ "M": 625,
+ "digit_convention": "word text s[0]..s[n-1]; integer w = sum_k s[k]*q^k; digit k = (w // q^k) % q",
+ "linear_base": {
+  "k": 4,
+  "generator": [
+   "1241401000",
+   "0442210100",
+   "1011340010",
+   "2431010001"
+  ],
+  "info_columns": [
+   6,
+   7,
+   8,
+   9
+  ],
+  "parity_check": [
+   "1000004043",
+   "0100003101",
+   "0010001142",
+   "0001004344",
+   "0000101320",
+   "0000010414"
+  ],
+  "check_columns": [
+   0,
+   1,
+   2,
+   3,
+   4,
+   5
+  ],
+  "coset_syndromes": [
+   "000000"
+  ]
+ },
+ "subcode_cosets": [],
+ "patch_words": [],
+ "provenance": {
+  "generator": null,
+  "commit": null,
+  "seed": null,
+  "command": null,
+  "date": null,
+  "agent": null,
+  "repo_commit": "562fa42",
+  "notes": "busca anterior à v0.3; o gerador não foi registrado. repo_commit é onde o .txt entrou no repo."
+ },
+ "canonical_sha256": "9e6866710516586faa66b91b5130c4d3c2c4c6857c5d38abfa554ecd37ef42e7"
+}
