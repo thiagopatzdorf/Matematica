@@ -118,13 +118,14 @@ static void v_list(W32 w, void *c){ (void)c;
 /* ---------- SA ---------- */
 static uint16_t *cov; static int32_t *unc, *upos; static long nunc;
 static uint8_t *sel; static int32_t *sl[2], *spos; static int nsel[2];
-static inline void unc_add(int32_t p){ upos[p] = (int32_t)nunc; unc[nunc++] = p; }
-static inline void unc_del(int32_t p){ int32_t i = upos[p]; int32_t last = unc[--nunc]; unc[i] = last; upos[last] = i; upos[p] = -1; }
+static uint32_t *wt; static long long wunc; /* pesos (modo --wls) */
+static inline void unc_add(int32_t p){ upos[p] = (int32_t)nunc; unc[nunc++] = p; wunc += wt[p]; }
+static inline void unc_del(int32_t p){ int32_t i = upos[p]; int32_t last = unc[--nunc]; unc[i] = last; upos[last] = i; upos[p] = -1; wunc -= wt[p]; }
 static void add_c(long c){ sel[c] = 1; int ty = ctype[c]; spos[c] = nsel[ty]; sl[ty][nsel[ty]++] = (int32_t)c;
   for (long i = coff[c]; i < coff[c + 1]; i++){ int32_t p = clist[i]; if (cov[p]++ == 0) unc_del(p); } }
 static void rem_c(long c){ sel[c] = 0; int ty = ctype[c]; int32_t i = spos[c]; int32_t last = sl[ty][--nsel[ty]]; sl[ty][i] = last; spos[last] = i;
   for (long k = coff[c]; k < coff[c + 1]; k++){ int32_t p = clist[k]; if (--cov[p] == 0) unc_add(p); } }
-static int loss_c(long c){ int l = 0; for (long i = coff[c]; i < coff[c + 1]; i++) if (cov[clist[i]] == 1) l++; return l; }
+static int loss_c(long c){ int l = 0; for (long i = coff[c]; i < coff[c + 1]; i++) if (cov[clist[i]] == 1) l += wt[clist[i]]; return l; }
 static int gain_c(long c){ int g = 0; for (long i = coff[c]; i < coff[c + 1]; i++) if (cov[clist[i]] == 0) g++; return g; }
 
 static const char *outp = "patch"; static char baseA[256]; static int csyn[16]; static int frozen_mode; static char frozen_file[512];
@@ -160,7 +161,7 @@ int main(int argc, char **argv){
   if (argc < 2){ fprintf(stderr, "uso: patch_opt base.json [opções] (ver cabeçalho)\n"); return 2; }
   char *js = slurp(argv[1]);
   q = (int)jint(js, "q", 7); n = (int)jint(js, "n", 9); R = (int)jint(js, "R", 4);
-  int L = 36, Wn = 8, tauw = 0, taul = 0, ndirs_auto = 1; double secs = 600, T0 = 1.2, T1 = 0.3; long cyc = 2000000; unsigned long long seed = 1;
+  int L = 36, Wn = 8, tauw = 0, taul = 0, ndirs_auto = 1; double secs = 600, T0 = 1.2, T1 = 0.3; long cyc = 2000000, wls = 0; unsigned long long seed = 1;
   char dirarg[1024] = "", initf[512] = "";
   for (int i = 2; i < argc; i++){
     if (!strcmp(argv[i], "--dirs")) snprintf(dirarg, sizeof dirarg, "%s", argv[++i]);
@@ -175,6 +176,7 @@ int main(int argc, char **argv){
     else if (!strcmp(argv[i], "--T0")) T0 = atof(argv[++i]);
     else if (!strcmp(argv[i], "--T1")) T1 = atof(argv[++i]);
     else if (!strcmp(argv[i], "--cyc")) cyc = atol(argv[++i]);
+    else if (!strcmp(argv[i], "--wls")) wls = atol(argv[++i]);
     else if (!strcmp(argv[i], "--out")) outp = argv[++i];
     else { fprintf(stderr, "opção desconhecida %s\n", argv[i]); return 2; }
   }
@@ -306,6 +308,7 @@ int main(int argc, char **argv){
   for (long p = 0; p < nres; p++) if (poff[p + 1] == poff[p]){ char s[32]; word_str(resid[p], s); fprintf(stderr, "ponto %s sem candidato: baixe tauw/taul\n", s); return 3; }
 
   /* ---- SA ---- */
+  wt = malloc(sizeof(uint32_t) * nres); for (long p = 0; p < nres; p++) wt[p] = 1;
   cov = calloc(nres, sizeof(uint16_t)); unc = malloc(sizeof(int32_t) * nres); upos = malloc(sizeof(int32_t) * nres);
   nunc = 0; for (long p = 0; p < nres; p++) unc_add((int32_t)p);
   sel = calloc(ncand, 1); spos = malloc(sizeof(int32_t) * ncand); sl[0] = malloc(sizeof(int32_t) * (ncand + 1)); sl[1] = malloc(sizeof(int32_t) * (ncand + 1));
@@ -344,9 +347,11 @@ int main(int argc, char **argv){
       int ty = ctype[c]; if (nsel[ty] == 0) continue;
       long r = -1; int rl = 1 << 30;
       for (int s2 = 0; s2 < 3; s2++){ long x = sl[ty][kit_rnd() % nsel[ty]]; int l = loss_c(x); if (l < rl){ rl = l; r = x; } }
-      long U0 = nunc;
+      long long U0 = wls ? wunc : (long long)nunc;
       add_c(c); rem_c(r);
-      long dU = (long)nunc - U0;
+      long dU = (long)((wls ? wunc : (long long)nunc) - U0);
+      /* --wls N: pesos de quebra (breakout): a cada N movimentos, todo ponto descoberto ganha +1 */
+      if (wls && it % wls == 0){ for (long u = 0; u < nunc; u++) wt[unc[u]]++; wunc += nunc; }
       if (dU <= 0 || (double)(kit_rnd() >> 11) * (1.0 / 9007199254740992.0) < exp(-dU / T)){
         if ((long)nunc < bestU){ bestU = nunc; if (bestU <= 3 || it % 1 == 0) { /* progress */ } }
       } else { add_c(r); rem_c(c); }
