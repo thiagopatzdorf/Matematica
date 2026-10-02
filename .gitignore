@@ -1,3 +1,7 @@
 /.lake
-tools/verify/verify
+ledger/.cache/
+runs/
 __pycache__/
+.pytest_cache/
+build/
+tools/verify/verify
