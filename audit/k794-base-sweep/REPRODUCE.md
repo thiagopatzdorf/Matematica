@@ -5,7 +5,7 @@ Os programas estão na branch `feat/kit-de-busca` deste repositório, no commit 
 
 ```bash
 git clone -b feat/kit-de-busca https://github.com/thiagopatzdorf/Matematica.git kit && cd kit
-git checkout <kit_commit>
+git checkout 757b014   # = kit_commit em COMPUTE_CERTIFICATE.json
 gcc -O3 -march=native -o bs scripts/search/base_search.c -lm
 gcc -O3 -march=native -o vt scripts/audit/verify_trios.c        # verificador independente
 ```

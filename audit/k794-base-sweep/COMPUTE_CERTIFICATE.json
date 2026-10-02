@@ -1,0 +1,58 @@
+{
+  "titulo": "Varredura exata do mínimo de síndromes órfãs em bases de 3 classes laterais de códigos [9,3]_7 (K_7(9,4), raio 4)",
+  "data": "2026-10-02",
+  "natureza": "registro de reprodução de uma computação; NÃO é um certificado curto de verificação rápida nem uma prova formal",
+  "afirmacao_computacional": "Sobre as 7737 classes monomiais de códigos [9,3]_7 (6362 não degeneradas + 1375 degeneradas), o mínimo de |Bc ∩ (Bc+s1) ∩ (Bc+s2)| sobre os trios de síndromes, com B = {He : wt(e) <= 4}, vale 6 e é atingido só pela classe A = '666 065 652 643 621 615'; toda outra classe tem mínimo >= 9.",
+  "condicionada_a": "exatidão do programa exactT2 (base_search.c), argumentada em docs/audit/exactT2_correctness.md e testada por amostra; não verificada formalmente; varredura não refeita de forma independente",
+  "nao_afirma": [
+    "nenhuma cota inferior para K_7(9,4) (a conhecida segue 264)",
+    "que 1137 seja ótimo",
+    "nada sobre bases com t != 3 classes laterais ou outra dimensão",
+    "que a base com menos órfãs leve ao menor código"
+  ],
+  "teorema_lean_relacionado": {
+    "declaracao": "Syn.K7_9_4_le_1137_syn",
+    "enunciado": "∃ C : Finset (Fin 9 → ZMod 7), C.card = 1137 ∧ CoveringA2.Covers 4 C",
+    "axiomas": ["propext", "Classical.choice", "Quot.sound"],
+    "independente_desta_varredura": true
+  },
+  "programas": {
+    "repositorio": "https://github.com/thiagopatzdorf/Matematica",
+    "kit_branch": "feat/kit-de-busca",
+    "kit_commit": "757b014",
+    "motor_commit_em_producao": "3c4ed99 (base_search.c idêntico até 757b014)",
+    "modo": "exactT2 7 9 4 T=8 A mu=18 maxprint=1000 sym=1",
+    "versoes_por_classe": {"exactT m=200 (be52cc2)": 272, "exactT2 sym=1 (75a844b)": 654, "exactT2 sym=1, contêiner local (75a844b)": 62, "exactT2 sym=1 SWAR (3c4ed99)": 6749},
+    "proveniencia": "deduzida pelo horário de cada arquivo (os resultados não gravam commit/mu/sym); todas as variantes têm a mesma saída pelos argumentos de equivalência"
+  },
+  "entradas": {
+    "classes_nao_degeneradas": {"arquivo": "data/classes_nao_degeneradas.jsonl.gz", "linhas": 6362, "sha256_descomprimido": "4e2035d93538f808e679771be576c2046d59672bc70657d1e45e5b491ce7bad1", "gerado_por": "base_search enum 7 9 3 4 1 0, ordenado por (nBc, A)"},
+    "classes_degeneradas": {"arquivo": "data/classes_degeneradas.jsonl.gz", "linhas": 1375, "sha256_descomprimido": "2a66e7fd183ff34ac102afbdda0ed6c6897dd3daee761aeb0e2f8d09f4f60e57", "gerado_por": "scripts/audit/degenerate.py"}
+  },
+  "completude_das_listas": {
+    "formula_de_massa": {"PGL_3_7": 5630688, "soma_sobre_6362_classes": 31931793642, "multiconjuntos_com_referencial": 31931793642, "iguais": true},
+    "enumeracoes_independentes": ["scripts/audit/pg2_orbits.c (auditoria de completude)", "scripts/audit/redteam/rt_orbits.c (red team, forma canônica diferente): 7737 classes, 0 pares equivalentes, massa por número de colunas nulas fecha em z=0..6"],
+    "degeneradas_por_tipo": {"z=0 sem referencial": 78, "z=1": 1049, "z=2": 189, "z=3": 44, "z=4": 11, "z=5": 3, "z=6": 1}
+  },
+  "contabilidade": {
+    "nao_degeneradas": {"expected": 6362, "processed": 6362, "missing": 0, "duplicates": 0, "divergent": 0, "A_mismatch": 0, "not_exact_or_bad_T": 0, "stray_files": 0, "histograma_T8": {"-1": 6361, "6": 1}, "sha256_ledger": "832923b88570eec3d184b7dee39f9131b6831d73e6d5b3d17bfe56cfa4aa88fb"},
+    "degeneradas": {"expected": 1375, "processed": 1375, "missing": 0, "duplicates": 0, "divergent": 0, "A_mismatch": 0, "not_exact_or_bad_T": 0, "stray_files": 0, "histograma_T8": {"-1": 1375}, "sha256_ledger": "eb0b050c23e9691caffc372d017b6c90cbb9aed483dbfb7f6160867c0e27d501"},
+    "conferencia_independente_red_team": "rt_coverage.py: 0 faltando/extras/duplicados; A, nBc e parâmetros lidos de dentro de cada arquivo batem com a linha; mínimo do arquivo = menor TRIO; os 62 arquivos locais idênticos byte a byte às cópias no shard"
+  },
+  "validacao": {
+    "argumentos": "docs/audit/exactT2_correctness.md (amostra adaptativa, blocos, simetria do trio com prova dos 4 pontos, SWAR, uint16)",
+    "teste_swar": "10 058 800 comparações com kit_sub, 0 divergências; idx18 sem colisões em 117 649 elementos",
+    "diferencial_T8": "14/14 classes estratificadas iguais em exactT, exactT2 e verify_trios",
+    "diferencial_T_maior": "classe 1: T=10 (três implementações, 3 órbitas) e T=30 (exactT × exactT2, 1992 órbitas) iguais",
+    "fft_sem_poda": "classe 1, T=8: mesmas 3 órbitas, mínimo global 6",
+    "pendente_nao_bloqueante": ["T=30 três implementações nas classes 2, 3, 5", "classe 2 T=25 com sementes diferentes e sym=0/1 e FFT (red team)", "T=20 nas 120 primeiras classes (38/120 feitas: só a classe 1 tem trio <= 20)"]
+  },
+  "residual_da_base_campea": {
+    "orfas": 6, "pontos_orfaos": 2058, "max_pontos_por_bola": 24,
+    "cota_inferior_remendo": 86, "lp": 85.75, "melhor_remendo_conhecido": 108, "gap": 22,
+    "menor_codigo_possivel_com_esta_base": 1115,
+    "fonte": "docs/audit/champion_and_residual.md (kit)"
+  },
+  "artefatos": {"checksums": "data/CHECKSUMS.sha256", "resultados_brutos": "data/raw_results.tar.gz (7737 + 62 cópias locais + 2 logs)", "por_classe": "data/RESULTS.csv"},
+  "custo": {"usd_estimado": 1.25, "teto_autorizado_usd": 25, "maquinas": "3 x e2-highcpu-8 spot (11:52–13:35) e 3 x t2d-standard-8 spot (13:37–15:17), destruídas", "tempo_relogio": "6362 classes em ~2 h depois da troca para exactT2; 1375 degeneradas em ~20 min"}
+}

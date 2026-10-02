@@ -22,10 +22,12 @@ com raio 4, as 343 palavras dela.
 | 2 | `órfãs` só depende do trio a menos de translação e de escalar | provado no papel | `docs/audit/exactT2_correctness.md`, Lema 0 (kit) |
 | 3 | as classes monomiais de `[9,3]_7` **não degeneradas** (sem coluna nula e com 4 pontos em posição geral) são exatamente as 6362 de `classes_sorted.jsonl` | verificado por computador: fórmula de massa `Σ |PGL(3,7)|/|Stab| = 31 931 793 642` = número de 9-multiconjuntos de PG(2,7) com referencial; enumeração independente reproduz as 6362 formas canônicas; 0 duplicatas | `docs/audit/enum_completeness.md` §2 |
 | 4 | as classes **degeneradas** são 1375: 1297 com coluna nula e 78 sem referencial | verificado por computador (fórmula de massa por tipo) | `data/audit/degenerate_summary.json` (kit) |
-| 5 | o mínimo exato de `órfãs` em cada uma das 6362 + 1375 classes, com limiar T = 8 | computado, auditado (ledger, diferencial) | `RESULTS.csv`, `COMPUTE_CERTIFICATE.json` |
+| 5 | o mínimo exato de `órfãs` em cada uma das 6362 + 1375 classes, com limiar T = 8 | **computado** por um único binário otimizado (`exactT2`), cuja exatidão é **argumentada** (`exactT2_correctness.md`) e **testada** por amostra: diferencial em 14 classes estratificadas, mais FFT sem poda na classe 1. A recontagem independente das 7737 classes **não** foi feita | `data/RESULTS.csv`, `COMPUTE_CERTIFICATE.json` |
 
 Juntos, os passos 1–5 dão o **mínimo de órfãs na família inteira** das bases com 3 classes
-laterais de um `[9,3]_7` (7737 classes monomiais).
+laterais de um `[9,3]_7` (7737 classes monomiais), **condicionado** à exatidão do `exactT2`.
+Essa exatidão está argumentada e testada por amostra, mas o programa não está verificado formalmente
+e a varredura não foi refeita de forma independente. Os passos 1–4 não dependem dele.
 
 ## O que esta varredura NÃO cobre
 
@@ -41,5 +43,5 @@ Para cada classe, a computação lista **todos** os trios com órfãs ≤ 8 e re
 (`orphans = -1`). Logo:
 
 - o valor exato do mínimo só é conhecido nas classes com mínimo ≤ 8;
-- nas demais, o resultado certificado é "mínimo ≥ 9". O mínimo exato acima de 8 sai de uma
-  rodada à parte com T = 20, nas 120 primeiras classes; ver `FINAL_AUDIT.md`.
+- nas demais, o resultado certificado é "mínimo ≥ 9". Uma rodada à parte com T = 20,
+  nas 120 primeiras classes (ainda parcial), aparece em `FINAL_AUDIT.md`.
