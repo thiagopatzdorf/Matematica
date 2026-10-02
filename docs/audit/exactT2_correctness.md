@@ -138,18 +138,18 @@ tem bola, aritmética e canonização próprias.
 - **Classe 1, T=30:** exactT = exactT2 nas mesmas 1992 órbitas.
 - **Amostra estratificada com T=8:** 14 classes (|Bc| mínimo, posições 2, 3, 5, 10 e 50, Q25, mediana,
   Q75, máximo e 4 sorteadas com semente 20261002) → `docs/audit/differential.md`.
-- **Conjuntos completos com T=30:** classes 1, 2, 3 e 5 → `docs/audit/differential.md`.
+- **Conjuntos completos com T=30:** classe 1 feita (1992 órbitas iguais); as classes 2, 3 e 5 estão em andamento → `docs/audit/differential.md`.
 
 ## Proveniência da varredura (que binário avaliou cada classe)
 
 | período (UTC) | onde | modo | código |
 |---|---|---|---|
-| 11:52–13:03 | VMs e2 (fz-01..03) | exactT, m=200, T=8 | `be52cc2` |
+| 11:52–13:03 | VMs e2 (fz-01..03) | exactT, m=200, T=8 | `be52cc2` (o binário foi compilado no 1º lançamento de cada VM; uma VM lançada depois de 12:40 pode ter compilado `a44bed6`, mas o modo **exactT** é idêntico nos dois commits: o `a44bed6` só acrescenta o exactT2) |
 | 13:03–13:35 | VMs e2 | exactT2, sym=1 | `75a844b` |
 | 13:05–13:11 | contêiner local, 62 classes (L = 5363–5424) | exactT2, sym=1 | árvore em `75a844b` |
 | 13:37– | VMs t2d (fz-01..03) | exactT2, sym=1, SWAR | `3c4ed99` |
 
 Todas as variantes têm, pelas seções acima, a mesma saída. O registro por classe (`ledger`) traz o
-período de cada arquivo. As cópias da VM para a factory-01 foram feitas com `rsync -a`, que preserva
+período de cada arquivo. **Limite (red team):** a versão é deduzida pelo horário do arquivo; os `c_L.out` não trazem commit, mu, sym nem m. O `base_search.c` atual da factory-01 é idêntico ao `3c4ed99`, e o motor não mudou desde então. As cópias da VM para a factory-01 foram feitas com `rsync -a`, que preserva
 o horário; os 62 arquivos locais estão listados à parte. A recontagem independente completa é o
 passo de certificado proposto no relatório.
