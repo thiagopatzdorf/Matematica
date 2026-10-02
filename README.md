@@ -37,6 +37,13 @@ Nenhum `sorry`, nenhum `native_decide`, e todo `#print axioms` mostra no máximo
 verificadores independentes fora do Lean; **ainda não são teoremas Lean**. `K5(10,4) ≤ 625` é um código linear
 `[10,4]_5`; falta conferir as tabelas de comprimento de Davydov–Marcugini–Pambianco.
 
+## Formato estruturado e verificador oficial
+
+Cada código de `data/codes/` tem uma descrição estruturada em `data/structured/` (cosets de um código linear,
+cosets de subcódigos, palavras soltas, proveniência e sha256 canônico), e `tools/verify/verify.c` (C, sem
+dependências) confere todos: `tools/verify/check_all.sh`, também no CI (`.github/workflows/verify-codes.yml`).
+Especificação e números em [docs/code-format.md](docs/code-format.md).
+
 ## O que está provado (biblioteca inteira)
 
 Espaço `Fin n → ZMod q` (A1–A3, Chain, K3) ou `Fin n → Fin q` (A6*, Search*), com `hammingDist` do Mathlib.
