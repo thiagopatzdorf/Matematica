@@ -1,6 +1,6 @@
 {
-  "title": "Covering codes checked by the Lean kernel: K_7(9,4) <= 1351 and K_2(6,1) = 12",
-  "description": "Lean 4 proofs, against Mathlib v4.34.1 and checked by the kernel with no sorry and no native_decide, of three results on the covering number K_q(n,R): an explicit 1351-word code shows K_7(9,4) <= 1351, below the best published upper bound we found (1475, Marosi 2026); K_2(6,1) >= 11 by a double-counting argument without search; and K_2(6,1) = 12 by a pruned search with a soundness proof. The library also formalizes the sphere-covering bound. Seven further codes improving the tables we consulted are verified by computer only.",
+  "title": "Covering codes checked by the Lean kernel: eight new upper bounds and K_2(6,1) = 12",
+  "description": "Lean 4 proofs, against Mathlib v4.34.1 and checked by the kernel with no sorry and no native_decide, of eight upper bounds on the covering number K_q(n,R), each by an explicit code below the corresponding table entry we found: K_7(9,4) <= 1351 (best published 1475), K_7(8,3) <= 1893, K_5(10,4) <= 625, K_5(9,3) <= 1250, K_5(7,2) <= 500, K_5(9,4) <= 250, K_4(10,4) <= 192, K_5(9,5) <= 50; also K_2(6,1) >= 11 by double counting and K_2(6,1) = 12 by a search with a soundness proof. A later search found K_7(9,4) <= 1285 and K_7(8,3) <= 1887, verified by computer and not yet formalized.",
   "upload_type": "publication",
   "publication_type": "preprint",
   "license": "cc-by-4.0",
@@ -18,11 +18,11 @@
     "K_7(9,4)",
     "K_2(6,1)"
   ],
-  "version": "0.3.0",
+  "version": "0.4.0",
   "language": "eng",
   "related_identifiers": [
     {
-      "identifier": "https://github.com/thiagopatzdorf/Matematica/tree/v0.3.0",
+      "identifier": "https://github.com/thiagopatzdorf/Matematica/tree/v0.4.0",
       "relation": "isSupplementedBy",
       "scheme": "url"
     },

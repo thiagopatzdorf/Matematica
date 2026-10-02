@@ -1,16 +1,38 @@
 # Lean 4 + Mathlib: cotas de cobertura, verificadas pelo kernel
 
-The note is [paper/main.pdf](paper/main.pdf), source [paper/main.tex](paper/main.tex). Tag `v0.3.0`; DOI conceitual
+The note is [paper/main.pdf](paper/main.pdf), source [paper/main.tex](paper/main.tex). Tag `v0.4.0`; DOI conceitual
 [10.5281/zenodo.23085769](https://doi.org/10.5281/zenodo.23085769) (aponta sempre para a versão mais nova).
 
-Estado (2026-10-01), Lean 4.34.1 + Mathlib v4.34.1, VM e2-highmem-8:
+Estado (2026-10-02), Lean 4.34.1 + Mathlib v4.34.1, VM e2-highmem-8:
 
 * `lake build` (alvo padrão, biblioteca `CoveringLean`): **passa**, 8942 jobs, 32 s, pico 7,7 GB.
-* `lake build CoveringHeavy` (os dois certificados de busca, 133 módulos): **passa**, 9073 jobs, 1 h 41 min de relógio com até 8 módulos em paralelo (~12,4 h de CPU somadas), pico 8,8 GB por processo.
+* `lake build CoveringHeavy` (`K_2(6,1) = 12` e as oito cotas superiores): **passa**, @@HEAVYREADME@@.
 
 Nenhum `sorry`, nenhum `native_decide`, e todo `#print axioms` mostra no máximo `propext, Classical.choice, Quot.sound`.
 
-## Resultados novos desta versão
+## v0.4: as oito cotas superiores viraram teoremas
+
+Mesmo pipeline do `K_7(9,4)` (`C1_Data_*` → `go` → `go_split` → `cert_of_go`), um teorema
+`CoveringKernel.K<q>_<n>_<R>_le_<M>_kernel : ∃ C, C.card = M ∧ Covers R C` por célula, todos em `CoveringHeavy`.
+Em cada célula a lista em Lean decodifica para o arquivo de `data/codes/` com o mesmo sha256 canônico.
+
+| célula | nossa | anterior | folhas `decide +kernel` |
+|---|---:|---:|---:|
+| `K_7(9,4)` | 1351 | 1475 (Marosi 2026) | 2401 |
+| `K_7(8,3)` | 1893 | 2337 (Kéri) | 343 |
+| `K_5(10,4)` | 625 | 875 | 625 |
+| `K_5(9,3)` | 1250 | 1275 | 625 |
+| `K_5(7,2)` | 500 | 525 | 25 |
+| `K_5(9,4)` | 250 | 255 | 125 |
+| `K_4(10,4)` | 192 | 208 | 64 |
+| `K_5(9,5)` | 50 | 55 | 25 |
+
+**Só verificados por computador (ainda não são teoremas Lean):** `K_7(9,4) ≤ 1285`
+(`data/codes/q7_n9_R4_M1285.txt`, sha256 canônico `aa388cc9…`; regenerado por `scripts/search/gen.py p1285.json`)
+e `K_7(8,3) ≤ 1887` (`data/codes/q7_n8_R3_M1887.txt`, `98531afb…`). Cada um foi conferido por pelo menos dois
+verificadores independentes do programa que o achou.
+
+## Resultados da v0.3
 
 | Teorema | Enunciado | Como |
 |---|---|---|
@@ -56,15 +78,16 @@ Espaço `Fin n → ZMod q` (A1–A3, Chain, K3) ou `Fin n → Fin q` (A6*, Searc
 | `C1_CoverCheck`, `K2_Core`, `K2_Loop`, `K3_Bridge` | lista de palavras → `Covers R C` com cardinal exato, checagem `go` e `go_split` |
 | `CoveringHeavy`: `SearchK6ge12`, `G610_*` | `K_2(6,1) = 12` |
 | `CoveringHeavy`: `K3_K7_9_4_Final`, `K3_K7_9_4*`, `C1_Data_K7_9_4` | `K_7(9,4) ≤ 1351` |
+| `CoveringHeavy`: `K3_<célula>_Final`, `K3_<célula>*`, `C1_Data_<célula>` (7 células) | as outras sete cotas da tabela da v0.4 |
 
 ## O que NÃO está provado (declarado)
 
-* Os outros 7 códigos de `data/codes/` não têm teorema Lean (só verificação computacional).
+* `K_7(9,4) ≤ 1285` e `K_7(8,3) ≤ 1887` não têm teorema Lean (só verificação computacional).
 * Novidade na literatura é afirmação nossa, não do Lean; a busca bibliográfica está descrita acima.
 * `A6d_SearchHeavy.lean` e `A5b_Stress.lean` continuam fora da biblioteca e não compilam (o primeiro ficou obsoleto
   com `A6e` e `SearchK6ge12`).
 * Que os enunciados formais são os pretendidos é revisão humana: leia os enunciados de `K_2_6_1_ge_11`,
-  `K_2_6_1_eq12`, `K7_9_4_le_1351_kernel` e as definições `ball`, `Covers`, `IsK` em `A2_Sphere` e `A6_Finite`.
+  `K_2_6_1_eq12`, os oito `K*_le_*_kernel` e as definições `ball`, `Covers`, `IsK` em `A2_Sphere` e `A6_Finite`.
 
 ## Reconstruir
 
