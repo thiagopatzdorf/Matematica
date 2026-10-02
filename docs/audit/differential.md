@@ -35,12 +35,13 @@ global de 6 (erro de arredondamento 1,4e-12).
 | 1, 2, 3, 5 | 30 | três implementações | **em andamento** (lento: a poda quase não age com T = 30) |
 | 2 | 25 | exactT2 sym=1, semente 1 (mu=18, m≈201) × semente 2 (mu=5, m≈56) | **78 = 78 órbitas, IGUAIS** (18 com 21 órfãs, 36 com 24, 24 com 25; mínimo 21): a poda não depende da amostra Y |
 | 2 | 25 | FFT sem poda × exactT2 sym=1 (sementes 1 e 2) | **78 = 78 = 78 órbitas, IGUAIS**; mínimo global da FFT (sem limiar) = 21 |
-| 2 | 25 | exactT × exactT2 sym=0 | **em andamento** (fila do red team) |
+| 2 | 25 | exactT × exactT2 sym=0 × exactT2 sym=1 × FFT | **78 órbitas nas quatro, IGUAIS** (mínimo 21) |
+| 3, 4 e degeneradas 319, 40 | 8 | FFT sem poda × varredura | nenhum trio ≤ 8 em nenhuma; mínimos globais exatos 24, 27, 1556 e 1756 |
 
 ## Limites deste teste
 
 - O `verify_trios` não é independente no método, só na implementação. A única contagem sem poda é a
-  FFT, feita nas classes 1 (T=8) e 2 (T=25): bateu nas duas.
+  FFT, feita nas classes 1, 2, 3, 4 e nas degeneradas 319 e 40: bateu em todas.
 - A semente da amostra Y é fixa no binário oficial. A independência em relação a Y é garantida pelo
   argumento (a poda vale para qualquer Y ⊂ X); o teste empírico com duas sementes e dois tamanhos de amostra na classe 2 (T=25) deu conjuntos
   idênticos.
