@@ -1,5 +1,5 @@
 cff-version: 1.2.0
-title: The sphere-covering bound in Lean
+title: "Covering codes checked by the Lean kernel: K_7(9,4) <= 1351 and K_2(6,1) = 12"
 message: If you use this work, please cite it using the metadata from this file.
 type: software
 authors:
@@ -8,16 +8,17 @@ authors:
     affiliation: Universidade de Caxias do Sul
     email: thiagosleman@gmail.com
 repository-code: https://github.com/thiagopatzdorf/Matematica
-url: https://genesisinnovation.io/provas/paper.pdf
+url: https://genesisinnovation.io/provas/cobertura
+doi: 10.5281/zenodo.23085769
 license: CC-BY-4.0
-version: 0.2.1
-date-released: 2026-10-01
+version: 0.3.0
+date-released: 2026-10-02
 preferred-citation:
   type: article
-  title: The sphere-covering bound in Lean
+  title: "Covering codes checked by the Lean kernel: K_7(9,4) <= 1351 and K_2(6,1) = 12"
   authors:
     - family-names: Patzdorf
       given-names: Thiago
       affiliation: Universidade de Caxias do Sul
   year: 2026
-  url: https://genesisinnovation.io/provas/paper.pdf
+  url: https://genesisinnovation.io/provas/cobertura

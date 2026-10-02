@@ -1,6 +1,6 @@
 {
-  "title": "The sphere-covering bound in Lean",
-  "description": "A Lean 4 formalization, against Mathlib v4.34.1, of the classical sphere-covering lower bound on the covering number K_q(n,R). The archive checks eight instances, including K_7(9,4) >= 221, determines several small covering numbers exactly, including K_2(7,1) = 16, and exhibits a 12-word covering giving K_2(6,1) <= 12. It does not prove upper bounds for the eight instances, and K_2(6,1) >= 11 remains conditional.",
+  "title": "Covering codes checked by the Lean kernel: K_7(9,4) <= 1351 and K_2(6,1) = 12",
+  "description": "Lean 4 proofs, against Mathlib v4.34.1 and checked by the kernel with no sorry and no native_decide, of three results on the covering number K_q(n,R): an explicit 1351-word code shows K_7(9,4) <= 1351, below the best published upper bound we found (1475, Marosi 2026); K_2(6,1) >= 11 by a double-counting argument without search; and K_2(6,1) = 12 by a pruned search with a soundness proof. The library also formalizes the sphere-covering bound. Seven further codes improving the tables we consulted are verified by computer only.",
   "upload_type": "publication",
   "publication_type": "preprint",
   "license": "cc-by-4.0",
@@ -10,13 +10,25 @@
       "affiliation": "Universidade de Caxias do Sul"
     }
   ],
-  "keywords": ["covering codes", "sphere-covering bound", "Lean", "Mathlib", "formal verification"],
-  "version": "0.2.1",
+  "keywords": [
+    "covering codes",
+    "Lean",
+    "Mathlib",
+    "formal verification",
+    "K_7(9,4)",
+    "K_2(6,1)"
+  ],
+  "version": "0.3.0",
   "language": "eng",
   "related_identifiers": [
     {
-      "identifier": "https://genesisinnovation.io/provas/paper.pdf",
-      "relation": "isIdenticalTo",
+      "identifier": "https://github.com/thiagopatzdorf/Matematica/tree/v0.3.0",
+      "relation": "isSupplementedBy",
+      "scheme": "url"
+    },
+    {
+      "identifier": "https://genesisinnovation.io/provas/cobertura",
+      "relation": "isDocumentedBy",
       "scheme": "url"
     }
   ]
