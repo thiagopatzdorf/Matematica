@@ -2,7 +2,7 @@
 """Gerador do certificado por síndromes (CoveringLean/Syn*.lean).
 
 Formato coberto: código C = (união de cosets completos de um código linear C0 = <G>) ∪ remendo.
-Entrada (JSON, combinado com o agente B):
+Entrada: JSON `covering-code/v1` (docs/code-format.md, data/structured/*.json) ou o formato simples:
 
     {"q": 7, "n": 9, "R": 4,
      "generator": ["100620621", ...],      # k linhas, dígitos w_0..w_{n-1}  (ou "A" para G=[I|A])
@@ -39,6 +39,35 @@ base_dir = os.path.dirname(os.path.abspath(a.spec))
 
 def parse(s): return [int(c) for c in s]
 def enc(v): return sum(int(d) * q**i for i, d in enumerate(v))
+
+# ---------- formato covering-code/v1 (docs/code-format.md, agente B) ----------
+if J.get("format") == "covering-code/v1":
+    lb = J["linear_base"]
+    J["generator"] = lb["generator"]
+    cc = lb["check_columns"]
+    reps_txt = []
+    for syn in lb.get("coset_syndromes", []):
+        r = [0] * n
+        for i, c in enumerate(cc): r[c] = int(syn[i])
+        reps_txt.append("".join(map(str, r)))
+    reps_txt += lb.get("coset_reps", [])
+    J["coset_reps"] = reps_txt
+    Gl = [parse(g) for g in lb["generator"]]
+    base = set()
+    for u in itertools.product(range(q), repeat=len(Gl)):
+        c0 = [sum(u[i] * Gl[i][j] for i in range(len(Gl))) % q for j in range(n)]
+        for r in reps_txt:
+            base.add("".join(str((int(r[j]) + c0[j]) % q) for j in range(n)))
+    extra = list(J.get("patch_words", []))
+    for blk in J.get("subcode_cosets", []):
+        gens = [parse(g) for g in blk["generators"]]
+        span = {tuple([0] * n)}
+        for g in gens:
+            span = {tuple((v[j] + c * g[j]) % q for j in range(n)) for v in span for c in range(q)}
+        for r in blk["reps"]:
+            extra += ["".join(str((int(r[j]) + v[j]) % q) for j in range(n)) for v in span]
+    J["patch_words"] = sorted(set(extra) - base)
+    if a.expect_sha is None: a.expect_sha = J.get("canonical_sha256")
 
 # ---------- código ----------
 if "code_file" in J:
@@ -187,6 +216,9 @@ for fi, grp in enumerate(files):
             f.write(f"theorem {nm} : {st} := by decide +kernel\n\n")
         f.write("end Syn\n")
 nT = (nt + a.chunk - 1) // a.chunk
+negT = 0
+dd = (Y[negT][None, :] != Bw).sum(-1)
+negW = int(np.argmax(dd)); negD = int(dd[negW]); assert negD > R
 thm = f"K{q}_{n}_{R}_le_{M}_syn"
 with open(f"{out}/Syn_{a.tag}.lean", "w") as f:
     f.write(hdr + "import CoveringLean.SynBridge\n")
@@ -207,8 +239,8 @@ theorem hT{a.tag} : ∀ t < {nt}, ∃ w, okT P{a.tag} t w = true :=
     match c, hc with
 """)
     for c in range(nT):
-        f.write(f"    | {c}, _ => fun i _ hlt => chkT_sound P{a.tag} _ _ _ _ T{a.tag}_{c} i (by omega)\n")
-    f.write(f"""    | c + {nT}, h => absurd h (by omega))
+        f.write(f"    | {c}, _ => exact fun i _ hlt => chkT_sound P{a.tag} _ _ _ _ T{a.tag}_{c} i (by omega)\n")
+    f.write(f"""    | c + {nT}, h => exact absurd h (by omega))
 
 theorem hO{a.tag} : ∀ i < P{a.tag}.orphs.length, ∀ a < {q**k}, ∃ j, okO P{a.tag} (P{a.tag}.orphs.getD i 0) a j = true := by
   intro i hi
@@ -225,6 +257,11 @@ theorem hB{a.tag} : ∀ s < P{a.tag}.reps.length, ∀ m < {q**k}, ∃ j, okB P{a
     for s_ in range(len(reps)):
         f.write(f"  | {s_}, _ => exact chkB_sound P{a.tag} _ _ _ _ B{a.tag}_{s_}\n")
     f.write(f"""  | s + {len(reps)}, h => exact absurd h (by have : P{a.tag}.reps.length = {len(reps)} := rfl; omega)
+
+/-- Não-vacuidade: o verificador recusa uma testemunha errada (ponto `t = {negT}`, palavra
+`{negW}` a distância {negD} > {R}). -/
+set_option maxRecDepth 100000 in
+example : okT P{a.tag} {negT} {negW} = false := by decide +kernel
 
 /-- `K_{q}({n},{R}) ≤ {M}`: o código `L{a.tag}` tem {M} palavras e cobre com raio {R}. -/
 theorem {thm} :
