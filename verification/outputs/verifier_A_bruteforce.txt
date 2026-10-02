@@ -1,0 +1,23 @@
+verificador A (força bruta, C/OpenMP)
+q = 7
+n = 9
+R = 4
+|C| = 1137
+N_0 = 1137
+N_1 = 61225
+N_2 = 1421934
+N_3 = 15340089
+N_4 = 23529222
+total = 40353607 (esperado 40353607)
+covered = 40353607
+uncovered = 0
+max_distance = 4
+farthest_points = 23529222
+example_farthest = 211100000
+example_farthest = 311100000
+example_farthest = 611100000
+PASS
+runtime_s = 232.97
+cpu_s = 371.71
+peak_memory_kb = 10312
+exit_code = 0

@@ -1,0 +1,33 @@
+== 01b_cache_get_again: nice -n 10 lake exe cache get (start 2026-10-02T20:46:10+00:00)
+== 01b_cache_get_again exit=0 (end 2026-10-02T20:48:14+00:00)
+cmd=nice -n 10 lake exe cache get
+exit=0
+wall_s=123.3 user_cpu_s=104.1 sys_cpu_s=93.0
+max_rss_single_proc_MB=949 peak_tree_rss_MB=2567 max_parallel_lean_procs=4
+== 02_lake_clean_root: lake clean CoveringLean (start 2026-10-02T20:48:14+00:00)
+== 02_lake_clean_root exit=0 (end 2026-10-02T20:48:15+00:00)
+cmd=lake clean CoveringLean
+exit=0
+wall_s=1.6 user_cpu_s=0.7 sys_cpu_s=0.9
+max_rss_single_proc_MB=816 peak_tree_rss_MB=803 max_parallel_lean_procs=0
+.lake/packages/mathlib/.lake/build/lib/lean/Mathlib.olean
+ls: cannot access '.lake/build': No such file or directory
+== 03_lake_build_default: nice -n 10 lake build (start 2026-10-02T20:48:15+00:00)
+== 03_lake_build_default exit=0 (end 2026-10-02T20:53:01+00:00)
+cmd=nice -n 10 lake build
+exit=0
+wall_s=285.5 user_cpu_s=317.8 sys_cpu_s=124.9
+max_rss_single_proc_MB=10069 peak_tree_rss_MB=28778 max_parallel_lean_procs=4
+== 04_lake_build_syn1137: nice -n 10 lake build CoveringLean.Syn_K1137 (start 2026-10-02T20:53:01+00:00)
+== 04_lake_build_syn1137 exit=0 (end 2026-10-02T20:58:19+00:00)
+cmd=nice -n 10 lake build CoveringLean.Syn_K1137
+exit=0
+wall_s=318.0 user_cpu_s=485.9 sys_cpu_s=174.5
+max_rss_single_proc_MB=6793 peak_tree_rss_MB=7739 max_parallel_lean_procs=4
+== 05_print_axioms: nice -n 10 lake env lean tmpcheck/Axioms.lean (start 2026-10-02T20:58:19+00:00)
+== 05_print_axioms exit=0 (end 2026-10-02T20:58:29+00:00)
+cmd=nice -n 10 lake env lean tmpcheck/Axioms.lean
+exit=0
+wall_s=10.1 user_cpu_s=5.7 sys_cpu_s=4.3
+max_rss_single_proc_MB=6738 peak_tree_rss_MB=7543 max_parallel_lean_procs=1
+ALLDONE 2026-10-02T20:58:29+00:00
