@@ -233,6 +233,8 @@ Código: `Syn.L{a.tag}` (sha256 canônico {sha}), união de {len(reps)} cosets c
 
 namespace Syn
 
+set_option maxRecDepth 100000
+
 theorem hT{a.tag} : ∀ t < {nt}, ∃ w, okT P{a.tag} t w = true :=
   all_of_chunks (fun t => ∃ w, okT P{a.tag} t w = true) {a.chunk} {nT} {nt} (by norm_num) (by
     intro c hc
@@ -260,14 +262,13 @@ theorem hB{a.tag} : ∀ s < P{a.tag}.reps.length, ∀ m < {q**k}, ∃ j, okB P{a
 
 /-- Não-vacuidade: o verificador recusa uma testemunha errada (ponto `t = {negT}`, palavra
 `{negW}` a distância {negD} > {R}). -/
-set_option maxRecDepth 100000 in
 example : okT P{a.tag} {negT} {negW} = false := by decide +kernel
 
 /-- `K_{q}({n},{R}) ≤ {M}`: o código `L{a.tag}` tem {M} palavras e cobre com raio {R}. -/
 theorem {thm} :
     ∃ C : Finset (Fin {n} → ZMod {q}), C.card = {M} ∧ CoveringA2.Covers {R} C :=
   syn_cert P{a.tag} L{a.tag} rfl rfl rfl ⟨rfl, by decide⟩ V{a.tag} hT{a.tag} hO{a.tag} hB{a.tag}
-    (by decide +kernel) rfl (by decide +kernel)
+    (by decide +kernel) (by decide +kernel) (by decide +kernel)
 
 end Syn
 
