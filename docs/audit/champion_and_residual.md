@@ -130,7 +130,7 @@ Cobertura de P por uma bola (histograma por tipo; multiplique por 343 para palav
 | inferior trivial | ⌈2058/24⌉ = **86** | toda bola tem ≤ 24 pontos de P (enumeração dos 117 649 tipos) |
 | LP (relaxação do set cover, todas as 7^9 colunas) | **2058/24 = 85,75** | dual u_p = 1/24 para todo p ∈ P: viável porque toda bola tem ≤ 24 pontos de P; primal: uma palavra de cobertura 24 simetrizada pelas translações e pelo grupo da base (transitivo nas 6 órfãs) cobre cada ponto com peso 24/2058 por unidade. O LP agregado de 6 linhas e o LP explícito com as 3087 colunas de cobertura 24 dão 85,75 no HiGHS |
 | superior | **108** (remendo do 1137) | conferido ponto a ponto: cobre as 2058 órfãs; 84 palavras de cobertura 24 + 24 de cobertura 18; soma das coberturas 2448, excesso 390 |
-| relaxação inteira (B.4) | PENDENTE_ILP | |
+| relaxação inteira (B.4) | 86 (não melhora) | HiGHS, 25 min: dual bound 86, raiz 85,773 após 162 cortes, 0 nós |
 
 **Gap: 108 − 86 = 22. Com esta base, o 1137 está a 22 palavras da cota inferior; o melhor
 concebível com estas 3 classes é 1029 + 86 = 1115.** O LP não melhora a cota trivial: o LP é
@@ -147,7 +147,22 @@ exatamente a cota de contagem, porque o grupo da base é transitivo nas órfãs.
 
 ### B.4 O que a integralidade exige (relaxação agregada)
 
-PENDENTE_B4
+Relaxação **válida** (não é ILP restrito; é cota): as 3087 palavras de cobertura 24 entram como
+binárias; todas as outras (cobertura ≤ 19) viram um inteiro y e folgas z_p ∈ [0,1] com
+Σ z_p ≤ 19·y. Todo remendo verdadeiro é solução dela, então o dual bound do B&B é cota inferior do
+remendo. Quebra de simetria válida: sem nenhuma palavra-24, |W| ≥ ⌈2058/19⌉ = 109 > 108; com
+alguma, uma translação por C0 a leva para a = 000.
+
+Resultado (`data/audit/champion/ilp_thr24.json`, `.log`): LP da raiz 85,75; com 162 cortes,
+85,773; dual bound **86** no limite de 25 min (1506 s, 0 nós explorados). A solução primal de 178
+é a trivial do HiGHS e não significa nada. **A relaxação não passou de 86** no tempo dado.
+
+O que fica claro na conta: com W = 86, a folga é 24·86 − 2058 = 6. Isso só deixa duas formas:
+(a) 86 palavras-24 com sobreposição total ≤ 6 (em cada classe órfã, 344 incidências para 343 pontos:
+exatamente um ponto duplo por classe); (b) 85 palavras-24 + 1 palavra de cobertura 18 ou 19
+(qualquer palavra ≤ 17 deixa 2040 + 17 < 2058). Nos dois casos, cada classe F_7^3 precisa de um
+quase-ladrilhamento por translações das formas D(t−σ_k) de 4 pontos, **com as mesmas translações
+nas 6 classes**. É um problema de cobertura exata pequeno e muito rígido.
 
 ### O que NÃO foi provado
 

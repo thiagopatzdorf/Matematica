@@ -1,0 +1,14 @@
+{
+ "thr": 24,
+ "n_types": 9,
+ "n_x": 3087,
+ "c_low": 19,
+ "lp_only": false,
+ "status": 1,
+ "message": "Time limit reached. (HiGHS Status 13: Time limit reached)",
+ "secs": 1506.1658976078033,
+ "primal": 178.0,
+ "dual_bound": 86.0,
+ "n_high_used": 178,
+ "y": -0.0
+}

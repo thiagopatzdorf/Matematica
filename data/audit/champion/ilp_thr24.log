@@ -26,3 +26,28 @@ Src  Proc. InQueue |  Leaves   Expl. | BestBound       BestSol              Gap 
 
  J       0       0         0   0.00%   -inf            178                Large        0      0      0         0     0.4s
          0       0         0   0.00%   85.75           178               51.83%        0      0      2     16956   129.5s
+         0       0         0   0.00%   85.77342332     178               51.81%        3      1      2    155447  1459.6s
+         0       0         0   0.00%   85.77343031     178               51.81%       50      3      2    156701  1479.4s
+         0       0         0   0.00%   85.77343031     178               51.81%      106      4      2    157753  1497.8s
+         0       0         0   0.00%   85.77343031     178               51.81%      162      5      2    157753  1506.1s
+
+Solving report
+  Status            Time limit reached
+  Primal bound      178
+  Dual bound        86
+  Gap               51.69%
+  P-D integral      842.46407485
+  Solution status   feasible
+                    178 (objective)
+                    0 (bound viol.)
+                    0 (int. viol.)
+                    0 (row viol.)
+  Timing            1506.14
+  Max sub-MIP depth 0
+  Nodes             0
+  Repair LPs        0
+  LP iterations     157753
+                    0 (strong br.)
+                    140797 (separation)
+                    0 (heuristics)
+{"thr": 24, "n_types": 9, "n_x": 3087, "c_low": 19, "lp_only": false, "status": 1, "message": "Time limit reached. (HiGHS Status 13: Time limit reached)", "secs": 1506.1658976078033, "primal": 178.0, "dual_bound": 86.0, "n_high_used": 178, "y": -0.0}
