@@ -23,6 +23,7 @@ com o dígito `i` igual à coordenada `i` (o caractere `i` da linha no arquivo `
 | `kit.h` | núcleo comum: tabelas de soma em `F_q^r`, bola de síndromes `B`, RNG |
 | `base_search.c` | classes de equivalência de `[n,k]_q` e órfãs exatas da base |
 | `patch_opt.c` | otimizador de remendo (SA com listas invertidas, palavras + retas) |
+| `patch_lns.py` | LNS com ILP exato (HiGHS) no subproblema: tira k palavras vizinhas e recobre ótimo |
 | `expand.py` | JSON de estrutura → lista de palavras (Python puro, para conferência cruzada) |
 | `verify.py` | verificador independente (numpy, dilatação de Hamming); imprime o sha256 canônico |
 | `coset_sa.c` | base com muitas classes laterais livres: SA direto no espaço de síndromes |
@@ -118,6 +119,19 @@ palavras soltas. Para cada par, os pontos que ficam descobertos têm de caber na
 descoberto e confere a distância aos demais. Achou: grava `prefixo_M<M-1>.json` e sai com 0.
 Não achou: certifica ótimo local e sai com 1. *Medido:* o 1140 é ótimo local
 (6105 pares em ~35 s).
+
+### patch_lns.py
+
+    patch_lns.py base.json sol.json segundos semente prefixo [k=24] [tau=12]
+
+Busca em vizinhança grande: sorteia um ponto do resíduo, tira as k palavras do remendo que
+mais tocam a vizinhança dele e resolve **exatamente** (scipy.optimize.milp/HiGHS) a
+cobertura mínima dos pontos que ficaram descobertos, com todas as palavras de cobertura
+`>= tau` como colunas (as que tocam só 1 ponto de U saem, se não deixarem ponto sem coluna).
+Ótimo < k: encolhe e grava `prefixo_M<M>.json`. Ótimo = k: anda no platô.
+*Medido* na base de 6 órfãs a partir do 1137: k=12 (~190 pontos, ~70 mil colunas) resolve
+em ~3 s; k=16, em ~6 s. Com tau=12 e k=20 o subproblema não fecha em minutos.
+Requer `pip install scipy highspy`.
 
 ### coset_sa
 
