@@ -173,41 +173,72 @@ static void build_pcH(const Kit *K){
   free(idx);
 }
 
+/* Subtração rápida em Z_q^6 (q <= 7): um dígito por byte; a - b mod q nos 6 bytes de uma vez
+ * (SWAR) e compactação para 18 bits (3 por dígito) que indexam um bitset de 32 KB (cabe no L1).
+ * Sem pext: em AMD Zen 1/2 ele é microcodificado e lento. Substitui kit_sub (tabelas de int de
+ * 470 KB, fora do cache) na montagem de X(s1) e na conferência dos s2 que passam pela amostra. */
+static inline uint64_t pk8(long x, int q){ uint64_t v = 0; for (int i = 0; i < 6; i++){ v |= (uint64_t)(x % q) << (8 * i); x /= q; } return v; }
+static inline uint64_t sub8(uint64_t a, uint64_t b, uint64_t Q8, uint64_t A8, int q){
+  uint64_t c = a + Q8 - b;                                  /* cada byte em 1..2q-1 */
+  uint64_t mge = ((c + A8) >> 7) & 0x010101010101ULL;       /* byte >= q */
+  return c - mge * (uint64_t)q; }
+static inline uint32_t idx18(uint64_t c){ uint64_t t = c | (c >> 5);
+  return (uint32_t)((t & 0x3F) | ((t >> 10) & 0xFC0) | ((t >> 20) & 0x3F000)); }
+
 static int exactT2(Kit *K, int T, double mu, int maxprint, int *bs1, int *bs2, int sym){
   kit_compute_ball(K);
   const int LO = (int)K->LO, HI = (int)K->HI;
   /* -b agrupado pela metade alta: off[h]..off[h+1] em lst (metade baixa) */
-  int *off = calloc(HI + 1, sizeof(int)), *lst = malloc(sizeof(int) * K->nBc);
+  int *off = calloc(HI + 1, sizeof(int)); uint16_t *lst = malloc(sizeof(uint16_t) * K->nBc);
+  /* tabela de soma da metade baixa em uint16 (LO <= 4096): metade do tráfego de cache do int */
+  uint16_t *add16 = malloc(sizeof(uint16_t) * (size_t)LO * LO);
+  for (long i = 0; i < (long)LO * LO; i++) add16[i] = (uint16_t)K->addlo[i];
   for (long j = 0; j < K->nBc; j++){ int nb = kit_neg(K, K->Bc[j]); off[nb / LO + 1]++; }
   for (int h = 0; h < HI; h++) off[h + 1] += off[h];
   int *pos = malloc(sizeof(int) * HI); memcpy(pos, off, sizeof(int) * HI);
-  for (long j = 0; j < K->nBc; j++){ int nb = kit_neg(K, K->Bc[j]); lst[pos[nb / LO]++] = nb % LO; }
+  for (long j = 0; j < K->nBc; j++){ int nb = kit_neg(K, K->Bc[j]); lst[pos[nb / LO]++] = (uint16_t)(nb % LO); }
   int m = (int)(mu * (double)K->N / (double)K->nBc + 0.999);
   if (m > 250) m = 250;            /* contador uint8: cnt_Y <= m */
   if (m < 1) m = 1;
   uint8_t blk[4096];
   if (sym && !pcH) build_pcH(K);
+  const int fast = (K->q <= 7 && K->r == 6);
+  const uint64_t Q8 = 0x010101010101ULL * (uint64_t)K->q, A8 = 0x010101010101ULL * (uint64_t)(128 - K->q);
+  uint64_t *inBp = NULL, *Bc8 = NULL, *X8 = NULL;
+  if (fast){
+    inBp = calloc(4096, 8); Bc8 = malloc(8 * K->nBc); X8 = malloc(8 * K->nBc);
+    for (long x = 0; x < K->N; x++) if (K->inB[x]){ uint32_t i = idx18(pk8(x, K->q)); inBp[i >> 6] |= 1ULL << (i & 63); }
+    for (long j = 0; j < K->nBc; j++) Bc8[j] = pk8(K->Bc[j], K->q);
+  }
+#define INBP(c) ((inBp[idx18(c) >> 6] >> (idx18(c) & 63)) & 1)
   int best = 1 << 30, printed = 0;
   for (long s1 = 1; s1 < K->N; s1++){
     if (!is_scal_canon(K, s1)) continue;
     const int h1 = (int)(s1 / LO), j1 = sym ? pcH[h1] : 0, nh1 = K->neghi[h1];
     int nx = 0;
-    for (long i = 0; i < K->nBc; i++){ int b = K->Bc[i]; if (!K->inB[kit_sub(K, b, (int)s1)]) Xbuf[nx++] = b; }
+    if (fast){ const uint64_t s8 = pk8(s1, K->q);
+      for (long i = 0; i < K->nBc; i++){ uint64_t c = sub8(Bc8[i], s8, Q8, A8, K->q); if (!INBP(c)){ Xbuf[nx] = K->Bc[i]; X8[nx++] = Bc8[i]; } } }
+    else for (long i = 0; i < K->nBc; i++){ int b = K->Bc[i]; if (!K->inB[kit_sub(K, b, (int)s1)]) Xbuf[nx++] = b; }
     int my = nx < m ? nx : m;
-    for (int i = 0; i < my; i++){ int j = i + (int)(kit_rnd() % (nx - i)); int t = Xbuf[i]; Xbuf[i] = Xbuf[j]; Xbuf[j] = t; }
+    for (int i = 0; i < my; i++){ int j = i + (int)(kit_rnd() % (nx - i)); int t = Xbuf[i]; Xbuf[i] = Xbuf[j]; Xbuf[j] = t;
+      if (fast){ uint64_t u8 = X8[i]; X8[i] = X8[j]; X8[j] = u8; } }
     for (int H = 0; H < HI; H++){
       if (sym && (pcH[H] < j1 || pcH[K->addhi[H * HI + nh1]] < j1)) continue;
       memset(blk, 0, LO);
       for (int i = 0; i < my; i++){ int y = Xbuf[i];
         int g = K->addhi[H * HI + K->neghi[y / LO]];          /* alta de -b = H - y_alta */
-        const int *row = K->addlo + (y % LO) * LO;
-        for (int u = off[g]; u < off[g + 1]; u++) blk[row[lst[u]]]++; }
+        const uint16_t *row = add16 + (size_t)(y % LO) * LO;
+        int u = off[g]; const int ue = off[g + 1];
+        for (; u + 4 <= ue; u += 4){ blk[row[lst[u]]]++; blk[row[lst[u + 1]]]++; blk[row[lst[u + 2]]]++; blk[row[lst[u + 3]]]++; }
+        for (; u < ue; u++) blk[row[lst[u]]]++; }
       for (int l = 0; l < LO; l++){
         if (blk[l] > T) continue;
         long s2 = l + (long)LO * H;
         if (s2 == 0 || s2 == s1) continue;
         int o = blk[l];
-        for (int i = my; i < nx && o <= T; i++) if (!K->inB[kit_sub(K, Xbuf[i], (int)s2)]) o++;
+        if (fast){ const uint64_t t8 = pk8(s2, K->q);
+          for (int i = my; i < nx && o <= T; i++){ uint64_t c = sub8(X8[i], t8, Q8, A8, K->q); if (!INBP(c)) o++; } }
+        else for (int i = my; i < nx && o <= T; i++) if (!K->inB[kit_sub(K, Xbuf[i], (int)s2)]) o++;
         if (o <= T){
           if (o < best){ best = o; *bs1 = (int)s1; *bs2 = (int)s2; }
           if (printed < maxprint){ printf("TRIO orphans=%d s1=%ld s2=%ld\n", o, s1, s2); printed++; }
@@ -215,7 +246,8 @@ static int exactT2(Kit *K, int T, double mu, int maxprint, int *bs1, int *bs2, i
       }
     }
   }
-  free(off); free(lst); free(pos);
+#undef INBP
+  free(off); free(lst); free(pos); free(add16); free(inBp); free(Bc8); free(X8);
   return best;
 }
 
