@@ -6,31 +6,34 @@ The note is [paper/main.pdf](paper/main.pdf), source [paper/main.tex](paper/main
 Estado (2026-10-02), Lean 4.34.1 + Mathlib v4.34.1, VM e2-highmem-8:
 
 * `lake build` (alvo padrão, biblioteca `CoveringLean`): **passa**, 8942 jobs, 32 s, pico 7,7 GB.
-* `lake build CoveringHeavy` (`K_2(6,1) = 12` e as oito cotas superiores): **passa**, @@HEAVYREADME@@.
+* `lake build CoveringHeavy` (`K_2(6,1) = 12` e as oito cotas superiores): **passa**, 9181 jobs, 1 h 54 min de relógio (~9,3 h de CPU), pico 9,4 GB por processo.
+* `lake build CoveringSyn` (os quatro certificados por síndromes): **passa**, @@SYNREADME@@.
 
 Nenhum `sorry`, nenhum `native_decide`, e todo `#print axioms` mostra no máximo `propext, Classical.choice, Quot.sound`.
 
-## v0.4: as oito cotas superiores viraram teoremas
+## v0.4: `K_7(9,4) ≤ 1141` e mais sete cotas superiores, todas no kernel
 
-Mesmo pipeline do `K_7(9,4)` (`C1_Data_*` → `go` → `go_split` → `cert_of_go`), um teorema
-`CoveringKernel.K<q>_<n>_<R>_le_<M>_kernel : ∃ C, C.card = M ∧ Covers R C` por célula, todos em `CoveringHeavy`.
-Em cada célula a lista em Lean decodifica para o arquivo de `data/codes/` com o mesmo sha256 canônico.
+Um teorema `∃ C : Finset (Fin n → ZMod q), C.card = M ∧ Covers R C` por célula. Em cada célula a lista em Lean
+decodifica para o arquivo de `data/codes/` com o mesmo sha256 canônico.
 
-| célula | nossa | anterior | folhas `decide +kernel` |
-|---|---:|---:|---:|
-| `K_7(9,4)` | 1351 | 1475 (Marosi 2026) | 2401 |
-| `K_7(8,3)` | 1893 | 2337 (Kéri) | 343 |
-| `K_5(10,4)` | 625 | 875 | 625 |
-| `K_5(9,3)` | 1250 | 1275 | 625 |
-| `K_5(7,2)` | 500 | 525 | 25 |
-| `K_5(9,4)` | 250 | 255 | 125 |
-| `K_4(10,4)` | 192 | 208 | 64 |
-| `K_5(9,5)` | 50 | 55 | 25 |
+| célula | nossa | anterior | declaração | certificado |
+|---|---:|---:|---|---|
+| `K_7(9,4)` | **1141** | 1475 (Marosi 2026) | `Syn.K7_9_4_le_1141_syn` (também `…_1285_syn`, `…_1351_syn`, `CoveringKernel.K7_9_4_le_1351_kernel`) | síndromes |
+| `K_7(8,3)` | 1887 | 2337 (Kéri) | `Syn.K7_8_3_le_1887_syn` (também `CoveringKernel.K7_8_3_le_1893_kernel`) | síndromes |
+| `K_5(10,4)` | 625 | 875 | `CoveringKernel.K5_10_4_le_625_kernel` | prefixos |
+| `K_5(9,3)` | 1250 | 1275 | `CoveringKernel.K5_9_3_le_1250_kernel` | prefixos |
+| `K_5(7,2)` | 500 | 525 | `CoveringKernel.K5_7_2_le_500_kernel` | prefixos |
+| `K_5(9,4)` | 250 | 255 | `CoveringKernel.K5_9_4_le_250_kernel` | prefixos |
+| `K_4(10,4)` | 192 | 208 | `CoveringKernel.K4_10_4_le_192_kernel` | prefixos |
+| `K_5(9,5)` | 50 | 55 | `CoveringKernel.K5_9_5_le_50_kernel` | prefixos |
 
-**Só verificados por computador (ainda não são teoremas Lean):** `K_7(9,4) ≤ 1285`
-(`data/codes/q7_n9_R4_M1285.txt`, sha256 canônico `aa388cc9…`; regenerado por `scripts/search/gen.py p1285.json`)
-e `K_7(8,3) ≤ 1887` (`data/codes/q7_n8_R3_M1887.txt`, `98531afb…`). Cada um foi conferido por pelo menos dois
-verificadores independentes do programa que o achou.
+**Dois certificados.** Prefixos (`K2_*`, `K3_*`, lib `CoveringHeavy`): ~12 h de CPU para `(Z/7)^9`. Síndromes
+(`SynCheck` só com o núcleo do Lean, `SynBridge` com Mathlib, lib `CoveringSyn`): o mesmo 1351 em ~8 min de CPU,
+folhas ≤ 1,8 GB; o 1141 em ~9 min. Gerador: `scripts/syndrome/gen_syn.py` (lê o formato `covering-code/v1`).
+
+**Como os códigos foram achados:** todos são cosets de um código linear + remendo. O 1141 vem da enumeração das
+6362 classes de `[9,3]_7`, com avaliação exata das síndromes órfãs (6, contra 27 da base original), e de um
+otimizador de remendo (112 palavras). Ver `data/structured/` e `ledger/`.
 
 ## Resultados da v0.3
 
@@ -82,7 +85,7 @@ Espaço `Fin n → ZMod q` (A1–A3, Chain, K3) ou `Fin n → Fin q` (A6*, Searc
 
 ## O que NÃO está provado (declarado)
 
-* `K_7(9,4) ≤ 1285` e `K_7(8,3) ≤ 1887` não têm teorema Lean (só verificação computacional).
+* Os programas de busca não são verificados; só a saída deles é.
 * Novidade na literatura é afirmação nossa, não do Lean; a busca bibliográfica está descrita acima.
 * `A6d_SearchHeavy.lean` e `A5b_Stress.lean` continuam fora da biblioteca e não compilam (o primeiro ficou obsoleto
   com `A6e` e `SearchK6ge12`).
