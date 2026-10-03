@@ -9,3 +9,7 @@
   `lake build CoveringLean.Syn_K1134` com exit 0 (2026-10-03), axiomas [propext, Classical.choice, Quot.sound],
   sem `sorry`/`native_decide`. Gerado por `scripts/syndrome/gen_syn.py data/structured/q7_n9_R4_M1134.json K1134`.
 - Falta: red team do Lean, mutações e revisão bibliográfica atualizada (a de 2026-10-02 vale: menor anterior 1475).
+
+## ILP: o remendo de 105 é ótimo na família de reta
+
+Retas 10 e 18 provadas ótimas em 105 (dual = primal); detalhes em `ilp_runs/README.md`.
