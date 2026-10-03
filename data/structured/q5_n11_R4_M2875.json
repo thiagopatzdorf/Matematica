@@ -1,0 +1,79 @@
+{
+ "format": "covering-code/v1",
+ "q": 5,
+ "n": 11,
+ "R": 4,
+ "M": 2875,
+ "digit_convention": "word text s[0]..s[n-1]; integer w = sum_k s[k]*q^k; digit k = (w // q^k) % q",
+ "linear_base": {
+  "k": 3,
+  "generator": [
+   "32131331000",
+   "13041210100",
+   "40444110010"
+  ],
+  "info_columns": [
+   7,
+   8,
+   9
+  ],
+  "parity_check": [
+   "10000002410",
+   "01000003200",
+   "00100004010",
+   "00010002110",
+   "00001004410",
+   "00000102340",
+   "00000012440",
+   "00000000001"
+  ],
+  "check_columns": [
+   0,
+   1,
+   2,
+   3,
+   4,
+   5,
+   6,
+   10
+  ],
+  "coset_syndromes": [
+   "00242001",
+   "01334130",
+   "02421214",
+   "03013343",
+   "04100422",
+   "13322232",
+   "20034004",
+   "20110010",
+   "21121133",
+   "21202144",
+   "22213212",
+   "22344223",
+   "23042141",
+   "23300341",
+   "23431302",
+   "24023431",
+   "24442420",
+   "30032334",
+   "30221304",
+   "31124413",
+   "32211042",
+   "33303121",
+   "34440200"
+  ]
+ },
+ "subcode_cosets": [],
+ "patch_words": [],
+ "provenance": {
+  "generator": "scripts/attack (feat/ataque-celulas-2011): hsearch -> coset_sa t=4 em [11,4]_5 -> lift para [11,3]_5 -> coset_sa t=22 -> coset_wsa (w=21)",
+  "commit": null,
+  "seed": null,
+  "command": null,
+  "date": "2026-10-03",
+  "agent": "James.V1",
+  "repo_commit": null,
+  "notes": "23 classes laterais de um [11,3]_5, sem remendo. Detalhes em data/attack/q5_n11_R4_M2875.json. Verificado por scripts/attack/verify_bfs e tools/verify/verify.c."
+ },
+ "canonical_sha256": "2a700e2f928a8d893e8863ee100c9514a8ffd65a480776682c7560c96029dc9b"
+}
