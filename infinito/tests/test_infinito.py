@@ -588,6 +588,7 @@ class ComputeFalso:
             self.inst["metadata"] = {"fingerprint": "f2", "items": corpo["items"]}
             return 200, {}
         if caminho == "/setScheduling":
+            self.ultimo_scheduling = corpo
             return (200, {}) if self.sched_ok else (400, {"error": "x"})
         if caminho == "/start":
             self.inst["status"] = "RUNNING"
@@ -614,6 +615,7 @@ def test_ligar_a_vm_apaga_a_chave_ssh_do_dono_ou_deixa_o_job_para_sempre():
     assert chaves["startup-script"].startswith("#!/bin/bash") and "shutdown -h now" in chaves["startup-script"]
     assert [c for c in api.chamadas if c[0] == "POST"][-1] == ("POST", "/start")
     vm.liberar()
+    assert [c for c in api.chamadas if c[1] == "/setScheduling"][-1] and "maxRunDuration" not in api.ultimo_scheduling
     assert "infinito-job" not in {i["key"] for i in api.inst["metadata"]["items"]}
     assert {i["key"] for i in api.inst["metadata"]["items"]} >= {"ssh-keys", "startup-script"}
 

@@ -115,5 +115,11 @@ class ExecutorVM:
         self._pedir("POST", "/stop")
 
     def liberar(self) -> None:
-        """Tira o job dos metadados depois de liquidado: um boot manual futuro não reexecuta nada."""
+        """Devolve a VM ao que era: tira o job dos metadados (um boot manual futuro não reexecuta nada) e o
+        `maxRunDuration` (senão ele desligaria, sem aviso, um boot manual do dono). A limpeza do agendamento é
+        melhor-esforço: a VM pode ainda estar desligando."""
         self._metadados(self._pedir("GET"), **{"infinito-job": None})
+        try:
+            self._pedir("POST", "/setScheduling", {"onHostMaintenance": "MIGRATE", "automaticRestart": True})
+        except ErroCreditos:
+            pass
