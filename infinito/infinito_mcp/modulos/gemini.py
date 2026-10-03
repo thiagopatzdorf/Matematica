@@ -47,7 +47,7 @@ def chamar_api(chave: str) -> Chamada:
         u = d.get("usageMetadata", {})
         texto = "".join(p.get("text", "") for c in d.get("candidates", [])[:1]
                         for p in c.get("content", {}).get("parts", []))
-        return {"texto": texto, "entrada": u.get("promptTokenCount", 0),
+        return {"texto": texto, "entrada": u.get("promptTokenCount", 0), "fim": _fim(d),
                 "saida": u.get("candidatesTokenCount", 0) + u.get("thoughtsTokenCount", 0)}
     return chamar
 
@@ -79,9 +79,13 @@ def chamar_vertex(projeto: str, token: Callable[[], str] = token_metadata, post=
         u = d.get("usageMetadata", {})
         texto = "".join(p.get("text", "") for c in d.get("candidates", [])[:1]
                         for p in c.get("content", {}).get("parts", []))
-        return {"texto": texto, "entrada": u.get("promptTokenCount", 0),
+        return {"texto": texto, "entrada": u.get("promptTokenCount", 0), "fim": _fim(d),
                 "saida": u.get("candidatesTokenCount", 0) + u.get("thoughtsTokenCount", 0)}
     return chamar
+
+
+def _fim(d: dict) -> str:
+    return (d.get("candidates") or [{}])[0].get("finishReason", "")
 
 
 def custo(precos: list[float], entrada: int, saida: int) -> float:
@@ -101,9 +105,11 @@ def registrar(ctx, chamada: Chamada | None = None) -> None:
             chamada = chamar_api(chave)
 
     @tool
-    def gemini(prompt: str, modelo: str = "", max_saida: int = 1024, confirmar: bool = False) -> dict:
+    def gemini(prompt: str, modelo: str = "", max_saida: int = 2048, confirmar: bool = False) -> dict:
         """Pergunta ao Gemini, descontando do seu crédito. Sem confirmar=true só mostra o custo máximo e o saldo.
-        Com confirmar=true reserva o pior caso, chama e cobra o custo real (tokens medidos pela API)."""
+        Com confirmar=true reserva o pior caso, chama e cobra o custo real (tokens medidos pela API).
+        ATENÇÃO: o "pensamento" do modelo conta dentro de max_saida; se `fim` vier MAX_TOKENS a resposta saiu cortada,
+        aumente max_saida (até 8192)."""
         modelo = modelo or padrao
         if modelo not in precos:
             return {"ok": False, "erro": f"modelo sem preço cadastrado; use um de: {', '.join(precos)}"}
@@ -124,8 +130,9 @@ def registrar(ctx, chamada: Chamada | None = None) -> None:
             r = chamada(modelo, prompt, max_saida)
         except Exception as e:  # noqa: BLE001 - não respondeu, não cobra
             creditos.cancelar(ctx.quem(), reserva)
-            return {"ok": False, "erro": f"Gemini não respondeu ({type(e).__name__}); reserva desfeita"}
+            http = getattr(e, "code", "")
+            return {"ok": False, "erro": f"Gemini não respondeu ({type(e).__name__} {http}); reserva desfeita".replace("  ", " ")}
         real = round(custo(precos[modelo], r["entrada"], r["saida"]), 6)   # o real, mesmo se passar da estimativa
         creditos.confirmar(ctx.quem(), reserva, real)
         return {"ok": True, "seco": False, "modelo": modelo, "texto": r["texto"], "tokens_entrada": r["entrada"],
-                "tokens_saida": r["saida"], "custo_usd": real, "saldo": creditos.saldo(ctx.quem())}
+                "tokens_saida": r["saida"], "fim": r.get("fim", ""), "custo_usd": real, "saldo": creditos.saldo(ctx.quem())}

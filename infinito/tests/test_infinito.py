@@ -452,3 +452,13 @@ def test_backend_vertex_ligado_pelo_ambiente_substitui_a_chave_sem_credito():
                                 "GEMINI_API_KEY": "chave-sem-credito"})
     gemini.registrar(ctx)
     assert ctx.tools["gemini"]("oi")["seco"] is True           # registra sem exigir chave nem rede
+
+
+def test_resposta_cortada_pelo_pensamento_vem_com_fim_max_tokens():
+    def post(url, corpo, cab):
+        return {"candidates": [{"content": {"parts": [{"text": "Draft"}]}, "finishReason": "MAX_TOKENS"}],
+                "usageMetadata": {"promptTokenCount": 19, "thoughtsTokenCount": 190, "candidatesTokenCount": 6}}
+
+    ctx, c = _gem(gemini.chamar_vertex("p", token=lambda: "T", post=post))
+    r = ctx.tools["gemini"]("oi", confirmar=True)
+    assert r["fim"] == "MAX_TOKENS" and r["tokens_saida"] == 196
