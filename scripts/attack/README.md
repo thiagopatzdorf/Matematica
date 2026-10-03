@@ -61,4 +61,4 @@ palavras soltas (remendo). O tamanho final é `t*q^k + |remendo|`.
 | K5(11,6) | 125 | 125 (= ub) | [11,3]_5 com raio 6; em k=2 com t=4 sobram 7746 órfãs | — |
 | K7(9,3) | 8575 | sem melhora | k=4 t=3: 44 órfãs de 2401 pontos; k=3 t=24: 139 órfãs | — |
 | K7(10,3) | 42189 | sem melhora | k=5 t=3 cobre (50421); lift k=4 t=20 deixa 63 órfãs | — |
-| K7(10,6) | 175 | não atacada a fundo | k=2: |B| = 5,41M de 5,76M (t=1); remendo de R=6 é caro de enumerar | — |
+| K7(10,6) | 175 | não atacada a fundo | k=2: B tem 5,41M de 5,76M síndromes (t=1); remendo de R=6 é caro de enumerar | — |
