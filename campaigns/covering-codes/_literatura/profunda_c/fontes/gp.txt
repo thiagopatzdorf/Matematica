@@ -1,0 +1,2048 @@
+                                                             Semidefinite lower bounds for covering codes
+                                                                                 Dion Gijswijt∗ and Sven Polak†
+                                                                                             June 23, 2026
+
+
+                                                                                                 Abstract
+                                                     Let Kq (n, r) denote the minimum size of a q-ary covering code of word length n and covering
+arXiv:2504.01932v2 [math.CO] 19 Jun 2026
+
+
+
+
+                                                 radius r. In other words, Kq (n, r) is the minimum size of a set of q-ary codewords of length n such
+                                                 that the Hamming balls of radius r around the codewords cover the Hamming space {0, . . . , q − 1}n .
+                                                 The special case K3 (n, 1) is often referred to as the football pool problem, as it is equivalent to finding
+                                                 a set of forecasts on n football matches that is guaranteed to contain a forecast with at most one
+                                                 wrong outcome.
+                                                     In this paper, we build and expand upon the work of Gijswijt (2005), who introduced a semidef-
+                                                 inite programming lower bound on Kq (n, r) via matrix cuts. We develop techniques that strengthen
+                                                 this bound, by introducing new semidefinite constraints inspired by Lasserre’s hierarchy for 0-1 pro-
+                                                 grams and symmetry reduction methods, and a more powerful objective function. The techniques
+                                                 lead to sharper lower bounds, setting new records across a broad range of values of q, n, and r.
+
+
+                                                 1     Introduction
+                                                 Let q ≥ 2 and n ≥ 1 be integers. Then [q]n := {0, . . . , q − 1}n is the Hamming space of q-ary words
+                                                 of length n. The Hamming distance between u, v ∈ [q]n is denoted by d(u, v) = |{i ∈ {1, . . . , n} :
+                                                 ui ̸= vi }|. We denote the isometry group of [q]n by Aut(q, n). It consists of all permutations of
+                                                 [q]n obtained by permuting the n positions and independently permuting the q symbols in each of
+                                                                                                                                       n
+                                                 the n positions. The group Aut(q, n) acts on subsets S ⊆ [q]n , vectors x ∈ C[q] and matrices
+                                                        [q]n ×[q]n
+                                                 M ∈C              in the usual way by
+
+                                                                 σS = {σ(a) | a ∈ S},     (σx)u = xσ−1 (u) ,   (σM )u,v = Mσ−1 (u),σ−1 (v)
+
+                                                 for all σ ∈ Aut(q, n) and u, v ∈ [q] . For any integer 0 ≤ r ≤ n and any u ∈ [q]n , we denote by
+                                                                                      n
+
+
+                                                                                  Br (u) := {v ∈ [q]n | d(u, v) ≤ r}   and
+                                                                                  Sr (u) := {v ∈ [q]n | d(u, v) = r}
+
+                                                 the Hamming ball and Hamming sphere of radius r around u, respectively.
+                                                    A q-ary code of length n is a subset C of [q]n . The covering radius of C is the smallest integer r
+                                                 S that the Hamming
+                                                 such                     balls of radius r around the codewords cover the Hamming space [q]n , i.e.,
+                                                                   n
+                                                   u∈C Br (u) = [q] . In this paper, we study the quantity
+
+                                                                         Kq (n, r) := min{|C| | C ⊆ [q]n has covering radius r}.                         (1)
+
+                                                     In other words, the problem of determining Kq (n, r) amounts to finding the smallest number of
+                                                 Hamming balls of radius r that cover the Hamming space [q]n . If C ⊆ [q]n has covering radius r and
+                                                 size K = |C|, then we call C an (n, K, q, r)-code.
+                                                     A popular application of covering codes is found in football pools. A football pool involves pre-
+                                                 dicting the outcomes of n football matches, where each match can result in three possible outcomes:
+                                                 a home team win, a draw, or an away team win. The objective is to find the smallest set of bets
+                                                 that is guaranteed to contain a bet with at most one incorrect outcome. This challenge, commonly
+                                                 known as the football pool problem, corresponds to the covering problem for q = 3 and r = 1. For
+                                                 more details on the football pool problem, see [8]. For an overview of results on covering codes and
+                                                 several of their applications, see [1].
+                                                     A fundamental problem in the study of covering codes is to determine tight bounds on Kq (n, r).
+                                                 Upper bounds are commonly established by constructing an explicit code with covering radius r. In
+                                                 this paper, we focus on establishing lower bounds on Kq (n, r).
+                                             ∗ Delft   Institute of Applied Mathematics, Delft University of Technology,            The   Netherlands.      E-mail:
+                                           d.c.gijswijt@tudelft.nl
+                                              † Tilburg University, The Netherlands. E-mail: s.c.polak@tilburguniversity.edu
+
+
+
+
+                                                                                                      1
+Method of linear inequalities A key approach for deriving lower bounds on Kq (n, r) is the
+method of linear inequalities. Here, we follow the exposition in [1, Chapter 6]. Suppose we have a
+code C ⊆ [q]n and define
+                                       Ai (u) := |C ∩ Si (u)|
+for any u ∈ [q]n and i = 0, . . . , n. The method considers valid linear inequalities over a code that
+are of the form
+                                         n
+                                         X
+                                               λi Ai (u) ≥ β         for all u ∈ [q]n ,                                              (2)
+                                         i=0
+
+where λ0 , . . . , λn ≥ 0 and β > 0. Such a set of inequalities is denoted by (λ0 , . . . , λn )β. The following
+proposition shows how such a set leads to a lower bound on Kq (n, r).
+Proposition 1.1. If every (n, K, q, r)-code satisfies the inequalities (λ0 , . . . , λn )β, then
+                                                                  βq n
+                                               K ≥ Pn               n
+                                                                              .
+                                                             i=0 λi i (q − 1)
+                                                                             i
+
+
+Proof. By summing the inequalities in (2) over all u ∈ [q]n , we obtain
+                 n
+               X X                       n
+                                         X           X                    n
+                                                                          X          X                      n
+                                                                                                            X
+     βq n ≤                                                                                                       λi ni (q − 1)i .
+                                                                                                                       
+                           λi Ai (u) =         λi            Ai (u) =           λi         |Si (v)| = |C|
+              u∈[q]n i=0                 i=0        u∈[q]n                i=0        v∈C                    i=0
+
+   The sphere covering inequalities of the form
+                                          r
+                                          X
+                                                Ai (u) ≥ 1           for all u ∈ [q]n                                                (3)
+                                          i=0
+
+in combination with Proposition 1.1 lead to the sphere covering bound, given by
+                                                                     qn
+                                           Kq (n, r) ≥ Pr            n
+                                                                               .                                                    (4)
+                                                                 i=0 i (q − 1)
+                                                                              i
+
+
+   Several additional valid inequalities have been derived in the literature, especially in the binary
+case (q = 2), by analyzing how elements of Bs (u) can be covered for s = 1, 2, 3. For s = 1, this
+results in the Van Wee inequalities [20, 21], given by:
+                              r−1                                                                   
+                              X     n+1                                                          n+1
+                                                Ai (u) + Ar (u) + Ar+1 (u) ≥                                                         (5)
+                              i=0
+                                     r+1                                                         r+1
+
+which gives an improvement over the sphere covering bound when r + 1 does not divide n + 1.
+Additional inequalities can be found in articles by Johnson [9], Zhang [23], and Zhang and Lo [24].
+    By taking nonnegative linear combinations of inequalities, for instance by summing over sets
+Si (u), new inequalities can be derived. Utilizing the fact that the Ai (u) are integers, (λ0 , . . . , λn )β
+implies (⌈λ0 ⌉, . . . , ⌈λn ⌉)⌈β⌉. This way, strengthened bounds can be found. For instance, the van Wee
+inequalities can be deduced from the sphere covering inequalities by summing over B1 (u), multiplying
+     1
+by r+1   and rounding up. Habsieger and Plagne extended this method to generate numerous new
+lower bounds for binary and ternary covering codes [7].
+
+Semidefinite programming bounds In [4, Section 5.3.1] a linear programming lower bound
+for Kq (n, r) is given that is analogous to the Delsarte bound for error correcting codes [2].
+    If every code C ⊆ [q]n with covering radius r satisfies the inequalities (λ0 , . . . , λn )β, then
+
+                                                    Kq (n, r) ≥ min q n x0 ,
+                                                                      x
+
+where the minimum ranges over all nonnegative vectors x = (x0 , x1 , . . . , xn )T ∈ Rn+1 that satisfy
+       Pn
+   (i)   i=0 xi Pk (i) ≥ 0,
+       Pn       Pn            k
+  (ii)   i=0 xi     j=0 λj αi,j ≥ βx0 ,
+       Pn                 Pn         k
+ (iii)   i=0 (x0 − xi )      j=0 λj αi,j ≥ β(1 − x0 ),
+
+for all k = 0, . . . , n. Here, Pk (i) := ks=0 (−1)s si k−s
+                                                            n−i
+                                                                 (q − 1)k−s are the Krawtchouk polynomials,
+                                             P
+                        k                    k
+and the numbers αi,j        are given by αi,j   = |{v ∈ [q]n | d(0, v) = i, d(v, u) = j}| for any u ∈ [q]n with
+d(0, u) = k, and can be expressed as
+                               P
+                                                   k
+                                                       n−k
+                                        p,t     t−p,p   i−t
+                                                             (q − 1)i−t (q − 2)t−p if q ≥ 3,
+                        k           t+p=k+i−j
+                       αi,j = P                k n−k
+                                                      
+                                        t     t   i−t
+                                                                                    if q = 2.
+                                    2t=k+i−j
+
+
+
+                                                                 2
+    The n + 1 variables xi correspond to the distance distribution of the code. Where in the Delsarte
+bound variables corresponding to forbidden distances are set to zero, the bound on covering codes
+has inequalities (ii) and (iii) on the variables induced by the sphere covering inequalities, or any
+other valid set of inequalities (λ0 , . . . , λn )β.
+    The Delsarte bound can be viewed as a semidefinite program where the [q]n × [q]n matrix variable
+is constrained to be invariant under Aut(q, n) (i.e., it is an element of the Bose-Mesner algebra of
+the Hamming scheme). Since the Bose-Mesner algebra has dimension n + 1, the matrix variable
+can be expressed in terms of n + 1 real variables (corresponding to the distance distribution of the
+code) and because the Bose-Mesner algebra is commutative, the semidefiniteness constraint can be
+reduced to linear constraints in the n + 1 variables by simultaneously diagonalizing the matrices in
+the Bose-Mesner algebra. This corresponds to inequalities (i).
+    For error correcting codes, strengthened SDP bounds based on the distribution of triples [19, 6]
+of codewords and four-tuples [5, 15] have been obtained. The main complication for these bounds
+is that the matrix variable is now an element of a non-commutative algebra. In the case of triple
+bounds, the relevant algebra consists of the [q]n × [q]n matrices that are invariant under Aut0 (q, n),
+the stabilizer subgroup with respect to the zero word. This algebra coincides with the Terwilliger
+algebra of the Hamming scheme. To reduce the SDP to an equivalent one of polynomial size, an
+explicit block diagonalization of this algebra had to be obtained.
+    An analogous bound for Kq (n, r) based on triples of codewords, was obtained by Gijswijt in [4,
+Section 5.3.2] using the method of matrix cuts from [16]. Here, we develop techniques to strengthen
+this bound. We introduce new semidefinite constraints inspired by the Lasserre Hierarchy for 0-
+1 programs [12, 13] and symmetry reduction, alongside a more powerful objective function. The
+techniques lead to sharper lower bounds, improving the best known bounds for a broad range of
+values of q, n, and r.
+    The bound we study in this paper is a covering analogue to Schrijver’s first SDP bounds for error-
+correcting codes in the finite Hamming space [19]. Such bounds can be interpreted as arising from
+submatrices corresponding to 3-point configurations in the second level of the Lasserre hierarchy [12]
+applied to a polynomial optimization formulation of the problem. In the context of discrete geometry
+and spherical codes, Riener, Rolfes, and Vallentin [18] recently proposed a hierarchy for spherical
+covering codes, inspired by hierarchies for packing problems in discrete geometry [11]. In our work,
+we extend Schrijver’s packing bound to covering codes in the finite Hamming space. While in
+principle one could also define a full hierarchy for covering codes in this setting, practical obstacles
+(in particular, the rapidly increasing number of variables and the size of the block matrices) make
+the full second and higher levels of the Lasserre hierarchy difficult to compute. Therefore, we focus
+on a 3-point bound and its symmetry reduction, and strengthen it as much as we can by introducing
+additional constraints and optimizing the choice of objective function.
+
+Outline of the paper In Section 2 we describe our SDP bound for covering codes in Theorem 2.5,
+before applying symmetry reduction. In Section 3 we describe the Terwilliger algebra of the binary
+and nonbinary Hamming schemes, which enables symmetry reduction of the bound from Section 2.
+In Section 4.1 we detail the symmetry reduction in the binary case (q = 2) and present the reduced
+bound in Theorem 4.9. Section 4.2 provides the reduced version of our SDP bound for the nonbinary
+case in Theorem 4.18. Finally, we present our improved bounds in tables in Section 5, with expanded
+versions of our numerical results in Appendices A and B.
+
+
+2     The SDP bound for covering codes
+Given a complex matrix A, we write AT for the transpose of A and A∗ for the complex conjugate
+transpose of A. So A∗ = AT if A is a real matrix. We apply the same notation for vectors and
+scalars. So for z ∈ C we denote the complex conjugate of z by z ∗ . Given complex matrices A, B of
+the same size, we denote by ⟨A, B⟩ = tr(A∗ B) their Frobenius inner product. If A is a square matrix,
+we write A ⪰ 0 to denote that A is positive semidefinite. Throughout the paper, we write J for the
+all-ones matrix, and I for the identity matrix, where the dimensions are clear from the context.
+    Given a square matrix A and c ≥ 0 we will use the following notation:
+
+                                           (diag A)∗
+                                                    
+                                      c
+                      R(c, A) =                         and R(A) = R(1, A).
+                                   diag A      A
+
+Note that for positive semidefinite A, the matrix R(c, A) is PSD if and only if either c = 0 and A = 0,
+or c > 0 and cA − (diag A)(diag A)∗ ⪰ 0, which follows by taking Schur complements. We remark
+that throughout the paper, we will mostly work with real matrices. In particular, the matrices in
+our SDP bounds will be real valued.
+
+
+
+
+                                                   3
+    Let q ≥ 2 and n ≥ 1 be integers, and denote E = [q]n . We identify [q]n with (Z/qZ)n , so that E
+carries an additive group structure. Let C ⊆ E. We define the 0, 1-matrix MC of size |E| × |E| as
+follows:                                       (
+                                                 1 if u, v ∈ C,
+                                    (MC )u,v =
+                                                 0 otherwise.
+Furthermore, we define the following real matrices associated to C:
+                                 X
+         M := |Aut(q, n)|−1            MσC ,
+                                       σ∈Aut(q,n)
+              ′                   −1
+                                          X                                                       X
+            M := |Aut(q, n)|                        MσC ,    and     M ′′ := |Aut(q, n)|−1                  MσC .         (6)
+                                       σ∈Aut(q,n)                                              σ∈Aut(q,n)
+                                         0∈σC                                                    0̸∈σC
+
+   We immediately observe the following relations for the entries of the matrices M, M ′ , M ′′ .
+Proposition 2.1 (Basic inequalities and symmetry). The matrix M is Aut(q, n)-invariant and
+M ′ , M ′′ are Aut0 (q, n)-invariant. Moreover, for all u, v ∈ E we have
+             ′                           ′′     ′        ′
+ (i) Mu,v = M0,v−u             and      Mu,v = M0,v−u − Mu,v ,
+           ′      ′
+ (ii) 0 ≤ Mu,v ≤ M0,u ,
+           ′′     ′′
+(iii) 0 ≤ Mu,v ≤ Mu,u ,
+      ′
+(iv) Mu,v = Mu′ ′ ,v′ if {0, u′ , v′ } = σ{0, u, v} for some σ ∈ Aut(q, n).
+
+Proof. The fact that M, M ′ , M ′′ are invariant under the respective groups follows directly by their
+                                       ′′
+construction. To see (i), note that M0,w   = 0 for every w ∈ E, so
+                                                  ′        ′′       ′
+                                 Mu,v = M0,v−u = M0,v−u + M0,v−u = M0,v−u
+
+and
+                                        ′′            ′      ′        ′
+                                       Mu,v = Mu,v − Mu,v = M0,v−u − Mu,v .
+To see inequalities (ii) and (iii), note that M ′ and M ′′ are nonnegative linear combinations of the
+matrices MσC and 0 ≤ (MσC )u,v ≤ (MσC )u,u .
+   To see (iv), we observe that
+                             ′
+                            Mu,v = |Aut(q, n)|−1 · |{σ ∈ Aut(q, n) | {0, u, v} ⊆ σC}|
+
+only depends on the orbit of {0, u, v}.
+
+   The matrices M ′ and M ′′ satisfy the following conditions.
+Proposition 2.2 (Semidefiniteness). The matrices M ′ , M ′′ are positive semidefinite. Moreover, the
+              ′
+matrix R(1 − M0,0 , M ′′ ) is positive semidefinite.
+
+Proof. The matrices M ′ and M ′′ are nonnegative linear combinations of the positive semidefinite
+matrices MσC = 1σC (1σC )T , and therefore themselves positive semidefinite. Since the matrices
+R(MσC ) are positive semidefinite, so is
+                                       ′                T
+                                            (diag M ′′ )
+                                                         
+                  ′              1 − M0,0                                   X
+         R(1 − M0,0 , M ′′ ) =           ′′       ′′        = |Aut(q, n)|−1   R(MσC ).
+                                 diag M         M
+                                                                                         σ∈Aut(q,n)
+                                                                                           0̸∈σC
+
+   The cardinality of C can be expressed in terms of M ′ in several ways as follows.
+Proposition 2.3 (Objective function). We have
+                            ′
+                                             X ′                                       X        ′
+                 |C| = q n M0,0 , |C|2 = q n  Mu,u ,                      |C|3 = q n           Mu,v .
+                                                            u∈E                        u,v∈E
+
+Proof. For any u ∈ E we have |{σ ∈ Aut(q, n) | σu = 0}| = |Aut0 (q, n)|, so
+
+                         ′       |{σ ∈ Aut(q, n) | 0 ∈ σC}|       |Aut0 (q, n)|
+                        M0,0 =                              = |C|               = q −n |C|.
+                                        |Aut(q, n)|                |Aut(q, n)|
+Moreover,
+   X ′                                  X                   X                                      X         X
+       Mu,u = ⟨M ′ , I⟩ = |Aut(q, n)|−1                            ⟨MσC , I⟩ = |Aut(q, n)|−1                        |C|
+      u∈E                                           u∈C σ∈Aut(q,n)                                 u∈C σ∈Aut(q,n)
+                                                          σu=0                                           σu=0
+                      |Aut0 (q, n)|
+                  =                 |C|2 = q −n |C|2 ,
+                       |Aut(q, n)|
+
+
+                                                              4
+and similarly
+   X      ′
+                                          X                  X                                  X      X
+       Mu,v   = ⟨M ′ , J⟩ = |Aut(q, n)|−1                          ⟨MσC , J⟩ = |Aut(q, n)|−1                     |C|2
+  u,v∈E                                         u∈C σ∈Aut(q,n)                                  u∈C σ∈Aut(q,n)
+                                                      σu=0                                            σu=0
+
+               = q −n |C|3 .
+
+    Now suppose that C has covering radius r and that the set of inequalities (λ0 , . . . , λn )β is valid
+for all codes of covering radius r. Define
+                                                      n
+                                                                             !
+                                    −1
+                                          X          X
+                    N = |Aut(q, n)|          MσC ·       λℓ |σC ∩ Sℓ (0)| − β .                        (7)
+                                             σ∈Aut(q,n)                 ℓ=0
+
+
+Proposition 2.4 (Lasserre constraint and matrix cut inequalities). The following hold:
+ (i) The matrix R(c, N ) is positive semidefinite, where c = n                    ′
+                                                            P
+                                                             ℓ=0 λℓ · |Sℓ (0)| · M0,0 − β,
+
+ (ii) N is invariant under Aut0 (q, n),
+(iii) For all u, v ∈ E we have
+                                                             n
+                                                             X            X         ′
+                                 Nu,v = −βMu,v +                   λℓ              Mu−w,v−w ,
+                                                             ℓ=0        w∈Sℓ (0)
+
+
+(iv) For all u, v ∈ E we have
+                                                             n
+                                                             X            X
+                                                   ′                                ′
+                                                 βM0,u ≤           λℓ              Mu,w ,
+                                                             ℓ=0        w∈Sℓ (v)
+                                                             n
+                                                             X            X
+                                    ′      ′                                        ′      ′   
+                                 β M0,0 − M0,u ≤                   λℓ               Mw,w − Mu,w  ,
+                                                             ℓ=0        w∈Sℓ (v)
+                                                             n
+                                                             X            X
+                                                  ′′                                ′′
+                                                βMu,u ≤            λℓ              Mu,w ,
+                                                             ℓ=0        w∈Sℓ (v)
+                                                             n
+                                                             X            X
+                                   ′        ′′                                      ′′     ′′ 
+                           β (1 − M0,0 ) − Mu,u ≤                  λℓ               Mw,w − Mu,w .
+                                                             ℓ=0        w∈Sℓ (v)
+
+
+Remark 2.1. The conditions in Proposition 2.4 derive from general relaxations for 0-1 linear pro-
+grams. In our setting, the incidence vector x ∈ {0, 1}E of C satisfies the covering inequalities
+                                   n
+                                   X            X
+                                         λi              xv ≥ β     for all u ∈ E.
+                                   i=0        v∈Si (u)
+
+
+However, the same method would apply in the setting of error correcting codes, where one might use
+inequalities xu + xv ≤ 1, if d(u, v) ∈ {1, . . . , d − 1}.
+   The matrix N and conditions (i)–(iii) come from the Lasserre Hierarchy for 0, 1 polytopes. Let y
+be the extended incidence vector of C, where for every subset S ⊆ E we set y(S) = 1 if S ⊆ C
+and y(S) = 0 otherwise. The validity of P               P inequalities implies that for every u ∈ E, the
+                                             the covering
+matrix M ∈ CP(E)×P(E) given by MI,J = n         i=0  λi    v∈Si (u) yI∪J∪{v} − βyI∪J is positive semidefinite.
+Restricting to sets I, J of size at most 1 and averaging over Aut(q, n) leads to the matrix N and
+conditions (i)–(iii).
+   The four sets of inequalities in part (iv) come from matrix cut inequalities [16]. Let y ∈ C∅∪E be
+the extended incidence vector of C where y∅ = 1, and yu = 1 if u ∈ C and yu = 0 otherwise for
+u ∈ E. The vector x = y satisfies the homogenized cover inequalities
+                                 n
+                                 X             X
+                                        λi              xv ≥ βx∅        for all u ∈ E.                              (8)
+                                  i=0        v∈Si (u)
+
+
+The positive semidefinite matrix yyT = R(MC ) has the property that every column satisfies (8),
+and so does the diagonal minus any column. Using the fact that for any σ ∈ Aut(q, n) also σC has
+covering radius r, and the fact that the sets of vectors x satisfying (8) is closed under nonnegative
+linear combinations, we thus obtain two sets of inequalities for (the bordered version of) the matrix
+M ′ , and similarly for M ′′ . This yields the four conditions in (iv).
+
+
+
+
+                                                             5
+Proof. To see (i), observe that for every σ the number n
+                                                        P
+                                                          ℓ=0 λℓ |σC ∩ Sℓ (0)| − β is nonnegative. Since
+the matrices R(MσC ) are positive semidefinite, it follows that
+                                                               n
+                                                                                        !
+                                      −1
+                                            X                 X
+               R(c, N ) = |Aut(q, n)|             R(MσC ) ·        λℓ |σC ∩ Sℓ (0)| − β
+                                           σ∈Aut(q,n)                   ℓ=0
+
+
+is positive semidefinite.
+    Item (ii) follows from the fact that for all τ ∈ Aut0 and ℓ we have
+                                                  
+                        X                                 X
+                 τ           MσC · |σC ∩ Sℓ (0)| =            Mτ σC · |σC ∩ Sℓ (0)|
+                     σ∈Aut(q,n)                                σ∈Aut(q,n)
+                                                                   X
+                                                           =                Mτ σC · |τ σC ∩ τ Sℓ (0)|
+                                                               σ∈Aut(q,n)
+                                                                   X
+                                                           =                Mτ σC · |τ σC ∩ Sℓ (0)|
+                                                               σ∈Aut(q,n)
+                                                                   X
+                                                           =                MρC · |ρC ∩ Sℓ (0)|,
+                                                               ρ∈Aut(q,n)
+
+
+where we used that Sℓ (0) is fixed under Aut0 (q, n) in the third equation, and we used the substitution
+ρ = τ σ in the last equality.
+   To see (iii), let u, v ∈ E. We have
+            X                                   X
+                   (MσC )u,v · |σC ∩ Sℓ (0)| =         |{σ ∈ Aut(q, n) | u, v, w ∈ σC}|
+        σ∈Aut(q,n)                                  w∈Sℓ (0)
+                                                      X
+                                                =              |{σ ∈ Aut(q, n) | u − w, v − w, 0 ∈ σC}|
+                                                    w∈Sℓ (0)
+                                                                     X         ′
+                                                = |Aut(q, n)| ·               Mu−w,v−w .
+                                                                   w∈Sℓ (0)
+
+
+Summing over ℓ and using that
+                                                      X
+                                  |Aut(q, n)|−1                (MσC )u,v = Mu,v
+                                                  σ∈Aut(q,n)
+
+
+shows (iii).
+   To prove (iv), fix u, v ∈ E and let σ ∈ Aut(q, n). Since σC has covering radius r, we have
+                                         n
+                                         X
+                                               λℓ |(σC) ∩ Sℓ (v)| ≥ β.                                         (9)
+                                         ℓ=0
+
+Partition Aut(q, n) into subsets Γ1 , . . . , Γ4 given by
+
+       Γ1 = {σ ∈ Aut(q, n) | 0 ∈ σC, u ∈ σC},                    Γ2 = {σ ∈ Aut(q, n) | 0 ∈ σC, u ̸∈ σC}
+       Γ3 = {σ ∈ Aut(q, n) | 0 ̸∈ σC, u ∈ σC},                   Γ4 = {σ ∈ Aut(q, n) | 0 ̸∈ σC, u ̸∈ σC}.
+
+Summing (9) over all σ ∈ Γ1 and dividing by |Aut(q, n)| yields the first inequality since
+                                               X
+                                 |Aut(q, n)|−1      β = M0,u′
+                                                              β
+                                                          σ∈Γ1
+
+
+and for every ℓ ∈ {0, . . . , n} we have
+                     X                                             X
+       |Aut(q, n)|−1         |σC ∩ Sℓ (v)| = |Aut(q, n)|−1                  |{σ ∈ Aut(q, n) | 0, u, w ∈ σC}|
+                      σ∈Γ1                                       w∈Sℓ (v)
+                                                  X        ′
+                                          =               Mu,w .
+                                               w∈Sℓ (v)
+
+
+Similarly, summing (9) over all σ ∈ Γ2 , σ ∈ Γ3 and σ ∈ Γ4 and dividing by |Aut(q, n)| yields the
+second, third and fourth inequality, respectively. Here we use that for any a, b ∈ E we have
+
+                      |Aut(q, n)|−1 · |{σ ∈ Aut(q, n) | 0 ∈ σC, a, b ∈ σC}| = Ma,b
+                                                                               ′
+
+
+                      |Aut(q, n)|−1 · |{σ ∈ Aut(q, n) | 0 ̸∈ σC, a, b ∈ σC}| = Ma,b
+                                                                                ′′
+
+
+
+
+                                                           6
+          This leads to the following SDP lower bound on covering codes, which is always at least as tight
+      as the LP bound mentioned in the introduction.1
+      Theorem 2.5 (Covering lower bound). Suppose that every C ⊆ E with covering radius r satisfies
+      (λ0 , . . . , λn )β. Then                           X     ′
+                                 Kq (n, r)3 ≥  min
+                                                ′  ′′
+                                                       qn     Mu,v
+                                                             M,M ,M ,N
+                                                                             u,v∈E
+                                                                     ′      ′′
+      where the minimum ranges over real matrices M, M , M , N that satisfy the conditions in Proposi-
+      tion 2.1, Proposition 2.2 and Proposition 2.4.
+      Remark 2.2. The conditions in Proposition 2.1(i) and Proposition 2.4 express M , M ′′ and N in
+      terms of M ′ , so the minimization can be expressed in terms of the matrix variable M ′ alone.
+      Remark 2.3 (Comparison of objective values). We have
+                             s      X            s X
+                                                                    ′
+                              3 q
+                                  n        ′
+                                        Mu,v  ≥ qn         ′
+                                                        Mu,u ≥ q n M0,0 .                                           (10)
+                                              u,v∈E                  u∈E
+
+                      q P
+                                   ′
+      It follows that 3 q n u,v∈E Mu,v gives the tightest lower bound of the three expressions.
+         To see (10), note the following general fact: for c ∈ R and M ∈ Rn×n with m := diag(M ) we
+      have
+                       c mT
+                             
+                                 ⪰ 0 =⇒ cM − mmT ⪰ 0 =⇒ c⟨M, J⟩ ≥ ⟨M, I⟩2 .                    (11)
+                       m M
+
+      By applying (11) to the matrix M from the Bose-Mesner algebra (and c = 1), we obtain
+                                            X ′             ′
+                                         qn    Mu,u ≥ (q n M0,0 )2 .                                                (12)
+                                                       u∈E
+
+
+      Since M ′ ⪰ 0 and Mu,u
+                         ′      ′
+                             = M0,u                           ′
+                                    for all u ∈ E, we have R(M0,0 , M ′ ) ⪰ 0. So by applying (11) we
+      obtain
+                                                  ′
+                                                 M0,0 ⟨M ′ , J⟩ ≥ ⟨M ′ , I⟩2 ,           so
+                                               ′
+                                             (M0,0 )2 ⟨M ′ , J⟩2 ≥ ⟨M ′ , I⟩4 .
+
+      By combining this inequality with (12) we find
+                            X ′
+                                Mu,u ⟨M ′ , J⟩2 ≥ q n (M0,0
+                                                        ′
+                                                            )2 ⟨M ′ , J⟩2 ≥ q n ⟨M ′ , I⟩4 ,
+                                 u∈E
+
+      so                                                                                2                 ′ 3
+                                                                         X                          X
+                       ⟨M ′ , J⟩2 ≥ q n ⟨M ′ , I⟩3 ,   implying                   ′
+                                                                                 Mu,v        ≥ qn         Mu,u  .
+                                                                         u,v∈E                      u∈E
+                                       2n
+      Multiplying both sides by q           and combining with (12) this yields (10), as desired.
+           In the next sections, we make the SDP from Theorem 2.5 effective by using symmetry reduction.
+
+
+      3      Block-diagonalization of the Terwilliger algebra
+      In this section, we describe the block-diagonalization of the Terwilliger algebras of the binary [19] and
+      nonbinary [6] Hamming schemes. This forms the algebraic foundation for the symmetry reduction
+      of the SDP in Theorem 2.5.
+
+      3.1      Terwilliger algebra of the binary Hamming cube
+      For u, v ∈ {0, 1}n we define d(u, v) := (i, j, t), where
+
+                                                   i = |{ℓ | uℓ ̸= 0}|,
+                                                   j = |{ℓ | vℓ ̸= 0}|,
+                                                   t = |{ℓ | uℓ ̸= 0, vℓ ̸= 0}|.
+   1 The LP bound requires nonnegativity of certain expressions involving Krawtchouk polynomials, which is equivalent
+
+to positive semidefiniteness of M = M ′ + M ′′ . The LP bound further requires that a small subset of the matrix cut
+inequalities are satisfied. Thus the LP constraints are implied by the SDP constraints of Theorem 2.5.
+
+
+
+
+                                                                 7
+The set of tuples (i, j, t) that occur this way are given by
+
+                                  I(2, n) = {(i, j, t) | 0 ≤ t ≤ i, j, i + j ≤ n + t}
+
+and they parametrize the orbits of pairs (u, v) under the group Aut0 (2, n) = {σ ∈ Aut(2, n) | σ(0) =
+0} of symmetries of the Hamming space that stabilize the zero word.
+   For (i, j, t) ∈ I(2, n) we define the {0, 1}n × {0, 1}n matrix Mi,j
+                                                                     t
+                                                                         by
+                                                (
+                                      t         1 if d(u, v) = (i, j, t)
+                                    Mi,j u,v
+                                             =
+                                                 0 otherwise.
+                t
+The matrices Mi,j  constitute a basis for the space A2,n of complex {0, 1}n × {0, 1}n matrices that
+are invariant under the action of Aut0 (2, n):
+                                                                       
+                                           X                           
+                             A2,n =               xti,j Mi,j
+                                                         t
+                                                             | xti,j ∈ C .
+                                                                       
+                                                   (i,j,t)∈I(2,n)
+
+                  t T      t
+Note that (Mi,j      ) = Mj,i . Moreover, if | supp(u)| = i, | supp(v)| = j, then | supp(u) ∩ supp(v)| = t
+is equivalent to dH (u, v) = i + j − 2t. The set A2,n is a C ∗ -algebra, i.e., it is closed under taking the
+adjoint, addition, scalar multiplication, and matrix multiplication. This algebra is the Terwilliger
+algebra of the binary Hamming scheme. We will now describe the block diagonalization of this
+algebra, which was derived by Schrijver [19], and which allows a significant reduction in the size of
+matrices of A2,n by mapping it to an isomorphic smaller algebra. To this end, define, for i, j, k, t ∈
+{0, . . . , n}, the numbers
+                                             n
+                                             X
+                                   t
+                                                  (−1)t−u ut n−2k
+                                                                  n−k−u n−k−u
+                                  βi,j,k =                    u−k    i−u    j−u
+                                                                                 .                                                (13)
+                                             u=0
+
+                                                                           s
+                                                                               
+Throughout the paper, we use the convention that                           t
+                                                                                   = 0 if s < t or t < 0.
+Theorem 3.1. [19] The following map is a ∗-isomorphism of algebras:
+                                                   ⌊n/2⌋
+                                                   M
+                                  ϕ : A2,n →               Cn−2k+1×n−2k+1
+                                                   k=0
+                                                   ⌊n/2⌋
+                                                                                                              !n−k
+                      X                            M        X                1       1
+                                                                       n−2k − 2 n−2k − 2 t
+                                  xti,j Mi,j
+                                         t
+                                             7→                         i−k      j−k
+                                                                                         βi,j,k xti,j                   .         (14)
+                 (i,j,t)∈I(2,n)                    k=0          t                                               i,j=k
+
+   Theorem 3.1 implies that, for coefficients xti,j ∈ C, we have
+                                                                                    !n−k
+             X                                             X
+                          xti,j Mi,j
+                                 t
+                                     ⪰0      ⇐⇒                      t
+                                                                    βi,j,k xti,j              ⪰ 0 for all k = 0, . . . , ⌊n/2⌋.   (15)
+         (i,j,t)∈I(2,n)                                     t                         i,j=k
+
+This crucial fact will be used widely in the SDP-relaxations studied in this paper. Also note that
+ϕ maps real valued matrices to real valued matrices. To see the size of the reduction, note that the
+matrices in A2,n have size 2n × 2n , while (cf. [19])
+                                          ⌊n/2⌋
+                                                                    !
+                                           X               2  n+3
+                              |I(2, n)| =      (n − 2k + 1) =         ,                         (16)
+                                                                3
+                                                     k=0
+
+which equals the dimension of A2,n .
+   In the semidefinite relaxations in this paper, we will require not only that elements from A2,n are
+positive semidefinite, but some of the conditions are slightly stronger and inspired by [14], namely
+that matrices of the form
+                                     diag(M )∗
+                                              
+                             1                                   X
+              R(M ) =                              for M =               xti,j Mi,j
+                                                                                t
+                                                                                    ∈ A2,n ,
+                         diag(M )        M
+                                                                                      (i,j,t)∈I(2,n)
+
+                                                                               Pn       i
+are positive semidefinite. Note that the diagonal of M is given by diag M =        i=0 xi,i 1Si (0) . To
+express positive semidefiniteness of R(M ) in terms of ϕ(M ), observe that for i, j ∈ {0, . . . , n} the
+matrix                                                 X
+                                 1Si (0) (1Sj (0) )T =          t
+                                                              Mi,j
+                                                                       t|(i,j,t)∈I(2,n)
+
+belongs to A2,n . We have the following lemma.
+
+
+                                                                      8
+Lemma 3.2. Let A0 ⊕ · · · ⊕ A⌊n/2⌋ be the image of 1Si (0) (1Sj (0) )T under the map ϕ. Then
+
+                                                       1 1
+                                                     n 2 n 2
+                                                                                      n
+                                          A0 =       i    j
+                                                             ·            δi,i′ δj,j ′ i′ ,j ′ =0 ,
+
+and Ak is the zero matrix for k > 0.
+Remark 3.1. In [19], the ∗-algebra isomorphism ϕ is obtained via a block diagonalisation ϕ(M ) =
+L⌊n/2⌋ T
+   k=0 Uk M Uk for explicit matrices Uk , where the columns of the Uk together form an orthonormal
+                           n                          − 1
+system of vectors in R{0,1} . The columns of U0 are ni 2 1Si (0) (i = 0, . . . , n). From this, Lemma 3.2
+follows directly. Here, we give a proof that only uses the description of ϕ as given in Theorem 3.1.
+
+Proof. We first show the following identity:
+                                            n
+                                                             (  
+                                                              n n
+                                            X      t              i       j
+                                                                                   if k = 0,
+                                                  βi,j,k =                                                                (17)
+                                            t=0
+                                                              0                    otherwise.
+
+To see this, we calculate
+                          n
+                          X                 n X
+                                            X n
+                                 t
+                                                      (−1)t−u ut n−2k
+                                                                      n−k−u n−k−u
+                                βi,j,k =                          u−k    i−u    j−u
+                          t=0               t=0 u=0
+                                            n
+                                            X                              n
+                                                           n−k−u n−k−u X
+                                                   n−2k
+                                                                             (−1)t−u ut .
+                                                                                       
+                                        =          u−k       i−u    j−u
+                                                                         ·
+                                            u=0                                             t=0
+        Pn       t−u u
+                       
+Since    t=0 (−1)    t
+                         = 0 for u > 0, we may restrict the summation to u = 0 and find that
+                                  n
+                                  X      t           n−2k
+                                                              n−k n−k
+                                                                                     = δk,0 ni nj .
+                                                                                               
+                                        βi,j,k =      −k          i            j
+                                  t=0
+
+This proves equation (17).
+   To complete the proof of the lemma, recall that 1Si (0) (1Sj (0) )T =                         t
+                                                                          P
+                                                                               t|(i,j,t)∈I(2,n) Mi,j . So by
+Theorem 3.1
+                             n
+                                               − 1 n−2k− 1
+                                                           2 δ ′ δ ′ n−k
+                            X    t
+                                      ) · n−2k
+                                                                       
+                      Ak = (   βi,j,k             2
+                                           i−k       j−k      i,i j,j i′ ,j ′ =k .
+                                    t=0
+
+The result now follows directly from (17).
+                                               t
+Proposition 3.3. Let M = (i,j,t)∈I(2,n) xti,j Mi,j
+                             P
+                                                   ∈ A2,n and let ϕ(M ) = A0 ⊕ · · · ⊕ A⌊n/2⌋ . Then,
+for any c > 0 we have
+
+                                                                     c y∗
+                                                                         
+                 R(c, M ) ⪰ 0     ⇐⇒     Ak ⪰ 0 for all k > 0 and           ⪰ 0,
+                                                                     y A0
+
+                   1
+where yi = xii,i ni 2 for i = 0, . . . , n.
+   A proof of this proposition was indicated in [14, Lemma 1] by using additional details of the proof
+of Theorem 3.1. Here, we deduce it directly from this theorem.
+
+Proof. Since ϕ is linear, we may assume that c = 1 (by replacing M with 1c M .) By taking Schur
+complements, we have
+                                            n
+                (diag M )∗
+                          
+          1                                X
+                             ⪰ 0 ⇐⇒ M −         xii,i (xjj,j )∗ 1Si (0) (1Sj (0) )T ⪰ 0
+       diag M        M
+                                          i,j=0
+                                                n
+                                                                                        !
+                                               X        i     j   ∗                   T
+                                 ⇐⇒ ϕ M −             xi,i (xj,j ) 1Si (0) (1Sj (0) )     ⪰0
+                                                               i,j=0
+                                                                                            1 n
+                                                                                      1
+                                                                                              
+                                                                       i     j    ∗ n 2 n 2
+                                            ⇐⇒ Ak ⪰ 0 for k > 0, A0 − xi,i (xj,j ) i     j
+                                                                                                                     ⪰0
+                                                                                                             i,j=0
+                                                                                               ∗
+                                                                                                
+                                                                                      1     y
+                                            ⇐⇒ Ak ⪰ 0 for k > 0,                                      ⪰ 0,
+                                                                                      y     A0
+
+where we used Theorem 3.1 in the second equivalence, Lemma 3.2 in the third equivalence, and
+Schur’s complement in the fourth equivalence.
+
+
+
+
+                                                                      9
+      3.2      Terwilliger algebra of the nonbinary Hamming scheme
+      For u, v ∈ [q]n we define d(u, v) := (i, j, t, p) where
+                                                      i = |{ℓ | uℓ ̸= 0}|,
+                                                     j = |{ℓ | vℓ ̸= 0}|,
+                                                     t = |{ℓ | uℓ ̸= 0, vℓ ̸= 0}|,
+                                                     p = |{ℓ | uℓ = vℓ ̸= 0}|.
+      The set of tuples (i, j, t, p) that occur this way are given by
+                                      I(q, n) = {(i, j, t, p) | 0 ≤ p ≤ t ≤ i, j, i + j ≤ n + t}
+      and they parametrize the orbits of pairs (u, v) under the group Aut0 (q, n) = {σ ∈ Aut(q, n) | σ(0) =
+      0} of symmetries of the Hamming space that stabilize the zero word.
+                                                                       t,p
+         For (i, j, t, p) ∈ I(q, n) we define the [q]n × [q]n matrix Mi,j   by
+                                                       (
+                                            t,p        1 if d(u, v) = (i, j, t, p)
+                                         Mi,j    u,v
+                                                     =
+                                                        0 otherwise.
+                       t,p
+      The matrices Mi,j    constitute a basis for the space Aq,n of complex [q]n × [q]n matrices that are
+      invariant under the action of Aut0 (q, n):
+                                                                               
+                                                X                              
+                                   Aq,n =                xt,p
+                                                          i,j M t,p
+                                                                i,j | x t,p
+                                                                        i,j ∈ C   .
+                                                                               
+                                                     (i,j,t,p)∈I(q,n)
+
+                               ∗
+      This space is a C -algebra and coincides with the Terwilliger algebra of the nonbinary Hamming
+      scheme. An explicit block diagonalisation of Aq,n was given in [6]. To describe it, define for any
+      nonnegative integers i, j, t, p, a, k the number
+                                                                                p
+                                                                 1              X
+                                      n−a,t−a
+                                                  · (q − 1) 2 (i+j)−t ·           (−1)a−g ag p−g   (q − 2)t−a−p+g .
+                                                                                             t−a 
+               α(i, j, t, p, a, k) = βi−a,j−a,k−a
+                                                                                g=0
+
+      Theorem 3.4 ([6]). The following map is a ∗-isomorphism of algebras:
+                              M
+             ϕ : Aq,n →                C(n+a−2k+1)×(n+a−2k+1)
+                                    0≤a≤k≤n+a−k
+                                                                                                            !n+a−k
+            X                            M           X             1         1
+                                                            n+a−2k − 2 n+a−2k − 2
+                     xt,p  t,p
+                      i,j Mi,j 7→                             i−k       j−k
+                                                                                  α(i, j, t, p, a, k)xt,p
+                                                                                                      i,j            .   (18)
+         (i,j,t,p)                  0≤a≤k≤n+a−k       t,p                                                    i,j=k
+
+          This theorem implies that a matrix M ∈ Aq,n is positive semidefinite if and only if ϕ(A) is
+      positive semidefinite. We also note that for real valued matrices A, the image ϕ(A) is again real. To
+      see the size of the reduction, note that the matrices in Aq,n have size q n × q n , while for q ≥ 3 we
+      have (cf. [6])
+                                                                                  !
+                                             X                               n+4
+                             |I(q, n)| =              (n + a − 2k + 1)2 =          ,                    (19)
+                                                                               4
+                                                 0≤a≤k≤n+a−k
+
+      which equals the dimension of Aq,n .
+         As in the binary case, we need to deal with bordered matrices R(M ) for M ∈ Aq,n . To express
+      semidefiniteness of R(M ) in terms of ϕ(M ), we need the following two lemmas2 .
+      Lemma 3.5. We have
+                                                              (            1
+                                                                n n
+                                    X
+                                                                 i j
+                                                                     (q − 1) 2 (i+j)     if a = k = 0
+                                        α(i, j, t, p, a, k) =
+                                    p,t                        0                         otherwise.
+
+      Proof. First we observe that by substituting s = p − g, we find
+                       p
+                     t X
+                     X                                     XX
+                         (−1)a−g ag p−g   (q − 2)t−a−p+g =   (−1)a−g ag t−a  (q − 2)t−a−s
+                                    t−a                                  
+                                                                         s
+                     p=0 g=0                                              g≥0 s≥0
+                                                                       X           X t−a
+                                                                     =  (−1)a−g ag ·   s
+                                                                                          (q − 2)t−a−s .
+                                                                          g≥0              s≥0
+
+   2 Analogous to the binary case (see Remark 3.1), Lemma 3.6 can also be derived directly from the explicit block
+
+diagonalisation given in [6].
+
+
+                                                                     10
+This expression is zero if a > 0 and is equal to (q − 1)t if a = 0.
+   So we may restrict to the case a = 0. By (17) we have
+                X                                       1         X                          1
+                       α(i, j, t, p, 0, k) = (q − 1) 2 (i+j)             t
+                                                                               = (q − 1) 2 (i+j) ni
+                                                                                                         n
+                                                                        βi,j,k                            j
+                                                                                                            δk,0 .
+                 t,p                                                t
+
+This concludes the proof.
+
+    Similar to the binary case, we have
+                                                                   X
+                                1Si (0) (1Sj (0) )T =                               t,p
+                                                                                   Mi,j ∈ Aq,n .
+                                                            t,p|(i,j,t,p)∈I(q,n)
+
+                       L                                                                         T
+Lemma 3.6. Let           0≤a≤k≤n+a−k Aa,k be the image of 1Si (0) (1Sj (0) )                         under the map ϕ. Then
+                                               1         1 1               n
+                                A0,0 = (q − 1) 2 (i+j) ni 2 nj 2 δi,i′ δj,j ′ i′ ,j ′ =0 ,
+
+and Aa,k is the zero matrix for (a, k) ̸= (0, 0).
+                                                         t,p
+Proof. Since 1Si (0) (1Sj (0) )T = p,t|(i,j,t,p)∈I(q,n) Mi,j
+                                  P
+                                                             , this follows directly from Lemma 3.5.
+                                    P                   t,p  t,p
+Proposition 3.7. Let M =              (i,j,t,p)∈I(q,n) xi,j Mi,j ∈ Aq,n and let
+                                                                  M
+                                            ϕ(M ) =                           Aa,k .
+                                                            0≤a≤k≤n+a−k
+
+Then R(M ) is positive semidefinite if and only if Aa,k ⪰ 0 for all (a, k) ̸= (0, 0) and
+
+                                                 y∗
+                                                   
+                                            1
+                                                      ⪰ 0,
+                                            y A0,0
+                             1
+where yi = xi,i
+            i,i (q − 1)
+                       i/2 n 2
+                           i
+                                .
+
+Proof. By taking Schur complements, using Theorem 3.4 and using Lemma 3.6 we find
+                                        n
+                                        X              j,j ∗
+         R(M ) ⪰ 0 ⇐⇒            M−             xi,i                           T
+                                                 i,i (xj,j ) 1Si (0) (1Sj (0) ) ⪰ 0
+                                        i,j=0
+                                            n
+                                                                                        !
+                                            X              j,j ∗
+                        ⇐⇒       ϕ M−               xi,i
+                                                     i,i (xj,j ) 1Si (0) (1Sj (0) )
+                                                                                    T
+                                                                                            ⪰0
+                                            i,j=0
+
+                        ⇐⇒       Aa,k ⪰ 0 for (a, k) ̸= (0, 0),
+                                          n                                       1    1
+                                          X                            1                             n
+                                                         j,j ∗
+                                 A0,0 −           xi,i
+                                                   i,i (xj,j ) (q − 1)
+                                                                       2
+                                                                         (i+j) n 2 n 2
+                                                                               i    j
+                                                                                         δi,i′ δj,j ′ i′ ,j ′ =0 ⪰ 0.
+                                          i,j=0
+
+The result now follows by taking Schur complements.
+
+
+4     The symmetry-reduced SDP bound
+In this section we demonstrate how the block-diagonalization from the Terwilliger algebra as de-
+scribed in Section 3 can be employed to significantly reduce the new SDP bound for covering codes
+from Section 2.
+
+4.1     The SDP bound for binary covering codes
+In the binary case, the matrices M ′ , M ′′ and N from Section 2 are contained in the algebra A2,n .
+So we can write
+                                                X
+                                      M′ =            xti,j Mi,j
+                                                             t
+                                                                                               (20)
+                                                        (i,j,t)∈I(2,n)
+
+
+for real numbers xti,j .
+Lemma 4.1. We have
+                X                                                             X
+         M=                         x0i+j−2t,0 Mi,j
+                                                t
+                                                    ,           M ′′ =                    (x0i+j−2t,0 − xti,j )Mi,j
+                                                                                                                t
+                                                                                                                    .
+                   (i,j,t)∈I(2,n)                                        (i,j,t)∈I(2,n)
+
+
+
+                                                                 11
+Proof. Note that if u, v ∈ E with d(u, v) = (i, j, t), then d(u, v) = i + j − 2t. So Mu,v = x0i+j−2t,0
+       ′′
+and Mu,v  = x0i+j−2t,0 − xti,j by Proposition 2.1 (i).
+
+Remark 4.1 (Interpretation of the xti,j ). The coefficients xti,j provide insight into the structure of the
+code C by extending the concept of distance distribution in Delsarte’s linear programming approach
+to triples. Whereas the distance distribution tracks the number of pairs in C at each distance d, the
+coefficients xti,j count the number of triples (u, v, w) ∈ C 3 that belong to an equivalence class of E3
+under the group action of Aut(2, n). We proceed by explaining this formally. Define
+                            Xi,j,t := {(u, v, w) ∈ E × E × E | d(v − u, w − u) = (i, j, t)},
+for (i, j, t) ∈ I(2, n). For each (i, j, t) ∈ I(2, n), define the numbers
+                                                  λti,j := |(C × C × C) ∩ Xi,j,t |,
+and let                                                                                                !
+                                     t                                                         n
+                                    γi,j := |({0} × E × E) ∩ Xi,j,t | =
+                                                                                        i − t, j − t, t
+                                     t
+be the number of nonzero entries of Mi,j . Then the coefficients xti,j are given by
+
+                                                       xti,j = 2−n (γi,j
+                                                                     t
+                                                                         )−1 λti,j .                                             (21)
+                                                 t
+To see (21), notice that the matrices Mi,j         are pairwise orthogonal, and their inner products satisfy
+   t     t        t
+⟨Mi,j , Mi,j ⟩ = γi,j , for (i, j, t) ∈ I(2, n). Thus, we compute:
+                                                            X           X
+                      ⟨M ′ , Mi,j
+                              t
+                                  ⟩ = |Aut(2, n)|−1                                     t
+                                                                                ⟨MσC , Mi,j ⟩
+                                                            u∈C σ∈Aut(2,n)
+                                                                  σu=0
+                                                                                X
+                                     = |Aut(2, n)|−1 · |Aut0 (2, n)|                    |({u} × C × C) ∩ Xi,j,t |
+                                                                                u∈C
+
+                                     = 2−n |(C × C × C) ∩ Xi,j,t | = 2−n λti,j .
+Hence we have                                                  X
+                                           M ′ = 2−n                        λti,j (γi,j
+                                                                                    t
+                                                                                        )−1 Mi,j
+                                                                                             t
+                                                                                                 .
+                                                           (i,j,t)∈I(2,n)
+                                    t
+Comparing the coefficients of each Mi,j in this expression with those in (20) establishes (21).
+Proposition 4.2 (Basic inequalities and symmetry). The xti,j satisfy
+
+               (i)         0 ≤ xti,j ≤ xii,i ,                                                                                   (22)
+              (ii)         x0i,0 + x0i+j−2t,0 − x00,0 ≤ xti,j ≤ x0i+j−2t,0 ,
+                                      ′
+             (iii)         xti,j = xti′ ,j ′ if (i, j, i + j − 2t) is a permutation of (i′ , j ′ , i′ + j ′ − 2t′ ),
+Proof. This follows directly from Proposition 2.1 (ii), (iii), (iv) combined with Lemma 4.1.
+
+    We now employ the block-diagonalization of A2,n from Section 3.1 to the matrices of Proposi-
+tion 2.2.
+Proposition 4.3 (Semidefiniteness). The following matrices are positive semidefinite:
+     n
+                     !n−k       n
+                                                                !n−k
+    X    t
+                               X
+        βi,j,k xti,j      ⪰ 0,      t
+                                   βi,j,k (x0i+j−2t,0 − xti,j )      ⪰ 0, for k = 1, . . . , ⌊ n2 ⌋,                             (23)
+      t=0                   i,j=k                t=0                                     i,j=k
+      n
+                           !n
+                                               1 − x00,0      yT
+      X                                                           
+             t
+            βi,j,0 xti,j            ⪰ 0,                               ⪰ 0,
+                                                  y           L
+      t=0                   i,j=0
+               Pn         t       0           t
+                                                   n                              n
+                                                                                        0
+where L =            t=0 βi,j,0 (xi+j−2t,0 − xi,j ) i,j=0 , and yi :=              i
+                                                                                        (x0,0 − x0i,0 ), for i = 0, . . . , n.
+
+Proof. This follows from applying the block-diagonalization from Section 3.1 to the matrices in
+Proposition 2.2. Here Equation (15) directly gives the reduction of the matrix M ′ , and Proposition 3.3
+combined with Equation (15) gives the reduction of the matrix R(1 − x00,0 , M ′′ ).
+
+     Next, we will describe the symmetry reduction of the constraints from Proposition 2.4. We start
+with the constraints following from the matrix N from (7). Recall that the matrix N satisfies (i),
+(ii), (iii) from Proposition 2.4. We aim to block-diagonalize the matrix given in (i) of Proposition 2.4.
+To this end, we first define the following numbers. Given two words u, v ∈ E, with d(u, v) = (i, j, t),
+                  (i,j,t)
+we denote by η(i′ ,j ′ ,t′ ),d the number of words w ∈ E with weight d, and d(u − w, v − w) = (i′ , j ′ , t′ ).
+Note that necessarily i + j − 2t = i′ + j ′ − 2t′ .
+
+
+                                                                       12
+                                          (i,j,t)
+Lemma 4.4. The numbers η(i′ ,j ′ ,t′ ),d satisfy
+                                                                       !     !     !         !
+                      (i,j,t)
+                                                    X              i−t   j−t    t    n+t−i−j
+                    η(i′ ,j ′ ,t′ ),d =                                                       ,                                                           (24)
+                                          a00 ,a01 ,a10 ,a11
+                                                                   a10   a01   a11     a00
+
+where the indices a00 , a01 , a10 and a11 range over all nonnegative integers for which
+
+                           a00 ≤ n + t − i − j,                a01 ≤ j − t,                  a10 ≤ i − t,                      a11 ≤ t,                   (25)
+                                d = a00 + a01 + a10 + a11 ,
+                              i′ = i + a00 − a11 − a10 + a01 ,
+                             j ′ = j + a00 − a11 + a10 − a01 .
+
+Proof. Partition the support of w into sets A00 , A01 , A10 and A11 , where for α, β ∈ {0, 1} the set
+Aαβ is given by
+                             Aαβ = {ℓ ∈ supp(w) | uℓ = α, vℓ = β}.
+Denoting aαβ = |Aαβ |, the result follows by summing over all possible subsets A00 , A01 , A10 , A11 .
+
+     Applying the block-diagonalizationPof A2,n from Section 3.1 to the matrix (i) of Proposition 2.4,
+i.e., to the matrix R(c, N ), where c = n                     ′
+                                         ℓ=0 λℓ · |Sℓ (0)| · M0,0 − β, gives the following result.
+
+Proposition 4.5 (Lasserre constraint). If C satisfies the inequality (λ0 , . . . , λn )β, then the following
+matrices are positive semidefinite:
+                                                                    n−k
+   n             n
+  X             X    X        (i,j,t)            ′
+        t
+     βi,j,k           λd η(i′ ,j ′ ,t′ ),d xti′ ,j ′  − βx0i+j−2t,0     ⪰0  for each k = 1, . . . , ⌊ n2 ⌋,
+   t=0             d=0 i′ ,j ′ ,t′
+                                                                                                          i,j=k
+                                                                                                                                                          (26)
+ Pn       n
+             λi x00,0 − β        yT
+                                     
+     i=0   i                              ⪰ 0,
+             y                   T
+
+where
+                                                                                                 n
+                                  n               n
+                                  X              X  X     (i,j,t)             ′
+                                         t
+                      T =              βi,j,0      λd η(i′ ,j ′ ,t′ ),d xti′ ,j ′  − βx0i+j−2t,0                                                ,
+                                  t=0                d=0 i′ ,j ′ ,t′
+                                                                                                                                              i,j=0
+                                  !  n                                              
+                                n X X            (i,i,i)           t′            0
+               and yi :=                       λd η(i′ ,j ′ ,t′ ),d xi′ ,j ′  − βx0,0  ,                                      for i = 0, . . . , n.
+                                i        ′ ′ ′
+                                           d=0 i ,j ,t
+
+
+                         2.4 (i) the matrix R(c, N ) is positive semidefinite, where c = n
+                                                                                        P
+Proof. By Proposition                                                                    ℓ=0 λℓ ·|Sℓ (0)|·
+  ′
+     −β = n          n      0
+             P         
+M0,0            i=0 i λi x0,0 − β. We next compute the entries of N using Proposition 2.4 (iii). We
+have, for u, v ∈ {0, 1}n , that
+                                              n
+                                              X            X            ′
+                 Nu,v = −βMu,v +                    λd                 Mu−w,v−w
+                                              d=0        w∈Sd (0)
+                                                                                                                          
+                                                    n
+                                                                                                   t′            t′
+                                                    X              X                  X
+                       = −βx0i+j−2t,0 +                   λd                                     xi′ ,j ′   M   i′ ,j ′
+                                                                                                                           
+                                                    d=0        w∈Sd (0)             i′ ,j ′ ,t′
+                                                                                                                               u−w,v−w
+                                                    n
+                                                                                               t′
+                                                    X              X              X
+                       = −βx0i+j−2t,0 +                   λd                               x   i′ ,j ′    1d(u−w,v−w)=(i′ ,j ′ ,t′ )
+                                                    d=0        w∈Sd (0) i′ ,j ′ ,t′
+                                                                                                                                         
+                                                    n
+                                                    X            X                   X                                                        ′
+                       = −βx0i+j−2t,0 +                   λd                                     1d(u−w,v−w)=(i′ ,j ′ ,t′ )  xti′ ,j ′
+                                                    d=0        i′ ,j ′ ,t′       w∈Sd (0)
+                                                    n
+                                                    X            X             (i,j,t)                ′
+                       = −βx0i+j−2t,0 +                   λd                 η(i′ ,j ′ ,t′ ),d xti′ ,j ′ .
+                                                    d=0        i′ ,j ′ ,t′
+
+
+Then, Proposition 3.3 together with Equation (15) yields the block-diagonalization of R(c, N ) as
+given in (26).
+
+
+
+
+                                                                             13
+    It remains to translate the linear constraints from Proposition 2.4 (iv) in terms of the xti,j . To do
+                                                                                                  (i,j,t)
+this, we need the following numbers. Given two words u, v ∈ E with d(u, v) = (i, j, t), let α(i,j ′ ,t′ ),d
+be the number of words w ∈ E with d(u, w) = (i, j ′ , t′ ) and d(v, w) = d. Note that
+                                              (i,j,t)                  (i,j,t)
+                                           α(i,j ′ ,t′ ),d = η(i+j ′ −2t′ ,d,t−t′ +(j ′ −j)/2),j ′
+
+(both count the number of extensions of (0, u, v) to a configuration (0, u, v, w) in a specified orbit
+of 4-tuples).
+                                          (i,j,t)
+Lemma 4.6. The numbers α(i,j ′ ,t′ ),d satisfy
+                                                                            !     !     !         !
+                     (i,j,t)
+                                                 X                      i−t   j−t    t    n+t−i−j
+                    α(i,j ′ ,t′ ),d =                                                              ,                                                               (27)
+                                         a00 ,a01 ,a10 ,a11
+                                                                        a10   a01   a11     a00
+
+where the indices a00 , a01 , a10 and a11 range over all nonnegative integers for which
+
+                               a00 ≤ n + t − i − j,                    a01 ≤ j − t,                   a10 ≤ i − t,               a11 ≤ t,                          (28)
+                                  ′
+                                 j = a00 + a01 + a10 + a11
+                                 t′ = a10 + a11
+                         d − j = a00 + a10 − a01 − a11 .
+
+Proof. Analogous to Lemma 4.4.
+
+Lemma 4.7. Let u ∈ E with d(u, 0) = i and let x ∈ RE be such that xv is determined by d(u, v),
+say xv = xti,j , in case d(u, v) = (i, j, t). Then
+       n                                                                                                   n
+       X                                                                              X           ′        X             (i,j,t)
+             λd x(Sd (v)) ≥ β          for all v ∈ E                   ⇐⇒                      xti,j ′ ·          λd α(i,j ′ ,t′ ),d ≥ β           for all j, t,
+       d=0                                                                           j ′ ,t′               d=0
+                       P
+where x(Sd (v)) :=            w∈Sd (v) xw .
+
+
+Proof. Let v ∈ E and d(u, v) = (i, j, t). Then we have
+                 n
+                 X                            n
+                                              X                    X                     n
+                                                                                         X              X                    X
+                       λd x(Sd (v)) =                  λd                    xw =                 λd                                      xw
+                 d=0                          d=0             w∈E                         d=0          j ′ ,t′        w∈E
+                                                            d(v,w)=d                                                d(v,w)=d
+                                                                                                                 d(u,w)=(i,j ′ ,t′ )
+                                              n                                                                              n
+                                              X             X           (i,j,t)            ′           X            ′        X           (i,j,t)
+                                          =            λd             α(i,j ′ ,t′ ),d xti,j ′ =                  xti,j ′ ·         λd α(i,j ′ ,t′ ),d .
+                                              d=0           j ′ ,t′                                    j ′ ,t′               d=0
+
+
+   Now we can rewrite the linear constraints from Proposition 2.4 (iv) in terms of the xti,j .
+Proposition 4.8 (Matrix cut inequalities). If C satisfies the inequality (λ0 , . . . , λn )β, then for every
+tuple (i, j, t) ∈ I(2, n) the following inequalities hold:
+                                                   X t′
+                                                       xi,j ′ · λi,j,t      0
+                                                                 j ′ ,t′ ≥ xi,0 β,                      (29)
+                                                                          j ′ ,t′
+                                                        X                        ′
+                                                                  (x0j ′ ,0 − xti,j ′ ) · λi,j,t       0      0
+                                                                                           j ′ ,t′ ≥ (x0,0 − xi,0 )β,
+                                                        j ′ ,t′
+                                            X                                        ′
+                                                     (x0i+j ′ −2t′ ,0 − xti,j ′ ) · λi,j,t       0      0
+                                                                                     j ′ ,t′ ≥ (x0,0 − xi,0 )β,
+                                           j ′ ,t′
+                    X                                                  ′
+                              (x00,0 − x0j ′ ,0 − x0i+j ′ −2t′ ,0 + xti,j ′ ) · λi,j,t            0      0
+                                                                                 j ′ ,t′ ≥ (1 − 2x0,0 + xi,0 )β,
+                    j ′ ,t′
+
+
+where the numbers λi,j,t
+                   j ′ ,t′ are given by
+
+                                                                           n
+                                                                           X              (i,j,t)
+                                                         λi,j,t
+                                                          j ′ ,t′ :=                λd α(i,j ′ ,t′ ),d .
+                                                                           d=0
+
+Proof. These are the constraints from Proposition 2.4 (iv) written in terms of the xti,j , making use
+of Lemma 4.7.
+
+    The following theorem makes the semidefinite programming lower bound from Theorem 2.5 ef-
+fective in case q = 2, by using the results of Propositions 4.2, 4.3, 4.5, and 4.8.
+
+
+                                                                                14
+Theorem 4.9. If every code C ⊆ E with covering radius r satisfies (λ0 , λ1 , . . . , λn )β, then we have
+                                                                    !
+                               3        n
+                                            X               n
+                      K2 (n, r) ≥ min 2                              xti,j ,                        (30)
+                                   x                 i − t, j − t, t
+                                                        (i,j,t)∈I(2,n)
+
+
+where the xti,j are real numbers that satisfy the constraints in Propositions 4.2, 4.3, 4.5, and 4.8.
+
+Proof. Equation (30) is the objective function from Theorem 2.5 written in terms of the xti,j . The
+validity of the constraints from Propositions 4.2, 4.3, 4.5, and 4.8 was already proven.
+
+    By (16), both the number of variables of the reduced SDP and the sum of squares of its block
+sizes are O(n3 ).
+
+4.2       The SDP bound for nonbinary covering codes
+In this section, we address the nonbinary case, that is, q ≥ 3. The overall strategy is the same
+as in the binary case discussed in the previous section, so the arguments are analogous. However,
+the formulas involve additional terms and variables, making them more cumbersome to write out
+explicitly. To avoid redundancy, we keep proofs brief.
+    The matrices M ′ , M ′′ and N from Section 2 are contained in the algebra Aq,n . So we can write
+                                               X
+                                     M′ =              xt,p   t,p
+                                                         i,j Mi,j                               (31)
+                                                      (i,j,t,p)∈I(q,n)
+
+
+for real numbers xt,p
+                  i,j .
+
+Lemma 4.10. We have
+                 X 0,0                                                   X
+            M=                  t,p
+                    xi+j−t−p,0 Mi,j ,                        M ′′ =             (x0,0          t,p   t,p
+                                                                                  i+j−t−p,0 − xi,j )Mi,j .
+                           i,j,t,p                                    i,j,t,p
+
+
+Proof. Note that if u, v ∈ E with d(u, v) = (i, j, t, p), then d(u, v) = i+j−t−p. So Mu,v = x0,0
+                                                                                             i+j−t−p,0
+       ′′
+and Mu,v  = x0,0            t,p
+             i+j−t−p,0 − xi,j by Proposition 2.1 (i).
+
+
+Remark 4.2 (Interpretation of the xt,p                                                        t,p
+                                         i,j ). Similar to the binary case, the coefficients xi,j provide
+insight into the structure of the code C by extending the concept of distance distribution in Delsarte’s
+linear programming approach to triples. The xt,p                                                   3
+                                                   i,j count the number of triples (u, v, w) ∈ C that
+                                     3
+belong to an equivalence class of E under the group action of Aut(q, n). Define
+
+                     Xi,j,t,p := {(u, v, w) ∈ E × E × E | d(v − u, w − u) = (i, j, t, p)},
+
+for (i, j, t, p) ∈ I(q, n). For each (i, j, t, p) ∈ I(q, n), define the numbers
+
+                                            λt,p
+                                             i,j := |(C × C × C) ∩ Xi,j,t,p |,
+
+and let
+                                                                                                                !
+               t,p                                                                                  n
+              γi,j := |({0} × E × E) ∩ Xi,j,t,p | = (q − 1)i+j−t (q − 2)t−p
+                                                                                          p, t − p, i − t, j − t
+
+                                     t,p
+be the number of nonzero entries of Mi,j . Then the coefficients xt,p
+                                                                  i,j are given by
+
+                                                          −n   t,p −1 t,p
+                                                 xt,p
+                                                  i,j = q    (γi,j ) λi,j .                                           (32)
+
+Equation (32) can be seen with an analogous computation as was done to show (21) for the binary
+case. To prevent repetition, we omit the details.
+Proposition 4.11 (Basic inequalities and symmetry). The xt,p
+                                                         i,j satisfy
+
+
+           (i)     0 ≤ xt,p    i,i
+                        i,j ≤ xi,i ,                                                                                  (33)
+          (ii)     x0,0    0,0          0,0    t,p    0,0
+                    i,0 + xi+j−t−p,0 − x0,0 ≤ xi,j ≤ xi+j−t−p,0 ,
+                              ′   ′
+          (iii)    xt,p    t ,p
+                    i,j = xi′ ,j ′    if (i, j, i + j − t − p) is a permutation of (i′ , j ′ , i′ + j ′ − t′ − p′ )
+                                      and t − p = t′ − p′ ,
+
+Proof. This follows directly from Proposition 2.1 (ii), (iii), (iv) combined with Lemma 4.10.
+
+
+
+                                                              15
+    We now employ the block-diagonalization of Aq,n from Section 3.2 to the matrices of Proposi-
+tion 2.2.
+Proposition 4.12 (Semidefiniteness). For all a, k with 0 ≤ a ≤ k ≤ n + a − k and k ̸= 0 we have
+    n
+                                      !n+a−k                        n
+                                                                                                                                       !n+a−k
+    X                                                               X
+           α(i, j, t, p, a, k)xt,p
+                               i,j                  ⪰ 0,                     α(i, j, t, p, a, k)(x0,0          t,p
+                                                                                                  i+j−t−p,0 − xi,j )                            ⪰ 0. (34)
+   t,p=0                                   i,j=k                   t,p=0                                                                i,j=k
+
+Moreover,                                                            !n
+                                n
+                                                                                                     1 − x0,0          yT
+                                X                                                                                          
+                                       α(i, j, t, p, 0, 0)xt,p
+                                                           i,j                    ⪰ 0,                    0,0
+                                                                                                                                ⪰ 0,                   (35)
+                                                                                                        y              L
+                               t,p=0                                    i,j=0
+
+where
+               n
+                                                                             !n                                                           !
+               X                                                                                                                        n          1
+    L :=              α(i, j, t, p, 0, 0)(x0,0          t,p
+                                           i+j−t−p,0 − xi,j )                                and        yi := (x0,0    i,i
+                                                                                                                0,0 − xi,i )               (q − 1) 2 i .
+              t,p=0
+                                                                                                                                        i
+                                                                                 i,j=0
+
+Proof. This follows from applying the block-diagonalization from Section 3.2 to the matrices in
+Proposition 2.2. Here Theorem 3.4 directly gives the reduction of the matrix M ′ , and Proposition 3.7
+combined with Theorem 3.4 gives the reduction of the matrix R(1 − x0,0        ′′
+                                                                       0,0 , M ).
+
+    Analogous to the binary case, we next describe the symmetry reduction of the constraints from
+Proposition 2.4. We start with the constraints following from the matrix N from (7). Recall that
+the matrix N satisfies (i), (ii), (iii) from Proposition 2.4. We aim to block-diagonalize the matrix
+given in (i) of Proposition 2.4. To do this, we define the following numbers.
+                                                                           (i,j,t,p)
+    Given two words u, v ∈ E, with d(u, v) = (i, j, t, p), we denote by η(i′ ,j ′ ,t′ ,p′ ),d the number of
+words w ∈ E with weight d, and d(u−w, v−w) = (i′ , j ′ , t′ , p′ ). Note that i+j −t−p = i′ +j ′ −t′ −p′ .
+                                    (i,j,t,p)
+As in the binary case, the numbers η(i′ ,j ′ ,t′ ,p′ ),d can be explicitly calculated as a sum of expressions
+including binomial coefficients.
+                                              (i,j,t,p)
+Lemma 4.13. The numbers η(i′ ,j ′ ,t′ ,p′ ),d satisfy
+                                                             !               !               !                     !                      !
+                  (i,j,t,p)
+                                           X       i−t            j−t               p               t−p                 n+t−i−j
+                 η(i′ ,j ′ ,t′ ,p′ ),d =
+                                                   a1 , a2        b1 , b 2        c1 , c 2        d1 , d 2 , d 3           e
+                                                                 · (q − 1)e (q − 2)a2 +b2 +c2 (q − 3)d3 ,                                              (36)
+
+where the summation is over all nonnegative integers a1 , a2 , b1 , b2 , c1 , c2 , d1 , d2 , d3 , and e for
+which
+
+   e ≤ n + t − i − j,           b1 + b2 ≤ j − t,             a1 + a2 ≤ i − t,                    d1 + d2 + d3 ≤ t − p,                 c1 + c 2 ≤ p    (37)
+   d = a1 + a2 + b1 + b2 + c1 + c2 + d1 + d2 + d3 + e
+   i′ = i − a1 + b1 + b2 − c1 − d1 + e
+  j ′ = j + a1 + a2 − b1 − c1 − d2 + e
+   t′ = t + a2 + b2 − c1 − d1 − d2 + e.
+
+Proof. The equality can be seen by partitioning the support of w into sets A1 , A2 , B1 , B2 , C1 , C2 ,
+D1 , D2 , D3 , and E as follows:
+
+                             A1 := {k ∈ supp(w) | uk ̸= 0, vk = 0, wk = uk },                                                                          (38)
+                             A2 := {k ∈ supp(w) | uk ̸= 0, vk = 0, wk ̸= uk },
+                             B1 := {k ∈ supp(w) | uk = 0, vk ̸= 0, wk = vk },
+                             B2 := {k ∈ supp(w) | uk = 0, vk ̸= 0, wk ̸= vk },
+                             C1 := {k ∈ supp(w) | uk ̸= 0, vk = uk , wk = uk },
+                             C2 := {k ∈ supp(w) | uk ̸= 0, vk = uk , wk ̸= uk },
+                             D1 := {k ∈ supp(w) | uk ̸= 0, vk ̸= 0, wk = uk },
+                             D2 := {k ∈ supp(w) | uk ̸= 0, vk ̸= 0, wk = vk },
+                             D3 := {k ∈ supp(w) | uk ̸= 0, vk ̸= 0, wk ̸= uk , wk ̸= vk },
+                               E := {k ∈ supp(w) | uk = 0, vk = 0}.
+
+Denoting the sizes of these sets by a1 , a2 , b1 , b2 , c1 , c2 , d1 , d2 , d3 , and e, respectively, the proposition
+follows by summing over all possible sets A1 , A2 , B1 , B2 , C1 , C2 , D1 , D2 , D3 , and E.
+
+
+                                                                             16
+Proposition 4.14 (Lasserre constraint). If C satisfies the inequality (λ0 , . . . , λn )β, then for all a, k
+with 0 ≤ a ≤ k ≤ n + a − k and k ̸= 0 we have
+                                                                                      n+a−k
+       n                          n
+       X                          X X       (i,j,t,p)              ′ ′
+                                                                  t  ,p         0,0
+          α(i, j, t, p, a, k)        λd η(i′ ,j ′ ,t′ ,p′ ),d xi′ ,j ′  − βxi+j−t−p,0       ⪰ 0. (39)
+        t,p=0                                 d=0 i′ ,j ′ ,t′ ,p′
+                                                                                                                                              i,j=k
+
+Moreover,                                     Pn              n
+                                                                  (q − 1)i λi x0,0                             yT
+                                                                                                                    
+                                                       i=0                     0,0 − β
+                                                               i                                                             ⪰ 0,                                     (40)
+                                                                      y                                        T
+where
+                                                                                                                                              n
+                    n                            n
+                    X                           X                     X               (i,j,t,p)               ′ ′
+        T =              α(i, j, t, p, 0, 0)                                   λd η(i′ ,j ′ ,t′ ,p′ ),d xti′ ,j
+                                                                                                                ,p 
+                                                                                                                   ′ − βx0,0
+                                                                                                                         i+j−t−p,0
+                                                                                                                                                                ,
+                  t,p=0                                     d=0 i′ ,j ′ ,t′ ,p′
+                                                                                                                                                          i,j=0
+                      !                                                                   
+                                      n
+                    n           1i   X    X         (i,i,i,i)               ′    ′
+         yi :=          (q − 1) 2             λd η(i′ ,j ′ ,t′ ,p′ ),d xti′ ,j
+                                                                              ,p 
+                                                                                 ′   − βx0,0
+                                                                                         0,0
+                                                                                             ,                                          for i = 0, . . . , n.
+                    i                   ′ ′ ′ ′ d=0 i ,j ,t ,p
+
+
+                                     matrix R(c, N ) is positive semidefinite, where c = n
+                                                                                        P
+Proof. By Proposition
+             Pn        2.4 (i) ithe 0,0                                                  ℓ=0 λℓ ·|Sℓ (0)|·
+   ′                 n
+M0,0 − β = i=0 i (q − 1) λi x0,0 − β. We next compute the entries of N using Proposition 2.4
+(iii). We have, for u, v ∈ E, that
+                                              n
+                                              X               X           ′
+                Nu,v = −βMu,v +                        λd                Mu−w,v−w
+                                              d=0           w∈Sd (0)
+                                                                                                                                   
+                                                        n
+                                                                                                              ′ ′
+                                                                                                                      t′ ,p′ 
+                                                        X               X                    X
+                       = −βx0,0
+                            i+j−t−p,0 +                        λd                                         xti′ ,j
+                                                                                                                ,p
+                                                                                                                   ′ Mi′ ,j ′
+                                                        d=0         w∈Sd (0)             i′ ,j ′ ,t′ ,p′
+                                                                                                                                    u−w,v−w
+                                                        n
+                                                        X               X                 X                ′   ′
+                       = −βx0,0
+                            i+j−t−p,0 +                        λd                                   xti′ ,j
+                                                                                                         ,p
+                                                                                                            ′ 1d(u−w,v−w)=(i′ ,j ′ ,t′ ,p′ )
+                                                        d=0         w∈Sd     (0) i′ ,j ′ ,t′ ,p′
+                                                                                                                                             
+                                                        n
+                                                        X               X                    X                                                        ′   ′
+                       = −βx0,0
+                            i+j−t−p,0 +                        λd                                         1d(u−w,v−w)=(i′ ,j ′ ,t′ ,p′ )  xti′ ,j
+                                                                                                                                                 ,p
+                                                                                                                                                    ′
+                                                        d=0         i′ ,j ′ ,t′ ,p′       w∈Sd (0)
+                                                        n
+                                                        X               X               (i,j,t,p)                   ′    ′
+                       = −βx0,0
+                            i+j−t−p,0 +                        λd                     η(i′ ,j ′ ,t′ ,p′ ),d xti′ ,j
+                                                                                                                 ,p
+                                                                                                                    ′.
+                                                        d=0         i′ ,j ′ ,t′ ,p′
+
+
+Then, Proposition 3.7 combined with Theorem 3.4 yields the block-diagonalization of R(c, N ) as
+given in (39), (40).
+
+    It remains to translate the linear constraints from Proposition 2.4 (iv) in terms of the xt,p     i,j . To
+this end, we define the following numbers. Given two words u, v ∈ E with d(u, v) = (i, j, t, p),
+      (i,j,t,p)
+let α(i,j ′ ,t′ ,p′ ),d denote the number of words w ∈ E with d(u, w) = (i, j ′ , t′ , p′ ) and d(v, w) = d.
+                                                              (i,j,t,p)
+As in the binary case, the numbers α(i,j ′ ,t′ ,p′ ),d can be explicitly calculated as sums of expressions
+including binomial coefficients.
+                                                (i,j,t,p)
+Lemma 4.15. The numbers α(i,j ′ ,t′ ,p′ ),d satisfy
+                                                                    !                 !                 !                           !                 !
+                 (i,j,t,p)
+                                           X            i−t               j−t                  p                     t−p                n+t−i−j
+                α(i,j ′ ,t′ ,p′ ),d =
+                                         a1 ,a2 ,       a1 , a2           b1 , b 2           c1 , c 2              d1 , d 2 , d 3          e
+                                          b1 ,b2 ,
+                                         c1 ,c2 ,
+                                        d1 ,d2 ,d3 ,
+                                             e
+
+                                                                        · (q − 1)e (q − 2)a2 +b2 +c2 (q − 3)d3 ,                                                      (41)
+
+where a1 , a2 , b1 , b2 , c1 , c2 , d1 , d2 , d3 , and e range over all nonnegative integers for which
+
+        e ≤ n + t − i − j, b1 + b2 ≤ j − t, a1 + a2 ≤ i − t, d1 + d2 + d3 ≤ t − p, c1 + c2 ≤ p                                                                        (42)
+      j ′ = a 1 + a2 + b 1 + b 2 + c 1 + c2 + d 1 + d 2 + d 3 + e
+        t′ = a1 + a2 + c1 + c2 + d1 + d2 + d3
+      p′ = a 1 + c 1 + d 1
+        d = a1 + a2 + e + j − b1 − c1 − d2 .
+
+
+                                                                                  17
+Proof. Analogous to Lemma 4.13.
+
+Lemma 4.16. Let u ∈ E with d(u, 0) = i and let x ∈ RE be such that xv is determined by d(u, v),
+say xv = xt,p
+          i,j , in case d(u, v) = (i, j, t, p). Then
+
+   n                                                                                                              n
+   X                                                                                   X              ′       ′   X                (i,j,t,p)
+         λd x(Sd (v)) ≥ β           for all v ∈ E                    ⇐⇒                          xti,j,p′ ·             λd α(i,j ′ ,t′ ,p′ ),d ≥ β             for all j, t, p,
+   d=0                                                                            j ′ ,t′ ,p′                     d=0
+                             P
+where x(Sd (v)) :=              w∈Sd (v) xw .
+
+
+Proof. Let v ∈ E and d(u, v) = (i, j, t, p). Then we have
+             n
+             X                             n
+                                           X                 X                         n
+                                                                                       X                  X                        X
+                   λd x(Sd (v)) =                   λd                    xw =                   λd                                                xw
+             d=0                           d=0             w∈E                         d=0            j ′ ,t′ ,p′         w∈E
+                                                         d(v,w)=d                                                       d(v,w)=d
+                                                                                                                    d(u,w)=(i,j ′ ,t′ ,p′ )
+                                           n                                                                                             n
+                                           X               X             (i,j,t,p)                ′       ′       X            ′    ′    X           (i,j,t,p)
+                                      =             λd                 α(i,j ′ ,t′ ,p′ ),d xti,j,p′ =                       xti,j,p′ ·         λd α(i,j ′ ,t′ ,p′ ),d .
+                                           d=0           j ′ ,t′ ,p′                                              j ′ ,t′                d=0
+
+
+   Now we are ready to rewrite the linear constraints from Proposition 2.4 (iv) in terms of the xt,p
+                                                                                                 i,j .
+
+Proposition 4.17 (Matrix cut inequalities). If C satisfies the inequality (λ0 , . . . , λn )β, then for
+every tuple (i, j, t, p) ∈ I(q, n) the following inequalities hold:
+                                                 X t′ ,p′ (i,j,t,p)
+                                                      xi,j ′ · λ(i,j ′ ,t′ ,p′ ) ≥ x0,0
+                                                                                    i,0 β,         (43)
+                                                                         j ′ ,t′ ,p′
+                                                                                 t′ ,p′
+                                                         X                                  (i,j,t,p)
+                                                                     (x0,0                                       0,0    0,0
+                                                                       j ′ ,0 − xi,j ′ ) · λ(i,j ′ ,t′ ,p′ ) ≥ (x0,0 − xi,0 )β,
+                                                       j ′ ,t′ ,p′
+                                           X                                           ′     ′            (i,j,t,p)
+                                                    (x0,0                 t ,p                            0,0    0,0
+                                                      i+j ′ −t′ −p′ ,0 − xi,j ′ ) · λ(i,j ′ ,t′ ,p′ ) ≥ (x0,0 − xi,0 )β,
+                                      j ′ ,t′ ,p′
+                X                                                                      ′     ′            (i,j,t,p)
+                            (x0,0    0,0       0,0                 t ,p                                 0,0    0,0
+                              0,0 − xj ′ ,0 − xi+j ′ −t′ −p′ ,0 + xi,j ′ ) · λ(i,j ′ ,t′ ,p′ ) ≥ (1 − 2x0,0 + xi,0 )β,
+              j ′ ,t′ ,p′
+
+                               (i,j,t,p)
+where the numbers λ(i,j ′ ,t′ ,p′ ) are given by
+                                                                                  n
+                                                                                  X
+                                                         (i,j,t,p)                                    (i,j,t,p)
+                                                       λ(i,j ′ ,t′ ,p′ ) :=                 λd α(i,j ′ ,t′ ,p′ ),d .
+                                                                                  d=0
+
+
+Proof. These are the constraints from Proposition 2.4 (iv) written in terms of the xt,p
+                                                                                    i,j , making use
+of Lemma 4.16.
+
+    The following theorem makes the semidefinite programming lower bound from Theorem 2.5 ef-
+fective using symmetry reduction for general q-ary codes, that is, it gives an efficient semidefinite
+programming lower bound on Kq (n, r) for arbitrary q.
+Theorem 4.18. If every code C ⊆ E with covering radius r satisfies (λ0 , λ1 , . . . , λn )β, then we have
+                                                                                         !
+                3        n
+                              X              i+j−t        t−p             n
+       Kq (n, r) ≥ min q              (q − 1)      (q − 2)                                 xt,p ,    (44)
+                     x                                         p, t − p, i − t, j − t i,j
+                                            (i,j,t,p)∈I(q,n)
+
+
+where the minimum ranges over all real x = (xt,p
+                                             i,j ) satisfying the constraints from Propositions 4.11,
+4.12, 4.14, and 4.17.
+
+Proof. Equation (44) is the objective function from Theorem 2.5 written in terms of the xt,p i,j . The
+validity of the constraints from Propositions 4.11, 4.12, 4.14, and 4.17 was already proven.
+
+    By (19), both the number of variables of the reduced SDP and the sum of squares of its block
+sizes are O(n4 ).
+
+
+
+
+                                                                                       18
+ 5       Tables with the new lower bounds
+ We used Julia to generate the semidefinite programs. We also developed an independent Perl code
+ to generate the SDPs, which we used to validate our Julia code. Most SDPs were solved directly
+ in Julia via JuMP with the high-precision solver SDPA-GMP [17]. The solving time varied from a few
+ seconds to several days for the larger instances in the tables below. The precision in SDPA-GMP was set
+ to 512 bits, and custom parameters (mainly a larger lambdaStar, the parameter which determines an
+ initial point for the interior point method) were used as opposed to the standard parameter settings
+ provided with SDPA-GMP to ensure convergence for the larger instances.
+     Generating the SDP for larger instances posed additional challenges due to large coefficients,
+ necessitating the use of high-precision numbers (we used 512 bits BigFloats). Our code for generating
+ the SDP including the call to the solver SDPA-GMP and the parameters used for most of the instances
+ we solved, is available here:
+                                 https://github.com/CoveringCodes
+    In the following tables, we present our new bounds obtained from the semidefinite programs in
+ Theorem 4.9 and 4.18, and compare them to the best known bounds from Keri’s tables [10]. While
+ we also find improved bounds of K2 (18, 1) ≥ 14665 and K2 (30, 1) ≥ 35874398, these have recently
+ been surpassed by Wu and Chen [22], who established K2 (18, 1) ≥ 14666 and K2 (30, 1) ≥ 35876816.
+ Therefore we exclude these bounds from Table 1.
+
+          best                                                        best
+          lower                                                       lower
+          bound                        best                           bound                   best
+          previ-        new            upper                          previ-       new        upper
+          ously         lower          bound                          ously        lower      bound
+ n   R    known         bound          known               n   R      known        bound      known
+13   1          598           607            704          27    3         40683     41012      65536
+14   1         1172          1185           1408          15    4            22        23          32
+17   1         7419          7426           8192          16    4            33        34          64
+21   1        96125         96477         122880          16    5            13        14          28
+22   1       190651        191501         245760          17    5            19        20          32
+25   1      1298238       1301089        1556480          18    5            27        28          64
+26   1      2581111       2589179        3112960          18    6            12        13          28
+29   1     17997161      18000844       23068672          19    6            16        17          32
+33   1    253523901     253764801      268435456          21    6            33        34          64
+13   2           97           101            128          21    7            14        15          32
+14   2          159           170            248          22    7            20        21          64
+17   2          859           889           1536          23    8            13        14          32
+23   2        30686         30828          32768          24    8            18        19          64
+26   2       191229        192747         262144          25    9            12        13          32
+29   2      1231554       1239885        2097152          26    9            16        17          56
+32   2      8170308       8173960       16776960          27   10            11        12          32
+12   3           18            19             28          29   10            19        20          64
+
+
+                              Table 1: New lower bounds on K2 (n, R)
+
+
+
+
+                                                   19
+                  best                                                        best
+                  lower                                                       lower
+                  bound                    best                               bound                   best
+                  previ-         new       upper                              previ-        new       upper
+                  ously          lower     bound                              ously         lower     bound
+     n    R       known          bound     known                 n    R       known         bound     known
+     8    1              402        403       486               10    4             17          18         36
+     9    1             1060       1064      1269               11    4             30          34         81
+     7    2               26         27         34              12    4             62          65       175
+     8    2               54         58         81              13    4            123         130       335
+     9    2              130        132       219               14    4            255         273       729
+    14    2           12204       12323     19683               11    5             11          12         27
+     8    3               14         16         27              12    5             18          21         54
+     9    3               27         31         54              13    5             33          37       108
+    10    3               57         61       105               14    5             59          69       243
+    11    3              117        129       243               13    6             13          14         36
+    13    3              612        640      1215               14    6             21          24         81
+
+
+                                  Table 2: New lower bounds on K3 (n, R)
+
+
+                    best
+                                                                               best
+                    lower
+                                                                               lower
+                    bound                    best
+                                                                               bound                    best
+                    previ-        new        upper
+                                                                               previ-        new        upper
+                    ously         lower      bound
+                                                                               ously         lower      bound
+q     n       R     known         bound      known
+                                                            q     n       R    known         bound      known
+4     7       1            762       776        992
+                                                            5     5       1           160       162        184
+4    11       1        123846     124941     131072
+                                                            5     7       1          2722      2765       3125
+4     6       2             32        33          52
+                                                            5     8       1        11945      12134      15625
+4     7       2             84        88        128
+                                                            5     9       1        53138      53896      78125
+4     8       2            240       251        352
+                                                            5    10       1       238993     241122     390625
+4     9       2            751       775       1024
+                                                            5     7       2           225       236        525
+4    10       2           2412      2460       4096
+                                                            5     8       2           821       861       1625
+4    11       2           7974      8072      15872
+                                                            5    11       2        52842      53309      78125
+4     8       3             44        46          96
+                                                            5     8       3           109       111        325
+4     9       3            110       116        256
+                                                            5     9       3           330       354       1275
+4    11       3            849       885       2048
+                                                            5    10       3          1163      1215       3125
+4     9       4             26        27          64
+                                                            5    11       3          4255      4366      15625
+4    10       4             59        62        208
+                                                            5    10       4           162       177        875
+4    11       4            148       150        512
+                                                            5    11       4           535       546       3125
+4    11       5             36        37        128
+
+
+                         Table 3: New lower bounds on K4 (n, R) and K5 (n, R)
+
+    To illustrate the size of the computations, we report the number of variables in the final symmetry-
+reduced SDP, together with the sum of the block sizes in the block-diagonalization of M ′ and the
+sum of the squares     of these block sizes, see Table
+                                                       4. We note that the dimensions of the Terwilliger
+algebras are n+3    3
+                        in the binary case, and n+4 4
+                                                        in the nonbinary case, but the actual number of
+variables in our SDP is smaller, since the additional symmetry relations from Propositions 4.2 (iii)
+and 4.11 (iii) are imposed.
+    By Theorems 3.1 and 3.4, the block sizes in the block diagonalization of M ′ are given by n−2k +1
+for k = 0, . . . , ⌊n/2⌋ in the binary case, and n + a − 2k + 1 for all pairs (a, k) with 0 ≤ a ≤ k ≤
+n + a − k in the nonbinary case. The matrices M ′′ and N have the same block structure after
+block-diagonalization, except that the block corresponding to k = 0 or (a, k) = (0, 0) is bordered,
+increasing its size by one. The table reports the block sizes after symmetry reduction for the matrix
+M ′ . The full SDP contains several semidefinite constraints (for M ′ , M ′′ , and one or more matrices
+N ), each with essentially the same block sizes. Thus, the total size of the SDP is a small constant
+multiple of the values reported in the table.
+    The computational effort also depends on the choice of inequalities (λ0 , . . . , λn )β, since the con-
+struction of the entries of the matrices N involves combinatorial sums whose number of terms in-
+creases with the number of nonzero coefficients λi . Consequently, for larger R the SDP takes much
+
+
+                                                       20
+      longer to generate, and typically also to solve, even though the block sizes and the number of variables
+      remain unchanged for fixed n.
+
+                                                                            (block size)2
+                                                         P                 P
+                              q     n     #variables         block sizes
+                              2     12       102                49              455
+                              2     22       458               144             2300
+                              2     32      1239               289             6545
+                              3      8       136                95              495
+                              3     11       339               203             1365
+                              3     14       711               372             3060
+                             4, 5    6        64                50              210
+                             4, 5   11       339               203             1365
+
+Table 4: Size parameters of the symmetry-reduced SDPs. We report the number of variables, the sum of the
+block sizes, and the sum of the squares of the block sizes for the block-diagonalization of M ′ .
+
+          The total running time (including both SDP generation and solving) ranged from a few minutes
+      for smaller instances to several days on standard desktop hardware, and in some cases up to two
+      weeks for the largest instances. These runtimes depend strongly on the parameters (q, n, R), the
+      numerical precision, and solver settings. In particular, we used SDPA-GMP, as the SDPs can have very
+      large coefficients and appear to require high-precision arithmetic for reliable solution. The reported
+      runtimes should therefore be interpreted as indicative. All SDPs could very comfortably be generated
+      and solved on a machine with 32 GB of RAM, although the generation and solving of larger instances
+      required several gigabytes due to the use of high-precision arithmetic.
+
+
+      References
+       [1] G. Cohen, I. Honkala, S. Litsyn, A. Lobstein, Covering Codes, Elsevier, 1997.
+       [2] P. Delsarte, An algebraic approach to the association schemes of coding theory, Philips Research Reports
+           Supplements, 10 (1973).
+       [3] B.M. Litjens, S.C. Polak, A. Schrijver, Semidefinite bounds for nonbinary codes based on quadruples,
+           Designs, Codes and Cryptography, 84 (1) (2017), 87-100.
+       [4] D.C. Gijswijt, Matrix Algebras and Semidefinite Programming Techniques for Codes, PhD thesis, Uni-
+           versity of Amsterdam, 2005.
+       [5] D.C. Gijswijt, H.D. Mittelmann, A. Schrijver, Semidefinite code bounds based on quadruple distances,
+           IEEE Transactions on Information Theory, 58 (5) (2012), 2697–2705.
+       [6] D.C. Gijswijt, A. Schrijver, H. Tanaka, New upper bounds for nonbinary codes based on the Terwilliger
+           algebra and semidefinite programming, Journal of Combinatorial Theory, Series A, 113 (2006), 1719–
+           1731.
+       [7] L. Habsieger and A. Plagne, New lower bounds for covering codes, Discrete Mathematics, 222 (1-3)
+           (2000), 125–149.
+       [8] H. Hämäläinen, I. Honkala, S. Litsyn, and P. Östergård, Football pools – a game for mathematicians,
+           American Mathematical Monthly, 102 (1995), 579–588.
+       [9] S.M. Johnson, A new lower bound for coverings by rook domains, Utilitas Mathematica, 1 (1972),
+           121–140.
+      [10] G. Kéri, Tables for bounds on covering codes, website: http://old.sztaki.hu/~keri/codes/
+      [11] D. de Laat, F. Vallentin, A semidefinite programming hierarchy for packing problems in discrete geom-
+           etry, Mathematical Programming, Series B, 151 (2015), 529–553.
+      [12] J.B. Lasserre, Global optimization with polynomials and the problem of moments, SIAM Journal on
+           Optimization, 11 (2001), 796–817.
+      [13] J.B. Lasserre, Optimality conditions and LMI relaxations for 0-1 programs. Technical report #00099,
+           LAAS-CNRS Toulouse, France (2000).
+      [14] M. Laurent, Strengthened semidefinite programming bounds for codes, Mathematical Programming 109
+           (2007), 239–261.
+      [15] B. Litjens, S. Polak and A. Schrijver, Semidefinite bounds for nonbinary codes based on quadruples,
+           Designs, Codes and Cryptography 84 (2017), 87–100.
+      [16] L. Lovász and A. Schrijver, Cones of matrices and set-functions and 0–1 optimization, SIAM journal on
+           optimization 1.2 (1991), 166–190.
+      [17] M. Nakata, A numerical evaluation of highly accurate multiple-precision arithmetic version of semidef-
+           inite programming solver: SDPA-GMP, -QD and -DD, in: 2010 IEEE International Symposium on
+           Computer-Aided Control System Design (2010), 29–34.
+
+
+
+                                                          21
+      [18] C. Riener, J. Rolfes, F. Vallentin, A semidefinite programming hierarchy for covering problems in discrete
+           geometry, Numerical Algebra, Control and Optimization, 16 (2026), 157–170.
+      [19] A. Schrijver, New code upper bounds from the Terwilliger algebra and semidefinite programming, IEEE
+           Transactions on Information Theory, 51 (2005), 2859–2866.
+      [20] G.J.M. van Wee. Improved sphere bounds on the covering radius of codes, IEEE Transactions on Infor-
+           mation Theory, 34 (2) (1988), 237–245.
+      [21] G.J.M. van Wee, Covering codes, perfect codes, and codes from algebraic curves, Dissertation at the
+           Technische Universiteit Eindhoven, Eindhoven, 1991.
+      [22] Y. Wu, J. Chen, Improved lower bounds on the domination number of hypercubes and binary codes
+           with covering radius one, Discrete Mathematics 347 (2024), 113752.
+      [23] Z. Zhang, Linear inequalities for covering codes. I. Pair covering inequalities, IEEE Transactions on
+           Information Theory, 37 (3) (1991), 573–582.
+      [24] Z. Zhang, C. Lo, Linear inequalities for covering codes. II. Triple covering inequalities, IEEE Transactions
+           on Information Theory, 38 (6) (1992), 1648–1662.
+
+
+      A      All computational results for q = 2
+      We computed the lower bounds following from Theorem 4.9 using the two (λ0 , . . . , λn )β coming from
+      the sphere covering inequalities and the Van Wee inequalities. So positive semidefiniteness of the
+      Lasserre matrices and the matrix cut inequalities for both (λ0 , . . . , λn )β are included as constraints.
+      In Tables 5 and 6 the resulting lower bounds are shown. Improvements over the values in Kéri’s
+      tables with bounds for covering codes (cf. [10]) are in boldface and marked with an asterisk (∗).3
+
+     n               R=1                   R=2                 R=3               R=4             R=5            R=6
+     4               3.9999                     X                   X                 X               X              X
+     5               6.6721                     X                   X                 X               X              X
+     6              11.5980                     X                   X                 X               X              X
+     7              15.9999                     X                   X                 X               X              X
+     8              31.9999                9.5889                   X                 X               X              X
+     9              55.3464               14.7583                   X                 X               X              X
+    10             105.2223               22.4103                   X                 X               X              X
+    11             170.6666               35.5187             12.4700                 X               X              X
+    12             341.3333               61.2153           18.6887*             7.9873               X              X
+    13           606.7119*             100.2419*              27.6830           11.1057               X              X
+    14          1184.7592*             169.0859*              42.6133           15.7629          7.3889              X
+    15            2047.9999              304.7919             67.0893         22.6403*          10.0206              X
+    16            4095.9999              511.8192            112.5592         33.2584*        13.7867*          6.9175
+    17          7425.1563*             888.3163*             179.1108           49.9774       19.2500*          9.1701
+    18           14664.0012             1691.3396            287.5958           76.5456      27.4903*        12.3285*
+    19           26214.3999             2887.1523            479.1587          119.7022         39.8079      16.8119*
+    20           52428.7999             5106.9177            881.5640          201.5243         58.7224        23.2979
+    21        96476.0879*               9866.5048           1465.5810          316.8379         88.1658      33.2651*
+    22       191500.9383*              17285.1830           2453.8583          504.9234        134.8236        47.7532
+    23          349525.3333         30827.8234*             4095.9999          815.4795        209.2984        69.5451
+    24          699050.6666            60159.4032           8006.4570         1352.0812        356.0391       102.8095
+    25      1301088.8409*             107046.2406          13697.8925         2497.6197        559.2092       154.7948
+    26      2589178.6211*          192746.8483*            23573.8897         4120.3497        886.0069       236.5925
+    27         4793490.2857           379479.9404       41011.0436*           6853.9216       1415.7917       366.6334
+    28         9586980.5714           683131.0859           79733.418        11484.4883       2283.7356       629.5189
+    29     18000843.7204*         1239884.9874*           139378.2397        19483.6215       3768.8189       983.7626
+    30        35874397.2504          2450496.1520         244591.6475        37401.0004       6982.5328      1550.4459
+    31        67108863.9999          4459646.6807         432709.8573        63716.8859      11505.1662      2463.3423
+    32       134217727.9999       8173959.5702*           847720.8613       109182.7236      19067.0734      3942.9567
+    33    253764800.5874*           16151563.3396        1504923.6064       187950.9643      31776.3316      6358.3611
+
+                                      Table 5: Bounds for q = 2 and R ≤ 6
+  3 The improved bounds of K (18, 1) ≥ 14665 and K (30, 1) ≥ 35874398 have recently been surpassed by Wu and
+                                2                        2
+Chen [22], who established K2 (18, 1) ≥ 14666 and K2 (30, 1) ≥ 35876816. They are not marked in boldface here.
+
+
+
+
+                                                            22
+                         n      R=7           R=8           R=9         R = 10
+                        18      6.5517             X             X            X
+                        19      8.4991             X             X            X
+                        20     11.2018        6.2720             X            X
+                        21   14.9725*         7.9896             X            X
+                        22   20.3253*        10.3360        6.0509            X
+                        23     28.0646     13.5670*         7.5738            X
+                        24     40.1306     18.0802*         9.6469       5.8563
+                        25     57.2070       24.4924     12.4581*        7.2502
+                        26     82.6535       33.6771     16.3383*        9.1059
+                        27    121.0256       48.3474       21.7709    11.5788*
+                        28    179.6661       68.6061       29.4411      14.9654
+                        29    270.8681       98.5932       40.3898    19.6353*
+                        30    413.8114      143.3834       58.2527      26.1561
+                        31    640.0524      210.9974       82.3517      35.3432
+                        32   1108.7839      314.1767      117.8229      48.4397
+                        33   1728.0332      473.3013      170.4590      70.2228
+
+                              Table 6: Bounds for q = 2 and R ≥ 7
+
+
+B      Computational results for nonbinary covering codes
+In this section we present bounds on Kq (n, r) for q = 3, 4, 5. Tables 7, 8 and 9 contain the lower
+bounds obtained with the SDP from Theorem 4.18. We again used the (λ0 , . . . , λn )β coming from the
+sphere covering inequalities but not the Van Wee inequalities. Improvements over the values in
+Kéri’s tables with bounds for covering codes (cf. [10]) are in boldface and marked with an asterisk (∗).
+
+ n         R=1              R=2            R=3              R=4         R=5           R=6         R=7
+ 6        60.8568          13.1228              X                X           X             X          X
+ 7       150.9556        26.3830*          8.5250                X           X             X           X
+ 8     402.9463*         57.4972*       15.5959*                 X           X             X          X
+ 9    1063.9751*        131.8916*       30.1035*           10.2323           X             X          X
+10      2811.8571         313.0763      60.4226*         17.9976*       7.3464             X           X
+11      7823.1641         728.9999     128.2649*         33.2215*    11.9665*             X            X
+12     21527.7873        1897.3134       281.6598        64.0810*    20.5195*         8.5946           X
+13     59048.9999        4802.7269     639.2731*        129.4563*    36.7143*      13.8047*       6.5667
+14    166229.5226     12322.3736*       1500.5419       272.0850*    68.5803*      23.2533*       9.9504
+15    466049.0035       32148.5550      3566.1881         591.2872    134.0645       40.7700     15.8151
+16   1304446.0909       84390.4101      8765.7218        1319.1922    272.2170       74.4488     26.2497
+
+                                     Table 7: Bounds for q = 3
+
+
+         n         R=1           R=2          R=3          R=4        R=5      R=6       R=7
+         6         226.59       32.91*          8.76         3.35          X       X         X
+         7       775.07*        87.63*         18.78         6.40          X       X         X
+         8        2694.38      250.87*       45.02*         12.56          X      X          X
+         9        9362.28      774.46*      115.28*       26.66*        9.03       X         X
+        10       34254.96     2459.70*        310.69      61.09*       17.54    6.87         X
+        11    124940.31*      8071.19*      884.35*      149.89*     36.85*    12.48      5.52
+        12      457543.61      27020.63      2621.72       390.39      82.75   24.20      9.36
+        13     1677721.59      91311.99      8046.26      1065.18     198.06   50.50     17.05
+
+                                     Table 8: Bounds for q = 4
+
+
+
+
+                                                   23
+ n        R=1          R=2         R=3        R=4      R=5      R=6      R=7
+ 5      161.03*         21.66           X          X        X        X       X
+ 6        624.99        68.86       13.81       4.37        X        X       X
+ 7     2764.89*      235.35*        37.40       9.70        X        X       X
+ 8    12133.70*      860.13*     110.24*       23.04     7.27        X       X
+ 9    53895.34*       3279.51    353.32*       61.18    15.67     5.79       X
+10   241121.95*      13060.70   1214.11*    176.26*     37.81    11.40       X
+11    1085069.44   53308.26*    4365.35*    545.18*     99.28    25.20    8.81
+12    5013157.53    222134.17    16309.71    1789.77   280.94    61.34   17.89
+13   23209474.92    943510.75    62819.97    6165.15   849.14   160.09   40.59
+
+                         Table 9: Bounds for q = 5
+
+
+
+
+                                     24
+

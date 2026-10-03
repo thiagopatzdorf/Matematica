@@ -1,0 +1,1316 @@
+                                            New covering codes of radius R, codimension tR and
+arXiv:1808.09301v2 [math.CO] 16 Mar 2019
+
+
+
+
+                                              tR + R2 , and saturating sets in projective spaces
+
+                                                                                   Alexander A. Davydov∗
+                                                  Institute for Information Transmission Problems (Kharkevich institute), Russian Academy of Sciences
+                                                         Bol’shoi Karetnyi per. 19, Moscow, 127051, Russian Federation. E-mail: adav@iitp.ru
+
+                                                                   Stefano Marcugini†and Fernanda Pambianco†
+                                                              Dipartimento di Matematica e Informatica, Università degli Studi di Perugia,
+                                                   Via Vanvitelli 1, Perugia, 06123, Italy. E-mail: {stefano.marcugini,fernanda.pambianco}@unipg.it
+
+
+
+                                                Abstract. The length function ℓq (r, R) is the smallest length of a q-ary linear code of codi-
+                                           mension r and covering radius R. In this work we obtain new constructive upper bounds on
+                                           ℓq (r, R) for all R ≥ 4, r = tR, t ≥ 2, and also for all even R ≥ 2, r = tR + R2 , t ≥ 1. The new
+                                           bounds are provided by infinite families of new covering codes with fixed R and increasing
+                                           codimension. The new bounds improve upon the known ones.
+                                                We propose a general regular construction (called “Line+Ovals”) of a minimal ρ -saturating
+                                           ((ρ + 1)q + 1)-set in the projective space PG(2ρ + 1, q) for all ρ ≥ 0. Such a set corresponds
+                                           to an [Rq + 1, Rq + 1 − 2R, 3]q R locally optimal1 code of covering radius R = ρ + 1. Basing on
+                                           combinatorial properties of these codes regarding to spherical capsules, we give constructions
+                                           for code codimension lifting and obtain infinite families of new surface-covering1 codes with
+                                           codimension r = tR, t ≥ 2.
+                                                In addition, we obtain new 1-saturating sets in the projective plane PG(2, q2) and, basing on
+                                           them, construct infinite code families with fixed even radius R ≥ 2 and codimension r = tR + R2 ,
+                                           t ≥ 1.
+                                                Keywords: Covering codes, saturating sets, the length function, upper bounds, projective
+                                           spaces.
+                                                Mathematics Subject Classification (2010). 51E21, 51E22, 94B05
+                                              ∗
+                                                The research of A.A. Davydov was done at IITP RAS and supported by the Russian Government (Contract
+                                           No 14.W03.31.0019).
+                                              †
+                                                The research of S. Marcugini and F. Pambianco was supported in part by the Italian National Group for
+                                           Algebraic and Geometric Structures and their Applications (GNSAGA - INDAM) and by University of Perugia,
+                                           (Project: ”Strutture Geometriche, Combinatoria e loro Applicazioni”, Base Research Fund 2017).
+                                              1
+                                                See the definitions in Sect. 1.
+
+
+                                                                                                   1
+1 Introduction
+Let Fq be the Galois field with q elements, F∗q = Fq \ {0}. Let Fqn be the n-dimensional vector
+space over Fq . Denote by [n, n − r]q a q-ary linear code of length n and codimension (redun-
+dancy) r, that is a subspace of Fqn of dimension n − r.
+   Let d(v, c) be the Hamming distance between vectors v and c of Fqn . The sphere of radius R
+with center c in Fqn is the set {v : v ∈ Fqn , d(v, c) ≤ R}. For 0 ≤ ℓ ≤ R, a spherical (R, ℓ)-capsule
+with center c in Fqn is the set {v : v ∈ Fqn , ℓ ≤ d(v, c) ≤ R} [10, Rem. 5], [12, Rem. 2.1], [16,
+Sect. 2]. An (R, R)-capsule is the surface of a sphere of radius R.
+Definition 1. A linear [n, n − r]q code has covering radius R and is denoted as an [n, n − r]qR
+code if any of the following equivalent properties holds:
+   (i) The value R is the least integer such that the space Fqn is covered by the spheres of radius
+R centered at the codewords.
+   (ii) Every column of Fqr is equal to a linear combination of at most R columns of a parity
+check matrix of the code, and R is the smallest value with this property.
+    An [n, n − r]qR code of minimum distance d is denoted by [n, n − r, d]qR code. For an intro-
+duction to coverings of Hamming spaces, see [6, 8]. For fixed q, r, and R, the covering quality
+of an [n, n − r]qR code is better if its length n is smaller.
+Definition 2. [6, 8] The length function ℓq (r, R) is the smallest length of a q-ary linear code of
+codimension r and covering radius R.
+    It can be shown, see e.g. [2, 16], that if code length n is considerably larger than R (this is
+the natural case in covering codes investigations) and if q is large enough, then there is a lower
+bound of the form ℓq (r, R) & cq(r−R)/R , where c is independent of q but it is possible that c
+depends on r and R.
+    Let t, s, R∗ be integers. Let q′ be a prime power. Consider the following cases:
+                                                                  ∗
+   (i) r = tR, arbitrary q. (ii) R = sR∗ , r = tR + s, q = (q′ )R . (iii) r 6= tR, q = (q′ )R .   (1.1)
+
+In [13, 15, 16, 19], for all the cases in (1.1), codes with lengths close (by order) to the bound
+ℓq (r, R) & cq(r−R)/R are obtained. These lengths are upper bounds on ℓq (r, R).
+     The goal of this paper is to improve on the known upper bounds on ℓq (r, R) in the case (i)
+of (1.1) for R ≥ 4 and in the case (ii) of (1.1) for even R with R∗ = 2.
+     The following properties of codes are useful for obtaining new bounds.
+Definition 3. [14] A linear covering code is called locally optimal if one cannot remove any
+column from its parity check matrix without an increase in covering radius.
+Definition 4. [10], [12, Sect. 2], [16, Sect, 2] Let 0 ≤ ℓ ≤ R. An [n, n − r]qR code is called an
+(R, ℓ)-object and is denoted by [n, n − r]qR, ℓ code if any of the following equivalent conditions
+holds:
+
+                                                  2
+    (i) The space Fqn is covered by the spherical (R, ℓ)-capsules centered at the codewords.
+    (ii) Every column of the space Fqr (including the zero column) is equal to a linear combi-
+nation with nonzero coefficients of at least ℓ and at most R distinct columns of a parity-check
+matrix of the code.
+    (iii) Every coset of the code (including the code itself) contains a weight w word of the space
+ n
+Fq such that ℓ ≤ w ≤ R.
+Definition 5. An [n, n − r]qR, R code is called surface-covering code of radius R.
+    Note that the space Fqn is covered by the surfaces of the spheres of radius R centered at the
+codewords of an [n, n − r]qR, R surface-covering code.
+    Codes with radius R = 2, 3 and codimension r = tR have been widely investigated, see
+[11–16, 18–20] and the references therein. At the same time, codes with R ≥ 4, r = tR, have not
+been extensively studied. The main known results for codes with R ≥ 4, r = tR, are available
+in [15, 16, 19] and collected in Proposition 1.
+Proposition 1. [15], [16, Ths. 6.1,6.2, eqs. 6.1,6.2], [19] The following constructive upper
+bounds on the length function hold:
+                                      
+                           (r−R)/R    R (r−2R)/R
+            ℓq (r, R) ≤ Rq         +     q       + δq (r, R), R ≥ 4, r = tR, t ≥ 2,     (1.2)
+                                      3
+where δq (r, R) = 0 if q ≥ 4, r = 2R, or q = 16, q ≥ 23, r = 3R, or q ≥ 7, q 6= 9, r ≥ 5R, r 6= 6R.
+Also, δq (r, R) = (2R mod 3) · (q(r−3R)/R + 1) if q ≥ 7, q 6= 9, r = 4R, 6R.
+   The main known results for codes with even covering radius R ≥ 2 and codimension r =
+tR + R2 are available in [13, 15, 16] and collected in Proposition 2.
+Proposition 2. [13, Ex. 6, eq. (33)], [15], [16, Sects. 4.4, 7] Let q′ be a prime power. Let the
+covering radius R ≥ 2 be even. Let the code codimension be r = tR + R2 with integer t. The
+following constructive upper bounds on the length function hold:
+                            
+                  R       1      r−R   R j (r−2R)/R−0.5 k
+      ℓq (r, R) ≤     3− √ q R +           q               , q = (q′ )2 ≥ 16, t ≥ 1;        (1.3)
+                  2        q           2
+                                   
+                         1      1      r−R    R j (r−2R)/R−0.5 k
+      ℓq (r, R) ≤ R 1 + √    +√ q +     R         q               , q = (q′ )4 , t ≥ 1;     (1.4)
+                         4 q      q           2
+                                                         j               k
+                         1      1       1      (r−R)/R        (r−2R)/R−0.5
+      ℓq (r, R) ≤ R 1 + √6 q
+                             + √3 q
+                                     + √     q         + R  q                , q = (q′ )6 , (1.5)
+                                         q
+      q′ ≤ 73 prime, t ≥ 1, t 6= 4, 6.
+
+Problem 1. Improve on the known bounds on the length function ℓq(r, R) collected in
+   (i) Proposition 1 where R ≥ 4, r = tR, t ≥ 2;
+   (ii) Proposition 2 where R ≥ 2, r = tR + R2 , t ≥ 1.
+
+                                                3
+    Effective methods to obtain upper bounds on ℓq (r, R) are connected with saturating sets
+in projective spaces. Let PG(N, q) be the N-dimensional projective space over the field Fq ;
+see [24–26] for an introduction to the projective spaces and [21, 23, 25, 29, 30] for connections
+between coding theory and Galois geometries.
+
+Definition 6. A point set S ⊆ PG(N, q) is ρ -saturating if any of the following equivalent prop-
+erties holds:
+    (i) For any point A of PG(N, q) \ S there exist ρ + 1 points in S generating a subspace of
+PG(N, q) containing A, and ρ is the smallest value with this property.
+    (ii) Every point A ∈ PG(N, q) (in homogeneous coordinates) can be written as a linear com-
+bination of at most ρ + 1 points of S, and ρ is the smallest value with this property (cf. Defini-
+tion 1(ii)).
+
+Definition 7. A ρ -saturating set in PG(N, q) is minimal if it does not contain a smaller ρ -
+saturating set in PG(N, q).
+
+     Saturating sets are considered in [2, 6, 7, 12, 14–19, 21, 23, 27, 29, 30, 33]. In the literature,
+saturating sets are also called “saturated sets”, “spanning sets”, “dense sets”.
+     Let sq (N, ρ ) be the smallest size of a ρ -saturating set in PG(N, q).
+     If a column of an r × n parity check matrix of an [n, n − r]qR code is treated as a point (in
+homogeneous coordinates) of PG(r − 1, q) then this parity check matrix defines an (R − 1)-
+saturating n-set in PG(r − 1, q) [7, 12, 16, 18, 21, 23, 27, 29, 30]. There is a one-to-one corre-
+spondence between [n, n − r]q R codes and (R − 1)-saturating n-sets in PG(r − 1, q). Therefore,
+ℓq (r, R) = sq (r − 1, R − 1). If the [n, n − r]q R code is locally optimal then the corresponding
+(R − 1)-saturating n-set is minimal.
+     The results of Proposition 1 are based on the so-called direct sum [16, Sect. 4.2] of codes
+with radius R = 2, 3 which use the following geometrical constructions:
+• “oval plus line” [7, p. 104], [11, Th. 3.1], [12, Th. 5.1]; the construction gives a 1-saturating
+(2q + 1)-set in PG(3, q) corresponding to a [2q + 1, 2q + 1 − 4, 3]q2 code with r = 4 = 2R;
+• “two ovals plus line” [18, Sect. 4]; the construction gives a 2-saturating (3q+1)-set in PG(5, q)
+that corresponds to a [3q + 1, 3q + 1 − 6, 3]q3 code with r = 6 = 2R.
+
+Problem 2. For all ρ ≥ 3, obtain a construction of a ρ -saturating ((ρ + 1)q + 1)-set in
+PG(2ρ + 1, q) that corresponds to an [Rq + 1, Rq + 1 − 2R]q R code with R = ρ + 1; thereby
+prove that sq (2ρ + 1, ρ ) ≤ (ρ + 1)q + 1 and ℓq (2R, R) ≤ Rq + 1.
+
+    Note that for n < Rq + 1, no examples of [n, n − 2R]qR codes seem to be known. Moreover,
+in [16, Prop. 4.2], it is proved that ℓ4 (4, 2) = s4 (3, 1) = 2 · 4 + 1.
+
+Problem 3. [16, Sects. 4, 5] Determine whether ℓq (2R, R) = Rq + 1.
+
+   The results of Proposition 2 are based on 1-saturating sets in the plane PG(2, q2 ).
+
+
+                                                  4
+Problem 4. In the projective plane PG(2, q) with q square, construct new 1-saturating sets with
+sizes smaller than the known ones.
+
+    The paper is organized as follows. In Sect. 2, we summarize the main results of the paper.
+In Sect. 3, we propose a construction “Line+Ovals” for ρ -saturating sets in PG(2ρ + 1, q) and
+codes of codimension 2R. This solves Problem 2. In Sect. 4, we give two constructions for code
+codimension lifting. In Sect. 5, we use the codes of Sect. 3 as starting ones for the constructions
+of Sect. 4 and obtain new infinite code families with fixed radius R ≥ 4 and codimension tR,
+t ≥ 2. This solves Problem 1(i) for the most part. In Sect. 6, using the recent known results on
+double blocking sets, we obtain new 1-saturating sets in PG(2, q2) that solves in part Problem 4.
+Then starting from these sets, we obtain new infinite code families with fixed even radii R ≥ 2
+and codimension tR + R2 , t ≥ 1. This solves in part Problem 1(ii).
+
+
+2 The main results
+The main results of this paper are as follows:
+   • Problem 2 is solved, see Sect. 3 where minimal ρ -saturating ((ρ + 1)q + 1)-sets in
+PG(2ρ + 1, q) are constructed. The minimality of these sets gives credence that Problem 3
+can be solved.
+   • Problem 1(i) is solved for the most part, see Sects. 4 and 5. New constructive upper
+bounds based on Theorems 3, 4, 7, 8 are collected in Theorem 1.
+
+Theorem 1. For the length function ℓq (r, R) and for the smallest size sq (r − 1, R − 1) of an
+(R − 1)-saturating set in PG(r − 1, q) the following constructive bounds hold:
+
+       ℓq (r, R) = sq (r − 1, R − 1) ≤ Rq(r−R)/R + q(r−2R)/R + ∆q (r, R), r = tR,
+       where for m1 = ⌈logq (R + 1)⌉ + 1 we have
+       (i) ∆q (r, R) = 0 if t = 2, q = 4 and q ≥ 7, R ≥ 4;
+       (ii) ∆q (r, R) = 0 if t = 2, q = 5, R = 4, 5;
+       (iii) ∆q (r, R) = 0 if t ≥ ⌈logq R⌉ + 3, q ≥ 7 odd, R ≥ 4;
+                        t
+       (iv) ∆q (r, R) = ∑ q(r− jR)/R if m1 + 2 < t < 3m1 + 2, q ≥ 8 even, R ≥ 4;
+                       j=2
+                       m1 +2
+       (v) ∆q (r, R) = ∑ q(r− jR)/R if t = m1 + 2 and t ≥ 3m1 + 2, q ≥ 8 even, R ≥ 4.
+                        j=2
+
+   The new bounds of Theorem  R  1 are better than the known ones of Proposition 1 where the
+coefficient for q (r−2R)/R is 3 whereas in Theorem 1 it is equal to 1 or 2.
+
+
+
+                                                 5
+    • Problem 4 is solved in part, see Sect. 6. We use the following notation:
+                  φ (q) is the order of the largest proper subfield of Fq ;                           (2.1)
+                              (
+                                                0                 if r 6= 9R    13R
+                                                                            2 , 2
+                  fq (r, R) =                                                       .                 (2.2)
+                                 q(r−3R)/R−0.5 + q(r−4R)/R−0.5 if r = 9R    2 , 13R
+                                                                                 2
+
+By Proposition 9(v),(vi), in PG(2, q), q = p2h , h ≥ 2, there are 1-saturating n-sets with
+                         √                                        √
+              √             q−1                           √         q
+        n = 2 q+2 √               , p ≥ 3 prime; n = 2 q + 2          + 2, p ≥ 7 prime.
+                      φ( q)−1                                      p
+These new 1-saturating sets have smaller sizes than the known ones, see Remark 3.
+   • Problem 1(ii) is solved in part. New bounds based on Theorem 10 are as follows.
+Theorem 2. Let R ≥ 2 be even. Let p be prime, q = p2η , η ≥ 2, r = tR + R2 , t ≥ 1.
+The following constructive upper bounds on the length function hold:
+                                 √                     j              k R
+                                    q−1           r−R
+      (i) ℓq (r, R) ≤ R 1 + √       √            q R + R q(r−2R)/R−0.5 + fq (r, R), p ≥ 3;
+                               q(φ ( q ) − 1)                                2
+                                                    j           k
+                             1     1                                    R
+      (ii) ℓq (r, R) ≤ R 1 + + √ q(r−R)/R + R q(r−2R)/R−0.5 + fq (r, R), p ≥ 7.
+                             p      q                                   2
+       √
+    If q = pη with η ≥ 3 odd, the new bounds of Theorem 2 are better than the known ones of
+Proposition 2. If e.g. q = p6 , η = 3, then the bound of Theorem 2(ii) is by Rq(r−R)/R−1/3 smaller
+than the known one of (1.5). Also, the new bound holds for all p ≥ 7 whereas in (1.5) p ≤ 73.
+Moreover, if η ≥ 5 odd, the known bounds (1.3) have the main term 23 Rq(r−R)/R whereas for
+the new bounds it is Rq(r−R)/R .
+
+
+3 Construction “Line+Ovals” for ρ -saturating sets in
+  PG(2ρ + 1, q) and codes of codimension 2R
+Notation. Throughout the paper we denote by xi , i = 0, 1, . . ., N, homogeneous coordinates of
+points of PG(N, q). In the other words, a point (x0 x1 . . . xN ) ∈ PG(N, q). The leftmost nonzero
+coordinate is equal to 1. In general, by default, xi ∈ Fq . If xi ∈ F∗q , we denote it as xbi . If
+(xi . . . xi+m ) 6= (0 . . . 0), we denote it as xi . . . xi+m . Also, we write explicit values 0,1 for some
+coordinates or denote coordinates by the letters a, a j that are elements of Fq .
+
+3.1 The construction
+Let Fq = {a1 = 0, a2 , . . . , aq } be the Galois field of order q. Let F∗q = Fq \ {0} = {a2 , . . . , aq }.
+Denote Σρ = PG(2ρ + 1, q). Let Σu be the (2u + 1)-dimensional projective subspace of Σρ such
+
+                                                     6
+that
+
+                                                    . . 0}) : xi ∈ Fq } ⊆ Σρ , u = 0, 1, . . ., ρ .
+                      Σu = {(x0 x1 . . . x2u+1 0| .{z
+                             |      {z       }
+                                       2u+2         2ρ −2u
+
+In Σu , let πu be the plane such that
+
+                  πu = {(0| .{z                          . . 0}) : xi ∈ Fq } ⊂ Σu , u = 1, 2, . . ., ρ .
+                              . .0} x2u−1 x2u x2u+1 0| .{z
+                             2u−1                        2ρ −2u
+
+In πu , let A0u and A∞
+                     u be the points of the form
+
+           A0u = (0| .{z              . . 0}) ∈ πu , A∞
+                       . .0} 100 |0 .{z               u = (0                   . .0}) ∈ πu , u = 1, 2, . . ., ρ .
+                                                               . . 0} 001 |0 .{z
+                                                           | .{z
+                     2u−1         2ρ −2u                           2u−1             2ρ −2u
+
+In πu , let Cu and Cu∗ be the conic and the truncated one, respectively, of the form
+
+            Cu = Cu∗ ∪ {A0u , A∞     ∗
+                               u }, Cu = {(0                   . . 0}) : a ∈ F∗q }, u = 1, 2, . . ., ρ .
+                                               . .0} 1aa2 0| .{z
+                                           | .{z
+                                                       2u−1                2ρ −2u
+
+Let Tu be the nucleus of Cu , if q is even, or the intersection of the tangents to Cu in the points A0u
+and A∞u , if q is odd, so that Tu = (0                  . . 0}) ∈ πu , u = 1, 2, . . ., ρ .
+                                         . .0} 010 |0 .{z
+                                     | .{z
+                                    2u−1     2ρ −2u
+                     ∞                                         . .0}), A∞
+In Σ0 , let A0 and A0 be the points of the form A00 = (10 0| .{z
+             0
+                                                                        0 = (01 |
+                                                                                0 .{z
+                                                                                    . .0}). Also, let L0
+                                                              2ρ                   2ρ
+and L∗0 be the line and the truncated one, respectively, such that
+
+                      L0 = L∗0 ∪ {A00 , A∞           ∗
+                                         0 } ⊂ Σ0 , L0 = {(1a 0   . .0}) : a ∈ F∗q } ⊂ Σ0 .
+                                                              | .{z
+                                                                                 2ρ
+
+    Note that by Definition 6, a 0-saturating set in PG(N, q) is the whole space.
+Construction S. (“Line+Ovals”) Let ρ ≥ 0. Let Sρ = {P1, P2 , . . . , P(ρ +1)q+1 } be a point
+((ρ + 1)q + 1)-subset of Σρ = PG(2ρ + 1, q). Let Pj be the j-th point of Sρ . We construct
+Sρ as follows:
+                                  
+       S0 = {A00 } ∪ L∗0 ∪ {A∞
+                             0 } = P1 , P2 , . . . , Pq+1 = Σ0 = PG(1, q);             (3.1)
+                                ρ
+                                [                            
+       Sρ = {A00 } ∪ L∗0 ∪           (Cu∗ ∪ {Tu }) ∪ {Aρ∞ } = P1 , P2 , . . ., P(ρ +1)q+1 ⊂ Σρ if ρ ≥ 1.
+                              u=1
+                     . . 0}) = A00 ;
+       P1 = (10 |0 .{z                                  . . 0}), a j ∈ F∗q , j = 2, 3, . . ., q.
+                                        Pj = (1a j 0| .{z                                                           (3.2)
+                    2ρ                                   2ρ
+                                     2
+                                             . .0}), a j ∈ F∗q ,
+                        . . 0} 1a j a j 0| .{z
+       Puq+ j−1 = (0| .{z                                              u = 1, 2, . . ., ρ , j = 2, 3, . . ., q.     (3.3)
+                     2u−1                2ρ −2u
+
+
+                                                                   7
+      P(u+1)q = (0| .{z               . .0}) = Tu , u = 1, 2, . . ., ρ ; P(ρ +1)q+1 = Aρ∞ .
+                      . . 0} 010 |0 .{z                                                        (3.4)
+                    2u−1        2ρ −2u
+
+                                                       b ρ , where every column is a point in
+Also, the set Sρ can be represented in the matrix form H
+homogeneous coordinates. We have
+
+        Sρ = Hbρ                                                                               (3.5)
+                                                                                         
+             1 1 ... 1 0 ... 0 0 0 ... 0 0 ... 0 ... 0 0 0 ... 0 0 0
+            0 a2 . . . aq 1 . . . 1 0 0 . . . 0 0 . . . 0 . . . 0 0 0 . . . 0 0 0 
+                                                                                         
+            0 0 . . . 0 a2 . . . aq 1 0 . . . 0 0 . . . 0 . . . 0 0 0 . . . 0 0 0 
+                                                                                         
+            0 0 . . . 0 a2 . . . a2 0 1 . . . 1 0 . . . 0 . . . 0 0 0 . . . 0 0 0 
+                           2        q                                                    
+            0 0 ... 0 0 ... 0 0 a ...a 1 ... 0 ... 0 0 0 ... 0 0 0 
+                                         2        q                                      
+            0 0 . . . 0 0 . . . 0 0 a2 . . . a2 0 . . . 0 . . . 0 0 0 . . . 0 0 0 
+                                         2        q                                      
+                  ...        ...           ...        ...      ...          ...          
+                                                                                         
+        =                                                                                .
+            0   0 . . . 0 0  . . . 0  0 0  . . . 0  0 . . . 1  . . . 1  0 0 . . . 0 0 0  
+            0 0 ... 0 0 ... 0 0 0 ... 0 0 ... a ... a 1 0 ... 0 0 0 
+                                                             2        q                  
+                                                             2        2                  
+            0 0 . . . 0 0 . . . 0 0 0 . . . 0 0 . . . a2 . . . aq 0 1 . . . 1 0 0 
+                                                                                         
+            0 0 . . . 0 0 . . . 0 0 0 . . . 0 0 . . . 0 . . . 0 0 a2 . . . aq 1 0 
+                                                                                         
+            0 0 . . . 0 0 . . . 0 0 0 . . . 0 0 . . . 0 . . . 0 0 a22 . . . a2q 0 1 
+                                                                                         
+           − − − − − − − − − − − − − − − − − − − − − − 
+             A00   L∗0        C1∗ T1 C2∗ T2 . . . Cρ∗ −1 Tρ −1 Cρ∗ Tρ A∞                ρ
+
+Remark 1. The sets S1 and S2 of Construction S are, respectively, the 1-saturating set in
+PG(3, q) of the construction “oval plus line” [7, p. 104], [11, Th. 3.1], [12, Th. 5.1] and the
+2-saturating set in PG(5, q) of the construction “two ovals plus line” [18, Sect. 4].
+
+3.2 Saturation of Construction S
+We say that a point A ∈ PG(N, q) is ρ -covered by a set S ⊆ PG(N, q) if A is a linear combination
+of less than or equal to ρ + 1 points of S. A subset G ⊂ PG(N, q) is ρ -covered by S if all points
+of G are ρ -covered by S.
+
+Definition 8. Let S be a ρ -saturating set in PG(N, q). A point A ∈ S is ρ -essential if S \ {A}
+is no longer a ρ -saturating set. A point A ∈ S is ρ -essential for a set Mgρ (A) ⊂ PG(N, q)
+                 gρ (A) are not ρ -covered by S \ {A}. We denote by Mρ (A) a set such that
+if all points of M
+gρ (A) ⊆ Mρ (A) ⊂ PG(N, q).
+M
+
+   The following proposition and lemma are obvious.
+
+Proposition 3. Let q ≥ 3. Let Σ0 = PG(1, q). Let the set S0 = {A00 } ∪ L∗0 ∪ {A∞
+                                                                               0 } ⊂ Σ0 be as in
+(3.1)–(3.5). Then it holds that
+
+                                                        8
+    (i) The (q + 1)-set S0 is a minimal 0-saturating set in Σ0 .
+    (ii) The point A∞                                  g ∞
+                    0 of S0 is 0-essential for the set M0 (A0 ) such that
+
+                              g0 (A∞ ) = M0 (A∞ ) = {A∞ } = {(01)}.
+                              M                                                                   (3.6)
+                                   0          0       0
+
+    (iii) The q-set S0 \ {A∞
+                           0 } is 1-saturating in Σ0 .
+
+Lemma 1. Let q ≥ 4, ρ ≥ 2. Then the plane πu , u = 1, . . . , ρ , is 2-covered by Cu∗ . Also, the
+point A∞    0                                           ∗                ∗
+       u = Au+1 , u = 1, . . ., ρ − 1, is 2-covered by Cu as well as by Cu+1 .
+
+Lemma 2. Let q = 4 or q ≥ 7. Then all points of πu \ {A0u , A∞                              ∗
+                                                                      u } are 1-covered by Cu ∪ {Tu },
+                                              0                     ∗          ∞
+u = 1, . . . , ρ . Also, all points of πρ \ {Aρ } are 1-covered by Cρ ∪ {Tρ , Aρ }.
+
+Proof. If q is even, every point of a plane outside of a hyperoval Cu ∪ {Tu } lies on (q + 2)/2 its
+bisecants. If q is odd, every point of a plane outside of a conic Cu lies on at least (q − 1)/2 its
+bisecants. At most two of these bisecants will be removed if one removes A0u and A∞        u from Cu .
+Thus, for q = 4 and q ≥ 7, every point of πu \ {A0u , A∞
+                                                       u } lies on at least one bisecant of Cu∗ ∪ {Tu }.
+The same holds for πρ \ {Aρ0 }.
+
+Proposition 4. Let q = 4 or q ≥ 7. Let Σ1 = PG(3, q). Let the set S1 = {A00 } ∪ L∗0 ∪ C1∗ ∪
+{T1 , A∞                                         ∞
+       1 } ⊂ Σ1 be as in (3.1)–(3.5). Let M0 (A0 ) be as in (3.6). Then it holds that
+    (i) The (2q + 1)-set S1 is a minimal 1-saturating set in Σ1 .
+    (ii) The point A∞                                  g ∞
+                    1 of S1 is 1-essential for the set M1 (A1 ) such that
+
+             g1 (A∞ ) = M1 (A∞ ) = {(x0 . . . x3 ) : (x0 x1 ) ∈
+                                                              / M0 (A∞
+             M    1          1                                       0 ), (x2 x3 ) = (0b
+                                                                                       x3 )}.     (3.7)
+
+    (iii) The 2q-set S1 \ {A∞
+                            1 } is 2-saturating in Σ1 .
+
+Proof. (i) By Proposition 3(iii) and Lemma 2, Σ0 and π1 are 1-covered by {A00 } ∪ L∗0 ∪ C1∗ ∪
+{T1 , A∞
+       1 }. Hence, we should consider points of the form
+
+                                x0 x1 x2 x3 ) = (1x1 x2 x3 ) ∈ Σ1 \ (Σ0 ∪ π1 ).
+                           B = (b                                                                 (3.8)
+
+We show that B in (3.8) is a linear combination of at most 2 points of S1 .
+     1) Let (x0 x1 ) ∈ M0 (A∞
+                            0 ). By (3.8), we have no such points B.
+     2) Let (x0 x1 ) ∈/ M0 (A∞                                                          ∞
+                              0 ). By the hypothesis, (x0 x1 00) is 0-covered by S0 \ {A0 }, i.e.
+                            0      ∗
+(x0 x1 00) = (1x1 00) ∈ {A0 } ∪ L0 . For B of (3.8), we have
+
+                  B = (x0 x1 0bx3 ) = (x0 x1 00) + xb3 (0001) = (x0 x1 00) + xb3 A∞
+                                                                                  1;              (3.9)
+                  B = (x0 x1 xb2 0) = (x0 x1 00) + xb2 (0010) = (x0 x1 00) + xb2 T1 ;
+                                                   xb2                  xb2     xb3
+                  B = (x0 x1 xb2 xb3 ) = (x0 z00) + 2 (01yy2 ), z = x1 − 2 , y = .
+                                                   xb3                  xb3     xb2
+
+                                                    9
+Note that (x0 z00) = (1z00) is 0-covered by S0 \ {A∞   0 } for any z.
+   From (3.9), we see that all points of S1 are 1-essential.
+   (ii) The assertion follows from (3.9).
+   (iii) We have, cf.           (3.9), (1x1 0b
+                                             x3 ) = (1z00) + (010b    x3 ), where z = x1 − 1 and
+    x3 ) ∈ π1 \ {A01 , A∞
+(010b                   1 } is 1-covered by C ∗ ∪ {T }, see Lemma 2.
+                                              1     1
+
+Proposition 5. Let q = 4 or q ≥ 7. Let Σ2 = PG(5, q). Let the set S2 = {A00 } ∪ L∗0 ∪C1∗ ∪ {T1 } ∪
+C2∗ ∪ {T2 , A∞                                         ∞
+             2 } ⊂ Σ2 be as in (3.1)–(3.5). Let M1 (A1 ) be as in (3.7). Then it holds that
+    (i) The (3q + 1)-set S2 is a minimal 2-saturating set in Σ2 .
+    (ii) The point A∞                                   g ∞
+                     2 of S2 is 2-essential for the set M2 (A2 ) such that
+
+       g2 (A∞) ⊂ M2 (A∞ ) = {(x0 . . . x5 ) : (x0 . . . x3 ) ∈
+                                                             / M1 (A∞
+       M    2         2                                             1 ), (x4 x5 ) = (0b
+                                                                                      x5 )}.       (3.10)
+
+    (iii) The 3q-set S2 \ {A∞
+                            2 } is 3-saturating in Σ2 .
+
+Proof. (i) By Propositions 3 and 4 and Lemmas 1 and 2, it holds that Σ0 is 1-covered by {A00 } ∪
+L∗0 ; π1 and π2 are 2-covered by C1∗ and C2∗ , respectively; π2 \ {A02 } is 1-covered by C2∗ ∪{T2 , A∞
+                                                                                                     2 };
+                             ∞
+Σ1 is 2-covered by S1 \ {A1 }. Recall that Σ0 ∪ π1 ⊂ Σ1 . So, we should consider points of the
+form
+
+                                  B = (x0 x1 x2 x3 x4 x5 ) ∈ Σ2 \ (Σ1 ∪ π2 ).                      (3.11)
+
+We show that B in (3.11) is a linear combination of at most 3 points of S2 .
+   1) Let (x0 . . . x3 ) ∈ M1 (A∞
+                                1 ). By the hypothesis and by (3.7), (3.11), we have
+
+                        / M0 (A∞
+               (x0 x1 ) ∈      0 ), B = (x0 x1 0b
+                                                x3 x4 x5 ) = (x0 x1 0000) + (000b
+                                                                                x3x4 x5 ),
+
+where (x0 x1 0000) is 0-covered by S0 \ {A∞   0 } and (000bx3x4 x5 ) ∈ π2 \ {A02 , A∞
+                                                                                    2 } is 1-covered by
+ ∗
+C2 ∪ {T2 }, see Lemma 2.
+                         / M1 (A∞
+   2) Let (x0 . . . x3 ) ∈      1 ).
+   By the hypothesis, (x0 . . . x3 00) is 1-covered by S1 \ {A∞
+                                                              1 }. Also,
+
+         B = (x0 . . . x3 0bx5 ) = (x0 . . . x3 00) + xb5 (000001) = (x0 . . . x3 00) + xb5 A∞
+                                                                                             2;    (3.12)
+         B = (x0 . . . x3 xb4 0) = (x0 . . . x3 00) + xb4 (000010) = (x0 . . . x3 00) + xb4 T2 ;   (3.13)
+                                                      xb2                    xb2     xb5
+         B = (x0 . . . x3 xb4 xb5 ) = (x0 x1 x2 z00) + 4 (0001yy2 ), z = x3 − 4 , y = .            (3.14)
+                                                      xb5                    xb5     xb4
+In (3.12), (3.13), B is a linear combination of at most (1 + 1) + 1 = 3 points. If (x0 x1 x2 z) ∈     /
+       ∞
+M1 (A1 ), then the representation (3.14) is the needed linear combination. If (x0 x1 x2 z) ∈ M1(A1 ) ∞
+
+                       / M1 (A∞
+whereas (x0 . . . x3 ) ∈                                                    / M0 (A∞
+                               1 ), then the only possible case is (x0 x1 ) ∈      0 ) with (x2 x3 ) =
+(00), see (3.7). In this case,
+
+                   B = (x0 x1 00b
+                                x4 xb5 ) = (1x1 00b
+                                                  x4 xb5 ) = (1x1 0000) + (0000b
+                                                                               x4xb5 ),            (3.15)
+
+                                                       10
+where (1x1 0000) is 0-covered by {A00 } ∪ L∗0 and (0000b  x4 xb5 ) ∈ π2 \ {A02 , A∞
+                                                                                  2 } is 1-covered by
+  ∗
+C2 ∪ {T2 }, see Lemma 2. Thus, B in (3.15) is a linear combination of at most (0 + 1) + (1 + 1) =
+3 points.
+    From (3.12)–(3.15) we see that all points of S2 \ S1 are 2-essential. Also, we take into
+account that S1 is a minimal 1-saturating set.
+    (ii) The assertion follows from (3.12). For some (but not for all) points in (3.12) we could
+avoid use of A∞ 2 ; this explains the 
+                                      sign “⊂” in (3.10). Let, for example, B      = (001b      x5 ) ∈
+                                                                                             x3 0b    /
+M1 (A∞                        b3 00010 xxbb35 , where (001000) = T1 and 00010 xxbb35 ∈ π2 \
+     1 ). Then B = (001000) + x
+{A02 , A∞                        ∗
+        2 } is 1-covered by C2 ∪ {T2 }. But, if B = (00100b          x5) ∈/ M1 (A∞1 ), we are not able to
+avoid A2 .∞
+
+    (iii) We have, cf. (3.12), B = (x0 . . . x3 0b
+                                                 x5 ) = (x0 x1 x2 z00) + (00010bx5 ), where z = x3 − 1 and
+(00010b                 0  ∞                        ∗
+         x5) ∈ π2 \ {A2 , A2 } is 1-covered by C2 ∪ {T2 }, see Lemma 2. This representation of B is
+the needed linear combination of at most (1 + 1) + (1 + 1) = 4 columns if (x0 x1 x2 z) ∈       / M1 (A∞ 1)
+whence (x0 x1 x2 z00) is 1-covered by S1 \ {A1 }.  ∞
+
+    But if (x0 x1 x2 z) ∈ M1 (A∞                             / M0 (A∞
+                                1 ), then by (3.7), (x0 x1 ) ∈        0 ) and we have, similarly to (3.15),
+B = (1x1 000b  x5 ) = (1x1 0000) + xb5 (000001), where (1x1 0000) is 0-covered by {A00 } ∪ L∗0 and
+(000001) = A∞                                ∗
+                2 ∈ π2 is 2-covered by C2 , see Lemma 1.
+
+Theorem 3. Let q = 4 or q ≥ 7. Let ϒ ≥ 1. Let Σρ = PG(2ρ + 1, q). Let Sρ be a point
+((ρ + 1)q + 1)-subset of Σρ as in Construction S of (3.1)–(3.5). Then it holds that
+    (i) The ((ρ + 1)q + 1)-set Sρ is a minimal ρ -saturating set in Σρ , ρ = 0, 1, . . ., ϒ.
+                                                         gρ (A∞ ) such that
+    (ii) The point Aρ∞ of Sρ is ρ -essential for the set M    ρ
+
+                 g0 (A∞ ) = M0 (A∞ ) = {(01)},
+                 M    0          0
+                 g1 (A ) = M1 (A∞ ) = {(x0 . . . x3 ) : (x0 x1 ) ∈
+                 M    ∞
+                                                                 / M0 (A∞ ), (x2x3 ) = (0b
+                                                                                         x3 )},
+                      1         1                                         0
+                 gρ (A ) ⊂ Mρ (A ) = {(x0 . . . x2ρ +1 ) : (x0 . . . x2ρ −1 ) ∈
+                 M    ∞          ∞
+                                                                              / Mρ −1 (Aρ∞−1 ),         (3.16)
+                      ρ          ρ
+                                   x2ρ +1 )}, ρ = 2, 3, . . ., ϒ.
+                 (x2ρ x2ρ +1 ) = (0b
+
+    (iii) The (ρ + 1)q-set Sρ \ {Aρ∞ } is (ρ + 1)-saturating in Σρ , ρ = 0, 1, . . ., ϒ.
+Proof. We prove by induction on ϒ.
+    For ϒ = 3 the theorem is proved in Propositions 3, 4, 5.
+    Assumption: let the assertions (i)–(iii) hold for some ϒ ≥ 3.
+    We show that under Assumption, the assertions hold for Γ = ϒ + 1.
+    (i) By Propositions 3, 4, and 5, Lemmas 2 and 1, and Assumption, we have the following:
+Σ0 is 1-covered by {A00 } ∪ L∗0 ; π1 \ {A∞           0 ∞                                              0
+                                         1 }, πu \ {Au , Au }, u = 2, 3, . . ., Γ, are 1-covered by {A0 } ∪
+        Γ
+        S
+L∗0 ∪         (Cu∗ ∪ {Tu }); πΓ \ {A0Γ } is 1-covered by CΓ∗ ∪ {TΓ , A∞
+                                                                      Γ }; π1 , π2 , . . ., πΓ are 2-covered by
+        u=1
+                                                                                            ϒ
+                                                                                            S
+C1∗ , C2∗ , . . ., CΓ∗ , respectively; Σϒ is Γ-covered by Sϒ \ {A∞
+                                                                 ϒ }. Recall that Σ0 ∪           πu ⊂ Σϒ . So,
+                                                                                           u=1
+
+                                                         11
+we should consider points of the form
+
+                         B = (x0 . . . x2Γ−2 x2Γ−1 x2Γ x2Γ+1 ) ∈ ΣΓ \ (Σϒ ∪ πΓ ).                      (3.17)
+
+We show that B in (3.17) is a linear combination of at most Γ + 1 points of SΓ .
+    1) Let (x0 . . . x2Γ−1 ) ∈ Mϒ (A∞
+                                    ϒ ).
+                                                   / Mϒ−1 (A∞
+By the hypothesis and by (3.16), (x0 . . . x2ϒ−1 ) ∈          ϒ−1 ). Therefore,
+(x0 . . . x2ϒ−1 0000) is (ϒ − 1)-covered by Sϒ−1 \ {A∞ϒ−1 }. Now   by (3.17), we have
+
+    B = (x0 . . . x2ϒ−1 0b
+                         x2Γ−1 x2Γ x2Γ+1 ) = (x0 . . . x2ϒ−1 0000) + (0 . . .0b
+                                                                              x2Γ−1 x2Γ x2Γ+1 ),       (3.18)
+
+               x2Γ−1 x2Γ x2Γ+1 ) ∈ πΓ \ {A0Γ , A∞
+where (0 . . .0b                                                      ∗
+                                                Γ } is 1-covered by CΓ , see Lemma 2. So, B in (3.18)
+is a linear combination of at most (ϒ − 1 + 1) + (1 + 1) = Γ + 1 points.
+                             / Mϒ (A∞
+    2) Let (x0 . . . x2Γ−1 ) ∈      ϒ ).
+By the hypothesis, (x0 . . . x2Γ−1 00) is ϒ-covered by Sϒ \ {A∞  ϒ }. We can write
+
+               B = (x0 . . . x2Γ−1 0bx2Γ+1 ) = (x0 . . . x2Γ−1 00) + xb2Γ+1 A∞
+                                                                             Γ;                        (3.19)
+               B = (x0 . . . x2Γ−1 xb2Γ 0) = (x0 . . . x2Γ−1 00) + xb2Γ TΓ ;                           (3.20)
+                                                                              xb22Γ
+               B = (x0 . . . x2Γ−1 xb2Γ xb2Γ+1 ) = (x0 . . . x2Γ−2 z00) +           (0 . . .01yy2 ),   (3.21)
+                                                                            xb2Γ+1
+                                xb22Γ      xb2Γ+1
+               z = x2Γ−1 −            , y=        .
+                              xb2Γ+1         xb2Γ
+In (3.19), (3.20), B is a linear combination of at most (ϒ + 1) + 1 = Γ + 1 points. If
+                   / Mϒ (A∞
+(x0 . . . x2Γ−2 z) ∈      ϒ ), then the representation (3.21) is the needed linear combination.
+If (x0 . . . x2Γ−2 z) ∈ Mϒ (A∞                            / Mϒ (A∞
+                              ϒ ) while (x0 . . . x2Γ−1 ) ∈      ϒ ), then the only possibility is
+(x0 . . . x2ϒ−1 ) ∈         ∞
+                  / Mϒ−1 (Aϒ−1 ) with (x2Γ−2 x2Γ−1 ) = (00), see (3.16). In this case,
+
+              B = (x0 . . . x2ϒ−1 00b
+                                    x2Γ xb2Γ+1 ) = (x0 . . . x2ϒ−1 0000) + (0 . . .0b
+                                                                                    x2Γ xb2Γ+1 ),      (3.22)
+
+where (x0 . . . x2ϒ−1 0000) is (ϒ − 1)-covered by Sϒ−1 \ {A∞     ϒ−1 } and
+                                0   ∞                     ∗
+          x4 xb2Γ−1 ) ∈ πΓ \ {AΓ, AΓ } is 1-covered by CΓ ∪ {TΓ }, see Lemma 2. Thus, B in (3.22) is
+(0 . . . 0b
+a linear combination of at most (ϒ − 1 + 1) + (1 + 1) = Γ + 1 points.
+     From (3.18)–(3.22) we see that all the points of SΓ \ Sϒ are Γ-essential. Also, we take into
+account that Sϒ is a minimal ϒ-saturating set.
+     (ii) The assertion (3.16) follows from (3.19). For some (but not for all) points in (3.19) we
+could avoid use of A∞     Γ . This explains the sign “⊂” in (3.16).
+     (iii) We have, cf. (3.19), B = (x0 . . . x2Γ−1 0b
+                                                     x2Γ+1 ) = (x0 . . . x2Γ−2 z00) +
+(0 . . . 010b x2Γ+1 ), where z = x2Γ−1 − 1 and (0 . . . 010bx2Γ+1 ) ∈ πΓ \ {A0Γ , A∞                    ∗
+                                                                                   Γ } is 1-covered by CΓ ,
+see Lemma 2. This representation of B is the needed linear combination of at most (ϒ + 1) +
+(1 + 1) = Γ + 2 points if (x0 . . . x2Γ−2 z) ∈  / Mϒ (A∞ ϒ ) whence (x0 . . . x2Γ−2 z00) is ϒ-covered by
+         ∞
+S ϒ \ Aϒ .
+
+                                                      12
+    But if (x0 . . . x2Γ−2 z) ∈ Mϒ (A∞
+                                     ϒ ), then by (3.16), (x0 . . . x2ϒ−1 0000) ∈/ Mϒ−1 (A∞    ϒ−1 ), and
+we have, cf. (3.22), (x0 . . . x2ϒ−1 000b   x2Γ+1 ) = (x0 . . . x2ϒ−1 0000) + xb2Γ+1 (0 . . . 01), where
+(x0 . . . x2ϒ−1 0000) is (ϒ − 1)-covered by Sϒ−1 \ {A∞                            ∞
+                                                      ϒ−1 } and (0 . . . 01) = AΓ ∈ πΓ is 2-covered
+by CΓ∗ , see Lemma 1.
+    By computer search for q = 5 we have proved the following proposition.
+
+Proposition 6. Let q = 5. Let 0 ≤ ρ ≤ 4. Let Σρ = PG(2ρ + 1, 5). Let the (5ρ + 1)-set Sρ ⊂ Σρ
+be as in (3.1)–(3.5). Then Sρ is a minimal ρ -saturating set in Σρ .
+
+3.3 Codes of covering radius R and codimension 2R
+In the coding theory language, the results of this section give the following theorem.
+
+Theorem 4. Let Vbρ be the code such that the columns of its parity check matrix are the points
+(in homogeneous coordinates) of the ρ -saturating ((ρ + 1)q + 1)-set Sρ of Construction S by
+(3.1)–(3.5).
+    (i) Let q = 4 or q ≥ 7. Then for all R ≥ 1, the code Vbρ is an [Rq + 1, Rq + 1 − 2R, 3]qR locally
+optimal code of covering radius R = ρ + 1.
+    (ii) Let q = 5. Then for 1 ≤ R ≤ 5, the code Vbρ is a [5R + 1, 5R + 1 − 2R, 3]5R locally optimal
+code of covering radius R = ρ + 1.
+
+Proof. We use Theorem 3 and Proposition 6. The code Vbρ is locally optimal as the correspond-
+ing ρ -saturating set Sρ is minimal. Distance d = 3 is due to L∗0 .
+
+Conjecture 1. Let q = 5. Let Vbρ be as in Theorem 4. Then for all R ≥ 1, the code Vbρ is a
+[5R + 1, 5R + 1 − 2R, 3]5R locally optimal code with radius R = ρ + 1.
+
+
+4 The qm-concatenating constructions for code codimension
+  lifting
+The qm -concatenating constructions are proposed in [10] and are developed in [11–14, 16, 19,
+20], see also [6], [8, Sec. 5.4]. By using a starting code as a “seed”, a qm -concatenating construc-
+tion yields an infinite family of new codes with a fixed covering radius, increasing codimension,
+and with almost the same covering density.
+    We give versions of the qm -concatenating constructions convenient for our goals. Several
+other versions of such constructions can be found in [10–14, 16, 19, 20].
+Construction QM1 . Let columns h j belong to Frq0 and let H0 = [h1 h2 . . . hn0 ] be a parity check
+matrix of an [n0 , n0 − r0 ]q R, R starting surface-covering code V0 with R ≥ 2. Let m ≥ 1 be an
+integer such that qm ≥ n0 − 1. To each column h j we associate an element β j ∈ Fqm ∪ {∗} so
+
+
+
+                                                   13
+that βi 6= β j if i 6= j. Let a new code V be the [n, n − (r0 + Rm)]q RV , ℓV code with n = qm n0 and
+parity check matrix HV of the form
+    HV = [B1 B2 . . . Bn0 ] ,                                                                                (4.1)
+                                            
+              hj        hj ··· hj                                                     
+           ξ           ξ2 · · · ξqm                            h  j h  j · · · h  j
+               1                                                0 0 ··· 0 
+                                                                                    
+           β j ξ1     β j ξ2 · · · β j ξqm                     ..    .     .    .   
+          
+    B j =  β 2ξ                             
+                        2 ξ · · · β 2 ξ m  if β j ∈ Fq , B j =  .
+                                                       m                .
+                                                                        .     .
+                                                                              .    .
+                                                                                   .    if β j = ∗,         (4.2)
+           j     1   β j    2       j     q                                         
+           ..            ..    ..      ..                      0 0 ··· 0 
+           .              .     .       .                       ξ1 ξ2 · · · ξqm
+             R−1       R−1          R−1 m
+           β j ξ1 β j ξ2 · · · β j ξq
+where B j is an (r0 + Rm) × qm matrix, 0 is the zero element of Fqm , ξu is an element of Fqm ,
+{ξ1 , ξ2 , . . ., ξqm } = Fqm . An element of Fqm written in B j denotes an m-dimensional q-ary col-
+umn vector that is a q-ary representation of this element.
+    We denote b j (ξu ) = (h j , ξu , β j ξu , β j2 ξu , . . ., β jR−1 ξu ) the u-th column of B j with β j ∈ Fqm .
+If β j = ∗, we have b j (ξu ) = (h j , 0, . . ., 0, ξu ).
+Theorem 5. In Construction QM1 , the new code V with the parity check matrix (4.1), (4.2) is
+an [n, n − (r0 + Rm), 3]qR, R surface-covering code with radius R and length n = qm n0 . If the
+starting code V0 is locally optimal, then V is locally optimal too.
+Proof. The minimum distance d is equal to 3 since for any pair of columns b j (ξu1 ), b j (ξu2 ) of
+B j , a 3-rd one can be found such that the column triple corresponds to a codeword of weight 3.
+Take a, b, c ∈ F∗q with a + b + c = 0. Put ξu3 = (−aξu1 − bξu2 )/c. Let 0 be the zero (r0 + Rm)-
+positional column. Then for all j we have
+                                   ab j (ξu1 ) + bb j (ξu2 ) + cb j (ξu3 ) = 0.                              (4.3)
+    The length of the code V directly follows from the construction.
+    We show that covering radius RV of V is equal to R.
+    Consider an arbitrary column t = (fs) ∈ Fqr0 +Rm with f ∈ Fqr0 , s ∈ FRm      q ,
+s = (s1 , s2 , . . . , sRm ), si ∈ Fq . We partition s by m-vectors so that s = (S0 , S1 , . . ., SR−1 ), Sv =
+(svm+1 , svm+2 , . . . , svm+m ), v = 0, 1, . . ., R − 1. We treat Sv as an element of Fqm .
+    Since V0 is an [n0 , n0 − r0 ]q R, R code, there exists a linear combination of the form
+                                            R
+                                      f = ∑ ck h jk , ck ∈ F∗q for all k,                                    (4.4)
+                                           k=1
+
+see Definition 4. Now we can represent t as a linear combination (with nonzero coefficients) of
+R distinct columns of HV . We have, see (4.2),
+                                  R
+                            t = ∑ ck b jk (xk ), ck ∈ F∗q and xk ∈ Fqm for all k,                            (4.5)
+                                k=1
+
+
+                                                       14
+where values of xk are obtained from the linear system with nonzero determinant. If for jk
+in (4.4) we have β jk ∈ Fqm for all k, then the system has the form
+                                    R
+                                   ∑ ck β jvk xk = Sv, v = 0, 1, . . ., R − 1.                          (4.6)
+                                   k=1
+
+We put 00 = 1. If in (4.4) we have, for example, β jR = ∗, then the system is as follows:
+                R−1                                            R−1
+                ∑ ck β jvk xk = Sv , v = 0, 1, . . ., R − 2;   ∑ ck β jR−1
+                                                                       k
+                                                                           xk + cR xR = SR−1 .          (4.7)
+                k=1                                            k=1
+
+    If V0 is a locally optimal code, then every column h j of H0 takes part in a representation of
+the form (4.4). If we remove b jk (ξu ) from B jk then there is (s1 , s2 , . . . , sRm ) such that the system
+(4.6) or (4.7) gives xk = ξu ; for some t the representation (4.5) becomes impossible. So, all
+columns of HV are essential and V is locally optimal.
+Construction QM2 . Let columns h j belong to Fqr0 and let H0 = [h1 h2 . . . hn0 ] be a parity check
+matrix of an [n0 , n0 − r0 ]q R, ℓ0 starting code V0 with ℓ0 = R − 1, R ≥ 2. Let m ≥ 1 be an in-
+                                              m+1
+teger such that qm ≥ n0 . Let θm,q = q q−1−1 . To each column h j we associate an element β j
+∈ Fqm so that βi 6= β j if i 6= j. Let a new code V be the [n, n − (r0 + Rm)]q RV , ℓV code with
+n = qm n0 + θm,q and parity check matrix HV of the form
+                                                                      
+                                                           0r0 +(R−1)m
+                         HV = [C B1 B2 . . . Bn0 ] , C =                 ,                  (4.8)
+                                                               Wm
+
+where B j is an (r0 + Rm) × qm matrix as in (4.2), C is an (r0 + Rm) × θm,q matrix, 0r0 +(R−1)m is
+the zero (r0 + (R − 1)m) × θm,q matrix, Wm is a parity check m × θm,q matrix of the [θm,q, θm,q −
+m, 3]q 1 Hamming code.
+
+Theorem 6. In Construction QM2 , the new code V with the parity check matrix (4.8), (4.2)
+is an [n, n − (r0 + Rm), 3]qR, R surface-covering code with covering radius R and length n =
+          m+1
+qm n0 + q q−1−1 . Moreover, if the starting code V0 is locally optimal, then the new code V is
+locally optimal too.
+
+Proof. The length of the code V directly follows from the construction.
+    The minimum distance is equal to 3 as the Hamming code is a code with d = 3.
+    We show that covering radius RV of V is equal to R.
+    Consider an arbitrary column t = (fs) ∈ Fqr0 +Rm with f ∈ Fqr0 , s ∈ FRm      q ,
+s = (s1 , s2 , . . . , sRm ), si ∈ Fq . We partition s by m-vectors so that s = (S0 , S1 , . . ., SR−1 ), Sv =
+(svm+1 , svm+2 , . . . , svm+m ), v = 0, 1, . . ., R − 1. We treat Sv as an element of Fqm .
+
+
+
+                                                       15
+    Since V0 is an [n0 , n0 − r0 ]q R, ℓ0 code with ℓ0 = R − 1, there exists a linear combination of
+ϕ (f) distinct columns of H0 of the form
+                              ϕ (f)
+                         f = ∑ ck h jk , ck ∈ F∗q for all k, ϕ (f) ∈ {R − 1, R},
+                              k=1
+
+see Definition 4. If ϕ (f) = R we act similarly to the proof of Theorem 5.
+    Let ϕ (f) = R − 1. We represent t as a linear combination (with nonzero coefficients) of at
+most R distinct columns of HV . We have, see (4.2), (4.8),
+                             R−1
+                 t = η c + ∑ ck b jk (xk ), ck ∈ F∗q and xk ∈ Fqm for all k, η ∈ Fq ,               (4.9)
+                             k=1
+
+where c is a column of C and η = 0 means that the summand η c is absent. Also, in (4.9), values
+of xk are obtained from the linear system
+                                   R−1
+                                   ∑ ck β jvk xk = Sv, v = 0, 1, . . ., R − 2,
+                                   k=1
+
+with nonzero determinant. Finally, in (4.9), c = (0w) where 0 is the zero (r0 + (R − 1)m)-
+positional column and w is a column of Wm that satisfies the equality
+                                               R−1
+                                         η w + ∑ ck β jR−1
+                                                       k
+                                                           xk = SR−1 .                             (4.10)
+                                               k=1
+
+               R−1
+In (4.10), if ∑k=1 ck β jR−1
+                         k
+                                                            R−1
+                             xk = SR−1 we have η = 0. If ∑k=1    ck β jR−1
+                                                                       k
+                                                                           xk 6= SR−1 , the needed
+column η w always exists as the Hamming code has covering radius 1.
+    Now we show that V is an [n, n − (r0 + Rm), 3]q R, R code, i.e. ℓV = R. The critical case is
+when in (4.9) and (4.10) η = 0, i.e. the summand η c is absent. We use the approach of the
+proof of Theorem 5 regarding (4.3). In (4.3) we put j = j1 , ξu1 = x1 , a = −c1 with j1 , x1 , c1
+taken from (4.9). Then
+                                                               R−1               R−1
+            t = −c1 b j1 (x1 ) + bb j1 (ξu2 ) + cb j1 (ξu3 ) + ∑ ck b jk (xk ) = ∑ ck b jk (xk )
+                                                                k=1              k=2
+             + bb j1 (ξu2 ) + cb j1 (ξu3 ).
+
+Thus, we always can represent t ∈ Fqr0 +Rm as a linear combination with nonzero coefficients of
+exactly R columns of HV .
+    By above, if we remove any column of HV , some representation of t becomes impossible.
+So, all columns of HV are essential and the code V is locally optimal.
+
+
+                                                      16
+5 New infinite code families with fixed radius R ≥ 4 and in-
+  creasing codimension tR
+In the ρ -saturating set of Construction S (3.1)–(3.5), we consider a point Pj (in homogeneous
+coordinates) as a column h j of the parity check matrix H         b ρ that defines the
+[qR + 1, qR + 1 − 2R, 3]qR, ℓ code V    bρ of covering radius R = ρ + 1. To use Constructions QM1
+and QM2 we show that ℓ = R − 1 if q is even, and ℓ = R if q is odd. This means that any column
+f of Fq2R is equal to a linear combination with nonzero coefficients of R − 1 or R columns of H      bρ
+for even q and R columns of H     b ρ for odd q.
+    We consider some properties of H      b ρ useful to estimate ℓ. Let f ∈ Fq2R . Let
+J(f) = {h j , . . ., h j } and Iw = {hi , . . . , hi } be sets of distinct columns of Hb ρ such that
+           1             β           1        w
+
+                   β
+           f = ∑ ck h jk , h jk ∈ J(f) and ck ∈ F∗q for all k;                                   (5.1)
+                   k=1
+               w
+            ∑ mk hik = 0, hik ∈ Iw and mk ∈ F∗q for all k, 0 ∈ Fq2R is the zero column.          (5.2)
+           k=1
+           By (5.1) and (5.2), we have
+                   β           w
+           f = ∑ ck h jk + µ ∑ mk hik , µ ∈ F∗q .                                                (5.3)
+                   k=1        k=1
+
+    Note that Iw is a set of columns corresponding to a weight w codeword of Vbρ .
+    In the representation (5.3), the number of distinct columns of H  b ρ , say β new , depends on the
+intersection Iw ∩ J(f) and the values of nonzero coefficients ck , mk , µ , for example,
+              
+              
+                β +w          if Iw ∩ J(f) = 0;
+                                              /
+              
+              
+              
+               β + w − 1 if |Iw ∩ J(f)| = 1, h jβ = hiw , cβ + µ mw 6= 0;
+        new      β + w − 2 if |Iw ∩ J(f)| = 1, h jβ = hiw , cβ + µ mw = 0;
+      β     =                                                                               .    (5.4)
+              
+              
+              
+                β + w − 2 if |Iw ∩ J(f)| = 2, h jβ = hiw , cβ + µ mw 6= 0,
+              
+                                                h jβ −1 = hiw−1 , cβ −1 + µ mw−1 6= 0.
+
+                                    b ρ can be treated as parity check matrices of codes; we
+To use (5.3), (5.4), submatrices of H
+call them component codes and write in Table 1, where u = 1, . . . , ρ , “MDS” notes a minimum
+distance separable code, “AMDS” says on an Almost MDS code.
+Remark 2. The following is useful to estimate ℓ in the code Vbρ .
+   (i) In an [n, n − r, d]q MDS code, any d columns of a parity check matrix correspond to a
+weight d codeword [32].
+   (ii) In an [n, n − r, d]q MDS code with n ≤ q, there are codewords of all weights
+w ∈ {d, d + 1, . . . , n} [22, Th. 6].
+
+                                                  17
+      Table 1: Components codes corresponding to submatrices of H          b ρ based on (3.1)–(3.5)
+             bρ                     bρ      geometrical                                code code
+    rows of H       columns of H                             code parameters q name type
+                                               object
+        1,2         h1 . . . hq              {A00 } ∪ L∗0 [q, q − 2, 3]q2          all L0 MDS
+2u, 2u + 1, 2u + 2 hqu+1 . . . hqu+q−1           Cu∗         [q − 1, q − 4, 4]q3 all Cu MDS
+2u, 2u + 1, 2u + 2 hqu+1 . . . hqu+q         Cu∗ ∪ {Tu } [q, q − 3, 4]q3          even CTu MDS
+2u, 2u + 1, 2u + 2 hqu+1 . . . hqu+q         Cu∗ ∪ {Tu } [q, q − 3, 3]q3          odd CTu AMDS
+                                              ∗       ∞
+2ρ , 2ρ + 1, 2ρ + 2 hqρ +1 . . . hqρ +q−1 , Cρ ∪ {Aρ } [q, q − 3, 4]q3             all C∞    MDS
+                                                                                          ρ
+                    hqρ +q+1
+2ρ , 2ρ + 1, 2ρ + 2 hqρ +1 . . . hqρ +q+1 Cρ∗ ∪ {A∞ ρ , Tρ } [q + 1, q − 2, 4]q 3 even Cρ
+                                                                                         ∞T MDS
+
+2ρ , 2ρ + 1, 2ρ + 2 hqρ +1 . . . hqρ +q+1 Cρ∗ ∪ {A∞ ρ , Tρ } [q + 1, q − 2, 3]q 3 odd Cρ
+                                                                                         ∞T AMDS
+
+
+
+     (iii) If q is odd, for AMDS component codes CTu and Cρ∞T , we note that Tu lies on two
+                                          q−1
+tangents to Cu (in A0u and A∞                                   ∗
+                               u ) and on 2 bisecants of Cu . Every of these bisecants gives rise
+to a weight 3 codeword. The (q − 1)-set of points of Cu∗ is partitioned to q−1     2 point pairs; every
+pair together with Tu forms a weight 3 codeword.
+     (iv) From the proofs of Sect. 3 it can be seen that for the representation of a column f ∈ Fq2R
+it is sufficient to use (for every u) at most 3 points (columns) of Cu∗ . Similarly, one can use 2
+points of {A00 } ∪ L∗0 . Therefore, we have in {A00 } ∪ L∗0 and in every Cu∗ at least q − 4 “free” points
+(columns) that are not used to represent f; these columns can be used to form sets Iw useful to
+increase β new for f by (5.3), (5.4).
+     (v) If β < R in (5.1), then at least R − β component codes are not used to represent f; the
+columns corresponding to these codes are “free” and can be used to form sets Iw .
+     (vi) If q ≥ 7, always there exists µ providing conditions “= 0”, “6= 0” in (5.4).
+Lemma 3. Let q ≥ 7. Let R ≥ 4. Let Vbρ be the [Rq + 1, Rq + 1 − 2R, 3]qR, ℓ locally optimal
+                                                      b ρ correspond to points (in homogeneous
+code such that the columns of its parity check matrix H
+coordinates) of the minimal ρ -saturating set of Construction S (3.1)–(3.5) with ρ = R − 1. Then
+ℓ = R if q is odd and ℓ = R − 1 if q is even.
+Proof. We should show that every column f of Fq2R (including the zero column) is equal to a
+linear combination with nonzero coefficients of R − 1 or R columns of H       b ρ for even q and R
+columns of H b ρ for odd q.
+                                                                  b ρ corresponding to a weight w
+    Let Iw = {hi1 , . . . , hiw } be a set of distinct columns of H
+codeword of an MDS component code. Then there is a linear combination Lw = ∑w         k=1 mk hik = 0,
+        ∗
+mk ∈ Fq , cf. (5.2). Let w1 + w2 + . . . + wb = T . We denote ϒT = Lw1 + Lw2 + . . . + Lwb = 0 the
+sum of the linear combinations.
+                                                                              β
+    Let a column f ∈ Fq2R have the representation (5.1) of the form f = ∑k=1 ck h jk where h jk ∈
+J(f) and β ≤ R. If β = R, the assertions of the lemma hold.
+
+                                                   18
+    Let 0 ≤ β ≤ R − 3 where β = 0 corresponds to the zero column. We represent the column
+         β
+as f = ∑k=1 ck h jk + ϒR−β where the linear combinations Lw j of ϒR−β consist of “free” columns
+that are not used in the set J(f). We have several “free” columns, see Remark 2(iv),(v). The
+component code L0 has d = 3. Therefore, taking into account also Remark 2(i),(ii), the sum
+ϒR−β with 3 ≤ R − β ≤ R always can be found.
+    Let β ∈ {R − 2, R − 1}. The increase of β by w − 1, w − 2 is possible if some columns of
+J(f) and Iw correspond to the same component code and |Iw ∩ J(f)| ∈ {1, 2}, see (5.3), (5.4). Let
+d be minimum distance of a component code. Due to Remark 2(i),(iii),(iv), one always can take
+in (5.2) a set Iw with w = d ∈ {3, 4} so that |Iw ∩ J(f)| ∈ {1, 2}. This provides the cases with
+w = d = 3, w − 1 = 2, β new = β + 2, and w = d = 4, w − 2 = 2, β new = β + 2.
+    So, for even and odd q, if β = R − 2, we can obtain β new = R.
+    Let β = R − 1. The case with w = 3, w − 2 = 1, β new = β + 1, can be provided if some
+column or a column pair of J(f) and Iw correspond to the same code L0 (for all q) or to the same
+code CTu , Cρ∞T (for q odd) since these codes have d = 3. There exist columns f ∈ Fq2R such that
+L0 is not used for their representation. Therefore we should consider only codes CTu , C∞T
+                                                                                         ρ . For
+q odd we always can obtain β     new             T    ∞T
+                                     = R using Cu , Cρ with d = 3, see Remark 2(iii). But in
+general, for even q (where MDS codes CTu , C∞T  ρ have d = 4) we are not able to do β
+                                                                                         new = R
+
+when β = R − 1, see (5.3), (5.4).
+   In Theorems 7 and 8 we consider R ≥ 4 since for R = 2, 3, several short covering codes with
+r = tR are given in detail in [11–16, 18–20].
+
+Theorem 7. Let q ≥ 7 be odd. Let t be an integer. Then for all R ≥ 4 there is an infinite family
+of [n, n − r, 3]qR, R locally optimal surface-covering codes with the parameters
+
+                n = Rq(r−R)/R + q(r−2R)/R , r = tR, t = 2 and t ≥ ⌈logq R⌉ + 3.
+
+                                                      bρ , see Lemma 3, as the starting code V0
+Proof. We take the [Rq + 1, Rq + 1 − 2R, 3]qR, R code V
+of Construction QM1 . By Theorem 5, we obtain an [n, n − r, 3]q, R, R code with n = (qR + 1)qm ,
+r = 2R + mR. Obviously, m + 1 = r−R                        m                    m
+                                     R . The condition q ≥ n0 − 1 implies q ≥ qR whence
+m ≥ ⌈logq R⌉ + 1. Finally, we put t = m + 2.
+
+Theorem 8. Let q ≥ 8 be even. Let t be an integer. Let m1 = ⌈logq (R + 1)⌉ + 1. Then for all
+R ≥ 4 there are infinite families of [n, n − r, 3]qR, R locally optimal surface-covering codes with
+the parameters
+                                        t
+     (i) n = Rq(r−R)/R + 2q(r−2R)/R + ∑ q(r− jR)/R , r = tR, m1 + 2 < t < 3m1 + 2;
+                                       j=3
+                                        m1 +2
+     (ii) n = Rq(r−R)/R + 2q(r−2R)/R + ∑ q(r− jR)/R , r = tR, t = m1 + 2 and t ≥ 3m1 + 2.
+                                         j=3
+
+
+
+                                                19
+Proof. (i) We take the [qR + 1, qR + 1 − 2R, 3]qR, ℓ code Vbρ with ℓ = R − 1, see Lemma 3, as the
+starting code V0 of Construction QM2 . By Theorem 6, we obtain an [n, n − r, 3]q, R, R code with
+                    m+1
+n = (qR + 1)qm + q q−1−1 , r = 2R + mR. Obviously, m − ( j − 2) = r−RjR . The condition qm ≥ n0
+implies qm ≥ qR + 1 whence m ≥ ⌈logq (qR + 1)⌉ = ⌈logq (R + 1)⌉ + 1. The restriction m < 3m1
+is introduced as for m ≥ 3m1 we have codes of (ii) that are better than ones in (i). For m = m1 ,
+codes of (i) and (ii) are the same. Finally, we put t = m + 2.
+    (ii) In the relation (i), we put t = m1 + 2 and obtain an [n1 , n1 − r1 , 3]q R, R code with
+                      m1 +1
+n1 = (qR + 1)qm1 + q q−1−1 , r1 = 2R + m1 R. We take this code as the starting code V0 of Con-
+struction QM1 . By Theorem 5, we obtain an [n, n − r, 3]q, R, R code with r = 2R + m1 R + m2 R,
+qm2 ≥ n1 , n = n1 qm2 = (qR + 1)qm1 +m2 + ∑m      1   m1 +m2 −i . Obviously, m + m − i = r−(i+2)R .
+                                                i=0 q                         1   2          R
+Since (R + 1)q m 1 +1 > n1 , the condition q ≥ n1 is satisfied when q ≥ (R + 1)qm1+1 whence
+                                            m 2                           m 2
+
+m2 ≥ ⌈logq (R + 1)⌉ + m1 + 1 = 2m1 . Then we denote 2 + m1 + m2 by t.
+
+
+6 New infinite code families with fixed even radius R ≥ 2 and
+  increasing codimension tR + R2
+In the projective plane PG(2, q), a blocking (resp. double blocking) set S is a set of points such
+that every line of PG(2, q) contains at least one (resp. two) points of S.
+    There is an useful connection between double blocking sets and 1-saturating sets.
+Proposition 7. [16, Cor. 3.3], [28] Let q be a square. Any double blocking set in the subplane
+     √
+PG(2, q ) ⊂ PG(2, q) is a 1-saturating set in the plane PG(2, q).
+In the following we shall use these results:
+Proposition 8. [1, 3, 4, 16] Let p be prime. Let φ (q) be as in (2.1). The following bounds on the
+smallest size τ2 (2, q) of a double blocking set in PG(2, q) hold:
+    τ2 (2, q) ≤ 2(q + q2/3 + q1/3 + 1),   q = p3 , p ≤ 73              [16, Th. 3.5];
+                      2/3     1/3               3h    h
+    τ2 (2, q) ≤ 2(q + q + q + 1),         q = p , p ≡ 2 mod 7          [4, Th. 5.5];
+                                
+                         q−1
+    τ2 (2, q) ≤ 2 q +              ,      q = ph , h ≥ 2, p ≥ 3        [1, Cor. 1.9];
+                       φ (q) − 1
+                            
+                       q
+    τ2 (2, q) ≤ 2 q + + 1 ,               q = ph , h ≥ 2, p ≥ 7        [3, Th. 1.8, Cor. 4.10].
+                       p
+    Now we give a list of 1-saturating sets in the projective plane of square order. The sets
+(iv)–(vi) are new, they directly follow from Propositions 7 and 8.
+                                                           √
+Proposition 9. Let q be a square. Let p be prime. Let φ ( q) be as in (2.1). Then in PG(2, q)
+there are 1-saturating sets of the following sizes:
+           √
+     (i) 3 q − 1,                      q = p2h ≥ 4, h ≥ 1 [12, Th. 5.2];
+
+                                                20
+           √     √
+    (ii) 2 q + 2 4 q + 2,               q = p4h ≥ 16, h ≥ 1 [15, Th. 3.3], [16, Th. 3.4], [28];
+           √     √       √
+    (iii) 2 q + 2 3 q + 2 6 q + 2,      q = p6 , p ≤ 73        [15, Th. 3.4], [16, Cor. 3.6];
+           √     √       √                    6h    h
+    (iv) 2 q + 2 3 q + 2 6 q + 2,       q = p , p ≡ 2 mod 7;
+                    √
+           √          q−1
+    (v) 2 q + 2 √             ,         q = p2h , h ≥ 2, p ≥ 3;
+                 φ( q)−1
+                 √
+           √        q
+    (vi) 2 q + 2      + 2,              q = p2h , h ≥ 2, p ≥ 7.
+                   p
+                                    √
+Remark 3. In Proposition 9, if q = pη with η ≥ 3 odd, then the new 1-saturating sets of
+(iv)–(vi) have smaller sizes than the known ones of (i)–(iii). For example, if q = p6 , η = 3, then
+                         √       √                                                            √
+the new size of (vi) is 2 q + 2 3 q + 2, cf. (iii). If η ≥ 5 odd, the known sets have size 3 q − 1
+                          √         √
+whereas new sizes are 2 q + o( q). For example, if q = p30 , η = 15, then the new size of
+              √     √       √
+(iv), (v) is 2 q + 2 3 q + 2 6 q + 2, cf. (i). In general, if η ≥ 3 is prime, then the case (vi) gives
+smaller sizes than other variants. If η is odd non-prime, then the variant (v) is the best.
+    The case (iv) gives the same size as (v), if 3|η . Therefore, in future we consider new codes
+and bounds resulting from Proposition 9(v),(vi).
+    Note also that if q = p2 , i.e. η = 1, then the size (i) is the smallest in Proposition 9. It is
+why we pay attention to this case, see Remarks 4–6 and Problem 5 below.
+
+Remark 4. Let a point of PG(2, q) have the form (x0 , x1 , x2 ) where xi ∈ Fq , the leftmost nonzero
+coordinate is equal to 1. Let β be a primitive element of Fq .
+                                                                                   √
+   In [12, Th. 5.2, eq. (30)], the following construction of a 1-saturating (3 q − 1)-set S in
+PG(2, q), q square, is proposed:
+
+            S = {(1, 0, x2)|x2 ∈ F√q } ∪ {(1, 0, cβ )|c ∈ F∗√q } ∪ {(0, 1, x2)|x2 ∈ F√q }.       (6.1)
+
+We describe this construction in more detail than in [12] using, for the description, the Baer
+sublines similarly to [5, Prop. 3.2]. In [12], see (6.1), specific Baer sublines are noted. Here
+we explain the structure and role of these specific sublines. Two Baer subplanes B1 and B2
+are considered. In the points of B1 , all coordinates xi ∈ F√q . Also, B2 = B1 Φ where Φ is
+the collineation such that (x0 , x1 , x2 )Φ = (x0 , x1 β , x2 β ). Let Li ⊂ PG(2, q) be the “long” line
+of equation xi = 0. Let Li, j = Li ∩ B j be the Baer subline of Li in the Baer subplane B j . We
+denote points A1 = (0, 0, 1), A2 = (1, 0, 0). Obviously, {A1 , A2 } ⊂ B1 ∩ B2 .
+    We have L0,1 = L0,2 , B1 ∩ B2 = L0,1 ∪ {A2 }. Thus, the Baer subplanes B1 and B2 have the
+common Baer subline L0,1 and also the common point A2 not on L0,1 . Also, L0,1 ∩ L1,1 ∩ L1,2 =
+{A1 }. So, we consider three Baer sublines through A1 ; one of them L0,1 is common for B1 and
+B2 ; the other two (L1,1 and L1,2 ) belong to the same long line L1 that passes through A2 ∈     / L0,1
+and A1 ∈ L0,1 . The needed set consists of these three Baer sublines without their intersection
+                                                                                               √
+point, i.e. S = (L0,1 ∪L1,1 ∪L1,2 ) \ {A1}. Since L1,1 ∩L1,2 = {A1 , A2 } it holds that |S| = 3 q −1.
+Note that if A1 is not removed from S then we have no bisecants of S through A1 .
+
+
+                                                   21
+    All points on L0 and L1 are 1-covered by S. Consider a point A = (1, a, b) ∈     / (L0 ∪ L1 ) with
+                   ∗
+a = a1 β + a0 ∈ Fq , b = b1 β + b0 ∈ Fq . (If a = 0 then A ∈ L1 .) Let a0 6= 0. Then A = (1, 0, (b1 −
+a1 a−1                   −1                                                              −1
+    0 b0 )β ) + a(0, 1, a0 b0 ). Let a0 = 0. Then a1 6= 0 and A = (1, 0, b0 ) + a(0, 1, a1 b1 ). Thus,
+A is 1-covered by S. Also, from the above consideration it follows that all points of S are
+1-essential and S is a minimal 1-saturating set.
+                                                                                 √
+Remark 5. In [33, Ex. B] and [5, Prop. 3.2], constructions of a 1-saturating 3 q-set in PG(2, q),
+q square, are proposed. In [33], the set is minimal; it consists of three non-concurrent Baer
+sublines in a Baer subplane. In [5], the set is non-minimal; it is similar to one of the construction
+[12, Th. 5.2], see its description in Remark 4. However, in [5], the intersection point of the three
+Baer sublines is not removed from the 1-saturating set.
+Remark 6. Let p be prime. To construct a 1-saturating (3p − 1)-set in PG(2, p2 ) one can apply
+Proposition 7 to a double blocking set in PG(2, p). However, double blocking (3p − 1)-sets in
+PG(2, p) are known only for q = 13, 19, 31, 37, 43, see [9]. Moreover, in PG(2, p), no double
+blocking sets of size less than 3p − 1 are known.
+    In PG(2, p2 ), p prime, by [16, Tab. 2], we have the following sporadic examples of 1-
+saturating k-sets with k < 3p − 1: p2 = 9, k = 6; p2 = 25, k = 12; p2 = 49, k = 18.
+Problem 5. Develop a general construction of a 1-saturating k-set in PG(2, p2 ), p prime, such
+that k < 3p − 1.
+   In [13, 16], a lift-construction is given. It provides the following result.
+Proposition 10. [13, Ex. 6], [16, Th. 4.4] Let an [nq, nq −3]q 2 code exist. Let nq < q and q +1 ≥
+2nq . Let fq (r, 2) be as in (2.2). Then there is an infinite family of [n, n − r]q 2 codes with odd
+codimension r = 2t + 1 ≥ 3, t ≥ 1, and length n = nq q(r−3)/2 + 2q(r−5)/2 + fq (r, 2).
+                                                                                                   √
+Theorem 9. Assume that p is prime, q = p2h , h ≥ 2, and covering radius R = 2. Let φ ( q )
+and fq (r, 2) be as in (2.1), (2.2). Then there exist infinite families of [n, n − r]q 2 codes with odd
+codimension r = 2t + 1 ≥ 3, t ≥ 1, and length
+                               √           
+                                  q−1
+              n = 2 + 2√           √          q(r−2)/2 + 2⌊q(r−5)/2 ⌋ + fq (r, 2), p ≥ 3;
+                             q(φ ( q ) − 1)
+                                  
+                         2      2
+              n = 2 + + √ q(r−2)/2 + 2⌊q(r−5)/2 ⌋ + fq (r, 2), p ≥ 7.
+                         p       q
+
+Proof. Let nq be the size of the 1-saturating sets of Proposition 9(iii),(iv). We treat every point
+(in homogeneous coordinates) of the set as a column of an 3 × nq parity check matrix of an
+[nq , nq − 3]q 2 code. For these codes it can be shown that nq < q and q + 1 ≥ 2nq . Then we use
+Proposition 10.
+   The direct sum construction [16, Sect. 4.2] gives the following lemma.
+
+                                                  22
+Lemma 4. Let covering radius R ≥ 2 be even. Let an [n′′, n′′ − r′′ ]q 2 code exist. Then there is
+an [ R2 n′′ , R2 n′′ − R2 r′′ ]q R code.
+
+Theorem 10. Assume that p is prime, q = p2h , h ≥ 2, R ≥ 2 even, and code codimension is
+                                         √
+r = tR + R2 with integer t ≥ 1. Let φ ( q ) and fq (r, R) be as in (2.1), (2.2). Then for all even
+R ≥ 2 there are infinite families of [n, n − r]qR codes with fixed covering radius R, codimension
+r = tR + R2 , t ≥ 1, and length
+                          √                           j                k R
+                             q−1            (r−R)/R         (r−2R)/R−0.5
+        n = R 1+ √            √           q         + R   q               + fq (r, R), p ≥ 3;
+                        q(φ ( q ) − 1)                                     2
+                                             j               k
+                      1     1                                       R
+        n = R 1 + + √ q(r−R)/R + R q(r−2R)/R−0.5 + fq (r, R), p ≥ 7.
+                      p      q                                      2
+
+Proof. We take codes of Theorem 9 as the codes [n′′ , n′′ − r′′ ]q 2 of Lemma 4.
+
+
+References
+ [1] Bacsó, G., Héger, T., Szőnyi, T.: The 2-blocking number and the upper chromatic number
+     of PG(2, q). J. Combin. Designs 21(12), 585-602 (2013)
+
+ [2] Bartoli, D., Davydov, A.A., Giulietti, M., Marcugini, S., Pambianco, F.: New bounds
+     for linear codes of covering radii 2 and 3, Cryptography and Communications, to appear,
+     https://link.springer.com/article/10.1007/s12095-018-0335-0
+
+ [3] De Beule, J., Héger, T., Szőnyi, T., Van de Voorde, G.: Blocking and Double Blocking
+     Sets in Finite Planes. Electron. J. Combin. 23(2) Paper #P2.5 (2016)
+
+ [4] Blokhuis, A., Lovász, L., Storme, L., Szőnyi, T.: On multiple blocking sets in Galois
+     planes. Adv. Geom. 7(1), 39–53 (2007)
+
+ [5] Boros, E., Szőnyi, T., Tichler, K.: On Defining Sets for Projective Planes. Discrete Math.
+     303(1–3), 17–31 (2005)
+
+ [6] Brualdi, R.A., Litsyn, S., Pless, V.S.: Covering radius. In: Pless, V.S., Huffman, W.C.,
+     Brualdi, R.A. (eds.) Handbook of coding theory, vol. 1, pp. 755–826. Elsevier, Amster-
+     dam, The Netherlands (1998)
+
+ [7] Brualdi, R.A., Pless, V.S, Wilson, R.M.: Short codes with a given covering radius. IEEE
+     Trans. Inform. Theory 35(1), 99–109 (1989)
+
+ [8] Cohen, G., Honkala, I., Litsyn, S., Lobstein, A.: Covering codes. North-Holland Mathe-
+     matical Library, vol. 54. Elsevier, Amsterdam, The Netherlands (1997)
+
+
+                                               23
+ [9] Csajbók, B., Héger,T.: Double blocking sets of size 3q − 1 in PG(2, q). Europ. J. Combin.
+     78, 73-89 (2019)
+
+[10] Davydov, A.A.: Construction of linear covering codes. Probl. Inform. Transmis. 26(4),
+     317–331 (1990)
+
+[11] Davydov, A.A.: Construction of codes with covering radius 2. In: Cohen, G., Litsyn, S.,
+     Lobstein, A., Zemor G. (eds.) Algebraic Coding. Lect. Notes Comput. Science, vol. 573,
+     pp. 23–31. Springer–Verlag, New–York (1992)
+
+[12] Davydov, A.A.: Constructions and families of covering codes and saturated sets of points
+     in projective geometry. IEEE Trans. Inform. Theory 41(6), 2071–2080 (1995)
+
+[13] Davydov, A.A.: Constructions and families of nonbinary linear codes with covering radius
+     2. IEEE Trans. Inform. Theory 45(5), 1679–1686 (1999)
+
+[14] Davydov, A.A., Faina, G., Marcugini, S., Pambianco, F.: Locally optimal (nonshorten-
+     ing) linear covering codes and minimal saturating sets in projective spaces. IEEE Trans.
+     Inform. Theory 51(12), 4378–4387 (2005)
+
+[15] Davydov, A.A., Giulietti, M., Marcugini, S., Pambianco, F.: Linear covering
+     codes over nonbinary finite fields. In: Proc. XI Int. Workshop on Algebraic and
+     Combinatorial Coding Theory, ACCT2008. pp. 70–75. Pamporovo, Bulgaria (2008)
+     http://www.moi.math.bas.bg/acct2008/b12.pdf
+
+[16] Davydov, A.A., Giulietti, M., Marcugini, S., Pambianco, F.: Linear nonbinary covering
+     codes and saturating sets in projective spaces. Adv. Math. Commun. 5(1), 119–147 (2011)
+
+[17] Davydov, A.A., A.A., Marcugini, S., Pambianco, F.: On saturating sets in projective
+     spaces. J. Combin. Theory Ser. A 103(1), 1–15 (2003)
+
+[18] Davydov, A.A., Östergård, P.R.J.: On saturating sets in small projective geometries. Eu-
+     rop. J. Combin. 21(5), 563–570 (2000)
+
+[19] Davydov, A.A., Östergård, P.R.J.: Linear codes with covering radius R = 2, 3 and codi-
+     mension tR. IEEE Trans. Inform. Theory 47(1), 416–421 (2001)
+
+[20] Davydov, A.A., Östergård, P.R.J.: Linear codes with covering radius 3. Des. Codes Crypt.
+     54(3), 253–271 (2010)
+
+[21] Etzion, T., Storme, L.: Galois geometries and coding theory. Des. Codes Crypt. 78(1),
+     311–350 (2016)
+
+[22] Ezerman, M.F., Grassl, M., Sole, P.: The Weights in MDS Codes. IEEE Trans. Inform.
+     Theory 57(1), 392–396 (2011)
+
+                                              24
+[23] Giulietti, M.: The geometry of covering codes: small complete caps and saturating sets in
+     Galois spaces. In: Blackburn, S.R., Holloway, R., Wildon, M. (eds.) Surveys in Combina-
+     torics 2013, London Math. Soc. Lect. Note Series, vol. 409, pp. 51–90. Cambridge Univ
+     Press, Cambridge (2013)
+
+[24] Hirschfeld, J.W.P.: Projective Geometries Over Finite Fields. Oxford mathematical mono-
+     graphs, Clarendon Press, Oxford, 2nd edn. (1998)
+
+[25] Hirschfeld, J.W.P., Storme, L.: The packing problem in statistics, coding theory and finite
+     projective spaces. J. Statist. Planning Infer. 72(1), 355–380 (1998)
+
+[26] Hirschfeld, J.W.P., Storme, L.: The packing problem in statistics, coding theory and finite
+     geometry: update 2001. In: Blokhuis, A., Hirschfeld, J.W.P. et al. (eds.) Finite Geometries,
+     Developments of Mathematics, vol. 3, Proc. of the Fourth Isle of Thorns Conf., Chelwood
+     Gate, 2000, pp. 201–246. Kluwer Academic Publisher, Boston (2001)
+
+[27] Janwa, H.: Some optimal codes from algebraic geometry and their covering radii. Europ.
+     J. Combin. 11(3), 249–266 (1990)
+
+[28] Kiss, G., Kóvacs, I., Kutnar, K., Ruff, J., Šparl, P.: A note on a geometric construction of
+     large Cayley graphs of given degree and diameter. Studia Univ. Babes-Bolyai Math. 54(3),
+     77–84 (2009)
+
+[29] Klein, A., Storme, L.: Applications of Finite Geometry in Coding Theory and Cryptogra-
+     phy. In: D. Crnković, V. Tonchev (eds.) NATO Science for Peace and Security, Ser. - D:
+     Information and Communication Security, vol. 29, Information Security, Coding Theory
+     and Related Combinatorics, pp. 38–58 (2011)
+
+[30] Landjev, I., Storme, L.: Galois geometry and coding theory. In: De. Beule, J., Storme,
+     L. (eds.) Current Research Topics in Galois geometry, Chapter 8, pp. 187–214, NOVA
+     Academic Publisher, New York (2012)
+
+[31] Lobstein, A.: Covering radius, an online bibliography.
+     https://www.lri.fr/~ lobstein/bib-a-jour.pdf
+
+[32] MacWilliams, F.J., Sloane, N.J.A.: The Theory of Error-Correcting Codes. North- Hol-
+     land, Amsterdam, The Netherlands, 3-rd edition (1981)
+
+[33] Ughi, E.: Saturated configurations of points in projective Galois spaces. Europ. J. Combin.
+     8(3), 325–334 (1987)
+
+
+
+
+                                                25
+

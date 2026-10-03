@@ -1,0 +1,547 @@
+ 
+ Tables for bounds on covering codes 
+ 
+ 
+ 
+ 
+ 
+ 
+Tables for Bounds on Covering Codes 
+ (The best known lower and upper bounds on the smallest size of a 
+covering code, 2 <= q <= 21) 
+ Please report further updates or corrections or classification results to 
+keri@sztaki.hu. 
+ 
+ 
+ Bounds for binary covering codes, listed for n <= 33, R <= 10 [ PostScript ] [ PDF ] 
+ Bounds for ternary covering codes, listed for n <= 14, R <= 8 [ PostScript ] [ PDF ] 
+ Bounds for quaternary and quinary covering codes, listed for n <= 11, R 
+ <= 8 [ PostScript ] [ PDF ] 
+ Bounds for q-ary covering codes where (6 <= q <= 10, n <= 10) or 
+ (11 <= q <= 21, n <= 8) [ PostScript ] [ PDF ] 
+ Bounds for mixed ternary/binary covering codes, listed for t+b <= 13, R <= 3 [ PostScript ] [ PDF ] 
+ Some results for mixed quaternary/ternary/binary covering codes) [ PostScript ] [ PDF ] 
+ Bibliography 
+( For most of the newly inserted classification results refer to the following book and papers: Kaski and Östergard:
+Classification Algorithms for Codes and Designs,
+Springer, Berlin, 2006; Bertolo, Östergard and Weakley:
+An updated table of binary/ternary mixed covering codes,
+J. Combin. Des., 12 (2004), 157-176; Delsarte and Goethals:
+Unrestricted codes with the Golay parameters are unique,
+Discrete Math., 12 (1975), 211-224; Kalbfleisch and Stanton:
+A combinatorial theorem of matching, J. London Math. Soc.
+(1), 44 (1969), 60-64 and Covering problems for dichotomized matchings,
+Aequationes Math., 1 (1968), 94-103; Kéri and Östergard: On the minimum size
+of binary codes with length 2R+4 and covering radius R,
+Des. Codes Cryptogr., 48 (2008), 165-169; Östergard: The football pool problem,
+Congr. Numer., 114 (1996), 33-43; Östergard and Pottonen:
+The perfect binary one-error-correcting codes of length 15: Part I - Classification (manuscript); Östergard and Weakley:
+Classification of binary covering codes, J. Combin. Des.,
+8 (2000), 391-401 and Classifying optimal ternary codes of length 5 and covering radius 1,
+Beitrage Algebra Geom., 43 (2002), 445-449; Zaremba: Covering problems concerning Abelian groups,
+J. London Math. Soc., 27 (1952), 242-246. The classification results for mixed codes and for some ternary, quaternary and quinary codes are not yet published in print, these are mainly computational results. Bold typesetting and superscipt indicate completed classification. For a classified item, the number of inequivalent optimal covering codes is shown in the superscript. )
+ Improvements and corrections since 2004.12.20. 
+ 
+2011.11.21.
+ 
+ K3(13,4) 
+ K32(10,1,3) 
+K32(5,7,4) 
+Author: Pedro Pablo Rivas Soriano.
+ 
+ 
+2010.02.20.
+ 
+ K32(5,8,2) Author: Erik Madsen.
+ 
+ 
+2009.10.14.
+ 
+ K3(12,6)>=10. 
+(computational result - G.K.) 
+ 
+2009.10.06.
+ 
+K4(5,2)=16, K4(6,3)>=11, K4(7,4)>=9; 
+K5(9,6)>=10; 
+K6(4,2)=15; 
+K7(5,3)>=15; K7(10,7)>=15. 
+Authors: Wolfgang Haas, Jörn Quistorff and Jan-Christoph Schlage-Puchta. 
+ 
+2009.10.06.
+ 
+K5(10,7)=9 (by construction). 
+Authors: Carlos Mendes, Emerson L. Monte Carmelo and Marcus Poggi. 
+ 
+2009.10.06.
+ 
+ K(13,4)>=12, K3(9,4)>=11. 
+(computational results) 
+Authors: Charles J. Colbourn, Gerzson Kéri, Pedro Pablo Rivas Soriano and Jan-Christoph Schlage-Puchta. 
+ 
+2009.10.05.
+ 
+K9(10,5)>=481. 
+Authors: Wolfgang Haas, Immanuel Halupczok and Jan-Christoph Schlage-Puchta. 
+ 
+2009.10.05.
+ K12(5,3)<=43. 
+ (By using Theorem 2, Kéri and Östergard, 2005.)
+ 
+ 
+2009.09.16.
+ K5(10,3)<=3125,
+ from a 2-saturating set in PG(4,5).
+ Author: Alexander Davydov and Patric Östergard, 2000.
+ This bound implies K6(10,3)<=19347.
+ 
+ 
+2009.09.16.
+ K6(8,5)<=30, K7(10,7)<=33, K8(8,5)<=90, K8(10,7)<=44. 
+ (By using Theorem 2, Kéri and Östergard, 2005.)
+ 
+ 
+2009.03.09.
+ K32(9,1,1)<=2520. Author: H. Hamalainen.
+ 
+ 
+2009.01.28.
+ 
+Improved binary lower bounds: K(19,2)>=2898, K(21,2)>=9900, K(24,2)>=60381, K(25,2)>=107218, K(28,2)>=683980, K(31,2)>=4464944, K(33,2)>=16210701, K(20,3)>=892, K(32,3)>=855613, K(30,4)>=38067, K(32,4)>=110467. Author: Wolfgang Haas.
+ 
+ 
+2009.01.20.
+ K32(7,4,2)<=374. Authors: H. Hamalainen and P.P. Rivas Soriano.
+ 
+2009.01.20.
+ K32(11,1,4)<=136. Authors: Riccardo Bertolo, 
+Franco Di Pasquale, Francesco Santisi and Pedro Pablo Rivas Soriano. 
+ 
+2009.01.20.
+ K32(7,7,4)<=136. Authors: Riccardo Bertolo, 
+Franco Di Pasquale and Francesco Santisi. 
+ 
+2009.01.15.
+ K32(9,3,3)<=243. Authors: Riccardo Bertolo, 
+Franco Di Pasquale and Francesco Santisi. 
+ 
+2009.01.13. 
+Improved lower bounds: 
+ K3(10,4)>=17, K3(11,4)>=30 and 3 more ternary lower bounds; 
+K4(7,2)>=84 and 9 more quaternary lower bounds; 
+K5(5,2)>=22 and 14 more quinary lower bounds; 
+K6(5,2)>=36 and 114 more lower bounds for 6 
+Authors: Wolfgang Haas, Immanuel Halupczok and Jan-Christoph Schlage-Puchta. 
+ 
+2009.01.12. 
+K32(4,7,4)<=15, K32(6,4,4)<=14. 
+Author: Pedro Pablo Rivas Soriano. 
+ 
+2009.01.10. 
+Improved ternary upper bound: 
+ K3(13,4) 
+Improved ternary/binary upper bounds for R=3: 
+ K32(4,9,3)<=107, K32(7,6,3)<=232, K32(9,1,3)<=91. 
+Improved ternary/binary upper bounds for R=4: 
+K32(4,8,4)<=22, K32(8,1,4)<=14, K32(9,1,4)<=28, K32(11,1,4)<=138. 
+Author: Pedro Pablo Rivas Soriano. 
+ 
+2009.01.06.
+ K32(7,2,4)<=11. Construction: Amalgamated direct sum of 3-normal codes. 
+ 
+2008.12.16.
+ K32(9,3,2)<=1184. Authors: Riccardo Bertolo, 
+Franco Di Pasquale and Francesco Santisi. 
+ 
+2008.12.11. 
+Further improvement of a recently improved bound: 
+K6(9,6) Author: Pedro Pablo Rivas Soriano. 
+ 
+2008.12.09. 
+Improved upper bounds: 
+K9(6,3)<=147, K10(6,3)<=209. 
+ Author: Pedro Pablo Rivas Soriano. These bounds imply 
+K9(10,7)<=3969 and K10(10,7)<=7106. 
+ 
+ 2008.12.05.
+ K4(5,2)>=15 and K4(8,4)>=13. 
+(Proved by computer.) 
+2008.12.04. 
+Three new classification results: 
+ For K(15,1)=2048, the number of inequivalent optimal codes (i.e. perfect codes) is 5983. 
+Authors: Patric Östergard and Olli Pottonen. 
+For K32(1,9,3)=12, the number of inequivalent optimal codes is 5. 
+For K32(3,4,2)=13, the optimal covering code is unique. 
+Author: myself and my computer. 
+ 
+2008.12.04. 
+Improved upper bounds: 
+K5(8,5)<=15, K5(9,6)<=12, K6(8,5)<=31, 
+K13(7,2)<=47111, K14(7,2)<=78934, 
+K17(6,2)<=14424, K19(6,2)<=20890, K19(6,3)<=1568, 
+K20(6,2)<=28160, K21(6,2)<=37481. 
+ Author: Pedro Pablo Rivas Soriano. 
+ 2008.12.04. 
+Two improvements for q=6: 
+K6(9,6) 
+Authors: J. Quistorff and J-Ch. Schlage-Puchta. 
+ 2008.12.03. 
+Two new exact values: 
+ K32(1,8,2)=20 and K32(3,6,3)=12 . 
+(Proved by computer.)
+ 2008.10.27. 
+A new lower bound for mixed codes: 
+K32(4,3,2)>=15. 
+(Proved by computer.) 
+ 2008.10.22. 
+A new ternary lower bound: 
+ K3(7,3)>=11. 
+(Proved by computer.) 
+From this bound we obtain 
+ K3(14,7)>=11. 
+ 
+2008.10.20.
+ K4(6,3)>=10 and K4(8,4)>=12. 
+(Proved by computer.) 
+2008.10.06. 
+ K32(7,4,2)<=375. Author: H. Hamalainen. 
+ 
+2008.10.06. 
+ 
+Li, Ji and Yin, Covering arrays of strength 3 and 4 from holey difference matrices, Designs, Codes and Cryptography (to appear) 
+found the bound 
+sigma10(5,3)<=1050. 
+From this bound and the known equalities 
+sigma9(5,3)=729 and sigma11(5,3)=1331 we obtain 
+K19(5,2) 
+ 
+2008.03.05. 
+ 
+Three more improvements by the help of surjective codes:
+ 
+K6(9,5) 
+K21(6,2) 
+ 
+2008.02.29. 
+ 
+Some new constructions for surjective codes (covering arrays) results in the following improvements:
+ 
+K8(7,4) 
+K6(10,6) 
+from sigma2(10,4)<=24, sigma3(10,4)<=159, sigma4(10,4)<=508; 
+K13(7,3) 
+ 2008.02.05. 
+An improved binary lower bound: 
+ K(27,1)>=4794174. 
+Author: A. Plagne. 
+ 2008.01.22. 
+ New exact values for q-ary codes: 
+K5(4,2)=11, K5(5,3)=9, 
+K6(5,3)=12, K6(6,4)=10, 
+K7(7,5)=11, K8(8,6)=12, 
+K9(9,7)=13, K10(10,8)=14. 
+also K5(7,4)>=11, and there are five more new lower bounds for quinary codes; 
+K6(9,6)>=12, and there are many more new lower bounds for 6 
+(See in the tables.) 
+Authors: W. Haas, J-Ch. Schlage-Puchta and J. Quistorff. 
+ 2007.09.26. 
+ K3(6,1)>=71. 
+Authors: Jeff Linderoth, Francois Margot and Greg Thain (2007). 
+ 
+2007.08.30. 
+Improved lower bounds for mixed ternary/binary codes: 
+K32(1,7,1)>=42, K32(1,9,1)>=134, K32(1,11,1)>=448, K32(1,12,2)>=121, 
+K32(2,5,1)>=32, K32(2,6,1)>=57, K32(2,7,1)>=101, K32(2,8,2)>=33, 
+K32(2,10,2)>=93, K32(2,11,3)>=36, 
+K32(3,4,1)>=44, K32(3,5,1)>=78, K32(3,6,1)>=140, K32(3,6,2)>=25, 
+K32(3,8,2)>=72, K32(3,9,3)>=29, K32(3,10,3)>=46, 
+K32(4,3,1)>=60, K32(4,4,1)>=107, K32(4,4,2)>=20, K32(4,7,2)>=93, K32(4,8,3)>=36, 
+K32(5,2,1)>=80, K32(5,4,1)>=268, K32(5,5,2)>=71, K32(5,5,3)>=18, K32(5,6,3)>=28, 
+K32(6,2,1)>=204, K32(6,3,2)>=54, K32(6,4,1)>=700, K32(6,4,3)>=22, K32(6,5,3)>=35, 
+K32(7,1,2)>=42, K32(7,1,3)>=12, K32(7,2,1)>=525, K32(7,2,2)>=72, 
+K32(7,2,3)>=18, K32(7,3,3)>=27, 
+K32(8,1,3)>=21, K32(8,2,1)>=1395, K32(8,2,3)>=34, 
+K32(9,2,1)>=3770, K32(9,3,3)>=119. 
+Authors: W. Lang, J. Quistorff and E. Schneider (2007). 
+ 
+2007.08.30. 
+Improved lower bounds for unmixed codes: 
+K6(10,4)>=417, 
+K7(6,2)>=210, K7(9,4)>=227, K7(9,5)>=39, K7(10,5)>=131, 
+K8(7,3)>=171, K8(8,4)>=96, K8(9,4)>=409, K8(10,5)>=232, 
+K9(6,2)>=546, K9(6,3)>=57, K9(8,4)>=144, K9(9,4)>=703, K9(10,6)>=60, 
+K10(5,2)>=128, K10(6,2)>=800, K10(6,3)>=74, K10(7,3)>=382, K10(7,4)>=46, 
+K10(9,4)>=1130, K10(9,5)>=128, 
+K11(5,2)>=165, K11(6,3)>=94, K11(7,3)>=539, K11(7,4)>=59, K11(8,2)>=74415, K11(8,4)>=293, 
+K12(5,2)>=216, K12(6,3)>=120, K12(7,4)>=72, K12(8,4)>=406, 
+K13(5,2)>=278, K13(6,3)>=145, K13(7,3)>=1006, K13(7,4)>=91, K13(8,5)>=61, 
+K14(5,2)>=342, K14(6,3)>=175, K14(7,3)>=1340, K14(7,4)>=112, K14(8,4)>=718, 
+K15(5,2)>=414, K15(6,3)>=209, K15(7,3)>=1745, K15(7,4)>=134, 
+K16(5,2)>=491, K16(6,3)>=248, K16(7,3)>=2226, K16(7,4)>=161, 
+K16(8,4)>=1180, K16(8,5)>=106, 
+K17(5,2)>=568, K17(7,3)>=2806, K17(7,4)>=191, K17(8,5)>=121, 
+K18(5,2)>=646, K18(6,3)>=342, K18(7,3)>=3492, K18(7,4)>=223, 
+K18(8,4)>=1839, K18(8,5)>=144, 
+K19(5,2)>=759, K19(6,3)>=399, K19(7,4)>=256, K19(8,5)>=167, 
+K20(5,2)>=896, K20(7,4)>=295, K20(8,5)>=191, 
+K21(5,2)>=1043, K21(6,3)>=542, K21(7,4)>=336, K21(8,4)>=3288, K21(8,5)>=221. 
+Authors: W. Lang, J. Quistorff and E. Schneider (2007). 
+ 2007.04.19. 
+ K3(14,7)>=10, K5(11,7)>=9. 
+Special cases of inequality 
+Kq(n1+n2,R1+R2+1)>=
+min( Kq(n1,R1), Kq(n2,R2) ) first published in
+ "A note on bounds for q-ary covering codes"
+ by M.C. Bhandari and C. Durairajan, 
+ IEEE Transactions Information Theory 42 (1996) 1640-1642. 
+(Detected by Wolfgang Haas.)
+ 2007.03.06. 
+ K3(9,4)>=10, K3(11,5)>=10. 
+Unobserved special cases of Theorem 2 from the paper
+ "On the covering radius of small codes"
+ by G. Kéri and P. R. J. Östergård, 
+ Studia Scientiarum Mathematicarum Hungarica 40 (2003) 243-256. 
+(Detected by Wolfgang Haas.)
+ 2007.03.01. 
+ K2(17,1)>=7419, K2(23,1)>=352827, K2(29,1)>=17997161. 
+Author: Wolfgang Haas (2007). 
+ 
+2006.11.29. 
+ K2(14,2)>=159, K3(9,3)>=27, K3(11,3)>=117,
+K3(13,3)>=612, 
+K4(9,1)>=9368, K4(9,2)>=751, 
+K5(5,2)>=21, K5(8,2)>=821, K5(8,3)>=99, K5(8,4)>=21, K5(9,4)>=55, K5(10,3)>=1163, K5(11,5)>=90, 
+K6(5,2)>=33, K6(6,2)>=120, K6(6,3)>=19, K6(7,3)>=62, K6(8,4)>=36, K6(9,5)>=24, 
+K7(5,2)>=47, K7(6,3)>=28, K7(7,3)>=101, K7(7,4)>=19, K7(8,4)>=58, K7(9,2)>=29889, K7(10,6)>=27, 
+K8(6,3)>=40, K8(9,5)>=58, K8(10,6)>=40, 
+K9(6,3)>=52, K9(7,4)>=35, 
+K10(6,3)>=70, K10(7,4)>=42, 
+K11(7,4)>=56, K12(7,4)>=71, 
+K13(7,4)>=87, K13(8,5)>=60, 
+K14(7,4)>=107, K14(8,5)>=70, 
+K15(7,4)>=125, K15(8,5)>=88, 
+K16(7,4)>=147, K16(8,5)>=100, 
+K17(8,5)>=120, K18(8,5)>=141, 
+K19(7,4)>=234, K19(8,5)>=158, 
+K20(8,5)>=184, K21(8,5)>=210. 
+Authors: W. Lang, J. Quistorff and E. Schneider (2006). 
+ 2006.11.07. 
+ K6(6,3)<=41.
+ Author: Pedro Pablo Rivas Soriano (2006).
+ This bound implies 
+K6(7,3)<=246, K6(9,4)<=738, K6(10,4)<=2952, K6(10,5)<=615,
+ K18(6,3)<=1353. 
+ 
+2006.11.07. 
+ K4(7,4)<=10, K4(10,5)<=54, K4(11,7)<=11,
+K5(8,5)<=19.
+ Author: Pedro Pablo Rivas Soriano (2006).
+ 
+2006.11.06. 
+ K4(11,2)>=7974, K4(11,3)>=849, K4(11,4)>=148, K4(11,6)>=11, 
+K5(11,1)>=1087416, K5(11,4)>=535. Method: improved sphere-covering bound, worked out by Chen and Honkala. 
+ 
+2006.11.06. 
+ K32(9,1,1)<=2529, K32(9,3,1)<=9450, 
+K32(7,6,2)<=1280, K32(9,3,2)<=1187. Authors: Riccardo Bertolo, 
+Franco Di Pasquale and Francesco Santisi (2006). 
+ 2006.11.02. 
+ Improved lower bound: K2(14,5)>=10. 
+Method: stepwise refinement. 
+ 2006.10.25. 
+ K3(7,1)>=156, K3(8,1)>=402. 
+Author: Wolfgang Haas (2006). 
+ 
+2006.09.25. 
+ K7(10,2)<=420175. Author: Pedro Pablo Rivas Soriano (2006). 
+ Method: Amalgamated direct sum 
+2006.09.22. 
+ Correction for lower bounds: 
+K4(11,3)>=844, K5(11,3)>=4255. (Detected by Jörn Quistorff.) 
+ 
+2006.09.22. Improved lower bound for the mixed case: 
+K32(7,3,3)>=26. 
+Author: Jörn Quistorff (2006). 
+ 
+2006.09.22. 
+ 
+K4(11,2)<=15872. Authors: Riccardo Bertolo, 
+Franco Di Pasquale and Francesco Santisi (2006). 
+ 
+2006.09.19. 
+ Correction: 
+K5(10,4)<=875. (The bound 720 is probably a misprint in the cited reference.) 
+ 
+2006.09.19. 
+ K5(8,2)<=1625,
+K5(9,2)<=6375,
+K5(10,2)<=23000,
+K5(11,2)<=78125,
+ 
+K5(10,3)<=4375,
+K5(11,3)<=15625. Author: Pedro Pablo Rivas Soriano (2006). 
+ 
+2006.09.13. 
+ K5(7,4)<=21. Author: Pedro Pablo Rivas Soriano (2006). 
+ 
+2006.09.13. 
+ 
+ sigma10(5,3)<=1100, i.e. CAN(3,5,10) ; 
+Author: Pedro Pablo Rivas Soriano (2006). Consequently 
+K19(5,2)<=1829 and
+K21(5,2)<=2431. 
+ 
+2006.08.30. 
+ 
+A great number of improvements for bounds on q-ary covering codes where q>=6 is placed in the 4th table 
+ due to Pedro Pablo Rivas Soriano (2006). 
+The majority of these improvements is achieved by finding improved bounds
+ for surjective codes 
+(or equivalently for covering arrays) , 
+ and then using Corollary 3 in
+ "Bounds for covering codes over large alphabets"
+ by G. Kéri and P. R. J. Östergård, 
+ Designs, Codes and Cryptography 37(2005)45-60. 
+Rivas Soriano found better bounds than the previus ones for 3-surjective codes such as 
+ sigma3(8,3)<=42, sigma3(12,3)<=45, 
+sigma5(7,3)<=180, sigma10(5,3)<=1120 ; 
+i.e. in the terminology of covering arrays 
+ CAN(3,8,3) 
+CAN(3,7,5) . 
+Consequently we have 
+K8(7,4)<=96, K9(7,4)<=126, K9(9,6)<=81, K10(7,4)<=172, K10(9,6)<=114, 
+K11(7,4)<=218, K13(7,4)<=356, K14(7,4)<=448, K16(7,4)<=611, 
+K17(7,4)<=703, K18(7,4)<=774, K19(7,4)<=866, K20(7,4)<=979,
+ K21(5,2)<=2451. 
+ 
+Direct improvements by the same author:
+ K6(6,2)<=274, K6(6,3)<=43, K6(7,3)<=258, K6(9,4)<=774, K6(10,4)<=3096,
+ K7(6,3)<=77, K10(6,2)<=1350, K11(6,2)<=2343, K12(6,2)<=3884, K12(6,4)<=41,
+ K13(6,2)<=6127, K13(6,4)<=46, K14(6,4)<=52.
+ These bounds imply 
+K6(10,3)<=19728, K6(10,5)<=645, K10(10,3)<=475200, K18(6,3)<=1419, K20(6,2)<=28350. 
+ 
+2006.08.17. 
+ K10(5,3)<=32, K10(6,4)<=28. Author: Pedro Pablo Rivas Soriano (2006). 
+ These bounds imply 
+K10(9,5)<=K10(4,2)*K10(5,3)<=34*32=1088 
+and 
+K10(10,6)<=K10(4,2)*K10(6,4)<=34*28=952. 
+ 
+2006.08.16. K4(7,1)<=992. Authors: Riccardo Bertolo, 
+Franco Di Pasquale and Francesco Santisi (2005). This bound implies 
+K8(7,1)<=63488. 
+ 
+2006.08.02. 
+Corrected lower bounds: 
+K2(21,1)>=96125 comes from A2(21,3) 
+K2(25,1)>=1298238 comes from A2(25,3) 
+K2(33,1)>=253523901 comes from A2(33,3) 
+K2(26,2)>=191229 comes from A2(26,5) 
+(Noticed by Wolfgang Haas, 2006). 
+ 
+2006.07.28. 
+K4(5,2)>=14, K4(6,2)>=32. 
+Author: Wolfgang Haas (2006). 
+ 
+2006.05.15. 
+ K2(14,2)<=248. Authors: Riccardo 
+Bertolo, Franco Di Pasquale and Francesco Santisi (2006). 
+ 
+2006.05.10. 
+ K3(12,4)<=175, K3(13,4)<=348. Authors: Riccardo Bertolo, 
+Franco Di Pasquale and Francesco Santisi (2006). 
+ 
+2006.04.20. 
+K5(7,3)>=34, K4(9,4)>=23. 
+Author: Jörn Quistorff (2006). 
+ 
+2006.04.20. 
+K5(5,1)>=160, K6(5,1)>=330, K6(6,1)>=1578, 
+K7(5,1)>=606, K7(6,1)>=3412, K7(7,1)>=19818, 
+K8(6,1)>=6626, K8(7,1)>=44237, K8(8,1)>=302036, 
+K9(6,1)>=11877, K9(7,1)>=89526, K9(8,1)>=690377, K9(9,1)>=5415428, 
+K10(7,1)>=167925, K10(8,1)>=1442623, K10(9,1)>=12608696, K10(10,1)>=111688312, 
+K11(7,1)>=296388, K11(8,1)>=2806050, 
+K12(8,1)>=5146894, K13(8,1)>=8988848. 
+Author: Jörn Quistorff (2001). 
+ 
+2006.01.25. 
+K6(5,3)<=12, K6(6,3)<=45, 
+K7(5,3)<=17, K7(6,3)<=80, 
+K8(5,3)<=22, K8(6,3)<=107, 
+K9(6,3)<=148, K9(6,4)<=24, 
+K10(5,3)<=33, K10(6,2)<=1354, K10(6,3)<=210, 
+K11(5,2)<=365, K11(5,3)<=38, K11(6,2)<=2369, K11(6,3)<=275,
+K11(6,4)<=33, K12(6,2)<=3920, 
+K13(5,2)<=583, K13(5,3)<=48, K13(6,2)<=6171, K13(6,3)<=495, K13(6,4)<=47, 
+K14(6,3)<=610, K15(6,3)<=730. 
+ Author: Pedro Pablo Rivas Soriano (2005-2006). 
+ 
+2006.01.25. 
+ K3(12,4)<=177, K3(13,4)<=366. Author: Pedro Pablo Rivas Soriano (2005). 
+ 2006.01.17. 
+ Improved lower bound: K2(11,3)>=15. 
+Method: stepwise refinement. 
+ 2005.10.27. 
+ Improved lower bound: K2(12,4)>=11. Author: Patric 
+R. J. Östergård (2005). 
+ 
+2005.10.17. 
+ Improved lower bound: K2(10,3)=12 . Author: Patric 
+R. J. Östergård (2005). 
+ 2005.09.22. 
+ Improved lower bounds: K4(7,1)>=762, K4(9,2)>=748, K4(9,4)>=22, 
+K4(10,2)>=2412,
+ K4(11,1)>=123846, K4(11,2)>=7942, K4(11,3)>=843, 
+K4(11,4)>=134, K4(11,5)>=31 and K4(11,6)>=10;
+ K5(7,1)>=2722, K5(8,1)>=11945, K5(9,1)>=53138, K5(10,1)>=238993, 
+ K5(11,2)>=52842, K5(11,3)>=4253, K5(11,4)>=510, K5(11,5)>=87 and 
+K5(11,6)>=21. 
+ Author: Dion Gijswijt (2005). 
+ 
+ 
+2005.07.06. 
+ K3(10,3)<=105 . Authors: Riccardo 
+Bertolo, Franco Di Pasquale and Francesco Santisi (2005). 
+ 
+2005.05.11. 
+ K3(12,3)<=657 . Author: Pedro Pablo Rivas Soriano (2005). 
+ 
+2005.03.17. K3(12,3)<=660 . Authors: Riccardo 
+Bertolo, Franco Di Pasquale and Francesco Santisi (2005). 
+ 
+2005.03.17. K3(12,4)<=201 and K4(10,5)<=56 follow from 
+K4,3(1,8,3)<=67 and K4(6,3)<=14, respectively. 
+ 
+2005.02.07. K4(11,6)<=32. Method: Amalgamated direct sum 
+of two 4-normal codes belonging to the bounds K4(7,3)<=32 and K4(5,3)<=4. 
+ 
+ 
+2005.01.31. K4(8,2)<=352. Authors: Riccardo Bertolo, 
+Franco Di Pasquale and Francesco Santisi (2005). This bound implies 
+K8(8,2)<=29920. 
+ 
+2005.01.20. K4(11,2)<=16128. Authors: Riccardo Bertolo, 
+Franco Di Pasquale and Francesco Santisi (2005). 
+ 
+2005.01.20. K3(12,3)<=690. Author: Pedro Pablo Rivas 
+Soriano (2004). 
+ 
+2005.01.19. K4(6,3)<=14, K4(10,3)<=832 and K4(11,3)<=2048. 
+ Authors: Riccardo Bertolo, Roberto di Nasso, Franco Di Pasquale, 
+Alessandro Jurcovich and Francesco Santisi (2004). The first of these 
+bounds implies K16(6,3)<=896. 
+ 
+2005.01.19. K4(7,1)<=1008. Authors: Riccardo Bertolo, 
+Franco Di Pasquale and Francesco Santisi (2004). This bound implies 
+K8(7,1)<=64512. 
+ 
+2004.12.20. K4(11,1)<=131072. Authors: Kai Valinen 
+(2002), and independently: Riccardo Bertolo, Roberto di Nasso, Franco Di 
+Pasquale, Alessandro Jurcovich and Francesco Santisi (2004). This bound 
+implies K5(11,1)<=1525877. 
+ 
+ My Home Page 
+ MTA SZTAKI Home Page 
+ 

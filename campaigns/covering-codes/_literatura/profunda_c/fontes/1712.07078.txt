@@ -1,0 +1,2332 @@
+                                          Tables, bounds and graphics of short linear
+                                               codes with covering radius 3 and
+                                                    codimension 4 and 5 ∗
+arXiv:1712.07078v6 [cs.IT] 14 Jun 2020
+
+
+
+
+                                                                                  Daniele Bartoli†
+                                                      Dipartimento di Matematica e Informatica, Università degli Studi di Perugia,
+                                                         Via Vanvitelli 1, Perugia, 06123, Italy. E-mail: daniele.bartoli@unipg.it
+
+                                                                             Alexander A. Davydov‡
+                                          Institute for Information Transmission Problems (Kharkevich institute), Russian Academy of Sciences
+                                                  Bol’shoi Karetnyi per. 19, Moscow, 127051, Russian Federation. E-mail: adav@iitp.ru
+
+                                                            Stefano Marcugini† and Fernanda Pambianco†
+                                                      Dipartimento di Matematica e Informatica, Università degli Studi di Perugia,
+                                            Via Vanvitelli 1, Perugia, 06123, Italy. E-mail: {stefano.marcugini,fernanda.pambianco}@unipg.it
+
+
+
+                                             Abstract. The length function `q (r, R) is the smallest length of a q-ary linear code
+                                         of codimension (redundancy) r and covering radius R. The d-length function `q (r, R, d)
+                                         is the smallest length of a q-ary linear code with codimension (redundancy) r, covering
+                                         radius R, and minimum distance d.
+                                             By computer search in wide regions of q, we obtained following short codes of covering
+                                         radius R = 3: [n, n − 4, 5]q 3 quasi-perfect MDS codes, [n, n − 5, 5]q 3 quasi-perfect Almost
+                                         MDS codes, and [n, n − 5, 3]q 3 codes. In computer search, we use the step-by-step lexi-
+                                         matrix and inverse leximatrix algorithms to obtain parity check matrices of codes. These
+                                         algorithms are versions of the recursive g-parity check matrix algorithm for greedy codes.
+                                            ∗
+                                              This work has been carried out using computing resources of the federal collective usage center
+                                         Complex for Simulation and Data Processing for Mega-science Facilities at NRC Kurchatov Institute,
+                                         http://ckp.nrcki.ru/.
+                                            †
+                                              The research of D. Bartoli, S. Marcugini, and F. Pambianco was supported in part by the Italian
+                                         National Group for Algebraic and Geometric Structures and their Applications (GNSAGA - INDAM)
+                                         and by University of Perugia (Project: Curve, codici e configurazioni di punti, Base Research Fund 2018).
+                                            ‡
+                                              The research of A.A. Davydov was done at IITP RAS and supported by the Russian Government
+                                         (Contract No 14.W03.31.0019).
+
+
+
+                                                                                            1
+The new codes imply the following new upper bounds (called lexi-bounds) on the length
+function and the d-length function:
+                              p                        p         √          p
+`q (4, 3) ≤ `q (4, 3, 5) < 2.8 3 ln q · q (4−3)/3 = 2.8 3 ln q · 3 q = 2.8 3 q ln q for 11 ≤ q ≤ 7057;
+                            p                      p        p         p
+`q (5, 3) ≤ `q (5, 3, 5) < 3 3 ln q · q (5−3)/3 = 3 3 ln q · 3 q 2 = 3 3 q 2 ln q for 37 ≤ q ≤ 839.
+Moreover, we improve the lexi-bounds, applying randomized greedy algorithms, and show
+that
+                                              p
+               `q (4, 3) ≤ `q (4, 3, 5) < 2.61 3 q ln q if 13 ≤ q ≤ 4373;
+                                              p
+               `q (4, 3) ≤ `q (4, 3, 5) < 2.65 3 q ln q if 4373 < q ≤ 7057;
+                                  p
+               `q (5, 3) < 2.785 3 q 2 ln q if 11 ≤ q ≤ 401;
+                                                p
+               `q (5, 3) ≤ `q (5, 3, 5) < 2.884 3 q 2 ln q if 401 < q ≤ 839.
+The general form of the new bounds is
+                   p
+     `q (r, 3) < c` 3 ln q · q (r−3)/3 , c` is a constant independent of q, r = 4, 5 6= 3t.
+   The codes, obtained in this paper by leximatrix and inverse leximatrix algorithms,
+provide the following new upper bounds (called density lexi-bounds) on the smallest
+covering density µq (r, R) of a q-ary linear code of codimension r and covering radius R:
+                            µq (4, 3) < 3.3 · ln q       for 11 ≤ q ≤ 7057;
+                            µq (5, 3) < 4.2 · ln q       for 37 ≤ q ≤ 839.
+In the general form, we have
+              µq (r, 3) < cµ · ln q, cµ is a constant independent of q, r = 4, 5.
+The new bounds on the length function, the d-length function and covering density hold
+for the field basis q of an arbitrary structure, including q 6= (q 0 )3 where q 0 is a prime power.
+    Keywords: Covering codes, saturating sets, the length function, the d-length func-
+tion, covering density, upper bounds, projective spaces.
+    Mathematics Subject Classification (2010). 94B05, 51E21, 51E22
+
+
+1     Introduction
+1.1     Covering codes. The length function. The d-length function
+Let Fq be the Galois field with q elements. Let Fqn be the n-dimensional vector space
+over Fq . Denote by [n, n − r]q a q-ary linear code of length n and codimension (redun-
+dancy) r, that is, a subspace of Fqn of dimension n − r. The sphere of radius R with
+center c in Fqn is the set {v : v ∈ Fqn , d(v, c) ≤ R} where d(v, c) is the Hamming distance
+between the vectors v and c.
+
+                                                     2
+Definition 1.1. A linear [n, n − r]q code has covering radius R and is denoted as an
+[n, n − r]q R code if any of the following equivalent properties holds:
+(i) The value R is the least integer such that the space Fqn is covered by the spheres of
+     radius R centered at the codewords.
+(ii) Every column of Fqr is equal to a linear combination of at most R columns of a parity
+      check matrix of the code, and R is the smallest integer with this property.
+    Let an [n, n − r, d]q R code be an [n, n − r]q R code of minimum distance d. For an
+introduction to coverings of vector Hamming spaces over finite fields, see [8–10, 15, 23].
+    The covering density µ of an [n, n−r]q R-code is defined as the ratio of the total volume
+of all q n−r spheres of radius R centered at the codewords to the volume q n of the space
+Fqn . By Definition 1.1(i), we have µ ≥ 1. In the other words,
+                              R           !           R            
+                                        i n   1      1 X           i n
+                             X
+                         n−r
+                 µ= q            (q − 1)         = r       (q − 1)       ≥ 1.            (1.1)
+                             i=0
+                                          i   qn    q i=0            i
+The covering quality of a code is better if its covering density is smaller. For fixed q, r,
+and R, the covering density of an [n, n − r]q R code decreases with decreasing n.
+    Codes investigated from the point view of the covering quality are usually called
+covering codes [9]; see an online bibliography [30], works [4,8,10,11,13–15,17–23,27–29,34],
+and the references therein.
+    This paper is devoted to non-binary covering codes with radius R = 3.
+    Note that for relatively small q > 2 many results are given in [11, 15, 19, 20] and the
+references therein.
+Definition 1.2. (i) [8, 9] The length function `q (r, R) is the smallest length of a
+     q-ary linear code of codimension (redundancy) r and covering radius R.
+(ii) [5,18] The d-length function `q (r, R, d) is the smallest length of a q-ary linear code
+      with codimension (redundancy) r, covering radius R, and minimum distance d.
+   Obviously,
+                                    `q (r, R) ≤ `q (r, R, d).
+    Let AR,q denote a family of covering codes, in which the covering radius R and the
+size q of the underlying Galois field are fixed, while the code length tends to infinity. The
+construction of families with small asymptotic covering densities is a classical problem in
+the area of covering codes.
+    In [15], infinite sets of families AR,q , where R is fixed but q ranges over an infinite set
+of prime powers are considered. It is shown that for the upper limit µ∗q (R, AR,q ) of the
+covering density of AR,q , the best possibility is
+                                     µ∗q (R, AR,q ) = O(q).                               (1.2)
+
+                                               3
+Moreover, in [15], for any covering radius R ≥ 2, it is proposed the construction of optimal
+infinite sets of families AR,q such that (1.2) holds. For this, in [15], the following results
+are obtained: In first, it is shown that for a given R, to obtain optimal infinite sets of
+                                                          (0)  (1)            (R−1)
+families it is enough to construct R infinite families AR,q , AR,q , . . . , AR,q such that, for
+                          (γ)                                                            (γ)
+all u ≥ u0 , the family AR,q contains codes of codimension ru = Ru + γ and length nq (ru )
+where
+                                   n(γ)           (r−R)/R
+                                                          
+                                     q (r) = O q
+                                                         (γ)
+and u0 is a constant. Then, the needed families AR,q are constructed for any covering
+radius R ≥ 2, with q ranging over the (infinite) set of R-th powers. A result of independent
+                                               (γ)
+interest is that in each of these families AR,q , the lower limit of the covering density is
+bounded from above by a constant independent of q.
+    So, infinite families of [n, n − r]q R codes of length
+                                         n = O q (r−R)/R
+                                                         
+                                                                                        (1.3)
+play an important role in covering code theory.
+   Infinite families of covering [n, n−r]q R codes of length (1.3) are known for the following
+cases (see [8, 9, 11, 13–15, 17] and the references therein):
+ r = tR, the field basis q has an arbitrary structure including q 6= (q 0 )R     [11, 13–15, 17]
+                                                                                 [19, 20];
+ r 6= tR, q = (q 0 )R                                                            [13–15];
+         ∗                        0 R∗
+ R = sR , r = Rt + s, q = (q )                                                   [13, 15, 17].
+Here t and s are integers, q 0 is a prime power.
+     In the general case, for arbitrary r, R, q, the problem to construct infinite families of
+[n, n − r]q R codes of length (1.3) is open.
+     In the last decades, upper bounds on `q (r, R) and `q (r, R, d) have been intensively
+investigated, see [4, 5, 8–15, 17–23, 27–30, 34] and the references therein.
+     The goal of this paper is to obtain new upper bounds on the length functions `q (4, 3),
+`q (5, 3) and the d-length functions `q (4, 3, 5), `q (5, 3, 5) where codimension r 6= tR and the
+field basis q has an arbitrary structure, including q 6= (q 0 )3 with q 0 is a prime power. It is
+an open problem.
+
+1.2    Saturating sets in projective spaces. Complete arcs
+Let PG(N, q) be the N -dimensional projective space over the field Fq ; see [24–26] for an
+introduction to the projective spaces over finite fields, see also [11, 15, 21, 25, 28, 29] for
+connections between coding theory and Galois geometries.
+    Effective methods to obtain upper bounds on `q (r, R) are connected with saturating
+sets in PG(N, q).
+
+                                               4
+Definition 1.3. A point set S ⊆ PG(N, q) is ρ-saturating if any of the following equivalent
+properties holds:
+    (i) For any point A of PG(N, q) \ S there exist ρ + 1 points in S generating a subspace
+of PG(N, q) containing A, and ρ is the smallest value with this property.
+    (ii) Every point A ∈ PG(N, q) (in homogeneous coordinates) can be written as a
+linear combination of at most ρ + 1 points of S, and ρ is the smallest value with this
+property (cf. Definition 1.1(ii)).
+     Saturating sets are considered, for instance, in [1–4, 8, 11–19, 21, 22, 27–29, 35]. In the
+literature, saturating sets are also called “saturated sets”, “spanning sets”, “dense sets”.
+     Let sq (N, ρ) be the smallest size of a ρ-saturating set in PG(N, q).
+     If q-ary positions of a column of an r × n parity check matrix of an [n, n − r]q R
+code are treated as homogeneous coordinates of a point in PG(r − 1, q) then this parity
+check matrix defines an (R − 1)-saturating set of size n in PG(r − 1, q) and vice versa
+[4, 11, 13–15, 17, 18, 21, 22, 27–29].
+     So, there is a one-to-one correspondence between [n, n − r]q R codes and (R − 1)-
+saturating sets in PG(r − 1, q). Therefore,
+
+                                 `q (r, R) = sq (r − 1, R − 1),
+
+in particular, `q (4, 3) = sq (3, 2), `q (5, 3) = sq (4, 2).
+    Complete arcs in PG(N, q) are an important class of saturating sets. An n-arc in
+PG(N, q) with n > N + 1 is a set of n points such that no N + 1 points belong to the same
+hyperplane of PG(N, q). An n-arc of PG(N, q) is complete if it is not contained in an
+(n + 1)-arc of PG(N, q). A complete arc in PG(N, q) is an (N − 1)-saturating set. Points
+(in homogeneous coordinates) of a complete n-arc in PG(N, q), treated as columns, form
+a parity check matrix of an [n, n − (N + 1), N + 2]q N maximum distance separable (MDS)
+code [4, 5, 15, 18, 21, 22, 24–26, 28, 29]. If N = 2, 3 these codes are quasi-perfect.
+    Let sarc
+          q (N ) be the smallest size of a complete arc in PG(N, q). By above,
+
+               `q (R + 1, R) = sq (R, R − 1) ≤ `q (R + 1, R, R + 2) = sarc
+                                                                       q (R).
+
+   The known results about upper bounds on `q (R + 1, R, R + 2) and sarc
+                                                                     q (R), R ≥ 2, can
+be found in [1–5], see also the references therein.
+
+1.3    Covering codes with radius 3
+For the field basis q of an arbitrary structure, infinite families of covering [n, n − r]q 3
+codes of length (1.3) are known only for r = tR = 3t [15, 19]. In particular, the following
+parameters n, r are obtained by algebraic constructions [15, Sect. 5, eq. (5.2)], [19, Th. 12]:
+
+      n = 3q (r−3)/3 + q (r−6)/3 , r = 3t ≥ 6, r 6= 9, q ≥ 5, and r = 9, q = 16, q ≥ 23;
+
+                                               5
+      n = 3q (r−3)/3 + 2q (r−6)/3 + 1, r = 9, q = 7, 8, 11, 13, 17, 19;
+      n = 3q (r−3)/3 + 2q (r−6)/3 + 2, r = 9, q = 5, 9.
+    If r = 3t + 1 or r = 3t + 2, infinite families of covering codes of length (1.3) are known
+only when q = (q 0 )3 , where q 0 is a prime power [13–15, 22]. In particular, [n.n − r, 3]q 3
+codes with the following parameters n and r are obtained by algebraic constructions,
+see [13, 14, 22], [15, Sect. 5, eqs. (5.3),(5.4)]:
+                              
+                            4
+               n= 4+ √     3 q
+                                 q (r−3)/3 , r = 3t + 1 ≥ 4, q = (q 0 )3 ≥ 64;            (1.4)
+                                          !
+                            8         4
+               n= 9− √     3 q
+                                +p          q (r−3)/3 , r = 3t + 2 ≥ 5, q = (q 0 )3 ≥ 27.
+                                    3
+                                       q2
+    For the field basis q of an arbitrary structure, including q 6= (q 0 )3 , in the literature,
+computer results are given for [n, n−4]q 3 codes with q ≤ 563 [20, Tab. 1] and q ≤ 6229 [4],
+and also for [n, n − 5]q 3 codes with q ≤ 43 [14, Tab. 1], [20, Tab. 2] and q ≤ 761 [4].
+    The results of this paper are used in [18] and presented in XVI International Sym-
+posium “Problems of Redundancy in Information and Control Systems” (Redundancy
+2019), Moscow, Russia, 21–25 October 2019.
+    The paper is organized as follows. In Section 2, we give the main results of this paper.
+In Section 3, a leximatrix algorithm to obtain parity check matrices of covering codes is
+described. In Sections 4 and 5, upper bounds on the length functions `q (4, 3), `q (5, 3)
+and the d-length functions `q (4, 3, 5), `q (5, 3, 5), based on leximatrix codes, are given. In
+Section 6, an inverse leximatrix algorithm to obtain parity check matrices of covering
+codes is considered and invleximatrix codes are obtained with the help of this algorithm.
+In Section 7 randomized greedy algorithms to obtain parity check matrices of covering
+codes are presented; new upper bounds improving the bounds of the previous sections
+are obtained. In Conclusion, the results of this paper are briefly analyzed; some tasks for
+investigation of the leximatrix algorithm are formulated. In Appendix, tables with sizes
+of codes obtained in this paper are given.
+
+
+2     The main results
+In this paper, by computer search, we obtain new results for [n, n − 4, 5]q 3 quasi-perfect
+MDS codes with q ≤ 7057 and [n, n − 5, 5]q 3 quasi-perfect Almost MDS codes with
+q ≤ 839. Also, we obtain [n, n − 5, 3]q 3 codes for q ≤ 401. This gives upper bounds on
+`q (4, 3), `q (4, 3, 5), `q (5, 3), and `q (5, 3, 5) for a set of values q greater than in [4, 14, 20].
+New bounds are better than known ones.
+     The following Theorem 2.1 is based on the results of Sections 3–7, see Propositions 4.3,
+5.1, 6.1, 7.1, and 7.2.
+
+                                                  6
+Theorem 2.1. For the length function `q (r, 3), the d-length function `q (r, 3, 5), the small-
+est size sq (r−1, 2) of a 2-saturating set in the projective space PG(r−1, q), and the smallest
+size sarc
+       q (3) of a complete arc in PG(3, q), the following upper bounds hold:
+
+(1) Upper bounds provided by [n, n − r, 5]q 3 leximatrix and invleximatrix quasi-perfect
+     codes (lexi-bounds).
+                                                                 p                        p        √
+      (i) `q (4, 3) = sq (3, 2) ≤ `q (4, 3, 5) = sarc
+                                                  q (3) < 2.8
+                                                                  3
+                                                                    ln q · q (4−3)/3 = 2.8 3 ln q · 3 q
+                                                           p
+                                                    = 2.8 3 q ln q for r = 4, 11 ≤ q ≤ 7057;
+                                                   p                        p        p         p
+      (ii) `q (5, 3) = sq (4, 2) ≤ `q (5, 3, 5) < 3 3 ln q · q (5−3)/3 = 3 3 ln q · 3 q 2 = 3 3 q 2 ln q
+                                                    for r = 5, 37 ≤ q ≤ 839.
+
+(2) Upper bounds provided by [n, n − 4, 5]q 3 quasi-perfect MDS codes obtained with the
+     help of the leximatrix, invleximatrix and d-Rand-Greedy algorithms.
+                                                      (     √
+                                              arc       2.61 3 q ln q if 13 ≤ q ≤ 4373
+      `q (4, 3) = sq (3, 2) ≤ `q (4, 3, 5) = sq (3) <       √                            .
+                                                        2.65 3 q ln q if 4373 < q ≤ 7057
+
+(3) Upper bounds provided by [n, n − 5]q 3 codes obtained with the help of the leximatrix
+     and Rand-Greedy algorithms.
+                                          p
+           `q (5, 3) = sq (4, 2) < 2.785 3 q 2 ln q              if 11 ≤ q ≤ 401;
+                                                       p
+                                                       3
+           `q (5, 3) = sq (4, 2) ≤ `q (5, 3, 5) < 2.884 q 2 ln q if 401 < q ≤ 839.
+
+  Note that, for r 6= 3t and the field basis q of an arbitrary structure, including q 6= (q 0 )3
+where q 0 is a prime power, the new bounds of Theorem 2.1 have the form
+                       p
+         `q (r, 3) < c` 3 ln q · q (r−3)/3 , c` is a constant independent of q, r = 4, 5.
+
+The constants c` in the new bounds are smaller than in the paper [4].
+    Our results, in particular, figures and observations in Sections 4 and 5, comparison
+of leximatrix and invleximatrix codes in Table 3, improvements of the lexi-bounds in
+Section 7, allow us to conjecture the following.
+Conjecture 2.2. For the length function `q (r, 3), the d-length function `q (r, 3, 5), the
+smallest size sq (r − 1, 2) of a 2-saturating set in the projective space PG(r − 1, q), and
+the smallest size sarc
+                    q (3) of a complete arc in PG(3, q), the following upper bounds (lexi-
+bounds) hold:
+                                                            p                        p        √
+  (i) `q (4, 3) = sq (3, 2) ≤ `q (4, 3, 5) = sarc
+                                              q   (3) < 2.8 3
+                                                              ln q · q (4−3)/3
+                                                                               = 2.8 3
+                                                                                       ln q · 3 q
+                                                            p
+                                                      = 2.8 3 q ln q for r = 4 and all q ≥ 11;
+
+                                                   7
+                                                 p                      p        p         p
+    (ii) `q (5, 3) = sq (4, 2) ≤ `q (5, 3, 5) < 3 3 ln q · q (5−3)/3 = 3 3 ln q · 3 q 2 = 3 3 q 2 ln q
+                                                        for r = 5 and all q ≥ 37.
+
+   Let µq (r, R) be the smallest covering density of a q-ary linear code of codi-
+mension (redundancy) r and covering radius R.
+   The following Theorem 2.3 is based on the results of Sections 3–7, see Propositions 4.6
+and 5.3.
+
+Theorem 2.3. The [n, n − r, 5]q 3 leximatrix and invleximatrix quasi-perfect codes, pro-
+viding lexi-bounds of Theorem 2.1(1), give also the following upper bounds on µq (r, 3)
+( density lexi-bounds):
+
+                              µq (4, 3) < 3.3 · ln q        for 11 ≤ q ≤ 7057;
+                              µq (5, 3) < 4.2 · ln q        for 37 ≤ q ≤ 839.
+
+  Note that, for r 6= 3t and the field basis q of an arbitrary structure, including q 6= (q 0 )3
+where q 0 is a prime power, the new bounds of Theorem 2.3 have the form
+
+                µq (r, 3) < cµ · ln q, cµ is a constant independent of q, r = 4, 5.
+
+
+3       A leximatrix algorithm to obtain parity check ma-
+        trices of covering codes
+The following is a version of the recursive g-parity check matrix algorithm for greedy codes,
+see e.g. [7, p. 25], [31], [32, Section 7].
+    Let Fq = {0, 1, . . . , q − 1} be the Galois field with q elements.
+    If q is prime, the elements of Fq are treated as integers modulo q.
+    If q = pm with p prime and m ≥ 2, the elements of Fpm are represented by integers
+as follows: Fpm = Fq = {0, 1 = α0 , 2 = α1 , . . . , u = αu−1 , . . . , q − 1 = αq−2 }, where α is a
+root of a primitive polynomial of Fpm .
+    For a q-ary code of codimension r, covering radius R, and minimum distance d = R+2,
+we construct a parity check matrix from nonzero columns hi of the form
+                                         (i)   (i)
+                                 hi = (x1 , x2 , . . . , x(i) tr  (i)
+                                                          r ) , x u ∈ Fq ,                           (3.1)
+
+where the first (leftmost) non-zero element is 1; tr is the sign of transposition. The
+number of distinct columns is (q r − 1)/(q − 1). We order the columns in the list as
+
+                                        h1 , h2 , . . . , h(qr −1)/(q−1) .                           (3.2)
+
+
+
+                                                        8
+For hi we put
+                                             r
+                                             X
+                                        i=         x(i)
+                                                    u q
+                                                        r−u
+                                                            .                               (3.3)
+                                             u=1
+
+The columns of the list are candidates to be included in the parity check matrix.
+    By the above arguments connected with the formula for i and the order of the columns,
+a column hi is treated as its number i in our list written in the q-ary scale of notation.
+The considered order of the columns is lexicographical .
+    The first column of the list should be included into the matrix. Then step-by-step, one
+takes the next column from the list which cannot be represented as a linear combination
+of at most R columns already chosen. The process ends when no new column may
+be included into the matrix. The obtained matrix Hn is a parity check matrix of an
+[n, n − r, R + 2]q R code.
+    The obtained parity check matrix is called the parity check leximatrix or the
+leximatrix for short. We call a leximatrix code the corresponding code.
+    For prime q, the following holds: length n of a leximatrix code and the form of
+the leximatrix Hn depend on q, r, and R only. No other factors affect code length
+and structure. Actually, assume that after some step a current matrix is obtained. At the
+next step we should remove from our current list all columns that are linear combination
+of R or less columns of the current matrix. For prime q and the given r and R, the result
+of removing is unequivocal; hence, the next column is taken uniquely.
+    For non-prime q, the length n of a leximatrix code depends on q and on the primitive
+polynomial of the field. In this paper, we use primitive polynomials that are created by
+the program system MAGMA [6] by default, see Table A. In any case, the choice of the
+polynomial changes the leximatrix code length unessentially.
+    By the leximatrix algorithm, if R = 1, we obtain the q-ary Hamming code. If R = 2,
+we obtain a quasi-perfect [n, n − r, 4]q 2 code; for r = 3, such code is an MDS code and
+corresponds to a complete arc in PG(2, q). If R = 3, we obtain a quasi-perfect [n, n−r, 5]q 3
+code; for r = 4, such code is an MDS code and corresponds to a complete arc in PG(3, q);
+for r = 5, it is an Almost MDS code.
+    Let nLq (r, R) be length of the q-ary leximatrix code of codimension r and
+covering radius R.
+    It is assumed that for a non-prime field Fq , one uses the primitive polynomial created
+by the program system MAGMA [6] by default; in particular, for non-prime q ≤ 6889,
+the polynomial from Table A should be taken.
+    We represent length nLq (r, R) of an [nLq (r, R), nLq (r, R) − r, R + 2]q R leximatrix code in
+the form
+                                                    p
+                            nLq (r, R) = cLq (r, R) R ln q · q (r−R)/R ,                     (3.4)
+
+
+                                                   9
+Table A. Primitive polynomials used in this paper for leximatrix [n, n − r, 5]q 3 quasi-
+perfect codes with non-prime q
+  q = pm      primitive     q = pm                 primitive         q = pm        primitive
+             polynomial                           polynomial                      polynomial
+       2
+  4=2        x2 + x + 1     8 = 23                x3 + x + 1         9 = 32       x2 + 2x + 2
+ 16 = 24     x4 + x 3 + 1   25 = 52               x2 + x + 2         27 = 33   x3 + 2x2 + x + 1
+        5     5     3
+ 32 = 2      x +x +1        49 = 72               x2 + x + 3         64 = 26   x6 + x4 + x3 + 1
+ 81 = 34     x4 + x + 2    121 = 112              x2 + 4x + 2       125 = 53      x3 + 3x + 2
+         7     7
+ 128 = 2     x +x+1        169 = 132              x2 + x + 2        243 = 35      x5 + 2x + 1
+ 256 = 28 x8 + x4 + x3 + 289 = 172                x2 + x + 3        343 = 73      x3 + 3x + 2
+                x2 + 1
+          2    2
+361 = 19     x +x+2        512 = 29      x9 + x4 + 1    529 = 232               x2 + 2x + 5
+ 625 = 54 x4 + x2 + 2x + 2 729 = 36      x6 + x + 2     841 = 292               x2 + 24x + 2
+961 = 312 x2 + 29x + 3 1024 = 210     x + x + x + 1331 = 113
+                                        10     6   5
+                                                                                x3 + 2x + 9
+                                      x3 + x2 + x + 1
+1369 = 372 x2 + 33x + 2 1681 = 412 x2 + 38x + 6        1849 = 432                x2 + x + 3
+         11   11    2
+2048 = 2    x +x +1        2187 = 3 x + x + 2x + 1 2197 = 133
+                                   7   7     2
+                                                                                 x3 + x2 + 7
+2209 = 472 x2 + x + 13     2401 = 74 x4 + 5x2 + 4x + 3 2809 = 532               x2 + 49x + 2
+3125 = 55    x5 + 4x + 2  3481 = 592 x2 + 58x + 2      3721 = 612               x2 + 60x + 2
+         12 12    8    2            2    2
+4096 = 2 x + x + x + 4489 = 67          x + 63x + 2    4913 = 173               x3 + x + 14
+                 x+1
+5041 = 712 x2 + 69x + 7 5329 = 732 x2 + 70x + 5        6241 = 792               x2 + 78x + 3
+6561 = 38 x8 + 2x5 + x4 + 6859 = 193 x3 + 4x + 17      6889 = 832               x2 + 82x + 2
+            2x2 + 2x + 2
+
+
+where cLq (r, R) is a coefficient. The coefficient cLq (r, R) and length nLq (r, R) are entirely
+given by r, R, q (if q is prime) or by r, R, q, and the primitive polynomial of Fq (if q is
+non-prime).
+
+Remark 3.1. In the literature on the projective geometry, the columns are considered
+as points in homogeneous coordinates; the algorithm, described above, is called an “algo-
+rithm with fixed order of points” (FOP) [2, 3, 18].
+
+   Let µLq (r, R) be covering density of the q-ary leximatrix code of codimension
+r and covering radius R.
+   By (1.1). we have
+                                             R           L        
+                                        1 X            i nq (r, R)
+                         µLq (r, R) =           (q − 1)              ≥ 1.                  (3.5)
+                                        q r i=0              i
+
+
+                                                10
+We represent covering density µLq (r, R) of an [nLq (r, R), nLq (r, R) − r, R + 2]q R leximatrix
+code in the form
+
+                                     µLq (r, R) = mLq (r, R) · ln q,                                (3.6)
+
+where mLq (r, R) is a coefficient. The coefficient mLq (r, R) and density µLq (r, R) are entirely
+given by r, R, q (if q is prime) or by r, R, q, and the primitive polynomial of Fq (if q is
+non-prime).
+
+
+4     Upper bounds on the length function `q (4, 3) and d-
+      length function `q (4, 3, 5) based on leximatrix codes
+The following properties of the leximatrix algorithm are useful for implementation.
+
+Proposition 4.1. Let q be a prime. Then the v-th column of the parity check leximatrix
+of an [n, n − 4, 5]q 3 code is the same for all q ≥ q0 (v) where q0 (v) is large enough.
+
+Proof. Let Hj = [h(1) , h(2) , . . . , h(j) ] be the matrix obtained in the j-th step of the
+leximatrix algorithm. Here h(v) is a column of the matrix. A column from the list,
+not included in Hj , is covered by Hj if it can be represented as a linear combination of
+at most 3 columns of Hj . Suppose that h(j) = hs , where hs is the s-th column in the
+lexicographical list of candidates. A column Q = hu 6∈ Hj is the next chosen column, if
+and only if all the columns hm with m ∈ [s + 1, u − 1] are covered by Hj . This means
+that, for any m ∈ [s + 1, u − 1], at least one of the determinants det(h(v1 ) , h(v2 ) , h(v3 ) , hm ),
+with h(v1 ) , h(v2 ) , h(v3 ) ∈ Hj , is equal to zero modulo q. This can happen only in two cases:
+
+ • det(h(v1 ) , h(v2 ) , h(v3 ) , hm ) = 0, we say that hm is “absolutely” covered by Hj ;
+
+ • det(h(v1 ) , h(v2 ) , h(v3 ) , hm ) = B 6= 0, but B ≡ 0 mod q.
+
+For q large enough, q does not divide any of the possible values of B and then, at least for j
+relatively small, the columns covered are just the absolutely covered columns. Therefore,
+when q is large enough the leximatrices share a certain number of columns.
+   The values of q0 (v) can be found with the help of calculations based on the proof of
+Proposition 4.1. Also, we can directly consider leximatrices for a convenient region of q.
+                                                                            (v)   (v)   (v)   (v)
+Example 4.2. Values of q0 (v), v ≤ 20, together with columns (x1 , x2 , x3 , x4 )tr , are
+given in Table B. So, for all prime q ≥ 233 (resp. q ≥ 1321) the first 14 (resp. 20) columns
+of a parity check leximatrix of an [n, n − 4, 5]q 3 quasi-perfect MDS leximatrix code are as
+in Table B.
+
+
+                                                   11
+Table B. The first 20 columns of the parity check leximatrices of [n, n − 4, 5]q 3 quasi-
+perfect MDS leximatrix codes, q prime
+                 (v)   (v)    (v)      (v)                         (v)      (v)    (v)   (v)
+           v x1   x2         x3       x4       q0 (v)         v   x1       x2     x3   x4   q0 (v)
+           1    0    0            0        1        2        11        1     7     11     8     67
+           2    0    0            1        0        2        12        1     8       6  13    109
+           3    0    1            0        0        2        13        1     9     13   16    199
+           4    1    0            0        0        2        14        1    10     12   22    233
+           5    1    1            1        1        2        15        1    11       7  29    269
+           6    1    2            3        4        5        16        1    12     22   15    769
+           7    1    3            2        5       11        17        1    13     16   20    769
+           8    1    4            5        3       29        18        1    14     17     7 1283
+           9    1    5            4        2       41        19        1    15     21   10 1283
+          10    1    6            8        9       41        20        1    16       9  38 1321
+
+
+Proposition
+       √      4.3. (i) For q = 9, there exists a [7, 7 − 4, 4]9 3 code of length n = 7 <
+    2.8 3 9 ln 9.
+
+(ii) There exist [nLq (4, 3), nLq (4, 3) − 4, 5]q 3 quasi-perfect MDS leximatrix codes of length
+                      √
+      nLq (4, 3) < 2.8 3 q ln q for q = 8 and 11 ≤ q ≤ 7057.
+
+Proof. (i) The existence of the code is noted in [20, Tab. 1], see also the references therein.
+
+(ii) The needed codes are obtained by computer search, using the leximatrix algorithm,
+      Proposition 4.1, and Example 4.2.
+
+
+   Proposition 4.3 implies the assertions of Theorem 2.1(1i) on the upper lexi-bound on
+the length function `q (4, 3) and the d-length function `q (4, 3, 5).
+   Lengths nLq (4, 3) of the [nLq (4, 3), nLq (4, 3) − 4, 5]q 3 leximatrix quasi-perfect MDS codes
+are collected in Table 1 (see Appendix) and presented in Figure 1 by the bottom solid
+black curve. The bound
+                                                        p
+                                      nLq (4, 3) < 2.8 3 q ln q,
+
+called the lexi-bound, is shown in Figure 1 by the top dashed red curve.
+                                                                       √
+     We denote by δq (4, 3) the difference between the lexi-bound 2.8 3 q ln q and length
+nLq (4, 3) of the leximatrix code. Let δq% (4, 3) be the corresponding percent difference.
+Thus,
+                                           p
+                            δq (4, 3) = 2.8 3 q ln q − nLq (4, 3);
+
+                                                        12
+    110
+
+    100
+
+      90
+
+      80
+
+      70
+
+      60
+
+      50
+
+      40
+
+      30
+
+      20
+
+      10
+                  1000        2000          3000        4000        5000     6000        7000
+
+
+
+Figure 1: Lengths nLq (4, 3) of the [nLq (4, 3), nLq (4, 3) − 4, 5]q 3 leximatrix quasi-perfect MDS
+                                                               √
+codes (bottom solid black curve) vs the lexi-bound 2.8 3 q ln q (top dashed red curve);
+11 ≤ q ≤ 7057. Vertical magenta line marks region q ≤ 7057
+                                              √
+                                           2.8 3 q ln q − nLq (4, 3)
+                            δq% (4, 3) =             √               100%.
+                                                 2.8 3 q ln q
+The difference δq (4, 3) and the percent difference δq% (4, 3) are presented in Figures 2 and 3.
+
+   By (3.4), we represent length of an [nLq (4, 3), nLq (4, 3) − 4, 5]q 3 leximatrix code in the
+form
+                                                      p
+                               nLq (4, 3) = cLq (4, 3) 3 q ln q,                           (4.1)
+where cLq (4, 3) is a coefficient entirely given by q (if q is prime) or by q and the primitive
+                                                                                         √
+polynomial of the field Fq (if q is non-prime). The coefficients cLq (4, 3) = nLq (4, 3)/ 3 q ln q
+are shown in Figure 4.
+
+                                                   13
+                                                  9
+difference: bound - length of a leximatrix code
+
+
+
+
+                                                  8
+
+
+                                                  7
+
+
+                                                  6
+
+
+                                                  5
+                                                                                                              4.97
+                                                  4                                             4.31
+
+                                                  3                                      3.39
+                                                                        3.07
+                                                  2
+                                                              1.71
+                                                  1   1.20
+                                                  0
+                                                       1000    2000   3000        4000      5000       6000          7000
+
+
+                                                                √
+Figure 2: Difference δq (4, 3) between the lexi-bound 2.8 3 q ln q and length nLq (4, 3) of an
+[nLq (4, 3), nLq (4, 3) − 4, 5]q 3 leximatrix code; 11 ≤ q ≤ 7057
+
+
+Observation 4.4. (i) The difference δq (4, 3) tends to increase when q grows, see Figures
+    1 and 2.
+
+(ii) The percent difference δq% (4, 3) oscillates around the horizontal line y = 6%. When q
+      increases, the oscillation amplitude tends to decrease, see Figure 3.
+
+(iii) Coefficients cLq (4, 3) oscillate around the horizontal line y = 2.64 with a small am-
+      plitude. When q increases, the oscillation amplitude tends to decrease,
+      see Figure 4.
+
+    Observation 4.4 gives rise to Conjecture 2.2(i) on the length function `q (4, 3) and the
+d-length function `q (4, 3, 5).
+
+
+
+                                                                             14
+    11
+
+    10
+
+     9
+
+     8
+
+     7
+
+     6                                                                                 6%
+     5
+
+     4
+
+     3
+
+     2
+
+     1
+
+     0
+               1000      2000       3000      4000         5000          6000   7000    8000
+
+
+                                                     √
+                                                 2.8 3 q ln q−nL (4,3)
+Figure 3: Percent difference δq% (4, 3) =              √     q
+                                                   2.8 3 q ln q
+                                                                100% between the lexi-bound
+   √                   L                L          L
+2.8 q ln q and length nq (4, 3) of an [nq (4, 3), nq (4, 3) − 4, 5]q 3 leximatrix code;
+   3
+
+
+11 ≤ q ≤ 7057
+
+   Note that Observations 4.4(ii) and 4.4(iii) are connected with each other. Actually,
+                             √           L                     L
+                                                                        !
+                         2.8 3
+                               q ln q − nq (4, 3)            c q (4, 3)
+            δq% (4, 3) =           √              100% = 1 −              100%.
+                                    3
+                               2.8 q ln q                        2.8
+
+Remark 4.5. It is interesting that the oscillation of the coefficients cLq (4, 3) around a
+horizontal line, in principle, is similar to the oscillation of the values hL (q) around a
+horizontal line in [2, Fig. 6, Observation 3.5], [3, Fig. 5, Observation 3.7].
+    In the papers [2, 3], small complete tL2 (2, q)-arcs in the projective plane PG(2, q) are
+constructed by computer search using algorithm with fixed order of points (FOP). These
+arcs correspond to [tL2 (2, q), tL2 (2, q) − 3, 4]q 2 quasi-perfect MDS codes while the algorithm
+FOP is analogous to the leximatrix√algorithm of Section 3. Moreover, the value hL (q) is
+defined in [2,3] as hL (q) = tL2 (2, q)/ 3q ln q. So, see (4.1), the coefficients cLq (4, 3) and the
+
+                                                15
+      2.8
+            2.772                     2.8
+
+    2.75                2.739
+
+                                                    2.703
+      2.7
+                                                                  2.678
+                                                                               2.671
+    2.65
+                                                                                              2.64
+      2.6
+
+
+    2.55                                            2.567
+                        2.546
+            2.538
+      2.5
+            2.497
+                  1000        2000       3000       4000       5000       6000        7000       8000
+
+
+                                               √
+Figure 4: Coefficients cLq (4, 3) = nLq (4, 3)/ 3 q ln q for the [nLq (4, 3), nLq (4, 3) − 4, 5]q 3 lexi-
+matrix quasi-perfect MDS codes; 11 ≤ q ≤ 7057
+
+values hL (q) have the similar nature. It is possible that the oscillations mentioned also
+have similar reasons.
+   However, in the present time the enigma of the oscillations is incomprehensible,
+
+Proposition 4.6. There exist [nLq (4, 3), nLq (4, 3) − 4, 5]q 3 quasi-perfect MDS leximatrix
+codes of covering density µLq (4, 3) < 3.3 · ln q for 11 ≤ q ≤ 7057.
+
+Proof. The needed codes are the codes of Proposition 4.3.
+   Proposition 4.6 implies the assertion of Theorem 2.3 on the upper density lexi-bound
+on the covering density µq (4, 3) .
+   Covering densities µLq (4, 3) of the [nLq (4, 3), nLq (4, 3) − 4, 5]q 3 leximatrix quasi-perfect
+MDS codes are presented in Figure 5 by the bottom solid black curve. The values µLq (4, 3)
+
+
+                                                   16
+are obtained by (3.5) where lengths nLq (4, 3) are taken from Table 1 (see Appendix). The
+bound
+
+                                      µLq (4, 3) < 3.3 · ln q,
+
+called the density lexi-bound, is shown in Figure 5 by the top dashed red curve.
+
+    30
+
+
+
+
+    25
+
+
+
+
+    20
+
+
+
+
+    15
+
+
+
+
+    10
+
+
+
+                1000       2000       3000        4000           5000   6000      7000       8000
+
+
+
+Figure 5: Covering densities µLq (4, 3) of the [nLq (4, 3), nLq (4, 3) − 4, 5]q 3 leximatrix quasi-
+perfect MDS codes (bottom solid black curve) vs the density lexi-bound 3.3 · ln q (top
+dashed red curve); 11 ≤ q ≤ 7057. Vertical magenta line marks region q ≤ 7057
+
+    By (3.6), we represent covering density of an [nLq (4, 3), nLq (4, 3)−4, 5]q 3 leximatrix code
+in the form
+
+                                   µLq (4, 3) = mLq (4, 3) · ln q,
+
+
+
+                                                 17
+where mLq (4, 3) is a coefficient entirely given by q (if q is prime) or by q and the primitive
+                                                                                µL
+                                                                                 q (4,3)
+polynomial of the field Fq (if q is non-prime). The coefficients mLq (4, 3) =     ln q
+                                                                                         are shown
+in Figure 6.
+
+    3.3
+                                       3.3
+    3.2
+
+
+    3.1
+
+
+      3
+
+
+    2.9
+
+
+    2.8
+
+
+    2.7
+
+
+    2.6
+
+
+    2.5
+
+
+    2.4
+                1000       2000      3000       4000      5000       6000        7000       8000
+
+
+
+Figure 6: Coefficients mLq (4, 3) = µLq (4, 3)/ ln q for covering density of the
+[nLq (4, 3), nLq (4, 3) − 4, 5]q 3 leximatrix quasi-perfect MDS codes; 11 ≤ q ≤ 7057
+
+
+
+5     Upper bounds on the length function `q (5, 3) and d-
+      length function `q (5, 3, 5) based on leximatrix codes
+                                                                  p
+Proposition 5.1. (i) There exist [n, n − 5, 4]q 3 codes with n < 3 3 q 2 ln q for 5 ≤ q < 37.
+
+(ii) There exist [nLq (5, 3), nLq (5, 3)−5, 5]q 3 quasi-perfect Almost MDS leximatrix codes with
+                    p
+      nLq (5, 3) < 3 3 q 2 ln q for 37 ≤ q ≤ 839.
+
+                                              18
+Proof. (i) The existence of the codes is noted in [14, Tab. 1], [20, Tab. 2], see also the
+      references therein.
+
+(ii) The needed codes are obtained by computer search, using the leximatrix algorithm.
+
+
+    Proposition 5.1 implies the assertions of Theorem 2.1(1ii) on the upper lexi-bound
+on the length function `q (5, 3) and the d-length function `q (5, 3, 5).
+    Lengths nLq (5, 3) of the [nLq (5, 3), nLq (5, 3) − 5, 5]q 3 leximatrix Almost MDS codes are
+collected in Table 2 (see
+                       p   Appendix) and presented in Figure 7 by the bottom solid black
+                        3  2
+curve. The bound 3 q ln q, called the lexi-bound, is shown in Figure 7 by the top
+dashed red curve.
+
+                              500
+
+
+                              450
+Length of a leximatrix code
+
+
+
+
+                              400
+
+
+                              350
+
+
+                              300
+
+
+                              250
+
+
+                              200
+
+
+                              150
+
+
+                              100
+
+
+                               50
+                                    100   200   300   400   500      600        700        800
+
+
+
+Figure 7: Lengths nLq (5, 3) of the [nLq (5, 3), nLq (5, 3)−5, 5]q 3 leximatrix quasi-perfect Almost
+                                                                    p
+MDS codes (bottom solid black curve) vs the lexi-bound 3 3 q 2 ln q (top dashed red curve);
+37 ≤ q ≤ 839. Vertical magenta line marks region q ≤ 839
+
+
+                                                      19
+                                                                         p
+     We denote by δq (5, 3) the difference between the lexi-bound 3 3 q 2 ln q and length
+nLq (5, 3) of the leximatrix code. Let δq% (5, 3) be the corresponding percent difference.
+Thus,
+                                         p
+                            δq (5, 3) = 3 3 q 2 ln q − nLq (5, 3);
+                                           p
+                                         3 3
+                                             q 2 ln q − nLq (5, 3)
+                            δq% (5, 3) =          p                100%.
+                                                3 3 q 2 ln q
+
+The difference δq (5, 3) and the percent difference δq% (5, 3) are presented in Figures 8 and 9.
+
+
+                                                  30
+difference: bound - length of a leximatrix code
+
+
+
+
+                                                  25
+
+
+
+                                                  20
+
+
+
+                                                  15
+
+
+
+                                                  10
+
+
+
+                                                   5
+
+
+
+                                                   0
+                                                           100       200        300        400        500       600        700        800
+
+
+                                                              p
+Figure 8: Difference δq (5, 3) between the lexi-bound 3 3 q 2 ln q and length nLq (5, 3) of an
+[nLq (5, 3), nLq (5, 3) − 5, 5]q 3 leximatrix code; 37 ≤ q ≤ 839
+
+                                                  By (3.4), we represent length of an [nLq (5, 3), nLq (5, 3) − 5, 5]q 3 leximatrix code in the
+
+
+                                                                                             20
+    6
+
+
+
+    5
+
+
+
+    4
+
+
+
+    3
+
+
+
+    2
+
+
+
+    1
+
+
+
+    0
+            100        200        300          400          500           600   700       800
+
+
+                                                     √
+                                                  3 3 q 2 ln q−nL
+                                                                q (5,3)
+Figure 9: Percent difference      δq% (5, 3)   =           √          100% between the lexi-bound
+                                                         3 3 q 2 ln q
+ p
+3 3 q 2 ln q and length nLq (5, 3) of an [nLq (5, 3), nLq (5, 3) − 5, 5]q 3 leximatrix code;
+37 ≤ q ≤ 839
+
+form
+                                                         p
+                                  nLq (5, 3) = cLq (5, 3) 3 q 2 ln q,
+
+where cLq (5, 3) is a coefficient entirely given by q (if q is prime) or by q and the primitive
+                                                                                         p
+polynomial of the field Fq (if q is non-prime). The coefficients cLq (5, 3) = nLq (5, 3)/ 3 q 2 ln q
+are shown in Figure 10.
+Observation 5.2. (i) The difference δq (5, 3) tends to increase when q grows, see Figures
+    7 and 8.
+
+(ii) The percent difference δq% (5, 3) tends to increase when q grows, see Figure 9.
+
+                                                  21
+       3
+
+    2.98
+
+    2.96
+
+    2.94
+
+    2.92
+
+     2.9
+
+    2.88
+
+    2.86
+
+    2.84
+
+    2.82
+
+
+               100        200        300        400        500        600        700        800
+
+
+                                                p
+Figure 10: Coefficients cLq (5, 3) = nLq (5, 3)/ 3 q 2 ln q for the [nLq (5, 3), nLq (5, 3) − 5, 5]q 3
+leximatrix quasi-perfect Almost MDS codes; 37 ≤ q ≤ 839
+
+(iii) Coefficients cLq (5, 3) tend to decrease when q grows, see Figure 10.
+
+    Observation 5.2 gives rise to Conjecture 2.2(ii) on the length function `q (5, 3) and the
+d-length function `q (5, 3, 5).
+    Note that Observations 5.2(ii) and 5.2(iii) directly follow each from other. Actually,
+                             p                                             !
+                           3 3
+                                q 2 ln q − nL (5, 3)            c L
+                                                                    (5, 3)
+                                              q                   q
+              δq% (5, 3) =           p               100% = 1 −              100%.
+                                   3 3 q 2 ln q                      3
+
+Proposition 5.3. There exist [nLq (5, 3), nLq (5, 3) − 5, 5]q 3 quasi-perfect Almost MDS lexi-
+matrix codes of covering density µLq (5, 3) < 4.2 · ln q for 37 ≤ q ≤ 839.
+
+Proof. The needed codes are the codes of Proposition 5.1.
+
+                                                 22
+   Proposition 5.3 implies the assertion of Theorem 2.3 on the upper density lexi-bound
+on covering density µq (5, 3).
+   Covering densities µLq (5, 3) of the [nLq (5, 3), nLq (5, 3) − 5, 5]q 3 leximatrix quasi-perfect
+Almost MDS codes are presented in Figure 11 by the bottom solid black curve. The
+values µLq (5, 3) are obtained by (3.5) where lengths nLq (5, 3) are taken from Table 2 (see
+Appendix). The bound
+
+                                       µLq (5, 3) < 4.2 · ln q,
+
+called the density lexi-bound, is shown in Figure 11 by the top dashed red curve.
+
+
+    28
+
+
+    26
+
+
+    24
+
+
+    22
+
+
+    20
+
+
+    18
+
+
+    16
+
+
+    14
+
+
+    12
+
+             100        200        300         400         500      600        700        800
+
+
+
+Figure 11: Covering densities µLq (5, 3) of the [nLq (5, 3), nLq (5, 3) − 5, 5]q 3 leximatrix quasi-
+perfect Almost MDS codes (bottom solid black curve) vs the density lexi-bound 4.2 · ln q
+(top dashed red curve); 37 ≤ q ≤ 839. Vertical magenta line marks region q ≤ 839
+
+   By (3.6), we represent covering density of an [nLq (5, 3), nLq (5, 3)−5, 5]q 3 leximatrix code
+
+                                                 23
+in the form
+
+                                  µLq (5, 3) = mLq (5, 3) · ln q,
+
+where mLq (5, 3) is a coefficient entirely given by q (if q is prime) or by q and the primitive
+                                                                                µL
+                                                                                 q (5,3)
+polynomial of the field Fq (if q is non-prime). The coefficients mLq (5, 3) =     ln q
+                                                                                         are shown
+in Figure 12.
+
+
+    4.2
+                                                4.2
+    4.1
+
+
+      4
+
+
+    3.9
+
+
+    3.8
+
+
+    3.7
+
+
+    3.6
+
+
+
+              100      200        300        400          500       600     700         800
+
+
+
+Figure 12: Coefficients mLq (5, 3) = µLq (5, 3)/ ln q for covering density of the
+[nLq (5, 3), nLq (5, 3) − 5, 5]q 3 leximatrix quasi-perfect Almost MDS codes; 37 ≤ q ≤ 839
+
+
+Observation 5.4. (i) The difference 4.2 · ln q − µLq (5, 3) tends to increase when q grows,
+    see Figure 11.
+
+(ii) Coefficients mLq (5, 3) tend to decrease when q grows, see Figure 12.
+
+
+                                                24
+6     An inverse leximatrix algorithm to obtain parity
+      check matrices of covering codes
+An inverse leximatrix algorithm is a modification of the leximatrix algorihm of Section 3.
+    Let Fq = {0, 1, . . . , q − 1} be the Galois field with q elements.
+    If q is prime, the elements of Fq are treated as integers modulo q.
+    If q = pm with p prime and m ≥ 2, the elements of Fpm are represented by integers
+as follows: Fpm = Fq = {0, 1 = α0 , 2 = α1 , . . . , u = αu−1 , . . . , q − 1 = αq−2 }, where α is a
+root of a primitive polynomial of Fpm .
+    For a q-ary code of codimension r, covering radius R, and minimum distance d = R+2,
+we construct a parity check matrix from nonzero columns hi of the form
+                                      (i)   (i)
+                              hi = (x1 , x2 , . . . , x(i) tr  (i)
+                                                       r ) , x u ∈ Fq ,                       (6.1)
+
+where the first (leftmost) non-zero element is 1; tr is the sign of transposition. The
+number of distinct columns is (q r − 1)/(q − 1). We order the columns in the list as
+
+                                     h1 , h2 , . . . , h(qr −1)/(q−1) .                       (6.2)
+
+    One sees that the forms of the columns of a parity check matrix in (3.1) and (6.1)
+coincide with each other. Also, external view of the list of the columns in (3.2) and (6.2)
+is the same. However, contrary to (3.3), we represent a number i of a column hi as follows:
+                                                r
+                                      q r − 1 X (i) r−u
+                                   i=        −     xu q .                                     (6.3)
+                                      q−1      u=1
+
+We call the order of the columns corresponding to (6.3) the inverse lexicographical
+order .
+    Apart the fixed order of columns (cf. (3.3) and (6.3) ), the inverse leximatrix algorithm
+is similar to the leximatrix algorithm.
+    The first column of the list should be included into the matrix. Then step-by-step, one
+takes the next column from the list which cannot be represented as a linear combination
+of at most R columns already chosen. The process ends when no new column may
+be included into the matrix. The obtained matrix Hn is a parity check matrix of an
+[n, n − r, R + 2]q R code.
+    The obtained parity check matrix is called the parity check invleximatrix or the
+invleximatrix for short. We call an invleximatrix code the corresponding code.
+    For prime q, the following holds: length n of an invleximatrix code and the
+form of the invleximatrix Hn depend on q, r, and R only. No other factors affect
+code length and structure. Actually, assume that after some step a current matrix is
+obtained. At the next step we should remove from our current list all columns that are
+
+                                                    25
+linear combination of R or less columns of the current matrix. For prime q and the given
+r and R, the result of removing is unequivocal; hence, the next column is taken uniquely.
+    For non-prime q, the length n of an invleximatrix code depends on q and on the
+primitive polynomial of the field. In this paper, we use primitive polynomials that are
+created by the program system MAGMA [6] by default, see Table A. In any case, the
+choice of the polynomial changes the invleximatrix code length unessentially.
+    By the invleximatrix algorithm, if R = 1, we obtain the q-ary Hamming code. If
+R = 2, we obtain a quasi-perfect [n, n − r, 4]q 2 code; for r = 3 such code is an MDS
+code and corresponds to a complete arc in PG(2, q). If R = 3, we obtain a quasi-perfect
+[n, n − r, 5]q 3 code; for r = 4 such code is an MDS code and corresponds to a complete
+arc in PG(3, q); for r = 5 it is an Almost MDS code.
+    Let nIL
+          q (r, R) be length of the q-ary invleximatrix code of codimension r and
+covering radius R. It is assumed that for a non-prime field Fq , one uses the primitive
+polynomial created by the program system MAGMA [6] by default; in particular, for
+non-prime q ≤ 6889, the polynomial from Table A should be taken.
+    We represent length of an [nIL             IL
+                                    q (r, R), nq (r, R) − r, R + 2]q R invleximatrix code in the
+form
+                                                     p
+                             nIL            IL
+                               q (r, R) = cq (r, R)
+                                                     R
+                                                       ln q · q (r−R)/r ,                  (6.4)
+
+where cIL
+        q (r, R) is a coefficient entirely given by r, R, q (if q is prime) or by r, R, q, and the
+primitive polynomial of Fq (if q is non-prime).
+
+Proposition 6.1. There exist [nIL          IL
+                                q (4, 3), nq (4, 3)−4, 5]q 3 quasi-perfect MDS invleximatrix
+                                √
+codes of length nIL
+                  q (4, 3) < 2.8 q ln q for 127 ≤ q ≤ 6101 and q = 6143, 6217, 6287,
+                                3
+
+
+6299, 6529, 6563.
+
+Proof. The needed codes are obtained by computer search, using the inverse leximatrix
+algorithm.
+    Proposition 6.1 as well as Proposition 4.3 implies the assertions of Theorem 2.1(1i) on
+the upper lexi-bound on the length function `q (4, 3) and the d-length function `q (4, 3, 5).
+    Lengths of the [nIL         IL
+                     q (4, 3), nq (4, 3) − 4, 5]q 3 invleximatrix quasi-perfect MDS codes are
+collected in Table 3 (see Appendix). The cases
+
+                                      nIL          L
+                                       q (4, 3) < nq (4, 3)
+
+are noted in Table 3 in bold italic font.
+    We have relatively many the cases nIL             L
+                                          q (4, 3) < nq (4, 3); this strengthens our
+assurance in truth of Conjecture 2.2(i).
+
+
+
+                                               26
+7     Randomized greedy algorithms to obtain parity
+      check matrices of covering codes
+7.1    Randomized greedy algorithms
+Randomized greedy algorithms are described (in geometrical language) in [1–3], see also
+the references therein.
+    In every step a randomized greedy algorithm maximizes an objective function f but
+some steps are executed in a random manner. The number of these steps, their ordinal
+numbers, and some other parameters of the algorithm have been taken intuitively. Also,
+if the same maximum of f can be obtained in distinct ways, one way is chosen randomly.
+    We begin to construct a parity check matrix of an [n, n − r]q R code by using a starting
+matrix H0 . In the i-th step one column is added to the current matrix Hi−1 and we obtain
+a matrix Hi . We say that an r-dimensional column is R-covered if it can be represented
+as linear combination at most R columns of the current parity check matrix. As the value
+of the objective function f we consider the number of R-covered columns.
+    On every “random” i-th step we take dq,i randomly chosen columns of Fqr not covered
+by Hi−1 and compute the objective function f adding each of these dq,i columns to Hi−1 .
+The column providing the maximum of f is included into Hi . On every “non-random” j-th
+step we consider all columns not covered by Hj−1 and add to Hj−1 the column providing
+the maximum of f.
+    As H0 we can use a matrix obtained in previous stages of the search.
+    A generator of random numbers is used for a random choice. To get codes with distinct
+lengths, the starting conditions of the generator are changed for the same matrix H0 . In
+this way the algorithm works in a convenient limited region of the search space to obtain
+examples decreasing the size of the matrix from which the fixed starting submatrix have
+been taken.
+    To obtain codes with new lengths, sufficiently many attempts should be made with
+randomized greedy algorithms. “Predicted” lengths could be useful for understanding if a
+good result has been obtained. If the result is not close to the predicted size, the attempts
+are continued.
+    We consider the following two versions of the randomized greedy algorithms:
+    • Rand-Greedy algorithm. In this version, one does not take into account if a new
+column is R-covered. Therefore, the constructed code has minimum distance d = 3.
+    • d-Rand-Greedy algorithm. In this version, we chose a new column from columns
+that are not R-covered. Therefore, minimum distance of the obtained code is d = R + 2.
+    The randomized greedy algorithms give better results than the leximatrix and inverse
+leximatrix algorithms but the randomized greedy algorithms take essentially greater com-
+puter time.
+
+
+
+                                             27
+   Lengths of codes obtained by randomized greedy algorithms depend of many factors
+connected with parameters of the algorithms.
+   Let nG
+        q (r, R) be length of a q-ary code of codimension r and covering radius R
+obtained by the Rand-Greedy algorithm.
+   We represent length of an [nG             G
+                                  q (r, R), nq (r, R) − r, 3]q R code obtained by the Rand-
+Greedy algorithm in the form
+                                                  p
+                          nG             G
+                            q (r, R) = cq (r, R)
+                                                   R
+                                                     ln q · q (r−R)/r ,
+
+where cG
+       q (r, R) is a coefficient dependent on parameters of the Rand-Greedy algorithm.
+   Let ndG
+         q (r, R) be length of a q-ary code of codimension r and covering radius R
+obtained by the d-Rand-Greedy algorithm.
+   We represent length of an [ndG               dG
+                                     q (r, R), nq (r, R) − r, R + 2]q R code obtained by the
+d-Rand-Greedy algorithm in the form
+                                                    p
+                            ndG            dG
+                              q (r, R) = cq (r, R)
+                                                    R
+                                                       ln q · q (r−R)/r ,
+
+where cdG
+       q (r, R) is a coefficient dependent on parameters of the d-Rand-Greedy algorithm.
+   Let nq (r, R) be length of the shortest known q-ary code of codimension r
+and covering radius R.
+   Let nq (r, R, d) be length of the shortest known q-ary code of codimension r,
+covering radius R, and minimum distance d.
+   Clearly,
+
+                                       nq (r, R) ≤ nq (r, R, d).
+
+We represent length nq (r, R, d) in the form
+                                                        p
+                            nq (r, R, d) = cq (r, R, d) R ln q · q (r−R)/R ,
+
+where cq (r, R, d) is a coefficient.
+
+7.2     The shortest known [nq (4, 3, 5), nq (4, 3, 5) − 4, 5]q 3 and
+        [nq (4, 3), nq (4, 3) − 4]q 3 codes
+For 2 ≤ q ≤ 7057, lengths nq (4, 3, 5) of the shortest known [nq (4, 3, 5), nq (4, 3, 5)−4, 5]q 3
+quasi-perfect MDS codes, obtained by the leximatrix, inverse leximatrix, and d-Rand-
+Greedy algorithms, are as follows
+
+                        nq (4, 3, 5) = min{nLq (4, 3), nIL         dG
+                                                        q (4, 3), nq (4, 3)}.              (7.1)
+
+
+
+                                                  28
+Proposition 7.1. There exist [nq (4, 3, 5), nq (4, 3, 5) − 4, 5]q 3 quasi-perfect MDS codes of
+length
+                                (      √
+                                  2.61 3 q ln q if 13 ≤ q ≤ 4373
+                 nq (4, 3, 5) <        √                                   .
+                                  2.65 3 q ln q if 4373 < q ≤ 7057
+Proof. The needed codes are obtained by computer search, using the approach of (7.1).
+To obtain codes with q ≤ 4451 we used the d-Rand-Greedy algorithm. For
+4451 < q ≤ 7057 we used, in preference, the leximatrix and inverse leximatrix algorithms,
+see Sections 5 and 6, but for q = 4489, 4679, 4877, 4889, 4913, 5801, 6653 we applied the
+d-Rand-Greedy algorithm. For q = 841, the complete 42-arc of [33] is used.
+   Proposition 7.1 implies the assertions of Theorem 2.1(2) on upper bounds on the length
+function `q (4, 3) and the d-length function `q (4, 3, 5).
+   Proposition 7.1 improves the lexi-bound of Theorem 2.1(1i); this strengthens
+our assurance in truth of Conjecture 2.2(i).
+   The lengths nq (4, 3) of the shortest known [nq (4, 3), nq (4, 3) − 4]q 3 codes we obtain
+using results of computer search for nq (4, 3, 5), data from [20, Tab. 1], the Rand-Greedy
+algorithm, and formula (1.4) for q = (q 0 )3 where (q 0 ) is a prime power.
+   The smallest known lengths nq (4, 3) are given in Table 4 (see Appendix) where
+the cases
+                                  nq (4, 3, 5) = nq (4, 3) + j
+are noted by the superscript “+j”. For the rest of q we have nq (4, 3, 5) = nq (4, 3). So, in
+fact, Table 4 gives also smallest known lengths nq (4, 3, 5).
+    Note, that in Table 4, the improvements of code distance up to d = 5 in comparison
+with [20, Tab. 1] are noted in bold italic font. Also, in Table 4, the cases `q (4, 3) = nq (4, 3)
+are noted by the subscript “•”, see [20, Tab. 1].
+    Coefficients cq (4, 3, 5) corresponding to the codes of Table 4 (taking into account the
+superscripts “+j”) are shown in Figure 13.
+
+7.3    The shortest known [nq (5, 3), nq (5, 3) − 5]q 3 codes
+For 3 ≤ q ≤ 839, lengths nq (5, 3) of the shortest known [nq (5, 3), nq (5, 3)−5, 3]q 3 codes,
+obtained by the leximatrix and Rand-Greedy algorithms, are as follows
+                     nq (5, 3) = min{nLq (5, 3), nG
+                                                  q (5, 3)} if 11 ≤ q ≤ 401;                (7.2)
+                     nq (5, 3) = nq (5, 3, 5) = nLq (5, 3) if 401 < q ≤ 839.
+Proposition 7.2. There exist [nq (5, 3), nq (5, 3) − 5]q 3 codes of length
+                                  p
+               nq (5, 3) < 2.785 3 q 2 ln q if 11 ≤ q ≤ 401;
+                                                p
+               nq (5, 3) = nq (5, 3, 5) < 2.884 3 q 2 ln q if 401 < q ≤ 839.
+
+                                               29
+       2.75
+
+
+         2.7
+
+                                                                        2.65
+       2.65
+
+
+         2.6   2.61
+
+       2.55
+
+
+         2.5
+
+
+       2.45
+
+
+         2.4
+
+
+       2.35
+                     1000       2000       3000        4000      5000       6000       7000
+
+
+                                                    √
+Figure 13: Coefficients cq (4, 3, 5) = nq (4, 3, 5)/ 3 q ln q for [nq (4, 3, 5), nq (4, 3, 5) − 4, 5]q 3
+quasi-perfect MDS codes; 13 ≤ q ≤ 7057
+
+Proof. The needed codes are obtained by computer search, using the approach of (7.2).
+To obtain codes with q ≤ 401 we used the Rand-Greedy algorithm; it gives [n, n − 5, 3]q 3
+codes with minimum distance d = 3. For 401 < q ≤ 839 we used the leximatrix algorithm,
+see Section 5.
+   Proposition 7.2 implies the assertions of Theorem 2.1(3) on upper bounds on the length
+function `q (5, 3) and the d-length function `q (5, 3, 5).
+   Proposition 7.2 improves the lexi-bound of Theorem 2.1(1ii); this strength-
+ens our assurance in truth of Conjecture 2.2(ii).
+   Lengths nq (5, 3) of the shortest known [nq (5, 3), nq (5, 3) − 5, 3]q 3 codes are collected
+in Table 5, where the improvements of code length in comparison with [20, Tab. 2] are
+noted in bold italic font. Also,in Table 5, the cases `q (5, 3) = nq (5, 3) are noted by the
+subscript “•”, see [20, Tab. 2].
+
+                                                  30
+    For q ≤ 839, coefficients cq (5, 3, 3) and cq (5, 3, 5) corresponding to the codes of Table 5
+are shown in Figure 14.
+
+
+
+
+2.85
+
+
+
+
+ 2.8
+
+
+
+
+2.75
+
+
+
+
+ 2.7
+
+
+
+
+2.65
+              100        200         300         400        500         600         700        800
+
+
+                                                    p
+                                                       q 2 ln q for [nq (5, 3, 3), nq (5, 3, 3) − 5, 3]q 3
+Figure 14: Coefficients cq (5, 3, 3) = nq (5, 3, 3)/ 3 p
+codes, 11 ≤ q ≤ 401; and cq (5, 3, 5) = nq (5, 3, 5)/ 3 q 2 ln q for [nq (5, 3, 5), nq (5, 3, 5)−5, 5]q 3
+Almost MDS codes, 401 < q ≤ 839
+
+
+
+8      Conclusion
+The length function `q (r, R) is the smallest length of a q-ary linear code of covering
+radius R and codimension r. The d-length function `q (r, R, d) is the smallest length
+of a q-ary linear code with codimension r, covering radius R, and minimum distance d.
+In this paper, we consider upper bounds on the length functions `q (4, 3), `q (5, 3) and the
+d-length functions `q (4, 3, 5), `q (5, 3, 5). For r 6= 3t and q 6= (q 0 )3 , where q 0 is a prime
+power, upper bounds on `q (r, 3) and `q (r, 3, 5) are open problems.
+
+                                                   31
+   By computer search in wide regions of q, we obtained following short codes of covering
+radius R = 3: [n, n − 4, 5]q 3 quasi-perfect MDS codes, [n, n − 5, 5]q 3 quasi-perfect Almost
+MDS codes, and [n, n − 5, 3]q 3 codes.
+   For r 6= 3t and the field basis q of an arbitrary structure, including q 6= (q 0 )3 , the new
+codes imply upper bounds (called the lexi-bounds) of the form
+                 p
+   `q (r, 3) < c` 3 ln q · q (r−3)/3 , c` is a constant independent of q, r = 4, 5 6= 3t. (8.1)
+
+Also, the new codes imply the following upper bounds (called the density lexi-bounds)
+on the smallest covering density µq (r, 3) of a q-ary linear code of covering radius 3 and
+codimension r:
+
+           µq (r, 3) < cµ · ln q, cµ is a constant independent of q, r = 4, 5 6= 3t.           (8.2)
+
+    In comparison with upper bounds of [13–15]
+                                             √       for the special field basis q = (q 0 )3 , bounds
+(8.1) and (8.2) have “extra” multipliers 3 ln q and ln q, respectively. This is a “price”
+of an arbitrary structure of the field basis q.
+    In computer search, we use the step-by-step leximatrix and inverse leximatrix algo-
+rithms to obtain parity check matrices of codes. The algorithms are versions of the re-
+cursive g-parity check matrix algorithm for greedy codes. Also, we apply the randomized
+greedy algorithms.
+    In future, it would be useful to investigate and understand properties of the leximatrix
+and inverse leximatrix algorithms and structure of leximatrices and invleximatrices.
+    In particular, the following is of great interest:
+    • Initial part of the parity check leximatrices and invleximatrices, see Proposition 4.1
+and Example 4.2.
+    • The working mechanism and its quantitative estimates for the leximatrix and inverse
+leximatrix algorithms; see, for instance, the papers [1, 12] where the working mechanisms
+of greedy algorithms for complete arcs in the projective plane PG(2, q) and for complete
+caps in the projective spaces PG(N, q) are studied.
+    • The oscillation of the coefficients cLq (4, 3) around a horizontal line and its likenesses
+with the oscillation of the values hL (q) around a horizontal line in [2, Fig. 6, Observa-
+tion 3.5], [3, Fig. 5, Observation 3.7], see Figure 4 and Remark 4.5.
+    It is important to emphasize that although the lexi-bounds of Theorem 2.1(1) are ob-
+tained by computer search, several factors give us insurance that these bounds are truth
+for all q (see Conjecture 2.2). In particular we note figures and observations in Sections 4
+and 5, comparison of leximatrix and invleximatrix codes in Table 3, improvements of the
+lexi-bounds in Section 7.
+
+
+
+
+                                                 32
+References
+ [1] Bartoli, D., Davydov, A.A., Faina, G., Kreshchuk, A.A., Marcugini, S., Pambianco, F.:
+     Upper bounds on the smallest sizes of a complete arc in PG(2, q) under certain probabilistic
+     conjectures. Problems Information Transmission 50(4), 320–339 (2014) https://doi.org/10.
+     1134/S0032946014040036
+
+ [2] Bartoli, D., Davydov, A.A., Faina, G., Kreshchuk, A.A., Marcugini, S., Pambianco, F.:
+     Tables, bounds and graphics of sizes of complete arcs in the plane PG(2, q) for all q ≤ 321007
+     and sporadic q in [323761 . . . 430007] obtained by an algorithm with fixed order of points
+     (FOP). arXiv:1404.0469v3[math.CO] (2018) http://arxiv.org/abs/1404.0469v3
+
+ [3] Bartoli, D., Davydov, A.A., Faina, G., Kreshchuk, A.A., Marcugini, S., Pambianco, F.:
+     Upper bounds on the smallest size of a complete arc in a finite Desarguesian projective
+     plane based on computer search. J. Geometry 107(1), 89–117 (2016) https://doi.org/10.
+     1007/s00022-015-0277-z
+
+ [4] Bartoli, D., Davydov, A.A., Giulietti, M., S. Marcugini, S., Pambianco, F.: New bounds
+     for linear codes of covering radii 2 and 3, Cryptography and Communications, Special
+     Issue on Coding Theory and Applications, 11(5), 903–920 (2019) https://doi.org/10.1007/
+     s12095-018-0335-0
+
+ [5] Bartoli, D., Giulietti, M., Platoni, I.: On the Covering Radius of MDS Codes, IEEE Trans.
+     Inform. Theory, 61(2), 801–811 (2015) https://doi.org/10.1109/TIT.2014.2385084
+
+ [6] Bosma, W., Cannon, J., Playoust, C.: The Magma algebra system. I. The user language.
+     J. Symbolic Comput. 24(3–4), 235–265 (1997) https://doi.org/10.1006/jsco.1996.0125
+
+ [7] Brualdi, R.A., Pless, V.S.: Greedy codes. J. Combin. Theory, Ser. A 64(1), 10–30 (1998)
+     https://doi.org/10.1016/0097-3165(93)90085-M
+
+ [8] Brualdi, R.A., Litsyn, S., Pless, V.S.: Covering radius. In: Pless, V.S., Huffman, W.C.,
+     Brualdi, R.A. (eds.) Handbook of coding theory, vol. 1, pp. 755–826. Elsevier, Amsterdam,
+     The Netherlands (1998)
+
+ [9] Cohen, G., Honkala, I., Litsyn, S., Lobstein, A.: Covering codes, North-Holland Mathe-
+     matical Library, vol. 54. Elsevier, Amsterdam, The Netherlands (1997)
+
+[10] Cohen, G., Karpovsky, M.G., Mattson, H.F., Jr., Shatz, J.R.: Covering radius – Survey
+     and recent results. IEEE Trans. Inform. Theory 31(3), 328–343 (1985). https://doi.org/10.
+     1109/TIT.1985.1057043
+
+[11] Davydov A.A.: Constructions and families of covering codes and saturated sets of points
+     in projective geometry. IEEE Trans. Inf. Theory 41(6), 2071–2080 (1995) https://doi.org/
+     10.1109/18.771244
+
+
+                                               33
+[12] Davydov, A.A., Faina, G., Marcugini, S., Pambianco, F.: Upper bounds on the smallest size
+     of a complete cap in PG(N, q), N ≥ 3, under a certain probabilistic conjecture. Australasian
+     J. Combin. 72(3) 516–535 (2018)
+
+[13] Davydov, A.A., Giulietti, M., Marcugini, S., Pambianco, F.: Linear covering codes over
+     nonbinary finite fields. In: Proc. XI Int. Workshop on Algebraic and Combintorial Coding
+     Theory, ACCT2008. pp. 70–75. Pamporovo, Bulgaria (2008) http://www.moi.math.bas.
+     bg/acct2008/b12.pdf
+
+[14] Davydov, A.A., Giulietti, M., Marcugini, S., Pambianco, F.: Linear covering codes of
+     radius 2 and 3. In: Proc. Workshop Coding Theory Days in St. Petersburg, pp. 12–17. St.
+     Petersburg, Russia (2008) http://iitp.ru/upload/publications/1538/CoverPeter2008.pdf
+
+[15] Davydov, A.A., Giulietti, M., Marcugini, S., Pambianco, F.: Linear nonbinary covering
+     codes and saturating sets in projective spaces. Adv. Math. Commun. 5(1), 119–147 (2011)
+     https://doi.org/10.3934/amc.2011.5.119
+
+[16] Davydov, A.A., Marcugini, S., Pambianco, F.: On saturating sets in projective spaces.
+     J. Combin. Theory, Ser. A 103(1), 1–15 (2003) https://doi.org/10.1016/S0097-3165(03)
+     00052-9
+
+[17] Davydov, A.A., Marcugini, S., Pambianco, F.: New covering codes of radius R, codimension
+     tR and tR + R2 , and saturating sets in projective spaces, Des. Codes Crypt. 87(12), 2771–
+     2792 (2019) https://doi.org/10.1007/s10623-019-00649-2
+
+[18] Davydov, A.A., Marcugini, S., Pambianco, F.: New bounds for linear codes of covering ra-
+     dius 3 and 2-saturating sets in projective spaces. In: Proceedings of 2019 XVI International
+     Symposium ”Problems of Redundancy in Information and Control Systems” (Redundancy
+     2019), ISBN 978-1-7281-1944-1, Moscow, Russia, 21–25 October 2019, pp. 47–52 (2019)
+     https://doi.org/10.1109/REDUNDANCY48165.2019.9003348
+
+[19] Davydov, A.A., Östergård, P.R.J.: Linear codes with covering radius R = 2, 3 and codi-
+     mension tR. IEEE Trans. Inform. Theory 47(1), 416–421 (2001) https://doi.org/10.1109/
+     18.904551
+
+[20] Davydov, A.A., Östergård, P.R.J.: Linear codes with covering radius 3. Des. Codes Crypt.
+     54(3), 253–271 (2010) https://doi.org/10.1007/s10623-009-9322-y
+
+[21] Etzion, T., Storme, L.: Galois geometries and coding theory. Des. Codes Crypt. 78(1),
+     311–350 (2016) https://doi.org/10.1007/s10623-015-0156-5
+
+[22] Giulietti, M.: The geometry of covering codes: small complete caps and saturating sets in
+     Galois spaces. In: Blackburn, S.R., Holloway, R., Wildon, M. (eds.) Surveys in Combina-
+     torics 2013, London Math. Soc. Lecture Note Series, vol. 409, pp. 51–90. Cambridge Univ
+     Press, Cambridge (2013) https://doi.org/10.1017/CBO9781139506748.003
+
+
+                                               34
+[23] Graham, R.L., Sloane, N.J.A.: On the Covering Radius of Codes. IEEE Trans. Inform.
+     Theory 31(3), 385–401 (1985) https://doi.org/10.1109/TIT.1985.1057039
+
+[24] Hirschfeld, J.W.P.: Projective Geometries Over Finite Fields. Oxford mathematical mono-
+     graphs, Clarendon Press, Oxford, 2nd edn. (1998)
+
+[25] Hirschfeld, J.W.P., Storme, L.: The packing problem in statistics, coding theory and finite
+     projective spaces. J. Statist. Planning Inference 72(1), 355–380 (1998) https://doi.org/10.
+     1016/S0378-3758(98)00043-3
+
+[26] Hirschfeld, J.W.P., Storme, L.: The packing problem in statistics, coding theory and finite
+     geometry: update 2001. In: Blokhuis, A., Hirschfeld, J.W.P. et al., (eds.) Finite Geometries,
+     Developments of Mathematics, vol. 3, Proc. of the Fourth Isle of Thorns Conf., Chelwood
+     Gate, 2000, pp. 201–246. Kluwer Academic Publisher, Boston (2001) https://doi.org/10.
+     1007/978-1-4613-0283-4 13
+
+[27] Janwa, H.: Some optimal codes from algebraic geometry and their covering radii. Europ.
+     J. Combin. 11(3), 249–266 (1990) https://doi.org/10.1016/S0195-6698(13)80125-4
+
+[28] Klein, A., and Storme, L., Applications of Finite Geometry in Coding Theory and
+     Cryptography In: Crnković, D., Tonchev, V. (eds.) NATO Science for Peace and Secu-
+     rity, Ser. - D: Information and Communication Security, vol. 29, Information Security,
+     Coding Theory and Related Combinatorics, pp. 38–58 (2011) https://doi.org/10.3233/
+     978-1-60750-663-8-38
+
+[29] Landjev, I., Storme, L.: Galois geometry and coding theory. In: De. Beule, J., Storme,
+     L. (eds.) Current Research Topics in Galois geometry, Chapter 8, pp. 187–214, NOVA
+     Academic Publisher, New York (2012)
+
+[30] Lobstein, A.: Covering radius, an online bibliography. (2018)
+     https://www.lri.fr/∼lobstein/bib-a-jour.pdf
+
+[31] Monroe, L., Pless, V.: Greedy generation of non-binary codes. In: Proc. IEEE International
+     Symposium Inform. Theory, ISIT 1995, p. 235, Whistler, BC, Canada, Sept. 1995 (1995)
+     https://doi.org/10.1109/ISIT.1995.535750
+
+[32] Pless, V.S.: Coding constructions. In: Pless, V.S., Human, W.C., Brualdi, R.A. (eds.)
+     Handbook of Coding Theory, pp. 141-176. Elsevier, Amsterdam, The Netherlands (1998)
+
+[33] Sonnino, A.: Transitive PSL(2, 7)-invariant 42-arcs in 3-dimensional projective spaces. Des.
+     Codes Crypt. 72(2), 455–463 (2014) https://doi.org/10.1007/s10623-012-9778-z
+
+[34] R. Struik, Covering Codes, Ph.D thesis, Eindhoven University of Technology (1994)
+     DOI: 10.6100/IR425174, https://pure.tue.nl/ws/files/2274131/425174.pdf
+
+[35] Ughi, E.: Saturated configurations of points in projective Galois spaces. Europ. J. Combin.
+     8(3), 325–334 (1987) https://doi.org/10.1016/S0195-6698(87)80039-2
+
+
+                                               35
+Appendix
+Table 1. Lengths nLq (4, 3) of the [nLq (4, 3), nLq (4, 3) − 4, 5]q 3 leximatrix quasi-perfect
+MDS codes, 2 ≤ q ≤ 7057
+  q nLq (4, 3) q nLq (4, 3) q nLq (4, 3) q nLq (4, 3) q nLq (4, 3) q nLq (4, 3)
+   2     5       3    5       4    5       5    6       7    8       8    7
+   9     9      11    8      13    9      16    9      17    9      19 10
+  23 11         25 11        27 12        29 12        31 13        32 12
+  37 13         41 14        43 14        47 15        49 15        53 16
+  59 16         61 16        64 17        67 17        71 18        73 18
+  79 18         81 18        83 19        89 20        97 20       101 21
+ 103 20        107 22       109 22       113 22       121 22       125 23
+ 127 23        128 22       131 23       137 23       139 23       149 24
+ 151 24        157 25       163 24       167 25       169 25       173 25
+ 179 26        181 26       191 26       193 27       197 27       199 26
+ 211 27        223 29       227 28       229 28       233 28       239 29
+ 241 29        243 28       251 30       256 29       257 29       263 30
+ 269 30        271 31       277 30       281 30       283 31       289 31
+ 293 31        307 32       311 32       313 31       317 32       331 34
+ 337 34        343 33       347 34       349 34       353 34       359 34
+ 361 34        367 34       373 34       379 34       383 34       389 35
+ 397 35        401 35       409 35       419 36       421 36       431 36
+ 433 37        439 38       443 38       449 36       457 37       461 37
+ 463 37        467 37       479 38       487 38       491 39       499 39
+ 503 39        509 39       512 39       521 39       523 39       529 39
+ 541 39        547 39       557 39       563 41       569 41       571 39
+ 577 40        587 41       593 41       599 41       601 42       607 42
+ 613 43        617 42       619 42       625 42       631 42       641 43
+ 643 42        647 43       653 44       659 44       661 43       673 43
+ 677 42        683 43       691 44       701 44       709 44       719 44
+ 727 45        729 44       733 45       739 45       743 45       751 45
+ 757 46        761 45       769 46       773 46       787 45       797 46
+ 809 46        811 46       821 46       823 47       827 46       829 46
+ 839 46        841 47       853 47       857 47       859 47       863 47
+ 877 48        881 47       883 47       887 48       907 50       911 49
+ 919 48        929 49       937 49       941 49       947 49       953 49
+ 961 50        967 50       971 50       977 50       983 50       991 50
+ 997 52       1009 51      1013 51      1019 51      1021 50      1024 52
+1031 50       1033 51      1039 51      1049 52      1051 51      1061 51
+
+
+                                                36
+Table 1. Continue 1
+  q nLq (4, 3) q nLq (4, 3) q nLq (4, 3) q nLq (4, 3) q nLq (4, 3) q nLq (4, 3)
+1063 51 1069 52 1087 52 1091 51 1093 52 1097 52
+1103 52 1109 52 1117 52 1123 52 1129 53 1151 53
+1153 53 1163 53 1171 53 1181 53 1187 54 1193 53
+1201 52 1213 54 1217 55 1223 55 1229 54 1231 56
+1237 56 1249 55 1259 54 1277 55 1279 56 1283 56
+1289 56 1291 55 1297 56 1301 56 1303 56 1307 56
+1319 56 1321 56 1327 56 1331 55 1361 57 1367 57
+1369 56 1373 56 1381 57 1399 57 1409 57 1423 58
+1427 58 1429 58 1433 57 1439 57 1447 57 1451 59
+1453 59 1459 57 1471 57 1481 59 1483 59 1487 59
+1489 59 1493 58 1499 58 1511 59 1523 58 1531 60
+1543 59 1549 59 1553 59 1559 60 1567 60 1571 60
+1579 59 1583 59 1597 59 1601 59 1607 60 1609 60
+1613 60 1619 60 1621 60 1627 60 1637 60 1657 60
+1663 61 1667 61 1669 60 1681 62 1693 61 1697 62
+1699 62 1709 61 1721 63 1723 62 1733 63 1741 62
+1747 63 1753 62 1759 62 1777 62 1783 63 1787 63
+1789 62 1801 62 1811 63 1823 62 1831 62 1847 63
+1849 64 1861 63 1867 63 1871 63 1873 64 1877 63
+1879 63 1889 63 1901 64 1907 64 1913 64 1931 65
+1933 66 1949 64 1951 66 1973 66 1979 65 1987 64
+1993 65 1997 66 1999 65 2003 67 2011 66 2017 64
+2027 65 2029 66 2039 66 2048 66 2053 66 2063 66
+2069 66 2081 65 2083 66 2087 67 2089 67 2099 66
+2111 67 2113 66 2129 67 2131 67 2137 68 2141 67
+2143 66 2153 67 2161 67 2179 66 2187 68 2197 68
+2203 67 2207 68 2209 67 2213 68 2221 69 2237 68
+2239 68 2243 69 2251 69 2267 68 2269 69 2273 69
+2281 69 2287 69 2293 68 2297 67 2309 69 2311 69
+2333 69 2339 71 2341 69 2347 70 2351 69 2357 69
+2371 70 2377 69 2381 69 2383 71 2389 69 2393 70
+2399 70 2401 70 2411 71 2417 69 2423 71 2437 71
+2441 73 2447 71 2459 70 2467 71 2473 72 2477 71
+2503 70 2521 70 2531 71 2539 72 2543 72 2549 71
+2551 71 2557 71 2579 72 2591 71 2593 72 2609 71
+2617 72 2621 72 2633 73 2647 72 2657 73 2659 73
+2663 72 2671 72 2677 73 2683 73 2687 72 2689 72
+2693 72 2699 72 2707 73 2711 73 2713 72 2719 73
+
+                                           37
+Table 1. Continue 2
+  q nLq (4, 3) q nLq (4, 3) q nLq (4, 3) q nLq (4, 3) q nLq (4, 3) q nLq (4, 3)
+2729 73 2731 74 2741 73 2749 73 2753 74 2767 73
+2777 74 2789 74 2791 74 2797 73 2801 75 2803 74
+2809 74 2819 74 2833 74 2837 75 2843 75 2851 75
+2857 74 2861 74 2879 74 2887 76 2897 75 2903 74
+2909 75 2917 75 2927 75 2939 76 2953 77 2957 76
+2963 75 2969 75 2971 76 2999 76 3001 76 3011 75
+3019 77 3023 76 3037 76 3041 75 3049 75 3061 76
+3067 76 3079 78 3083 77 3089 76 3109 76 3119 77
+3121 77 3125 78 3137 77 3163 78 3167 77 3169 77
+3181 79 3187 77 3191 78 3203 77 3209 77 3217 78
+3221 78 3229 77 3251 79 3253 78 3257 77 3259 78
+3271 79 3299 79 3301 78 3307 78 3313 78 3319 79
+3323 79 3329 80 3331 79 3343 78 3347 80 3359 78
+3361 80 3371 79 3373 79 3389 80 3391 79 3407 80
+3413 80 3433 80 3449 80 3457 80 3461 80 3463 80
+3467 79 3469 80 3481 81 3491 80 3499 80 3511 80
+3517 80 3527 80 3529 82 3533 80 3539 82 3541 80
+3547 80 3557 82 3559 81 3571 81 3581 81 3583 80
+3593 81 3607 83 3613 81 3617 81 3623 82 3631 81
+3637 82 3643 82 3659 82 3671 83 3673 82 3677 82
+3691 83 3697 83 3701 82 3709 83 3719 82 3721 82
+3727 82 3733 82 3739 83 3761 82 3767 83 3769 83
+3779 85 3793 83 3797 83 3803 82 3821 83 3823 82
+3833 84 3847 83 3851 84 3853 82 3863 83 3877 84
+3881 84 3889 83 3907 85 3911 84 3917 83 3919 83
+3923 84 3929 84 3931 84 3943 84 3947 84 3967 84
+3989 85 4001 85 4003 84 4007 85 4013 85 4019 86
+4021 84 4027 84 4049 85 4051 86 4057 85 4073 85
+4079 86 4091 85 4093 86 4096 86 4099 86 4111 86
+4127 86 4129 86 4133 85 4139 86 4153 86 4157 86
+4159 86 4177 87 4201 85 4211 87 4217 85 4219 87
+4229 86 4231 87 4241 86 4243 86 4253 86 4259 88
+4261 87 4271 86 4273 87 4283 87 4289 86 4297 87
+4327 88 4337 88 4339 86 4349 89 4357 87 4363 87
+4373 87 4391 87 4397 88 4409 88 4421 87 4423 90
+4441 87 4447 88 4451 88 4457 87 4463 88 4481 87
+4483 88 4489 89 4493 88 4507 89 4513 88 4517 88
+4519 89 4523 89 4547 88 4549 90 4561 89 4567 89
+
+                                           38
+Table 1. Continue 3
+  q nLq (4, 3) q nLq (4, 3) q nLq (4, 3) q nLq (4, 3) q nLq (4, 3) q nLq (4, 3)
+4583 89 4591 89 4597 89 4603 90 4621 89 4637 89
+4639 89 4643 90 4649 89 4651 89 4657 90 4663 90
+4673 90 4679 92 4691 90 4703 89 4721 90 4723 90
+4729 90 4733 90 4751 90 4759 90 4783 90 4787 89
+4789 89 4793 89 4799 91 4801 92 4813 92 4817 89
+4831 92 4861 91 4871 90 4877 92 4889 92 4903 91
+4909 91 4913 91 4919 90 4931 91 4933 91 4937 90
+4943 91 4951 91 4957 90 4967 91 4969 91 4973 91
+4987 90 4993 92 4999 92 5003 92 5009 92 5011 93
+5021 91 5023 92 5039 93 5041 91 5051 91 5059 92
+5077 91 5081 92 5087 92 5099 94 5101 92 5107 93
+5113 94 5119 91 5147 92 5153 93 5167 94 5171 93
+5179 93 5189 93 5197 93 5209 93 5227 92 5231 94
+5233 93 5237 93 5261 93 5273 94 5279 95 5281 94
+5297 94 5303 95 5309 94 5323 93 5329 94 5333 94
+5347 94 5351 95 5381 94 5387 94 5393 95 5399 95
+5407 95 5413 94 5417 94 5419 95 5431 95 5437 93
+5441 94 5443 94 5449 93 5471 94 5477 94 5479 95
+5483 95 5501 96 5503 95 5507 94 5519 96 5521 95
+5527 96 5531 95 5557 94 5563 95 5569 95 5573 95
+5581 94 5591 96 5623 97 5639 96 5641 97 5647 97
+5651 97 5653 97 5657 97 5659 96 5669 96 5683 98
+5689 96 5693 97 5701 96 5711 96 5717 97 5737 96
+5741 95 5743 97 5749 97 5779 96 5783 96 5791 97
+5801 98 5807 96 5813 97 5821 97 5827 97 5839 98
+5843 97 5849 96 5851 97 5857 97 5861 97 5867 97
+5869 98 5879 97 5881 98 5897 97 5903 97 5923 97
+5927 97 5939 98 5953 98 5981 98 5987 100 6007 98
+6011 98 6029 97 6037 98 6043 99 6047 98 6053 99
+6067 99 6073 99 6079 98 6089 99 6091 98 6101 98
+6113 99 6121 99 6131 98 6133 97 6143 100 6151 98
+6163 99 6173 99 6197 100 6199 100 6203 98 6211 100
+6217 101 6221 100 6229 99 6241 100 6247 99 6257 100
+6263 100 6269 100 6271 100 6277 98 6287 101 6299 101
+6301 99 6311 99 6317 100 6323 100 6329 100 6337 101
+6343 100 6353 100 6359 100 6361 99 6367 101 6373 100
+6379 100 6389 101 6397 101 6421 101 6427 101 6449 101
+6451 101 6469 100 6473 101 6481 101 6491 101 6521 101
+6529 103 6547 102 6551 102 6553 101 6561 102 6563 103
+6569 101 6571 102 6577 101 6581 101 6599 101 6607 101
+
+                                           39
+Table 1. Continue 4
+  q nLq (4, 3) q nLq (4, 3) q nLq (4, 3) q nLq (4, 3) q nLq (4, 3) q nLq (4, 3)
+6619 101 6637 103 6653 103 6659 102 6661 102 6673 102
+6679 103 6689 102 6691 102 6701 102 6703 100 6709 102
+6719 102 6733 104 6737 102 6761 101 6763 102 6779 103
+6781 103 6791 102 6793 103 6803 102 6823 103 6827 103
+6829 102 6833 103 6841 101 6857 103 6859 102 6863 102
+6869 103 6871 105 6883 104 6889 102 6899 103 6907 103
+6911 104 6917 103 6947 102 6949 103 6959 105 6961 103
+6967 104 6971 105 6977 103 6983 103 6991 104 6997 103
+7001 105 7013 104 7019 104 7027 105 7039 104 7043 103
+7057 105
+
+
+
+
+                                           40
+Table 2. Lengths nLq (5, 3) of the [nLq (5, 3), nLq (5, 3) − 5, 5]q 3 leximatrix quasi-perfect Al-
+most MDS codes, 3 ≤ q ≤ 839
+    q nLq (5, 3) q nLq (5, 3) q nLq (5, 3) q nLq (5, 3) q nLq (5, 3) q nLq (5, 3) q nLq (5, 3)
+     3       11 4         10 5         11 7         16 8         17 9         19 11         22
+    13       24 16        28 17        28 19        31 23        36 25        37 27         40
+    29       43 31        46 32        46 37        51 41        55 43        56 47         60
+    49       61 53        66 59        70 61        73 64        77 67        79 71         82
+    73       84 79        88 81        88 83        90 89        96 97       101 101      104
+   103      107 107      109 109      111 113      112 121      119 125      123 127      123
+   128      124 131      127 137      130 139      133 149      142 151      141 157      146
+   163      149 167      150 169      151 173      156 179      158 181      159 191      166
+   193      166 197      171 199      172 211      180 223      185 227      186 229      188
+   233      191 239      195 241      197 243      198 251      203 256      205 257      207
+   263      208 269      214 271      213 277      215 281      218 283      221 289      226
+   293      227 307      232 311      234 313      236 317      237 331      245 337      248
+   343      253 347      257 349      255 353      256 359      260 361      260 367      265
+   373      266 379      274 383      272 389      275 397      280 401      282 409      284
+   419      292 421      290 431      297 433      299 439      301 443      304 449      309
+   457      311 461      311 463      309 467      314 479      320 487      324 491      324
+   499      328 503      330 509      334 512      334 521      339 523      341 529      344
+   541      348 547      349 557      353 563      360 569      364 571      362 577      365
+   587      371 593      374 599      375 601      376 607      376 613      380 617      384
+   619      382 625      385 631      387 641      393 643      398 647      396 653      399
+   659      402 661      401 673      407 677      407 683      411 691      416 701      417
+   709      424 719      427 727      430 729      430 733      429 739      431 743      436
+   751      439 757      440 761      443 769      447 773      450 787      453 797      458
+   809      464 811      464 821      467 823      468 827      471 829      473 839      475
+
+
+
+
+                                               41
+Table 3. Lengths nIL                  IL         IL
+                    q (4, 3) of the [nq (4, 3), nq (4, 3) − 4, 5]q 3 invleximatrix quasi-perfect
+MDS codes, 7 ≤ q ≤ 6203 and q = 6217, 6287, 6299, 6529, 6563, 6637, 6653, 6733, 6871,
+6959, 6971, 7001. The cases nIL            L
+                              q (4, 3) < nq (4, 3) are noted in bold italic font
+
+   q nIL
+      q (4, 3)    q nIL
+                     q (4, 3)   q nIL
+                                   q (4, 3)    q nIL
+                                                  q (4, 3)    q nIL
+                                                                 q (4, 3)    q nIL
+                                                                                q (4, 3)
+    7    8         8    7        9    8        11    9        13 10          16 10
+   17 11          19 10         23 12          25 11          27 12          29 13
+   31 13          32 12         37 14          41 14          43 14          47 15
+   49 15          53 16         59 16          61 17          64 17          67 17
+  71 17           73 18         79 19          81 19          83 19         89 19
+   97 21        101 20         103 21        107 21         109 21          113 23
+  121 22        125 22         127 23         128 23        131 22          137 23
+  139 23         149 24        151 24        157 24          163 25         167 25
+ 169 24          173 26        179 26        181 25          191 27        193 26
+  197 28         199 26        211 28        223 28          227 29         229 29
+  233 28         239 29        241 29         243 29         251 30         256 29
+  257 30         263 31        269 30        271 30          277 31         281 30
+  283 31         289 31        293 32        307 31          311 32         313 32
+  317 32        331 32        337 32          343 34        347 33          349 34
+  353 34         359 34        361 34         367 34         373 35         379 35
+  383 35         389 35        397 35         401 35         409 36         419 36
+  421 36         431 36        433 37        439 37         443 37          449 37
+  457 37        461 36         463 38         467 38        479 37          487 38
+ 491 38         499 38        503 37          509 39         512 39         521 40
+  523 39         529 40        541 40         547 40         557 40        563 40
+  569 41         571 40        577 41        587 40          593 41         599 41
+  601 42         607 43        613 43        617 41          619 42        625 41
+  631 42         641 43        643 42        647 42         653 43         659 43
+  661 43        673 42         677 44         683 43         691 45        701 43
+ 709 43          719 44       727 44          729 44         733 45        739 44
+  743 46        751 44        757 45          761 45        769 45         773 44
+  787 45         797 46        809 47         811 47         821 46         823 48
+  827 47         829 47        839 47        841 46          853 48         857 48
+  859 48         863 48        877 48         881 49         883 48         887 48
+ 907 49         911 48         919 48         929 49         937 49         941 49
+  947 50         953 49        961 50        967 49         971 49          977 50
+  983 50         991 50       997 50         1009 51       1013 50        1019 50
+ 1021 51       1024 50        1031 51        1033 51        1039 52       1049 51
+ 1051 51        1061 51       1063 52       1069 51         1087 52        1091 52
+ 1093 52        1097 52       1103 52        1109 52        1117 53        1123 52
+1129 52        1151 52        1153 54        1163 53        1171 53        1181 53
+1187 53         1193 54       1201 54        1213 54       1217 54        1223 54
+
+
+                                              42
+   Table 3. Continue 1
+   q nIL
+      q (4, 3)    q nIL
+                     q (4, 3)    q nIL
+                                    q (4, 3)    q nIL
+                                                   q (4, 3)    q nIL
+                                                                  q (4, 3)    q nIL
+                                                                                 q (4, 3)
+ 1229 54       1231 53        1237 54        1249 54         1259 55       1277 54
+1279 55        1283 55        1289 54         1291 56        1297 57       1301 55
+1303 55         1307 56       1319 55         1321 57        1327 56        1331 56
+1361 56        1367 56         1369 56        1373 58        1381 57       1399 56
+1409 56        1423 57         1427 59        1429 58        1433 57        1439 57
+ 1447 58       1451 58        1453 58         1459 58        1471 59        1481 59
+ 1483 59        1487 59        1489 59        1493 58        1499 59        1511 60
+ 1523 59       1531 59         1543 60       1549 58         1553 59        1559 60
+ 1567 60        1571 60        1579 60        1583 59        1597 60        1601 60
+ 1607 60       1609 59         1613 60        1619 61        1621 60        1627 61
+ 1637 60        1657 61       1663 60        1667 60         1669 61       1681 61
+1693 60        1697 61        1699 61         1709 62        1721 63        1723 62
+1733 62         1741 62        1747 63        1753 62        1759 63        1777 62
+1783 62        1787 62         1789 62        1801 63        1811 64        1823 63
+ 1831 63        1847 63       1849 63         1861 63        1867 64        1871 63
+1873 63         1877 64        1879 63        1889 63        1901 64        1907 64
+ 1913 64       1931 64        1933 65         1949 64       1951 64        1973 64
+1979 64         1987 66        1993 66       1997 65         1999 66       2003 66
+2011 65         2017 66        2027 67        2029 66        2039 66        2048 67
+ 2053 66        2063 67       2069 65         2081 66        2083 66       2087 66
+2089 66         2099 67       2111 66         2113 66        2129 67        2131 68
+2137 66         2141 68        2143 67        2153 67       2161 66         2179 68
+ 2187 68       2197 66         2203 68       2207 67         2209 69       2213 67
+ 2221 69        2237 68        2239 69       2243 68        2251 68        2267 67
+2269 68        2273 68         2281 70        2287 69        2293 68        2297 69
+ 2309 70        2311 69        2333 69       2339 68         2341 70        2347 70
+2351 68         2357 70       2371 69         2377 70        2381 69       2383 70
+ 2389 70        2393 70       2399 69         2401 70        2411 71        2417 71
+2423 70        2437 70        2441 70         2447 71        2459 71        2467 71
+2473 70        2477 70         2503 70        2521 72        2531 72        2539 72
+ 2543 72        2549 71        2551 71        2557 72        2579 73        2591 72
+2593 71         2609 72       2617 71        2621 71        2633 72         2647 74
+ 2657 73        2659 74        2663 72        2671 73        2677 73        2683 73
+ 2687 72        2689 73        2693 73        2699 72        2707 73        2711 74
+ 2713 73        2719 73        2729 74       2731 73         2741 73        2749 74
+2753 73         2767 74       2777 73         2789 74       2791 72         2797 74
+2801 74        2803 73         2809 74       2819 73         2833 75        2837 76
+
+
+
+
+                                           43
+   Table 3. Continue 2
+   q nIL
+      q (4, 3)    q nIL
+                     q (4, 3)    q nIL
+                                    q (4, 3)    q nIL
+                                                   q (4, 3)    q nIL
+                                                                  q (4, 3)    q nIL
+                                                                                 q (4, 3)
+ 2843 76       2851 74         2857 74       2861 73         2879 75       2887 75
+ 2897 75        2903 75        2909 76        2917 76       2927 74        2939 75
+2953 76        2957 75         2963 76        2969 75        2971 76        2999 76
+ 3001 76        3011 76        3019 78        3023 77        3037 76        3041 77
+ 3049 76        3061 76        3067 77       3079 77        3083 76         3089 77
+ 3109 77       3119 76         3121 77       3125 76         3137 78       3163 77
+ 3167 77        3169 79       3181 78         3187 77       3191 77         3203 77
+ 3209 77        3217 78        3221 80        3229 78       3251 78         3253 78
+ 3257 78        3259 78        3271 79        3299 79        3301 79        3307 80
+ 3313 79        3319 80        3323 79       3329 79        3331 78         3343 80
+3347 78         3359 81       3361 79         3371 81        3373 79        3389 80
+ 3391 79        3407 80        3413 81        3433 80        3449 80        3457 81
+ 3461 80        3463 80        3467 80        3469 80       3481 79         3491 80
+ 3499 80        3511 81        3517 80        3527 81       3529 81         3533 82
+ 3539 82        3541 80        3547 81       3557 81         3559 82       3571 80
+3581 80         3583 81        3593 81       3607 81        3613 79         3617 81
+ 3623 82        3631 82       3637 81         3643 83        3659 82       3671 81
+3673 81         3677 82        3691 83       3697 82         3701 83       3709 82
+ 3719 82        3721 83        3727 82        3733 83        3739 84        3761 82
+ 3767 83        3769 83       3779 82         3793 83        3797 84        3803 83
+3821 82         3823 83       3833 82         3847 83        3851 84        3853 83
+ 3863 84       3877 83         3881 84        3889 83        3907 85       3911 83
+ 3917 83        3919 84        3923 85        3929 84        3931 85        3943 84
+ 3947 84        3967 84        3989 85        4001 86       4003 83        4007 84
+ 4013 85       4019 85         4021 84        4027 84       4049 83        4051 84
+ 4057 85        4073 85       4079 85         4091 85       4093 85        4096 85
+4099 85        4111 85        4127 85        4129 85         4133 86       4139 85
+4153 85         4157 86        4159 86       4177 86         4201 85       4211 85
+ 4217 87        4219 87        4229 86       4231 86         4241 87        4243 87
+ 4253 87       4259 87         4261 87        4271 88       4273 86        4283 86
+ 4289 87        4297 87       4327 87        4337 87         4339 88       4349 87
+ 4357 87        4363 87        4373 88        4391 87        4397 88        4409 88
+ 4421 88       4423 88         4441 89        4447 88        4451 88        4457 87
+ 4463 89        4481 89        4483 89        4489 89        4493 88       4507 88
+ 4513 89        4517 88        4519 89        4523 89        4547 89       4549 89
+
+
+
+
+                                           44
+  Table 3. Continue 3
+   q nIL
+      q (4, 3)    q nIL
+                     q (4, 3)    q nIL
+                                    q (4, 3)      q nIL
+                                                     q (4, 3)      q nIL
+                                                                      q (4, 3)    q nIL
+                                                                                     q (4, 3)
+ 4561 90        4567 90        4583 89         4591 88           4597 89       4603 88
+4621 88        4637 88         4639 89         4643 89           4649 90        4651 90
+ 4657 90       4663 89         4673 90         4679 90          4691 89         4703 90
+ 4721 90        4723 91       4729 89          4733 89           4751 90        4759 90
+ 4783 90        4787 90        4789 90          4793 90          4799 91       4801 89
+4813 91         4817 91       4831 90          4861 89           4871 92        4877 92
+ 4889 92        4903 92       4909 90           4913 92          4919 92       4931 90
+ 4933 92        4937 91        4943 91          4951 91          4957 91        4967 91
+ 4969 91       4973 90         4987 91          4993 93          4999 92       5003 91
+ 5009 92       5011 92         5021 92         5023 91          5039 91         5041 92
+ 5051 93        5059 93        5077 93          5081 94          5087 92       5099 93
+ 5101 94        5107 93       5113 93           5119 93          5147 95        5153 94
+5167 92         5171 93        5179 93          5189 93          5197 94       5209 92
+ 5227 93       5231 93         5233 94          5237 94          5261 93       5273 93
+5279 94        5281 93        5297 93          5303 94          5309 93         5323 94
+ 5329 94       5333 93         5347 95         5351 94           5381 95       5387 93
+ 5393 95        5399 95       5407 94           5413 95          5417 95        5419 95
+5431 94         5437 96        5441 94         5443 93           5449 95        5471 95
+ 5477 95        5479 97        5483 96         5501 95           5503 96        5507 94
+ 5519 96        5521 96       5527 95           5531 96          5557 96        5563 96
+ 5569 95        5573 96        5581 97          5591 96         5623 95        5639 95
+5641 96        5647 96        5651 95          5653 96          5657 95         5659 96
+5669 95        5683 96         5689 96          5693 97          5701 96        5711 96
+ 5717 98        5737 96        5741 97         5743 95           5749 98        5779 97
+ 5783 97       5791 96         5801 99          5807 97         5813 96         5821 97
+ 5827 98       5839 96         5843 98          5849 96          5851 97        5857 97
+ 5861 97        5867 98        5869 98          5879 99         5881 97         5897 97
+ 5903 98        5923 98        5927 97         5939 97           5953 98       5981 97
+5987 98         6007 99        6011 99          6029 98          6037 98        6043 99
+ 6047 98       6053 98         6067 99          6073 100         6079 98        6089 100
+6091 97         6101 99        6113 99          6121 99          6131 99        6133 98
+6143 98         6151 99        6163 100        6173 98          6197 99         6199 100
+ 6203 100
+6217 99        6287 100 6299 100               6529 100         6563 100      6637 102
+ 6653 103 6733 102 6871 103                    6959 103         6971 102      7001 104
+
+
+
+
+                                          45
+    Table 4. Lengths nq (4, 3) of the shortest known [nq (4, 3), nq (4, 3) − 4]q 3 codes,
+2 ≤ q ≤ 7057. The cases nq (4, 3, 5) = nq (4, 3) + j are noted by the superscript “+j”. For
+the rest of q we have nq (4, 3, 5) = nq (4, 3). The improvements of code distance up to d = 5
+in comparison with [20, Tab. 1] are noted in bold italic font. For q = 841 the complete
+42-arc of [33] is used. The cases `q (4, 3) = nq (4, 3) are noted by the subscript “•”
+    q     nq (4, 3) q nq (4, 3) q nq (4, 3) q nq (4, 3) q nq (4, 3) q nq (4, 3)
+      2      5•        3 5•        4 5•        5 6•        7 7+1
+                                                               •       8 7•
+              +1
+      9     7•        11 8•       13 8        16 9        17 9        19  9
+     23      10       25 11       27 11       29 11       31 11+1     32 12
+     37      12       41 13       43 13       47 14       49 14       53 15
+     59      15       61 15+1     64 16       67 16       71 16       73 16+1
+     79      17       81 17+1     83 17+1     89 18       97 19      101 19
+    103      19      107 19      109 20      113 20      121 20+1    125 21
+    127      21      128 21      131 21      137 22      139 22      149 22
+   151      22       157 23      163 23      167 24      169 24      173 24
+                           +1
+    179      24      181 24      191 25      193 25      197 25      199 25
+    211      26      223 27      227 27      229 27      233 27      239 27
+    241      28      243 28      251 28      256 28      257 28      263 28
+    269      29      271 29      277 29      281 29      283 29      289 29+1
+    293    29+1      307 30      311 30+1    313 30+1    317 30+1    331 31
+              +1           +1
+    337    31        343 31      347 32      349 32      353 32      359 32
+    361    32+1      367 32+1    373 33      379 33      383 33      389 33+1
+                                                    +1
+    397      34      401 34      409 34      419 34     421 34       431 35
+   433      35       439 35      443 35      449 35      457 35+1    461 36
+                                                                +1
+   463      36      467 36      479 36       487 36      491 36      499 37
+    503      37      509 37      512 36+1 521 37        523 38       529 38
+    541      38     547 38       557 39      563 39      569 39      571 39
+    577      39      587 39      593 39      599 40      601 40      607 40
+    613      40      617 40      619 40      625 41      631 41      641 41
+    643      41      647 41      653 41      659 41      661 41      673 41
+    677      42      683 42      691 42      701 42      709 43      719 43
+    727      42      729 40+3    733 43      739 43      743 43      751 43
+    757      43      761 43      769 44      773 44      787 44      797 45
+    809      45      811 45      821 45      823 45      827 45      829 45
+              +1
+    839    45        841 42      853 45      857 46      859 46      863 46
+    877      46      881 46      883 46      887 46      907 47      911 47
+    919      47      929 47      937 47      941 48      947 48      953 48
+    961      48      967 48      971 48      977 48      983 48      991 48
+    997      48     1009 49     1013 49     1019 49     1021 49     1024 49
+   1031      49     1033 49     1039 49     1049 50     1051 49     1061 50
+   1063      49     1069 50     1087 50     1091 50     1093 50     1097 50
+
+                                             46
+Table 4. Continue 1
+
+ q nq (4, 3) q nq (4, 3) q nq (4, 3) q nq (4, 3) q nq (4, 3) q nq (4, 3)
+1103 50      1109 51     1117 51     1123 51     1129 51     1151 51
+1153 51      1163 51     1171 52     1181 52     1187 52     1193 52
+1201 52      1213 52     1217 52     1223 52     1229 53     1231 53
+1237 53      1249 52     1259 53     1277 53     1279 53     1283 53
+1289 54      1291 54     1297 54     1301 54     1303 54     1307 54
+                    +1                       +7
+1319 54      1321 54     1327 55     1331 48     1361 54     1367 54
+1369 55      1373 55     1381 55     1399 55     1409 55     1423 55
+1427 56      1429 56     1433 56     1439 56     1447 56     1451 56
+1453 56      1459 56     1471 56     1481 57     1483 57     1487 57
+1489 57      1493 57     1499 57     1511 57     1523 57+1 1531 57
+1543 57      1549 57     1553 58     1559 58     1567 57     1571 58
+1579 58      1583 58     1597 58     1601 58     1607 58     1609 58
+1613 58      1619 59     1621 59     1627 58     1637 58     1657 58
+        +1
+1663 59      1667 59     1669 59     1681 59     1693 60     1697 59
+1699 59      1709 60     1721 60     1723 60     1733 60+1 1741 60
+1747 60      1753 60     1759 60     1777 61     1783 61     1787 60
+1789 61      1801 61     1811 61     1823 61     1831 61     1847 61
+1849 62      1861 61     1867 61     1871 62     1873 62     1877 61
+1879 62      1889 62     1901 62     1907 62     1913 62     1931 62
+1933 63      1949 63     1951 63     1973 63     1979 63     1987 64
+1993 64      1997 63     1999 63     2003 63     2011 63     2017 63
+2027 63      2029 64     2039 64     2048 64     2053 64     2063 64
+2069 64      2081 65     2083 65     2087 64     2089 64     2099 65
+2111 65      2113 65     2129 65     2131 65     2137 66     2141 65
+2143 65      2153 65     2161 65     2179 66     2187 66     2197 56+10
+2203 66      2207 66     2209 66     2213 66     2221 65     2237 67
+2239 66      2243 67     2251 66     2267 66     2269 67     2273 66
+2281 66      2287 66     2293 67     2297 67     2309 67     2311 68
+2333 67      2339 68     2341 67     2347 68     2351 68     2357 68
+2371 68      2377 68     2381 68     2383 68     2389 68     2393 68
+2399 69      2401 68     2411 68     2417 69     2423 68     2437 69
+2441 68      2447 68     2459 69     2467 69     2473 69     2477 69
+2503 69      2521 70     2531 69     2539 70     2543 70     2549 69
+2551 70      2557 70     2579 70     2591 70     2593 69     2609 70
+2617 71      2621 70     2633 70     2647 70     2657 70     2659 70
+2663 70      2671 70     2677 71     2683 71     2687 71     2689 71
+
+
+                                   47
+Table 4. Continue 2
+ q nq (4, 3) q nq (4, 3) q nq (4, 3) q nq (4, 3) q nq (4, 3) q nq (4, 3)
+2693 71      2699 72     2707 72     2711 71     2713 71     2719 71
+2729 71      2731 71     2741 72     2749 72     2753 71     2767 72
+2777 72      2789 72     2791 72     2797 73     2801 72     2803 72
+2809 73      2819 73     2833 73     2837 73     2843 73     2851 72
+2857 72      2861 73     2879 72     2887 72     2897 73     2903 73
+2909 74      2917 73     2927 74     2939 73     2953 73     2957 73
+2963 74      2969 74     2971 74     2999 74     3001 73     3011 75
+3019 75      3023 75     3037 74     3041 74     3049 75     3061 75
+3067 74      3079 75     3083 74     3089 75     3109 75     3119 75
+3121 76      3125 76     3137 75     3163 76     3167 75     3169 75
+3181 75      3187 75     3191 75     3203 76     3209 76     3217 77
+3221 75      3229 76     3251 76     3253 77     3257 76     3259 77
+3271 76      3299 77     3301 76     3307 77     3313 78     3319 77
+3323 77      3329 77     3331 78     3343 77     3347 78     3359 78
+3361 77      3371 78     3373 77     3389 78     3391 77     3407 77
+3413 78      3433 78     3449 77     3457 78     3461 79     3463 78
+3467 78      3469 78     3481 79     3491 78     3499 78     3511 78
+3517 79      3527 79     3529 78     3533 79     3539 80     3541 79
+3547 79      3557 79     3559 80     3571 79     3581 79     3583 79
+3593 80      3607 79     3613 79     3617 80     3623 80     3631 80
+3637 79      3643 80     3659 80     3671 80     3673 80     3677 81
+3691 80      3697 80     3701 81     3709 80     3719 80     3721 81
+3727 81      3733 80     3739 80     3761 81     3767 80     3769 80
+3779 81      3793 81     3797 81     3803 81     3821 82     3823 80
+3833 82      3847 81     3851 82     3853 82     3863 82     3877 82
+3881 82      3889 81     3907 83     3911 83     3917 82     3919 83
+3923 82      3929 83     3931 83     3943 82     3947 82     3967 83
+3989 83      4001 83     4003 83     4007 83     4013 83     4019 83
+4021 83      4027 83     4049 83     4051 83     4057 83     4073 83
+                                            +16
+4079 84      4091 83     4093 83     4096 68     4099 84     4111 84
+4127 83      4129 84     4133 83     4139 84     4153 84     4157 84
+4159 84      4177 84     4201 84     4211 85     4217 85     4219 85
+4229 84      4231 85     4241 85     4243 85     4253 85     4259 85
+4261 85      4271 85     4273 85     4283 86     4289 86     4297 85
+4327 86      4337 85     4339 85     4349 85     4357 86     4363 86
+4373 86      4391 87     4397 87     4409 87     4421 85     4423 87
+4441 86      4447 86     4451 86     4457 87     4463 88     4481 87
+4483 88      4489 87     4493 88     4507 88     4513 88     4517 88
+
+                                   48
+Table 4. Continue 3
+ q nq (4, 3) q nq (4, 3) q nq (4, 3) q nq (4, 3) q nq (4, 3) q nq (4, 3)
+4519 89      4523 89     4547 88     4549 89     4561 89     4567 89
+4583 89      4591 88     4597 89     4603 88     4621 88     4637 88
+4639 89      4643 89     4649 89     4651 89     4657 90     4663 89
+4673 90      4679 88     4691 89     4703 89     4721 90     4723 90
+4729 89      4733 89     4751 90     4759 90     4783 90     4787 89
+4789 89      4793 89     4799 91     4801 89     4813 91     4817 89
+4831 90      4861 89     4871 90     4877 90     4889 90     4903 91
+                    +17
+4909 90      4913 72     4919 90     4931 90     4933 91     4937 90
+4943 91      4951 91     4957 90     4967 91     4969 91     4973 90
+4987 90      4993 92     4999 92     5003 91     5009 92     5011 92
+5021 91      5023 91     5039 91     5041 91     5051 91     5059 92
+5077 91      5081 92     5087 92     5099 93     5101 92     5107 93
+5113 93      5119 91     5147 92     5153 93     5167 92     5171 93
+5179 93      5189 93     5197 93     5209 92     5227 92     5231 93
+5233 93      5237 93     5261 93     5273 93     5279 94     5281 93
+5297 93      5303 94     5309 93     5323 93     5329 94     5333 93
+5347 94      5351 94     5381 94     5387 93     5393 95     5399 95
+5407 94      5413 94     5417 94     5419 95     5431 94     5437 93
+5441 94      5443 93     5449 93     5471 94     5477 94     5479 95
+5483 95      5501 95     5503 95     5507 94     5519 96     5521 95
+5527 95      5531 95     5557 94     5563 95     5569 95     5573 95
+5581 94      5591 96     5623 95     5639 95     5641 96     5647 96
+5651 95      5653 96     5657 95     5659 96     5669 95     5683 96
+5689 96      5693 97     5701 96     5711 96     5717 97     5737 96
+5741 95      5743 95     5749 97     5779 96     5783 96     5791 96
+5801 94      5807 96     5813 96     5821 97     5827 97     5839 96
+5843 97      5849 96     5851 97     5857 97     5861 97     5867 97
+5869 98      5879 97     5881 97     5897 97     5903 97     5923 97
+5927 97      5939 97     5953 98     5981 97     5987 98     6007 98
+6011 98      6029 97     6037 98     6043 99     6047 98     6053 98
+6067 99      6073 99     6079 98     6089 99     6091 97     6101 98
+6113 99      6121 99     6131 98     6133 97     6143 98     6151 98
+6163 99      6173 99     6197 100    6199 100    6203 98     6211 100
+6217 99      6221 100    6229 99     6241 100    6247 99     6257 100
+6263 100     6269 100    6271 100    6277 98     6287 100    6299 100
+6301 99      6311 99     6317 100    6323 100    6329 100    6337 101
+6343 100     6353 100    6359 100    6361 99     6367 101    6373 100
+6379 100     6389 101    6397 101    6421 101    6427 101    6449 101
+6451 101     6469 100    6473 101    6481 101    6491 101    6521 101
+6529 100     6547 102    6551 102    6553 101    6561 102    6563 100
+6569 101     6571 102    6577 101    6581 101    6599 101    6607 101
+
+
+                                   49
+Table 4. Continue 4
+ q nq (4, 3) q nq (4, 3) q nq (4, 3) q nq (4, 3) q nq (4, 3) q nq (4, 3)
+6619 101     6637 102    6653 102    6659 102    6661 102    6673 102
+6679 103     6689 102    6691 102    6701 102    6703 100    6709 102
+6719 102     6733 102    6737 102    6761 101    6763 102    6779 103
+6781 103     6791 102    6793 103    6803 102    6823 103    6827 103
+6829 102     6833 103    6841 101    6857 103    6859 102    6863 102
+6869 103     6871 103    6883 104    6889 102    6899 103    6907 103
+6911 104     6917 103    6947 102    6949 103    6959 103    6961 103
+6967 104     6971 102    6977 103    6983 103    6991 104    6997 103
+7001 104     7013 104    7019 104    7027 105    7039 104    7043 103
+7057 105
+
+
+
+
+                                   50
+     Table 5. Lengths nq (5, 3) of the shortest known [nq (5, 3), nq (5, 3) − 5]q 3 codes ob-
+tained by the leximatrix and Rand-Greedy algorithms; nq (5, 3) = min{nLq (5, 3), nG   q (5, 3)}
+for 3 ≤ q ≤ 401; nq (5, 3) = nq (5, 3, 5) = nLq (5, 3) for 401 < q ≤ 839. The improvements
+of code length in comparison with [20, Tab. 2] are noted in bold italic font. The cases
+`q (5, 3) = nq (5, 3) are noted by the subscript “•”
+q     nq (5, 3) q nq (5, 3) q nq (5, 3) q nq (5, 3) q nq (5, 3) q nq (5, 3) q nq (5, 3)
+  3      8•       4 9•        5 10•       7 13        8 14        9 16       11 18
+ 13      21      16 24       17 25       19 27       23 32       25 34       27 36
+ 29      38      31 40       32 41      37 47       41 51       43 52        47 56
+ 49      58      53 61       59 67       61 68       64 71       67 73       71 76
+ 73      78      79 83       81 85       83 85       89 90       97 96      101 99
+103     100     107 103     109 104     113 108     121 113     125 116     127 117
+128     119     131 119     137 123     139 125     149 131     151 132     157 136
+163     140     167 142     169 145     173 146     179 150     181 151     191 157
+193     158     197 161     199 162     211 169     223 177     227 179     229 180
+233     183     239 185     241 188     243 188     251 193     256 195     257 197
+263     200     269 203     271 204     277 208     281 209     283 211     289 213
+293     216     307 224     311 226     313 227     317 230     331 237     337 240
+343     243     347 245     349 245     353 248     359 251     361 254     367 256
+373     261     379 262     383 264     389 267     397 273     401 274     409 284
+419     292     421 290     431 297     433 299     439 301     443 304     449 309
+457     311     461 311     463 309     467 314     479 320     487 324     491 324
+499     328     503 330     509 334     512 334     521 339     523 341     529 344
+541     348     547 349     557 353     563 360     569 364     571 362     577 365
+587     371     593 374     599 375     601 376     607 376     613 380     617 384
+619     382     625 385     631 387     641 393     643 398     647 396     653 399
+659     402     661 401     673 407     677 407     683 411     691 416     701 417
+709     424     719 427     727 430     729 430     733 429     739 431     743 436
+751     439     757 440     761 443     769 447     773 450     787 453     797 458
+809     464     811 464     821 467     823 468     827 471     829 473     839 475
+
+
+
+
+                                              51
+

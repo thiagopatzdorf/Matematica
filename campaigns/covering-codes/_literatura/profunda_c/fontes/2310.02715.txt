@@ -1,0 +1,1426 @@
+                                            Further results on covering codes with radius R and
+arXiv:2310.02715v2 [math.CO] 1 Mar 2024
+
+
+
+
+                                                            codimension tR + 1 ∗
+
+
+
+                                                                           Alexander A. Davydov
+                                                    Kharkevich Institute for Information Transmission Problems
+                                                  Russian Academy of Sciences, Moscow, 127051, Russian Federation
+                                                              E-mail address: alexander.davydov121@gmail.com
+                                                            Stefano Marcugini and Fernanda Pambianco
+                                                Department of Mathematics and Computer Science, Perugia University,
+                                                                      Perugia, 06123, Italy
+                                                     E-mail address: {stefano.marcugini, fernanda.pambianco}@unipg.it
+
+                                              Abstract. The length function ℓq (r, R) is the smallest possible length n of a q-ary
+                                          linear [n, n − r]q R code with codimension (redundancy) r and covering radius R. Let
+                                          sq (N, ρ) be the smallest size of a ρ-saturating set in the projective space PG(N, q). There
+                                          is a one-to-one correspondence between [n, n − r]q R codes and (R − 1)-saturating n-sets
+                                          in PG(r − 1, q) that implies ℓq (r, R) = sq (r − 1, R − 1). In this work, for R ≥ 3, new
+                                          asymptotic upper bounds on ℓq (tR + 1, R) are obtained in the following form:
+
+                                                      • ℓq (tR + 1, R) = sq (tR, R − 1)
+                                                            r
+                                                                R!       (r−R)/R
+                                                                                   p
+                                                                                     ln q + o(q (r−R)/R ), r = tR + 1, t ≥ 1,
+                                                            R                      R
+                                                        ≤            · q         ·
+                                                              RR−2
+                                                        q is an arbitrary prime power, q is large enough;
+                                                                                                      r
+                                                                                                       R   R!    1
+                                                      • if additionally R is large enough, then             R−2
+                                                                                                                ∼ ≈ 0.3679.
+                                                                                                          R      e
+                                          The new bounds are essentially better than the known ones.
+                                            ∗
+                                              The research of S. Marcugini and F. Pambianco was supported in part by the Italian National
+                                          Group for Algebraic and Geometric Structures and their Applications (GNSAGA - INDAM) (Contract
+                                          No. U-UFMBAZ-2019-000160, 11.02.2019) and by University of Perugia (Project No. 98751: Strutture
+                                          Geometriche, Combinatoria e loro Applicazioni, Base Research Fund 2017–2019; Fighting Cybercrime
+                                          with OSINT, Research Fund 2021).
+
+                                                                                         1
+   For t = 1, a new construction of (R − 1)-saturating sets in the projective space
+PG(R, q), providing sets of small sizes, is proposed. The [n, n−(R+1)]q R codes, obtained
+by the construction, have minimum distance R + 1, i.e. they are almost MDS (AMDS)
+codes. These codes are taken as the starting ones in the lift-constructions (so-called “q m -
+concatenating constructions”) for covering codes to obtain infinite families of codes with
+growing codimension r = tR + 1, t ≥ 1.
+   Keywords: Covering codes, The length function, Saturating sets in projective spaces
+   Mathematics Subject Classification (2010). 94B05, 51E21, 51E22
+
+
+1     Introduction
+Let Fqn be the n-dimensional vector space over the Galois field Fq with q elements. The
+sphere of radius R with center c in Fqn is the set {v : v ∈ Fqn , d(v, c) ≤ R} where d(v, c)
+is the Hamming distance between the vectors v and c. A linear code in Fqn with covering
+radius R, codimension (redundancy) r, and minimum distance d is an [n, n − r, d]q R code.
+If d is not relevant it can be omitted. The value R is the smallest integer such that the
+space Fqn is covered by the spheres of radius R centered at the codewords. Every vector
+in Fqr is equal to a linear combination of at most R columns of a parity check matrix of
+the code. For an introduction to coding theory, see [3,26,30]. An [n, n − r, d]q R code with
+d = r is an almost MDS (AMDS) code, see e.g. [1, 16, 19, 31] and the references therein.
+    The minimum possible length n such that an [n, n−r]q R code exists is called the length
+function and is denoted by ℓq (r, R). If R and r are fixed, then the covering problem for
+codes is finding codes of small length. Codes investigated from the point of view of
+the covering problem are called covering codes. Studying covering codes is a classical
+combinatorial problem. Covering codes are connected with many theoretical and applied
+areas, see e.g. [7, Section 1.2], [12, Introduction], [6], and the references therein. For an
+introduction to covering codes, see [5, 7, 9, 22, 29, 34].
+    This paper is devoted to the asymptotic upper bound on the length function ℓq (tR +
+1, R), t ≥ 1, when q is a large enough arbitrary prime power.
+    Let PG(N, q) be the N-dimensional projective space over the Galois field Fq . We will
+say “N-space” (or “M-subspace”) when the value of q is clear by the context; M points
+of PG(N, q) are said to be in general position if they generate an (M − 1)-subspace. A
+point of PG(N, q) in homogeneous coordinates can be considered as a vector of FN         q
+                                                                                           +1
+                                                                                              .
+Points in general position correspond to linear independent vectors.
+    Effective methods to obtain upper bounds on the length function ℓq (r, R) are connected
+with saturating sets in PG(N, q). A point set S ⊆ PG(N, q) is ρ-saturating if any point
+A ∈ PG(N, q) lies in a ρ-subspace of PG(N, q) generated by ρ + 1 points of S and ρ is the
+smallest value with this property. Every point A ∈ PG(N, q) can be written as a linear
+combination of at most ρ + 1 points of S. In the literature, saturating sets are also called
+
+
+                                              2
+“saturated sets”, “spanning sets”, and “dense sets”.
+    Let sq (N, ρ) be the smallest size of a ρ-saturating set in PG(N, q). If the positions
+of a column of a parity check matrix of an [n, n − r]q R code are treated as homogeneous
+coordinates of a point in PG(r − 1, q), then this matrix is an (R − 1)-saturating n-set in
+PG(r −1, q), and vice versa. So, there is a one-to-one correspondence between [n, n−r]q R
+codes and (R − 1)-saturating n-sets in PG(r − 1, q). This implies
+                                 ℓq (r, R) = sq (r − 1, R − 1).                            (1.1)
+For an introduction to geometries over finite fields and their connections with coding
+theory, see [3, 9, 20, 21, 24, 25, 28] and the references therein.
+    Throughout the paper, c is a constant independent of q but it is possible that c is
+dependent on r and R. In the latter case, R can be used as a subscript of c. Also, the
+superscripts “new” and “knw” (i.e. “known”) are possible.
+    In [2, 11], [17, Proposition 4.2.1], see also the references therein, lower bounds of the
+following form are considered:
+                            ℓq (r, R) ≥ cq (r−R)/R , R and r fixed.                        (1.2)
+In [9], the bound (1.2) is given in another (asymptotic) form.
+    In the literature, the bound (1.2) is achieved for special values of r, R, q:
+                                                                              ′
+        r 6= tR, q = (q ′ )R [9, 17, 18, 23]; R = sR′ , r = tR + s, q = (q ′ )R [9, 10];
+        r = tR, q is an arbitrary prime power [9, 10, 14, 15];
+where t, s are integers and q ′ is a prime power.
+    In the general case, for arbitrary r, R, q, in particular when r 6= tR and q is an arbitrary
+prime power, the problem of achieving the bound (1.2) is open.
+    For r = tR + 1, R ≥ 2, t ≥ 1, in [2, 11–13, 32], see also the references therein, upper
+bounds of the following forms are obtained:
+                                p
+ ℓq (tR + 1, R) ≤ cq (r−R)/R · R ln q, q is an arbitrary prime power, q > q0 ,             (1.3)
+        q0 is a fixed value that depends on the approach used to obtain the bound;
+                                    p
+ ℓq (tR + 1, R) ≤ cknw
+                     R  q (r−R)/R
+                                  · R
+                                      ln q + o(q (r−R)/R ), q is an arbitrary prime power, (1.4)
+        q is large enough.
+In the bounds√(1.3), (1.4), the “price” of the non-restricted structure of q is the relatively
+small factor R ln q. The bound (1.4) is an asymptotic upper bound.
+    For R ≥ 3, the smallest known constants cknwR   are obtained in [12, 13] where we have
+          √   3
+               p18 ≈ 2.6207      if R = 3, r = 3t + 1 [13]
+   knw      R R
+  cR = R−1 R(R − 1) · R! if R ≥ 3, r = R + 1 [12, equations (3.1), (6.18)] . (1.5)
+         
+                   3.43R          if R ≥ 3, r = tR + 1, t ≥ 2 [12, equation (3.13)]
+
+                                               3
+  In this paper, for R ≥ 3, we obtain new asymptotic upper√bounds in the form (1.4).
+We essentially decrease the known constants before q (r−R)/R · R ln q. We denote
+                                          r
+                                    new    R  R!
+                                   cR ,            .                             (1.6)
+                                             RR−2
+   Lemma 3.7 states that
+                                           r
+                                                R!    1
+                         lim cnew
+                                           R
+                              R   = lim          R−2
+                                                     = ≈ 0.3679.                       (1.7)
+                         R→∞         R→∞       R      e
+   Our main result is as follows, see Sections 3, 4:
+
+Theorem 1.1. Let R ≥ 3 be fixed. For the smallest length of a q-ary linear code with
+codimension (redundancy) r = tR + 1 and covering radius R (i.e. for the length function
+ℓq (tR + 1, R)) and for the smallest size sq (tR, R − 1) of an (R − 1)-saturating set in the
+projective space PG(tR, q) the following asymptotic upper bounds hold:
+                                                            p
+    • ℓq (tR + 1, R) = sq (tR, R − 1) ≤ cnew
+                                         R    · q (r−R)/R · R ln q + o(q (r−R)/R ),    (1.8)
+          r = tR + 1, t ≥ 1, q is an arbitrary prime power, q is large enough;
+                                                                              1
+    • if additionally R is large enough, then in (1.8) we have cnew   R    ∼ ≈ 0.3679. (1.9)
+                                                                              e
+The bounds are provided by infinite families of [n, n − r]q R codes of the corresponding
+lengths. For t = 1 the codes have minimum distance d = R + 1 and they are AMDS codes.
+
+   By (1.5)–(1.9), for q large enough, we have
+           √ 3
+                    p
+                18/        3−2 ≈ 2.08 if R = 3, r = 3t + 1, t ≥ 1
+                    q3!/3
+                    3
+           
+           
+           
+            R2 R R−1
+    cknw
+     R                      ≈ R + 1 if R ≥ 4, r = R + 1
+         =      R−1     R
+                        p                                                      .     (1.10)
+    cnew
+     R     
+               3.43R/  R
+                           R!/R R−2    if R ≥  4, r = tR + 1, t ≥ 2
+           
+           
+                 3.43eR ≈ 9.32R        if R is large enough, r = tR + 1, t ≥ 2
+
+By Section 5 and tables in it, cnew
+                                R   (1.6) is upper bounded by a decreasing function of R.
+            knw new
+The ratio cR /cR (1.10) is an increasing function of R. When R increases from 4 to 150,
+then cnew
+       R   decreases from 1.1067 ≈ 0.2767R to 0.4024 ≈ 0.0027R ; cknw
+                                                                   R /cR
+                                                                         new
+                                                                              for r = R + 1
+increases from 4.9632 to 151; and cknwR   /c new
+                                             R   for r = tR + 1, t ≥ 2  (i.e.  3.43R/cnew
+                                                                                       R )
+increases from 12 ≈ 3.1R to 1279 ≈ 8.52R. Moreover, if r = tR + 1, t ≥ 2, and R is large
+enough, then cknw
+                R /cR
+                      new
+                          ≈ 9.32R.
+    So, the new bounds are essentially better than the known ones.
+    We use a geometrical approach to the case t = 1. We propose Construction B obtaining
+a relatively small (R − 1)-saturating n-set in PG(R, q) by a step-by-step algorithm. The
+
+                                               4
+set corresponds to an [n, n − (R + 1), R + 1]q R code. Note that, as the minimum distance
+d = R + 1, the code is AMDS. We estimate the code size that gives the upper bounds on
+sq (R, R − 1) = ℓq (R + 1, R).
+    For t ≥ 2, we use a lift-construction for covering codes. It is a variant of the so-called
+“q m -concatenating constructions” proposed in [8] and developed in [9, 14, 15], see also the
+references therein and [7, Section 5.4]. The q m -concatenating constructions obtain infinite
+families of covering codes with growing codimension using a starting code with a small
+one. The covering density of the codes from the infinite families is approximately the
+same as for the starting code.
+    We take the obtained [n, n − (R + 1), R + 1]q R code as the starting one for the q m -
+concatenating construction and obtain an infinite family of covering codes with growing
+codimension r = tR + 1, t ≥ 1. The family provides the upper bound on ℓq (tR + 1, R).
+    The paper is organized as follows. Section 2 describes Construction B that obtains
+(R − 1)-saturating n-sets in PG(R, q) corresponding to [n, n − (R + 1), R + 1]q R AMDS
+codes. In Section 3, we give estimates of sizes of saturating sets obtained by Construction
+B and the corresponding upper bounds. In Section 4, asymptotic upper bounds on the
+length function ℓq (tR + 1, R) are obtained for growing t ≥ 1. The bounds are provided
+by infinite families of covering codes with growing codimension r = tR + 1, t ≥ 1, created
+by the q m -concatenating construction. In Section 5, we investigate properties of the new
+bounds and show that they are essentially better than the known ones.
+
+
+2     New Construction B of (R − 1)-saturating sets in
+      PG(R, q), R ≥ 3
+In this section, for any q and R ≥ 3, we propose a new Construction B of (R − 1)-
+saturating sets in PG(R, q). It is an essential (non-obvious and non-trivial) modification
+of Construction A of [12]. For Construction B, the points of the (R − 1)-saturating n-
+set in PG(R, q) (in homogeneous coordinates), treated as columns, form a parity check
+matrix of an [n, n − (R + 1), R + 1]q R code. The minimum distance d = R + 1 is provided
+by Construction B. In Section 4, this code is used as a starting one for lift-constructions
+obtaining infinite families of covering codes with growing codimension r = tR + 1, t ≥ 1.
+    We construct an (R − 1)-saturating set in PG(R, q) by a step-by-step iterative process
+adding R new points to the current set in every step.
+
+2.1    Notations and definitions
+• We say that a point P of PG(R, q) is ρ-covered by a point set K ⊂ PG(R, q) if P lies
+in a ρ-subspace generated by ρ + 1 points of K in general positions. In this case, the
+
+
+
+                                              5
+set K ρ-covers the point P . If ρ is clear by the context, one can say simply “covered” and
+“covers” (resp. “uncovered” and “does not cover”).
+    We denote by dim(H) the dimension of a subspace H. Let V1 and V2 be some subspaces
+of PG(N, q). Clearly, dim(V1 ∪ V2 ) ≤ N. By Grassman formula, we have
+
+                    dim(V1 ∩ V2 ) = dim(V1 ) + dim(V2 ) − dim(V1 ∪ V2 ).
+
+This relation is used when we consider intersections of subspaces.
+   Let θN,q = (q N +1 −1)/(q −1) be the number of points in the projective space PG(N, q).
+   Let Au be a point of PG(R, q), u = 1, . . . , θR,q . Point numbers are not fixed before
+the beginning of the iterative process. Points are numbered as they are included in the
+saturating set that we are building.
+   • For the iterative process, let w ≥ 0 be the step number. Let
+
+                              P0,R , {A1 , . . . , AR } ⊂ PG(R, q)                          (2.1)
+
+be a starting R-set such that all its points are in general position. For example, we can
+take R arbitrary points of any arc in PG(R, q) as P0,R . Recall that in PG(R, q), an arc
+is a set of points no R + 1 of which belong to the same hyperplane. Any R + 1 points
+of an arc are in general position. In particular, we can take the points in homogeneous
+coordinates A1 = (1, 0, . . . , 0), A2 = (0, 1, 0, . . . , 0), . . . , AR = (0, . . . , 0, 1, 0).
+                    | {z }                |     {z         }                 |       {z       }
+                        R+1                 R+1                         R+1
+
+   Let Kw be the current (w + 1)R-set obtained after the w-th step of the process. We
+put K0 = P0,R . We have
+                                  #Kw−1 = wR.
+In the w-th step, let
+
+                        Pw,R , {AwR+1 , AwR+2 , . . . , AwR+R }, w ≥ 1,                     (2.2)
+
+be an R-set of points that are added to the current set Kw−1 to obtain the next set Kw ;
+
+      Kw = Kw−1 ∪ Pw,R = P0,R ∪ P1,R ∪ . . . ∪ Pw,R , #Kw = (w + 1)R, w ≥ 1.                (2.3)
+
+We denote
+
+   Pw,i , {AwR+1 , AwR+2 , . . . , AwR+i } ⊆ Pw,R , i = 1, 2, . . . , R, w ≥ 1; Pw,0 , ∅.   (2.4)
+
+We call AwR+1 the w-th leading point.
+   The w-step of the process consists of R sub-steps; on the i-th sub-step we add to
+the current set a point AwR+i . Thus, after the i-th sub-step of the w-step we obtain the
+current set in the form
+
+             Kw−1 ∪ {AwR+1 } ∪ . . . ∪ {AwR+i } = Kw−1 ∪ Pw,i , i = 1, 2, . . . , R.
+
+                                               6
+   To build Pw,1 , . . . , Pw,R, we take a hyperplane of PG(R, q), say Πw , skew to Kw−1 , i.e.
+
+           Πw ⊂ PG(R, q), Πw ∩ Kw−1 = ∅, dim(Πw ) = R − 1, #Πw = θR−1,q .                  (2.5)
+
+In PG(R, q), a blocking set regarding hyperplanes contains at least θ1,q points [4]. There-
+fore the saturating sets with the sizes proved in this paper cannot be a blocking set
+regarding hyperplanes. So, the needed hyperplane Πw exists.
+    We choose all the points of Pw,i , i = 1, 2, . . . , R, from Πw , i.e.
+
+                          Pw,i ⊆ Pw,R ⊂ Πw , i = 1, 2, . . . , R, w ≥ 1.                   (2.6)
+
+   • We denote
+                                                                     
+                                  #Kw−1 + i − 1              wR + i − 1
+                     Bw,i ,                               =              , i ≥ 1.          (2.7)
+                                     R−1                       R−1
+Here #Kw−1 + i − 1 = wR + i − 1 is the size of the current set Kw−1 ∪ Pw,i−1 obtained after
+the (i−1)-th sub-step of the w-th step of the process; remind that Pw,0 , ∅, see (2.4). This
+implies that Bw,i is the number of distinct (R−1)-subsets of the current set Kw−1 ∪Pw,i−1.
+    For the given i ∈ {1, 2, . . . , R}, we consider Bw,i distinct (R − 1)-subsets consisting of
+                                                                      j
+distinct points of Kw−1 ∪ Pw,i−1 . We denote such a subset by Dw,i       with
+     j                       j                                   u       v
+    Dw,i ⊂ Kw−1 ∪ Pw,i−1 , #Dw,i = R − 1, j = 1, . . . , Bw,i , Dw,i 6= Dw,i if u 6= v.    (2.8)
+                    j                            j
+All the points of Dw,i generate a subspace, say Vw,i , which meets Πw in a subspace, say
+ j
+Tw,i . In other words,
+                   j       j               j               j      j
+                  Vw,i , hDw,i i, 1 ≤ dim(Vw,i ) ≤ R − 2, Tw,i , Vw,i ∩ Πw .               (2.9)
+                 j
+The subspace Vw,i   has maximal possible dimension R − 2 if and only if all the points of
+  j
+Dw,i are in general position.
+    By (2.2)–(2.9), if in (2.8) i = R then i − 1 = R − 1, Pw,i−1 = Pw,R−1 , and one and
+                            j
+only one (R − 1)-subset Dw,R    consists entirely of new points AwR+1 , AwR+2 , . . . , AwR+R−1 .
+For definiteness we put here j = 1. As all the new points lie in Πw , see (2.6), we have
+     1                    1      1               1            1
+    Dw,R , Pw,R−1 ⊂ Πw , Tw,R = Vw,R ⊂ Πw , dim(Tw,R ) = dim(Vw,R ) ≤ R − 2.              (2.10)
+
+If 1 ≤ i ≤ R − 1, j = 1, . . . , Bw,i , or i = R, j = 2, . . . , Bw,R , then
+  j                j      j            j      j          j            j
+ Dw,i 6= Pw,i−1 ; Dw,i , Vw,i 6⊂ Πw ; Tw,i ⊂ Vw,i ; dim(Tw,i ) = dim(Vw,i ) − 1 ≤ R − 3. (2.11)
+
+   We denote
+                                    Bw,i
+                                    [       j
+                           Tw,i ,          Tw,i , i = 1, 2, . . . , R; Tw,0 , ∅.          (2.12)
+                                    j=1
+
+
+                                                      7
+                         j                                                   j
+By (2.9), the points of Tw,i are not in general position with the points of Dw,i . Therefore,
+the set Tw,i contains all the points Qk of Πw such that there exists at least one set of
+R − 1 points of Kw−1 ∪ Pw,i−1 which are not in general position with Qk . Thus, the next
+new point AwR+i cannot be taken from Tw,i. If we remove Tw,i from Πw then we can take
+AwR+i from the obtained subset. We denote
+                        Πw,i , Πw \ Tw,i , i = 1, 2, . . . , R; Πw,0 , Πw .              (2.13)
+   We are going to take AwR+i from Πw,i ; this implies, see (2.12), (2.13), that all the
+points of Pw,i , i = 1, 2, . . . , R, belong to Πw,1 , i.e.
+                      Pw,i ⊆ Pw,R ⊂ Πw,1 ⊂ Πw , i = 1, 2, . . . , R, w ≥ 1.              (2.14)
+This will allow us to provide that Pw,R covers all the points of Πw , see Section 2.2 for
+details.
+   • Let Uw be the subset of PG(R, q) \ Kw consisting of the points that are not (R − 1)-
+covered by Kw , w ≥ 0. Let ∆w (Pw,R ) be the number of new covered points in Uw−1 after
+adding Pw,R to Kw−1, w ≥ 1, i.e.
+                             ∆w (Pw,R ) , #Uw−1 − #Uw , w ≥ 1.                           (2.15)
+   We denote δw (AwR+1 ) the number of new covered points in Uw−1 \ Πw after adding
+the w-th leading point AwR+1 to Kw−1 . By (2.14), the points of Πw,1 are candidates to
+be AwR+1 , see Sections 2.2 and 2.3 for details. Let Sw be the sum of the number of new
+covered points in Uw−1 \ Πw over all points P of Πw,1, i.e.
+                                           X
+                                   Sw ,          δw (P ).                         (2.16)
+                                              P ∈Πw,1
+
+
+2.2     The construction of the R-set Pw,R
+Lemma 2.1. Let i ∈ {1, 2, . . . , R}, w ≥ 1. Let any R points of Kw−1 ∪ Pw,i−1 are in
+general position. Then the following holds:
+                       j
+(i) All the points of Dw,i , j = 1, . . . , Bw,i , are in general position.
+                   j
+(ii) The subspace Vw,i has maximal possible dimension R − 2, i.e.
+             j       j           j                j
+            Vw,i , hDw,i i, dim(Vw,i ) = R − 2, #Vw,i = θR−2,q , j = 1, . . . , Bw,i .   (2.17)
+                         j
+      All the subspaces Vw,i are distinct, i.e.
+                                           u       v
+                                          Vw,i 6= Vw,i if u 6= v.                        (2.18)
+                      j
+      The subspace Tw,i  entirely lies in the hyperplane Πw and has dimension R − 2, if
+                                 j
+      i = R, j = 1; otherwise Tw,i  intersects Πw and has dimension R−3. In other words,
+                   1      1               1                1
+                  Tw,R = Vw,R ⊂ Πw , dim(Tw,R ) = R − 2, #Tw,R = θR−2,q ;                (2.19)
+
+                                                 8
+                  j      j               j                j
+                 Tw,i , Vw,i ∩ Πw , dim(Tw,i ) = R − 3, #Tw,i = θR−3,q ,                      (2.20)
+                 if 1 ≤ i ≤ R − 1, j = 1, . . . , Bw,i , or i = R, j = 2, . . . , Bw,R.
+
+                                      j                                   SBw,i    j
+      The union of the subspaces Tw,i   with a fixed i, i.e. Tw,i ,        j=1    Tw,i , has the size
+      lying in the following regions:
+                         θR−3,q ≤ #Tw,i ≤ Bw,i θR−3,q if 1 ≤ i ≤ R − 1;                       (2.21)
+                                                                R−2
+                         θR−2,q ≤ #Tw,R ≤ Bw,R θR−3,q + q             .                       (2.22)
+
+      The subset of the hyperplane Πw obtained by moving of Tw,i , i.e. Πw,i , Πw \ Tw,i ,
+      has the size lying in the following regions:
+                                           R               
+           R−2                               q −1
+         q     (q + 1) ≥ #Πw,i ≥ θR−3,q               − Bw,i if 1 ≤ i ≤ R − 1;      (2.23)
+                                            q R−2 − 1
+                                    R                 
+           R−1                        q −1
+         q      ≥ #Πw,R ≥ θR−3,q                − Bw,R − q R−2
+                                     q R−2 − 1
+                    R                      (
+                       q −  1                            R0            if R = 3
+          = q R−3             − Bw,R − q +                q −1                    . (2.24)
+                     q R−2 −1                     θR−4,q qR−2 −1 − Bw,R if R ≥ 4
+
+      We have the following embeddings:
+                               Tw,i ⊆ Tw,i+1, i 6= R; Πw,i ⊆ Πw,i−1 .                         (2.25)
+
+(iii) Let #Πw,i ≥ 1. Any point of Πw,i = Πw \ Tw,i is in general position with any R − 1
+      points of Kw−1 ∪ Pw,i−1 .
+(iv) Let #Πw,i ≥ 1. Let AwR+i be any point of Πw,i . Then any R points of Kw−1 ∪
+     Pw,i−1 ∪ {AwR+i } = Kw−1 ∪ Pw,i (and, in particular, of Kw−1 ∪ Pw,R−1 ∪ {AwR+R } =
+     Kw−1 ∪ Pw,R = Kw ) are in general position.
+Proof. (i) The assertion follows from the hypothesis and from (2.7), (2.8).
+(ii) The assertions follow from the case (i) and from the constructions (2.7)–(2.13). In
+      (2.23) and (2.24) we do simple transformations. About (2.18) we note that if u 6= v
+            u      v            u      v       u      v             u        v
+      but Vw,i = Vw,i , then Dw,i 6= Dw,i , #(Dw,i ∪ Dw,i ) ≥ R, hDw,i i = hDw,i i. Therefore,
+               u        v                                                                 u
+      the set Dw,i ∪ Dw,i , belonging to Kw−1 ∪ Pw,i−1 , lies in the (R − 2)-subspace hDw,i  i
+      and any R of its points are not in general positions; contradiction with hypothesis.
+                                                 j         j
+(iii) By the construction (2.9), the points of Vw,i and Tw,i are not in general position with
+                     j
+      the points of Dw,i . By (2.9), (2.12), the set Tw,i contains all the points of Πw such
+      that for every point there exist at least one set of R − 1 points of Kw−1 ∪ Pw,i−1
+      which are not in general position with it. The assertion follows.
+
+                                                9
+(iv) It follows from the case (iii).
+
+
+Corollary 2.2. Let w ≥ 1. Let #Πw,i ≥ 1, i = 1, 2, . . . , R. Assume that we form the
+R-set Pw,R of (2.2), obtaining sequentially the sets Pw,1 , Pw,2 , . . . , Pw,R of (2.4) so that
+the point AwR+i is taken from Πw,i of (2.13), i.e.
+
+                           AwR+i ∈ Πw,i , w ≥ 1, i = 1, 2, . . . , R.                    (2.26)
+
+Then for all w ≥ 1 and all i = 1, 2, . . . , R+1, any R points of Kw−1 ∪Pw,i−1 (in particular,
+of Kw−1 ∪ Pw,R = Kw ) are in general position.
+Proof. By (2.1) and (2.4), for w = 1, i = 1, any R points of Kw−1 ∪ Pw,i−1 = K0 ∪ P1,0 =
+K0 ∪ ∅ = P0,R are in general position. Then the assertions can be proved by induction on
+w and i by using Lemma 2.1.
+Remark 2.3. To provide the assertions of Corollary 2.2, it is sufficient to take any point
+of Πw,1 as the w-th leading point AwR+1 . However, to obtain a small saturating set, the
+leading point should have also some other additional properties, see Section 2.3.
+Corollary 2.4. Under the conditions of Corollary 2.2, the R-set Pw,R covers all the points
+of the hyperplane Πw .
+Proof. We use Corollary 2.2 and (2.14).
+Corollary 2.5. To guarantee the condition #Πw,i ≥ 1, it is sufficient that
+                               
+                      qR − 1      Bw,i      if 1 ≤ i ≤ R − 1
+                             >                                   .                       (2.27)
+                    q R−2 −1      Bw,R + q if i = R
+
+Proof. The assertion follows from (2.23) and (2.24).
+
+2.3    The choice of the w-th leading point AwR+1 ∈ Πw,1
+Assume that i = 1, w ≥ 1, and any R points of Kw−1 ∪ Pw,1−1 = Kw−1 ∪ ∅ = Kw−1 are in
+general position. Let #Πw,1 ≥ 1, see Corollary 2.5.
+   To investigate the sum of the number of new covered points in Uw−1 \ Πw over all
+points P of Πw,1, Sw (2.16), we fix a point B ∈ Uw−1 \ Πw , i.e. B is not covered by Kw−1
+and B ∈/ Πw .
+                                                                           j
+   Let j = 1, . . . , Bw,1 . By Lemma 2.1(i), all the points of the R-set Dw,1 ∪ {B} are in
+                                                                            j
+general position, otherwise B would be covered by Kw−1. The points of Dw,1 ∪ {B} define
+a hyperplane, say Σjw,B , with
+
+      Σjw,B , hDw,1
+                j
+                    ∪ {B}i ⊂ PG(R, q), dim(Σjw,B ) = R − 1, #Σjw,B = θR−1,q .            (2.28)
+
+                                              10
+As B ∈ / Πw , we have Σjw,B 6= Πw . So, the hyperplanes Σjw,B and Πw intersect. The
+intersection of Σjw,B and Πw is an (R − 2)-subspace, say Γjw,B , such that
+
+                Γjw,B , Σjw,B ∩ Πw , dim(Γjw,B ) = R − 2, #Γjw,B = θR−2,q .             (2.29)
+                                                    j
+    By (2.9), (2.17), (2.28), the (R−2)-subspace Vw,1   lies in Σjw,B . As the (R−2)-subspaces
+  j
+Vw,1 and Γjw,B lie in the same hyperplane Σjw,B they meet in some (R − 3)-subspace. This
+                         j
+(R − 3)-subspace is Tw,1    since Γjw,B ⊂ Πw , see (2.29), and Tw,1 j       j
+                                                                        = Vw,1  ∩ Πw ⊂ Πw , see
+(2.20). Thus,
+                                  j     j             j
+                                Tw,1 = Vw,1 ∩ Πw = Vw,1  ∩ Γjw,B .                      (2.30)
+   The average value δwaver of the number of new covered points in Uw−1 \ Πw after adding
+P to Kw−1 , δw (P ), over all points of Πw,1 is (see (2.16), (2.23))
+                                           P                  P
+                                                  δw (P )           δw (P )
+                                 Sw      P ∈Π w,1          P ∈Π w,1
+                       δwaver ,        =                  ≥ R−2             .       (2.31)
+                                #Πw,1       #Πw,1           q     (q + 1)
+
+Obviously, there exists a non-empty subset of Πw,1 such that for every its point P we
+have δw (P ) ≥ δwaver . Any point from this subset can be taken as the w-th leading point
+AwR+1 ∈ Πw,1 . So,                      P               P
+                                             δw (P )        δw (P )
+                                        P ∈Πw,1            P ∈Πw,1
+                        δw (AwR+1 ) ≥                  ≥                   .            (2.32)
+                                           #Πw,1           q R−2 (q + 1)
+
+2.4    Stages of the iterative process of Construction B
+The iterative process for the construction of an (R − 1)-saturating set is as follows:
+
+   • We assign the starting set P0 in accordance with (2.1) and put w = 0, K0 = P0 .
+
+   • In every w-th step, w ≥ 1, we do the following:
+
+      •• Choose a hyperplane Πw of PG(R, q) skew to Kw−1 , see (2.5).
+      •• Sequentially execute R sub-steps with i = 1, 2, . . . , R.
+                                          j                    j     j
+      • • • Put i = 1. Form the sets Dw,1    , the subspaces Vw,1 , Tw,1 , the set Tw,1, and
+           the subset Πw,1 ⊂ Πw , in accordance with (2.8), (2.9), (2.11)–(2.13). Choose
+           the w-th leading point AwR+1 from Πw,1 in accordance with Section 2.3. This
+           provides that any R points from Kw−1 ∪ {AwR+1 } are in general position, see
+           Corollary 2.2. Also, this gives a base to obtain a saturating set of small size,
+           see (2.31), (2.32).
+
+
+                                                  11
+                                                                 j                    j      j
+      • • • For i = 2, 3, . . . , R, sequentially form the sets Dw,i , the subspaces Vw,i , Tw,i ,
+           the set Tw,i , and the subset Πw,i ⊂ Πw , in accordance with (2.8)–(2.13), and
+           choose the point AwR+i from Πw,i in accordance with Corollary 2.2. This forms
+           the R-set Pw,R ⊂ Πw and the new current set Kw = Kw−1 ∪ Pw,R any R points
+           of which are in general position, see Corollary 2.2, Also, this provides that Pw,R
+           covers all points of Πw , see Corollary 2.4.
+      •• Count (or make an estimate of) the values of ∆w (Pw,R ) and #Uw , see (2.15)
+          and Section 3.
+    • The process ends when #Uw ≤ R. Finally, in the last (w + 1)-st step, we add to
+      Kw at most R uncovered points to obtain an (R − 1)-saturating set.
+    Note that in Construction B proposed in this paper, in every w-th step we provide that
+any R points of the current set Kw are in general position , whereas in Construction A
+of [12] only the points of the starting set are guaranteed to have this property. This
+explains the improvement of the upper bounds obtained in this paper.
+Example 2.6. Let R = 3. Then, see (2.1), P0,3 , {A1 , A2 , A3 } ⊂ PG(3, q); A1 =
+(1, 0, 0, 0), A2 = (0, 1, 0, 0), A3 = (0, 0, 1, 0). Also, K0 = P0,3 and #Kw−1 = 3w. By (2.2)–
+(2.4), Pw,1 = {A3w+1 }, Pw,2 = {A3w+1 , A3w+2 }, Pw,3 = {A3w+1 , A3w+2, A3w+3 } where
+A3w+1 is the w-th leading point.
+    The w-step of the process consists of 3 sub-steps; on the i-th sub-step we add to the
+current set a point A3w+i . After the i-th sub-step of the w-step we obtain the current set
+in the form Kw−1 ∪ {A3w+1 } ∪ . . . ∪ {A3w+i } = Kw−1 ∪ Pw,i , i = 1, 2, 3.                      
+    The hyperplane Πw , skew to Kw−1 , is a plane of size q 2 + q + 1; Bw,i = 3w+i−1          2
+                                                                                                   is the
+number of distinct pairs points of the current set Kw−1 ∪ Pw,i−1 , i = 1, 2, 3. Such pairs are
+                 j                                                               j
+denoted by Dw,i    , j = 1, . . . , Bw,i ; they generate Bw,i distinct lines Vw,i    , see (2.18).
+    Let i = 1. By construction, any 3 points of Kw−1 ∪ Pw,1−1 = Kw−1 ∪ ∅ = Kw−1 are in
+                                       j                                           j
+general position. Every line Vw,1          meets the plane Πw in the point Tw,1        . We remove the
+                 SBw,1 j
+union Tw,1 = j=1 Tw,1 of these points from the plane Πw and obtain Πw,1 = Πw \ Tw,1.
+Then we choose the w-th leading point A3w+1 from Πw,1 in accordance with Section 2.3.
+The choice of A3w+1 from Πw,1 provides that any 3 points from Kw−1 ∪ {A3w+1 } are in
+general position, see Corollary 2.2. Moreover, we take a point of Πw,1 providing (2.31),
+(2.32), that gives a base to obtain a saturating set of small size.
+    Let i = 2. By above, any 3 points of Kw−1 ∪ Pw,2−1 = Kw−1 ∪ {A3w+1 } are in
+                                         j                                j
+general position. Every line Vw,2            meets Πw in the point Tw,2     . We remove the union
+          SBw,2 j
+Tw,2 = j=1 Tw,2 from Πw and obtain Πw,2 = Πw \ Tw,2. Then we take any point from
+Πw,2 as A3w+2 that provides that any 3 points from Kw−1 ∪ {A3w+1 , A3w+2 } are in general
+position, see Corollary 2.2.
+    Let i = 3. By above, any 3 points of Kw−1 ∪ Pw,3−1 = Kw−1 ∪ {A3w+1 , A3w+2 } are in
+                                     1                 1       1
+general position. The 2-set Dw,3         and the line Vw,3 = hDw,3 i lie in the plane Πw that implies
+
+                                                   12
+  1      1                                  j                        j
+Tw,3 = Vw,3 ⊂ Πw . For j ≥ 2, every line Vw,3 meets Πw in the point Tw,3 . We remove the
+              SBw,3 j
+union Tw,3 = j=1 Tw,3 from Πw and obtain Πw,3 = Πw \ Tw,3. Then we take any point
+from Πw,3 as A3w+3 that provides that any 3 points from Kw−1 ∪ {A3w+1 , A3w+2 , A3w+3 }
+are in general position, see Corollary 2.2.
+
+
+3     Estimates of sizes of the saturating sets obtained
+      by Construction B. Upper bound on the length
+      function ℓq (R + 1, R)
+3.1    Estimates of the size of δw (AwR+1)
+We estimate the number of new covered points in Uw−1 \ Πw after adding the w-th leading
+point AwR+1 to Kw−1 , δw (AwR+1 ), counting how many times an uncovered point is covered
+when adding AwR+1 to Kw−1.
+   We consider the relations (2.28)–(2.30) and a point B ∈ Uw−1 \ Πw , see Section 2.3.
+                            j                                                   j
+Recall that the points of Tw,1 are not in general position with the points of Dw,1 . We
+denote
+                                    bj = Γj \ Tw,1
+                                    Γ              j
+                                                     .                              (3.1)
+                                      w,B    w,B
+
+               bj is in general position with the points of D j ; also,
+Every point of Γ w,B                                         w,1
+
+                               bj = θR−2,q − θR−3,q = q R−2 .
+                              #Γ w,B
+
+
+By construction, the q R−2 -set Γbj is the affine point set of the (R − 2)-subspace Γj .
+                                    w,B                                                     w,B
+    Thus, the hyperplane Σjw,B = hDw,1  j
+                                            ∪ {B}i is generated q R−2 times when we add in
+sequence all the points of Πw,1 ⊂ Πw to Kw−1 for the calculation of Sw (2.16).
+                                          j                                     u        v
+    The above is true for all Bw,1 sets Dw,1  . Moreover, consider the sets Dw,1    and Dw,1 with
+                                     u      v                    u                     v
+u 6= v. By the definition (2.8), Dw,1 6= Dw,1. The points of Dw,1 ∪ {B} (resp. Dw,1 ∪ {B})
+define a hyperplane Σuw,B (resp. Σvw,B ). No points of Dw,1v       u
+                                                              \ Dw,1  lie in Σuw,B , otherwise B
+would be (R − 1)-covered by Kw−1 . So, the hyperplanes Σuw,B and Σvw,B are distinct. If
+the corresponding (R − 2)-subspaces Γuw,B = Σuw,B ∩ Πw and Γvw,B = Σvw,B ∩ Πw coincide
+with each other, then Σuw,B and Σvw,B have no common points outside Πw , contradiction
+as B ∈/ Πw . Thus, Γuw,B 6= Γvw,B .
+    We have proved that in Πw,1 ⊂ Πw we have Bw,1 distinct (R − 2)-subspaces Γjw,B in
+                                 bj of affine points gives rise to hyperplanes containing B.
+every of which the q R−2 -subset Γ  w,B
+                                                                          BSw,1
+    Thus, for the calculation of Sw , the point B will be counted #             bj times. The
+                                                                                Γ w,B
+                                                                          j=1
+
+
+
+
+                                               13
+same holds for all points of Uw−1 \ Πw . Therefore,
+                                                                          Bw,1
+                                X                       X                 [
+                        Sw =             δw (P ) =                    #          bj .
+                                                                                 Γ                  (3.2)
+                                                                                   w,B
+                               P ∈Πw,1               B∈Uw−1 \Πw           j=1
+
+   By (2.32), (3.2), for δw (AwR+1 ) we have
+                                     P                           P               BS
+                                                                                  w,1
+                                             δw (P )                        #           bj
+                                                                                        Γ w,B
+                                   P ∈Πw,1                 B∈Uw−1 \Πw            j=1
+                   δw (AwR+1 ) ≥                       =                                        .   (3.3)
+                                   q R−2 (q + 1)                  q R−2 (q + 1)
+We denote
+                                                               Bw,1
+                                                               [
+                                Gmin                                  bj .
+                                 w ,          min          #          Γ w,B                         (3.4)
+                                           B∈Uw−1 \Πw
+                                                               j=1
+
+By (3.3), (3.4),
+                                               Gmin
+                                                w · #(Uw−1 \ Πw )
+                            δw (AwR+1 ) ≥                         .                                 (3.5)
+                                                    q R−2 (q + 1)
+                      wR
+                         
+Lemma 3.1. Let Bw,1 = R−1  ≤ q + 1. The following holds:
+                                                           
+   min   R−3          1 1            R−3    wR           1 1 wR
+  Gw ≥ q     Bw,1 q + − Bw,1 = q                    q+ −            .                               (3.6)
+                      2 2                  R−1           2 2 R−1
+Proof. By (2.7), (2.27), if Bw,1 − 1 ≤ q then, obviously, #Πw,1 ≥ 1.
+    For some n, we consider n of the q R−2 -sets Γ    bj of (3.1). All the sets are distinct.
+                                                       w,B
+            bu = Γ
+In fact, if Γ       bv , u 6= v, then Γ  bu ⊂ Γu ∩ Γv that implies q R−2 = #Γ            bu <
+              w,B     w,B                 w,B       w,B     w,B                           w,B
+#(Γuw,B ∩ Γvw,B ) = θR−3,q , contradiction.
+    As Γbu and Γ  bv are the affine point sets of distinct (R − 2)-spaces, they have at most
+         w,B       w,B
+q R−3 points in common, i.e. #(Γ   bu ∩ Γ bv ) ≤ q R−3 .
+                                    w,B     w,B
+                     b u      b v
+    Assume that #(Γw,B ∩ Γw,B ) = q     R−3                                                bj ,
+                                            , for all pairs (u, v), and that, in every set Γ w,B
+                                                                       Sn
+all the intersection points are distinct; it is the worst case for #      b j
+                                                                          Γw,B .
+                                                                                        j=1
+    In every set Γbj , the number of the affine point sets intersecting it is n − 1 and the
+                    w,B
+number of the intersection points is (n − 1)q R−3 . As #Γjw,B − (n − 1)q R−3 = q R−2 − (n −
+1)q R−3 must be ≥ 0, the considered case is possible if n − 1 ≤ q.
+    In all n sets Γb j , the total number of the intersection points is n(n − 1)q R−3 . By
+                     w,B
+           S
+           n
+              b j = nq R−2 − 1 n(n − 1)q R−3 where q R−2 = #Γbj and we need the factor 1
+above, #     Γ  w,B            2                              w,B                         2
+          j=1
+in order to calculate the meeting points
+                                     exactly one time.
+                                 wR
+    Finally, we put n = Bw,1 = R−1   .
+
+                                                  14
+3.2    Estimates of sizes of (R − 1)-saturating sets in PG(R, q). Up-
+       per bound on the length function ℓq (R + 1, R)
+Taking into account that Pw,R covers all points of Πw , see Corollary 2.4, we have
+
+                         ∆w (Pw,R ) ≥ δw (AwR+1 ) + #(Uw−1 ∩ Πw ),                            (3.7)
+
+where the sign “≥” is associated with the fact that the inclusion of the points AwR+2 , . . . , AwR+R
+can add new covered points outside Πw .
+Lemma 3.2. Let Gmin  w    be as in (3.4), (3.5) For the number #Uw of uncovered points
+after the w-th step of the iterative process, we have
+                                        Yw                    
+                                      R               Gmin
+                                                        m
+                            #Uw ≤ q           1 − R−2            .               (3.8)
+                                        m=1
+                                                  q    (q + 1)
+
+Proof. By (2.15), (3.7), (3.5), and Corollary 2.4, we have
+
+        ∆w (Pw,R ) = #Uw−1 − #Uw = #(Uw−1 \ Πw ) + #(Uw−1 ∩ Πw ) − #Uw
+                                             Gmin
+                                              w · #(Uw−1 \ Πw )
+        ≥ δw (AwR+1 ) + #(Uw−1 ∩ Πw ) ≥                         + #(Uw−1 ∩ Πw ),
+                                                  q R−2 (q + 1)
+
+                                                          P          BS
+                                                                      w,1
+where Gmin · #(Uw−1 \ Πw ) is a lower bound of                   #          b j , see (3.4), (3.5).
+                                                                            Γ
+       w                                                                      w,B
+                                                       B∈Uw−1 \Πw   j=1
+              min                     R−2
+Therefore, (Gw · #(Uw−1 \ Πw ))/q         (q + 1) is a lower bound of the number of the new
+covered points in Uw−1 \Πw . It follows that Gmin
+                                               w /q
+                                                      R−2
+                                                          (q+1) ≤ 1, as the new covered points
+in the set Uw−1 \ Πw are a subset of it, that implies (Gmin w · #(Uw−1 \ Πw ))/q
+                                                                                 R−2
+                                                                                     (q + 1) ≤
+#(Uw−1 \ Πw ). The summand #(Uw ∩ Πw ) takes into account that Pw,R covers all points
+of Πw , see Corollary 2.4.
+   As Gminw /q
+               R−2
+                   (q + 1) ≤ 1 and #Uw−1 = #(Uw−1 \ Πw ) + #(Uw−1 ∩ Πw ), we obtain
+
+                                      Gmin
+                                        w · #Uw−1
+                                 ∆w (Pw,R ) ≥         ;
+                                       q R−2 (q + 1)
+                                                                  
+                          Gmin
+                            w · #Uw−1                     Gmin
+                                                            w
+             #Uw ≤ #Uw−1 − R−2          = #Uw−1 1 − R−2              .                        (3.9)
+                           q   (q + 1)                  q  (q + 1)
+   As R points of K0 are in general position, we have
+
+                                 #U0 = θR,q − θR−1,q = q R .
+
+Starting from #U0 and iteratively applying (3.9), where w is changed by m, we obtain
+the assertion.
+
+                                                15
+                                wR
+                                    
+Lemma 3.3. Let Bw,1 =          ≤ q + 1. The following holds:
+                                R−1
+                                     R                              
+                    Gmin
+                       w             R      (w − 1)R−1 w 2R−2 RR
+              1 − R−2         < exp       −             +                .              (3.10)
+                 q    (q + 1)         R!        q+1         2q 2 · R!
+Proof. By the inequality 1 − x ≤ exp(−x) and by (3.6), (2.7), we have
+                                                          
+                         Gmin
+                           w                      Gmin
+                                                    w
+                 1 − R−2          < exp − R−2
+                     q    (q + 1)             q    (q + 1)
+                                                                  
+                                wR                     wR          1
+                  < exp −                2q + 1 −
+                              R−1                    R−1       2q(q + 1)
+                                                         2           !
+                                wR       2q + 1         wR         1
+                  = exp −                        +
+                               R − 1 2q(q + 1)         R − 1 2q(q + 1)
+                                                              2      !
+                             (wR − R + 2)R−1          (wR)R−1      1
+                  < exp −                       +
+                             (R − 1)! · (q + 1)       (R − 1)!    2q 2
+                                                                 
+                              ((w − 1)R)R−1           (wR)2R−2
+                  < exp −                       +
+                             (R − 1)! · (q + 1) 2q 2 ((R − 1)!)2
+that implies the assertion.
+   Let B2j be a Bernoulli number [27, Section 1.3]. We denote
+                 Yw                  
+                             Gmin
+                               m
+     fw (q, R) ,     1 − R−2            ,                                               (3.11)
+                 m=1
+                           q  (q + 1)
+
+                            R                   R−1
+                                                         ⌈X2 ⌉
+                                                            
+                                                           R−2
+
+                  (w − 1)     (w − 1)            B2j R − 1 (w − 1)R−2j
+      D−
+       w (q, R) ,           +           +                              ,                (3.12)
+                   R(q + 1)    2(q + 1)      j=1
+                                                  2j 2j − 1       q+1
+                                         R−1             
+       +             w 2R−1      w 2R−2 X B2j 2R − 2 w 2R−2j−1
+      Dw (q, R) ,              +       +                           .                    (3.13)
+                  2(2R − 1)q 2    4q 2   j=1
+                                              2j   2j − 1    2q 2
+
+
+                                  wR
+                                        
+Corollary 3.4. Let Bw,1 =          ≤ q + 1. We have
+                                  R−1
+                                   R                          
+                                   R        −        RR +
+                  fw (q, R) < exp       −Dw (q, R) +   D (q, R)    .                    (3.14)
+                                   R!                R! w
+Proof. By Lemma 3.3 and (3.11),
+                                w
+                                Y                                                
+                                                RR         (m − 1)R−1 m2R−2 RR
+                fw (q, R) <           exp                −           +
+                              m=1
+                                                R!           q+1       2q 2 · R!
+
+                                                         16
+                                        w−1             w
+                                                                           !!
+                          RR        1 X R−1      RR X 2R−2
+                 = exp          −           u + 2          m                    .
+                          R!      q + 1 u=1    2q · R! m=1
+
+Then we use [27, Sections 1.2, 1.3].
+    Note that B2 = 1/6, B4 = B8 = −1/30, B6 = 1/42, . . .
+    Corollary 3.4 allows to obtain exact relations for small R and, also, asymptotic bounds
+for any R when q tends to infinity.
+                               wR
+                                  
+Lemma 3.5. Let Bw,1 = R−1            ≤ q + 1. To provide #Uw ≤ q R fq (w, R) ≤ R, it is
+sufficient to take w satisfying the inequality
+
+                                        RR +           R!
+                          D−
+                           w (q, R) −      Dw (q, R) ≥ R−1 ln q.                            (3.15)
+                                        R!            R
+Proof. If q R fq (w, R) ≤ 1 then q R fq (w, R) ≤ R. We take the logarithm of both the parts
+of the inequality q R fq (w, R) ≤ 1 and use (3.14).
+                                                                           √
+    We will find the solution of the inequality (3.15) in the form w = ⌈ R kq ln q ⌉, where
+k√> 0 is a constant independent of q. For the convenience of research we write w =
+ R
+   kq ln q + 1. The terms D∓  w (q, R) of (3.12) and (3.13) take the form:
+
+
+                                          1−1/R
+                                                      ⌈X2 ⌉
+                                                       R−2
+                                                                       
+                      kq ln q   (kq ln q)                     B2j R − 1 (kq ln q)1−2j/R
+       D−
+        w (q, R) =            +                   +                                     ,
+                     R(q + 1)     2(q + 1)             j=1
+                                                              2j 2j − 1      q+1
+                                  2−1/R
+                  ((k + 1)q ln q)       ((k + 1)q ln q)2−2/R
+       D+
+        w (q, R) <                  +
+                      2(2R − 1)q 2              4q 2
+         R−1
+         X              
+             B2j 2R − 2 ((k + 1)q ln q)2−(2j−1)/R
+       +                                           ,                                        (3.16)
+         j=1
+             2j 2j − 1             2q 2
+
+that implies
+                      kq ln q            q                            k ln q
+    lim D−
+         w (q, R) −           = 0, lim       = 1, lim D−
+                                                       w (q, R) = lim        ;              (3.17)
+    q→∞              R(q + 1)      q→∞ q + 1      q→∞             q→∞ R
+
+     lim D+
+          w (q, R) = 0.                                                                     (3.18)
+    q→∞
+
+                         √
+Lemma 3.6. Let w = R kq ln q + 1, where k > 0 is a constant independent of q. Then,
+for q large enough, to provide #Uw ≤ q R fq (w, R) ≤ R, it is sufficient to take w satisfying
+the inequality                     r
+                                   R    R!      p
+                                                R
+                               w≥             ·   q ln q + 1.                          (3.19)
+                                      RR−2
+
+                                              17
+Proof. From (2.7)                        √              
+                                         R R kq ln q + R
+                                 Bw,1 =                   .
+                                             R−1
+Recall that            
+                        n      n × (n − 1) × · · · × (n − (k − 1))
+                            =                                      .
+                        k                      k!
+The numerator of such a fraction has k factors. Then, for R fixed and q large enough,
+             √                √                                       R−1
+             R R kq ln q + R        2R R kq ln q       2R−1 RR−1 (kq ln q) R
+     Bw,1 =                     <                   <                         <q+1
+                  R−1                  R−1                   (R − 1)!
+as k is a constant and the exponent of q ln q is less than 1.
+    Also, for q large enough, (3.15), (3.17), and (3.18) imply
+                               k ln q     R!               R!
+                                      ≥ R−1 ln q, k ≥ R−2 .
+                                 R      R                R
+    By Stirling’s approximation of R! [27, Section 11.1.3.1], [33], we have
+                    R              R                            R
+           √        R       √         R          √            √      R        √
+             2πR          < 2πR            ·  12R+1
+                                                    e < R! < 2πR          · 12R e;
+                     e                e                              e
+                         R
+                 √        R
+           R! ≈ 2πR            , R is large enough.
+                          e
+After simple transformations this implies
+                            r
+        1       √
+             1 2R           R  R!          √
+                                        1 2R            √
+                                                        2
+           <      2πR5 <        R−2
+                                     <       2πR5 · 12R e;                           (3.20)
+        er e                  R     r e
+         R   R!        √
+                    1 2R          1 R R!            √
+                                                 1 2R
+             R−2
+                  ≈      2πR5 ,          R−2
+                                              ≈         2πR5 , R is large enough.    (3.21)
+           R        e            R R            eR
+Lemma 3.7.                                    r
+                                new           R  R!       1
+                           lim cR = lim                =    ≈ 0.3679.                (3.22)
+                          R→∞           R→∞     RR−2      e
+Proof. We use (3.20) and the fact that
+                                       √              5
+                                         R5 = lim e 2R ln R = 1.
+                                      2R
+                                lim
+                               R→∞            R→∞
+
+
+
+Theorem 3.8. Let R ≥ 3 be fixed. For the smallest size sq (R, R − 1) of an (R − 1)-
+saturating set in PG(R, q) and for the smallest length of a q-ary linear code with codimen-
+sion (redundancy) R + 1 and covering radius R (i.e. for the length function ℓq (R + 1, R))
+the following asymptotic upper bounds hold:
+                                     r
+                                      R  R!       1/R
+                                                        p
+                                                        R
+   • sq (R, R − 1) = ℓq (R + 1, R) ≤          · q     ·   ln q + 1 + R                (3.23)
+                                        RR−2
+
+                                              18
+        r
+        R R!       1/R
+                         p
+                         R
+    =          · q     ·   ln q + o(q), q is large enough, q is an arbitrary prime power;
+         RR−2                                                      r
+                                                                    R   R!     1
+    • if additionally R is large enough, then in (3.23) we have         R−2
+                                                                            ∼ ≈ 0.3679.
+                                                                      R        e
+                                                                                      (3.24)
+
+Proof. For (3.23), we use (1.1), Lemma 3.6, and add R points to account for the last
+action of the iterative process, see Section 2.4. For (3.24) we apply (3.22).
+    Note that for r = R + 1, we have (r − R)/R = 1/R, cf. the bounds (1.3), (1.4).
+    By construction we have the theorem:
+Theorem 3.9. The (R − 1)-saturating n-set obtained by Construction B corresponds to
+an AMDS [n, n − (R + 1), R + 1]q R code with minimum distance d = R + 1.
+
+
+4       Asymptotic upper bounds on the length function
+        ℓq (tR + 1, R)
+Proposition 4.1 is a variant of the lift-constructions (q m -concatenating constructions) for
+covering codes [8, 9, 12, 14, 15], [7, Section 5.4].
+Proposition 4.1. [9, Section 2, Construction QM1 ], [12, Proposition 8.1] Let an [n0 , n0 −
+r0 ]q R code with n0 ≤ q + 1 exist. Then there is an infinite family of [n, n − r]q R codes
+with parameters
+                         n = n0 q m + Rθm,q , r = r0 + Rm, m ≥ 1.
+   We apply Proposition 4.1, taking as [n0 , n0 − r0 ]q R code the one corresponding to the
+(R−1)-saturating set obtained by Construction B, to construct infinite families of covering
+codes with growing codimension r = tR + 1, t ≥ 1. These families give asymptotic upper
+bounds on the length function ℓq (tR + 1, R) for growing t ≥ 1.
+Theorem 4.2. Let R ≥ 3 be fixed. Let t ≥ 1. For the smallest length of a q-ary linear
+code with codimension (redundancy) r = tR + 1 and covering radius R (i.e. for the length
+function ℓq (tR + 1, R)) and for the smallest size sq (tR, R − 1) of an (R − 1)-saturating
+set in the projective space PG(tR, q) the following asymptotic upper bounds hold:
+                                         r
+                                            R!        (r−R)/R
+                                                                p
+                                                                  ln q + (1 + R)q (r−R−1)/R
+                                         R                      R
+    • ℓq (tR + 1, R) = sq (tR, R − 1) ≤      R−2
+                                                 ·  q         ·
+                                       r   R
+             (r−R−1)/R                     R!      (r−R)/R
+                                                              p
+                                                                ln q + o(q (r−R)/R ),
+                                       R                      R
+      + R(q            − 1)/(q − 1) =          · q          ·                              (4.1)
+                                          RR−2
+       r = tR + 1, t ≥ 1, q is an arbitrary prime power, q is large enough;
+
+                                              19
+                                                                 r
+                                                                 R    R!    1
+    • if additionally R is large enough then in (4.1) we have          R−2
+                                                                           ∼ ≈ 0.3679.
+                                                                     R      e
+                                                                                    (4.2)
+
+The bounds are provided by an infinite family of [n, n − r]q R codes of the corresponding
+lengths.
+                                                    q                √
+                                                       R!
+Proof. For q large enough, it can be shown that R RR−2     · q 1/R · R ln q + 1 + R < q + 1.
+Therefore we can take the code corresponding to the (R − 1)-saturating set obtained
+by Construction B as the [n0 , n0 − r0 ]q R code of Proposition 4.1. In that, r0 = R + 1,
+m = t − 1, r = R + 1 + (t − 1)R, t − 1 = (r − R − 1)/R. This proves (4.1). For (4.2) we
+apply (3.22).
+                                           q
+                                                R!
+5     Properties of cnew
+                     R   =                 R
+                                               RR−2
+                                                    .    Comparison of new
+      and known bounds
+In this section, we investigate properties of the constant cnew
+                                                            R   of the new asymptotic upper
+bound on ℓq (tR + 1, R) = sq (tR, R − 1), and we show that it is essentially better than the
+one previously known in the literature. The limit lim cnew   R   = e−1 ≈ 0.3679 is noted in
+                                                     R→∞
+(3.22).
+    The following lemma states that cnew
+                                     R   is bounded from above and from below by
+decreasing functions of R.
+Lemma 5.1. Let R ≥ 3.
+(i) The following functions are decreasing functions of R:
+                  √
+               1 2R             √
+                             1 2R           √
+                                         1 2R           √
+                                                        2
+                                                                 √
+                                                              1 2R           √
+                                                                             2
+                    2πR5 ,        2πR5 ,      2πR5 · 12R e,        2πR5 · 12R e.
+               e            eR           e                   eR
+                        q                            q
+                 new        R!             1 new   1 R    R!
+(ii) The values cR =    R
+                           RR−2
+                                (1.6) and R cR = R RR−2       are bounded from above and
+      from below by decreasing functions of R.
+Proof. For R ≥ 3, we have the derivative
+                           d  2R
+                                √           √ 1 − ln R
+                                            2R
+                                  R5 = 2.5 R5              < 0.
+                          dR                         R2
+      √                                                       √        √
+        R5 is a decreasing function of R. Obviously, also 1e 2R 2π, 12R e, and R1 are de-
+     2R                                                                2
+So,
+creasing functions of R. The product of decreasing functions is a decreasing function too.
+Finally, we use (3.20).
+
+                                            20
+    Examples of the value of cnew
+                              R   (1.6) and its lower and upper approximations of (3.20),
+(3.21) are given in Table 1 from which one sees that the approximations are sufficiently
+convenient.
+
+      Table 1: Values connected with the new upper bound and its approximations
+                          √                        q           √
+                                                              2R           √
+                                                                           2
+                       1 2R     5            new      R!         2πR5 · 12R e
+            R          e
+                            2πR            c R   = R
+                                                     RR−2           e
+             3 1.24835051≈ 0.4161R 1.25992105≈ 0.4200R 1.25996299
+             4 1.10094468≈ 0.2752R 1.10668192≈ 0.2767R 1.10669372
+             5 0.98857246≈ 0.1977R 0.99186884≈ 0.1984R 0.99187320
+             6 0.90458669≈ 0.1508R 0.90668114≈ 0.1511R 0.90668307
+             7 0.84050266≈ 0.1201R 0.84193234≈ 0.1203R 0.84193331
+             8 0.79032802≈ 0.0988R 0.79135723≈ 0.0989R 0.79135777
+             9 0.75009489≈ 0.0833R 0.75086667≈ 0.0834R 0.75086699
+            10 0.71715745≈ 0.0717R 0.71775513≈ 0.0718R 0.71775533
+            25 0.52657849≈ 0.0211R 0.52664870≈ 0.0211R 0.52664871
+            50 0.45565466≈ 0.0091R 0.45566985≈ 0.0091R 0.45566985
+           100 0.41657808≈ 0.0042R 0.41658155≈ 0.0042R 0.41658155
+           125 0.40816564≈ 0.0033R 0.40816781≈ 0.0033R 0.40816781
+           150 0.40237807≈ 0.0027R 0.40237956≈ 0.0027R 0.40237956
+
+   If R is large enough and the codimension r = R + 1, the following lemma states that
+cnew
+ R   is about R + 1 times better than the corresponding value previously known in the
+literature.
+                                                          q
+                                                cknw    R2 R R−1
+Lemma 5.2. Let R ≥ 4, r = R + 1. Then           =R
+                                                cnew   R−1
+                                                              (1.10) is an increasing
+                                                              R
+                                                 R
+function of R. Also,
+                              r
+                  cknw
+                   R      R 2
+                              R R − 1
+                   new
+                       =              ≈ R + 1 if R is large enough.             (5.1)
+                  cR     R−1     R
+
+Proof. For R ≥ 3, we have the derivative
+                      r       !          r                  
+            d     R2 R R − 1          1 R R−1         R−1
+                                 =             R − ln     − 1 > 0.
+           dR R − 1       R         R−1    R           R
+
+   Also,
+                                       r          !
+                                    R2 R R − 1
+                            lim                − R = 1.                             (5.2)
+                           R→∞     R−1    R
+
+
+                                           21
+In fact,
+                    r                !              s                      !
+               R2 R R − 1                                  R (R−1)
+        lim                     − R = lim R R                          −R
+       R→∞   R−1          R                R→∞         (R − 1)(R−1)
+                                                       !
+                     R         R−1               R−1
+                                                                    R−1               R−1
+                                                                                            
+       = lim             R−1    R   R  − (R  − 1)  R       =   lim   R  R  −  (R   − 1)  R
+          R→∞   (R − 1) R                                     R→∞
+               R−1                                                R−1               
+                    ln(R)      R−1
+                                   ln(R−1)              R−1
+                                                            ln(R−1)       ln( R−1
+                                                                               R
+                                                                                  )
+       = lim e   R        −e    R            = lim e     R           e R            −1
+          R→∞                                  R→∞
+                                              
+       = lim (R − 1) R e R ln( R−1 ) − 1 .
+                        R−1     R−1     R
+
+           R→∞
+
+
+As ef (x) − 1 ≈ f (x) if f (x) → 0,
+                     R−1                                            
+                                                       R−1 R − 1       R
+                 R−1
+      lim (R − 1) R e R    ln(  R
+                                  )
+                               R−1 − 1    = lim (R − 1) R        ln
+     R→∞                                    R→∞             R         R−1
+                                            R
+                                                   
+                           R               ln R−1
+     = lim (R − 1) ln               = lim     1      .
+        R→∞             R−1           R→∞
+                                             R−1
+
+Applying l’Hôpital’s rule, we finally obtain
+                                         R
+                                                       1
+                                  ln R−1              R−R2
+                             lim       1     = lim      1         = 1.
+                              R→∞                R→∞
+                                       R−1           −(R−1)2
+
+
+The assertion (5.1) follows from (5.2).
+   If R is large enough and the codimension r = tR + 1, t ≥ 2, the following lemma states
+that cnew
+       R   is about 9.32R times better than the corresponding value previously known in
+the literature.
+                                                           cknw
+Lemma 5.3. Let R ≥ 3, r = tR + 1, t ≥ 2. Then cRnew = 3.43R
+                                                          cnew
+                                                                (1.10) is bounded from
+                                                    R      R
+above and from below by increasing functions of R. Moreover, if R is large enough, then
+cknw
+ R /cR
+      new
+          ≈ 3.43e ≈ 9.32R.
+
+Proof. The first assertion follows from Lemma 5.1. The second one follows from (3.22).
+
+
+   In Table 2, examples of the values connected with comparison of the new and known
+upper bounds are given.
+   From the results of this section, one sees that the new bounds are essentially better
+than the known ones.
+
+
+                                                22
+Table 2: Values connected with comparison
+                                  q       of the new and known upper bounds;
+      R R
+         p                     R2 R R−1
+A = R−1 R(R − 1) · R!, B = R−1       R
+                                        ≈R+1
+
+                                             cknw        cknw
+                    R   cnew
+                         R   =     cknw
+                                    R   =     R
+                                             cnew
+                                                  =B      R
+                                                         cnew
+                                                              = 3.43R
+                                                                cnew
+                        q                     R           R       R
+                             R!
+                        R
+                            RR−2
+                                      A     r =R+1        r = tR + 1
+                                                             t≥2
+                    4    1.1067     5.493      4.9632     12 ≈ 3.10R
+                    5    0.9919     5.929      5.9772     17 ≈ 3.46R
+                    6    0.9067     6.333      6.9845     23 ≈ 3.78R
+                    7    0.8419     6.726      7.9888     29 ≈ 4.07R
+                    8    0.7914     7.116      8.9915     35 ≈ 4.33R
+                    9    0.7509     7.504      9.9934     41 ≈ 4.57R
+                   10    0.7178     7.892     10.9947     48 ≈ 4.78R
+                   25    0.5266    13.692     25.9992    163 ≈ 6.51R
+                   50    0.4557    23.239     50.9998    376 ≈ 7.53R
+                  100    0.4166    42.075    100.9999    823 ≈ 8.23R
+                  125    0.4082    51.429    126.0000   1050 ≈ 8.40R
+                  150    0.4024    60.759    151.0000   1279 ≈ 8.52R
+
+
+References
+ [1] Alderson     T.L.,    Bruen    A.A.:      Maximal  AMDS            codes.  Applica-
+     ble    Algebra     Engineer.   Commun.     Comput.  19(2),           87–98  (2008).
+     https : //doi.org/10.1007/s00200 − 008 − 0058 − 0.
+
+ [2] Bartoli D., Davydov A.A., Giulietti M., Marcugini S., Pambianco F.: New bounds
+     for linear codes of covering radii 2 and 3. Crypt. Commun. 11(5), 903–920 (2019).
+     https : //doi.org/10.1007/s12095 − 018 − 0335 − 0.
+
+ [3] Bierbrauer J.: Introduction to Coding Theory. 2nd edn. Chapman and Hall/CRC
+     Press (2017).
+
+ [4] Bose R.C., Burton R.C., A characterization of flat spaces in a finite geometry and
+     the uniqueness of the Hamming and McDonald codes. J. Comb. Theory, 1(1), 96–104
+     (1966). https : //doi.org/10.1016/S0021 − 9800(66)80007 − 8.
+
+ [5] Brualdi R.A., Litsyn S., Pless V.: Covering radius. In: Pless V.S., Huffman W.C.
+     (eds.) Handbook of Coding Theory vol. 1. Elsevier, Amsterdam, pp. 755–826 (1998).
+
+
+
+                                            23
+ [6] Chen H., Qu L., Li C., Lyu S., Xu L.: Generalized Singleton type upper bounds,
+     arXiv:2208.01138 [cs IT] (2020). https : //doi.org/10.48550/arXiv.2208.01138.
+
+ [7] Cohen G., Honkala I., Litsyn S., Lobstein A.: Covering Codes. North-Holland Math.
+     Library, 54, Elsevier, Amsterdam, The Netherlands (1997).
+
+ [8] Davydov        A.A.:         Construction    of     linear    covering         codes.
+     Probl.         Inform.      Transmiss.       26(4),        317–331            (1990).
+     http : //iitp.ru/upload/publications/6833/ConstrCoverCodes.pdf .
+
+ [9] Davydov A.A., Giulietti M., Marcugini S., Pambianco F.: Linear nonbinary covering
+     codes and saturating sets in projective spaces. Adv. Math. Commun. 5(1), 119–147
+     (2011). https : //doi.org/10.3934/amc.2011.5.119.
+
+[10] Davydov A.A., Marcugini S., Pambianco F.: New covering codes of radius R, codi-
+     mension tR and tR+ R2 , and saturating sets in projective spaces. Des. Codes Cryptogr.
+     87(12), 2771–2792 (2019). https : //doi.org/10.1007/s10623 − 019 − 00649 − 2.
+
+[11] Davydov A.A., Marcugini S., Pambianco F.: New bounds for linear codes
+     of covering radius 3 and 2-saturating sets in projective spaces. In: Proc.
+     2019 XVI Int. Symp. Problems Redundancy Inform. Control Systems (RE-
+     DUNDANCY), Moscow, Russia, Oct. 2019, IEEE Xplore, pp. 47–52 (2020).
+     https : //doi.org/10.1109/REDUNDANCY48165.2019.9003348.
+
+[12] Davydov A.A., Marcugini S., Pambianco F.: Upper bounds on the length function for
+     covering codes with covering radius R and codimension tR+1. Adv. Math. Commun.
+     17(1), 98–118 (2023). https : //doi.org/10.3934/amc.2021074.
+
+[13] Davydov A.A., Marcugini S., Pambianco F.: New bounds for covering codes
+     of radius 3 and codimension 3t + 1, Adv. Math. Commun., to appear.
+     https : //doi.org/10.3934/amc.2023042.
+
+[14] Davydov A.A., Östergård P.R.J.: Linear codes with covering radius R =
+     2, 3 and codimension tR. IEEE Trans. Inform. Theory 47(1), 416–421 (2001).
+     https : //doi.org/10.1109/18.904551.
+
+[15] Davydov       A.A.,    Östergård   P.R.J.:      Linear     codes   with      cover-
+     ing     radius    3.   Des.     Codes    Cryptogr.    54(3),     253–271      (2010).
+     https : //doi.org/10.1007/s10623 − 009 − 9322 − y.
+
+[16] De Boer M.A.: Almost MDS codes. Des. Codes Cryptogr. 9(2), 143–155 (1996).
+     https : //doi.org/10.1007/BF00124590.
+
+
+
+                                            24
+[17] Denaux L.:         Constructing saturating sets in projective spaces us-
+     ing subgeometries. Des. Codes Cryptogr. 90(9),         2113–2144 (2022).
+     https : //doi.org/10.1007/s10623 − 021 − 00951 − y.
+
+[18] Denaux L.: Higgledy-piggledy sets in projective spaces of small dimension. Electron.
+     J. Combin. 29(3), Article #P3.29 (2022). https : //doi.org/10.37236/10736.
+
+[19] Dodunekov S., Landgev I.: On near-MDS codes. J. Geometry 54(1), 30–43 (1995).
+     https : //doi.org/10.1007/BF01222850.
+
+[20] Etzion T., Storme L.: Galois geometries and coding theory. Des. Codes Cryptogr.
+     78(1), 311–350 (2016). https : //doi.org/10.1007/s10623 − 015 − 0156 − 5.
+
+[21] Giulietti M.: The geometry of covering codes: small complete caps and sat-
+     urating sets in Galois spaces. In: Blackburn S. R., Holloway R., Wildon
+     M. (eds.) Surveys in Combinatorics 2013, Lecture Note Series 409, pp.
+     51–90. London Math. Soc., Cambridge University Press, Cambridge, (2013).
+     https : //doi.org/10.1017/CBO9781139506748.003.
+
+[22] Graham R.L., Sloane N.J.A.: On the covering radius of codes. IEEE Trans. Inform.
+     Theory 31(1), 385–401 (1985). https : //doi.org/10.1109/TIT.1985.1057039.
+
+[23] Héger T., Nagy Z.L.: Short minimal codes and covering codes via strong block-
+     ing sets in projective spaces. IEEE Trans. Inform. Theory 68(2), 881–890 (2022).
+     https : //doi.org/10.1109/TIT.2021.3123730.
+
+[24] Hirschfeld J.W.P.: Projective Geometries over Finite Fields. 2nd edition, Oxford
+     Univ. Press, Oxford, (1999).
+
+[25] Hirschfeld J.W.P., Storme L.: The packing problem in statistics, coding theory and
+     finite projective spaces: Update 2001. In: Blokhuis A., Hirschfeld J.W.P., Jung-
+     nickel D., Thas J.A. (eds.) Finite Geometries (Proc. 4th Isle of Thorns Conf.,
+     July 16-21, 2000), Develop. Math. 3, pp. 201–246. Kluwer, Dordrecht, (2001).
+     https : //doi.org/10.1007/978 − 1 − 4613 − 0283 − 4 13.
+
+[26] Huffman W.C., Pless V.S.: Fundamentals of Error-Correcting Codes. Cambridge
+     Univ. Press, (2003).
+
+[27] Jeffrey A., Dai H.H.: Handbook of Mathematical Formulas and Integrals. 4th edition.
+     Elsevier, Academic Press, Amsterdam, (2008).
+
+[28] Landjev I., Storme L.: Galois geometry and coding theory. In: De Beule J., Storme
+     L. (eds.) Current Research Topics in Galois geometry, Chapter 8, pp. 187–214. NOVA
+     Academic, New York (2011).
+
+                                           25
+[29] Lobstein A.: Covering radius, an online bibliography (2023). Available at:
+     https : //www.lri.fr/˜lobstein/bib − a − jour.pdf.
+
+[30] MacWilliams F.J., Sloane N.J.A.: The Theory of Error-Correcting Codes. 3rd edition.
+     North-Holland, Amsterdam, The Netherlands, (1981).
+
+[31] Meneghetti A., Pellegrini M., Sala M.: A formula on the weight distribution of linear
+     codes with applications to AMDS codes. Finite Fields Their Appl. 77, article 101933,
+     (2022). https : //doi.org/10.1016/j.ffa.2021.101933.
+
+[32] Nagy Z.L.: Saturating sets in projective planes and hypergraph covers. Discrete
+     Math. 341(4), 1078–1083 (2018). https : //doi.org/10.1016/j.disc.2018.01.011.
+
+[33] Robbins H.: A remark on Stirling’s formula. American Math Monthly 62(1), 26–29
+     (1955). https : //doi.org/10.2307/2308012.
+
+[34] Struik R.: Covering Codes. Ph.D thesis. Eindhoven University of Technology, The
+     Netherlands, (1994). https : //doi.org/10.6100/IR425174.
+
+
+
+
+                                           26
+
