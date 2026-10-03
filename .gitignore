@@ -1,5 +1,9 @@
 /.lake
-tools/verify/verify
+ledger/.cache/
+runs/
 __pycache__/
 campaigns/**/audit/.lock
 tools/verify-cleanroom/verify-cleanroom
+.pytest_cache/
+build/
+tools/verify/verify

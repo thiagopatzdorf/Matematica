@@ -1,0 +1,11 @@
+redundancy_check (C/OpenMP)
+|C| = 1137
+R = 4
+min_exclusive_points = 6 (palavra 315 = 164224152)
+total_exclusive_points = 383492
+redundant_words = 0
+PASS: nenhuma palavra individualmente redundante
+runtime_s = 319.15
+cpu_s = 644.83
+peak_memory_kb = 10268
+exit_code = 0

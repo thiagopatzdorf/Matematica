@@ -1,0 +1,168 @@
+{
+ "title": "Validation certificate for K_7(9,4) <= 1137",
+ "date": "2026-10-02",
+ "status": "VALIDATED",
+ "q": 7,
+ "n": 9,
+ "radius": 4,
+ "size": 1137,
+ "space_size": 40353607,
+ "witness_file": "artifacts/k7_9_4_1137/code_1137.txt",
+ "witness_sha256": "df3e8d527bc393a9680fe4b2b39e7bde088ab6a02f2f94ee26019a5efc05a102",
+ "word_format": "9 digits per line; digit j = coordinate j in Z/7; lines sorted lexicographically; index i(x) = sum_j x_j 7^j",
+ "max_distance": 4,
+ "uncovered": 0,
+ "covered": 40353607,
+ "distance_distribution": {
+  "N_0": 1137,
+  "N_1": 61225,
+  "N_2": 1421934,
+  "N_3": 15340089,
+  "N_4": 23529222
+ },
+ "farthest_points": 23529222,
+ "example_farthest_points": [
+  "211100000",
+  "311100000",
+  "611100000"
+ ],
+ "verifiers": [
+  {
+   "id": "A",
+   "method": "brute force: d(x,C) = min over all 1137 words, for every x in (Z/7)^9",
+   "implementation": "C + OpenMP (gcc 13.3, -O2)",
+   "source": "verification/verify_bruteforce.c",
+   "source_sha256": "9e4375a73489a317606528f6442c0c5bf1683478aac547ffea0bafef46cc6c22",
+   "commit": "65c2449",
+   "result": "PASS",
+   "runtime_s": 232.97,
+   "cpu_s": 371.71,
+   "peak_memory_kb": 10312,
+   "distribution": {
+    "N_0": 1137,
+    "N_1": 61225,
+    "N_2": 1421934,
+    "N_3": 15340089,
+    "N_4": 23529222
+   },
+   "output": "verification/outputs/verifier_A_bruteforce.txt"
+  },
+  {
+   "id": "B",
+   "method": "explicit union of Hamming balls of radius 0..4 (error vectors enumerated by itertools), with cover multiplicity",
+   "implementation": "Python 3.11 + NumPy 2.4.6",
+   "source": "verification/verify_balls.py",
+   "source_sha256": "4f45b90133ea2ef2f0f1662f77c5d9934251cd3082d8fd4251b3454611acb03e",
+   "commit": "65c2449",
+   "result": "PASS",
+   "runtime_s": 125.54,
+   "cpu_s": 122.72,
+   "peak_memory_kb": 1646616,
+   "distribution": {
+    "N_0": 1137,
+    "N_1": 61225,
+    "N_2": 1421934,
+    "N_3": 15340089,
+    "N_4": 23529222
+   },
+   "covered_count": 40353607,
+   "missing_count": 0,
+   "ball_hits": 207833367,
+   "duplicate_cover_hits": 167479760,
+   "max_multiplicity": 16,
+   "output": "verification/outputs/verifier_B_balls.txt"
+  },
+  {
+   "id": "C",
+   "method": "multi-source BFS on the Hamming graph H(9,7) (54 neighbours per vertex), no word-to-word comparison",
+   "implementation": "Rust 1.97 (rustc -O), single thread",
+   "source": "verification/verify_bfs/main.rs",
+   "source_sha256": "14acd8a9df03c7034c6ceae977555a9cccdb14593ea680e103d1f1831d4cf052",
+   "commit": "65c2449",
+   "result": "PASS",
+   "runtime_s": 17.82,
+   "cpu_s": 16.68,
+   "peak_memory_kb": 201312,
+   "distribution": {
+    "N_0": 1137,
+    "N_1": 61225,
+    "N_2": 1421934,
+    "N_3": 15340089,
+    "N_4": 23529222
+   },
+   "output": "verification/outputs/verifier_C_bfs.txt"
+  }
+ ],
+ "independence": "Each verifier has its own parser and its own notion of coverage (pairwise distance minimum / ball membership / graph distance); no shared function or library code.",
+ "redundancy": {
+  "method_1": "verification/redundancy_check.c: for each c_i, every x in B(c_i,4) is checked for another word within distance 4",
+  "method_2": "verifier B: c_i redundant iff min cover multiplicity over B(c_i,4) >= 2",
+  "redundant_words": 0,
+  "min_exclusive_points": 6,
+  "min_exclusive_word": "164224152",
+  "total_exclusive_points": 383492,
+  "agree": true,
+  "output": "verification/outputs/redundancy_check.txt"
+ },
+ "mutations": {
+  "script": "verification/run_mutations.py",
+  "tested": [
+   "remove_one_word",
+   "remove_5_words",
+   "duplicate_one_word_and_remove_another",
+   "change_coordinate",
+   "replace_word",
+   "truncate_word",
+   "value_7",
+   "negative_value"
+  ],
+  "all_rejected": true,
+  "output": "verification/outputs/mutations.md"
+ },
+ "structure": {
+  "description": "3 full cosets (343 each) of C0 = ker[I_6|A], A = '666 065 652 643 621 615', a [9,3,6]_7 code, syndromes {0,4191,7708}, plus 108 patch words",
+  "script": "verification/structure_check.py",
+  "result": "PASS",
+  "role": "descriptive only; not used by any verifier"
+ },
+ "lean_theorem": {
+  "name": "Syn.K7_9_4_le_1137_syn",
+  "file": "CoveringLean/Syn_K1137.lean",
+  "statement": "∃ C : Finset (Fin 9 → ZMod 7), C.card = 1137 ∧ CoveringA2.Covers 4 C",
+  "covers_definition": "∀ x : Fin n → ZMod q, ∃ c ∈ C, hammingDist x c ≤ R (Mathlib hammingDist)",
+  "axioms": [
+   "propext",
+   "Classical.choice",
+   "Quot.sound"
+  ],
+  "forbidden_constructs_found": 0,
+  "lean_version": "4.34.1",
+  "lake_version": "5.0.0",
+  "mathlib_commit": "d13f23b723b8a846827a245b89c10fc7d3f11612",
+  "clean_build": {
+   "command": "lake exe cache get && lake clean CoveringLean && lake build CoveringLean.Syn_K1137",
+   "exit": 0,
+   "wall_s": 318.0,
+   "peak_single_process_MB": 6793
+  },
+  "leanchecker": "exit 0 on the 19 project modules used",
+  "words_in_lean_match_witness_sha256": true,
+  "red_team": "LEAN_RED_TEAM.md: 20 attacks, 0 critical/high/medium; low: CI does not build Syn_K1137",
+  "review": "LEAN_REVIEW.md"
+ },
+ "git_commit_validated_lean": "fcf0984d1b66e70bb6d3e2ad79cf22e077d5e89c",
+ "state_of_art_checked": {
+  "date": "2026-10-02",
+  "smallest_prior_upper_bound_found": 1475,
+  "source": "Marosi, arXiv:2608.19872 v2 (2026-08-23) and v3 (2026-09-02)",
+  "prior_result_le_1137_found": false,
+  "lower_bound": 264,
+  "report": "STATE_OF_ART.md"
+ },
+ "not_claimed": [
+  "optimality of 1137",
+  "any new lower bound",
+  "exact value of K_7(9,4)",
+  "best possible"
+ ]
+}

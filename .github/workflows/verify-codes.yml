@@ -10,6 +10,9 @@ on:
       - "campaigns/**"
       - "scripts/codes/**"
       - "scripts/search/**"
+      - "scripts/loop/**"
+      - "scripts/publish/**"
+      - "ledger/**"
       - "tests/**"
       - "CoveringLean/**"
       - "CoveringLean.lean"
@@ -24,6 +27,9 @@ on:
       - "campaigns/**"
       - "scripts/codes/**"
       - "scripts/search/**"
+      - "scripts/loop/**"
+      - "scripts/publish/**"
+      - "ledger/**"
       - "tests/**"
       - "CoveringLean/**"
       - "CoveringLean.lean"
@@ -52,9 +58,12 @@ jobs:
       # com os registros da campanha. Se mudar aqui, mude a medição da campanha no mesmo commit.
       - name: Dependência do segundo verificador (numpy)
         run: python3 -m pip install numpy==2.4.6
-      # Inclui os testes de parâmetros explícitos dos dois verificadores (R+3, M-1... falham) e a coerência dos registros da campanha.
-      - name: Testes (positivos, negativos, formato, structure.py regenera os JSON, parâmetros explícitos, coerência da campanha)
-        run: python3 -m unittest discover -s tests -v
+      # pytest e não unittest: os testes do ledger usam o conftest.py (sys.path e fixtures);
+      # com unittest eles nem importam (ModuleNotFoundError: targets, genesis_page, record_loop).
+      - name: Testes (verificador, formato, ledger, loop, publicação)
+        run: |
+          python3 -m pip install --quiet pytest==8.4.2
+          python3 -m pytest -q tests
 
   lean:
     name: lake build (alvo padrão)

@@ -56,7 +56,7 @@ class CleanRoom(unittest.TestCase):
 
     def codes(self):
         fs = sorted(f for f in os.listdir(CODES) if NAME.search(f))
-        self.assertEqual(len(fs), 10)
+        self.assertGreaterEqual(len(fs), 10)  # a pasta cresce (v0.5 trouxe 1137 e 1141); não fixar a contagem
         return fs
 
     def test_dez_witnesses_cobrem_com_parametros_do_nome_passados_explicitamente(self):

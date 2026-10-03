@@ -17,9 +17,16 @@ rev = "v4.34.1"
 [[lean_lib]]
 name = "CoveringLean"
 
-# Os dois certificados de busca: 38 + 95 módulos, ~12 h de CPU somadas.
+# Os dois certificados de busca: 38 + 95 módulos, ~13 h de CPU somadas.
 # Fora do alvo padrão para `lake build` continuar em segundos; rode `lake build CoveringHeavy`.
 [[lean_lib]]
 name = "CoveringHeavy"
 srcDir = "."
-roots = ["CoveringLean.SearchK6ge12", "CoveringLean.K3_K7_9_4_Final"]
+roots = ["CoveringLean.SearchK6ge12", "CoveringLean.K3_K7_9_4_Final", "CoveringLean.K3_K7_8_3_Final", "CoveringLean.K3_K5_7_2_Final", "CoveringLean.K3_K4_10_4_Final", "CoveringLean.K3_K5_9_3_Final", "CoveringLean.K3_K5_10_4_Final", "CoveringLean.K3_K5_9_5_Final", "CoveringLean.K3_K5_9_4_Final"]
+
+# Certificados por síndromes (CoveringLean/Syn*.lean, gerados por scripts/syndrome/gen_syn.py):
+# K_7(9,4) ≤ 1351, ≤ 1285, ≤ 1141, ≤ 1137 e K_7(8,3) ≤ 1887. Fora do alvo padrão; `lake build CoveringSyn`.
+[[lean_lib]]
+name = "CoveringSyn"
+srcDir = "."
+roots = ["CoveringLean.Syn_K1351", "CoveringLean.Syn_K1285", "CoveringLean.Syn_K1141", "CoveringLean.Syn_K1137", "CoveringLean.Syn_K1887"]

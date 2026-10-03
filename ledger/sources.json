@@ -1,0 +1,29 @@
+{
+  "descricao": "Fontes publicadas que o build.py lê, fixadas por commit para o ledger ser reprodutível. Trocar o commit = nova leitura da literatura; registre a data.",
+  "coldcase": {
+    "repo": "https://github.com/Mapika/coldcase",
+    "commit": "56a8cce68ec3f6f406c845f5cc3e51711e5b8294",
+    "lido_em": "2026-10-02",
+    "arquivos": {
+      "bounds": "cov/bounds.json",
+      "marosi_ub": "cov/results/final_records.json",
+      "marosi_lb": "cov/lb/results/lb_master.json",
+      "sweep_targets": "cov/sweep_targets.json",
+      "sweep_state": "results/cov_sweep_state.json",
+      "attack_records": "cov/engine/attack_records.json",
+      "attack_records2": "cov/engine/attack_records2.json",
+      "attack_sieges": "cov/engine/attack_sieges.json"
+    },
+    "nota": "bounds.json = tabelas do Kéri (2011) + atualizações de cota inferior de Gijswijt–Polak (arXiv:2504.01932, q ≤ 5) no campo lb_updated. As melhorias do Marosi (arXiv:2608.19872) estão em final_records.json (26 cotas superiores) e lb_master.json (cotas inferiores SDP; só contam as com improves_best_known)."
+  },
+  "florath": {
+    "repo": "https://github.com/florath/covering-codes-lean",
+    "commit": "bbed9a690e6c54f8bba423031d4d516f70d267b9",
+    "lido_em": "2026-10-02",
+    "arquivos": {
+      "lean_table": "reference-data/lean/non_mixed_covering_codes.csv",
+      "post_keri_table": "reference-data/post-keri/non_mixed_covering_codes.csv"
+    },
+    "nota": "Tabela gerada do banco Lean do Florath (arXiv:2606.09600): cotas PROVADAS em Lean, em geral mais fracas que a literatura; entram como fonte e contam para o melhor valor só quando são melhores. post-keri/non_mixed_covering_codes.csv é a compilação de literatura pós-Kéri mantida pelo Florath (em 2026-10-02 só acrescenta 4 inferiores binárias de Wu–Chen 2024); entra como fonte 'literatura_pos_keri'."
+  }
+}
