@@ -444,7 +444,7 @@ def test_vertex_chama_global_com_o_token_da_sa_e_cobra_pensamento_como_saida():
     assert vistos["url"] == ("https://aiplatform.googleapis.com/v1/projects/proj-x/locations/global/"
                              "publishers/google/models/gemini-3.8-flash:generateContent")
     assert vistos["cab"]["Authorization"] == "Bearer TOK" and "x-goog-api-key" not in vistos["cab"]
-    assert r == {"texto": "ok", "entrada": 6, "saida": 17}          # o pensamento é cobrado como saída
+    assert (r["texto"], r["entrada"], r["saida"]) == ("ok", 6, 17)       # o pensamento é cobrado como saída
 
 
 def test_backend_vertex_ligado_pelo_ambiente_substitui_a_chave_sem_credito():
