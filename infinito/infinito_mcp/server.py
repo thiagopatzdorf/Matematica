@@ -150,7 +150,7 @@ def _tools_do_nucleo(ctx: Contexto) -> None:
     def admin_usuarios() -> dict:
         """[admin] Todas as pessoas, com teto, gasto e disponível. Também mostra quantas vagas restam."""
         lista = creditos.listar(quem())
-        return {"ok": True, "pessoas": lista, "vagas": creditos.max_usuarios - len(lista), "maximo": creditos.max_usuarios}
+        return {"ok": True, "pessoas": lista, "vagas": creditos.max_usuarios - sum(1 for p in lista if p["ativo"]), "maximo": creditos.max_usuarios}
 
     @tool
     def admin_creditos(email: str, teto_usd: float | None = None, somar_usd: float | None = None,

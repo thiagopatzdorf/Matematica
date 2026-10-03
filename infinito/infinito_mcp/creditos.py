@@ -59,6 +59,11 @@ class Creditos:
         self.armazem.por(USUARIOS, json.dumps({"usuarios": usuarios}, ensure_ascii=False, indent=1).encode(),
                          "application/json", publico=False)
 
+    @staticmethod
+    def _ativos(usuarios: dict) -> int:
+        """Vaga é de quem está ativo: revogar alguém devolve a vaga (o histórico de gasto fica)."""
+        return sum(1 for u in usuarios.values() if u.get("ativo", True))
+
     def e_admin(self, quem: str) -> bool:
         return quem.startswith("servico:") or quem.lower() in self.admins
 
@@ -70,7 +75,7 @@ class Creditos:
             usuarios = self._ler_usuarios()
             u = usuarios.get(quem.lower())
             if u is None:
-                if len(usuarios) >= self.max_usuarios:
+                if self._ativos(usuarios) >= self.max_usuarios:
                     raise ErroCreditos(f"lotado: já são {self.max_usuarios} pessoas. Peça ao administrador para abrir vaga")
                 u = {"teto_usd": self.teto_padrao, "ativo": True, "criado": self._agora()}
                 usuarios[quem.lower()] = u
@@ -146,7 +151,7 @@ class Creditos:
         with self._trava:
             usuarios = self._ler_usuarios()
             alvo = email.lower()
-            if alvo not in usuarios and len(usuarios) >= self.max_usuarios:
+            if alvo not in usuarios and self._ativos(usuarios) >= self.max_usuarios:
                 raise ErroCreditos(f"lotado: já são {self.max_usuarios} pessoas (suba INF_MAX_USUARIOS para abrir vagas)")
             u = usuarios.setdefault(alvo, {"teto_usd": self.teto_padrao, "ativo": True, "criado": self._agora()})
             antes = dict(u)

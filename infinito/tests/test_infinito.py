@@ -383,3 +383,13 @@ def test_gemini_com_saldo_curto_chama_assim_mesmo():
         ctx.tools["gemini"]("oi", max_saida=8192, confirmar=True)
     assert chamadas == []
     assert ctx.tools["gemini"]("oi", modelo="inexistente")["ok"] is False
+
+
+def test_vaga_de_quem_foi_revogado_continua_ocupada():
+    c = creditos(max_usuarios=1)
+    c.definir(DONO, "a@x.com", teto_usd=20, motivo="convite")
+    c.definir(DONO, "a@x.com", ativo=False, motivo="saiu")
+    c.definir(DONO, "b@x.com", teto_usd=20, motivo="convite")      # a vaga voltou
+    with pytest.raises(ErroCreditos, match="lotado"):
+        c.definir(DONO, "c@x.com", teto_usd=20, motivo="convite")
+    assert c.saldo("b@x.com")["teto_usd"] == 20.0
