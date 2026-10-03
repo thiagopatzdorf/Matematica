@@ -346,14 +346,15 @@ def cr_url(caminho: str, **params) -> str:
 
 
 def cr_pesquisa(q: str, maximo: int = 1000) -> list[dict]:
-    saida, cursor = [], "*"
-    while len(saida) < maximo:
-        r = json_cache(cr_url("/works", query=q, rows=200, cursor=cursor,
+    # offset, não cursor: com cursor o Crossref ignora a ordem de relevância e devolve
+    # lixo (medido em 2026-10-03: "saturating sets ..." → ressonância magnética).
+    saida = []
+    for offset in range(0, maximo, 200):
+        r = json_cache(cr_url("/works", **{"query.bibliographic": q}, rows=200, offset=offset, sort="relevance",
                               select="DOI,title,author,issued,container-title,type,abstract,is-referenced-by-count,link"))
         itens = ((r or {}).get("message") or {}).get("items") or []
         saida += itens
-        cursor = ((r or {}).get("message") or {}).get("next-cursor")
-        if not itens or not cursor:
+        if len(itens) < 200:
             break
     return saida
 
