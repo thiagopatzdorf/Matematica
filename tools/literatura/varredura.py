@@ -688,11 +688,12 @@ def etapa_arxivmeta(b: Base) -> None:
         if s < c["limiar_inclusao"]:
             continue
         aid = m["id"]
-        ano = None
-        if m.get("versions"):
-            ano = (m["versions"][0].get("created") or "")[-17:-13].strip() or None
+        # metadata-v5 não traz data nem authors_parsed (versions é ['v1', ...]):
+        # o ano sai do próprio id novo (AAMM.nnnnn) ou do antigo (arquivo/AAMMnnn).
+        mm = re.match(r"(\d{2})(\d{2})\.", aid) or re.match(r"[a-z.-]+/(\d{2})(\d{2})", aid)
+        ano = str((2000 if int(mm.group(1)) < 91 else 1900) + int(mm.group(1))) if mm else None
         b.poe({"id": f"arxiv_{aid}", "openalex": None, "doi": norm_doi(m.get("doi")), "arxiv": aid, "zbmath": None,
-               "titulo": titulo, "autores": [" ".join(reversed([p for p in a[:2] if p])) for a in m.get("authors_parsed") or []],
+               "titulo": titulo, "autores": [x.strip() for x in re.split(r",| and ", m.get("authors") or "") if x.strip()],
                "ano": int(ano) if ano and ano.isdigit() else None, "venue": "arXiv", "tipo": "preprint",
                "oa_url": f"https://arxiv.org/pdf/{aid}", "pdf_candidatos": [f"https://arxiv.org/pdf/{aid}"],
                "is_oa": True, "referencias": [], "resumo": resumo[:3000], "categorias": m.get("categories"),
