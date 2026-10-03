@@ -14,7 +14,7 @@
     "result": "nenhum",
     "status": "completed"
   },
-  "created": "2026-10-02T23:09:31Z",
+  "created": "2026-10-03T00:36:01Z",
   "created_by": "agente-c",
   "created_role": "PROPOSER",
   "depends_on": [
@@ -42,7 +42,7 @@
       "reason": "criado",
       "role": "PROPOSER",
       "to": "IDEA",
-      "ts": "2026-10-02T23:09:31Z"
+      "ts": "2026-10-03T00:36:01Z"
     },
     {
       "actor": "agente-c",
@@ -50,7 +50,7 @@
       "reason": "evidência anexada: formal=f-sph-k5-9-4",
       "role": "PROPOSER",
       "to": "IDEA",
-      "ts": "2026-10-02T23:09:31Z"
+      "ts": "2026-10-03T00:36:01Z"
     },
     {
       "actor": "migrate_covering.py",
@@ -58,7 +58,7 @@
       "reason": "registro formal medido válido",
       "role": "FORMALIZER",
       "to": "PROVED",
-      "ts": "2026-10-02T23:09:31Z"
+      "ts": "2026-10-03T00:36:01Z"
     }
   ],
   "kind": "theorem",
@@ -68,6 +68,15 @@
     "domain": "q=5, n=9, R=4",
     "problem": "K_5(9,4) >= 52"
   },
+  "sealed_evidence": {
+    "experiments": [],
+    "formal": [
+      "f-sph-k5-9-4"
+    ],
+    "proofs": [],
+    "witnesses": []
+  },
+  "sealed_sha256": "92056917676740223afb75c6858dfdfee884ae0872dcd67f7e25bf6f6ce533b9",
   "statement": "Todo C : Finset (Fin 9 -> ZMod 5) com Covers 4 C tem pelo menos 52 palavras (CoveringChain.SPH_K5_9_4_lb).",
   "status": "PROVED",
   "trust_boundary": [

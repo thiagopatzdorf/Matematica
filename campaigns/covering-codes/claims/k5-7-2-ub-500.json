@@ -1,4 +1,9 @@
 {
+  "blocked_independently_reproduced": [
+    "corrida de verify-py-dilation sobre w-q5-n7-r2-m500 não conta: verificador verify-py-dilation foi escrito por quem criou o claim (agente-c): não é independente do autor",
+    "em w-q5-n7-r2-m500 faltam ≥2 verificadores INDEPENDENTES (autores, implementações, código e grupos distintos) com corrida PASS válida; há 1 componente(s) independente(s)",
+    "em exp-prior-search-unrecorded faltam ≥2 verificadores INDEPENDENTES (autores, implementações, código e grupos distintos) com corrida PASS válida; há 0 componente(s) independente(s)"
+  ],
   "bound": {
     "direction": "upper",
     "parameters": {
@@ -14,7 +19,7 @@
     "result": "uncovered=0 nos dois verificadores",
     "status": "completed"
   },
-  "created": "2026-10-02T23:09:31Z",
+  "created": "2026-10-03T00:36:01Z",
   "created_by": "agente-c",
   "created_role": "PROPOSER",
   "depends_on": [],
@@ -25,9 +30,7 @@
     ],
     "external_reproductions": [],
     "formal": [],
-    "literature": [
-      "lit-keri-tables-2011-k5-7-2"
-    ],
+    "literature": [],
     "proofs": [],
     "verifier_runs": [],
     "witnesses": [
@@ -41,7 +44,7 @@
       "reason": "criado",
       "role": "PROPOSER",
       "to": "IDEA",
-      "ts": "2026-10-02T23:09:31Z"
+      "ts": "2026-10-03T00:36:01Z"
     },
     {
       "actor": "agente-c",
@@ -49,7 +52,7 @@
       "reason": "evidência anexada: witnesses=w-q5-n7-r2-m500",
       "role": "PROPOSER",
       "to": "IDEA",
-      "ts": "2026-10-02T23:09:31Z"
+      "ts": "2026-10-03T00:36:01Z"
     },
     {
       "actor": "agente-c",
@@ -57,23 +60,15 @@
       "reason": "evidência anexada: experiments=exp-prior-search-unrecorded",
       "role": "PROPOSER",
       "to": "IDEA",
-      "ts": "2026-10-02T23:09:31Z"
-    },
-    {
-      "actor": "agente-c",
-      "from": "IDEA",
-      "reason": "evidência anexada: literature=lit-keri-tables-2011-k5-7-2",
-      "role": "PROPOSER",
-      "to": "IDEA",
-      "ts": "2026-10-02T23:09:31Z"
+      "ts": "2026-10-03T00:36:01Z"
     },
     {
       "actor": "migrate_covering.py",
       "from": "IDEA",
-      "reason": "2 verificadores de grupos distintos, PASS e sem desacordo, neste run",
-      "role": "INDEPENDENT_VERIFIER",
-      "to": "INDEPENDENTLY_REPRODUCED",
-      "ts": "2026-10-02T23:09:31Z"
+      "reason": "witness conferido pelo verificador oficial; independência negada pela guarda (ver blocked_independently_reproduced)",
+      "role": "PROPOSER",
+      "to": "EMPIRICAL",
+      "ts": "2026-10-03T00:36:01Z"
     }
   ],
   "kind": "theorem",
@@ -81,10 +76,27 @@
   "scope": {
     "assumptions": [],
     "domain": "q=5, n=7, R=2",
+    "parameters": {
+      "M": 500,
+      "R": 2,
+      "n": 7,
+      "q": 5
+    },
     "problem": "K_5(7,2) <= 500"
   },
+  "sealed_evidence": {
+    "experiments": [
+      "exp-prior-search-unrecorded"
+    ],
+    "formal": [],
+    "proofs": [],
+    "witnesses": [
+      "w-q5-n7-r2-m500"
+    ]
+  },
+  "sealed_sha256": "926015aff3f5db44180aed0c7207f284cb182eea28b63915c7cf93c842f3f729",
   "statement": "Existe código C em (Z_5)^7 com |C| = 500 que cobre com raio 2 (data/codes/q5_n7_R2_M500.txt).",
-  "status": "INDEPENDENTLY_REPRODUCED",
+  "status": "EMPIRICAL",
   "trust_boundary": [
     {
       "component": "tools/verify/verify.c compilado com gcc 13.3 (-Werror)",

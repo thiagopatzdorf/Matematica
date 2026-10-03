@@ -5,7 +5,7 @@
     "result": "nenhum",
     "status": "completed"
   },
-  "created": "2026-10-02T23:09:31Z",
+  "created": "2026-10-03T00:36:01Z",
   "created_by": "agente-c",
   "created_role": "PROPOSER",
   "depends_on": [],
@@ -28,7 +28,7 @@
       "reason": "criado",
       "role": "PROPOSER",
       "to": "IDEA",
-      "ts": "2026-10-02T23:09:31Z"
+      "ts": "2026-10-03T00:36:01Z"
     },
     {
       "actor": "agente-c",
@@ -36,7 +36,7 @@
       "reason": "evidência anexada: formal=f-chkn-sound",
       "role": "PROPOSER",
       "to": "IDEA",
-      "ts": "2026-10-02T23:09:31Z"
+      "ts": "2026-10-03T00:36:01Z"
     },
     {
       "actor": "migrate_covering.py",
@@ -44,7 +44,7 @@
       "reason": "registro formal medido válido",
       "role": "FORMALIZER",
       "to": "PROVED",
-      "ts": "2026-10-02T23:09:31Z"
+      "ts": "2026-10-03T00:36:01Z"
     }
   ],
   "kind": "lemma",
@@ -54,6 +54,15 @@
     "domain": "SearchCore",
     "problem": "correção da busca com poda"
   },
+  "sealed_evidence": {
+    "experiments": [],
+    "formal": [
+      "f-chkn-sound"
+    ],
+    "proofs": [],
+    "witnesses": []
+  },
+  "sealed_sha256": "ec182881b620565a33147b6fed4cbad407932f3a4b51bc8ec87b5c3ba33fa4de",
   "statement": "SC.chkN n S d s = true -> (fronteira refutada) -> Ref n s (SC.chkN_sound).",
   "status": "PROVED",
   "trust_boundary": [

@@ -5,7 +5,7 @@
     "result": "nenhum",
     "status": "completed"
   },
-  "created": "2026-10-02T23:09:31Z",
+  "created": "2026-10-03T00:36:01Z",
   "created_by": "agente-c",
   "created_role": "PROPOSER",
   "depends_on": [],
@@ -28,7 +28,7 @@
       "reason": "criado",
       "role": "PROPOSER",
       "to": "IDEA",
-      "ts": "2026-10-02T23:09:31Z"
+      "ts": "2026-10-03T00:36:01Z"
     },
     {
       "actor": "agente-c",
@@ -36,7 +36,7 @@
       "reason": "evidência anexada: formal=f-cert-of-go",
       "role": "PROPOSER",
       "to": "IDEA",
-      "ts": "2026-10-02T23:09:31Z"
+      "ts": "2026-10-03T00:36:01Z"
     },
     {
       "actor": "migrate_covering.py",
@@ -44,7 +44,7 @@
       "reason": "registro formal medido válido",
       "role": "FORMALIZER",
       "to": "PROVED",
-      "ts": "2026-10-02T23:09:31Z"
+      "ts": "2026-10-03T00:36:01Z"
     }
   ],
   "kind": "lemma",
@@ -54,6 +54,15 @@
     "domain": "K3_Bridge",
     "problem": "ponte checagem -> Covers"
   },
+  "sealed_evidence": {
+    "experiments": [],
+    "formal": [
+      "f-cert-of-go"
+    ],
+    "proofs": [],
+    "witnesses": []
+  },
+  "sealed_sha256": "b52775049d3c05da6b32daf7e9f1c037ecd1a026c014a368528d7625ca0d5e84",
   "statement": "CoveringKernel.cert_of_go: a checagem booleana `go` verdadeira sobre uma lista estritamente crescente de M inteiros < q^n dá C com |C|=M e Covers R C.",
   "status": "PROVED",
   "trust_boundary": [

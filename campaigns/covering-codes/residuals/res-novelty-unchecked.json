@@ -1,8 +1,18 @@
 {
-  "created": "2026-10-02T23:03:19Z",
+  "created": "2026-10-03T00:32:14Z",
   "created_by": "agente-c",
+  "instances": [
+    "k4-10-4",
+    "k5-10-4",
+    "k5-7-2",
+    "k5-9-3",
+    "k5-9-4",
+    "k5-9-5",
+    "k7-8-3",
+    "k7-9-4"
+  ],
   "kind": "literatura",
   "next_step": "ler Kéri/Marosi PDF e DMP",
-  "reason": "novidade é afirmação do autor (README:72); cotas das tabelas só parcialmente reconferidas hoje (Marosi v3 abs, Florath abs, Crossref); Kéri 2011, as tabelas lineares de Davydov-Marcugini-Pambianco (README:37-38, fonte não identificada: NÃO registrada como literatura para não inventar título/URL) e as cotas inferiores 'conhecidas' não reconferidos",
+  "reason": "novidade é afirmação do autor (README:72); cotas das tabelas só parcialmente reconferidas hoje (Marosi v3 abs, Florath abs, Crossref); Kéri 2011 (ver res-keri-edition-unidentified), as tabelas lineares de Davydov-Marcugini-Pambianco (README:37-38, fonte não identificada: NÃO registrada como literatura para não inventar título/URL) e as cotas inferiores 'conhecidas' não reconferidos",
   "residual_id": "res-novelty-unchecked"
 }

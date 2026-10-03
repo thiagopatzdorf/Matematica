@@ -1,7 +1,10 @@
 {
   "claim_id": "k7-9-4-ub-1351",
-  "created": "2026-10-02T23:03:19Z",
+  "created": "2026-10-03T00:32:14Z",
   "created_by": "agente-c",
+  "instances": [
+    "k7-9-4"
+  ],
   "kind": "geracao_nao_reproduzivel",
   "next_step": "registrar o comando do lincov e o algoritmo do remendo, ou versionar o gerador do .lean",
   "reason": "lincov (Mapika/coldcase@56a8cce) fora do repo e remendo guloso de 322 palavras sem registro; gen_lean_cover.py/tests/test_lean_cover.py/data/certificates citados em C1_Data_K7_9_4.lean não existem",

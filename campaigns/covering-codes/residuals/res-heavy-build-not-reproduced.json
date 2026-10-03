@@ -4,8 +4,12 @@
     "k2-6-1-eq-12",
     "k7-9-4-ub-1351"
   ],
-  "created": "2026-10-02T23:03:19Z",
+  "created": "2026-10-03T00:32:14Z",
   "created_by": "agente-c",
+  "instances": [
+    "k2-6-1",
+    "k7-9-4"
+  ],
   "kind": "nao_reproduzido",
   "next_step": "rodar numa máquina com RAM >= 9 GB por módulo e registrar com formal.registrar_formal",
   "reason": "lake build CoveringHeavy (~12,4 h de CPU, 133 módulos) não foi executado; axiomas desses dois teoremas só DECLARADOS no README/paper",

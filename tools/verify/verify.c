@@ -1,19 +1,28 @@
 /*
  * verify.c -- verificador oficial de códigos de cobertura K_q(n,R) <= M.  C99, sem dependências.
  *
- * Uso:   verify [-q Q -n N -r R] [-m M] ARQUIVO|-
- *        Sem -q/-n/-r, os parâmetros saem do nome do arquivo (q<Q>_n<N>_R<R>_M<M>.txt).
+ * Uso:   verify [-q Q -n N -r R] [-m M] ARQUIVO|-                  (modo legado)
+ *        verify --q Q --n N --R R --M M ARQUIVO|-                    (modo explícito)
+ *        Legado: sem -q/-n/-r, os parâmetros saem do nome do arquivo (q<Q>_n<N>_R<R>_M<M>.txt).
+ *        Explícito: os QUATRO parâmetros vêm da linha de comando e o nome do arquivo NUNCA é fonte de parâmetro. Quem chama (o
+ *        sistema da campanha) entrega os parâmetros do enunciado; se o nome do arquivo seguir o padrão e disser outra coisa,
+ *        é contradição (exit 2): um witness renomeado para outra instância não passa. Não se pode misturar -q/-n/-r/-m com --q/...
  *        "-" lê a entrada padrão (ex.: a saída de scripts/codes/expand.py).
  *
  * Entrada: uma palavra por linha, n dígitos '0'..'9' (s[0] .. s[n-1]); linhas vazias ignoradas.
  *          Índice da palavra = sum_k s[k] * q^k (little-endian, a convenção dos C1_Data_*.lean).
  *
- * Confere, nesta ordem, e para no primeiro defeito (código de saída 2):
+ * Confere, nesta ordem, e para no primeiro defeito (código de saída 2: o witness contradiz os parâmetros ou o formato):
  *   - todo caractere é dígito < q e toda linha tem exatamente n dígitos;
  *   - não há palavra repetida;
- *   - o total é M (se M veio do nome ou de -m).
+ *   - o total é M (se M veio do nome, de -m ou de --M; no modo explícito M é obrigatório).
  * Depois marca num bitset de q^n bits a bola de raio R de cada palavra e conta os pontos
  * descobertos. Saída 0 sse descobertos = 0; saída 1 se algum ponto ficou descoberto.
+ *
+ * Códigos de saída (contrato com a campanha: `fail_exit_codes` = [1, 2]; qualquer outro não-zero é ERRO, não refutação):
+ *   0 cobre e confere com os parâmetros;  1 há ponto descoberto com raio R;
+ *   2 o conteúdo contradiz os parâmetros (comprimento != n, dígito >= q, duplicata, #palavras != M, nome != parâmetros explícitos);
+ *   3 uso incorreto ou falha operacional (opção inválida, arquivo ilegível, sem memória, q^n grande demais).
  *
  * As bolas são enumeradas por busca em profundidade sobre (posição, deslocamento) com a tabela
  * delta[p][a][v] = (((a + v) mod q) - a) * q^p pré-computada: trocar o dígito p de a para a+v
@@ -22,6 +31,7 @@
  * Também imprime o sha256 canônico: sha256 das palavras ordenadas por byte, unidas por LF, com
  * LF final (o mesmo de scripts/codes/codefmt.py e dos cabeçalhos C1_Data_*.lean).
  */
+#include <limits.h>
 #include <stdint.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -138,51 +148,92 @@ static int parse_name(const char *path, int *q, int *n, int *r, long *m) {
     return sscanf(b, "q%d_n%d_R%d_M%ld", q, n, r, m) == 4;
 }
 
+/* exit 2: o witness contradiz os parâmetros/formato (é um FAIL do verificador) */
 static int die(const char *msg, long line) {
     if (line > 0) fprintf(stderr, "ERRO linha %ld: %s\n", line, msg);
     else fprintf(stderr, "ERRO: %s\n", msg);
     return 2;
 }
 
+/* exit 3: uso incorreto ou falha operacional (NÃO é veredito sobre o witness) */
+static int usage_err(const char *msg) {
+    fprintf(stderr, "ERRO DE USO: %s\n", msg);
+    return 3;
+}
+
+/* inteiro estrito: só dígitos (sinal opcional), sem lixo no fim. atoi("abc") = 0 é o tipo de silêncio que deixaria R=0 passar. */
+static int parse_long(const char *s, long *out) {
+    char *end;
+    if (!s || !*s) return 0;
+    *out = strtol(s, &end, 10);
+    return *end == 0;
+}
+
 int main(int argc, char **argv) {
     int q = -1, n = -1, r = -1;
     long m = -1;
+    long ex[4] = {-1, -1, -1, -1}; /* --q --n --R --M */
+    int ex_given[4] = {0, 0, 0, 0}, legado = 0, explicito = 0;
+    static const char *const EXN[4] = {"--q", "--n", "--R", "--M"};
     const char *path = NULL;
     for (int i = 1; i < argc; i++) {
-        if (!strcmp(argv[i], "-q") && i + 1 < argc) q = atoi(argv[++i]);
-        else if (!strcmp(argv[i], "-n") && i + 1 < argc) n = atoi(argv[++i]);
-        else if (!strcmp(argv[i], "-r") && i + 1 < argc) r = atoi(argv[++i]);
-        else if (!strcmp(argv[i], "-m") && i + 1 < argc) m = atol(argv[++i]);
+        int k;
+        for (k = 0; k < 4; k++)
+            if (!strcmp(argv[i], EXN[k])) break;
+        if (k < 4) {
+            if (i + 1 >= argc || !parse_long(argv[i + 1], &ex[k]) || ex[k] < 0)
+                return usage_err("opção explícita sem valor inteiro não negativo (--q Q --n N --R R --M M)");
+            i++;
+            ex_given[k] = 1;
+            explicito = 1;
+        } else if (!strcmp(argv[i], "-q") && i + 1 < argc) { q = atoi(argv[++i]); legado = 1; }
+        else if (!strcmp(argv[i], "-n") && i + 1 < argc) { n = atoi(argv[++i]); legado = 1; }
+        else if (!strcmp(argv[i], "-r") && i + 1 < argc) { r = atoi(argv[++i]); legado = 1; }
+        else if (!strcmp(argv[i], "-m") && i + 1 < argc) { m = atol(argv[++i]); legado = 1; }
+        else if (argv[i][0] == '-' && argv[i][1] == '-') return usage_err("opção desconhecida");
         else path = argv[i];
     }
-    if (!path) { fprintf(stderr, "uso: verify [-q Q -n N -r R] [-m M] ARQUIVO|-\n"); return 2; }
-    if (q < 0 || n < 0 || r < 0) {
+    if (!path) { fprintf(stderr, "uso: verify [-q Q -n N -r R] [-m M] ARQUIVO|-   ou   verify --q Q --n N --R R --M M ARQUIVO|-\n"); return 3; }
+    if (explicito && legado) return usage_err("não misture -q/-n/-r/-m com --q/--n/--R/--M");
+    if (explicito) {
+        if (!(ex_given[0] && ex_given[1] && ex_given[2] && ex_given[3]))
+            return usage_err("modo explícito exige os quatro: --q --n --R --M (sem eles o nome do arquivo seria a fonte do enunciado)");
+        if (ex[0] > INT_MAX || ex[1] > INT_MAX || ex[2] > INT_MAX) return usage_err("parâmetro explícito grande demais");
+        q = (int)ex[0]; n = (int)ex[1]; r = (int)ex[2]; m = ex[3];
+        /* o nome do arquivo não é fonte, mas se ele AFIRMA outra instância o witness foi trocado/renomeado: contradição */
+        int fq, fn, fr; long fm;
+        if (parse_name(path, &fq, &fn, &fr, &fm) && (fq != q || fn != n || fr != r || fm != m)) {
+            fprintf(stderr, "ERRO: parâmetros explícitos (q=%d n=%d R=%d M=%ld) contradizem o nome do arquivo (q=%d n=%d R=%d M=%ld)\n",
+                    q, n, r, m, fq, fn, fr, fm);
+            return 2;
+        }
+    } else if (q < 0 || n < 0 || r < 0) {
         int fq, fn, fr; long fm;
         if (!parse_name(path, &fq, &fn, &fr, &fm))
-            return die("sem -q/-n/-r e nome fora do padrão q<Q>_n<N>_R<R>_M<M>", 0);
+            return usage_err("sem -q/-n/-r e nome fora do padrão q<Q>_n<N>_R<R>_M<M>");
         if (q < 0) q = fq;
         if (n < 0) n = fn;
         if (r < 0) r = fr;
         if (m < 0) m = fm;
     }
-    if (q < 2 || q > MAXQ || n < 1 || n > MAXN || r < 0) return die("parâmetros fora do suportado (2<=q<=10, 1<=n<=20)", 0);
+    if (q < 2 || q > MAXQ || n < 1 || n > MAXN || r < 0) return usage_err("parâmetros fora do suportado (2<=q<=10, 1<=n<=20)");
     Q = q; N = n; R = r > n ? n : r;
     POW[0] = 1;
     for (int i = 1; i <= n; i++) POW[i] = POW[i - 1] * (uint64_t)q;
     uint64_t npts = POW[n];
-    if (npts > MAXPOINTS) return die("q^n grande demais para o bitset", 0);
+    if (npts > MAXPOINTS) return usage_err("q^n grande demais para o bitset");
     for (int p = 0; p < n; p++)
         for (int a = 0; a < q; a++)
             for (int v = 1; v < q; v++) DELTA[p][a][v] = ((int64_t)((a + v) % q) - a) * (int64_t)POW[p];
 
     FILE *f = strcmp(path, "-") ? fopen(path, "r") : stdin;
-    if (!f) return die("não consegui abrir o arquivo", 0);
+    if (!f) return usage_err("não consegui abrir o arquivo");
     size_t cap = 1024, cnt = 0;
     uint8_t *words = malloc(cap * (size_t)n);
     uint64_t nwords64 = (npts + 63) / 64;
     uint64_t *seen = calloc(nwords64, 8);
     COV = calloc(nwords64, 8);
-    if (!words || !seen || !COV) return die("sem memória", 0);
+    if (!words || !seen || !COV) return usage_err("sem memória");
 
     char line[256];
     long ln = 0;
@@ -205,7 +256,7 @@ int main(int argc, char **argv) {
         if (cnt == cap) {
             cap *= 2;
             words = realloc(words, cap * (size_t)n);
-            if (!words) return die("sem memória", 0);
+            if (!words) return usage_err("sem memória");
         }
         memcpy(words + cnt * (size_t)n, line, (size_t)n);
         cnt++;
@@ -246,8 +297,8 @@ int main(int argc, char **argv) {
     }
     sha256_final(&c, hex);
 
-    printf("q=%d n=%d R=%d M=%zu points=%llu uncovered=%llu sha256=%s", q, n, R, cnt,
-           (unsigned long long)npts, (unsigned long long)unc, hex);
+    printf("q=%d n=%d R=%d M=%zu points=%llu uncovered=%llu sha256=%s params=%s", q, n, R, cnt,
+           (unsigned long long)npts, (unsigned long long)unc, hex, explicito ? "explicit" : "legacy");
     if (unc) {
         char s[MAXN + 1];
         for (int i = 0; i < n; i++) s[i] = (char)('0' + (first / POW[i]) % (uint64_t)q);

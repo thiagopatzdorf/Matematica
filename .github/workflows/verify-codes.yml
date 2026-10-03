@@ -7,6 +7,7 @@ on:
     paths:
       - "data/**"
       - "tools/**"
+      - "campaigns/**"
       - "scripts/codes/**"
       - "scripts/search/**"
       - "tests/**"
@@ -20,6 +21,7 @@ on:
     paths:
       - "data/**"
       - "tools/**"
+      - "campaigns/**"
       - "scripts/codes/**"
       - "scripts/search/**"
       - "tests/**"
@@ -46,9 +48,12 @@ jobs:
       - name: check_all (todo data/codes cobre; todo JSON expande para o mesmo sha256 canônico)
         run: time tools/verify/check_all.sh
       # O segundo verificador de cobertura (tools/campaign/verify_cover_dilation.py) usa numpy; sem ele os testes dele falham.
+      # A versão é a MESMA em que a campanha foi medida (campaigns/covering-codes: "numpy 2.4.6"): antes o CI fixava 2.2.6, que nunca rodou junto
+      # com os registros da campanha. Se mudar aqui, mude a medição da campanha no mesmo commit.
       - name: Dependência do segundo verificador (numpy)
-        run: python3 -m pip install numpy==2.2.6
-      - name: Testes (positivos, negativos, formato, structure.py regenera os JSON)
+        run: python3 -m pip install numpy==2.4.6
+      # Inclui os testes de parâmetros explícitos dos dois verificadores (R+3, M-1... falham) e a coerência dos registros da campanha.
+      - name: Testes (positivos, negativos, formato, structure.py regenera os JSON, parâmetros explícitos, coerência da campanha)
         run: python3 -m unittest discover -s tests -v
 
   lean:

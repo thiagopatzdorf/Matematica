@@ -1,0 +1,69 @@
+{
+  "created": "2026-10-03T00:32:14Z",
+  "created_by": "agente-c",
+  "declared_bounds": [
+    {
+      "declared_at": "paper/main.tex:139-145 (coluna 'previous')",
+      "direction": "upper",
+      "instance": "k5-7-2",
+      "value": 525
+    },
+    {
+      "declared_at": "paper/main.tex:139-145 (coluna 'previous')",
+      "direction": "upper",
+      "instance": "k4-10-4",
+      "value": 208
+    },
+    {
+      "declared_at": "paper/main.tex:139-145 (coluna 'previous')",
+      "direction": "upper",
+      "instance": "k5-9-3",
+      "value": 1275
+    },
+    {
+      "declared_at": "paper/main.tex:139-145 (coluna 'previous')",
+      "direction": "upper",
+      "instance": "k5-10-4",
+      "value": 875
+    },
+    {
+      "declared_at": "paper/main.tex:139-145 (coluna 'previous')",
+      "direction": "upper",
+      "instance": "k5-9-5",
+      "value": 55
+    },
+    {
+      "declared_at": "paper/main.tex:139-145 (coluna 'previous')",
+      "direction": "upper",
+      "instance": "k5-9-4",
+      "value": 255
+    },
+    {
+      "declared_at": "paper/main.tex:139-145 (coluna 'previous')",
+      "direction": "upper",
+      "instance": "k7-8-3",
+      "value": 2337
+    },
+    {
+      "declared_at": "README.md:28; paper/main.tex:80",
+      "direction": "upper",
+      "instance": "k7-9-4",
+      "value": 1843
+    }
+  ],
+  "instances": [
+    "k4-10-4",
+    "k5-10-4",
+    "k5-7-2",
+    "k5-9-3",
+    "k5-9-4",
+    "k5-9-5",
+    "k7-8-3",
+    "k7-9-4"
+  ],
+  "kind": "literatura_fonte_nao_identificada",
+  "next_step": "alguém abre as tabelas on-line, anota a edição/data e registra com literature_register (8 registros) ou corrige o paper",
+  "reason": "fonte não identificada: README, paper/main.tex, nota.md e docs/ dão título, autor, ano e URL do Kéri, mas nenhuma edição, versão ou data de acesso das tabelas. O registro de literatura exige versão REAL (D-16/D-30), então estas 8 cotas ficam como declaradas, sem registro em literature/ e sem apoiar nenhum claim. A comparação com a literatura (literature_compare) não as vê.",
+  "residual_id": "res-keri-edition-unidentified",
+  "source": "G. Kéri, Tables for bounds on covering codes, https://old.sztaki.hu/~keri/codes/, 2011 (paper/main.tex:171-172)"
+}

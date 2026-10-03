@@ -1,4 +1,9 @@
 {
+  "blocked_independently_reproduced": [
+    "corrida de verify-py-dilation sobre w-q5-n9-r3-m1250 não conta: verificador verify-py-dilation foi escrito por quem criou o claim (agente-c): não é independente do autor",
+    "em w-q5-n9-r3-m1250 faltam ≥2 verificadores INDEPENDENTES (autores, implementações, código e grupos distintos) com corrida PASS válida; há 1 componente(s) independente(s)",
+    "em exp-prior-search-unrecorded faltam ≥2 verificadores INDEPENDENTES (autores, implementações, código e grupos distintos) com corrida PASS válida; há 0 componente(s) independente(s)"
+  ],
   "bound": {
     "direction": "upper",
     "parameters": {
@@ -14,7 +19,7 @@
     "result": "uncovered=0 nos dois verificadores",
     "status": "completed"
   },
-  "created": "2026-10-02T23:09:31Z",
+  "created": "2026-10-03T00:36:01Z",
   "created_by": "agente-c",
   "created_role": "PROPOSER",
   "depends_on": [],
@@ -25,9 +30,7 @@
     ],
     "external_reproductions": [],
     "formal": [],
-    "literature": [
-      "lit-keri-tables-2011-k5-9-3"
-    ],
+    "literature": [],
     "proofs": [],
     "verifier_runs": [],
     "witnesses": [
@@ -41,7 +44,7 @@
       "reason": "criado",
       "role": "PROPOSER",
       "to": "IDEA",
-      "ts": "2026-10-02T23:09:31Z"
+      "ts": "2026-10-03T00:36:01Z"
     },
     {
       "actor": "agente-c",
@@ -49,7 +52,7 @@
       "reason": "evidência anexada: witnesses=w-q5-n9-r3-m1250",
       "role": "PROPOSER",
       "to": "IDEA",
-      "ts": "2026-10-02T23:09:31Z"
+      "ts": "2026-10-03T00:36:01Z"
     },
     {
       "actor": "agente-c",
@@ -57,23 +60,15 @@
       "reason": "evidência anexada: experiments=exp-prior-search-unrecorded",
       "role": "PROPOSER",
       "to": "IDEA",
-      "ts": "2026-10-02T23:09:31Z"
-    },
-    {
-      "actor": "agente-c",
-      "from": "IDEA",
-      "reason": "evidência anexada: literature=lit-keri-tables-2011-k5-9-3",
-      "role": "PROPOSER",
-      "to": "IDEA",
-      "ts": "2026-10-02T23:09:31Z"
+      "ts": "2026-10-03T00:36:01Z"
     },
     {
       "actor": "migrate_covering.py",
       "from": "IDEA",
-      "reason": "2 verificadores de grupos distintos, PASS e sem desacordo, neste run",
-      "role": "INDEPENDENT_VERIFIER",
-      "to": "INDEPENDENTLY_REPRODUCED",
-      "ts": "2026-10-02T23:09:31Z"
+      "reason": "witness conferido pelo verificador oficial; independência negada pela guarda (ver blocked_independently_reproduced)",
+      "role": "PROPOSER",
+      "to": "EMPIRICAL",
+      "ts": "2026-10-03T00:36:01Z"
     }
   ],
   "kind": "theorem",
@@ -81,10 +76,27 @@
   "scope": {
     "assumptions": [],
     "domain": "q=5, n=9, R=3",
+    "parameters": {
+      "M": 1250,
+      "R": 3,
+      "n": 9,
+      "q": 5
+    },
     "problem": "K_5(9,3) <= 1250"
   },
+  "sealed_evidence": {
+    "experiments": [
+      "exp-prior-search-unrecorded"
+    ],
+    "formal": [],
+    "proofs": [],
+    "witnesses": [
+      "w-q5-n9-r3-m1250"
+    ]
+  },
+  "sealed_sha256": "67f79eb3b3fb2f812f78b9b0633a82e537a92fe7ef7e886093cb9fe51c02aba2",
   "statement": "Existe código C em (Z_5)^9 com |C| = 1250 que cobre com raio 3 (data/codes/q5_n9_R3_M1250.txt).",
-  "status": "INDEPENDENTLY_REPRODUCED",
+  "status": "EMPIRICAL",
   "trust_boundary": [
     {
       "component": "tools/verify/verify.c compilado com gcc 13.3 (-Werror)",

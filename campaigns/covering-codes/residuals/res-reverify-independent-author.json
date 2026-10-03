@@ -1,8 +1,30 @@
 {
-  "created": "2026-10-02T23:03:19Z",
+  "claim_ids": [
+    "k5-7-2-ub-500",
+    "k4-10-4-ub-192",
+    "k5-9-3-ub-1250",
+    "k5-10-4-ub-625",
+    "k5-9-5-ub-50",
+    "k5-9-4-ub-250",
+    "k7-8-3-ub-1893",
+    "k7-8-3-ub-1887",
+    "k7-9-4-ub-1351",
+    "k7-9-4-ub-1285"
+  ],
+  "created": "2026-10-03T00:32:14Z",
   "created_by": "agente-c",
+  "instances": [
+    "k4-10-4",
+    "k5-10-4",
+    "k5-7-2",
+    "k5-9-3",
+    "k5-9-4",
+    "k5-9-5",
+    "k7-8-3",
+    "k7-9-4"
+  ],
   "kind": "independencia",
-  "next_step": "outro agente/humano escreve um 3º verificador ou confirma estes",
-  "reason": "o 2º verificador (verify-py-dilation) foi escrito pelo mesmo agente que registrou a campanha; INDEPENDENTLY_REPRODUCED é independência de código, não de autoria",
+  "next_step": "outro agente/humano (diferente de agente-c e de thiagopatzdorf) escreve ou reimplementa um verificador, registra com implemented_by verdadeiro e roda sobre os 11 witnesses",
+  "reason": "MEDIDO pela guarda de INDEPENDENTLY_REPRODUCED (2026-10-03): verify-c (autor thiagopatzdorf, git log) conta; verify-py-dilation foi escrito por agente-c, que também criou os claims, e a guarda não conta verificador do autor do claim. Resta 1 componente independente (< 2), então os 10 claims de código ficam em EMPIRICAL (blocked_independently_reproduced traz os motivos exatos). Os dois verificadores continuam concordando; o que falta é um segundo AUTOR, não um segundo resultado.",
   "residual_id": "res-reverify-independent-author"
 }

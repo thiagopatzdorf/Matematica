@@ -1,4 +1,11 @@
 {
+  "blocked_independently_reproduced": [
+    "corrida de verify-py-dilation sobre w-q7-n9-r4-m1351 não conta: verificador verify-py-dilation foi escrito por quem criou o claim (agente-c): não é independente do autor",
+    "em w-q7-n9-r4-m1351 faltam ≥2 verificadores INDEPENDENTES (autores, implementações, código e grupos distintos) com corrida PASS válida; há 1 componente(s) independente(s)",
+    "em exp-k7-9-4-1351-lincov faltam ≥2 verificadores INDEPENDENTES (autores, implementações, código e grupos distintos) com corrida PASS válida; há 0 componente(s) independente(s)",
+    "em exp-lean-data-equals-witness-1351 faltam ≥2 verificadores INDEPENDENTES (autores, implementações, código e grupos distintos) com corrida PASS válida; há 0 componente(s) independente(s)",
+    "em exp-structure-regeneration faltam ≥2 verificadores INDEPENDENTES (autores, implementações, código e grupos distintos) com corrida PASS válida; há 0 componente(s) independente(s)"
+  ],
   "bound": {
     "direction": "upper",
     "parameters": {
@@ -14,7 +21,7 @@
     "result": "uncovered=0 nos dois verificadores",
     "status": "completed"
   },
-  "created": "2026-10-02T23:09:31Z",
+  "created": "2026-10-03T00:36:01Z",
   "created_by": "agente-c",
   "created_role": "PROPOSER",
   "depends_on": [
@@ -32,7 +39,6 @@
       "f-k7-9-4-le-1351"
     ],
     "literature": [
-      "lit-keri-tables-2011-k7-9-4",
       "lit-marosi-2608-19872-v3"
     ],
     "proofs": [],
@@ -45,6 +51,11 @@
     "f-k7-9-4-le-1351: clean_build não é true",
     "f-k7-9-4-le-1351: axiomas não registrados (`#print axioms` não foi capturado)",
     "f-k7-9-4-le-1351: ambiente não registrado: falta lean_version",
+    "[INDEPENDENTLY_REPRODUCED exigido porque o claim tem witnesses] corrida de verify-py-dilation sobre w-q7-n9-r4-m1351 não conta: verificador verify-py-dilation foi escrito por quem criou o claim (agente-c): não é independente do autor",
+    "[INDEPENDENTLY_REPRODUCED exigido porque o claim tem witnesses] em w-q7-n9-r4-m1351 faltam ≥2 verificadores INDEPENDENTES (autores, implementações, código e grupos distintos) com corrida PASS válida; há 1 componente(s) independente(s)",
+    "[INDEPENDENTLY_REPRODUCED exigido porque o claim tem witnesses] em exp-k7-9-4-1351-lincov faltam ≥2 verificadores INDEPENDENTES (autores, implementações, código e grupos distintos) com corrida PASS válida; há 0 componente(s) independente(s)",
+    "[INDEPENDENTLY_REPRODUCED exigido porque o claim tem witnesses] em exp-lean-data-equals-witness-1351 faltam ≥2 verificadores INDEPENDENTES (autores, implementações, código e grupos distintos) com corrida PASS válida; há 0 componente(s) independente(s)",
+    "[INDEPENDENTLY_REPRODUCED exigido porque o claim tem witnesses] em exp-structure-regeneration faltam ≥2 verificadores INDEPENDENTES (autores, implementações, código e grupos distintos) com corrida PASS válida; há 0 componente(s) independente(s)",
     "falta statement_review: o Lean certifica o enunciado formal, não que ele é o enunciado pretendido; um revisor humano/independente precisa ler"
   ],
   "history": [
@@ -54,7 +65,7 @@
       "reason": "criado",
       "role": "PROPOSER",
       "to": "IDEA",
-      "ts": "2026-10-02T23:09:31Z"
+      "ts": "2026-10-03T00:36:01Z"
     },
     {
       "actor": "agente-c",
@@ -62,7 +73,7 @@
       "reason": "evidência anexada: witnesses=w-q7-n9-r4-m1351",
       "role": "PROPOSER",
       "to": "IDEA",
-      "ts": "2026-10-02T23:09:31Z"
+      "ts": "2026-10-03T00:36:01Z"
     },
     {
       "actor": "agente-c",
@@ -70,15 +81,7 @@
       "reason": "evidência anexada: experiments=exp-k7-9-4-1351-lincov",
       "role": "PROPOSER",
       "to": "IDEA",
-      "ts": "2026-10-02T23:09:31Z"
-    },
-    {
-      "actor": "agente-c",
-      "from": "IDEA",
-      "reason": "evidência anexada: literature=lit-keri-tables-2011-k7-9-4",
-      "role": "PROPOSER",
-      "to": "IDEA",
-      "ts": "2026-10-02T23:09:31Z"
+      "ts": "2026-10-03T00:36:01Z"
     },
     {
       "actor": "agente-c",
@@ -86,7 +89,7 @@
       "reason": "evidência anexada: literature=lit-marosi-2608-19872-v3",
       "role": "PROPOSER",
       "to": "IDEA",
-      "ts": "2026-10-02T23:09:31Z"
+      "ts": "2026-10-03T00:36:01Z"
     },
     {
       "actor": "agente-c",
@@ -94,7 +97,7 @@
       "reason": "evidência anexada: experiments=exp-lean-data-equals-witness-1351",
       "role": "PROPOSER",
       "to": "IDEA",
-      "ts": "2026-10-02T23:09:31Z"
+      "ts": "2026-10-03T00:36:01Z"
     },
     {
       "actor": "agente-c",
@@ -102,7 +105,7 @@
       "reason": "evidência anexada: experiments=exp-structure-regeneration",
       "role": "PROPOSER",
       "to": "IDEA",
-      "ts": "2026-10-02T23:09:31Z"
+      "ts": "2026-10-03T00:36:01Z"
     },
     {
       "actor": "agente-c",
@@ -110,15 +113,15 @@
       "reason": "evidência anexada: formal=f-k7-9-4-le-1351",
       "role": "PROPOSER",
       "to": "IDEA",
-      "ts": "2026-10-02T23:09:31Z"
+      "ts": "2026-10-03T00:36:01Z"
     },
     {
       "actor": "migrate_covering.py",
       "from": "IDEA",
-      "reason": "2 verificadores de grupos distintos, PASS e sem desacordo, neste run",
-      "role": "INDEPENDENT_VERIFIER",
-      "to": "INDEPENDENTLY_REPRODUCED",
-      "ts": "2026-10-02T23:09:31Z"
+      "reason": "witness conferido pelo verificador oficial; independência negada pela guarda (ver blocked_independently_reproduced)",
+      "role": "PROPOSER",
+      "to": "EMPIRICAL",
+      "ts": "2026-10-03T00:36:01Z"
     }
   ],
   "kind": "theorem",
@@ -126,10 +129,31 @@
   "scope": {
     "assumptions": [],
     "domain": "q=7, n=9, R=4",
+    "parameters": {
+      "M": 1351,
+      "R": 4,
+      "n": 9,
+      "q": 7
+    },
     "problem": "K_7(9,4) <= 1351"
   },
+  "sealed_evidence": {
+    "experiments": [
+      "exp-k7-9-4-1351-lincov",
+      "exp-lean-data-equals-witness-1351",
+      "exp-structure-regeneration"
+    ],
+    "formal": [
+      "f-k7-9-4-le-1351"
+    ],
+    "proofs": [],
+    "witnesses": [
+      "w-q7-n9-r4-m1351"
+    ]
+  },
+  "sealed_sha256": "556133889568f6a64ce6f5f75e2a53662bb7e16cb03e094710fa55b60c1d1b8a",
   "statement": "Existe código C em (Z_7)^9 com |C| = 1351 que cobre com raio 4 (data/codes/q7_n9_R4_M1351.txt).",
-  "status": "INDEPENDENTLY_REPRODUCED",
+  "status": "EMPIRICAL",
   "trust_boundary": [
     {
       "component": "tools/verify/verify.c compilado com gcc 13.3 (-Werror)",

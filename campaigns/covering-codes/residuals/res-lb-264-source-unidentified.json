@@ -1,0 +1,19 @@
+{
+  "created": "2026-10-03T00:32:14Z",
+  "created_by": "agente-c",
+  "declared_bounds": [
+    {
+      "declared_at": "paper/main.tex:81 e :126",
+      "direction": "lower",
+      "instance": "k7-9-4",
+      "value": 264
+    }
+  ],
+  "instances": [
+    "k7-9-4"
+  ],
+  "kind": "literatura_fonte_nao_identificada",
+  "next_step": "identificar a fonte do 264 (tabela, artigo, versão) e registrar com literature_register",
+  "reason": "fonte não identificada: o paper diz 'the best lower bound we know is 264' para K_7(9,4) sem citar de qual fonte; README:33 atribui as 'melhores cotas inferiores conhecidas' a Kéri, Gijswijt–Polak 2025 e Marosi 2026 sem dizer qual dá 264. O 264 saiu do universo (campo lb_literatura_declarada) porque número sem registro de literatura não é fato desta campanha.",
+  "residual_id": "res-lb-264-source-unidentified"
+}

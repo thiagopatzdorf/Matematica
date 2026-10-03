@@ -1,9 +1,12 @@
 {
-  "created": "2026-10-02T23:03:19Z",
+  "created": "2026-10-03T00:32:14Z",
   "created_by": "agente-c",
   "file": "CoveringLean/A6d_SearchHeavy.lean",
+  "instances": [
+    "k2-6-1"
+  ],
   "kind": "fora_da_biblioteca",
   "next_step": "apagar (pelo templo: com volta) ou arquivar",
-  "reason": "DECLARADO: não compila (README:71, obsoleto com A6e e SearchK6ge12). Não executado aqui (risco de OOM).",
+  "reason": "DECLARADO: não compila (README:71, obsoleto com A6e e SearchK6ge12). Não executado aqui (risco de OOM). Célula: K_2(6,1) >= 11 (cabeçalho do arquivo).",
   "residual_id": "res-a6d-searchheavy"
 }

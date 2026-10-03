@@ -1,9 +1,9 @@
 # Relatório de reprodução: covering-codes
 
 - veredito: **NÃO REPRODUZIDO por completo** (PASS 10, FAIL 1, SKIPPED 0)
-- data: 2026-10-02T23:16:03Z   runtime total: 375.65 s
+- data: 2026-10-03T00:40:29Z   runtime total: 171.29 s
 - modo: checkout atual
-- commit: bc3a3d727557e081fd0cabcc3580ede7e0da3e13
+- commit: caa1ac9a2faddc8e84a9782ab83dff8b608ce53b
 - toolchain Lean: leanprover/lean4:v4.34.1; versão medida: Lean (version 4.34.1, x86_64-unknown-linux-gnu, commit 5045d0056413266e57c625dcd7c365b10e377c52, Release); Mathlib: d13f23b723b8a846827a245b89c10fc7d3f11612
 - máquina: Linux-6.18.44-fc-v64-x86_64-with-glibc2.39; CPU: Intel(R) Xeon(R) Processor @ 2.10GHz (4 núcleos); RAM: 15.7 GiB
 
@@ -17,17 +17,17 @@
 
 ### check-all-verify-c (dados): PASS
 comando: `bash tools/verify/check_all.sh`
-- runtime_s: 2.178
+- runtime_s: 2.295
 - last_line: check_all: 10 códigos, todos cobrem (0 pontos descobertos).
 
 ### estrutura-regenera (gerador): PASS
 comando: `python3 scripts/codes/build_structured.py --check`
-- runtime_s: 12.755
+- runtime_s: 12.718
 - last_line: q7_n9_R4_M1351.json: 3 cosets de [9,3]_7 + 46 cosets de [9,1]_7 + 0 palavras
 
 ### gerador-1285 (gerador): PASS
 comando: `python3 -m unittest tests.test_code_format.GeneratorsRegenerateTheCodes -v`
-- runtime_s: 12.505
+- runtime_s: 12.684
 - last_line: OK
 
 ### espelho-busca-k2-6-1 (gerador): PASS
@@ -37,14 +37,14 @@ comando: `python3 scripts/k261/sc_ref.py 6 10 2`
 
 ### testes-unittest (teste): PASS
 comando: `python3 -m unittest discover -s tests -v`
-- runtime_s: 23.172
+- runtime_s: 25.82
 - last_line: OK
 
 ### verificadores-sobre-witnesses (verificadores): PASS
 - runs: {'verify-c@w-q2-n6-r1-m12': 'PASS', 'verify-py-dilation@w-q2-n6-r1-m12': 'PASS', 'verify-c@w-q4-n10-r4-m192': 'PASS', 'verify-py-dilation@w-q4-n10-r4-m192': 'PASS', 'verify-c@w-q5-n10-r4-m625': 'PASS', 'verify-py-dilation@w-q5-n10-r4-m625': 'PASS', 'verify-c@w-q5-n7-r2-m500': 'PASS', 'verify-py-dilation@w-q5-n7-r2-m500': 'PASS', 'verify-c@w-q5-n9-r3-m1250': 'PASS', 'verify-py-dilation@w-q5-n9-r3-m1250': 'PASS', 'verify-c@w-q5-n9-r4-m250': 'PASS', 'verify-py-dilation@w-q5-n9-r4-m250': 'PASS', 'verify-c@w-q5-n9-r5-m50': 'PASS', 'verify-py-dilation@w-q5-n9-r5-m50': 'PASS', 'verify-c@w-q7-n8-r3-m1887': 'PASS', 'verify-py-dilation@w-q7-n8-r3-m1887': 'PASS', 'verify-c@w-q7-n8-r3-m1893': 'PASS', 'verify-py-dilation@w-q7-n8-r3-m1893': 'PASS', 'verify-c@w-q7-n9-r4-m1285': 'PASS', 'verify-py-dilation@w-q7-n9-r4-m1285': 'PASS', 'verify-c@w-q7-n9-r4-m1351': 'PASS', 'verify-py-dilation@w-q7-n9-r4-m1351': 'PASS'}
 
 ### lake-build-alvo-padrao (lean_build): PASS
-- runtime_s: 5.586
+- runtime_s: 5.132
 - log_sha256: e13ecc10200abc4101c57bf20d463042bf738a151ff84aa6db6f9d8b0eba9423
 
 ### axiomas-dos-registros-formais (axiomas): FAIL
@@ -52,7 +52,7 @@ motivo: f-k2-6-1-eq12: axiomas reais ERROR: saída sem axiomas de SC.K_2_6_1_eq1
 - axioms: {'f-cert-of-go': ['propext', 'Classical.choice', 'Quot.sound'], 'f-chkn-sound': ['propext', 'Classical.choice', 'Quot.sound'], 'f-code12-card': ['propext', 'Classical.choice', 'Quot.sound'], 'f-code12-covers': ['propext', 'Classical.choice', 'Quot.sound'], 'f-even-inter': ['propext', 'Classical.choice', 'Quot.sound'], 'f-excess-bound': ['propext', 'Classical.choice', 'Quot.sound'], 'f-h2-counterexample': ['propext', 'Classical.choice', 'Quot.sound'], 'f-k2-6-1-eq12': 'ERROR: saída sem axiomas de SC.K_2_6_1_eq12 (rc=1)', 'f-k2-6-1-ge-11': ['propext', 'Classical.choice', 'Quot.sound'], 'f-k7-9-4-le-1351': 'ERROR: saída sem axiomas de CoveringKernel.K7_9_4_le_1351_kernel (rc=1)', 'f-sph-k4-10-4': ['propext', 'Classical.choice', 'Quot.sound'], 'f-sph-k5-10-4': ['propext', 'Classical.choice', 'Quot.sound'], 'f-sph-k5-7-2': ['propext', 'Classical.choice', 'Quot.sound'], 'f-sph-k5-9-3': ['propext', 'Classical.choice', 'Quot.sound'], 'f-sph-k5-9-4': ['propext', 'Classical.choice', 'Quot.sound'], 'f-sph-k5-9-5': ['propext', 'Classical.choice', 'Quot.sound'], 'f-sph-k7-8-3': ['propext', 'Classical.choice', 'Quot.sound'], 'f-sph-k7-9-4': ['propext', 'Classical.choice', 'Quot.sound'], 'f-sphere-covering': ['propext', 'Classical.choice', 'Quot.sound']}
 
 ### auditoria-da-cadeia (auditoria): PASS
-- events: 285
+- events: 314
 
 ## Hashes dos witnesses
 

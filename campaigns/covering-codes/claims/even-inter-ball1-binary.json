@@ -5,7 +5,7 @@
     "result": "nenhum",
     "status": "completed"
   },
-  "created": "2026-10-02T23:09:31Z",
+  "created": "2026-10-03T00:36:01Z",
   "created_by": "agente-c",
   "created_role": "PROPOSER",
   "depends_on": [],
@@ -28,7 +28,7 @@
       "reason": "criado",
       "role": "PROPOSER",
       "to": "IDEA",
-      "ts": "2026-10-02T23:09:31Z"
+      "ts": "2026-10-03T00:36:01Z"
     },
     {
       "actor": "agente-c",
@@ -36,7 +36,7 @@
       "reason": "evidência anexada: formal=f-even-inter",
       "role": "PROPOSER",
       "to": "IDEA",
-      "ts": "2026-10-02T23:09:31Z"
+      "ts": "2026-10-03T00:36:01Z"
     },
     {
       "actor": "migrate_covering.py",
@@ -44,7 +44,7 @@
       "reason": "registro formal medido válido",
       "role": "FORMALIZER",
       "to": "PROVED",
-      "ts": "2026-10-02T23:09:31Z"
+      "ts": "2026-10-03T00:36:01Z"
     }
   ],
   "kind": "lemma",
@@ -54,6 +54,15 @@
     "domain": "Fin 6 -> Fin 2",
     "problem": "paridade da interseção de bolas"
   },
+  "sealed_evidence": {
+    "experiments": [],
+    "formal": [
+      "f-even-inter"
+    ],
+    "proofs": [],
+    "witnesses": []
+  },
+  "sealed_sha256": "bfbaad15795ed7491cb1e5bb83e457c39bcfe5ede787648773e0e6bd2ceab256",
   "statement": "Para a != c em W 2 6, |bola(1,a) ∩ bola(1,c)| é par (CoveringA6.even_inter).",
   "status": "PROVED",
   "trust_boundary": [

@@ -12,6 +12,10 @@ executada de verdade por este script; o que não dá para executar aqui entra co
 Decisões de honestidade (explicadas nos registros):
   * claim nasce IDEA por `agente-c`; as promoções são feitas pelo ator `migrate_covering.py` (um programa, outro ator que o autor do
     claim), SEMPRE pelas guardas de `claims.mudar_estado`: se a guarda nega, o claim fica onde a evidência o deixa;
+  * contrato de verificação (red team D-10/D-11/D-12, Pilot-v2 2026-10-03): witnesses declaram `parameters` {q,n,R,M}; o claim declara os mesmos em
+    `scope.parameters` (M = `bound.value`); os dois verificadores recebem os parâmetros por `{param:NOME}` e NÃO leem o nome do arquivo; cada
+    verificador registra o autor REAL (`implemented_by`). Se a guarda de INDEPENDENTLY_REPRODUCED nega (hoje: o 2º verificador foi escrito por quem
+    criou os claims), o claim fica em EMPIRICAL com os motivos em `blocked_independently_reproduced`: nada é forçado;
   * FORMALLY_VERIFIED nunca é pedido de fato: exige `statement_review` de um revisor que não seja o autor e ninguém revisou os
     enunciados (README: "revisão humana"). Os motivos exatos da guarda ficam em `formal_verification_blockers` de cada claim;
   * os teoremas pesados (CoveringHeavy, ~12,4 h de CPU) não são compilados aqui: o registro formal deles guarda os axiomas declarados
@@ -25,6 +29,7 @@ import json
 import os
 import re
 import shutil
+import subprocess
 import sys
 import tempfile
 from pathlib import Path
@@ -46,6 +51,38 @@ CODIGOS = [
 ]
 KERI_PREVIO = {"k5-7-2": 525, "k4-10-4": 208, "k5-9-3": 1275, "k5-10-4": 875, "k5-9-5": 55, "k5-9-4": 255, "k7-8-3": 2337}
 AXIOMAS_DECLARADOS = ["propext", "Classical.choice", "Quot.sound"]
+# Autor do verify_cover_dilation.py: o agente que o escreveu NESTA campanha (primeira sessão, commit 483a6c5 assinado "Claude"; na campanha esse agente
+# é `agente-c`, o mesmo que cria os claims). Registrar outro nome seria inventar autor; a guarda de independência reprova e isso é um achado.
+AUTOR_DILATACAO = AUTOR
+# Quem modificou os dois verificadores para aceitar parâmetros explícitos (2026-10-03): fica nas notas, não em `implemented_by` (autor original).
+MODIFICADO_POR = "agente-pilot-v2"
+PARAMS_CMD = ["--q", "{param:q}", "--n", "{param:n}", "--R", "{param:R}", "--M", "{param:M}"]
+
+
+def autor_do_arquivo(rel: str) -> str:
+    """Autor do primeiro commit do arquivo (`git log`): é o autor REAL do verificador, não um nome que escolhemos."""
+    r = subprocess.run(["git", "log", "--follow", "--diff-filter=A", "--format=%an", "--", rel], cwd=REPO, capture_output=True, text=True)
+    nomes = [x.strip() for x in r.stdout.splitlines() if x.strip()]
+    if r.returncode != 0 or not nomes:
+        raise SystemExit(f"erro: não achei o autor de {rel} no git log (o implemented_by do verificador não pode ser inventado)")
+    return nomes[-1]
+
+
+def ancorar_campanha(c, ator: str) -> dict:
+    """`Campanha.ancorar` (= campaign_anchor) + um `campaign.update` logo depois.
+
+    Por quê o update: `report.campaign_audit` toma o ÚLTIMO evento de kind=campaign como o registro de campaign.json e não ignora o evento
+    `campaign.anchor` (marcado sem_registro), então qualquer âncora gravada depois do último update faz a auditoria acusar, em falso,
+    "campaign.json editado fora das ferramentas" (medido em 2026-10-03: integra=false sem edição nenhuma). Defeito da infraestrutura
+    (report.py, filtro `not e.get("sem_registro")`), não consertado aqui; o update devolve a coerência e registra qual âncora foi tirada.
+    Sem GENESIS_MATH_ANCHOR_KEY o HMAC fica null (nenhum segredo é inventado)."""
+    a = c.ancorar(ator, "COORDINATOR")
+    c.atualizar_meta(ator, "COORDINATOR", last_anchor={"seq": a["seq"], "hash": a["hash"], "hmac": a["hmac"], "ts": a["ts"]})
+    return a
+
+
+def cel_de(q: int, n: int, r: int) -> str | None:
+    return next((k for k, v in CELULAS.items() if v == (q, n, r)), None)
 
 
 def nome_codigo(cel: str, m: int) -> str:
@@ -71,6 +108,7 @@ def main() -> int:
     ap.add_argument("--factory-src", default=os.environ.get("FACTORY_SRC"), help="pasta src que contém factory_cauteloso/")
     ap.add_argument("--sem-lean", action="store_true", help="não roda lake build / #print axioms (registros formais ficam NOT_RUN)")
     ap.add_argument("--sem-corridas", action="store_true", help="registra tudo mas não executa verificadores nem buscas")
+    ap.add_argument("--so-ancorar", action="store_true", help="NÃO refaz nada: só ancora a cabeça atual da cadeia (use depois de reproduce/auditar)")
     a = ap.parse_args()
     if not a.factory_src:
         print("erro: informe --factory-src ou FACTORY_SRC", file=sys.stderr)
@@ -81,6 +119,9 @@ def main() -> int:
     from factory_cauteloso.matematica.store import Campanha, sha256_arquivo  # noqa: E402
 
     raiz = REPO / "campaigns" / CAMPANHA
+    if a.so_ancorar:
+        print(json.dumps(ancorar_campanha(Campanha(raiz), PROMOTOR), ensure_ascii=False, indent=1))
+        return 0
     # ------------------------------------------------------------------ zera só o que o armazenamento criou
     for nome in ("campaign.json", "audit", "reproduce.json", "reports", "artifacts", "claims", "experiments", "witnesses", "counterexamples",
                  "structures", "reductions", "transfer", "families", "residuals", "formal", "verifiers", "verifier_runs", "literature",
@@ -108,16 +149,24 @@ def main() -> int:
     art12.write_text("\n".join("".join(str((k // 2 ** i) % 2) for i in range(6)) for k in enc12) + "\n")
 
     # ------------------------------------------------------------------ verificadores
+    autor_c = autor_do_arquivo("tools/verify/verify.c")
     V.registrar_verificador(c, "verify-c", language="c", source_files=["tools/verify/verify.c"], independence_group="c-ballmark-verify.c",
-                            command=["{workdir}/verify", "{witness}"], fail_exit_codes=[1], timeout_s=120, ator=AUTOR, papel="PROPOSER",
+                            command=["{workdir}/verify", *PARAMS_CMD, "{witness}"], fail_exit_codes=[1, 2], timeout_s=120, ator=AUTOR, papel="PROPOSER",
+                            implemented_by=autor_c,
                             build=[["cc", "-O2", "-std=c99", "-Wall", "-Wextra", "-Werror", "-o", "{workdir}/verify", "tools/verify/verify.c"]])
     V.registrar_verificador(c, "verify-py-dilation", language="python", source_files=["tools/campaign/verify_cover_dilation.py"],
-                            independence_group="python-numpy-dilation", fail_exit_codes=[1], timeout_s=300, ator=AUTOR, papel="PROPOSER",
-                            command=["python3", "tools/campaign/verify_cover_dilation.py", "{witness}"])
-    for vid, nota in (("verify-c", "Verificador oficial do repositório (marca bolas de raio R num bitset). Escrito antes desta campanha."),
-                      ("verify-py-dilation", "Escrito NESTA campanha pelo mesmo agente que a registra: independente em linguagem, código e algoritmo "
+                            independence_group="python-numpy-dilation", fail_exit_codes=[1, 2], timeout_s=300, ator=AUTOR, papel="PROPOSER",
+                            implemented_by=AUTOR_DILATACAO,
+                            command=["python3", "tools/campaign/verify_cover_dilation.py", *PARAMS_CMD, "{witness}"])
+    contrato = (f" Contrato de saída: 0 cobre, 1 ponto descoberto, 2 o witness contradiz os parâmetros (FAIL = fail_exit_codes [1, 2]); 3 uso/falha operacional "
+                f"(ERROR, nunca FAIL). Recebe q,n,R,M por {{param:NOME}} e rejeita nome de arquivo que diga outra instância. Modificado em 2026-10-03 por "
+                f"{MODIFICADO_POR} (parâmetros explícitos); o autor original (implemented_by) segue o do git log.")
+    for vid, nota in (("verify-c", f"Verificador oficial do repositório (marca bolas de raio R num bitset). Escrito antes desta campanha por {autor_c} "
+                                   f"(autor do primeiro commit de tools/verify/verify.c)." + contrato),
+                      ("verify-py-dilation", "Escrito NESTA campanha pelo mesmo agente que cria os claims (agente-c): independente em linguagem, código e algoritmo "
                        "(dilatação do indicador do código no grid, sem enumerar bolas), mas NÃO em autoria nem em especificação do formato. "
-                       "Concorda com verify-c em positivos e negativos (tests/test_campaign_verifier.py).")):
+                       "Concorda com verify-c em positivos e negativos (tests/test_campaign_verifier.py). Por ter o mesmo autor dos claims, a guarda de "
+                       "INDEPENDENTLY_REPRODUCED não conta este verificador (achado, não defeito)." + contrato)):
         r = c.ler("verifiers", vid)
         r["notes"] = nota
         c.gravar("verifiers", vid, r, ator=AUTOR, papel="PROPOSER", acao="verifiers.note")
@@ -224,11 +273,12 @@ def main() -> int:
             "witness_id": wid(cel, m), "path": f"data/codes/{nome}.txt", "format": "covering-code/v1 (lista plana, uma palavra por linha)",
             "sha256": sha256_arquivo(p), "canonical_sha256": canonico(p), "canonical_sha256_declared_in_structured": js["canonical_sha256"],
             "structured_description": {"path": f"data/structured/{nome}.json", "sha256": sha256_arquivo(REPO / f"data/structured/{nome}.json")},
-            "q": q, "n": n, "R": r, "M": m, "produced_by": produzido, "claim_ids": [], "implementation": js["provenance"].get("generator"),
+            "q": q, "n": n, "R": r, "M": m, "parameters": {"q": q, "n": n, "R": r, "M": m}, "produced_by": produzido, "claim_ids": [], "implementation": js["provenance"].get("generator"),
             "created_by": AUTOR, "created": c.meta()["created"]}, "STRUCTURAL_ANALYST")
     gravar("witnesses", "w-q2-n6-r1-m12", {
         "witness_id": "w-q2-n6-r1-m12", "path": "campaigns/covering-codes/artifacts/q2_n6_R1_M12.txt", "format": "covering-code/v1 (lista plana)",
-        "sha256": sha256_arquivo(art12), "canonical_sha256": canonico(art12), "q": 2, "n": 6, "R": 1, "M": 12, "produced_by": None, "claim_ids": [],
+        "sha256": sha256_arquivo(art12), "canonical_sha256": canonico(art12), "q": 2, "n": 6, "R": 1, "M": 12,
+        "parameters": {"q": 2, "n": 6, "R": 1, "M": 12}, "produced_by": None, "claim_ids": [],
         "implementation": "derivado de CoveringLean/A6c_Search.lean `def code12` (inteiros " + str(enc12) + ", bit i = (k // 2^i) % 2)",
         "created_by": AUTOR, "created": c.meta()["created"]}, "STRUCTURAL_ANALYST")
 
@@ -251,20 +301,8 @@ def main() -> int:
                 "K7_9_4_M1475.txt), então o valor é DECLARADO pelo README e apoiado indiretamente.",
                 exact_bound="K_7(9,4) <= 1475", bound={"parameters": {"q": 7, "n": 9, "R": 4}, "value": 1475, "direction": "upper"},
                 assumptions=["valor lido do README/paper do repositório; não do PDF"], claim_ids=["k7-9-4-ub-1351"])
-    L.registrar(c, "lit-keri-tables-2011-k7-9-4", title="Tables for bounds on covering codes", authors=["Gábor Kéri"], year=2011,
-                url="https://old.sztaki.hu/~keri/codes/", version="tabelas on-line, ano 2011 (edição não identificada no repositório)", date_read="2026-10-01",
-                ator=AUTOR, exact_statement="README.md:28 e paper/main.tex:80: K_7(9,4) <= 1843. 'date_read' é a data que o README declara para a conferência "
-                "do autor (2026-10-01); esta campanha NÃO releu a tabela.", exact_bound="K_7(9,4) <= 1843",
-                bound={"parameters": {"q": 7, "n": 9, "R": 4}, "value": 1843, "direction": "upper"},
-                assumptions=["não reconferido por esta campanha"], claim_ids=["k7-9-4-ub-1351"])
-    for cel, v in KERI_PREVIO.items():
-        q, n, r = CELULAS[cel]
-        L.registrar(c, f"lit-keri-tables-2011-{cel}", title="Tables for bounds on covering codes", authors=["Gábor Kéri"], year=2011,
-                    url="https://old.sztaki.hu/~keri/codes/", version="tabelas on-line, ano 2011 (edição não identificada no repositório)",
-                    date_read="2026-10-01", ator=AUTOR,
-                    exact_statement=f"paper/main.tex:139-145 (coluna 'previous'): K_{q}({n},{r}) <= {v}. Data de leitura = a declarada no README; não reconferido.",
-                    exact_bound=f"K_{q}({n},{r}) <= {v}", bound={"parameters": {"q": q, "n": n, "R": r}, "value": v, "direction": "upper"},
-                    assumptions=["não reconferido por esta campanha"], claim_ids=[f"{cel}-ub-{next(m for cc, m, ok in CODIGOS if cc == cel and ok)}"])
+    # Kéri 2011 (D-30): NÃO é registrado como literatura. O registro exige versão real e leitura real; o repositório só dá título, autor, ano e URL
+    # (paper/main.tex:171-172) e nenhuma edição/data de acesso. Vira resíduo declarado "fonte não identificada" (ver `res-keri-edition-unidentified`).
     L.registrar(c, "lit-florath-2606-09600-lb", title="Formal Foundations and Proof-Carrying Certificates for q-ary Covering Codes in Lean 4",
                 authors=["Andreas Florath"], year=2026, url="https://arxiv.org/abs/2606.09600", version="v1", version_date="2026-06-08", date_read=hoje,
                 ator=AUTOR, exact_statement="README.md:25-26: o banco Lean do Florath (florath/covering-codes-lean) tem 10 <= K_2(6,1) <= 12. Lida só a "
@@ -414,13 +452,13 @@ def main() -> int:
 
     novo("k2-6-1-ub-12", "Existe C : Finset (W 2 6) com C.card = 12 e Covers 1 C (código `code12`, 12 palavras).",
          {"problem": "K_2(6,1) <= 12", "domain": "q=2, n=6, R=1", "assumptions": []}, kind="theorem", bound=bound_("k2-6-1", 12, "upper"),
-         trust_boundary=TB_LEAN + TB_C)
-    cx("k2-6-1-ub-12", "claim de existência: o witness é o certificado; 2 verificadores varrem os 64 pontos (uncovered=0)", "uncovered=0 nos dois")
-    anexa("k2-6-1-ub-12", "witnesses", "w-q2-n6-r1-m12")
+         trust_boundary=TB_LEAN, complementary_witnesses=["w-q2-n6-r1-m12"])
+    cx("k2-6-1-ub-12", "claim de existência: o certificado é o registro formal (code12_covers + code12_card, medidos no kernel); o witness "
+       "w-q2-n6-r1-m12 é redundância computacional FORA de evidence.witnesses (ver complementary_witnesses)", "uncovered=0 nos verificadores; kernel aceita")
     anexa("k2-6-1-ub-12", "formal", "f-code12-covers")
     anexa("k2-6-1-ub-12", "formal", "f-code12-card")
     anexa("k2-6-1-ub-12", "literature", "lit-florath-2606-09600-ub")
-    promover("k2-6-1-ub-12", "PROVED", "FORMALIZER", "code12_covers e code12_card medidos no kernel; witness conferido por 2 verificadores")
+    promover("k2-6-1-ub-12", "PROVED", "FORMALIZER", "code12_covers e code12_card medidos no kernel (o PROVED NÃO depende do witness: ele fica em complementary_witnesses, fora de evidence.witnesses)")
     bloqueios_formal("k2-6-1-ub-12")
 
     novo("chkn-sound-lemma", "SC.chkN n S d s = true -> (fronteira refutada) -> Ref n s (SC.chkN_sound).",
@@ -439,7 +477,7 @@ def main() -> int:
     bloqueios_formal("k2-6-1-lb-12")
 
     novo("k2-6-1-eq-12", "K_2(6,1) = 12, isto é, IsK 2 6 1 12 (SC.K_2_6_1_eq12).",
-         {"problem": "K_2(6,1) = 12", "domain": "q=2, n=6, R=1", "assumptions": []}, kind="theorem",
+         {"problem": "K_2(6,1) = 12", "domain": "q=2, n=6, R=1", "assumptions": [], "parameters": {"q": 2, "n": 6, "R": 1, "M": 12}}, kind="theorem",
          depends_on=["k2-6-1-ub-12", "k2-6-1-lb-12"], covers=["k2-6-1"], trust_boundary=TB_LEAN + TB_C)
     cx("k2-6-1-eq-12", "união das duas metades; ver k2-6-1-ub-12 e k2-6-1-lb-12", "nenhum")
     anexa("k2-6-1-eq-12", "experiments", "exp-k2-6-1-search-mirror")
@@ -475,56 +513,90 @@ def main() -> int:
         deps = ["cert-of-go-lemma"] if (cel, m) == ("k7-9-4", 1351) else []
         nota = "" if no_readme else " NÃO consta no README/paper: está em data/codes e docs/code-format.md; novidade não conferida na literatura."
         novo(cid, f"Existe código C em (Z_{q})^{n} com |C| = {m} que cobre com raio {r} (data/codes/{nome_codigo(cel, m)}.txt).{nota}",
-             {"problem": f"K_{q}({n},{r}) <= {m}", "domain": f"q={q}, n={n}, R={r}", "assumptions": []}, kind="theorem", depends_on=deps,
+             {"problem": f"K_{q}({n},{r}) <= {m}", "domain": f"q={q}, n={n}, R={r}", "assumptions": [], "parameters": {"q": q, "n": n, "R": r, "M": m}},
+             kind="theorem", depends_on=deps,
              bound=bound_(cel, m, "upper"), trust_boundary=TB_C + (tb(("Lean kernel (K7_9_4_le_1351_kernel), DECLARADO não reproduzido", "mesmo código, certificado pesado"),
                                                                        ("C1_Data_K7_9_4.lean == witness (medido: exp-lean-data-equals-witness-1351)", "elo entre o teorema e o arquivo"))
                                                                 if (cel, m) == ("k7-9-4", 1351) else []) + tb(("literatura registrada (Kéri/Marosi), declarada", "só para a afirmação de que o valor é menor que o anterior, que o Lean não checa")))
         cx(cid, "claim de existência: o witness é o certificado; dois verificadores independentes procuram ponto descoberto (uncovered=0)", "uncovered=0 nos dois verificadores")
         anexa(cid, "witnesses", wid(cel, m))
         anexa(cid, "experiments", {("k7-9-4", 1351): "exp-k7-9-4-1351-lincov", ("k7-9-4", 1285): "exp-k7-9-4-1285-regen"}.get((cel, m), "exp-prior-search-unrecorded"))
-        if cel in KERI_PREVIO and no_readme:
-            anexa(cid, "literature", f"lit-keri-tables-2011-{cel}")
         if cel == "k7-9-4":
-            anexa(cid, "literature", "lit-keri-tables-2011-k7-9-4")
             anexa(cid, "literature", "lit-marosi-2608-19872-v3")
         if (cel, m) == ("k7-9-4", 1351):
             anexa(cid, "experiments", "exp-lean-data-equals-witness-1351")
             anexa(cid, "experiments", "exp-structure-regeneration")
             anexa(cid, "formal", "f-k7-9-4-le-1351")
         if corridas:
-            promover(cid, "INDEPENDENTLY_REPRODUCED", "INDEPENDENT_VERIFIER", "2 verificadores de grupos distintos, PASS e sem desacordo, neste run")
+            negado = promover(cid, "INDEPENDENTLY_REPRODUCED", "INDEPENDENT_VERIFIER", "2 verificadores de autores/grupos distintos, PASS válido e sem desacordo, neste run")
+            if negado:  # a evidência não sustenta IR: o estado honesto é o de baixo (EMPIRICAL: witness + busca de contraexemplo), nunca forçado
+                promover(cid, "EMPIRICAL", "PROPOSER", "witness conferido pelo verificador oficial; independência negada pela guarda (ver blocked_independently_reproduced)")
         bloqueios_formal(cid) if c.ler("claims", cid)["evidence"]["formal"] else None
 
     # ------------------------------------------------------------------ resíduos
     def residuo(rid, **campos):
         gravar("residuals", rid, {"residual_id": rid, **campos, "created_by": AUTOR, "created": c.meta()["created"]}, "COORDINATOR")
 
+    def celulas_de(claims_ids):
+        """Células (ids do universo) a que os claims se referem, pelo bound.parameters {q,n,R} de cada um (sem bound: nenhuma)."""
+        out = set()
+        for cid_ in claims_ids:
+            b_ = c.ler("claims", cid_).get("bound") if c.tem("claims", cid_) else None
+            if b_ and cel_de(b_["parameters"]["q"], b_["parameters"]["n"], b_["parameters"]["R"]):
+                out.add(cel_de(b_["parameters"]["q"], b_["parameters"]["n"], b_["parameters"]["R"]))
+        return sorted(out)
+
     for cel, m, no_readme in CODIGOS:
         if cel == "k7-9-4" and m == 1351:
             continue
-        residuo(f"res-no-lean-theorem-{cel}-{m}", kind="sem_teorema_lean", claim_id=f"{cel}-ub-{m}", instance=cel,
-                reason="só verificação computacional (2 verificadores); sem teorema Lean (README:69)",
+        residuo(f"res-no-lean-theorem-{cel}-{m}", kind="sem_teorema_lean", claim_id=f"{cel}-ub-{m}", instance=cel, instances=[cel],
+                reason="só verificação computacional (verificadores); sem teorema Lean (README:69)",
                 next_step="gerar C1_Data_*.lean + folhas K3 (scripts/k794/gen.py) e rodar o alvo pesado, ou provar por síndromes (docs/code-format.md)")
-    residuo("res-a6d-searchheavy", kind="fora_da_biblioteca", file="CoveringLean/A6d_SearchHeavy.lean",
-            reason="DECLARADO: não compila (README:71, obsoleto com A6e e SearchK6ge12). Não executado aqui (risco de OOM).", next_step="apagar (pelo templo: com volta) ou arquivar")
-    residuo("res-a5b-stress", kind="fora_da_biblioteca", file="CoveringLean/A5b_Stress.lean",
+    residuo("res-a6d-searchheavy", kind="fora_da_biblioteca", file="CoveringLean/A6d_SearchHeavy.lean", instances=["k2-6-1"],
+            reason="DECLARADO: não compila (README:71, obsoleto com A6e e SearchK6ge12). Não executado aqui (risco de OOM). Célula: K_2(6,1) >= 11 (cabeçalho do arquivo).",
+            next_step="apagar (pelo templo: com volta) ou arquivar")
+    residuo("res-a5b-stress", kind="fora_da_biblioteca", file="CoveringLean/A5b_Stress.lean", instances=[],
+            instances_note="o arquivo trata q=2, n=3, R=1, que não é célula do universo desta campanha",
             reason="DECLARADO: não compila (README:71). MEDIDO: `lake env lean` terminou com rc 137 (SIGKILL) em <=110 s; causa (OOM?) não investigada.",
             next_step="investigar e consertar, ou arquivar")
-    residuo("res-heavy-build-not-reproduced", kind="nao_reproduzido", claim_ids=["k2-6-1-lb-12", "k2-6-1-eq-12", "k7-9-4-ub-1351"],
+    heavy_claims = ["k2-6-1-lb-12", "k2-6-1-eq-12", "k7-9-4-ub-1351"]
+    residuo("res-heavy-build-not-reproduced", kind="nao_reproduzido", claim_ids=heavy_claims, instances=celulas_de(heavy_claims),
             reason="lake build CoveringHeavy (~12,4 h de CPU, 133 módulos) não foi executado; axiomas desses dois teoremas só DECLARADOS no README/paper",
             next_step="rodar numa máquina com RAM >= 9 GB por módulo e registrar com formal.registrar_formal")
-    residuo("res-statement-review", kind="revisao_humana", claim_ids=sorted(cl["claim_id"] for cl in c.listar("claims") if cl["status"] == "PROVED"),
+    proved = sorted(cl["claim_id"] for cl in c.listar("claims") if cl["status"] == "PROVED")
+    residuo("res-statement-review", kind="revisao_humana", claim_ids=proved, instances=celulas_de(proved),
             reason="FORMALLY_VERIFIED exige statement_review por revisor que não seja o autor; README:73-74 diz que a revisão dos enunciados é humana e pendente",
             next_step="um revisor lê Covers/IsK/ball e os enunciados e registra claim_review(scope='statement')")
-    residuo("res-novelty-unchecked", kind="literatura", reason="novidade é afirmação do autor (README:72); cotas das tabelas só parcialmente reconferidas hoje (Marosi v3 abs, Florath abs, Crossref); "
-            "Kéri 2011, as tabelas lineares de Davydov-Marcugini-Pambianco (README:37-38, fonte não identificada: NÃO registrada como literatura para não inventar título/URL) e as cotas inferiores 'conhecidas' não reconferidos", next_step="ler Kéri/Marosi PDF e DMP")
-    residuo("res-reverify-independent-author", kind="independencia",
-            reason="o 2º verificador (verify-py-dilation) foi escrito pelo mesmo agente que registrou a campanha; INDEPENDENTLY_REPRODUCED é independência de código, não de autoria",
-            next_step="outro agente/humano escreve um 3º verificador ou confirma estes")
-    residuo("res-1351-generator", kind="geracao_nao_reproduzivel", claim_id="k7-9-4-ub-1351",
+    ub_claims = [f"{cel}-ub-{m}" for cel, m, _ in CODIGOS]
+    residuo("res-novelty-unchecked", kind="literatura", instances=celulas_de(ub_claims),
+            reason="novidade é afirmação do autor (README:72); cotas das tabelas só parcialmente reconferidas hoje (Marosi v3 abs, Florath abs, Crossref); "
+            "Kéri 2011 (ver res-keri-edition-unidentified), as tabelas lineares de Davydov-Marcugini-Pambianco (README:37-38, fonte não identificada: NÃO registrada como literatura para não inventar título/URL) e as cotas inferiores 'conhecidas' não reconferidos", next_step="ler Kéri/Marosi PDF e DMP")
+    keri_cels = sorted(set(KERI_PREVIO) | {"k7-9-4"})
+    residuo("res-keri-edition-unidentified", kind="literatura_fonte_nao_identificada", instances=keri_cels,
+            source="G. Kéri, Tables for bounds on covering codes, https://old.sztaki.hu/~keri/codes/, 2011 (paper/main.tex:171-172)",
+            declared_bounds=[{"instance": k, "direction": "upper", "value": v, "declared_at": "paper/main.tex:139-145 (coluna 'previous')"} for k, v in KERI_PREVIO.items()]
+            + [{"instance": "k7-9-4", "direction": "upper", "value": 1843, "declared_at": "README.md:28; paper/main.tex:80"}],
+            reason="fonte não identificada: README, paper/main.tex, nota.md e docs/ dão título, autor, ano e URL do Kéri, mas nenhuma edição, versão ou data de "
+                   "acesso das tabelas. O registro de literatura exige versão REAL (D-16/D-30), então estas 8 cotas ficam como declaradas, sem registro em literature/ "
+                   "e sem apoiar nenhum claim. A comparação com a literatura (literature_compare) não as vê.",
+            next_step="alguém abre as tabelas on-line, anota a edição/data e registra com literature_register (8 registros) ou corrige o paper")
+    residuo("res-lb-264-source-unidentified", kind="literatura_fonte_nao_identificada", instances=["k7-9-4"],
+            declared_bounds=[{"instance": "k7-9-4", "direction": "lower", "value": 264, "declared_at": "paper/main.tex:81 e :126"}],
+            reason="fonte não identificada: o paper diz 'the best lower bound we know is 264' para K_7(9,4) sem citar de qual fonte; README:33 atribui as 'melhores cotas "
+                   "inferiores conhecidas' a Kéri, Gijswijt–Polak 2025 e Marosi 2026 sem dizer qual dá 264. O 264 saiu do universo (campo lb_literatura_declarada) "
+                   "porque número sem registro de literatura não é fato desta campanha.",
+            next_step="identificar a fonte do 264 (tabela, artigo, versão) e registrar com literature_register")
+    residuo("res-reverify-independent-author", kind="independencia", claim_ids=ub_claims, instances=celulas_de(ub_claims),
+            reason="MEDIDO pela guarda de INDEPENDENTLY_REPRODUCED (2026-10-03): verify-c (autor thiagopatzdorf, git log) conta; verify-py-dilation foi escrito por agente-c, "
+                   "que também criou os claims, e a guarda não conta verificador do autor do claim. Resta 1 componente independente (< 2), então os 10 claims de "
+                   "código ficam em EMPIRICAL (blocked_independently_reproduced traz os motivos exatos). Os dois verificadores continuam concordando; o que falta é um "
+                   "segundo AUTOR, não um segundo resultado.",
+            next_step="outro agente/humano (diferente de agente-c e de thiagopatzdorf) escreve ou reimplementa um verificador, registra com implemented_by verdadeiro e roda sobre os 11 witnesses")
+    residuo("res-1351-generator", kind="geracao_nao_reproduzivel", claim_id="k7-9-4-ub-1351", instances=["k7-9-4"],
             reason="lincov (Mapika/coldcase@56a8cce) fora do repo e remendo guloso de 322 palavras sem registro; gen_lean_cover.py/tests/test_lean_cover.py/data/certificates citados em C1_Data_K7_9_4.lean não existem",
             next_step="registrar o comando do lincov e o algoritmo do remendo, ou versionar o gerador do .lean")
-    residuo("res-readme-vs-data", kind="inconsistencia", reason="data/codes tem M1285 (K_7(9,4)) e M1887 (K_7(8,3)) melhores que os 1351/1893 do README/paper; README diz 'três verificadores independentes' e só há 1 (+este 2º)",
+    residuo("res-readme-vs-data", kind="inconsistencia", instances=["k7-9-4", "k7-8-3"],
+            reason="data/codes tem M1285 (K_7(9,4)) e M1887 (K_7(8,3)) melhores que os 1351/1893 do README/paper; README diz 'três verificadores independentes' e só há 1 (+este 2º)",
             next_step="atualizar README/paper ou explicar")
 
     # ------------------------------------------------------------------ universo (finito) e cobertura
@@ -533,7 +605,7 @@ def main() -> int:
         melhores = [m for cc, m, _ in CODIGOS if cc == cel]
         inst.append({"id": cel, "q": q, "n": n, "R": r, "lb_formal_esfera": LB_ESFERA.get(cel), "lb_formal_melhor": 12 if cel == "k2-6-1" else LB_ESFERA.get(cel),
                      "ub_verificado_melhor": min(melhores) if melhores else (12 if cel == "k2-6-1" else None), "ub_formal_lean": {"k7-9-4": 1351, "k2-6-1": 12}.get(cel),
-                     "lb_literatura_declarada": 264 if cel == "k7-9-4" else None, "size": n})
+                     "size": n})  # o 264 do paper saiu: sem fonte não é fato (res-lb-264-source-unidentified)
     COV.definir_universo(c, {"tipo": "finito", "total": len(inst), "instancias": inst, "estado_minimo_resolvido": "EXHAUSTIVE_BOUNDED",
                              "descricao": "Células (q,n,R) tratadas pela campanha: 8 da cota de esfera (7 com código verificado + K_7(9,4)) e K_2(6,1). "
                                           "'Resolvida' = K_q(n,R) determinado (lb = ub). Só K_2(6,1). As demais têm faixa [lb, ub] aberta."},
@@ -557,9 +629,14 @@ def main() -> int:
     (raiz / "reproduce.json").write_text(json.dumps({"schema": "genesis-math/reproduce/v1", "campaign_id": CAMPANHA, "steps": passos},
                                                     ensure_ascii=False, indent=2, sort_keys=True) + "\n", encoding="utf-8")
 
+    # ------------------------------------------------------------------ âncora da cabeça da cadeia (Campanha.ancorar = campaign_anchor)
+    # Sem GENESIS_MATH_ANCHOR_KEY no ambiente o HMAC fica null (nenhum segredo é inventado aqui). audit/anchors.jsonl é versionável: o commit
+    # no remoto git é a cópia fora do disco; GENESIS_MATH_ANCHOR_EXTERNAL, se definida, recebe a mesma linha.
+    ancora = ancorar_campanha(c, PROMOTOR)
+
     # ------------------------------------------------------------------ resumo
     res = K.resumo_por_estado(c)
-    print(json.dumps({"estados": {k: v for k, v in res.items() if v}, "cadeia_de_auditoria": c.verificar_cadeia(),
+    print(json.dumps({"estados": {k: v for k, v in res.items() if v}, "cadeia_de_auditoria": c.verificar_cadeia(), "ancora": {k: ancora.get(k) for k in ("seq", "hash", "hmac", "copia_externa", "aviso")},
                       "cobertura": {k: v for k, v in COV.coverage(c).items() if k in ("total", "resolved", "residual", "refuted")}},
                      ensure_ascii=False, indent=1))
     return 0

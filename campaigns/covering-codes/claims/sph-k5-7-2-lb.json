@@ -14,7 +14,7 @@
     "result": "nenhum",
     "status": "completed"
   },
-  "created": "2026-10-02T23:09:31Z",
+  "created": "2026-10-03T00:36:01Z",
   "created_by": "agente-c",
   "created_role": "PROPOSER",
   "depends_on": [
@@ -42,7 +42,7 @@
       "reason": "criado",
       "role": "PROPOSER",
       "to": "IDEA",
-      "ts": "2026-10-02T23:09:31Z"
+      "ts": "2026-10-03T00:36:01Z"
     },
     {
       "actor": "agente-c",
@@ -50,7 +50,7 @@
       "reason": "evidência anexada: formal=f-sph-k5-7-2",
       "role": "PROPOSER",
       "to": "IDEA",
-      "ts": "2026-10-02T23:09:31Z"
+      "ts": "2026-10-03T00:36:01Z"
     },
     {
       "actor": "migrate_covering.py",
@@ -58,7 +58,7 @@
       "reason": "registro formal medido válido",
       "role": "FORMALIZER",
       "to": "PROVED",
-      "ts": "2026-10-02T23:09:31Z"
+      "ts": "2026-10-03T00:36:01Z"
     }
   ],
   "kind": "theorem",
@@ -68,6 +68,15 @@
     "domain": "q=5, n=7, R=2",
     "problem": "K_5(7,2) >= 215"
   },
+  "sealed_evidence": {
+    "experiments": [],
+    "formal": [
+      "f-sph-k5-7-2"
+    ],
+    "proofs": [],
+    "witnesses": []
+  },
+  "sealed_sha256": "79f4c48b01a511e367354afabab5d69a9616e91c7c821c0558a59922c697cbe8",
   "statement": "Todo C : Finset (Fin 7 -> ZMod 5) com Covers 2 C tem pelo menos 215 palavras (CoveringChain.SPH_K5_7_2_lb).",
   "status": "PROVED",
   "trust_boundary": [

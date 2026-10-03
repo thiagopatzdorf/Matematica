@@ -1,7 +1,7 @@
 {
   "claim_id": "h2-gap-nondecreasing",
   "counterexample_id": "cx-h2-gap-nondecreasing",
-  "created": "2026-10-02T23:03:19Z",
+  "created": "2026-10-03T00:32:14Z",
   "created_by": "agente-c",
   "data": {
     "formal": "f-h2-counterexample"

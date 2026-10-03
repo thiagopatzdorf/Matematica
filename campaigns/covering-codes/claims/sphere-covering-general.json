@@ -5,7 +5,7 @@
     "result": "nenhum",
     "status": "completed"
   },
-  "created": "2026-10-02T23:09:31Z",
+  "created": "2026-10-03T00:36:01Z",
   "created_by": "agente-c",
   "created_role": "PROPOSER",
   "depends_on": [],
@@ -31,7 +31,7 @@
       "reason": "criado",
       "role": "PROPOSER",
       "to": "IDEA",
-      "ts": "2026-10-02T23:09:31Z"
+      "ts": "2026-10-03T00:36:01Z"
     },
     {
       "actor": "agente-c",
@@ -39,7 +39,7 @@
       "reason": "evidência anexada: formal=f-sphere-covering",
       "role": "PROPOSER",
       "to": "IDEA",
-      "ts": "2026-10-02T23:09:31Z"
+      "ts": "2026-10-03T00:36:01Z"
     },
     {
       "actor": "migrate_covering.py",
@@ -47,7 +47,7 @@
       "reason": "registro formal medido (axiomas, sorry, build) válido",
       "role": "FORMALIZER",
       "to": "PROVED",
-      "ts": "2026-10-02T23:09:31Z"
+      "ts": "2026-10-03T00:36:01Z"
     }
   ],
   "kind": "lemma",
@@ -59,6 +59,15 @@
     "domain": "Fin n -> ZMod q, hammingDist",
     "problem": "cota de esfera"
   },
+  "sealed_evidence": {
+    "experiments": [],
+    "formal": [
+      "f-sphere-covering"
+    ],
+    "proofs": [],
+    "witnesses": []
+  },
+  "sealed_sha256": "00f587042875adbb34de0acc9ff53ec0b06595dafd3d31c8abfb132c0f483afd",
   "statement": "Para todo código C em (ZMod q)^n que cobre com raio R vale q^n <= |C| * V, com V = |bola(R, 0)| (CoveringA2.sphere_covering).",
   "status": "PROVED",
   "trust_boundary": [

@@ -16,8 +16,19 @@
     "sph-k7-9-4-lb",
     "sphere-covering-general"
   ],
-  "created": "2026-10-02T23:03:19Z",
+  "created": "2026-10-03T00:32:14Z",
   "created_by": "agente-c",
+  "instances": [
+    "k2-6-1",
+    "k4-10-4",
+    "k5-10-4",
+    "k5-7-2",
+    "k5-9-3",
+    "k5-9-4",
+    "k5-9-5",
+    "k7-8-3",
+    "k7-9-4"
+  ],
   "kind": "revisao_humana",
   "next_step": "um revisor lê Covers/IsK/ball e os enunciados e registra claim_review(scope='statement')",
   "reason": "FORMALLY_VERIFIED exige statement_review por revisor que não seja o autor; README:73-74 diz que a revisão dos enunciados é humana e pendente",

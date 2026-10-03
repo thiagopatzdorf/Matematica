@@ -17,7 +17,7 @@
   "mathlib_commit": "d13f23b723b8a846827a245b89c10fc7d3f11612",
   "measured": null,
   "module": "CoveringLean.K3_K7_9_4_Final",
-  "repo_commit": "bc3a3d727557e081fd0cabcc3580ede7e0da3e13",
+  "repo_commit": "caa1ac9a2faddc8e84a9782ab83dff8b608ce53b",
   "scan_findings": [],
   "sorry_free": true,
   "sorry_free_basis": "varredura estática de 99 fontes (não é build)",
