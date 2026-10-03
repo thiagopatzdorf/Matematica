@@ -1,0 +1,299 @@
+{
+ "data": "2026-10-03",
+ "fonte": "conector MCP do OpenAlex (chave pessoal)",
+ "consultas": [
+  {
+   "consulta": "\"covering radius\" AND 1475",
+   "search_in": "fulltext",
+   "total": 15,
+   "achados": [
+    [
+     "W1922546902",
+     "Cohen et al., Covering radius 1985-1994 (ISIT 1995)",
+     "falso positivo: resumo de 1995, anterior a qualquer cota 1475; número aparece como contagem/paginação"
+    ],
+    [
+     "W2782122293",
+     "Bartoli et al., tabelas de arcos completos em PG(2,q)",
+     "falso positivo: tamanhos de arcos"
+    ],
+    "resto (13): física, redes, K3, LLM — falso positivo"
+   ]
+  },
+  {
+   "consulta": "(\"covering code\" OR \"covering codes\") AND 1475",
+   "search_in": "fulltext",
+   "total": 20,
+   "achados": [
+    [
+     "W7216402456",
+     "Patzdorf, Zenodo: K_7(9,4) <= 1137 (v.)",
+     "nosso próprio preprint (cita 1475 de Marosi como cota anterior)"
+    ],
+    [
+     "W7215896168",
+     "Patzdorf, Zenodo: K_7(9,4) <= 1137",
+     "nosso"
+    ],
+    [
+     "W7216518576",
+     "Patzdorf, Zenodo: K_7(9,4) <= 1141",
+     "nosso"
+    ],
+    [
+     "W7215883643",
+     "Patzdorf, Zenodo: K_7(9,4) <= 1351",
+     "nosso"
+    ],
+    [
+     "W1922546902",
+     "Cohen et al. ISIT 1995",
+     "falso positivo"
+    ],
+    [
+     "W4391833438",
+     "Hudry et al., contribuições de Honkala (identifying codes)",
+     "falso positivo"
+    ],
+    "resto: falso positivo"
+   ]
+  },
+  {
+   "consulta": "(covering code|codes|radius) AND 6517",
+   "search_in": "fulltext",
+   "total": 0,
+   "achados": []
+  },
+  {
+   "consulta": "(covering code|codes|radius) AND 8575",
+   "search_in": "fulltext",
+   "total": 4,
+   "achados": [
+    [
+     "W1991778183",
+     "Ozeki, ternary self-dual codes (2001)",
+     "falso positivo: q=3"
+    ],
+    "3 relatórios NBS e um de e-commerce: falso positivo"
+   ]
+  },
+  {
+   "consulta": "(covering code|codes|radius) AND 42189",
+   "search_in": "fulltext",
+   "total": 0,
+   "achados": []
+  },
+  {
+   "consulta": "(covering code|codes|radius) AND 1843",
+   "search_in": "fulltext",
+   "total": 14,
+   "achados": [
+    "nenhum de códigos de cobertura q-ários; todos falso positivo (decodificação, criptografia, NBS)"
+   ]
+  },
+  {
+   "consulta": "(covering code|codes|radius) AND 1134",
+   "search_in": "fulltext",
+   "total": 32,
+   "achados": [
+    [
+     "W2779697196",
+     "Bartoli–Davydov–Marcugini–Pambianco, short linear codes R=3 codim 4,5 (arXiv 1712.07078)",
+     "falso positivo: tabelas de comprimento para q >= 11"
+    ],
+    [
+     "W1991778183",
+     "Ozeki 2001",
+     "falso positivo"
+    ],
+    "resto: falso positivo"
+   ]
+  },
+  {
+   "consulta": "(covering code|codes|radius) AND (2875 OR 5616)",
+   "search_in": "fulltext",
+   "total": 15,
+   "achados": [
+    "todos falso positivo (Ozeki, Lee codes, esteganografia)"
+   ]
+  },
+  {
+   "consulta": "(covering code|codes|radius) AND 3125 AND (quinary OR q=5 OR K5)",
+   "search_in": "fulltext",
+   "total": 6,
+   "achados": [
+    [
+     "W4223963869",
+     "Charon–Hudry–Lobstein, Lee hypercube",
+     "falso positivo: métrica de Lee"
+    ],
+    [
+     "W2779697196",
+     "Bartoli et al. 2017",
+     "falso positivo"
+    ],
+    "resto: falso positivo"
+   ]
+  },
+  {
+   "consulta": "(covering code|codes|radius) AND (175 OR 162 OR 125) AND (quinary OR q=5 OR K5 OR K_5)",
+   "search_in": "fulltext",
+   "total": 121,
+   "achados": [
+    [
+     "W2017783420",
+     "Gommard–Plagne, K5(7,3) <= 100 (2003)",
+     "outra célula"
+    ],
+    [
+     "W1482458295",
+     "Haas–Halupczok–Schlage-Puchta 2009",
+     "já no acervo; repete 175/125 de Kéri"
+    ],
+    [
+     "W3196668978",
+     "Hao Chen, list-decodable and covering codes (2021)",
+     "assintótico; falso positivo"
+    ],
+    "top 50 lidos (rerank); depois do 25º só falso positivo; parei a paginação"
+   ]
+  },
+  {
+   "consulta": "\"football pool\" AND (ternary OR quinary OR q-ary OR septenary OR nonbinary)",
+   "search_in": "fulltext",
+   "total": 46,
+   "achados": [
+    "clássicos ternários/binários (Hämäläinen–Rankinen, Habsieger, Östergård, Linderoth–Margot–Thain) e Florath/Marosi já no acervo; nenhum valor para as nossas células"
+   ]
+  },
+  {
+   "consulta": "\"K7(9,4)\" OR \"K_7(9,4)\" OR \"K7(9, 4)\" OR \"K_7(9, 4)\"",
+   "search_in": "fulltext",
+   "total": 30,
+   "achados": [
+    "5 preprints Zenodo do Patzdorf (nossos); os outros 25 são ruído de tokenização (teses em turco/português etc.)"
+   ]
+  },
+  {
+   "consulta": "\"K5(10,5)\" OR \"K_5(10,5)\" OR \"K5(11,4)\" OR \"K_5(11,4)\" OR \"K7(10,4)\" OR \"K_7(10,4)\"",
+   "search_in": "fulltext",
+   "total": 0,
+   "achados": []
+  },
+  {
+   "consulta": "(covering code|codes) AND (Kéri OR Keri) AND (table OR tables), ano >= 2011",
+   "search_in": "fulltext",
+   "total": 28,
+   "achados": [
+    [
+     "W2345939071",
+     "Filippini, Constructing Covering Codes (ETH 2016)",
+     "a conferir no PDF"
+    ],
+    [
+     "W4361269916",
+     "Castoldi et al., Ordered covering arrays and upper bounds on covering codes (JCD 2023)",
+     "espaço NRT, não Hamming"
+    ],
+    [
+     "W2521898197",
+     "Seuranen, Computational methods in codes and games (tese Aalto 2011)",
+     "a conferir"
+    ],
+    [
+     "W7207532431",
+     "Marosi, coldcore: GPU framework (SSRN 2026)",
+     "técnica; sem nenhum dos números (ver controle)"
+    ],
+    [
+     "W7164910749",
+     "Florath, Lean-certified K_8(4,2)=23 (arXiv 2606.16688)",
+     "outra célula; técnica (Lean)"
+    ],
+    [
+     "W7156465045",
+     "Castoldi et al. 2026, invariant sets / covering schemes",
+     "outra métrica"
+    ]
+   ]
+  },
+  {
+   "consulta": "covering radius AND (q=5|q=7|quinary|septenary) AND upper bound AND K_q(n,R), ano >= 2011",
+   "search_in": "fulltext",
+   "total": 13,
+   "achados": [
+    [
+     "W7203953290",
+     "Marosi 2026",
+     "já no acervo"
+    ],
+    "resto: falso positivo"
+   ]
+  },
+  {
+   "consulta": "(covering code|codes|radius) AND K_q(n,R) (variantes), ano >= 2012",
+   "search_in": "fulltext",
+   "total": 9,
+   "achados": [
+    "Marosi, Florath (artigo e 2 depósitos Zenodo de software), Monte Carmelo 2012, 4 Zenodo do Patzdorf"
+   ]
+  },
+  {
+   "consulta": "(covering code|codes|radius) AND (septenary OR 7-ary OR GF(7) OR F_7 OR Z_7), ano >= 2005",
+   "search_in": "fulltext",
+   "total": 10,
+   "achados": [
+    "nenhum com cota de K_7(n,R); Florath K8(4,2) e MDS/constacíclicos: falso positivo"
+   ]
+  },
+  {
+   "consulta": "saturating set AND (PG(5,7)|PG(4,7)|PG(6,5)|PG(5,5)|PG(6,7)|PG(7,5))",
+   "search_in": "fulltext",
+   "total": 1,
+   "achados": [
+    [
+     "W4378506832",
+     "Pavese, 4-general sets (2023)",
+     "falso positivo"
+    ]
+   ]
+  },
+  {
+   "consulta": "(covering code|codes|radius) AND (175|8575|42189|6517|1843|1475) AND (septenary|q=7|K7|K_7)",
+   "search_in": "fulltext",
+   "total": 49,
+   "achados": [
+    "van Wee tese 1991 (já no acervo), 4 Zenodo nossos, resto falso positivo"
+   ]
+  },
+  {
+   "consulta": "coldcase OR covengine OR coldcore, ano >= 2025",
+   "search_in": "fulltext",
+   "total": 36,
+   "achados": [
+    "Marosi coldcore (SSRN) e Marosi 2026; o resto é oceanografia ('cold core eddies')"
+   ]
+  },
+  {
+   "consulta": "(cita alguma semente de cobertura) AND full text has (1475|1843|6517|8575|42189|1134|2875|5616|3125)",
+   "search_in": "oql",
+   "total": 2,
+   "achados": [
+    [
+     "W2885154086",
+     "Colbourn–Lanus 2018, covering perfect hash families",
+     "falso positivo"
+    ],
+    [
+     "W1922546902",
+     "Cohen et al. ISIT 1995",
+     "falso positivo"
+    ]
+   ]
+  }
+ ],
+ "controle": {
+  "descricao": "Controle positivo: o índice de texto completo do OpenAlex NÃO acha números dentro de tabelas. Marosi 2026 (W7203953290, has_fulltext=true) traz 1475 e 1843 na Tabela 1; Haas–Halupczok–Schlage-Puchta 2009 (W1482458295) traz 'K7(9, 4) 5 221 227 264 1843' na Tabela 5. A consulta full text has (1843 or 1475 or 2143 or 8575 or 602) restrita a esses ids devolve 0. Palavras do corpo (Bhandari, Durairajan) e anos (1996, 2009, 2011) são achados. Conclusão: 'zero achados' para um número de tabela no texto completo do OpenAlex NÃO é evidência de ausência.",
+  "cobertura": "Dos 712 citantes das 41 sementes de cobertura, 193 têm texto completo indexado (has_fulltext=true); das 41 sementes, só 13, todas de acesso aberto. Nenhuma semente paga (Bhandari–Durairajan, Östergård 1991/1997, Kéri–Östergård 2005...) tem texto completo no índice."
+ }
+}
