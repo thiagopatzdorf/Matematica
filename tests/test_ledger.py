@@ -13,13 +13,13 @@ def _celulas(ldir):
     return {(c["q"], c["n"], c["R"]): c for c in build.carregar(ldir / "cells.json")["cells"]}
 
 
-def test_k7_9_4_publicado_e_marosi_1475_mas_o_melhor_conhecido_e_o_nosso_1137_no_lean(ledger_recortado):
+def test_k7_9_4_publicado_e_marosi_1475_mas_o_melhor_conhecido_e_o_nosso_1134_no_lean(ledger_recortado):
     c = _celulas(ledger_recortado)[(7, 9, 4)]
     assert c["published"]["ub"] == {"value": 1475, "source": "marosi_2026", "ref": build.ROTULO["marosi_2026"]}
     assert c["published"]["sources"]["keri_2011"]["ub"] == 1843
     assert c["published"]["lb"]["value"] == 264
-    assert c["ours_lean"]["M"] == 1137 and c["ours_lean"]["declaration"] == "Syn.K7_9_4_le_1137_syn"
-    assert c["best"] == {"ub": 1137, "holder": "ours_lean", "beats_published": True}
+    assert c["ours_lean"]["M"] == 1134 and c["ours_lean"]["declaration"] == "Syn.K7_9_4_le_1134_syn"
+    assert c["best"] == {"ub": 1134, "holder": "ours_lean", "beats_published": True}
     assert c["status"] == "ours_lean"
     assert c["marosi_attacked"]["ub"] is True
 
@@ -72,7 +72,7 @@ def test_ledger_commitado_tem_1145_celulas_e_sha256_dos_nossos_codigos_confere()
     led = build.carregar(RAIZ / "ledger" / "cells.json")
     assert led["meta"]["n_cells"] == len(led["cells"]) == 1145
     nossos = [c for c in led["cells"] if c["status"] != "published"]
-    assert len(nossos) == 9
+    assert len(nossos) == 12
     for c in nossos:
         for lado in ("ours_computational", "ours_lean"):
             e = c[lado]
@@ -99,11 +99,13 @@ def test_todo_codigo_nosso_tem_registro_de_proveniencia_com_os_seis_campos():
 def test_alvo_que_ninguem_atacou_vem_antes_do_que_o_marosi_atacou(ledger_recortado):
     cells = build.carregar(ledger_recortado / "cells.json")["cells"]
     r = {t["id"]: t for t in targets.ranquear(cells)}
-    assert r["K7(10,4)"]["camada"] == 0
+    # K7(10,4) era o exemplo de intocada até a v0.6, que a fez nossa (≤ 5616): agora é K6(9,3).
+    assert r["K6(9,3)"]["camada"] == 0
+    assert r["K7(10,4)"]["camada"] == 2  # nossa desde a v0.6
     assert r["K10(8,4)"]["camada"] == 1  # sweep_targets.json, sem melhora
     assert r["K10(9,5)"]["camada"] == 2  # varrida e melhorada pelo Marosi (1088 -> 1055)
-    assert r["K7(10,4)"]["rank"] < r["K10(8,4)"]["rank"] < r["K10(9,5)"]["rank"]
-    assert "ninguém atacou desde 2011" in r["K7(10,4)"]["justificativa"]
+    assert r["K6(9,3)"]["rank"] < r["K10(8,4)"]["rank"] < r["K10(9,5)"]["rank"]
+    assert "ninguém atacou desde 2011" in r["K6(9,3)"]["justificativa"]
 
 
 def test_alvo_fechado_grande_demais_ou_nosso_nao_vai_para_o_topo(ledger_recortado):

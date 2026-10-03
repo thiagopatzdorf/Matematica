@@ -9,6 +9,8 @@ q,n,r,lower_bound,upper_bound,lower_bound_reference,upper_bound_reference
 5,9,4,64,255,lit_haas_halupczok_schlage_puchta_2009,lit_bhandari_durairajan_1996
 5,9,5,19,55,lit_haas_halupczok_schlage_puchta_2009,lit_bhandari_durairajan_1996
 5,10,4,177,875,lit_gijswijt_polak_2025,lit_bhandari_durairajan_1996
+5,10,5,41,175,lit_haas_halupczok_schlage_puchta_2009,lit_bhandari_durairajan_1996
+5,11,4,546,3125,lit_gijswijt_polak_2025,lit_bhandari_durairajan_1996
 5,11,5,103,625,lit_haas_halupczok_schlage_puchta_2009,lit_bhandari_durairajan_1996
 6,7,3,70,246,lit_haas_halupczok_schlage_puchta_2009,rule_length_monotonicity
 6,9,3,921,4752,rule_improved_sphere_covering_bound,rule_direct_sum
