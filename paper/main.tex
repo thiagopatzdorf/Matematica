@@ -138,7 +138,7 @@ By the policy of the campaign, two verifiers are \emph{independent} when they ar
 Under that policy the C and Rust programs count; the Python program was written by the author of the claim, so its PASS is recorded but \emph{not counted}.
 This is independence of implementation, not of mind: the authors of the Rust and Python programs are distinct agents of the same model family, and distinct agents of one model family do not amount to full cognitive independence.
 A fourth program, written in Go from the mathematical specification alone without reading the other three, agrees with them on 44 black-box cases; it is not yet counted in the campaign.
-A defect found in that comparison is recorded: the Python program treated the file name as a source of parameters, and rejected a smaller radius with exit code $2$ rather than reporting uncovered words; coverage verdicts were not affected.
+One difference in behaviour was found and checked by hand: the C program refuses (exit code $2$) when the explicitly given parameters contradict the file name, a deliberate guard, whereas the other three ignore the name; with the same witness under a neutral name all four agree (exit code $1$ for a smaller radius). No coverage verdict differs.
 
 \subsection*{Literature status}
 For each cell we looked for a predecessor in the sources we could read.

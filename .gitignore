@@ -2,3 +2,4 @@
 tools/verify/verify
 __pycache__/
 campaigns/**/audit/.lock
+tools/verify-cleanroom/verify-cleanroom
