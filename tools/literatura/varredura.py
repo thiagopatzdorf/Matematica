@@ -792,7 +792,14 @@ def etapa_baixar(b: Base, limite_gb: float = 6.0) -> None:
     ordem = sorted(b.obras.values(), key=lambda w: -w.get("score", 0))
     for w in ordem:
         alvo = pdfdir / f"{id_seguro(w)}.pdf"
-        if alvo.exists() or w.get("pdf_status") in ("sem_oa", "falhou"):
+        if alvo.exists():
+            # PDF que chegou por outro caminho (rodada anterior, pré-carga do arXiv):
+            # registra em vez de baixar de novo.
+            if w.get("pdf_status") != "ok":
+                w["pdf_status"] = "ok"
+                w["pdf_sha256"] = hashlib.sha256(alvo.read_bytes()).hexdigest()
+            continue
+        if w.get("pdf_status") in ("sem_oa", "falhou"):
             continue
         if w.get("score", 0) < cfg()["limiar_inclusao"]:
             continue
