@@ -94,8 +94,13 @@ def _espera(url: str) -> None:
         time.sleep(vez - agora)
 
 
-def baixar_bytes(url: str, *, tentativas: int = 3, tempo: int = 60, limite: int = 60_000_000) -> tuple[int, bytes]:
-    """GET com espera por host e retentativa em 429/5xx. Devolve (status, corpo)."""
+def baixar_bytes(url: str, *, tentativas: int = 3, tempo: int = 60, limite: int = 60_000_000,
+                 repetir_429: bool = True) -> tuple[int, bytes]:
+    """GET com espera por host e retentativa em 429/5xx. Devolve (status, corpo).
+
+    `repetir_429=False` é para o OpenAlex: lá 429 é orçamento do dia esgotado e insistir
+    não adianta, mas 5xx é instabilidade passageira (medido em 2026-10-03: 504 avulsos
+    no meio de centenas de GETs de obra única) e vale tentar de novo."""
     for i in range(tentativas):
         _espera(url)
         req = urllib.request.Request(url, headers={"User-Agent": UA, "Accept": "*/*"})
@@ -103,7 +108,8 @@ def baixar_bytes(url: str, *, tentativas: int = 3, tempo: int = 60, limite: int 
             with urllib.request.urlopen(req, timeout=tempo) as r:
                 return r.status, r.read(limite)
         except urllib.error.HTTPError as e:
-            if e.code in (429, 500, 502, 503, 504) and i + 1 < tentativas:
+            repete = (500, 502, 503, 504) + ((429,) if repetir_429 else ())
+            if e.code in repete and i + 1 < tentativas:
                 time.sleep(5 * (i + 1))
                 continue
             return e.code, b""
@@ -127,7 +133,7 @@ def json_cache(url: str) -> dict | None:
     if openalex and SEM_OPENALEX["esgotado"]:
         return None
     pedido = url + (f"&api_key={OPENALEX_KEY}" if openalex and OPENALEX_KEY else "")
-    st, corpo = baixar_bytes(pedido, tentativas=1 if openalex else 3)
+    st, corpo = baixar_bytes(pedido, repetir_429=not openalex)
     if st != 200:
         if openalex and st == 429:
             SEM_OPENALEX["esgotado"] = True

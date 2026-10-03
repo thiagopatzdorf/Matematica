@@ -91,3 +91,21 @@ def test_de_jsonl_funde_conta_novas_e_segue_referencias(tmp_path, monkeypatch):
     assert cont["novas"] == 1 and cont["ja_na_base"] == 1 and cont["rejeitadas"] == 1 and cont["falhas"] == 1
     assert cont["refs_enfileiradas"] == 1
     assert "busca:fulltext:x" in b.obras["W3"]["motivos"] and "W2" not in b.obras
+
+
+def test_openalex_429_nao_repete_mas_504_repete(monkeypatch, tmp_path):
+    monkeypatch.setenv("LIT_DIR", str(tmp_path))
+    monkeypatch.setattr(varredura.time, "sleep", lambda s: None)
+    chamadas = []
+
+    def falso(req, timeout):
+        chamadas.append(req.full_url)
+        raise varredura.urllib.error.HTTPError(req.full_url, codigo[0], "x", {}, None)
+
+    monkeypatch.setattr(varredura.urllib.request, "urlopen", falso)
+    codigo = [429]
+    assert varredura.baixar_bytes("https://api.openalex.org/works/W1", repetir_429=False)[0] == 429
+    assert len(chamadas) == 1
+    codigo[0] = 504
+    varredura.baixar_bytes("https://api.openalex.org/works/W1", repetir_429=False)
+    assert len(chamadas) == 4
