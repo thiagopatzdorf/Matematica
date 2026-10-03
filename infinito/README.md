@@ -28,7 +28,9 @@ Publicar (Zenodo, site) e fazer merge **não existem aqui**: continuam com o don
   `INF_ADMINS`) ou token de serviço do Access (`INF_TOKENS_SERVICO`) — é o caminho da MCP interna da Factory,
   que chama o Infinito como serviço. Motivo obrigatório; cada mudança vira um evento.
 * **O crédito cobre computação e Gemini.** Preços do Gemini em `INF_GEMINI_PRECOS` (US$/milhão de tokens); os padrões
-  **não foram conferidos** contra a tabela oficial: confira antes de liberar.
+  (gemini-3.8-flash, 3.5-flash, 3.1-pro-preview) vêm da página oficial lida em 2026-10-03; reconfira antes de aumentar crédito.
+  **A chave do cofre está sem créditos pré-pagos (HTTP 402 em 2026-10-03):** até recarregar no AI Studio, `gemini` falha
+  e desfaz a reserva.
 * Reserva aberta já conta como gasto (duas chamadas paralelas não furam o teto). Sem ledger, nada que custa roda.
 
 ## Acesso por URL com token

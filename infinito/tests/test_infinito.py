@@ -351,7 +351,8 @@ def _gem(chamada, env=None, c=None):
 def test_gemini_cobra_o_estimado_em_vez_dos_tokens_medidos():
     ctx, c = _gem(lambda m, p, n: {"texto": "oi", "entrada": 1000, "saida": 500})
     r = ctx.tools["gemini"]("a" * 300, confirmar=True)
-    esperado = round((1000 * 0.30 + 500 * 2.50) / 1e6, 6)
+    p = gemini.PRECOS_PADRAO["gemini-3.8-flash"]
+    esperado = round((1000 * p[0] + 500 * p[1]) / 1e6, 6)
     assert r["custo_usd"] == esperado
     assert c.saldo("a@x.com")["gasto_usd"] == esperado and c.saldo("a@x.com")["reservado_usd"] == 0
 

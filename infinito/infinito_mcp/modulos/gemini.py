@@ -20,7 +20,10 @@ from ..creditos import ErroCreditos
 
 NOME = "gemini"
 API = "https://generativelanguage.googleapis.com/v1beta/models/{modelo}:generateContent"
-PRECOS_PADRAO = {"gemini-2.5-flash": [0.30, 2.50], "gemini-2.5-pro": [1.25, 10.00]}  # NÃO conferido em 2026-10-03
+# US$/milhão de tokens, de https://ai.google.dev/gemini-api/docs/pricing lida em 2026-10-03 (via resumo automático da
+# página: reconfira antes de aumentar crédito). Para o 3.8-flash vale a tarifa DE 2027 (a de 2026 é metade): o teto
+# nunca subestima. Pro usa a faixa de prompt > 200k. O gemini-2.5-* foi aposentado pela API (404 medido em 2026-10-03).
+PRECOS_PADRAO = {"gemini-3.8-flash": [1.50, 7.50], "gemini-3.5-flash": [1.50, 9.00], "gemini-3.1-pro-preview": [4.00, 18.00]}
 MAX_SAIDA = 8192
 
 Chamada = Callable[[str, str, int], dict]
@@ -49,7 +52,7 @@ def custo(precos: list[float], entrada: int, saida: int) -> float:
 def registrar(ctx, chamada: Chamada | None = None) -> None:
     tool, creditos = ctx.tool, ctx.creditos
     precos = json.loads(ctx.env["INF_GEMINI_PRECOS"]) if ctx.env.get("INF_GEMINI_PRECOS") else PRECOS_PADRAO
-    padrao = ctx.env.get("INF_GEMINI_MODELO", "gemini-2.5-flash")
+    padrao = ctx.env.get("INF_GEMINI_MODELO", "gemini-3.8-flash")
     chave = ctx.env.get("GEMINI_API_KEY", "")
     chamada = chamada or (chamar_api(chave) if chave else None)
 
