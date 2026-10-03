@@ -871,25 +871,33 @@ def extrair_texto(pdf: Path, tempo: int = 120) -> str:
                 return r.stdout.decode("utf-8", "replace")
         except subprocess.TimeoutExpired:
             return ""
-    # pypdf em subprocesso: alguns PDFs travam o parser e o timeout precisa matar.
-    codigo = ("import sys,pypdf\nr=pypdf.PdfReader(sys.argv[1])\n"
-              "sys.stdout.write('\\f'.join((p.extract_text() or '') for p in r.pages))")
-    try:
-        r = subprocess.run([sys.executable, "-c", codigo, str(pdf)], capture_output=True, timeout=tempo)
-        return r.stdout.decode("utf-8", "replace") if r.returncode == 0 else ""
-    except subprocess.TimeoutExpired:
-        return ""
+    # Em subprocesso: alguns PDFs travam o parser e o timeout precisa matar. PyMuPDF
+    # primeiro (medido em 2026-10-03: pypdf levava ~5 s por PDF, 45 min para 543 PDFs).
+    codigos = [
+        "import sys,pymupdf\nd=pymupdf.open(sys.argv[1])\nsys.stdout.write('\\f'.join(p.get_text() for p in d))",
+        "import sys,pypdf\nr=pypdf.PdfReader(sys.argv[1])\n"
+        "sys.stdout.write('\\f'.join((p.extract_text() or '') for p in r.pages))",
+    ]
+    for codigo in codigos:
+        try:
+            r = subprocess.run([sys.executable, "-c", codigo, str(pdf)], capture_output=True, timeout=tempo)
+        except subprocess.TimeoutExpired:
+            continue
+        if r.returncode == 0 and r.stdout.strip():
+            return r.stdout.decode("utf-8", "replace")
+    return ""
 
 
 def etapa_extrair(b: Base) -> None:
-    n = 0
-    for pdf in sorted((dados() / "pdf").glob("*.pdf")):
-        txt = dados() / "txt" / f"{pdf.stem}.txt"
-        if txt.exists():
-            continue
-        t = extrair_texto(pdf)
-        txt.write_text(t, encoding="utf-8")
-        n += 1
+    from concurrent.futures import ThreadPoolExecutor
+
+    def um(pdf: Path) -> None:
+        (dados() / "txt" / f"{pdf.stem}.txt").write_text(extrair_texto(pdf), encoding="utf-8")
+
+    fila = [p for p in sorted((dados() / "pdf").glob("*.pdf")) if not (dados() / "txt" / f"{p.stem}.txt").exists()]
+    with ThreadPoolExecutor(3) as ex:
+        list(ex.map(um, fila))
+    n = len(fila)
     # Resenhas do zbMATH também são texto pesquisável (citam cotas com frequência).
     for w in b.obras.values():
         if w.get("resenha_zbmath"):
