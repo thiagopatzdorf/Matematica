@@ -908,6 +908,15 @@ def _baixar_uma(w: dict, alvo: Path) -> dict:
     return {"pdf_status": "falhou", "unpaywall_visto": True, "_candidatos": cands[:4]}
 
 
+def merece_pdf(w: dict, c: dict) -> bool:
+    """Quem vale baixar: score de resumo no limiar, ou obra que entrou pelo corte do
+    `--de-jsonl` sem score (achado de texto completo forçado, ou cita >= 2 sementes).
+    Sem a segunda parte, os achados de texto completo, que são justamente os que não
+    dizem "covering" no resumo, nunca tinham o PDF baixado (medido na rodada 2)."""
+    return (w.get("score", 0) >= c["limiar_inclusao"] or w.get("cita_sementes", 0) >= 2
+            or any(m.startswith("busca:openalex-") for m in w.get("motivos") or []))
+
+
 def etapa_baixar(b: Base, limite_gb: float = 6.0, threads: int = 8) -> None:
     from concurrent.futures import ThreadPoolExecutor, as_completed
 
@@ -922,7 +931,7 @@ def etapa_baixar(b: Base, limite_gb: float = 6.0, threads: int = 8) -> None:
                 w["pdf_status"] = "ok"
                 w["pdf_sha256"] = hashlib.sha256(alvo.read_bytes()).hexdigest()
             continue
-        if w.get("pdf_status") in ("sem_oa", "falhou") or w.get("score", 0) < cfg()["limiar_inclusao"]:
+        if w.get("pdf_status") in ("sem_oa", "falhou") or not merece_pdf(w, cfg()):
             continue
         fila.append((w, alvo))
     usado = sum(p.stat().st_size for p in pdfdir.glob("*.pdf")) / 1e9

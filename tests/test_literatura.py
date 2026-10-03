@@ -109,3 +109,10 @@ def test_openalex_429_nao_repete_mas_504_repete(monkeypatch, tmp_path):
     codigo[0] = 504
     varredura.baixar_bytes("https://api.openalex.org/works/W1", repetir_429=False)
     assert len(chamadas) == 4
+
+
+def test_achado_de_texto_completo_sem_score_ainda_tem_pdf_baixado():
+    c = {"limiar_inclusao": 4}
+    assert varredura.merece_pdf({"score": 0, "motivos": ["busca:openalex-fulltext:x"]}, c)
+    assert varredura.merece_pdf({"score": 0, "cita_sementes": 2, "motivos": []}, c)
+    assert not varredura.merece_pdf({"score": 1, "cita_sementes": 1, "motivos": ["cita:W1"]}, c)
