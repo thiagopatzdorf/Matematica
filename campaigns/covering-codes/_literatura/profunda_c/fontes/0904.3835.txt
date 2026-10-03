@@ -1,0 +1,1406 @@
+                                          IEEE TRANSACTIONS ON INFORMATION THEORY, VOL. 00, NO. 0, XXXXXXXX 0000                                                                          1
+
+
+
+
+                                              Linear Nonbinary Covering Codes and Saturating
+                                                         Sets in Projective Spaces
+                                                         Alexander A. Davydov, Massimo Giulietti, Stefano Marcugini, and Fernanda Pambianco
+
+
+
+                                             Abstract—Let AR,q denote a family of covering codes, in which                 linear code of length n and codimension (redundancy) r, that
+arXiv:0904.3835v1 [math.CO] 24 Apr 2009
+
+
+
+
+                                          the covering radius R and the size q of the underlying Galois field              is, a subspace of Fqn of dimension n − r. For an introduction
+                                          are fixed, while the code length tends to infinity. The construction             to coding theory, see [1], [2].
+                                          of families with small asymptotic covering densities is a classical
+                                          problem in the area Covering Codes.                                                 The Hamming distance d(v, c) of vectors v and c in Fqn is
+                                             In this paper, infinite sets of families AR,q , where R is fixed but          the number of positions in which v and c differ. The smallest
+                                          q ranges over an infinite set of prime powers are considered, and                Hamming distance between distinct code vectors is called the
+                                          the dependence on q of the asymptotic covering densities of AR,q                 minimum distance of the code. An [n, n − r]q code with
+                                          is investigated. It turns out that for the upper limit µ∗q (R, AR,q )            minimum distance d is denoted as an [n, n − r, d]q code. The
+                                          of the covering density of AR,q , the best possibility is
+                                                                                                                           sphere of radius R with center c in Fqn is the set {v : v ∈ Fqn ,
+                                                                    µ∗q (R, AR,q ) = O(q).                          (1)    d(v, c) ≤ R}.
+                                          The main achievement of the present paper is the construction                       Definition 1.1: i) The covering radius of an [n, n−r]q code
+                                          of optimal infinite sets of families AR,q , that is, sets of families            is the least integer R such that the space Fqn is covered by
+                                          such that (1) holds, for any covering radius R ≥ 2.                              spheres of radius R centered on codewords.
+                                             We first showed that for a given R, to obtain optimal infinite
+                                                                                                                              ii) A linear [n, n − r]q code has covering radius R if every
+                                          sets of families it is enough to construct R infinite families
+                                            (0)    (1)           (R−1)                                        (γ)
+                                          AR,q , AR,q , . . . , AR,q such that, for all u ≥ u0 , the family AR,q           column of Fqr is equal to a linear combination of R columns
+                                          contains codes of codimension ru = Ru + γ and length fq (ru )
+                                                                                                          (γ)              of a parity check matrix of the code, and R is the smallest
+                                                   (γ)              r−R                                                    value with such property.
+                                          where fq (r) = O(q R ) and u0 is a constant. Then, we were
+                                                                                    (γ)
+                                          able to construct the needed families AR,q for any covering radius
+                                                                                                                              Definition 1.1i makes sense for both linear and nonlinear
+                                          R ≥ 2, with q ranging over the (infinite) set of R-th powers. A                  codes. For linear codes Definitions 1.1i and 1.1ii are equiv-
+                                          result of independent interest is that in each of these families                 alent. An [n, n − r]q R code ([n, n − r, d]q R code, resp.) is
+                                            (γ)
+                                          AR,q , the lower limit of the covering density is bounded from                   an [n, n − r]q code ([n, n − r, d] code, resp.) with covering
+                                          above by a constant independent of q.                                            radius R. For an introduction to coverings of vector Hamming
+                                             The key tool in our investigation is the design of new small
+                                                                                                                           spaces over finite fields, see [3]–[6].
+                                          saturating sets in projective spaces over finite fields, which are
+                                          used as the starting point for the q m -concatenating constructions                 The covering problem for codes is that of finding codes
+                                          of covering codes. A new concept of N -fold strong blocking set is               with small covering radius with respect to their lengths and
+                                          introduced. As a result of our investigation, many new asymptotic                dimensions. Codes investigated from the point of view of the
+                                          and finite upper bounds on the length function of covering codes                 covering problem are usually called covering codes (in contrast
+                                          and on the smallest sizes of saturating sets, are also obtained.
+                                                                                                                           to error-correcting codes) [6].
+                                          Updated tables for these upper bounds are provided. An analysis
+                                          and a survey of the known results are presented.                                    Problems connected with covering codes are considered
+                                                                                                                           in numerous works, see e.g. [7] – [41] and the references
+                                             Index Terms—Linear covering codes, nonbinary codes, satu-
+                                          rating sets in projective spaces, covering density
+                                                                                                                           therein, the references in [3]–[6], and the online bibliography
+                                                                                                                           of [42]. In this work, we mainly give references to researches
+                                                                                                                           on nonbinary codes; some papers on binary codes are also
+                                                               I. I NTRODUCTION
+                                                                                                                           mentioned as they contain useful general ideas. It should be
+                                            Let Fq be the Galois field with q elements. Let Fqn be the n -                 noted that the monographs [3], [4] mostly deal with binary
+                                          dimensional vector space over Fq . Denote by [n, n−r]q a q-ary                   covering codes, and that no surveys of nonbinary covering
+                                             Manuscript received xxxx 00, 2009; revised xxxx 00, xxxx. The material in     codes have been recently published. In this work we try to
+                                          this paper was presented in part at the XI International Workshop on Algebraic   make up for this deficiency for linear codes; in particular,
+                                          and Combinatorial Coding Theory, ACCT2008, Pamporovo, Bulgaria, June             for infinite linear code families. We obtain a number of new
+                                          2008, and at International Workshop “Coding Theory Days in St. Petersburg”,
+                                          St. Petersburg, Russia, Oct. 2008.                                               asymptotic optimal results, essentially improving the known
+                                             A. A. Davydov is with the Institute for Information Transmission Problems,    estimates for both finite and infinitely growing code lengths.
+                                          Russian Academy of Sciences, GSP-4, Moscow, 127994, Russian Federation           The description of new results is provided, along with a survey
+                                          (e-mail: adav@iitp.ru).
+                                             M. Giulietti, S. Marcugini, and F. Pambianco are with the De-                 of the known ones and their updates.
+                                          partment of Mathematics and Informatics, Perugia University, Perugia,               Studying covering codes is a classical combinatorial task.
+                                          06123, Italy (e-mail: giuliet@dipmat.unipg.it; gino@dipmat.unipg.it; fer-        Covering codes are connected with many areas of information
+                                          nanda@dipmat.unipg.it).
+                                             Communicated by xxxxxxxxxxxxxxxxxxx.                                          theory and combinatorics, see, e.g., [3, Sec. 1.2] where prob-
+                                             Digital Object Identifier 00.0000/xxx.0000.000000                             lems of data compression, decoding errors and erasures, foot-
+                                                                                                       0000–0000/00$00.00 c 0000 IEEE
+IEEE TRANSACTIONS ON INFORMATION THEORY, VOL. 00, NO. 0, XXXXXXXX 0000                                                                 2
+
+
+
+ball pools, write-once memories, Berlekamp-Gale game, and            [n + δ, n + δ − r]q R code from C for any integer δ ≥ 1. We
+Caley graphs are mentioned. Covering codes can also be used          will call such a code a δ-extension of C.
+in steganography, see [43], [44] and the references therein.            For a given R ≥ 1 and for a fixed prime power q, let AR,q
+Codes of covering radius 2 and codimension 3 are relevant,           denote an infinite sequence of q-ary linear [n, n− rn ]q R codes
+for example, for defining sets of block designs [45] and the         Cn , n ≥ R, with fixed covering radius R. An infinite sequence
+degree/diameter problem in graph theory [46]. Covering codes         AR,q of covering codes is called an infinite family of covering
+can be used in databases [47]. There are connections between         codes or an infinite code family, or simply infinite family.
+covering codes and a popular game puzzle, called “Hats-on-              For infinite families AR,q we consider asymptotic covering
+a-line” [48]. Covering codes can be also used to construct           densities
+identifying codes [49].
+                                                                                µq (R, AR,q ) =      lim inf µq (n, R, Cn ).      (1.3)
+   It should be particularly emphasized that linear covering                                          n→∞
+codes are deeply connected with saturating sets in projective                   µ∗q (R, AR,q ) =     lim sup µq (n, R, Cn ).      (1.4)
+                                                                                                      n→∞
+spaces over finite fields. Let P G(v, q) be the v-dimensional
+projective space over Fq . For an introduction to such spaces        We will write µq (R) (µ∗q (R) resp.) for µq (R, AR,q )
+and the geometrical objects therein, see [50]–[55].                  (µ∗q (R, AR,q ) resp.) if the family AR,q is clear from the
+   A set of points S ⊆ P G(v, q) is said to be ̺ -saturating         context.
+if for any point x ∈ P G(v, q) there exist ̺ + 1 points in              For an infinite family AR,q the sequence of codimensions rn
+S generating a subspace of P G(v, q) containing x, and ̺ is          will be assumed to be non-decreasing. In fact, if rn+1 < rn for
+the smallest value with such property, cf. [56]–[60], [9], [18,      some n, then any 1-extension C ∗ of Cn has a better covering
+Def. 1.1], [35], [37].                                               density than Cn+1 , and therefore it is convenient to replace
+   As usual, by an n-set of P G(v, q) we mean a point set            Cn+1 with C ∗ .
+of size n. Homogenous coordinates of points of an (R − 1)-              A code Cn will be called a supporting code of AR,q if
+saturating n-set K in the projective space P G(r − 1, q) can be      rn > rn−1 , a filling code otherwise. It is immediately seen that
+treated as columns of a parity-check matrix of an [n, n − r]q R      a filling code must have the same parameters of a δ-extension
+related covering code CK [9], [18], [29], [35], [58], [60].          of some supporting code, and this motivates our notation. The
+   In the literature, saturating sets are also called “saturated     subsequence of supporting codes will be denoted as Cni .
+sets” [57], [9], [18], [24], [61], “spanning sets” [8], and “dense      Throughout the paper, constructing an infinite family, we
+sets” [45], [56], [62], [63].                                        will only describe supporting codes, whereas the filling codes
+   Let Vq (n, R) be the cardinality of the sphere of radius R in     will be assumed to be obtained via δ-extension. The words
+the vector space Fqn .                                               “to construct a family” will mean “to construct the supporting
+                                                                   codes of a family”.
+                               R
+                               X                 n                      In this work we will mainly deal with infinite families AR,q
+                 Vq (n, R) =         (q − 1)i       .       (1.1)
+                                                 i                   for which the lengths and the codimension of the supporting
+                               i=0
+                                                                     codes Cni are linked by some function, namely ni = fq (ri )
+The covering quality of an [n, n − r(C)]q R code C of codi-          where fq is an increasing function for a fixed q. In most cases,
+mension r(C) can be measured by its covering density                 an explicit expression for the function fq will be given.
+                                      Vq (n, R)                         By (1.2), the covering density of an [n + 1, n + 1 − r]q R is
+                   µq (n, R, C) =               .           (1.2)    greater than that of an [n, n − r]q R one. Therefore,
+                                        q r(C)
+We will write µq (n, R) for µq (n, R, C) when the code C is                          µq (R, AR,q ) = lim inf µq (ni , R, Cni ),   (1.5)
+                                                                                                       i→∞
+clear from the context. Note that µq (n, R, C) ≥ 1 and equality          µ∗q (R, AR,q ) = lim sup µq (ni+1 − 1, R, Cni+1 −1 ).    (1.6)
+holds when C is a perfect code. From the point of view of                                  i→∞
+
+covering problem, the best codes are those with small covering          Note that by (1.5),(1.6), the lower limit of the asymptotic
+density.                                                             covering density depends only on the supporting codes, while
+   For fixed parameters r, R, and q, the smaller is the length n     the upper limit depends on filling codes.
+of an [n, n−r]q R code, the smaller is its covering density. The        The size q of the base field Fq is fixed for a given
+length function ℓq (r, R) is the smallest length of a q-ary linear   family AR,q . But, it is natural to consider an infinite set of
+code with codimension r and covering radius R [8], [4]. The          families AR,q with fixed R and infinitely growing q. In most
+smallest known length of such code is denoted by ℓq (r, R).          constructions, fq (r) is an increasing function of q for a fixed r.
+Clearly, ℓq (r, R) ≤ ℓq (r, R) holds, and the existence of an        Therefore, a central problem for linear covering codes is the
+[n, n−r]q R code or an (R−1)-saturating n-set in P G(r−1, q)         following:
+implies the upper bound ℓq (r, R) ≤ n.                                  For a fixed covering radius R, find a set of families AR,q
+   Fact 1.2: If there is an [n, n − r]q R code then there is an      of q-ary codes with q running over an infinite set of prime
+[n + 1, n + 1 − r]q R code.                                          power, such that the covering densities (1.5) and (1.6) are
+   One can obtain an [n + 1, n + 1 − r]q R code by attaching an      asymptotically as small as possible with respect to the size of
+arbitrary column to a parity check matrix of an [n, n − r]q R        the base field q.
+code C, or, equivalently, by adding an information symbol.              This problem has distinct perspectives and solutions for
+Clearly, by repeating the process it is possible to obtain an        lower and upper limits.
+IEEE TRANSACTIONS ON INFORMATION THEORY, VOL. 00, NO. 0, XXXXXXXX 0000                                                                  3
+
+
+
+     As to the lower limit (1.5), it can happen that the asymptotic       So, to solve Open Problem 1 it is sufficient to find a solution
+covering density of a family AR,q are bounded from above by            to Open Problem 2.
+a constant independent of q. In this case µq (R, AR,q ) = O(1)
+and the family AR,q is said to be “good”. Accordingly, an              Open Problem 2. For any covering radius R ≥ 2, construct
+                                                             r−R                                   (0)    (1)          (R−1)
+[n, n − r]q R covering code is called “ short” if n = O(q R ).         R infinite code families AR,q , AR,q , . . . , AR,q such that for
+By (1.2) and (1.3), a family AR,q consisting of short codes is                                                                  (γ)
+                                      r−R
+                                                                       each γ = 0, 1, . . . , R − 1 the supporting codes of AR,q are
+good. In this case, fq (r) = O(q R ). A saturating set K will          [nu , nu − ru ]q R codes with codimension ru = Ru + γ and
+be said to be “small ” if the related covering code CK is short.                        (γ)            (γ)              r−R
+                                                                       length nu = fq (ru ) with fq (r) = O(q R ) and u ≥ u0
+     A classical example is the direct sum [3] of R copies of the      where a constant u0 may depend on the family.
+    i
+      −1 qi −1
+[ qq−1  , q−1 − i]q 1 perfect Hamming codes, which gives an
+                                                                                                            (0)
+infinite family AR,q of [ni , ni − ri ]q R codes with parameters         On one hand, infinite families AR,q are provided by exam-
+                                                                                                           (0)
+                       qi − 1                                          ple (1.7); for R = 2, 3, families AR,q with better parameters
+       AR,q : ni = R          , ri = Ri, i = 1, 2, 3, . . . ;          are obtained in [18], [24], [29]. On the other hand, for γ ≥ 1,
+                       q−1                                                               (γ)                     (γ)
+                                                 R                   code families AR with density µq (R, AR ) = O(1) are only
+                                                   R
+                                    µq (R) = O               . (1.7)   known for R = 2, γ = 1, q = (q ′ )2 [24], and R = 3, γ = 1,
+                                                   R!                  q = (q ′ )3 [35].
+   When the upper limit is considered, it is not possible to             In this paper, Open Problem 2 (and Open Problem 1) is
+obtain an upper bound independent on q. This depends on the            solved for an arbitrary covering radius R ≥ 2 and q = (q ′ )R
+fact that                                                              where q ′ is a power of prime.
+                                        Vq (ni+1 − 1, R)
+       µq (ni+1 − 1, R, Cni+1 −1 ) =                      =              Our main tools are the q m -concatenating constructions of
+                                               q ri                    covering codes, and the connection between covering codes
+                                    Vq (ni+1 − 1, R) q ri+1            and saturating sets in projective spaces.
+              µq (ni+1 , R, Cni+1 )                         .
+                                      Vq (ni+1 , R)    q ri
+                                                                          The q m -concatenating constructions are proposed in [10]
+Since ri+1 > ri , this implies that the optimal case is                and are developed in [15], [16, Supplement], [17]–[20], [24],
+µ∗q (R, AR,q ) = O(q). Then the following natural issue arises.        [27]–[30], [37], see also [3, Sec. 5.4] and [4]. These con-
+Open Problem 1. For any covering radius R ≥ 2, construct               structions are the fundamental instrument for obtaining infinite
+an infinite code family AR,q with µ∗q (R, AR,q ) = O(q).               families of covering codes with a fixed radius. Using a starting
+                                                                       code as a “seed”, the q m -concatenating constructions yield an
+   To solve Open Problem 1 it is convenient to proceed as
+                                                                       infinite family of new codes with the same covering radius and
+follows. For any given integer γ with 0 ≤ γ ≤ R − 1,
+                                 (γ)                                   with almost the same covering density. If the starting code is
+construct an infinite family AR,q such that its supporting codes
+                                                                       short then the new infinite family is good.
+are [nu , nu − ru ]q R codes with codimension ru = Ru + γ and
+                   (γ)
+length nu = fq (ru ), where u ≥ u0 and a constant u0 may                 Linear codes arising from small saturating sets are a con-
+depend on the family. Considering families of type AR,q is
+                                                             (γ)       venient choice for the starting codes of the q m -concatenating
+a standard method of investigation of linear covering codes,           constructions [18], [24], [29], [35], [37].
+see [3], [17], [18], [24], [27]–[29], [35] and the references             The achievements of the present paper are mainly a con-
+                       (γ)
+therein; families AR,q with distinct values of γ often have            sequence of new constructions of small saturating sets, some
+distinct properties.                                                   of which rely on the concept of a multifold strong blocking
+                                                               (γ)
+   Assume that we have R good infinite code families AR,q ,            set that is introduced in this work. We have also thoroughly
+γ = 0, 1, . . . , R − 1. Let us consider the infinite family AbR,q ,   analyzed and collected the known results on the upper bounds
+whose supporting codes are the union of those of all the               on the length function, in particular for the cases R = 2, 3. We
+            (γ)
+families AR,q . The family AbR,q contains an infinite sequence         have updated tables about the upper bounds and formulas for
+                                                    (γ )               infinite code families. As a result of our previously mentioned
+of [nj , nj − j]q R codes Cj with length nj = fq j (j), γj ≡ j
+                                                                       constructions, many new upper bounds on the length function
+(mod R), where j ≥ j0 and j0 is a constant depending of
+                                                                       are obtained.
+constants u0 of the starting families. Note that it may occur
+that nv+1 ≤ nv for some v. In this case we replace the code               The paper is organizes as follows. In Section II the q m -
+Cv by an [nv+1 − 1, nv+1 − 1 − v]q R code that always can be           concatenating constructions, used in this work, are recalled.
+obtained from Cv+1 by removing a redundancy symbol and a               In Section III new constructions of small ̺ -saturating sets,
+suitable parity check. Arguing as before,                              including those relying on the new concept of strong blocking
+                                                                       sets, are described. Section IV contains updated tables about
+                           Vq (nj+1 , R) Vq (nj+1 − 1, R) q j+1        the upper bounds on ℓq (r, R) for R = 2, 3, r = 3, 4, 5. In
+ µ∗q (R, AbR,q ) = lim sup                                      .
+                     j→∞       q j+1       Vq (nj+1 , R)    qj         Sections V,VI, and VII we consider codes with covering radii
+                               (γ)                                     R = 2, R = 3, and R ≥ 4. Section VIII provides results for
+Since all families AR,q            are          good,      we   have   nonprime covering radius.
+Vq (nj+1 , R)/q j+1 = O(1). Hence,
+                                                                         Some of the results from this work were briefly presented
+                      µ∗q (R, AbR,q ) = O(q).                          without proofs in [64], [65].
+IEEE TRANSACTIONS ON INFORMATION THEORY, VOL. 00, NO. 0, XXXXXXXX 0000                                                                   4
+
+
+
+II. q m -C ONCATENATING C ONSTRUCTIONS L ENGTHENING                    B. Basic q m -Concatenating Constructions
+                   C OVERING C ODES
+                                                                         We give a basic q m -concatenating construction QM based
+   In this section we describe the common ideas and the                on ideas in [10], [17], [18], [20].
+popular versions of the q m -concatenating constructions. Other        Basic Construction QM. Let H0 = [h1 h2 . . . hn0 ], with hj ∈
+versions can be found in [3, Sec. 5.4], [4], [10], [15],               Fqr0 , be a parity check matrix of an [n0 , n0 −r0 ]q R, ℓ0 starting
+[16, Supplement], [17]–[20], [29], [30], [35], [37]. Specific          code V0 . Assume that H0 has a starting (R, ℓ0 )-partition P0
+constructions for R = 2 are given in detail in [24].                   into p0 subsets. Let m ≥ 1 be an integer parameter depending
+   Using a starting [n0 , n0 − r0 ]q R code of length n0 , the q m -   on p0 and n0 . To each column hj we associate an element βj
+concatenating constructions yield an infinite family of [n, n −        ∈ Fqm ∪ {∗} so that βi 6= βj if columns hi and hj belong
+(r0 + Rm)]q R codes with the same covering radius R and                to distinct subsets of P0 . If hi and hj belong to the same
+length n = q m n0 + Nm , where m ranges over an infinite set           subset we are free to assign either βi = βj or βi 6= βj . We
+of integers. Here Nm ≤ Rθm,q , where                                   call βj an indicator of column hj . Let B = {β1 , β2 , . . . , βn0 }
+                                                                       be an indicator set. It is necessary that |B| ≥ p0 . Also, let
+                                 qm − 1
+                        θm,q =          .                              C be an (r0 + Rm) × Nm matrix with Nm ≤ (R − ℓ0 )θm,q .
+                                  q−1                                  Finally, define V as the [n, n − (r0 + Rm)]q RV code with
+It should be noted that all q m -concatenating constructions have      n = q m n0 + Nm and the parity-check matrix of the form
+the contribution q m n0 into n; two of them may differ by the
+                                                                           HV = [C B1 B2 . . . Bn0 ] ,                               (2.1)
+value of Nm .                                                                                                         
+   Throughout this paper, all matrices and columns are q-ary.                      hj      hj · · ·     hj
+                                                                                 ξ         ξ2 · · · ξqm               
+An element of Fqm written in a q-ary matrix denotes an m-                           1                                 
+                                                                                                                      
+dimensional column containing its coordinates with respect to                    βj ξ1   βj ξ2 · · · βj ξqm           
+a fixed basis of Fqm over Fq ; viceversa, an m-dimensional                 Bj = 
+                                                                                 βj2 ξ1 βj2 ξ2 · · · βj2 ξqm
+                                                                                                                        if βj ∈ Fqm ,
+                                                                                                                       
+                                                                                                                      
+vector can be viewed as an element of Fqm .                                      ..         ..   ..      ..           
+                                                                                 .           .    .       .           
+                                                                                   βjR−1 ξ1 βjR−1 ξ2 · · · βjR−1 ξqm
+                                                                                                  
+A. (R, ℓ)-partitions and (R, ℓ) -objects                                           hj hj · · · hj
+                                                                                  0 0 ··· 0 
+                                                                                                  
+   Definition 2.1: Let H be a parity-check matrix of an [n, n−                                    
+                                                                            Bj =  ... ... ... ...  if βj = ∗,
+r]q R code V and let 0 ≤ ℓ ≤ R.                                                                   
+                                                                                  0 0 ··· 0 
+   i)          A partition of the column set of the
+matrix H into nonempty subsets is called an                                        ξ1 ξ2 · · · ξqm
+(R, ℓ)-partition if every column of Fqr (including the                 where {ξ1 , ξ2 , . . . , ξqm } = Fqm , ξ1 = 0, ξ2 = 1. Note that the
+zero column) is equal to a linear combination with nonzero             submatrix C is not needed if ℓ0 = R.
+coefficients of at least ℓ and at most R columns of H
+                                                                          If m, C and B are carefully chosen, then the covering radius
+belonging to distinct subsets. For an (R, 0) -partition we can
+                                                                       RV of the new code V is equal to the covering radius R of the
+formally treat the zero column as the linear combination of 0
+                                                                       starting code V0 . Examples are shown in Constructions QM1
+columns.
+                                                                       - QM8 below.
+   An R-partition is an (R, ℓ)-partition for some ℓ ≥ 0.
+                                                                          We use the following notations:
+   ii) If H admits an (R, ℓ)-partition, the code                       Wm is a parity-check matrix of the [θm,q , θm,q − m]q 1
+V is called an (R, ℓ)-object and is denoted as                         Hamming code;
+an [n, n − r]q R, ℓ code or an [n, n − r, d]q R, ℓ code,               AR′ ,m is a parity-check matrix of an [n′ , n′ − R′ m]q R′
+where d is the minimum distance of V .                                 code VR′ ,m (in most cases we will assume that either n′ =
+   Clearly, the trivial partition of a parity-check matrix of an       ℓq (R′ m, R′ ) or n′ = ℓq (R′ m, R′ ));
+[n, n − r]q R, ℓ code into n one-element subsets is an (R, ℓ)          0k is the zero matrix with k rows (the number of columns
+-partition.                                                            will be clear by context);
+   Note that in Definition 2.1, it is not necessary that ℓ is          ΣR′′ ,m is the “direct sum” of R′′ matrices Wm , i.e. an
+the greatest value with the properties considered. Any (R, ℓ)          R′′ m × R′′ θm,q matrix of the form
+-partition with ℓ > 0 is also an (R, ℓ1 )-partition with ℓ1 =                                                            
+0, 1, . . . , ℓ − 1.                                                                                  W m 0m · · · 0m
+   Lemma 2.2: [10], [17], [18] An [n, n − r, d]q R code is an                                        0m W m · · · 0m 
+                                                                                                                         
+[n, n − r, d]q R, ℓ code with ℓ ≥ 1 if and only if d ≤ R. If                          ΣR′′ ,m =  .           .. . .   ..  .         (2.2)
+                                                                                                     ..       .     . . 
+d > R the maximum possible value of ℓ is zero.                                                         0m 0m · · · W m
+   A spherical (R, ℓ)-capsule with center c in Fqn is the set
+{v : v ∈ Fnq , 0 ≤ ℓ ≤ d(v, c) ≤ R} (see [10]). It is easy             Note that ΣR′′ ,m is a parity-check matrix of an
+to see that spherical (R, ℓ)-capsules centered at vectors of an        [R′′ θm,q , R′′ θm,q − R′′ m]q R′′ code, see the direct sum
+(R, ℓ)-object cover the space Fqn .                                    construction in Section V.
+IEEE TRANSACTIONS ON INFORMATION THEORY, VOL. 00, NO. 0, XXXXXXXX 0000                                                             5
+
+
+
+Construction QM1 . Here R ≥ 2, ℓ0 = 0, q m + 1 ≥ p0 ,              D. Summary
+B ⊆ Fqm ∪ {∗},                                                        Theorem 2.3: [3], [10], [18], [24], [35], [29] In all Con-
+                                                                 structions QMi the new code V is an [n, n−(r0 +Rm), 3]q R, ℓ
+                  0 r0
+           C=            , n = q m n0 + Rθm,q . (2.3)              code with covering radius R and ℓ ≥ ℓ0 .
+                 ΣR,m
+                                                                      Corollary 2.4: It holds that
+Construction QM2 . Here R ≥ 2, 1 ≤ ℓ0 < R, q m ≥ p0 ,                               ℓq (r0 + Rm, R) ≤ q m ℓq (r0 , R) +       (2.11)
+B ⊆ Fqm ,
+                                                                       (
+           0r0 +ℓ0 m                                                         Rθm,q                   if q m + 1 ≥ ℓq (r0 , R)
+   C=                  , n = q m n0 + (R − ℓ0 )θm,q . (2.4)                  R           R R        m
+                                                                                                                              .
+          ΣR−ℓ0 ,m
+                                                                              2 θm,q + ℓq ( 2 m, 2 ) if q   > ℓq (r0 , R)
+Construction QM3 . Here R ≥ 2, ℓ0 = R, q m + 1 ≥ p0 ,                    Proof: In Constructions QM1 and QM4 we put n0 =
+B ⊆ Fqm ∪ {∗},                                                     ℓq (r0 , R) and then    the trivial R-partition.
+                                                                                       use                   In the code
+                                                                   VR′ ,m with R′ = R2 we put n′ = ℓq ( R2 m, R2 ).
+                   C is absent, n = q m n0 .               (2.5)      Note that Constructions QM1 -QM4 provide an infinite
+                                                                   family of the new [n, n − (r0 + Rm)]q R codes V with
+Construction QM4 . Here R ≥ 2, ℓ0 = 0, q m − 1 ≥ p0 ,              growing codimension r = r0 + Rm. In Constructions QM5 -
+B ⊆ Fq∗m ,                                                         QM8 instead, the value of m cannot assume arbitrarily large
+                                                                 values. However, these construction can be used in an iterative
+               0 r0    0 r0                                        process where the new codes are the starting ones for the
+     C =  Σ⌊R/2⌋,m 0⌊R/2⌋m  ,                                    following steps [18], [24]. As result we obtain an infinite
+             0⌈R/2⌉m A⌈R/2⌉,m                                      code family, see, e.g., [24, Rem. 5]. For this iterative process,
+       n ≤ q m n0 + ⌊R/2⌋ θm,q + ℓq (⌈R/2⌉ m, ⌈R/2⌉). (2.6)        it is important that in the new codes obtained by the q m -
+                                                                   concatenating constructions the value of ℓ is increasing and
+                                                                   eventually reaches R, see [18, Sec. IV] and Examples in
+C. q m -Concatenating Constructions with a Complete Set of         Section VI.
+Indicators (CSI)                                                      Remark 2.5: i) By (1.2),(1.3),(1.5),(2.3), in Construction
+   In these versions of the basic Construction QM we must use      QM1 the covering density of the starting code V0 and the lower
+all elements of Fqm or Fqm ∪ {∗} as indicators βj . To this        limit of the asymptotic covering density of the infinite family
+                                                                                                                          (q−1)R nR
+end, perhaps, we should assign distinct indicators to columns      of the new codes V are, respectively, µq (n0 , R) ≈ R!qr0 0
+                                                                                          R         R
+from the same subset of an R-partition. As a result the size       and µq (R) ≈ (q−1) R!q(n0 +R/q)
+                                                                                           r0       . We have µq (R)/µq (n0 , R) ≈
+of the submatrix C is reduced.                                            R R
+                                                                   (1+ qn0 ) . This shows that for the q m -concatenating construc-
+Construction QM5 . Here R ≥ 2, ℓ0 = 0, n0 ≥ q m ≥ p0 ,             tions the lower limit of the asymptotic covering density of the
+B = Fqm ,                                                          new family is somewhat greater than covering density of the
+                                                                 starting code. However, it should be noted that the difference
+            0r0 +m                                                 is not significant when the value of R/qn0 is small.
+    C=               , n = q m n0 + (R − 1)θm,q . (2.7)
+            ΣR−1,m                                                    ii) By (2.3)-(2.10), if the starting code V0 is “short”, i.e.
+                                                                               r0 −R
+                                                                   n0 = O(q R ), then the all new [n, n − (r0 + Rm)]q R codes
+Construction QM6 . Here R ≥ 3, ℓ0 = 0, n0 ≥ q m + 1 ≥ p0 ,         V, obtained by the q m -concatenating constructions, are “short”
+B = Fqm ∪ {∗},                                                     too, i.e. n = O(q
+                                                                                     r0 +Rm−R
+                                                                                         R     ). This means that the infinite family
+                                                                 of the codes V is “good” with µq (R) = O(1).
+            0r0 +m
+    C=               , n = q m n0 + (R − 1)θm,q .   (2.8)
+           ΣR−1,m
+                                                                                 III. N EW “S MALL ” S ATURATING S ETS
+Construction QM7 . Here R = 3, ℓ0 = 0, n0 ≥ q m + 1 ≥ p0 ,         A. Multifold Strong Blocking Sets
+B = Fqm ∪ {∗}, q = 2i ,
+                                                                      In a projective space a t-fold blocking set with respect to
+               "        #                                          subspaces of some fixed dimension is a set of points that meets
+                 0r0 +m
+           C = Wm         , n = q m n0 + θm,q .     (2.9)          every such subspace in at least t points. To describe new
+                   0m                                              constructions of relatively small ρ -saturating sets in spaces
+                                                                   P G(v, q) with q = (q ′ )ρ+1 we introduce a new concept of
+Construction QM8 . Here R = 4, ℓ0 = 0, n0 ≥ q m ≥ p0 ,             t-fold strong blocking set.
+B = Fqm , 3 does not divide q m − 1,                                  Definition 3.1: Let 2 ≤ t ≤ v. A pointset B in a projective
+       "                #                                          space P G(v, q) is a t-fold strong blocking set if every (t − 1)-
+         0r0 +m 0r0 +m
+  C = A2,m 02m            , n ≤ q m n0 + ℓq (2m, 2) + θm,q .       dimensional subspace of P G(v, q) is spanned by t points in
+           0m W m                                                  B.
+                                                       (2.10)         Let (x0 , x1 , . . . , xv ), where xi ∈ Fq , be homogenous
+  Other constructions CSI including these with n0 < q m can        coordinates for a point P in P G(v, q) and let P u =
+be found in [18], [30].                                            (xu0 , xu1 , . . . , xuv ).
+IEEE TRANSACTIONS ON INFORMATION THEORY, VOL. 00, NO. 0, XXXXXXXX 0000                                                                      6
+
+
+
+   Theorem 3.2: Let ρ be any positive integer. Let q =                   to some coset dH, d ∈      / H, and therefore c = dap−1 for some
+  ′ ρ+1                                                                         ∗               p2
+(q ) . Let v ≥ ρ + 1. Any (ρ + 1)-fold strong blocking                   a ∈ Fq . Let b = d ∈      / H, so that bp = d.
+set in a subgeometry P G(v, q ′ ) ⊂ P G(v, q) is a ρ-saturating             Then the following claim is proved: if there is an element
+set in the space P G(v, q).                                              c ∈ Fq∗ \ H such that c 6= (xp − 1)p−1 x for any x ∈ Fq , then
+      Proof: Let B be a (ρ + 1)-fold strong blocking set in              there exist a, b such that B ∩ γa,b (B) = ∅.
+P G(v, q ′ ). Let P be a point in P G(v, q) \ B. By definition of           The existence of such element c has been tested by computer
+(ρ + 1) -fold strong blocking set we only need to show that              for every prime p ≤ 73.
+there exists a ρ -dimensional subspace of P G(v, q ′ ) passing              Corollary 3.6: Let q = (q ′ )6 , q ′ prime, q ′ ≤ 73. In
+                                                                                                                             √       √
+through P . Consider the subspace Σ(P ) of P G(v, q) gener-              P G(2, q) there is a 1-saturating set of size 2 q + 2 3 q +
+                                         ′    ′ 2             ′ ρ          √
+ated by the point set O(P ) := {P, P q , P (q ) , . . . , P (q ) }. As   2 6 q + 2.
+ ′ ρ q′                                                            ′      Note that the smallest previously known 1-saturating sets
+  P (q )      = P q = P, the Frobenius collineation X 7→ X q                                                      √
+                                                                         in P G(2, q), q = (q ′ )2 , have size 3 q − 1 [18, Th. 5.2], cf.
+fixes O(P ). Therefore Σ(P ) is a subspace of P G(v, q ′ ).              Theorem 3.4 and Corollary 3.6.
+Clearly Σ(P ) is contained in some ρ-dimensional subspace                   Now we construct a 3-fold strong blocking set in P G(3, q).
+of P G(v, q ′ ) (if the points in O(P ) are independent, then this       Let l1 , l2 , l3 be the lines with the following equations:
+subspace coincides with Σ(P )). As P ∈ Σ(P ), the assertion
+is proved.                                                               l1 : x0 = x2 = 0; l2 : x1 = x3 = 0; l3 : x0 = x3 , x1 = x2 .
+                                                                         These lines are pairwise skew, and are all contained in the
+B. Small ρ-Saturating Sets in Spaces P G(ρ + 1, (q ′ )ρ+1 )              hyperbolic quadric Q : x0 x1 = x2 x3 . Let g be any line disjoint
+                                                                         from Q, and let
+   Corollary 3.3: Let q = (q ′ )2 . Any 2-fold blocking set in
+                      √
+the subplane P G(2, q) ⊂ P G(2, q) is a 1-saturating set in                                    B = l1 ∪ l2 ∪ l3 ∪ g.                    (3.1)
+the plane P G(2, q).
+                                                                         A possible choice for g is the following:
+     Proof: As a line is spanned by any two its points, a 2-                
+fold blocking set in a projective plane is always a 2-fold strong           x0 = x1 , x2 = kx3 , k non-square in Fq , if q odd.
+blocking set. Then we use Theorem 3.2.                                   g : x0 = x1 + x3 , x2 = kx3 ,                               .
+                                                                            
+   Note that Corollary 3.3 is also given in [46].                                       T 2 + T + k irreducible over Fq , if q even.
+   Theorem 3.4: Let q = (q ′ )4 . In P G(2, q) there is a 1 -               Theorem 3.7: The set B of (3.1) has size 4q + 4 and it is
+                        √       √
+saturating set of size 2 q + 2 4 q + 2.                                  a 3-fold strong blocking set in P G(3, q).
+     Proof: The union of two disjoint Baer subplanes in                        Proof: We need to show that any plane π of P G(3, q)
+        √
+P G(2, q) is a 2-fold blocking set [66]. Then we use Corol-              meets B in three non collinear points. If one of lines of B
+lary 3.3.                                                                lies on π, then the assertion is trivial. Let Pi = π ∩ li . Assume
+   In P G(2, q), q not a square, 2-fold blocking sets of size            that P1 , P2 , P3 are collinear. Then the line l through P1 , P2
+b ≤ 3q − 2 are not known in the literature [66], [67]. We give           and P3 is contained in Q, by the“three then all” principle for
+here some results for q = p3 , p prime.                                  quadrics in projective spaces. As R = π ∩ g ∈           / Q, we have
+   Theorem 3.5: Let q = p3 , p prime, p ≤ 73. Then                       that R is not collinear with P1 and P2 .
+in P G(2, q) there is   a 2-fold blocking set of size                     Remark 3.8: Any 3-fold strong blocking set B in P G(3, q)
+        p       √
+2 q + 3 q2 + 3 q + 1 .                                                   has at least 3q +3 points. Let l be any line such that l∩B = ∅.
+     Proof: By [50, Lem. 13.8 (iii)], the point set                      Then each of the q + 1 planes in the pencil through l must
+                                                                         contain three points of B.
+                      B = {(1, x, xp ) | x ∈ Fq } ∪                         Corollary 3.9: Let q = (q ′ )3 . In P G(3, q) there is a 2-
+                                         2
+              {(0, 1, m) | m ∈ Fq , mp +p+1 = 1}                         saturating set of size 4q ′ + 4 consisting of four pairwise skew
+                                                                         lines of P G(3, q ′ ) ⊂ P G(3, q).
+is a 1-blocking set in P G(2, q) of size q + p2 + p + 1. We are                Proof: We use Theorems 3.2 and 3.7.
+looking for a projectivity γ for which B ∩ γ(B) = ∅ holds.                  We now give an inductive construction of v-fold strong
+Then B ∪ γ(B) is a 2-fold blocking set in P G(2, q).                     blocking sets in P G(v, q).
+   Let H be the multiplicative subgroup of Fq∗ consisting                   Construction A. Let H ∼        = P G(v, q) be a hyperplane in
+of the (p − 1)th powers in Fq (equivalently, H = {y ∈                    P G(v + 1, q) , and let B ⊂ H be a v-fold strong blocking set
+           2
+Fq | y p +p+1 = 1}). For a, b ∈ Fq∗ , b ∈          / H, we con-          in H. Let P1 , P2 , . . . , Pv+1 be v + 1 independent points in H,
+sider the projectivity γa,b (r, s, t) = (t − r, abr, as). Obvi-          and let l1 , . . . , lv+1 be concurrent lines in P G(v, q) such that
+ously, γa,b (0, 1, m) = (m, 0, a) = (1, 0, a/m) ∈      / B. Also,        li ∩ H = Pi for each i. Let
+                                                      2
+γa,b (1, 1, 1) = (0, ab, a) = (0, b, 1) ∈  / B as bp +p+1 6= 1.                                            [
+Finally, for x 6= 1, γa,b (1, x, xp ) = (1, ab/(xp − 1), ax/(xp −                             B⋆ = B ∪            (li \ {Pi }) .         (3.2)
+1)) ∈ B if and only if ap−1 bp = (xp − 1)p−1 x.                                                      i=1,...,v+1
+
+   So, B ∩ γa,b (B) = ∅ if and only if the equation ap−1 bp =              Theorem 3.10: Let B be a v-fold strong blocking set in
+(x − 1)p−1 x has no solution in Fq .
+   p
+                                                                         P G(v, q) of size k. Then the set B ⋆ of Construction A is
+   Now, note that any element c ∈ Fq∗ \ H can be expressed               a (v + 1)-fold strong blocking set in P G(v + 1, q) of size
+as a product ap−1 bp with a, b ∈ Fq∗ , b ∈  / H. In fact, c belongs      k + 1 + (v + 1)(q − 1).
+IEEE TRANSACTIONS ON INFORMATION THEORY, VOL. 00, NO. 0, XXXXXXXX 0000                                                                         7
+
+
+
+      Proof: Let H be the hyperplane in P G(v + 1, q) as in                C. Small ρ-Saturating Sets in Spaces P G(v, (q ′ )ρ+1 ), v =
+Construction A. Let H1 be any hyperplane in P G(v + 1, q).                 ρ + 2, ρ + 3, . . . , 2ρ − 1
+We need to show that H1 is generated by v + 1 points in B ⋆ .                 Lemma 3.14: Fix 1 ≤ k ≤ v − 1. Let Bk be the subset of
+When H = H1 , this follows from the fact that B must contain               P G(v, q) consisting of the points whose Hamming
+v + 1 independent points. Assume then that H 6= H1 , and let                                                                   weight is
+                                                                           at most v − k + 1, i.e. Bk is the union of the v+1
+                                                                                                                            k   subspaces
+Σ = H ∩ H1 . As Σ is a hyperplane in H, there exist v points               of equation xi1 = . . . = xik = 0, where 0 ≤ i1 < i2 < . . . <
+Q1 , . . . , Qv in B which generate Σ. Note that Σ does not pass           ik ≤ v. Then Bk is a (k + 1)-strong blocking set.
+through a point Pi0 for some i0 ∈ {1, . . . , v + 1}, as otherwise
+                                                                                Proof: Let W be any k-dimensional subspace of
+Σ would coincide with H. Let Q = H1 ∩ li0 . As Q ∈            / Σ, and
+                                                                           P G(v, q). Let w1 , . . . , wk+1 be k + 1 independent points of
+as Σ is a hyperplane of H1 , we have that H1 =< Σ, Q >=<
+                                                                           W . Consider the matrix
+Q1 , . . . , Qv , Q > ., with {Q1 , . . . , Qv , Q} ⊂ B ∗ . This proves                                                    
+that B ⋆ is a (v + 1)−fold blocking set. The size of B ⋆ can                                           − − − − w1 − − − −
+be easily calculated from (3.2).                                                                  − − − − w2 − − − − 
+                                                                                        AW =                   ..          
+   Corollary 3.11: In P G(v, q), v ≥ 3, there exists a v-fold                                                    .
+                                                                                                    − − − − wk+1 − − − −
+strong blocking set of size
+                                                                         whose rows are homogenous coordinates of points
+                             v(v + 1)                                      w1 , . . . , wk+1 . As the rank of AW is equal to k + 1,
+                   (q − 1)               − 2 + v + 5.              (3.3)
+                                2                                          there exists a non singular (k + 1) × (k + 1) matrix
+                                                                           M = (mij ) such that M AW contains a submatrix Ik+1 .
+     Proof: By Theorem 3.7, in P G(3, q) there exists a 3-fold
+                                                                           Note that the rows of M AW are the coordinates of (k + 1)
+strong blocking set of size 4q + 4. Then the assertion follows
+                                                                           points of W ; more precisely the ith -row of M AW is
+by Theorem 3.10, taking into account that 4q + 4 + 1 + 4(q −
+                                                                           mi1 w1 + mi2 w2 + . . . + mi(k+1) wk+1 . Clearly these points
+1) + 1 + 5(q − 1) + . . . + 1 + v(q − 1) = 4q + 4 + (v − 3) +
+                                                                           are independent, and they are contained in Bk as Ik+1 is a
+(q − 1) (v(v + 1)/2 − 6) .
+                                                                           submatrix of M AW .
+   From Theorem 3.2 we deduce the following result.
+                                                                             Note that in the previous lemma
+   Corollary 3.12: Let q = (q ′ )ρ+1 , ρ ≥ 2 . Then there exists
+a ρ-saturating set in P G(ρ + 1, q) of size                                                        v−k+1
+                                                                                                    X                
+                                                                                                1               i v+1
+                                                                                    |Bk | =            (q − 1)        =
+          √           (ρ + 1)(ρ + 2)                                                          q − 1 i=1            i
+      ( ρ+1
+            q − 1)                    − 2 + ρ + 6.         (3.4)
+                             2                                                                         Vq (v + 1, v − k + 1) − 1
+                                                                                                                                 ,         (3.5)
+                                                                                                                 q−1
+   Note that the smallest previously known ρ-saturating sets in
+                                                        √
+P G(ρ + 1, (q ′ )ρ+1 ), ρ ≥ 2, have size n = 21 ( ρ+1 q − 1)(ρ +           see (1.1). Therefore the order of magnitude of the size of Bk
+                                                                                    v−k
+1)(ρ + 2) + ρ + 2 [58, Th. 6], e.g. n = 6q ′ − 2 for ρ = 2 and             is v+1
+                                                                                k   q    .
+n = 10q ′ − 5 for ρ = 3; from (3.4) we obtain sizes 4q ′ + 4                  Theorem 3.15: Let ρ be a positive integer. Let q = (q ′ )ρ+1
+and 8q ′ + 1, respectively.                                                and v > ρ + 1. Then in P G(v, q) there exists a ρ -saturating
+   Remark 3.13: The codes associated to the saturating sets                set of size
+of Corollaries 3.9 and 3.12 will be used as starting codes                                                          
+                                                                                  Vq′ (v + 1, v − ρ + 1) − 1    v + 1 v−ρ
+for q m -concatenating constructions, see Sections VI and VII.                                               ∼          q ρ+1 .      (3.6)
+                                                                                            q′ − 1                ρ
+Therefore, we need to treat such codes as (R, ℓ)-objects with
+ℓ > 0 and to obtain the corresponding (R, ℓ)-partitions, see                     Proof: By Theorem 3.2, the set Bρ ⊂ P G(v, q ′ ), where
+Definition 2.1. To this end, it is useful to represent some point          Bρ is defined as in Lemma 3.14, is the desired ρ-saturating
+Pi of a line l in P G(v, q) as a linear combination with nonzero           set.                                                       
+coefficients of u other points of l. We compute some of the                   For some values of v and ρ, the coefficient v+1      ρ     can be
+admissible values of u. Let l = {P0 , P1 , . . . , Pq }. Without loss      improved. We show that this is possible for v = 4, ρ = 2.
+of generality we identify l with the projective line P G(1, q),               Let q = (q ′ )3 . Let E0 = (1, 0, 0, 0, 0), E1 = (0, 1, 0, 0, 0),
+and assume that P0 = (0, 1), P1 = (1, 0), Pi = (1, bi ), i ≥ 2,            E2 = (0, 0, 1, 0, 0), E3 = (0, 0, 0, 1, 0), and E4 =
+where {b2 , . . . , bq } = Fq∗ .                                           (0, 0, 0, 0, 1) be points in P G(4, q). For k, i, j ∈ {0, 1, 2, 3, 4},
+   i) Clearly, for each i = 0, 1, . . . , ⌊(q − 2)/2⌋ , the point          k < i < j, let πk,i,j be the plane in P G(4, q) generated by
+Pi can be written as Pi = c2i+1 P2i+1 + c2i+2 P2i+2 , for                  Ek , Ei and Ej . Let π1 = π0,1,2 , π2 = π0,3,4 , π3 = π0,1,3 ,
+some c2i+1 , c2i+2 ∈ Fq∗ . So, P0 = c1 P1 + c2 P2 = c1 c3 P3 +             π4 = π0,2,4 , π5 = π0,1,4 , π6 = π1,2,3 , π7 = π1,2,4 ,
+c1 c4 P4 + c2 P2 = c1 c3 P3 + c1 c4 P4 + c2 c5 P5 + c2 c6 P6 , and so      π8 = π1,3,4 , π9 = π2,3,4 . Let
+on. Therefore, each u ∈ {2, 3, . . . , ⌊(q + 2)/2⌋} is admissible.                                          !
+                                     P                                                                [9
+   ii) Note that P1 = (1, 0) = − qi=2 (1, bi ). Then u = q − 1
+                                                                                               S=         πs ∩ P G(4, q ′ ).                (3.7)
+is admissible.
+                                                                                                     s=1
+   iii) Let q ≥ u ≥ 3, q ≥ 4. Then, for any di ∈ Fq∗ , one can
+always choose a0 and a1 in Fq∗ so that a0 (0, 1) + a1 (1, 0) +             The union S of the nine planes πi consists of all points of
+Pu−1                                                 ∗                     P G(4, q ′ ), apart from those belonging to the following three
+   i=2 di (1, bi ) = a2 (1, bq ) with some a2 ∈ Fq .
+                                                                           disjoint classes: points with all non-zero coordinates; points
+IEEE TRANSACTIONS ON INFORMATION THEORY, VOL. 00, NO. 0, XXXXXXXX 0000                                                                       8
+
+
+
+with precisely one zero coordinate; points (x, 0, y, z, 0) with         code of Table I and the [q + 1, q − 1]q 1 Hamming code. The
+xyz 6= 0. Therefore,                                                    distances d = 4 and d = 6 occur note, respectively, when the
+                                                 p        √             code arises from an incomplete cap and an arc in P G(4, q).
+|S| = θ5,q′ −(q ′ −1)4 −5(q ′ −1)3 −(q ′ −1)2 = 9 3 q 2 −8 3 q+4.          From Table IV we obtain the following theorem.
+   Theorem 3.16: Let q = (q ′ )3 . The set S as in (3.7) has size          Theorem 4.3: For the length function ℓq (5, 3),
+ p            √
+9 q 2 − 8 3 q + 4, and it is a 2-saturating set in P G(4, q).
+  3                                                                                             p
+                                                                                  ℓq (5, 3) ≤ cq 3 q 2 , with cq < 4 if q ≤ 27,
+     Proof: Let P be a point in P G(4, q). Let π be any
+plane of P G(4, q ′ ) containing the subspace generated by                       cq < 4.2 if q ≤ 32,        cq < 5 if q ≤ 43.
+      ′        ′ 2
+P, P q , P (q ) . Clearly π passes through P . Assume that π
+does not pass through E0 . Then among the points in {π ∩ πs |                    V. C ODES WITH C OVERING RADIUS R = 2
+s = 1, . . . , 5} there are at least three non-collinear points of S.   A. Direct sum and doubling constructions
+Assume that π passes through E0 . Let H0 be the hyperplane
+                                                                          The direct sum construction (DS) forms an [n1 + n2 , n1 +
+generated by E1 , . . . , E4 . Then π ∩ H0 consists of a line ℓ.
+                                                                        n2 − (r1 + r2 )]q R code V with R = R1 + R2 from two codes:
+Obviously, ℓ meets ∪9i=6 πi in at least two non-collinear points.
+                                                                        an [n1 , n1 − r1 ]q R1 code V1 and an [n2 , n2 − r2 ]q R2 code V2
+Then π passes through 3 non-collinear points in S.
+                                                                       [6], [3], [4]. The parity-check matrix H of the new code V
+   Open problem. Reduce the coefficient v+1         ρ   in (3.6), for   has the form                            
+generic v and ρ.                                                                                        H 1 0 r1
+                                                                                                 H=
+                                                                                                        0 r2 H 2
+     IV. TABLES OF U PPER B OUNDS ON THE L ENGTH                        where H1 and H2 are parity-check matrices of the starting
+         F UNCTION ℓq (r, R) FOR SMALL r AND R                          codes V1 and V2 , respectively. Construction DS is denoted by
+   We give tables of the values of ℓq (r, R), i.e., the smallest        ⊕, i.e. V1 ⊕ V2 = V or
+known lengths of a q-ary linear code with codimension r
+                                                                                     [n1 , n1 − r1 ]q R1 ⊕ [n2 , n2 − r2 ]q R2 =
+and covering radius R. Obviously, ℓq (r, R) ≤ ℓq (r, R) holds.
+The dot “” appears in a table when ℓq (r, R) = ℓq (r, R)                        [n1 + n2 , n1 + n2 − (r1 + r2 )]q (R1 + R2 ).           (5.1)
+holds. Subscripts indicate the minimum distance d of the                DS construction yields that
+[ ℓq (r, R), ℓq (r, R) − r, d]q R codes. Multiple subscripts mean
+that the value of ℓq (r, R) is provided by codes with distinct                ℓq (r1 + r2 , R1 + R2 ) ≤ ℓq (r1 , R1 ) + ℓq (r2 , R2 ).
+distances.
+                                                                           In [19] Construction CP1 (“codimension plus one”) is
+   Table I gives values of ℓq (3, 2). We used [60, Tabs 2,4], [35,
+                                                                        proposed. The construction is similar to the construction
+Tab. I], [68, Tab. 3], Theorem 3.4, Corollary 3.6, the relation
+                                                                        in [13]. From an [n, n − r]q 2 code V1 Construction CP1 forms
+ℓ(q′ )2 (3, 2) ≤ 3q ′ − 1 [18, Th. 5.2], and computer search made
+                                                                        an [fq (n), fq (n) − (r + 1)]q 2 code V where f3 (n) = 2n,
+in this work. Note that the distance d = 4 occurs when the
+                                                                        f4 (n) = 3n − 1, f5 (n) = 3n. For q = 3 Construction CP1 is
+code arises from a complete arc in the plane P G(2, q).
+                                                                        a doubling construction. In this case the parity-check matrix
+   From Table I the following result is obtained.
+                                                                        H of the new code V has the form
+   Theorem 4.1: For the length function ℓq (3, 2),                                                        
+                             √                                                                     0 1
+               ℓq (3, 2) ≤ aq q, with aq < 3 if q ≤ 109,                                   H=                , q = 3,            (5.2)
+                                                                                                  H1 H1
+           aq < 3.5 if q ≤ 349, aq < 4 if q ≤ 1217.          (4.1)
+                                                                        where 0 and 1 is the row of all zeroes and units, respectively,
+   In Table II we give a number of concrete sizes of 1-                 and H1 is a parity-check matrix of the starting code V1 .
+saturating sets and complete caps in P G(2, q), q = p2t+1 ,             By (5.2), see also [23],
+taken from [63, Tab. 2], [69, Ap., Lem. 4.3], and [70, Tab. 1].                             ℓ3 (r + 1, 2) ≤ 2ℓ3 (r, 2).                  (5.3)
+These sizes are the values of ℓq (3, 2).
+   Using [58, Tab. 1], [35, Tabs II,III], [37, Tabs III-V],
+Theorem 3.7 and Corollary 3.12, we obtained Table III where             B. Infinite Code Families of Even Codimension r = 2t
+values of ℓq (4, 3) are listed. The distances d = 4 and d = 5              Let q = 3. By applying the doubling construction of (5.2)
+occur, respectively, when the code arises from an incomplete            to the codes of [21, Th. 1], [27, Th. 4] and by using the codes
+cap and a complete arc in P G(3, q) [35], [37].                         of [27, Th. 11] we obtain an infinite family of [n, n − r]3 2
+   From Table III we obtain the following theorem.                      codes with the following parameters
+   Theorem 4.2: For the length function ℓq (4, 3),                                                                           25
+                                                                           (0)
+                            √                                             A2,3 : R = 2, r = 2t ≥ 4, q = 3, r 6= 8, µ3 (2) ≈     ,
+             ℓq (4, 3) ≤ bq 3 q, with bq < 4 if q ≤ 83,                                                                     18
+                                                                                               0              if r = 4c + 2
+         bq < 4.5 if q ≤ 343,      bq < 5 if q ≤ 563.          (4.2)             5 r−2     1  1 · 3 r4 − 1 if r = 8c + 4
+                                                                            n= · 3    2  − + 2             2                 . (5.4)
+  In Table IV the values of ℓq (5, 3) are given. We use [58,                     2         2   1 · 3 r+4   1
+                                                                                                  2
+                                                                                                        4  − 2 if r = 8c
+Tab. 1], [37, Tabs III,IV] for q ≤ 7 and the computer search
+made in this work for 8 ≤ q ≤ 32. For 37 ≤ q ≤ 43, we apply             For r = 4, from (5.4) we obtain an [8, 4]3 2 code. Note that
+the direct sum (see Section V) of the [ℓq (3, 2), ℓq (3, 2) − 3]q 2     by [22, Tab. II], ℓ3 (4, 2) = 8 holds.
+IEEE TRANSACTIONS ON INFORMATION THEORY, VOL. 00, NO. 0, XXXXXXXX 0000                                                                       9
+
+
+                                                                   TABLE I
+                                       U PPER B OUNDS ℓq = ℓq (3, 2) ON THE L ENGTH F UNCTION ℓq (3, 2)
+
+
+                     q ℓq          q ℓq        q ℓq            q ℓq        q ℓq      q ℓq        q ℓq             q ℓq            q ℓq
+                     3 44        64 193     167 423,4       283 583     431 753   577 893     729 803          887 1163       1051 1283
+                     4 53        67 233,4   169 383         289 503     433 753   587 903     733 1023         907 1173       1061 1293
+                     5 63,4      71 224     173 423         293 593     439 753   593 903     739 1033         911 1183       1063 1293
+                     7 63,4      73 244     179 433         307 603     443 763   599 913     743 1043         919 1183       1069 1293
+                     8 64        79 263,4   181 433         311 613     449 763   601 913     751 1053         929 1193       1087 1303
+                     9 64        81 263,4   191 453         313 613     457 773   607 913     757 1053         937 1203       1091 1313
+                    11 74        83 263     193 453         317 623     461 773   613 923     761 1053         941 1203       1093 1313
+                    13 84        89 283,4   197 463         331 633     463 773   617 923     769 1063         947 1213       1097 1313
+                    16 93,4      97 293     199 463         337 643     467 783   619 923     773 1063         953 1213       1103 1313
+                    17 103,4     101 303,4   211 483         343 643     479 793   625 623     787 1073         961 923        1109 1323
+                    19 103,4     103 303     223 493         347 653     487 803   631 943     797 1083         967 1233       1117 1323
+                    23 104      107 313     227 503         349 653     491 813   641 953     809 1093         971 1233       1123 1333
+                    25 123,4     109 313     229 503         353 663     499 813   643 953     811 1103         977 1243       1129 1333
+                    27 123,4     113 323     233 513         359 663     503 823   647 953     821 1103         983 1243       1151 1353
+                    29 133,4     121 323     239 513         361 563     509 823   653 963     823 1103         991 1243       1153 1353
+                    31 143,4     125 343     241 523         367 673     512 823   659 963     827 1103         997 1253       1163 1353
+                    32 133       127 353,4   243 523         373 683     521 843   661 963     829 1103        1009 1243       1171 1363
+                    37 154       128 343,4   251 533         379 693     523 833   673 983     839 1113        1013 1253       1181 1373
+                    41 164       131 353     256 423         383 693     529 683   677 983     853 1133        1019 1263       1187 1373
+                    43 164       137 363     257 543         389 703     541 853   683 993     857 1133        1021 1263       1193 1383
+                    47 183,4     139 373,4   263 553         397 713     547 863   691 993     859 1133        1024 953        1201 1383
+                    49 184       149 393,4   269 563         401 713     557 873   701 1003    863 1143        1031 1273       1213 1393
+                    53 184       151 393,4   271 563         409 723     563 873   709 1013    877 1153        1033 1273       1217 1393
+                    59 204       157 403,4   277 573         419 733     569 883   719 1023    881 1153        1039 1273
+                    61 204       163 413,4   281 573         421 733     571 883   727 1023    883 1153        1049 1283
+
+
+                                                                   TABLE II
+                                U PPER B OUNDS ℓq = ℓq (3, 2) ON THE L ENGTH F UNCTION ℓq (3, 2) FOR q = p2t+1
+
+
+                       q   ℓq q          ℓq q           ℓq     q    ℓq     q       ℓq      q        ℓq     q       ℓq      q         ℓq
+                     211 2014    217 25763    39   7643       55
+                                                            3763     1030375   39943    115
+                                                                                          857123         137            195     205783
+                     213 4614    219 52103    311 27713 57 18773 77 72053 117 439473 175 147403
+                     215 9934    37 2453      313 87883 59 96093 79 509473 135 65923 177 2505993
+
+
+                                                                  TABLE III
+                                       U PPER B OUNDS ℓq = ℓq (4, 3) ON THE L ENGTH F UNCTION ℓq (4, 3)
+
+
+                  q ℓq           q ℓq          q ℓq            q ℓq        q ℓq           q ℓq         q ℓq         q ℓq           q ℓq
+                  2 53,4       27 113,4,5    71 164,5       127 213,5   191 253,5      257 283,5    337 313      409 343,5      491 364
+                  3 54,5       29 113,4,5    73 164         128 213,5   193 253,5      263 283,5    343 314      419 343        499 373,5
+                  4 55         31 114        79 173,5       131 213,5   197 253,5      269 293,5    347 323,5    421 343        503 373,5
+                  5 63,4,5     32 123,4,5    81 174         137 223,5   199 255        271 293,5    349 323,5    431 353,5      509 373,5
+                  7 73,4       37 124,5      83 174         139 223,5   211 263,5      277 293,5    353 323,5    433 353         83 363
+                  8 73,4,5     41 133,4,5    89 183,5       149 223,5   223 273,5      281 293,5    359 323,5    439 353,5      521 374
+                  9 74         43 134,5      97 193,5       151 224     227 273,5      283 293,5    361 323      443 353,5      523 383
+                 11 83,4,5     47 143,4,5   101 193.5       157 233,5   229 273,5      289 294      367 324      449 353,5      529 385
+                 13 84,5        49 143,4,5   103 193,5       163 235     233 273,5      293 294      373 333,5    457 354        541 385
+                 16 93,4,5      53 153,4,5   107 194         167 243,5   239 273,5      307 303,5    379 333,5    461 363,5      547 384
+                 17 93,4,5      59 153,4,5   109 203,5       169 243,5   241 283,5      311 304      383 333,5    463 363        557 395
+                 19 94,5        61 154       113 203,5       173 243,5   243 283,5      313 304      389 334      467 363        563 395
+                 23 103,4,5     64 163,4,5   121 204         179 243,5   251 283,5      317 304      397 343,5    479 363         93 403
+                 25 113,4,5     67 163,4,5   125 213,5       181 244     256 283,5      331 313,5    401 343,5    487 363,5      113 483
+
+
+                                                                  TABLE IV
+                                       U PPER B OUNDS ℓq = ℓq (5, 3) ON THE L ENGTH F UNCTION ℓq (5, 3)
+
+
+                                                   q ℓq      q ℓq          q ℓq     q ℓq     q ℓq
+                                                   2 65,6  8 143,4       17 253,4 29 383,4 43 603
+                                                   3 83,4  9 163,4       19 274 31 403,4
+                                                   4 93,4  11 183,4      23 323,4 32 413,4
+                                                   5 104  13 213,4       25 343,4 37 543
+                                                   7 133,4 16 243,4       27 363,4 41 583
+IEEE TRANSACTIONS ON INFORMATION THEORY, VOL. 00, NO. 0, XXXXXXXX 0000                                                                     10
+
+
+                                                                                                                  √
+   Let q ≥ 4. The geometrical constructions (named “oval plus            Several triples (t, p, v) such that n < 5 q log q are obtained
+line”) give [2q + 1, 2q − 3]q 2 codes, see [8, p. 104] for even q        in [63].
+and [15, Th. 3.1], [18, Th. 5.1] for arbitrary q. By computer,
+using the back-tracking algorithms [59], [68], we have proved            D. Infinite Code Families of Odd Codimension r = 2t + 1
+the following proposition.
+                                                                           Let q = 3. By [21, Th. 1], [27, Ths 4 and 9], there exists
+   Proposition 5.1: ℓ4 (4, 2) = 9.
+                                                                         an infinite family of [n, n − r]3 2 codes with the following
+   No examples of [n, n − 4]q 2 codes with n < 2q + 1, seem
+                                                                         parameters:
+to be known.
+   Open problem. To prove that ℓq (4, 2) = 2q + 1 for q ≥ 5.              (1)                                                  25
+                                                                         A2,3 : R = 2, r = 2t + 1 ≥ 5, q = 3, r 6= 7, µ3 (2) ≈    ,
+   In [29] the parity-check matrices of the codes of [8],                                                                     24
+[18] are modified and used as starting (R, ℓ)-objects in q m -                                    0             if r = 4c + 1
+                                                                                5√     r−2   1  3 r+1        3
+concatenating constructions. As a result, an infinite family of            n=      3·3 2 − + 4 ·3        4 − 4 if r = 8c + 3 .(5.8)
+[n, n − r]q 2 codes is obtained with the following parameters                   4            4    3 r+5
+                                                                                                    4 ·3
+                                                                                                         4 − 34 if r = 8c + 7
+[29, Th. 9]:
+    (0)                                                                     Let q = 4. In [28] an infinite family of [n, n − r]4 2 codes
+  A2,q : R = 2, r = 2t ≥ 4, q ≥ 7, q 6= 9, r 6= 8, 12, (5.5)             is obtained with parameters
+           r−2    r−4               2     3      1     1
+    n = 2q 2 + q 2 , µq (2) < 2 − − 2 + 3 + 4 .                              (1)
+                                                                           A2,4 : R = 2, r = 2t + 1 ≥ 5, q = 4, r 6= 7, 11, 13, 19,
+                                    q    2q      q     q
+                                                     r−2       r−4                     r−2      3 r−4
+Also, in [29] codes with r = 8, 12, n = 2q 2 + q 2 +                          n = 2 · 4 2 + · 4 2 , µ4 (2) ≈ 1.587.                  (5.9)
+ r−6     r−8                                                                                    2
+q 2 + q 2 , q ≥ 7, q 6= 9, are given.
+  For q = 4, 5, 9 in [24, Ex. 5] an infinite family of [n, n−r]q 2         Let q = 5. In [27, Ths 5,10] an infinite family of [n, n−r]5 2
+codes is obtained with                                                   codes is obtained with
+  (0)                                                                       (1)                                                        8
+A2,q : R = 2, r = 2t ≥ 4, q = 4, 5, 9,           (5.6)                    A2,5 : R = 2, r = 2t + 1 ≥ 7, q = 5, r 6= 9, µ5 (2) ≈ ,
+         r−2    r−4
+                      j r−6 k                                                    √                                                     5
+                                                                                         r−2
+  n = 2q 2 + q 2 + q 2 , r 6= 8, 12, 14, 20 if q = 4,                        n= 5 · 5 2 +
+                                                                                  r−1
+                                            2   1   2   2                         ℓ (      , 2)                    if r = 4c + 3
+    r 6= 8, 12 if q = 5, 9, µq (2) < 2 −      + 2 − 3 + 4.                        5 2                     r−1
+                                            q  2q  q   q                           (ℓ5 ( r−1       1
+                                                                                          4 , 2) + 4 ) · 5
+                                                                                                            4  − 14 if r = 8c + 5 . (5.10)
+                                                                                 
+                                                                                 
+Also, codes with q = 4, 5, 9, n = 2q 3 + q 2 + 2q + 2, r = 8,                      (ℓ5 ( r−5       1       r+3
+                                                                                                               − 21 if r = 8c + 1
+                                                                                          4 , 2) + 2 ) · 5
+                                                                                                            4
+
+and n = q 5 + θ6,q , r = 12, are given.
+                                                                           Now we construct infinite code families by using the q m -
+C. More on 1-Saturating Sets in Projective Planes P G(2, q)              concatenating constructions in [24]. Terminology and notation
+   We recall here some of the known results on small 1-                  of [24] will be used; in particular, we are going to consider
+saturating sets in P G(2, q). (For the new 1-saturating sets             2E -partitions, 2+ -partitions, and their cardinalities hE (H) and
+obtained in this paper we refer to Section III and Tables I,II           h+ (H), see [24, Def. 1,Rem. 1]. The starting codes will be the
+                                                                         codes associated to the 1-saturating sets described in the part
+of Section IV).
+   For large q the                                                       C of this section.
+                 √ existence of 1-saturating sets in P G(2, q) of          In [24, Ex. 6, form. (33)] an infinite family of [n, n − r]q 2
+size at most 5 q log q was shown by means of probabilistic
+methods in [45], [61].                                                   codes is constructed with
+                                                                                   (1)
+   The following results are given by explicit constructions.
+                                                               √               A2,q : R = 2, r = 2t + 1 ≥ 3, q = (q ′ )2 ≥ 16,
+   In P G(2, q), q = (q ′ )2 , a 1-saturating set of size 3 q − 1                               
+                                                                                              1     r−2     r−5
+is obtained in [18, Th. 5.2].                                                      n= 3− √         q 2 + ⌊q 2 ⌋,
+   In the plane P G(2, q), q = (q ′ )m , m ≥ 2, projectively non-                              q
+                                           m−1      √                                         3     17    9      5
+equivalent 1-saturating sets of size 2q m + m q are obtained                   µq (2) < 4.5 − √ −      + √ +       .           (5.11)
+in [58, Th. 2], [63, Th. 3.2].                                                                 q    2q q q 2q 2
+   In [56], [54], [62], [45] 1-saturating sets in P G(2, q) of           The starting code V0 (denoted as W) is based on the previously
+                           3
+size approximately cq 4 with a constant c independent of q are                                      √
+                                                                         mentioned 1-saturating (3 q − 1)-set. In [24] it is noted that
+constructed.                                                               E
+                                                                         h (HV0 ) ≤ 4 and that this inequality allows us to obtain an
+   In [63] constructions of 1-saturating n-sets in P G(2, q) of          effective iterative code chain. A similar situation arises if one
+                    2
+size n about 3q 3 are proposed. In particular the following                                       √       √
+                                                                         takes as V0 the [n0 = 2 q + 2 4 q + 2, n0 − 3]q 2 code based
+upper bounds on n are obtained for p prime:                              on Theorem 3.4. We partition the column set of the parity-
+     
+       2q     (pt −1)2
+                         + 1, q = pm , m ≥ 2t;                           check matrix into subsets T1 , . . . , T4 so that |T1 | = |T3 | = 2,
+     
+       p t +    p−1 √
+     
+          p                       √                                     T1 ∪T2 = π1 , T3 ∪T4 = π2 , where π1 , π2 are the disjoint Baer
+                        3
+      2 3 (qp)2 + (qp)2 −2 3 qp+1 + 1, q = p3t−1 ;                                            √
+        p             n        p−1                                 o     subplanes in P G(2, q) . An arbitrary point of P G(2, q) r
+n≤                                            (pt −1)2v                  {π1 ∪ π2 } lies on a line through two points belonging to the
+     
+           min         (v  + 1)p t+1
+                                      +                        + 2   ,
+     
+       v=1,...,2t+1                    (p−1)v (p2t+1 −1)(v−1)
+                                                                         distinct subplanes. So, we obtain a 2-partition, see [24, Def. 1]
+     
+     
+     q = p2t+1 .                                                        and Definition 2.1. Moreover, as every point of a subplane π is
+                                                                (5.7)    a linear combination of two other points of π, this 2-partition
+IEEE TRANSACTIONS ON INFORMATION THEORY, VOL. 00, NO. 0, XXXXXXXX 0000                                                                       11
+
+
+                                                                                                     TABLE VI
+is a 2E -partition [24, Rem. 1] and hE (HV0 ) ≤ 4. Now, by                                               (γ)                          (γ)
+                                                                            C OVERING D ENSITIES µq (2, A2,q ) OF I NFINITE FAMILIES A2,q
+            √           √      √
+changing 3 q − 1 by 2 q + 2 4 q + 2 in (5.11), we obtain the
+following theorem.                                                     q     γ=0       γ=1     q    γ=0      γ=1      q     γ=0      γ=1
+   Theorem 5.2: For q = (q ′ )4 there is an infinite family of         3     1.389     1.042   7    1.687    2.087    11    1.807    1.943
+                                                                       4     1.504     1.587   8    1.729    1.880    13    1.838    2.183
+[n, n − r]q 2 codes with                                               5     1.606     1.600   9    1.782    1.707    16    1.870    2.287
+                (1)
+           A2,q : R = 2, r = 2t + 1 ≥ 3, q = (q ′ )4 ,
+                                             j r−5 k
+                          2      2      r−2
+              n= 2+ √        +  √     q   2  +   q 2 ,                            µq (2) < 4.5 if q ≤ 109, µq (2) < 6.125 if q ≤ 349,
+                         4 q      q
+                                                                                  µq (2) < 8 if q ≤ 1217.
+                       4       6        4      2     8
+          µq (2) < 2 + √
+                       4 q
+                            +√ + p           − − √     . (5.12)
+                                q     4
+                                         q 3   q q4q                       Proof: By Lemma 5.5 and Table I, for q = 16, 17 we
+   Theorem 5.3: Let q ≥ 7. Assume that there exists an                have 2p0 ≤ q + 1. Then the assertion follows from Table I
+[nq , nq − 3]q 2 code V0 with nq < q. Then there exists an            and Theorems 4.1 and 5.3.
+infinite family of [n, n − r]q 2 codes with                              For each of the infinite families (5.8)-(5.15) the covering
+                                                                      density is bounded from above by a constant. If in (5.13) we
+    (1)                                                     nq                                                      √
+ A2,q : R = 2, r = 2t + 1 ≥ 3, q ≥ 7, r 6= 9, 13, aq = √ ,            take as V0 a code with length nq ∼ f (q) q, where f (q)
+                                                              q       is some increasing function of q, such as in (5.7), then the
+                                  
+                r−2       r−5          0     if 2p0 ≤ q + 1           asymptotic covering density increases like f 2 (q). However
+      n = aq · q 2 + 2⌊q 2 ⌋ +         r−7                  ,
+                                    ⌊q  2  ⌋ if 2p0 > q + 1           for concrete q new code families can be supportable, see e.g.
+          a2q    a2q   2aq                                            Table II.
+µq (2) ≈      −      + √ .                                (5.13)         We end this section with Tables V and VI, which have
+           2     q    q q
+                                                                      been obtained from (5.1),(5.3)-(5.6),(5.8)-(5.10),(5.15), Ta-
+                           r−2       r−5      r−7      r−9
+For r = 9, 13, n = aq · q 2 + 2q 2 + q 2 + q 2 holds.                 ble I, Proposition 5.1, and [22, Tab. II], [27, Tab. 1], [28,
+     Proof: Take V0 as the starting code for the constructions        Tab. I], [29, Tab. I].
+of [24]. Then, changing nq by p0 , we use the same argument
+of [24, Ex. 6] on partition cardinalities h+ (HW ), hE (HW ).                     VI. C ODES WITH C OVERING RADIUS R = 3
+As a result, (5.13) is obtained, cf. [24, form. (32)].
+  Theorem 5.3 is the main tool to obtain infinite code families       A. Infinite Code Families of Codimension r = 3t
+with growing odd codimension.                                           Let q ≥ 4. The geometrical construction (named “two ovals
+  Theorem 5.4: For q = (q ′ )6 there is an infinite family of         plus line”) [58, Th. 7] gives a [3q + 1, 3q − 5]q 3 code. So,
+[n, n − r]q 2 codes with
+          (1)                                                                             ℓq (6, 3) ≤ 3q + 1 if q ≥ 4.                  (6.1)
+         A2,q : R = 2, r = 2t + 1 ≥ 3, r 6= 9, 13,           (5.14)
+          q = (q ′ )6 , q ′ prime, q ′ ≤ 73,                            To our knowledge, no examples of [n, n − 6]q 3 code with
+                                                                    n < 3q + 1 are known.
+                         2        2      2      r−2        r−5
+          n= 2 + √       6 q
+                             +   √
+                                 3 q
+                                     +  √     q 2 + 2⌊q 2 ⌋,            Open problem. To prove that ℓq (6, 3) = 3q + 1 for q ≥ 4.
+                                          q
+                       4       6       8        6        5              The parity-check matrix of the code of [58, Th. 7] is
+     µq (2) < 2 + √   6 q
+                           + √ 3 q
+                                    +√ + p           + p     .        modified in [29, Th. 6] and then it is used as the starting
+                                        q     3
+                                                 q 2   6
+                                                          q5
+                                                                      point in q m -concatenating constructions. As a result, an infinite
+      Proof: The assertion follows from Theorem 5.3 and               family of [n, n − r]q 3 codes is obtained with the following
+Corollary 3.6.                                                        parameters
+   Lemma 5.5: For an [nq , nq − 3, 3]q 2 code V0 we have p0 ≤                                                               r−3      r−6
+                                                                            (0)
+nq − 1.                                                                    A3,q : R = 3, r = 3t ≥ 6, q ≥ 5, n = 3q 3 + q 3 ,
+      Proof: In a parity-check matrix H of V0 there are three                                 9 9      3     14    1
+linear dependent columns. Let two of these columns form one                   r 6= 9, µq (3) < − + 2 + 3 − 4 .             (6.2)
+                                                                                              2 q     2q    3q    2q
+subset of a partition P0 of H, while the other subsets of P0
+contain precisely one column. By Definition 2.1, P0 is a 2-           Also, in [29] it is shown that codes with parameters as
+partition.                                                            in (6.2) exist for r = 9 if q = 16 or q ≥ 23. For q =
+   Theorem 5.6: For any q ≤ 1217, there exists an infinite            7, 8, 11, 13, 17, 19, DS of the codes (5.5) and the [θ3,q , θ3,q −
+family of [n, n − r]q 2 codes with                                    3]q 1 Hamming codes gives [n = 3q 2 + 2q + 1, n − 9]q 3
+                                                                      codes. For q = 5, 9 and r = 9, by (5.6), codes with length
+   (1)
+ A2,q : R = 2, r = 2t + 1 ≥ 3, q ≤ 1217,                     (5.15)   n = 3q 2 + 2q + 2 are obtained.
+                         ℓq (3, 2)           a2q
+        r 6= 9, 13, aq = √ , µq (2) < ,
+                              q               2                       B. Infinite Code Families of Codimension r = 3t + 1
+                                 (
+                                     0    if 16 ≤ q ≤ 1217
+              r−2       r−5
+    n = aq · q 2 + 2⌊q 2 ⌋ +         r−7                   ,            Let q = 3. DS of the codes of (5.8) and the [θt,3 , θt,3 − t]3 1
+                                   ⌊q 2 ⌋ if 7 ≤ q ≤ 13               Hamming codes forms an infinite family of [n, n − r]3 3 codes
+IEEE TRANSACTIONS ON INFORMATION THEORY, VOL. 00, NO. 0, XXXXXXXX 0000                                                                           12
+
+
+                                                                     TABLE V
+                                 U PPER B OUNDS ℓq (r, 2) ON THE L ENGTH F UNCTION ℓq (r, 2), q = 3, 4, 5, 7, r ≤ 24
+
+                      r   ℓ3 (r, 2)   ℓ4 (r, 2)   ℓ5 (r, 2)   ℓ7 (r, 2)    r    ℓ3 (r, 2)     ℓ4 (r, 2)      ℓ5 (r, 2)      ℓ7 (r, 2)
+                      3          4          5          6          6   14       1822          9522         35000            252105
+                      4          8          9        11          15     15       2915        19456          78256            741909
+                      5        11         19          28          44     16       5588        37888         175000          1764735
+                      6        22          37          56         105     17       8201        77824         410937          5193363
+                      7        40          85         131         309     18     16402        151552         875000         12353145
+                      8        76         154         281         743     19     24785        316672        1953828         36353541
+                      9       101         304         703       2164      20     49328        611328        4375000         86472015
+                     10       202         592       1400        5145      21     73811       1245184        9853906        254474787
+                     11       323       1237        3153       15141      22    147622       2424832       21875000        605304105
+                     12       620       2389        7031       36407      23    223073       4980736       48831278       1781323509
+                     13       911       4948       16406      106036      24    443960       9699328      109375000       4237128735
+
+
+
+with                                                                                Proof: The 2-saturating (4q ′ + 4)-set B of Corollary 3.9
+       (1)
+                                                                               consists of pairwise skew lines of P G(3, q ′ ). As q ′ ≥ 4, it can
+   A3,3 : R = 3, r = 3t + 1 ≥ 7, q = 3, r 6= 10,        (6.3)                  be shown that the related code CB is a (3,3)-object, see (3.1),
+          µ3 (3) ≈ 2.382,                                                      Definition 2.1, Lemma 2.2, and Remark 3.13. We take CB
+                           3                                                                            √
+                          − 4            if r = 6c + 1                        as the starting [n0 = 4 3 q + 4, n0 − 4, 3]q 3, 3 code V0 for
+          7 2             
+                    r−3     3    r+2
+                                        3                                      Construction QM3 of Section II. The trivial partition gives
+     n = · 3 3 · 3 3 + 4 · 3 6 − 2 if r = 12c + 4 .
+          4               
+                           3 r+8                                              p0 = p(3) (V0 ) = n0 < q . So, we take m ≥ 1 and obtain a
+                            4 ·3
+                                  6  − 32 if r = 12c + 10                      family of [n = q m n0 , n − (4 + 3m)]q 3 codes.
+Also, [431, 415]33 and [3887, 3865]33 codes are given in [18,
+Tab. I, form. (37)], and a [14, 7]3 3 code is obtained in [22,                 C. Infinite Code Families of Codimension r = 3t + 2
+Tab. II].
+   Theorem 6.1: Denote by Q3 the set of values of q for which                     Let q = 3. DS of the codes of (5.8) and the [θt+1,3 , θt+1,3 −
+there is an [ℓq (4, 3), ℓq (4, 3) − 4, 3]q 3 code with minimum                 (t + 1)]3 1 Hamming codes forms an infinite family of [n, n −
+distance d = 3. Then, for 7 ≤ q ≤ 563, there is an infinite                    r]3 3 codes with
+family of [n, n − r]q 3 codes with                                                  (2)
+                                                                                  A3,3 : R = 3, r = 3t + 2 ≥ 8, q = 3, r 6= 11,               (6.6)
+   (1)
+  A3,q : R = 3,      r = 3t + 1 ≥ 4, 7 ≤ q ≤ 563,                     (6.4)                 µ3 (3) ≈ 3.082,
+                                                                                                        3
+                  ℓq (4, 3)              b3q
+                                                                                           11 √        − 4 r+1
+                                                                                                                    if r = 6c + 2
+          bq = √            ,  µ   (3) <     ,                                                     r−3   3         3
+                                 q
+                                                                                                3·3 3 + 4 ·3    − 2 if r = 12c + 5 .
+                                                                                              3
+                      3 q                6                                              n=                    6
+
+                                          r−4                                              4          
+                                                                                                        3 r+7
+                                          q 3 −1 if q ∈ Q                                               4 ·3
+                                                                                                              6 − 32 if r = 12c + 11
+                          q 3 −1 
+                             r−4
+                  r−3                          q−1             3
+       n = bq · q  3    +              +                         ,
+                              q−1              r−4
+                                         ℓq (2 3 , 2) if q ∈
+                                                            / Q3                 Also, [674, 657]33 and [6074, 6051]33 codes are given in
+                                                                               [18, Tab. I, form. (38)].
+             µq (3) < 10.7 if q ≤ 83, µq (2) < 15.2 if q ≤ 343,                  Theorem 6.3: For 3 ≤ q ≤ 43, there exists an infinite
+             µq (2) < 20.9 if q ≤ 563.                                         family of [n, n − r]q 3 codes with
+                                                                                  (2)
+      Proof: By Lemma 2.2, for q ∈ Q3 we have                                  A3,q : R = 3, r = 3t + 2 ≥ 5, r 6= 8, 3 ≤ q ≤ 43,              (6.7)
+[ℓq (4, 3), ℓq (4, 3) − 4, 3]q 3, ℓ0 codes with ℓ0 ≥ 1. By Table III,                      ℓq (5, 3)                     c3q
+for q ≥ 7 we have that ℓq (4, 3) ≤ q if q ∈ Q3 and                                           p
+                                                                                          cq =       , µq (3) < ,
+                                                                                              3
+                                                                                                q2              6
+ℓq (4, 3) ≤ q−2 if q ∈   / Q3 . We take the [ℓq (4, 3), ℓq (4, 3)−4]q 3                                          r−5
+codes of Table III as the codes V0 for Constructions QM2 (if                                                     q 3 −1 if q 6= 2, 5, 19
+                                                                                                   q 3 −1 
+                                                                                                     r−5
+                                                                                           r−3                        q−1
+q ∈ Q3 ) and QM4 (if q ∈       / Q3 ), using the trivial partition and             n=cq · q 3 +               +                                ,
+                                                                                                      q−1       
+                                                                                                                ℓq (2 r−5
+letting m ≥ 1. Now the assertion follows from (2.4) and (2.6).                                                          3 , 2) if q = 2, 5, 19
+
+                                                                                          µq (3) < 10.7 if q ≤ 27, µq (2) < 12.4 if q ≤ 32,
+  We denote by p(ℓ) (V ) the upper bound of the minimal
+possible cardinality of an (R, ℓ)-partition for a parity-check                            µq (2) < 20.9 if q ≤ 43.
+matrix of an [n, n − r]q R, ℓ code V .
+                                                                                     Proof: By Lemma 2.2 and Table IV, for q 6= 2, 5, 19 we
+  Theorem 6.2: For q = (q ′ )3 ≥ 64 there exists an infinite
+                                                                               have [ℓq (5, 3), ℓq (5, 3) − 5, 3]q 3, ℓ0 codes with ℓ0 ≥ 1. By
+family of [n, n − r]q 3 codes with
+                                                                               Table IV, for q ≥ 3 we have that ℓq (5, 3) ≤ q 2 . We take the
+  (1)
+A3,q : R = 3, r = 3t + 1 ≥ 7, q = (q ′ )3 ≥ 64,       (6.5)                    [ℓq (5, 3), ℓq (5, 3) − 5]q 3 codes of Table IV as the codes V0
+                                                                             for Constructions QM2 (if q 6= 2, 5, 19) and QM4 (otherwise)
+              4     r−3           32      32     32    64                      using the trivial partition and letting m ≥ 2. Now the assertion
+  n= 4 + √   3 q
+                   q 3 , µq (3) <    + √      + p    − .
+                                   3      3 q   3
+                                                  q2   3q                      follows from (2.4) and (2.6).
+IEEE TRANSACTIONS ON INFORMATION THEORY, VOL. 00, NO. 0, XXXXXXXX 0000                                                                                        13
+
+
+
+  Theorem 6.4: For q = (q ′ )3 ≥ 27 there exists an infinite                          Proof: We use the construction of (7.1), (7.2) with the
+family of [n, n − r]q 3 codes with                                              codes V2 and V3 taken from (5.5),(6.2) and (5.6),(6.2) for the
+             (2)                                                                cases i) and ii), respectively.
+         A3,q : R = 3, r = 3t + 2 ≥ 8, q = (q ′ )3 ≥ 27, (6.8)                     It should be noted that the main term of the asymptotic
+                          !                                                                                (0)                              R
+            8        4       r−3           243 324       72                     covering density µq (R, AR,q ) for the family of (7.3) is RR! ; it
+n=      9− √3 q
+                + p         q 3 , µq (3) <    − √     + p    .                  does not depend on q.
+                   3
+                      q 2                   2     3 q   3
+                                                          q2
+                                                                                   By the results on cases r = 8, 12 and r = 9 reported after
+      Proof: Let S be as (3.7). For any plane of S, let                         (5.5),(5.6), and (6.2), one can easy fill up gaps in (7.3),(7.4)
+{P1 , P2 }, {P3 , P4 }, {P5 , . . . , P(q′ )2 +q′ +1 } be a partition of the    for codes with r = 3R, 4R, and 6R.
+set of its points such that P1 , P2 ∈          / l3,4 and P3 , P4 ∈  / l1,2 ,
+where li,j is the line through points Pi , Pj . It can be easily
+shown that if u ∈ {2, 3}, then every point of the plane is                      B. Infinite Code Families of Codimension r = Rt + 1,
+equal to a linear combination with nonzero coefficients of                      q = (q ′ )R
+u other points belonging to distinct subsets of the partition.                    Theorem 7.3: Let q = (q ′ )R . Then there exists an infinite
+The corresponding partition of the columns of the parity-                       family of [n, n − r]q R codes with
+check matrix of the related code CS is a (3,3)-partition with                            (1)
+p(3) (CS ) = 3 · 9 =p27 ≤ q. Therefore we may take CS as                                AR,q : R ≥ 4, r = Rt + 1, q = (q ′ )R ,                            (7.5)
+                                     √
+the starting [n0 = 9 3 q 2 − 8 3 q + 4, n0 − 4]q 3, 3 code V0 for                               t = 1 and t ≥ t0 , q t0 −1 ≥ nR,q ,
+                                                                                                                                         (1)
+Construction QM3 with m ≥ 1.                                                                                               
+                                                                                          (1)     √          R(R + 1)
+                                                                                         nR,q = ( R q − 1)               − 2 + R + 5,
+         VII. C ODES WITH C OVERING R ADIUS R ≥ 4                                                                2
+                                                                                                              r−(R+1)
+                                                                                                    (1)
+A. Infinite Code Families of Codimension r = Rt and                                            n = nR,q · q      R       +
+                                                                                                   (
+Arbitrary q                                                                                          0                                    if q ′ ≥ 4
+  In this Section we obtain a code V of covering radius R ≥ 4                                             q
+                                                                                                            r−(R+1)
+                                                                                                                    −1
+                                                                                                                                                       .
+                                                                                                                         , w ∈ {0, 1}, if q ′ = 3
+                                                                                                               R
+                                                                                                     w        q−1
+and codimension Rt from DS of g2 codes V2 with radius two
+and g3 codes V3 with radius three. More precisely, let                                Proof: As the starting code V0 for Constructions QM2 ,
+                                                                                                       (1)    (1)
+                                                                                QM3 we take an [nR,q , nR,q − (R + 1), 3]q R code CK related
+                   V = V2 ⊕ . . . ⊕ V2 ⊕ V3 ⊕ . . . ⊕ V3               (7.1)
+                       |    {z       } |      {z       }                        to the (R − 1)-saturating set K ⊂ P G(R, q ′ ) ⊂ P G(R, q)
+                            g2 times             g3 times
+                                                                                described in Corollary 3.12, see also (3.2), Construction A
+where V is an [n, n−Rt]q R code, V2 is an [n2 , n2 −2t]q 2 code,                and Corollary 3.11 . Note that K contains four pairwise skew
+V3 is an [n2 , n2 −3t]q 3 code, n = g2 n2 +g3 n3 , 2g2 +3g3 = R,                lines of P G(R, q ′ ), whereas for other R(R+1)
+                                                                                                                            2   −6 ≥ 2R−4 all
+and                                                                             but one point belong to K. These latter lines are partitioned
+          
+          0 if R ≡ 0 (mod 3)                                                 into R − 3 sets of concurrent lines. By Definition 2.1 and
+                                               R                                Remark 3.13, the code CK is an (R, ℓ0 )-object with ℓ0 = R
+    g2 = 1 if R ≡ 2 (mod 3) , g3 =                  − g2 .  (7.2)
+                                              3                                if q ≥ 4 and ℓ0 ≥ R − 1 if q = 3. The trivial partition of its
+            2 if R ≡ 1 (mod 3)                                                                                                      (1)
+                                                                                parity-check matrix is an (R, ℓ0 )-partition into nR,q ≤ q t0 −1
+   Theorem 7.1: Let R ≥ 4 and let q ≥ 4. Then there exists                      subsets. Finally, we use (2.4) and (2.5) to get the assertion.
+an [n = Rq + ⌈R/3⌉ , n − 2R, 3]q R, ℓ code with ℓ ≥ 1.                             It should be noted that the main term of the asymptotic cov-
+     Proof: Geometrical constructions of a [2q + 1, 2q − 3]q 2                                            (1)                             2    R
+                                                                                ering density µq (R, AR,q ) for the family of (7.5) is (R2R+R)
+                                                                                                                                            R! ;
+code V2 (“oval plus line”) and of a [3q + 1, 3q − 5]q 3 code V3
+                                                                                it does not depend on q.
+(“two ovals plus line”) are given in [8, p. 104], [18, Th. 5.1],
+[58, Th.7]. Using these codes in (7.1) and (7.2) with t = 2,
+we obtain an [n = Rq +⌈R/3⌉ , n−2R]q R code V . Minimum                         C. Infinite Code Families of Codimension
+distance d = 3 follows from the fact that the point sets                        r = Rt + 2, . . . , R(t + 1) − 1, q = (q ′ )R
+associated to V2 and V3 contain triples of collinear points.                      To our knowledge, for R ≥ 4, r = Rt+ 2, . . . , R(t+ 1)− 1,
+The value ℓ ≥ 1 follows from Lemma 2.2.                                         no infinite families with density asymptotically independent on
+   Open problem. To obtain [n, n−2R]q R codes with R ≥ 4,                       q are known.
+q ≥ 4, n < Rq+⌈R/3⌉ . In particular, for R ≥ 4, to generalize                     Theorem 7.4: Let q = (q ′ )R . Fix γ ∈ {2, 3, . . . , R − 1}.
+the geometrical constructions “oval plus line” and “two ovals                   Then there exists an infinite family of [n, n − r]q R codes with
+plus line”.
+                                                                                  (γ)
+   Theorem 7.2: There exist infinite families of [n, n − r]q R                  AR,q : R ≥ 4, r = Rt + γ, q = (q ′ )R ,                                    (7.6)
+codes with the parameters                                                                                                                  t0 −1      (γ)
+                                                                                    γ = 2, 3, . . . , R − 1, t = 1 and t ≥ t0 , q                  ≥ nR,q ,
+       (0)
+ i) AR,q : R ≥ 4, r = Rt ≥ 5R, q ≥ 7, q 6= 9,                                           Pγ+1 √                               
+                                                                                                    R q − 1)i R+γ
+                                                                                  (γ)      i=1 (                i       R+γ γ
+                     r−R               r−2R                                      nR,q =             √               ∼            qR,
+         n = Rq R + ⌈R/3⌉ q             R     , r 6= 6R.               (7.3)                         R q − 1            R−1
+     (0)                                                                                                                 r−(R+γ)
+ii) AR,q   : R ≥ 4, r = Rt ≥ 2R, q = 5, 9, r 6= 3R, 4R, 6R,                              (γ)    r−(R+γ)    q                R      −1
+               r−R                     r−2R                                        n = nR,q · q R      +w                              , 0 ≤ w ≤ R − 3.
+         n = Rq R + ⌈R/3⌉ + g2 · q −1 q R .             (7.4)                                                                q−1
+IEEE TRANSACTIONS ON INFORMATION THEORY, VOL. 00, NO. 0, XXXXXXXX 0000                                                                     14
+
+
+
+        Proof: As the starting code V0 for Constructions QM2 ,               Proof: Put R′ = 3 and use the codes of (6.5) and (6.8)
+                          (γ)  (γ)
+QM3 we take an [nR,q , nR,q − (R + γ), 3]q R code CBR−1                 as the code C0 of Lemma 8.1.
+                                                                                                                         ′
+related to the (R − 1)-saturating set BR−1 ⊂ P G(R + γ +                  Corollary 8.4: Let R = sR′ . Let q = (q ′ )R . Then there
+1, q ′ ) ⊂ P G(R + γ + 1, q) of Lemma 3.14 and Theorem 3.15.            exist an infinite family of [n, n − r]q R codes with
+In (3.5 ),(3.6) we put k = ρ, v − ρ = γ ≥ 2, ρ = R − 1.                                                             R
+                                                                                 (s)                                                   ′
+By Definition 2.1 and Remark 3.13, the code CBR−1 is an                     AR,q : R = sR′ , R′ ≥ 4, r = Rt +            , q = (q ′ )R ,
+                                                                                                                    R′
+(R, ℓ0 )-object with ℓ0 ≥ 3 as the set BR−1 contains lines.                                                       (1)
+The trivial partition of a parity-check matrix of CBR−1 is an                       t = 1 and t ≥ t0 , q t0 −1 ≥ nR′ ,q ,
+                                                                                                 ′ ′             
+(R, ℓ0 )-partition into nR,q ≤ q t0 −1 subsets. Finally, we use              (1)      √           R (R + 1)
+                                                                            nR′ ,q =( R′ q − 1)                − 2 + R′ + 5,             (8.6)
+(2.4) and (2.5).                                                                                       2
+   It should be noted that the main term of the asymptotic                           R     (1)     r−(R+s)
+                               (γ)                                              n= ′ · nR′ ,q · q R        +
+covering density µq (R, AR,q ) for the family of (7.6) is                           R
+              R                                                                   (
+  (R+γ)R−1          1                                                                 0                                   if q ′ ≥ 4
+    (R−1)!        · R! , which does not depend on q.                                           r−(R+s)
+                                                                                                                                     .
+                                                                                      w RR′ · q q−1 −1 , w ∈ {0, 1}, if q ′ = 3
+                                                                                                  R
+
+
+
+    VIII. C ODES WITH N ONPRIME C OVERING R ADIUS                            Proof: We use the codes of (7.5) as the code C0 of
+                       R = sR′                                          Lemma 8.1.
+                                                                                                                               ′
+    We consider the case when covering radius R is nonprime,               Corollary 8.5: Let R = sR′ . Let q = (q ′ )R . Fix γ ∈
+i.e. R = sR′ with integer s and R′ .                                    {2, 3, . . . , R−1}. Then there exists an infinite family of [n, n−
+    Lemma 8.1: Let R = sR′ . Assume that there exists an                r]q R codes with
+[n , n′ − (R′ t + t′ )]q R′ code C0 with R′ > t′ . Then there
+   ′
+                                                                           (s)                                     R                 ′
+exists an [n′ RR′ , n′ RR′ − (Rt + RR′ t′ )]q R code C. Moreover, if     AR,q : R = sR′ , R′ ≥ 4, r = Rt +             γ, q = (q ′ )R ,
+                                                                                                                   R′
+the starting code C0 is short the new code C is short too.                                                                           (γ)
+                                                                             γ = 2, 3, . . . , R − 1, t = 1 and t ≥ t0 , q t0 −1 ≥ nR′ ,q ,
+      Proof: We apply Construction DS to s copies of C0 . If                      Pγ+1 √                  ′               
+                                                                                              R′ q − 1)i R +γ
+                                                                                                                   R′ + γ
+                                                 ′  ′   ′  ′
+the code C0 is short then n′ = O(q (R t+t −R )/R ) or, in                 (γ)       i=1 (                   i
+                                                                                                                                γ
+                   ′        (R′ t+t′ −R′ )/R′                            nR′ ,q =              √               ∼              q R′ ,   (8.7)
+other words, n = cq                           where c is a constant                            R′ q − 1              ′
+                                                                                                                   R −1
+independent of q. Also, (R′ t+t′ −R′ )/R′ = (Rt+st′ −R)/R.                                                        r−(R+sγ)
+                                   R ′                                           R    (γ)       r−(R+sγ)    q        R       −1
+Therefore n′ RR′ = c RR′ q (Rt+ R′ t −R)/R . Then the assertion is           n = ′ · nR′ ,q · q    R     +w                       ,
+proved.                                                                         R                                    q−1
+                                                                                0 ≤ w ≤ R − 3.
+    Corollary 8.2: For even R ≥ 4 there exist infinite families
+   (R/2)
+AR,q of [n, n − r]q R codes with codimension r = Rt + R2                      Proof: We use the codes of (7.6) as the code C0 of
+and the following parameters:                                           Lemma 8.1.
+                                                                           It should be noted that for the infinite families (8.1)-
+  i) q = (q ′ )2 , t ≥ 1,                                      (8.1)
+                                                                    (8.7), the main term of the lower limit  R ofR covering  density
+                                                                                                                                     R
+         R            1      r−R   R 1 r−2R                                      (γ)                      R                R    R
+     n=         3− √       q  R  +     √ q R   .                        µq (R, AR,q ) is, respectively, RR! 32 , RR! , RR! , RR! 43 ,
+          2            q           2    q                                             ′ R                        R
+                                                                                                                  ′
+                                                                        RR R RR                   RR    (R′ +γ)R −1
+ ii) q = (q ′ )4 , t ≥ 1,                            (8.2)                  3  ,      R +1
+                                                                                               ,                       . All these terms
+                                                                     R!       R!     2        R!         R′ !
+                      1   1     r−R  R 1    r−2R
+                                                                        do not depend on q.
+     n=R 1 + √       4 q
+                         +√    q R +     √ q R     .
+                           q         2    q                                Remark 8.6: It should be emphasized that codes of Corol-
+iii) q = (q ′ )6 , q ′ prime, q ′ ≤ 73, t ≥ 1, t 6= 4, 6,       (8.3)   laries 8.2-8.5 are “short” for R = sR′ though as a rule in
+                                                               
+                       1      1      1      r−R         1   r−2R        these codes q 6= (q ′ )R . Usually we have this property when
+     n=R 1 + √         6 q
+                           + √
+                             3 q
+                                  +√      q  R  +R √ q        R     .   q = (q ′ )R .
+                                      q                   q
+     Proof: Put R′ = 2 and use the codes of (5.11),( 5.12),                                    IX. C ONCLUSION
+and (5.14) as the code C0 of Lemma 8.1.
+  Corollary 8.3: Let q = (q ′ )3 and assume that 3 divides R.              We considered infinite sequences AR,q of linear nonbinary
+Then there exist infinite families of [n, n − r]q R codes with          covering codes Cn of type [n, n − rn ]q R. Without loss of
+                                                                        generality, we assumed that the sequence of codimension rn is
+           (R3 )
+                                     R                                  not decreasing. For a given family AR,q , the covering radius
+      i) AR,q    : R = 3s, r = Rt + , q = (q ′ )3 ≥ 64,
+                                     3                                R and the size q of the underlying Galois field are fixed. We
+                          4R        1       r−R                         considered also infinite sets of the families AR,q , where R is
+               t ≥1, n =       1+ √       q R .             (8.4)
+                           3        3 q                                 fixed but q ranges over an infinite set of prime powers.
+          ( 2R
+             3 )
+                                     2R                                    Each infinite family AR,q consists of supporting and filling
+    ii) AR,q     : R = 3s, r = Rt +      , q = (q ′ )3 ≥ 27,            codes. The supporting codes are the codes Cn such that
+                                       3          !
+                          R        8         4       r−R
+                                                                        rn > rn+1 . Non-supporting codes are called filling codes.
+               t ≥ 1, n =     9− √     + p          q R . (8.5)         This terminology is motivated by the fact that the parameters
+                          3       3  q     3
+                                              q 2
+                                                                        of the codes in a family are completely determined by those
+IEEE TRANSACTIONS ON INFORMATION THEORY, VOL. 00, NO. 0, XXXXXXXX 0000                                                                                    15
+
+
+
+of its supporting codes. However, considering filling codes                   [2] V. S. Pless, W. C. Huffman, and R. A. Brualdi, “An introduction to
+is necessary to investigate not only the lower limit (lim inf)                    algebraic codes,” in Handbook of Coding Theory, vol. 1, V. S. Pless, W.
+                                                                                  C. Huffman, R. A. Brualdi, Eds. Amsterdam, The Netherlands: Elsevier,
+of the covering densities of a family, but also its upper limit                   1998, pp. 3-139.
+(lim sup).                                                                    [3] G. Cohen, I. Honkala, S. Litsyn, and A. Lobstein, Covering Codes.
+   Such lower and upper limits (denoted by µq (R, AR,q ) and                      Amsterdam, The Netherlands: North-Holland, 1997.
+                                                                              [4] R. A. Brualdi, S. Litsyn, and V. S. Pless, “Covering Radius,” in
+µ∗q (R, AR,q ) respectively) are the most considerable asymp-                     Handbook of Coding Theory, vol. 1, V. S. Pless, W. C. Huffman,
+totic features of families AR,q . It is also relevant how these                   R. A. Brualdi, Eds. Amsterdam, The Netherlands: Elsevier, 1998, pp.
+limits depend on q in infinite sets of families AR,q with fixed                   755-826.
+R. We showed that for the upper limit the best possibility                    [5] G. Cohen, M. G. Karpovsky, H. F. Mattson, Jr., and J. R.
+                                                                                  Shatz,“Covering radius - Survey and recent results,” IEEE Trans. Inf.
+is µ∗q (R, AR,q ) = O(q). The problem of constructing infinite                    Theory, vol. 31, no. 3, pp. 328-343, May 1985.
+sets of families AR,q with µ∗q (R, AR,q ) = O(q) is open in the               [6] R. L. Graham and N. J. A. Sloane, “On the covering radius of codes,”
+general case. We call it Open Problem 1. In the literature, a                     IEEE Trans. Inf. Theory, vol. 31, no. 3, pp. 385-401, May 1985.
+                                                                              [7] G. A. Kabatyansky and V. I. Panchenko, “Unit sphere packings and
+solution to Open Problem 1 was known only for R = 2, q                            coverings of the Hamming space,” Probl. Inf. Transm., vol. 24, no. 4,
+square.                                                                           pp. 261-272, 1988.
+   We first showed in Introduction that Open Problem 1 for                    [8] R. A. Brualdi, V. S. Pless, and R. M. Wilson, “Short codes with a given
+                                                                                  covering radius,” IEEE Trans. Inf. Theory, vol. 35, pp. 99-109, Jan. 1989.
+covering radius R is solved provided that a solution to the fol-
+                                                                              [9] H. Janwa, “Some optimal codes from algebraic geometry and their
+lowing Open Problem 2 is achieved: construct R infinite code                      covering radii,” Europ. J. Combin., vol. 11, pp. 249-266, 1990.
+             (γ)                                         (γ)
+families AR,q , γ = 0, . . . , R − 1, such that µq (R, AR,q ) =              [10] A. A. Davydov, “Construction of linear covering codes,” Probl. Inf.
+                       (γ)                                                        Transm., vol. 26, no. 4, pp. 317-331, 1990.
+O(1) holds. Here AR,q is an infinite family such that its                    [11] P. R. J. Östergård, “Upper bounds for q-ary covering codes,” IEEE Trans.
+supporting codes are a sequence of [nu , nu − ru ]q R codes                       Inf. Theory, vol. 37, no. 3, pp. 660-664, May 1991; correction vol. 37,
+                                                        (γ)                       no. 6, p. 1738, Nov. 1991.
+with codimension ru = Ru + γ and length nu = fq (ru ),
+                   (γ)                                                       [12] I. S. Honkala, “On (k, t)-subnormal covering codes,” IEEE Trans. Inf.
+where u ≥ u0 ; fq is an increasing function for a fixed q.                        Theory, vol. 37, no. 4, pp. 1203-1206, Jul. 1991.
+   The main achievement of the paper is a solution to Open                   [13] ——, “On lengthening of covering codes,” Discrete Math., vol. 106–107,
+Problem 2 (and, thereby, to Open Problem 1) for an arbitrary                      pp. 291-295, 1992.
+                                                                             [14] P. R. J. Östergård, “Further results on (k, t)-subnormal covering codes,”
+covering radius R ≥ 2. This solution consists of infinite sets                    IEEE Trans. Inf. Theory, vol. 38, no. 1, pp. 206-210, Jan. 1992.
+of families AR,q where q = (q ′ )R , q ′ is power of prime.                  [15] A. A. Davydov, “Construction of codes with covering radius 2,” Alge-
+The main tool was using codes related to saturating sets                          braic Coding (G. Cohen, S. Litsyn, A. Lobstein, G. Zemor, eds.), Lecture
+                                                                                  Notes in Computer Science, Springer-Verlag, New-York, vol. 573, pp.
+in projective spaces as starting points for q m -concatenating                    23-31, 1992.
+constructions of covering codes. Combining q m -concatenating                [16] R. Struik, Covering codes. Ph.D dissertation, Eindhoven University of
+constructions and the saturating sets turned out to be very                       Technology, 1994.
+                                                                             [17] A. A. Davydov and A. Yu. Drozhzhina-Labinskaya, “Constructions,
+effective.                                                                        families and tables of binary linear covering codes,” IEEE Trans. Inf.
+   In addition, the methods used for solving Open Problems                        Theory, vol. 40, no. 4, pp. 1270-1279, 1994.
+1 and 2 allowed us to obtain a number of results on cover-                   [18] A. A. Davydov, “Constructions and families of covering codes and
+ing codes of independent interest. In particular, we obtained                     saturated sets of points in projective geometry,” IEEE Trans. Inf. Theory,
+                                                                                  vol. 41, no. 6, pp. 2071-2080, Nov. 1995.
+many new upper bounds on the asymptotic covering density                     [19] ——, “On nonbinary linear codes with covering radius two,” in Proc.
+          (γ)
+µq (R, AR,q ) for distinct R and γ. We obtained also several                      5th Int. Workshop Algebraic Combin. Coding Theory, ACCT-V, Unicorn,
+new asymptotic and finite upper bounds on the length function.                    Shumen, Bulgaria 1996, pp. 105-110.
+                                                                             [20] ——, “Constructions of nonlinear covering codes,” IEEE Trans. Inf.
+   It was natural to analyze and survey the previously known                      Theory, vol. 43, no. 5, pp. 1639-1647, Sep. 1997.
+results, as well as presenting the new ones. In particular, this             [21] J. C. Cock and P. R. J. Östergård, “Ternary covering codes derived from
+was done for covering radius R = 2, 3. A survey of the most                       BCH codes,” J. Combin. Theory. Ser. A, vol. 80, pp. 283-289, 1997.
+used q m -concatenating constructions is also given. It should               [22] T. S. Baicheva and E. D. Velikova, “Covering radii of ternary linear
+                                                                                  codes of small dimensions and codimensions,” IEEE Trans. Inf. Theory,
+be noted that no surveys of nonbinary linear covering codes                       vol. 43, no. 6, pp. 2057-2061, Nov. 1997; correction vol. 44, no. 5, p.
+have been recently published.                                                     2032, Sep. 1998.
+   We also point out that new upper bounds on the length                     [23] P. R. J. Östergård, “New constructions for q-ary covering codes,” Ars
+                                                                                  Combin., vol. 52, pp. 51-63, 1999.
+function are also new upper bounds on the smallest possible                  [24] A. A. Davydov, “Constructions and families of nonbinary linear codes
+sizes of saturating sets. More generally, the new results and                     with covering radius 2,” IEEE Trans. Inf. Theory , vol. 45, no. 5, pp.
+methods concerning small saturating sets in projective spaces                     1679-1686, Jul. 1999.
+                                                                             [25] H. Janwa and H. F. Mattson, Jr., “Some upper bounds on the covering
+over finite fields that have been given in this paper, such as                    radii of linear codes over Fq and their applications,” Des. Codes
+the new concept of multifold strong blocking sets, seem to be                     Cryptogr, vol. 18, pp. 163-181, 1999.
+of independent interest.                                                     [26] E. M. Gabidulin and T. Kløve, “On the Newton and covering radii of
+                                                                                  linear codes,” IEEE Trans. Inf. Theory, vol. 45, no. 7, pp. 2534-2536,
+                   ACKNOWLEDGMENTS                                                Nov. 1999.
+                                                                             [27] A. A. Davydov and P. R. J. Östergård, “New linear codes with covering
+   The authors thank Professor P. R. J. Östergård for useful                    radius 2 and odd basis,” Des. Codes Cryptogr., vol. 16, pp. 29-39, 1999.
+discussions of problems on codes with covering radius three.                 [28] ——, “New quaternary linear codes with covering radius 2,” Finite
+                                                                                  Fields Appl., vol. 6, pp. 164-174, 2000.
+                                                                             [29] ——, “Linear codes with covering radius R = 2, 3 and codimension
+                            R EFERENCES                                           tR,” IEEE Trans. Inf. Theory, vol. 47, no. 1, pp. 416-421, Jan. 2001.
+ [1] F. J. MacWilliams and N. J. A. Sloane, The theory of error-correcting   [30] A. A. Davydov, “New constructions of covering codes,” Des. Codes
+     codes. Amsterdam, The Netherlands: North-Holland, 1977.                      Cryptogr., vol. 22, pp. 305-316, 2001.
+IEEE TRANSACTIONS ON INFORMATION THEORY, VOL. 00, NO. 0, XXXXXXXX 0000                                                                                       16
+
+
+
+[31] T. S. Baicheva, “On the covering radius of ternary negacyclic codes with      [59] S. Marcugini and F. Pambianco, “Minimal 1-saturating sets in P G(2, q),
+     length up to 26,” IEEE Trans. Inf. Theory, vol. 47, no. 1, pp. 413–416,            q ≤ 16,” Austral. J. Combin., vol. 28, pp. 161-169, 2003.
+     Jan. 2001.                                                                    [60] A. A. Davydov, S. Marcugini, and F. Pambianco, “On saturating sets in
+[32] A. Ashikhmin and A. Barg, “Bounds on the covering radius of linear                 projective spaces,” J. Combin. Theory, Ser. A, vol. 103, pp. 1-15, 2003.
+     codes,” Des. Codes Cryptogr., vol. 27, pp. 261–269, 2002.                     [61] S. J. Kovács,“Small saturated sets in finite projective planes,” Rend.
+[33] M. K. Kaikkonen and P. Rosendahl, “New covering codes from an ADS-                 Mat., Ser. VII, vol. 12, pp. 157–164, 1992.
+     like construction,” IEEE Trans. Inf. Theory, vol. 49, no. 7, pp. 1809-        [62] M. Giulietti and F. Torres, “On dense sets related to plane algebraic
+     1812, Jul. 2003.                                                                   curves,” Ars. Combin., vol. 72, pp. 33-40, 2004.
+[34] M. Krivelevich, B. Sudakov and V. H. Vu, “Covering codes with                 [63] M. Giulietti, “On small dense sets in Galois planes,” Electronic J.
+     improved density,” IEEE Trans. Inf. Theory, vol. 49, no. 7, pp. 1812-              Combin., vol. 14, Research Paper 75, 13 pp., 2007.
+     1815, Jul. 2003.                                                              [64] A. A. Davydov, M. Giulietti, S. Marcugini and F. Pambianco,
+[35] A. A. Davydov, S. Marcugini, and F. Pambianco, “Linear codes with                  “Linear covering codes over nonbinary finite fields,” in Proc.
+     covering radius 2,3 and saturating sets in projective geometry,” IEEE              XI Int. Workshop Algebraic Comb. Coding Theory, ACCT2008,
+     Trans. Inf. Theory, vol. 50, no. 3, pp. 537-541, Mar. 2004.                        Pamporovo, Bulgaria, Jun. 2008, pp. 70-75. [Online]. Available:
+[36] T. Etzion and B. Mounits, “Quasi-perfect codes with small distance”,               http://www.moi.math.bas.bg/acct2008/b12.pdf
+     IEEE Trans. Inf. Theory, vol. 51, no. 11, pp. 3938-3946, Nov. 2005.           [65] A. A. Davydov, M. Giulietti, S. Marcugini and F. Pambianco, “Linear
+[37] A. A. Davydov, G. Faina, S. Marcugini, and F. Pambianco, “Locally                  Covering Codes of Radius 2 and 3,” in Proc. Workshop “Coding Theory
+     optimal (nonshortening) linear covering codes and minimal saturating               Days in St. Petersburg”, St. Petersburg, Russia, Oct. 2008, pp. 12-17.
+     sets in projective spaces,” IEEE Trans. Inf. Theory , vol. 51, no. 12, pp.         [Online]. Available: http://k36.org/codingdays/proceedings.pdf
+     4378-4387, Dec. 2005.                                                         [66] S. Ball and A. Blokhuis, “On the size of a double blocking set in
+[38] M. Giulietti and F. Pasticci, “Quasi-perfect linear codes with minimum             P G(2, q),” Finite Fields Appl., vol. 2, pp. 125-137, 1996.
+     distance 4,” IEEE Trans. Inf. Theory, vol. 53, no. 5, pp. 1928-1935,          [67] S. Ball and J. W. P. Hirschfeld, “Bounds on (n, r)-arcs and their
+     May 2007.                                                                          application to linear codes,” Finite Fields Appl., vol. 11, pp. 326-336,
+[39] G. Cohen and A. Vardy, “Duality between packings and coverings of the              2005.
+     Hamming space,” Advances in Mathematics of Communications, vol. 1,            [68] A. A. Davydov, G. Faina, S. Marcugini, and F. Pambianco, “Computer
+     pp. 93-97, 2007.                                                                   search in projective planes for the sizes of complete arcs,” J. Geom.,
+[40] T. Baicheva, I. Bouyukliev, S. Dodunekov, and V. Fack, “Binary and                 vol. 82, pp. 50-62, 2005.
+     ternary linear quasi-perfect codes with small dimensions,” IEEE Trans.        [69] M. Giulietti, “Small complete caps in P G(N, q), q even,” J. Comb.
+     Inf. Theory , vol. 54, no. 9, pp. 4335-4339, Sep. 2008.                            Des., vol. 15 , pp. 420–436, 2007.
+[41] A. A. Davydov and P. R. J. Östergård, “Linear codes with covering           [70] A. A. Davydov, M. Giulietti, S. Marcugini and F. Pambianco, “New
+     radius 3,” in preparation.                                                         inductive constructions of complete caps in P G(N, q), q even,” sub-
+[42] A. Lobstein, “Covering radius,” a bibliography. [Online]. Available:               mitted.
+     http://www.infres. enst.fr/˜lobstein/bib-a-jour.pdf.                          [71] P. R. J. Östergård, “Classifying Subspaces of Hamming Spaces,” Des.
+[43] F. Galand and G. Kabatiansky, “Information hiding by coverings,” in                Codes Crypt., vol. 27, pp. 297-305, 2002.
+     Proc. IEEE Inf. Theory Workshop, pp. 151–154, Paris, 2003.
+[44] J. Bierbrauer and J. Fridrich, “Constructing good covering codes for
+     applications in Steganography,” in Lecture Notes in Computer Science,
+     Trans. Data Hiding Multimedia Security III, Springer-Verlag, vol. 4920,
+     Y. Q. Shi, Ed., pp. 1-22, 2008.
+[45] E. Boros, T. Szőnyi, and K. Tichler, “On defining sets for projective
+     planes,” Discr. Math., vol. 303, pp. 17-31, 2005.
+[46] G. Kiss, I. Kovács, K. Kutnar, J. Ruff and P. Šparl, “A note on a
+     geometric construction of large Cayley graphs of given degree and
+     diameter,” submitted.
+[47] C. T. Ho, J. Bruck, and R. Agrawal, “Partial-sum queries in OLAP data
+     cubes using covering codes,” IEEE Trans. Computers, vol. 47, no. 12,
+     pp. 1326-1340, Dec. 1998.
+[48] S. Aravamuthan and S. Lodha, “Covering codes for hats-on-a-line,”
+     Electronic J. Combin., vol. 13, #R21, 2006.
+[49] G. Exoo, V. Junnila, T. Laihonen, S. Ranto, “Constructions for identify-
+     ing codes,” in Proc. XI Int. Workshop Algebraic Comb. Coding Theory,
+     ACCT2008, Pamporovo, Bulgaria, Jun. 2008, pp. 92-98. [Online].
+     Available: http://www.moi.math.bas.bg/acct2008/b16.pdf
+[50] J. W. P. Hirschfeld, Projective geometries over finite fields, second
+     edition, Oxford University Press, Oxford, 1998.
+[51] ——, “Maximum sets in finite projective spaces”, in Surveys in Com-
+     binatorics, E. K. Lloyd, Ed., London Math. Soc. Lecture Note Series,
+     vol. 82, Cambridge, UK: Cambridge Univ. Press, pp. 55-76, 1983.
+[52] J. W. P. Hirschfeld and L. Storme, “The packing problem in statistics,
+     coding theory and finite projective spaces,” J. Statist. Planning Infer.,
+     vol. 72, pp. 355-380, 1998.
+[53] ——, “The packing problem in statistics, coding theory and finite pro-
+     jective spaces: update 2001,” Blokhuis, A. (ed.) et al., Finite geometries.
+     Proceedings of the fourth Isle of Thorns conference, Brighton, UK, April
+     2000. Dordrecht: Kluwer Academic Publishers. Dev. Math., vol. 3, pp.
+     201-246, 2001.
+[54] T. Szőnyi, “Complete arcs in Galois planes: a survey,” Quaderni del sem-
+     inario di Geometrie Combinatorie, vol. 94, Dipartimento di Matematica
+     G. Castelnuovo, Univ. di Roma La Sapienza, 1989.
+[55] I. N Landjev, “Linear codes over finite fields and finite projective
+     geometries,” Discr. Math., vol. 213, pp. 211-244, 2000.
+[56] U. Bartocci, “k-insiemi densi in piani di Galois,” Boll. Un. Mat. Ital. D
+     vol. 2, pp. 71-77, 1983.
+[57] E. Ughi, “Saturated configurations of points in projective Galois spaces,”
+     Europ J. Combin., vol. 8, pp. 325-334, 1987.
+[58] A. A. Davydov and P. R. J. Östergård, “On saturating sets in small
+     projective geometries,” European J. Combin., vol. 21, pp. 563-570, 2000.
+

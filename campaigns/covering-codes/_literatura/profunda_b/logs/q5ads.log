@@ -1,0 +1,11 @@
+g [1 1 1 1 1] melhor não-coberto 4
+g (1, 1, 1, 1, 1) achou 35? False 24 s
+g (1, 1, 1, 1, 0) achou 35? True 4 s
+g [1 1 1 0 0] melhor não-coberto 12
+g (1, 1, 1, 0, 0) achou 35? False 23 s
+g [1 2 1 2 1] melhor não-coberto 4
+g (1, 2, 1, 2, 1) achou 35? False 22 s
+g (1, 1, 2, 2, 0) achou 35? True 1 s
+g [1 2 3 4 1] melhor não-coberto 4
+g (1, 2, 3, 4, 1) achou 35? False 22 s
+g (1, 2, 1, 2, 0) achou 35? True 4 s

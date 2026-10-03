@@ -1,0 +1,13 @@
+{
+  "claim_id": "k7-8-3-ub-1893",
+  "created": "2026-10-03T16:38:07Z",
+  "created_by": "agente-c",
+  "instance": "k7-8-3",
+  "instances": [
+    "k7-8-3"
+  ],
+  "kind": "sem_teorema_lean",
+  "next_step": "gerar C1_Data_*.lean + folhas K3 (scripts/k794/gen.py) e rodar o alvo pesado, ou provar por síndromes (docs/code-format.md)",
+  "reason": "só verificação computacional (verificadores); sem teorema Lean (README:69)",
+  "residual_id": "res-no-lean-theorem-k7-8-3-1893"
+}

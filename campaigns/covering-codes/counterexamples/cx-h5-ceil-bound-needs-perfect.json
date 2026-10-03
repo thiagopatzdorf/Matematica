@@ -1,0 +1,13 @@
+{
+  "claim_id": "h5-ceil-bound-needs-perfect",
+  "counterexample_id": "cx-h5-ceil-bound-needs-perfect",
+  "created": "2026-10-03T16:38:07Z",
+  "created_by": "agente-c",
+  "data": {
+    "formal": "f-h5-counterexample",
+    "lean_statement": "theorem H5_counterexample : IsK 2 2 1 2 ∧ HasVol 2 2 1 3 ∧ 2 = (2 ^ 2 + 3 - 1) / 3 ∧ ¬ (3 ∣ 2 ^ 2) :="
+  },
+  "description": "K_2(2,1) = 2 = ⌈4/3⌉ com V = 3 ∤ 4: o teto é atingido sem código perfeito. (CoveringA6.H5_counterexample, medido no kernel; todo o resto vem de A6_Finite.lean, sem busca).",
+  "kind": "instance",
+  "witness_id": null
+}

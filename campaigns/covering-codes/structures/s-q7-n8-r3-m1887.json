@@ -1,0 +1,24 @@
+{
+  "canonical_sha256": "98531afbd8afbcec54ec01d441836ce706f8702ece4df594447789af6732643b",
+  "created": "2026-10-03T16:38:07Z",
+  "created_by": "agente-c",
+  "format": "covering-code/v1",
+  "group": "Zq",
+  "kind": "code-structure",
+  "linear_base_dim": 3,
+  "linear_cosets": 5,
+  "patch_words": 172,
+  "provenance": {
+    "agent": "James.V1",
+    "command": null,
+    "commit": null,
+    "date": "2026-10-02",
+    "generator": "maestro (VM lean-build2, ~/h/s2/maestro): mesmos 5 cosets de [8,3]_7 do 1893 + 172 palavras",
+    "notes": "o .txt daqui está na ordem canônica; o arquivo da VM (sha256 557cf336...) tem outra ordem e o mesmo sha256 canônico.",
+    "repo_commit": null,
+    "seed": null
+  },
+  "structure_id": "s-q7-n8-r3-m1887",
+  "subcode_blocks": [],
+  "witness": "w-q7-n8-r3-m1887"
+}

@@ -1,0 +1,146 @@
+{
+  "claim_id": "k2-6-1-eq-12",
+  "counterexample_search": {
+    "method": "união das duas metades; ver k2-6-1-ub-12 e k2-6-1-lb-12",
+    "result": "nenhum",
+    "status": "completed"
+  },
+  "covers": [
+    "k2-6-1"
+  ],
+  "created": "2026-10-03T16:43:49Z",
+  "created_by": "agente-c",
+  "created_role": "PROPOSER",
+  "depends_on": [
+    "k2-6-1-ub-12",
+    "k2-6-1-lb-12"
+  ],
+  "evidence": {
+    "counterexamples": [],
+    "experiments": [
+      "exp-k2-6-1-search-mirror"
+    ],
+    "external_reproductions": [],
+    "formal": [
+      "f-k2-6-1-eq12"
+    ],
+    "literature": [
+      "lit-stanton-kalbfleisch-1968"
+    ],
+    "proofs": [],
+    "verifier_runs": [],
+    "witnesses": [
+      "w-q2-n6-r1-m12"
+    ]
+  },
+  "formal_verification_blockers": [
+    "f-k2-6-1-eq12: clean_build não é true",
+    "f-k2-6-1-eq12: axiomas não registrados (`#print axioms` não foi capturado)",
+    "f-k2-6-1-eq12: ambiente não registrado: falta lean_version",
+    "falta statement_review: o Lean certifica o enunciado formal, não que ele é o enunciado pretendido; um revisor humano/independente precisa ler"
+  ],
+  "history": [
+    {
+      "actor": "agente-c",
+      "from": null,
+      "reason": "criado",
+      "role": "PROPOSER",
+      "to": "IDEA",
+      "ts": "2026-10-03T16:43:49Z"
+    },
+    {
+      "actor": "agente-c",
+      "from": "IDEA",
+      "reason": "evidência anexada: experiments=exp-k2-6-1-search-mirror",
+      "role": "PROPOSER",
+      "to": "IDEA",
+      "ts": "2026-10-03T16:43:49Z"
+    },
+    {
+      "actor": "agente-c",
+      "from": "IDEA",
+      "reason": "evidência anexada: witnesses=w-q2-n6-r1-m12",
+      "role": "PROPOSER",
+      "to": "IDEA",
+      "ts": "2026-10-03T16:43:49Z"
+    },
+    {
+      "actor": "agente-c",
+      "from": "IDEA",
+      "reason": "evidência anexada: formal=f-k2-6-1-eq12",
+      "role": "PROPOSER",
+      "to": "IDEA",
+      "ts": "2026-10-03T16:43:49Z"
+    },
+    {
+      "actor": "agente-c",
+      "from": "IDEA",
+      "reason": "evidência anexada: literature=lit-stanton-kalbfleisch-1968",
+      "role": "PROPOSER",
+      "to": "IDEA",
+      "ts": "2026-10-03T16:43:49Z"
+    },
+    {
+      "actor": "migrate_covering.py",
+      "from": "IDEA",
+      "reason": "metade superior provada+reproduzida; metade inferior exaustiva em Python, Lean pesado só declarado",
+      "role": "EXHAUSTIVE_SEARCHER",
+      "to": "EXHAUSTIVE_BOUNDED",
+      "ts": "2026-10-03T16:43:49Z"
+    }
+  ],
+  "kind": "theorem",
+  "reviewed_by": [],
+  "scope": {
+    "assumptions": [],
+    "domain": "q=2, n=6, R=1",
+    "parameters": {
+      "M": 12,
+      "R": 1,
+      "n": 6,
+      "q": 2
+    },
+    "problem": "K_2(6,1) = 12"
+  },
+  "sealed_evidence": {
+    "experiments": [
+      "exp-k2-6-1-search-mirror"
+    ],
+    "formal": [
+      "f-k2-6-1-eq12"
+    ],
+    "proofs": [],
+    "witnesses": [
+      "w-q2-n6-r1-m12"
+    ]
+  },
+  "sealed_sha256": "c0cb70ce1aae6eb555ebf14b2190fc025988caa8cf2f8478ca8acaafa055e358",
+  "statement": "K_2(6,1) = 12, isto é, IsK 2 6 1 12 (SC.K_2_6_1_eq12).",
+  "status": "EXHAUSTIVE_BOUNDED",
+  "trust_boundary": [
+    {
+      "component": "kernel do Lean 4 v4.34.1 + Mathlib v4.34.1 (lean-toolchain, lake-manifest.json)",
+      "trusted_for": "a correção das inferências e das decisões `decide +kernel`"
+    },
+    {
+      "component": "axiomas propext, Classical.choice, Quot.sound",
+      "trusted_for": "lógica clássica e extensionalidade (medido via #print axioms, no alvo padrão)"
+    },
+    {
+      "component": "definições Covers/IsK/ball/hammingDist (CoveringA2, CoveringA6, Mathlib)",
+      "trusted_for": "que o enunciado formal é o enunciado pretendido: REVISÃO HUMANA PENDENTE (README:73-74)"
+    },
+    {
+      "component": "tools/verify/verify.c compilado com gcc 13.3 (-Werror)",
+      "trusted_for": "que a marcação de bolas e a contagem de descobertos estão certas"
+    },
+    {
+      "component": "tools/campaign/verify_cover_dilation.py + numpy 2.4.6",
+      "trusted_for": "que a dilatação do grid está certa (2º verificador, independente em código)"
+    },
+    {
+      "component": "formato covering-code/v1 (docs/code-format.md)",
+      "trusted_for": "convenção de dígitos little-endian e do sha256 canônico"
+    }
+  ]
+}

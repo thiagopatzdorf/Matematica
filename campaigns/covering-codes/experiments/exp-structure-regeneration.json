@@ -1,0 +1,30 @@
+{
+  "created": "2026-10-03T16:38:07Z",
+  "created_by": "agente-c",
+  "description": "Regenera data/structured/*.json de data/codes/*.txt (detecta cosets) e compara com os versionados.",
+  "experiment_id": "exp-structure-regeneration",
+  "implementation": "scripts/codes/build_structured.py --check",
+  "instances": [],
+  "kind": "symbolic",
+  "ranges": null,
+  "repo_commit": "1df5526dc0275a9ace7c2bd86e7832f92ef1aa34",
+  "result": {
+    "executado_neste_run": true,
+    "rc": 0,
+    "tail": ": 2 cosets de [9,2]_5 + 0 palavras\nq7_n8_R3_M1887.json: 5 cosets de [8,3]_7 + 172 palavras\nq7_n8_R3_M1893.json: 5 cosets de [8,3]_7 + 178 palavras\nq7_n9_R4_M1285.json: 3 cosets de [9,3]_7 + 36 cosets de [9,1]_7 + 4 palavras\nq7_n9_R4_M1351.json: 3 cosets de [9,3]_7 + 46 cosets de [9,1]_7 + 0 palavras"
+  },
+  "source_files": [
+    {
+      "path": "scripts/codes/build_structured.py",
+      "sha256": "8fe8c9d6155d7ed7ac96f1f893efc3c1c4c89ff7669ae57f058757cca7eb917a"
+    },
+    {
+      "path": "scripts/codes/structure.py",
+      "sha256": "2152b192bd480d5c261ad40d42ce117e34daed5c285c7b949909a4aed11fa710"
+    },
+    {
+      "path": "scripts/codes/codefmt.py",
+      "sha256": "ba366c25a64ba34b26e196d60aeaa6e34a986a951bcdf0d5b83a72300be2222d"
+    }
+  ]
+}

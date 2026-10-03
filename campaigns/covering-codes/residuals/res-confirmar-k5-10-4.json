@@ -1,0 +1,26 @@
+{
+  "claim_ids": [
+    "k5-10-4-ub-625"
+  ],
+  "comparison": {
+    "k5-10-4-ub-625": {
+      "classificacao": "MELHORA_APARENTE_A_CONFIRMAR",
+      "melhor_registrada": 875,
+      "melhor_registrada_fonte": [
+        "lit-keri-k5-10-4-ub (PDF 4-5_tables.pdf, Last-Modified 2009-10-15 (diretório e index.htm atualizados até 2011-11-25), 2009-10-15)"
+      ],
+      "nosso": 625,
+      "nota": "melhora aparente, a confirmar por revisão externa (não é afirmação de novidade: livros/artigos não lidos podem ter predecessor)",
+      "veredito": "melhor_que_a_registrada"
+    }
+  },
+  "created": "2026-10-03T16:38:07Z",
+  "created_by": "agente-c",
+  "instances": [
+    "k5-10-4"
+  ],
+  "kind": "melhora_aparente_a_confirmar",
+  "next_step": "achar l_5(6,4) (Davydov-Marcugini-Pambianco ou outra tabela de saturating sets/PG(5,5)); ler Bhandari-Durairajan 1996",
+  "reason": "MELHORA_APARENTE_A_CONFIRMAR (nunca 'novidade'): 625 < 875 (Kéri, chave d = Bhandari-Durairajan 1996); é código LINEAR [10,4]_5, o que o torna candidato a predecessor em tabela de comprimento linear que não achei: faltou l_5(6,4) em Davydov-Marcugini-Pambianco (0904.3835 v1 e 1808.09301 v2 não têm l_5(6,4)); Bhandari-Durairajan 1996 e Cohen et al. 1997 não lidos",
+  "residual_id": "res-confirmar-k5-10-4"
+}

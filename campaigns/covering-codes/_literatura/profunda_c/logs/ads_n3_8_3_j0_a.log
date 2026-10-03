@@ -1,0 +1,7 @@
+C2 candidatos (raio<=2, contem referencial): 88
+0 [(0, 1, 2), (1, 4, 2)] j 0 perfis 113 tau 231 M1<= 38 UNKNOWN(orcamento 1200000 conflitos) 134.5s ADS<=1862
+0 [(0, 1, 2), (1, 4, 2)] j 0 perfis 113 tau 231 M1<= 30 UNKNOWN(orcamento 1200000 conflitos) 124.3s ADS<=1470
+1 [(0, 1, 2), (1, 4, 6)] j 0 perfis 113 tau 231 M1<= 38 UNKNOWN(orcamento 1200000 conflitos) 150.8s ADS<=1862
+1 [(0, 1, 2), (1, 4, 6)] j 0 perfis 113 tau 231 M1<= 30 UNKNOWN(orcamento 1200000 conflitos) 118.4s ADS<=1470
+2 [(0, 1, 4), (1, 2, 4)] j 0 perfis 113 tau 231 M1<= 38 UNKNOWN(orcamento 1200000 conflitos) 123.1s ADS<=1862
+2 [(0, 1, 4), (1, 2, 4)] j 0 perfis 113 tau 231 M1<= 30 UNKNOWN(orcamento 1200000 conflitos) 108.4s ADS<=1470

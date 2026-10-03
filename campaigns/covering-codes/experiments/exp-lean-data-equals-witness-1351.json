@@ -1,0 +1,28 @@
+{
+  "created": "2026-10-03T16:38:07Z",
+  "created_by": "agente-c",
+  "description": "Decodifica a lista de C1_Data_K7_9_4.lean (base 7 little-endian) e compara o sha256 canônico com o do witness data/codes/q7_n9_R4_M1351.txt.",
+  "experiment_id": "exp-lean-data-equals-witness-1351",
+  "implementation": "regex + sha256 em tools/campaign/migrate_covering.py",
+  "instances": [
+    "k7-9-4"
+  ],
+  "kind": "symbolic",
+  "ranges": null,
+  "repo_commit": "1df5526dc0275a9ace7c2bd86e7832f92ef1aa34",
+  "result": {
+    "estritamente_crescente": true,
+    "executado_neste_run": true,
+    "iguais": true,
+    "palavras": 1351,
+    "sha256_canonico_lean": "54dbdade1337432303847d2fd0d1c13b506de08ba518e1694c5fb37ed0e81162",
+    "sha256_canonico_witness": "54dbdade1337432303847d2fd0d1c13b506de08ba518e1694c5fb37ed0e81162",
+    "todas_menores_que_7_9": true
+  },
+  "source_files": [
+    {
+      "path": "CoveringLean/C1_Data_K7_9_4.lean",
+      "sha256": "33c027d4c1ef5a946dca54c526cf90d1041ee46e0cdd01a41833940100e0ab09"
+    }
+  ]
+}

@@ -1,0 +1,87 @@
+{
+  "claim_id": "sphere-covering-general",
+  "counterexample_search": {
+    "method": "enunciado geral provado no kernel; contraexemplo impossível sob os axiomas medidos",
+    "result": "nenhum",
+    "status": "completed"
+  },
+  "created": "2026-10-03T16:43:48Z",
+  "created_by": "agente-c",
+  "created_role": "PROPOSER",
+  "depends_on": [],
+  "evidence": {
+    "counterexamples": [],
+    "experiments": [],
+    "external_reproductions": [],
+    "formal": [
+      "f-sphere-covering"
+    ],
+    "literature": [],
+    "proofs": [],
+    "verifier_runs": [],
+    "witnesses": []
+  },
+  "formal_verification_blockers": [
+    "falta statement_review: o Lean certifica o enunciado formal, não que ele é o enunciado pretendido; um revisor humano/independente precisa ler"
+  ],
+  "history": [
+    {
+      "actor": "agente-c",
+      "from": null,
+      "reason": "criado",
+      "role": "PROPOSER",
+      "to": "IDEA",
+      "ts": "2026-10-03T16:43:48Z"
+    },
+    {
+      "actor": "agente-c",
+      "from": "IDEA",
+      "reason": "evidência anexada: formal=f-sphere-covering",
+      "role": "PROPOSER",
+      "to": "IDEA",
+      "ts": "2026-10-03T16:43:48Z"
+    },
+    {
+      "actor": "migrate_covering.py",
+      "from": "IDEA",
+      "reason": "registro formal medido (axiomas, sorry, build) válido",
+      "role": "FORMALIZER",
+      "to": "PROVED",
+      "ts": "2026-10-03T16:43:48Z"
+    }
+  ],
+  "kind": "lemma",
+  "reviewed_by": [],
+  "scope": {
+    "assumptions": [
+      "NeZero q"
+    ],
+    "domain": "Fin n -> ZMod q, hammingDist",
+    "problem": "cota de esfera"
+  },
+  "sealed_evidence": {
+    "experiments": [],
+    "formal": [
+      "f-sphere-covering"
+    ],
+    "proofs": [],
+    "witnesses": []
+  },
+  "sealed_sha256": "00f587042875adbb34de0acc9ff53ec0b06595dafd3d31c8abfb132c0f483afd",
+  "statement": "Para todo código C em (ZMod q)^n que cobre com raio R vale q^n <= |C| * V, com V = |bola(R, 0)| (CoveringA2.sphere_covering).",
+  "status": "PROVED",
+  "trust_boundary": [
+    {
+      "component": "kernel do Lean 4 v4.34.1 + Mathlib v4.34.1 (lean-toolchain, lake-manifest.json)",
+      "trusted_for": "a correção das inferências e das decisões `decide +kernel`"
+    },
+    {
+      "component": "axiomas propext, Classical.choice, Quot.sound",
+      "trusted_for": "lógica clássica e extensionalidade (medido via #print axioms, no alvo padrão)"
+    },
+    {
+      "component": "definições Covers/IsK/ball/hammingDist (CoveringA2, CoveringA6, Mathlib)",
+      "trusted_for": "que o enunciado formal é o enunciado pretendido: REVISÃO HUMANA PENDENTE (README:73-74)"
+    }
+  ]
+}

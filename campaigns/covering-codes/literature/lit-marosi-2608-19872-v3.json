@@ -1,0 +1,35 @@
+{
+  "assumptions": [
+    "PDF desta versão lido (texto e tabelas) pelo revisor; código e anexos de terceiros NÃO executados"
+  ],
+  "authors": [
+    "Mark Marosi"
+  ],
+  "bound": {
+    "direction": "upper",
+    "parameters": {
+      "R": 4,
+      "n": 9,
+      "q": 7
+    },
+    "value": 1475
+  },
+  "claim_ids": [
+    "k7-9-4-ub-1351",
+    "k7-9-4-ub-1285"
+  ],
+  "date_read": "2026-10-03",
+  "exact_bound": "K_7(9,4) <= 1475",
+  "exact_statement": "v3 (2026-09-02), Tabela 1: K_7(9,4) <= 1475 (igual à v2); 26 UB + 58 LB; declara (Use of artificial intelligence) que manuscrito e software foram escritos pelo sistema Claude sob direção do autor: fonte a monitorar, não oráculo. Não existe v4 (404 em 2026-10-03). LI por Lit-CC em 2026-10-03 (LITERATURA_CC.md; registro transcrito por migrate_covering.py, que não leu a fonte).",
+  "formalized": false,
+  "literature_id": "lit-marosi-2608-19872-v3",
+  "open_questions": [
+    "a busca local dele para em 1475 e uniões de cosets chegam a 1285 (gap de 190 palavras): por quê? (LITERATURA_CC.md §7.2, HIPÓTESE)"
+  ],
+  "reproduced": false,
+  "title": "New upper and lower bounds on covering codes K_q(n,R) for alphabets of size 5 <= q <= 21",
+  "url": "https://arxiv.org/abs/2608.19872v3",
+  "version": "v3",
+  "version_date": "2026-09-02",
+  "year": 2026
+}

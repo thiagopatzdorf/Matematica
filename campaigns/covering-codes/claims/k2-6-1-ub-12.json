@@ -1,0 +1,129 @@
+{
+  "bound": {
+    "direction": "upper",
+    "parameters": {
+      "R": 1,
+      "n": 6,
+      "q": 2
+    },
+    "value": 12
+  },
+  "claim_id": "k2-6-1-ub-12",
+  "complementary_witnesses": [
+    "w-q2-n6-r1-m12"
+  ],
+  "counterexample_search": {
+    "method": "claim de existência: o certificado é o registro formal (code12_covers + code12_card, medidos no kernel); o witness w-q2-n6-r1-m12 é redundância computacional FORA de evidence.witnesses (ver complementary_witnesses)",
+    "result": "uncovered=0 nos verificadores; kernel aceita",
+    "status": "completed"
+  },
+  "created": "2026-10-03T16:43:49Z",
+  "created_by": "agente-c",
+  "created_role": "PROPOSER",
+  "depends_on": [],
+  "evidence": {
+    "counterexamples": [],
+    "experiments": [],
+    "external_reproductions": [],
+    "formal": [
+      "f-code12-covers",
+      "f-code12-card"
+    ],
+    "literature": [
+      "lit-florath-2606-09600-ub"
+    ],
+    "proofs": [],
+    "verifier_runs": [],
+    "witnesses": []
+  },
+  "formal_verification_blockers": [
+    "falta statement_review: o Lean certifica o enunciado formal, não que ele é o enunciado pretendido; um revisor humano/independente precisa ler"
+  ],
+  "history": [
+    {
+      "actor": "agente-c",
+      "from": null,
+      "reason": "criado",
+      "role": "PROPOSER",
+      "to": "IDEA",
+      "ts": "2026-10-03T16:43:49Z"
+    },
+    {
+      "actor": "agente-c",
+      "from": "IDEA",
+      "reason": "evidência anexada: formal=f-code12-covers",
+      "role": "PROPOSER",
+      "to": "IDEA",
+      "ts": "2026-10-03T16:43:49Z"
+    },
+    {
+      "actor": "agente-c",
+      "from": "IDEA",
+      "reason": "evidência anexada: formal=f-code12-card",
+      "role": "PROPOSER",
+      "to": "IDEA",
+      "ts": "2026-10-03T16:43:49Z"
+    },
+    {
+      "actor": "agente-c",
+      "from": "IDEA",
+      "reason": "evidência anexada: literature=lit-florath-2606-09600-ub",
+      "role": "PROPOSER",
+      "to": "IDEA",
+      "ts": "2026-10-03T16:43:49Z"
+    },
+    {
+      "actor": "migrate_covering.py",
+      "from": "IDEA",
+      "reason": "code12_covers e code12_card medidos no kernel (o PROVED NÃO depende do witness: ele fica em complementary_witnesses, fora de evidence.witnesses)",
+      "role": "FORMALIZER",
+      "to": "PROVED",
+      "ts": "2026-10-03T16:43:49Z"
+    }
+  ],
+  "kind": "theorem",
+  "literature_comparison": {
+    "classificacao": "PREDECESSOR_ENCONTRADO",
+    "melhor_registrada": 12,
+    "melhor_registrada_fonte": [
+      "lit-keri-k2-6-1-ub (PDF 2_tables.pdf, Last-Modified 2009-10-15 (diretório e index.htm atualizados até 2011-11-25), 2009-10-15)",
+      "lit-florath-2606-09600-ub (v1 (arXiv, 2026-06-08); repositório no commit bbed9a6 (2026-09-16), 2026-06-08)",
+      "lit-florath-postkeri-k2-6-1-ub (v1 (arXiv, 2026-06-08); repositório no commit bbed9a6 (2026-09-16), 2026-06-08)"
+    ],
+    "nosso": 12,
+    "nota": "igual ao valor tabelado: predecessor encontrado na literatura registrada; não há novidade a confirmar",
+    "veredito": "igual"
+  },
+  "reviewed_by": [],
+  "scope": {
+    "assumptions": [],
+    "domain": "q=2, n=6, R=1",
+    "problem": "K_2(6,1) <= 12"
+  },
+  "sealed_evidence": {
+    "experiments": [],
+    "formal": [
+      "f-code12-card",
+      "f-code12-covers"
+    ],
+    "proofs": [],
+    "witnesses": []
+  },
+  "sealed_sha256": "056cf32fda6904624fd18242038fd709e8414ae7e61b422a6d10a9462e3a194a",
+  "statement": "Existe C : Finset (W 2 6) com C.card = 12 e Covers 1 C (código `code12`, 12 palavras).",
+  "status": "PROVED",
+  "trust_boundary": [
+    {
+      "component": "kernel do Lean 4 v4.34.1 + Mathlib v4.34.1 (lean-toolchain, lake-manifest.json)",
+      "trusted_for": "a correção das inferências e das decisões `decide +kernel`"
+    },
+    {
+      "component": "axiomas propext, Classical.choice, Quot.sound",
+      "trusted_for": "lógica clássica e extensionalidade (medido via #print axioms, no alvo padrão)"
+    },
+    {
+      "component": "definições Covers/IsK/ball/hammingDist (CoveringA2, CoveringA6, Mathlib)",
+      "trusted_for": "que o enunciado formal é o enunciado pretendido: REVISÃO HUMANA PENDENTE (README:73-74)"
+    }
+  ]
+}

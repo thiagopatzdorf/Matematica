@@ -1,0 +1,78 @@
+{
+  "claim_id": "h1-alpha-nonincreasing",
+  "counterexample_search": {
+    "status": "not_started"
+  },
+  "created": "2026-10-03T16:43:49Z",
+  "created_by": "agente-c",
+  "created_role": "PROPOSER",
+  "depends_on": [],
+  "evidence": {
+    "counterexamples": [
+      "cx-h1-alpha-nonincreasing"
+    ],
+    "experiments": [],
+    "external_reproductions": [],
+    "formal": [
+      "f-h1-counterexample"
+    ],
+    "literature": [],
+    "proofs": [],
+    "verifier_runs": [],
+    "witnesses": []
+  },
+  "history": [
+    {
+      "actor": "agente-c",
+      "from": null,
+      "reason": "criado",
+      "role": "PROPOSER",
+      "to": "IDEA",
+      "ts": "2026-10-03T16:43:49Z"
+    },
+    {
+      "actor": "agente-c",
+      "from": "IDEA",
+      "reason": "evidência anexada: formal=f-h1-counterexample",
+      "role": "PROPOSER",
+      "to": "IDEA",
+      "ts": "2026-10-03T16:43:49Z"
+    },
+    {
+      "actor": "agente-c",
+      "from": "IDEA",
+      "reason": "hipótese registrada para ser refutada",
+      "role": "PROPOSER",
+      "to": "CONJECTURE",
+      "ts": "2026-10-03T16:43:49Z"
+    },
+    {
+      "actor": "migrate_covering.py",
+      "from": "CONJECTURE",
+      "reason": "evidência anexada: counterexamples=cx-h1-alpha-nonincreasing",
+      "role": "COUNTEREXAMPLE_HUNTER",
+      "to": "CONJECTURE",
+      "ts": "2026-10-03T16:43:49Z"
+    },
+    {
+      "actor": "migrate_covering.py",
+      "from": "CONJECTURE",
+      "reason": "H1_counterexample medido no kernel",
+      "role": "COUNTEREXAMPLE_HUNTER",
+      "to": "REFUTED",
+      "ts": "2026-10-03T16:43:49Z"
+    }
+  ],
+  "kind": "conjecture",
+  "refuting_lean_statement": "theorem H1_counterexample : IsK 2 3 1 2 ∧ HasVol 2 3 1 4 ∧ IsK 2 4 1 4 ∧ HasVol 2 4 1 5 ∧ ((2 : ℚ) * 4 / 2 ^ 3 = 1) ∧ ((4 : ℚ) * 5 / 2 ^ 4 = 5 / 4) ∧ ((2 : ℚ) * 4 / 2 ^ 3 < (4 : ℚ) * 5 / 2 ^ 4) :=",
+  "reviewed_by": [],
+  "scope": {
+    "assumptions": [],
+    "domain": "q, R fixos, n variável (contraexemplo em q=2, R=1, n=3→4)",
+    "problem": "H1 de A6_Finite"
+  },
+  "statement": "H1: α(q,n,R) = K_q(n,R)·V/q^n é não crescente em n, com q e R fixos (hipótese do autor; texto original não localizado, enunciado lido do comentário de A6_Finite.lean:95 'H1 says α is nonincreasing in n').",
+  "statement_provenance": "enunciado original não localizado em arquivo versionado; ver descrição",
+  "status": "REFUTED",
+  "trust_boundary": []
+}

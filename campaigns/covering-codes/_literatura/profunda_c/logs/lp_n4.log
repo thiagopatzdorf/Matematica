@@ -1,0 +1,2 @@
+n1=4 n2=6 R=4: pares (C2,j) testados=528, impossiveis(tau nulo)=0
+menor LB LP de |C1| = 10.767 -> |C1|>=11 -> |ADS|>=539  (C2 idx 25, j 0)

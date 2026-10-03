@@ -1,0 +1,11 @@
+{
+  "created": "2026-10-03T16:38:07Z",
+  "created_by": "agente-c",
+  "file": "CoveringLean/A5b_Stress.lean",
+  "instances": [],
+  "instances_note": "o arquivo trata q=2, n=3, R=1, que não é célula do universo desta campanha",
+  "kind": "fora_da_biblioteca",
+  "next_step": "investigar e consertar, ou arquivar",
+  "reason": "DECLARADO: não compila (README:71). MEDIDO: `lake env lean` terminou com rc 137 (SIGKILL) em <=110 s; causa (OOM?) não investigada.",
+  "residual_id": "res-a5b-stress"
+}

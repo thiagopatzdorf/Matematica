@@ -1,0 +1,133 @@
+{
+  "bound": {
+    "direction": "upper",
+    "parameters": {
+      "R": 3,
+      "n": 8,
+      "q": 7
+    },
+    "value": 1893
+  },
+  "claim_id": "k7-8-3-ub-1893",
+  "counterexample_search": {
+    "method": "claim de existência: o witness é o certificado; dois verificadores independentes procuram ponto descoberto (uncovered=0)",
+    "result": "uncovered=0 nos dois verificadores",
+    "status": "completed"
+  },
+  "created": "2026-10-03T16:43:50Z",
+  "created_by": "agente-c",
+  "created_role": "PROPOSER",
+  "depends_on": [],
+  "evidence": {
+    "counterexamples": [],
+    "experiments": [
+      "exp-prior-search-unrecorded"
+    ],
+    "external_reproductions": [],
+    "formal": [],
+    "literature": [
+      "lit-keri-k7-8-3-ub"
+    ],
+    "proofs": [],
+    "verifier_runs": [],
+    "witnesses": [
+      "w-q7-n8-r3-m1893"
+    ]
+  },
+  "history": [
+    {
+      "actor": "agente-c",
+      "from": null,
+      "reason": "criado",
+      "role": "PROPOSER",
+      "to": "IDEA",
+      "ts": "2026-10-03T16:43:50Z"
+    },
+    {
+      "actor": "agente-c",
+      "from": "IDEA",
+      "reason": "evidência anexada: witnesses=w-q7-n8-r3-m1893",
+      "role": "PROPOSER",
+      "to": "IDEA",
+      "ts": "2026-10-03T16:43:50Z"
+    },
+    {
+      "actor": "agente-c",
+      "from": "IDEA",
+      "reason": "evidência anexada: experiments=exp-prior-search-unrecorded",
+      "role": "PROPOSER",
+      "to": "IDEA",
+      "ts": "2026-10-03T16:43:50Z"
+    },
+    {
+      "actor": "agente-c",
+      "from": "IDEA",
+      "reason": "evidência anexada: literature=lit-keri-k7-8-3-ub",
+      "role": "PROPOSER",
+      "to": "IDEA",
+      "ts": "2026-10-03T16:43:50Z"
+    },
+    {
+      "actor": "migrate_covering.py",
+      "from": "IDEA",
+      "reason": "2 verificadores de autores/grupos distintos, PASS válido e sem desacordo, neste run",
+      "role": "INDEPENDENT_VERIFIER",
+      "to": "INDEPENDENTLY_REPRODUCED",
+      "ts": "2026-10-03T16:43:50Z"
+    }
+  ],
+  "kind": "theorem",
+  "literature_comparison": {
+    "classificacao": "MELHORA_APARENTE_A_CONFIRMAR",
+    "melhor_registrada": 2337,
+    "melhor_registrada_fonte": [
+      "lit-keri-k7-8-3-ub (PDF 6-21_tables.pdf, Last-Modified 2009-10-15 (diretório e index.htm atualizados até 2011-11-25), 2009-10-15)"
+    ],
+    "nosso": 1893,
+    "nota": "melhora aparente, a confirmar por revisão externa (não é afirmação de novidade: livros/artigos não lidos podem ter predecessor); mas é PIOR que o nosso próprio 1887 da mesma célula",
+    "veredito": "melhor_que_a_registrada"
+  },
+  "reviewed_by": [],
+  "scope": {
+    "assumptions": [],
+    "domain": "q=7, n=8, R=3",
+    "parameters": {
+      "M": 1893,
+      "R": 3,
+      "n": 8,
+      "q": 7
+    },
+    "problem": "K_7(8,3) <= 1893"
+  },
+  "sealed_evidence": {
+    "experiments": [
+      "exp-prior-search-unrecorded"
+    ],
+    "formal": [],
+    "proofs": [],
+    "witnesses": [
+      "w-q7-n8-r3-m1893"
+    ]
+  },
+  "sealed_sha256": "df4c62c46a28012f1d8074e7c93ca93f01689509a23551680c4b53d2984baee7",
+  "statement": "Existe código C em (Z_7)^8 com |C| = 1893 que cobre com raio 3 (data/codes/q7_n8_R3_M1893.txt).",
+  "status": "INDEPENDENTLY_REPRODUCED",
+  "trust_boundary": [
+    {
+      "component": "tools/verify/verify.c compilado com gcc 13.3 (-Werror)",
+      "trusted_for": "que a marcação de bolas e a contagem de descobertos estão certas"
+    },
+    {
+      "component": "tools/campaign/verify_cover_dilation.py + numpy 2.4.6",
+      "trusted_for": "que a dilatação do grid está certa (2º verificador, independente em código)"
+    },
+    {
+      "component": "formato covering-code/v1 (docs/code-format.md)",
+      "trusted_for": "convenção de dígitos little-endian e do sha256 canônico"
+    },
+    {
+      "component": "literatura registrada (Kéri/Marosi), declarada",
+      "trusted_for": "só para a afirmação de que o valor é menor que o anterior, que o Lean não checa"
+    }
+  ]
+}

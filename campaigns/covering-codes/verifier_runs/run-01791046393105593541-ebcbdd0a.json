@@ -1,0 +1,33 @@
+{
+  "command": [
+    "python3",
+    "tools/campaign/verify_cover_dilation.py",
+    "--q",
+    "{param:q}",
+    "--n",
+    "{param:n}",
+    "--R",
+    "{param:R}",
+    "--M",
+    "{param:M}",
+    "{witness}"
+  ],
+  "host": "vm (Linux x86_64)",
+  "output_sha256": "6d4007f35e6fd7b07f78b7c5c87bf9285d0ef8b1228d7b9e95eabdba8d79553e",
+  "output_tail": "q=5 n=9 R=3 M=1250 points=1953125 uncovered=0 sha256=ee6235466bb1579465ef07867ab9e02e42ab36eef5d9500e6a25ade66652cd85 params=explicit verifier=dilation-numpy\n",
+  "params_passed": {
+    "M": 1250,
+    "R": 3,
+    "n": 9,
+    "q": 5
+  },
+  "repo_commit": "1df5526dc0275a9ace7c2bd86e7832f92ef1aa34",
+  "result": "PASS",
+  "run_id": "run-01791046393105593541-ebcbdd0a",
+  "runtime_s": 0.403,
+  "subject_id": "w-q5-n9-r3-m1250",
+  "subject_sha256": "334d055a45bcc7fffd7cc7ed5cefd719e8787587ced1b66b44cc85785a6bdea6",
+  "ts": "2026-10-03T16:53:13Z",
+  "verifier_id": "verify-py-dilation",
+  "verifier_sha256": "9ab445b799ba2a86811fceb84c4465e234fe13b9b050f29ba75a138079199b39"
+}

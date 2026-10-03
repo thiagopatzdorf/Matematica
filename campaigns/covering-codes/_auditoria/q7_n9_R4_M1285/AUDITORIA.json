@@ -1,0 +1,110 @@
+{
+ "M": 1285,
+ "R": 4,
+ "ambiente": {
+  "cpu": "Intel(R) Xeon(R) Processor @ 2.10GHz",
+  "gcc": "cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
+  "go": "go version go1.24.7 linux/amd64",
+  "nproc": 4,
+  "numpy": "2.4.6",
+  "os": "Linux-6.18.44-fc-v64-x86_64-with-glibc2.39",
+  "python": "3.11.15",
+  "rustc": "rustc 1.97.0 (2d8144b78 2026-07-07)"
+ },
+ "build": {
+  "c": {
+   "exit": 0,
+   "s": 0.3
+  },
+  "go": {
+   "exit": 0,
+   "s": 0.3
+  },
+  "rust": {
+   "exit": 0,
+   "s": 0.7
+  }
+ },
+ "clone_s": 0.2,
+ "data_utc": "2026-10-03T17:24:06Z",
+ "distintas": 1285,
+ "linhas": 1285,
+ "n": 9,
+ "negativos_exit_por_verificador": {
+  "M-1 declarado (exit 2)": {
+   "verify-c (C, bolas/bitset)": 2,
+   "verify-cleanroom (Go, BFS multi-fonte)": 2,
+   "verify-py-dilation (Python/numpy)": 2,
+   "verify-rust (Rust, dilatação por camadas)": 2
+  },
+  "R-1, arquivo com nome neutro (cobertura falha => exit 1)": {
+   "verify-c (C, bolas/bitset)": 1,
+   "verify-cleanroom (Go, BFS multi-fonte)": 1,
+   "verify-py-dilation (Python/numpy)": 1,
+   "verify-rust (Rust, dilatação por camadas)": 1
+  },
+  "R-1, arquivo com o nome original (verify-c: exit 2 por contradizer o nome; os outros: 1)": {
+   "verify-c (C, bolas/bitset)": 2,
+   "verify-cleanroom (Go, BFS multi-fonte)": 1,
+   "verify-py-dilation (Python/numpy)": 1,
+   "verify-rust (Rust, dilatação por camadas)": 1
+  },
+  "comprimento_errado (exit 2)": {
+   "verify-c (C, bolas/bitset)": 2,
+   "verify-cleanroom (Go, BFS multi-fonte)": 2,
+   "verify-py-dilation (Python/numpy)": 2,
+   "verify-rust (Rust, dilatação por camadas)": 2
+  },
+  "duplicata (exit 2)": {
+   "verify-c (C, bolas/bitset)": 2,
+   "verify-cleanroom (Go, BFS multi-fonte)": 2,
+   "verify-py-dilation (Python/numpy)": 2,
+   "verify-rust (Rust, dilatação por camadas)": 2
+  },
+  "simbolo_invalido (dígito >= q => exit 2)": {
+   "verify-c (C, bolas/bitset)": 2,
+   "verify-cleanroom (Go, BFS multi-fonte)": 2,
+   "verify-py-dilation (Python/numpy)": 2,
+   "verify-rust (Rust, dilatação por camadas)": 2
+  },
+  "uma_palavra_removida, M intacto (#distintas != M => exit 2)": {
+   "verify-c (C, bolas/bitset)": 2,
+   "verify-cleanroom (Go, BFS multi-fonte)": 2,
+   "verify-py-dilation (Python/numpy)": 2,
+   "verify-rust (Rust, dilatação por camadas)": 2
+  }
+ },
+ "pontos_do_espaco": 40353607,
+ "q": 7,
+ "ref": "HEAD",
+ "repo_commit": "86f02a9bf64954646b4e53e706fd134b15f350f0",
+ "repro_cmd": "git clone <repo> && git checkout 86f02a9bf64954646b4e53e706fd134b15f350f0 && python3 tools/campaign/audit_package.py q7_n9_R4_M1285",
+ "sha256_file": "89cbd6b290a10d8d708e9783a405b8a12ce5efd6a8ea2ee17568b3ee25c50f31",
+ "verificadores": {
+  "verify-c (C, bolas/bitset)": {
+   "exit": 0,
+   "peak_rss_mb": 16.4,
+   "stdout": "q=7 n=9 R=4 M=1285 points=40353607 uncovered=0 sha256=aa388cc9642bc064527a0237b60522ba558491291a2adf02ab1e4d8d3f756c1f params=explicit",
+   "wall_s": 0.398
+  },
+  "verify-cleanroom (Go, BFS multi-fonte)": {
+   "exit": 0,
+   "peak_rss_mb": 194.6,
+   "stdout": "COBRE q=7 n=9 R=4 M=1285 points=40353607 uncovered=0",
+   "wall_s": 4.797
+  },
+  "verify-py-dilation (Python/numpy)": {
+   "exit": 0,
+   "peak_rss_mb": 112.4,
+   "stdout": "q=7 n=9 R=4 M=1285 points=40353607 uncovered=0 sha256=aa388cc9642bc064527a0237b60522ba558491291a2adf02ab1e4d8d3f756c1f params=legacy verifier=dilation-numpy",
+   "wall_s": 1.978
+  },
+  "verify-rust (Rust, dilatação por camadas)": {
+   "exit": 0,
+   "peak_rss_mb": 117.5,
+   "stdout": "COVERS q=7 n=9 R=4 M=1285 points=40353607 uncovered=0",
+   "wall_s": 1.627
+  }
+ },
+ "witness": "q7_n9_R4_M1285"
+}

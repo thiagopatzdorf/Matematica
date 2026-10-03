@@ -1,0 +1,24 @@
+{
+  "canonical_sha256": "5bebf8d23b3464410ac11c7fe6247fa859635117a7628732b42b4326acb9b87b",
+  "created": "2026-10-03T16:38:07Z",
+  "created_by": "agente-c",
+  "format": "covering-code/v1",
+  "group": "Zq",
+  "kind": "code-structure",
+  "linear_base_dim": 3,
+  "linear_cosets": 4,
+  "patch_words": 0,
+  "provenance": {
+    "agent": null,
+    "command": null,
+    "commit": null,
+    "date": null,
+    "generator": null,
+    "notes": "busca anterior à v0.3; o gerador não foi registrado. repo_commit é onde o .txt entrou no repo.",
+    "repo_commit": "562fa42",
+    "seed": null
+  },
+  "structure_id": "s-q5-n7-r2-m500",
+  "subcode_blocks": [],
+  "witness": "w-q5-n7-r2-m500"
+}

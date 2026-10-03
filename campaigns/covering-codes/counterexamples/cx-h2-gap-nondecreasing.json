@@ -1,0 +1,12 @@
+{
+  "claim_id": "h2-gap-nondecreasing",
+  "counterexample_id": "cx-h2-gap-nondecreasing",
+  "created": "2026-10-03T16:38:07Z",
+  "created_by": "agente-c",
+  "data": {
+    "formal": "f-h2-counterexample"
+  },
+  "description": "gap K - ceil(S) vale 12-10 = 2 em (2,6,1) mas 16-16 = 0 em (2,7,1) (CoveringA6.H2_counterexample_uncond, medido no kernel; K_2(6,1)=12 vem dos claims acima, K_2(7,1)=16 de A6b_Hamming.K_2_7_1).",
+  "kind": "instance",
+  "witness_id": null
+}

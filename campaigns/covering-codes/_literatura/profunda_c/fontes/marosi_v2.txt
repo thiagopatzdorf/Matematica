@@ -1,0 +1,887 @@
+                                             NEW UPPER AND LOWER BOUNDS ON COVERING CODES Kq (n, R)
+                                                         FOR ALPHABETS OF SIZE 5 ≤ q ≤ 21
+
+                                                                                          MARK MAROSI
+
+
+                                                   Abstract. Let Kq (n, R) denote the minimum cardinality of a q-ary code of length n with
+                                                   covering radius R. We improve the known bounds on Kq (n, R) in 83 cases (82 distinct cells).
+arXiv:2608.19872v2 [math.CO] 23 Aug 2026
+
+
+
+
+                                                   On the upper-bound side we give 25 improved bounds for 5 ≤ q ≤ 15 — twenty-four found by
+                                                   search and one propagated by monotonicity — using two complementary methods: an engi-
+                                                   neered focused local search seeded with structural constructions, and a large-neighbourhood
+                                                   search driven by exact full-space coverage transforms that evaluates every candidate codeword
+                                                   position simultaneously. These are, to our knowledge, the first improvements to any upper
+                                                   bound on Kq (n, R) with q ≥ 5 since the 2011 revision of Kéri’s tables; several bounds decrease
+                                                   by more than 20%, e.g. K6 (8, 4) ≤ 166 (previously 216) and K8 (10, 5) ≤ 1883 (previously
+                                                   2461). On the lower-bound side we give 58 improved bounds for 6 ≤ q ≤ 21, obtained from
+                                                   the semidefinite programming hierarchy of Gijswijt and Polak, whose published results cover
+                                                   q ≤ 5, by combining an exact-arithmetic reimplementation of the reduced program with a
+                                                   multiprecision solution pipeline. Every new lower bound is certified by a rational dual so-
+                                                   lution validated by a standalone exact-arithmetic checker; no floating-point computation is
+                                                   part of the trusted base. The same pipeline also gives strong numerical evidence of limits:
+                                                   on a dozen further cells the certified value of the relaxation, which the solver reports as op-
+                                                   timal to within its working precision, lies below the best known bound, indicating that no
+                                                   improvement is available there at this level of the hierarchy. One cell is improved from both
+                                                   sides: 441 ≤ K6 (10, 4) ≤ 2751, previously 417–2952. All codes and certificates are provided
+                                                   in machine-readable form together with standalone verifiers.
+
+
+
+
+                                                                                       1. Introduction
+                                             Let Znq denote the Hamming space of q-ary words of length n. A code C ⊆ Znq has covering
+                                           radius R if every word of Znq is within Hamming distance R of some codeword, and
+                                                             Kq (n, R) = min{ |C| : C ⊆ Znq has covering radius ≤ R }.
+                                           The function Kq (n, R) is a central quantity of covering-code theory [3]; the binary case K2 (n, 1)
+                                           includes the domination number of the hypercube, and K3 (n, 1) is the classical football pool
+                                           problem.
+                                              Upper bounds on Kq (n, R) are established by explicit constructions and lower bounds by
+                                           combinatorial or convex-relaxation arguments; the state of the art is recorded in the tables
+                                           of Kéri [7], which subsume and extend those of [3] and were last revised in November 2011.
+                                           Recent work has concentrated on lower bounds for small alphabets: Wu and Chen [16] improved
+                                           binary lower bounds via congruence arguments, and Gijswijt and Polak [5] obtained many new
+                                              Date: August 2026.
+                                              2020 Mathematics Subject Classification. 94B75 (primary), 05B40, 90C22, 90C59.
+                                              Key words and phrases. Covering codes, football pool problem, semidefinite programming, local search,
+                                           large-neighbourhood search, GPU computing.
+                                              Department of Measurement and Information Systems, Budapest University of Technology and Economics
+                                           (BME), Budapest, Hungary. Email: marosi@mit.bme.hu.
+                                              This work was carried out in collaboration with the AI system Claude (Anthropic); the division of contribu-
+                                           tions is stated at the end of the paper.
+                                                                                                  1
+2                                         MARK MAROSI
+
+lower bounds for q ≤ 5 from a semidefinite programming hierarchy; a complementary line of
+work formalizes covering-code bounds in a proof assistant [4]. The lower-bound results of [5]
+include improvements at q = 5; for q ≥ 6 we are not aware of any published improvement on
+either side since 2011, nor of any on the upper-bound side for q ≥ 5; a systematic search of
+the literature (arXiv, DBLP, OpenAlex, Lobstein’s covering-radius bibliography [11], and the
+publication lists of the authors active in the area, performed in August 2026) found none.
+   This paper improves both sides of the tables in that range. Our contributions are the
+following.
+
+    (1) New upper bounds. Twenty-five improved upper bounds for 5 ≤ q ≤ 15 (Table 1),
+        each an explicit code — twenty-four found by direct search and one propagated from
+        another by monotonicity. The searches use two complementary methods: an engineered
+        focused local search seeded with structural constructions (Section 4), effective for q n ≲
+        108 , and a large-neighbourhood search driven by exact full-space coverage transforms
+        (Section 5), which evaluates every candidate placement simultaneously and extends
+        the searchable range to q n = 1010 .
+    (2) New lower bounds. Fifty-eight improved lower bounds for 6 ≤ q ≤ 21 (Table 2),
+        obtained by solving the symmetry-reduced semidefinite relaxation of Gijswijt and Po-
+        lak [5] in multiprecision arithmetic and rounding each numerical dual solution to an
+        exact rational certificate (Section 6). The certificates are self-contained: a standalone
+        exact-arithmetic checker re-derives the program and validates each one, so no floating-
+        point computation is part of the trusted base.
+    (3) Evidence of limits. On a dozen further cells the same pipeline produces a certified
+        value strictly below the tabulated bound, with the solver reporting optimality of the
+        relaxation to within its working precision (Section 6.4); this is strong numerical evidence
+        — though, as we are careful to state, not an exact certificate — that those cells resist
+        improvement at this level of the hierarchy.
+    (4) Verification. Every claimed bound is verified independently of the software that pro-
+        duced it (Section 7); all codes, certificates, and both standalone verifiers are published
+        in machine-readable form.
+
+   Two structural observations locate the improvements. On the upper-bound side, Kéri’s
+source annotations show that for moderate q and R ≥ 3 most tabulated bounds are inherited
+from the general constructions of Section 2 rather than from search in the cell itself. Such
+bounds decrease the furthest under direct search (by up to 23%); bounds previously obtained
+by dedicated search in the 2000s [8] also decrease, by 2–12%. On the lower-bound side, the
+size of the symmetry-reduced Gijswijt–Polak semidefinite program depends only on n and
+not on q, so the restriction of the published results to q ≤ 5 is consistent with numerical
+precision, rather than model size, being the binding constraint; solving the same relaxation
+in multiprecision arithmetic and certifying the results exactly yields improvements throughout
+6 ≤ q ≤ 21, concentrated on the cells whose incumbent lower bounds are close to the sphere-
+covering bound.
+   The paper is organized as follows. Section 2 fixes notation. Section 3 states the results.
+Sections 4 and 5 describe the two upper-bound search methods, Section 6 the lower-bound
+pipeline, and Section 7 the verification protocol applied to every claimed bound. Implementa-
+tion details and the controlled measurements supporting the engineering claims are collected
+in Appendix A; the largest relative improvement, the code proving K6 (8, 4) ≤ 166, is printed
+in Appendix C.
+                       NEW BOUNDS ON COVERING CODES FOR 5 ≤ q ≤ 21                               3
+
+                                       2. Preliminaries
+  Throughout, q ≥ 2 and Zq = {0, . . . , q − 1}; d(x, y) denotes Hamming distance on Znq ,
+                                                                      n        i
+                                                              P        
+BR (x) = {y : d(x, y) ≤ R} the Hamming ball, and |BR | =          i≤R i (q − 1) its volume.
+Counting yields the sphere-covering bound Kq (n, R) ≥ ⌈q n /|BR |⌉.
+  The classical constructions that propagate upper bounds through the tables are the direct
+sum
+(1)                   Kq (n1 + n2 , R1 + R2 ) ≤ Kq (n1 , R1 ) · Kq (n2 , R2 ),
+the length rule Kq (n + 1, R) ≤ q Kq (n, R), the monotonicity Kq (n + 1, R + 1) ≤ Kq (n, R), and
+product rules over alphabet factorizations; see [3, 7] for these and for the source annotations
+(“keys”) used in the tables below. For a code C of size M we write cnt(w) = #{c ∈ C :
+d(w, c) ≤ R} for the coverage multiplicity of a word w; C is a cover if and only if cnt > 0
+everywhere.
+
+                                     3. The new bounds
+  Tables 1 and 2 list the new bounds; Figure 1 summarizes both sides. We note the following.
+   (1) The cell K6 (10, 4) is improved from both sides, from 417–2952 to 441–2751.
+   (2) None of the upper-bound searches is known to be exhausted. The highest-redundancy
+       cells (e.g. K7 (9, 4), K6 (10, 4), K8 (10, 5)) improved at every escalation of the computa-
+       tional budget before reaching their final values; the bounds marked ↓ in Table 1 are
+       the values at the time of writing, not limits of the method.
+   (3) The lower-bound improvements are concentrated where the incumbents are weakest
+       relative to the sphere-covering bound. All 58 improved cells carry Kéri keys y, x, s or
+       a (bounds within a few percent of sphere-covering); the entire family (n, R) = (8, 2),
+       6 ≤ q ≤ 21, is improved at once, the increments growing from +91 at q = 6 to +14436
+       at q = 21, and the largest single increment is K10 (10, 2) ≥ 2699348, previously 2676660.
+       No cell whose incumbent is due to Haas, Halupczok and Schlage-Puchta [6] (key m) is
+       improved; Section 6.4 quantifies this limitation.
+   (4) One further upper bound is obtained by propagating a new bound through the rules
+       of Section 2 rather than by direct search: the new K7 (8, 4) ≤ 316 gives K7 (9, 5) ≤ 316
+       (previously 323) by monotonicity, realized as an explicit code by appending a fixed
+       coordinate; the code was verified like every other. We checked that the closure of all
+       new bounds under the propagation rules yields no further improvement beyond the
+       observation of Remark 3.1.
+
+Remark 3.1. An audit of the tables of [7] against their own derivation rules found one internal
+gap: the tabulated K17 (7, 2) ≤ 252735 is weaker than the bound 17 · K17 (6, 2) = 245208 implied
+by the tabulated K17 (6, 2) ≤ 14424 and the rule Kq (n+1, R) ≤ q Kq (n, R). We record this as
+an observation; it involves no new construction.
+
+                       4. Upper bounds I: focused local search
+4.1. The search. For fixed (q, n, R, M ) we search for a code of size M minimizing the number
+of uncovered words. The state is a multiset of M codewords together with the coverage count
+cnt(w) of every w ∈ Znq ; a move changes one coordinate of one codeword.
+Lemma 4.1. Let c′ be obtained from c by setting coordinate p to v ̸= cp . Then the set of words
+leaving the radius-R ball of c and the set of words entering the ball of c′ are both indexed by
+the words at distance exactly R from c in the coordinates other than p; consequently a move
+4                                            MARK MAROSI
+
+
+             cell          previous bounds   sphere   new UB    ∆       ∆%     key   via
+             K5 (11, 5)        103–625         86      602      −23     3.7%    d    L
+             K6 (7, 3)          70–246         57      227      −19     7.7%    e    L
+             K6 (8, 3)        246–1080        217     1005      −75     6.9%    f    L
+             K6 (8, 4)          46–216         33      166      −50    23.1%    e    L
+             K6 (9, 4)         136–738        112      660      −78    10.6%    f    L
+             K6 (9, 5)          32–144         21      119      −25    17.4%    j    L
+             K6 (10, 4)       441–2952        411     2751     −201     6.8%    f    L
+             K6 (10, 5)         83–615         65     486↓     −129    21.0%    f    L
+             K7 (8, 4)          76–343         56      316      −27     7.9%    c    L
+             K7 (9, 4)        264–1843        221     1475     −368    20.0%    f    L
+             K7 (9, 5)          52–323         35     316↓      −7      2.2%    f    M
+             K7 (10, 5)       160–1225        126      980     −245    20.0%    f    T
+             K8 (6, 4)           15–20          7      19       −1      5.0%    n    L
+             K8 (8, 4)         118–512         89      505      −7      1.4%    c    L
+             K8 (8, 5)          29–90          15      79↓      −11    12.2%    z    L
+             K8 (10, 5)       287–2461        225     1883     −578    23.5%    f    T
+             K8 (10, 6)        58–342          37     335↓      −7      2.0%    n    L
+             K9 (9, 5)         120–729         83      684      −45     6.2%    c    T
+             K9 (10, 5)       481–3969        380     3393     −576    14.5%    f    T
+             K10 (9, 5)       174–1088        121     1055      −33     3.0%    f    T
+             K10 (10, 5)      632–7106        612     5799↓    −1307   18.4%    f    T
+             K12 (6, 4)         30–41          13       39      −2      4.9%    q    L
+             K13 (6, 4)         35–46          14       45      −1      2.2%    q    L
+             K14 (6, 4)         40–52          16       50      −2      3.8%    q    L
+             K15 (6, 4)         46–59          18       57      −2      3.4%    c    L
+        Table 1. New upper bounds. “Previous bounds” are the lower–upper pairs of
+        Kéri’s tables [7]; a bold lower bound is from Table 2 of this paper. “Sphere”
+        is the sphere-covering bound ⌈q n /|BR |⌉. “Key” is the source annotation of the
+        previous upper bound in [7]: c = monotonicity Kq (n+1, R+1) ≤ Kq (n, R); d =
+        Bhandari–Durairajan [1]; e = Kq (n+1, R) ≤ q Kq (n, R); f = direct sum; j =
+        alphabet product rule; n = Kéri–Östergård [8]; q = Rivas Soriano (attributed
+        in [7]); z = Kéri 2009 updates recorded in [7]. “Via” names the producing
+        method: L = the local search of Section 4, T = the transform engine of Section 5,
+        M = monotonicity propagation of another new bound. Percentages are rounded
+        to one decimal. A ↓ marks bounds whose descent had not stalled when this
+        version was prepared (on the propagated row, that a direct attack below M has
+        not yet been made); all other searched bounds resisted a dedicated attack at
+        M − 1 at the final budget.
+
+
+                                                      n−1       R
+                                                         
+updates exactly 2S coverage counters with S =          R (q − 1) , the two sets are disjoint, and
+distinct counter updates address distinct words.
+Proof. Since d(w, c′ ) = d(w, c) + [ wp = cp ] − [ wp = v ], a word can leave the ball of c only
+if d(w, c) = R and wp = cp , and can enter the ball of c′ only if d(w, c′ ) = R and wp = v,
+and conversely every word meeting these conditions leaves (respectively enters); writing such a
+word as its restriction to the coordinates ̸= p (at distance exactly R from the restriction of c)
+plus its value at p gives the stated bijections, disjointness, and injectivity. (All cells considered
+here have R < n; for R ≥ n both sets are empty.)                                                    □
+                             NEW BOUNDS ON COVERING CODES FOR 5 ≤ q ≤ 21                             5
+
+
+     cell          sphere      prev. LB     new LB    cell         sphere     prev. LB     new LB
+     K6 (8, 2)       2267       2276 (y)      2367    K13 (6, 2)      2162      2169 (x)     2233
+     K6 (9, 2)       10653     10900 (y)     10965    K13 (7, 2)     20183     20189 (x)    20545
+     K6 (9, 3)        881        921 (y)       926    K13 (8, 2)    197562    197563 (x)    199633
+     K6 (10, 3)       3739      3815 (y)      3836    K13 (8, 3)      8085      8086 (x)     8193
+     K6 (10, 4)        411       417 (s)       441    K14 (6, 2)      2881      2955 (y)     2964
+     K7 (7, 2)       1031       1035 (x)      1081    K14 (7, 2)     28952     29273 (y)    29404
+     K7 (8, 2)       5454       5457 (x)      5631    K14 (8, 2)    305105    305294 (y)    307909
+     K7 (8, 3)        439        457 (y)       471    K15 (6, 2)      3766      3812 (y)     3862
+     K7 (9, 2)       29870     29889 (s)     30562    K15 (8, 2)    457578    457584 (x)    461294
+     K7 (9, 3)       2070       2077 (y)      2143    K16 (6, 2)      4841      4848 (x)     4951
+     K7 (10, 2)     168041     168042 (x)   170632    K16 (7, 2)     55566     55600 (y)    56237
+     K8 (8, 2)       11741     11766 (y)     12033    K16 (8, 2)    668894    669207 (y)    673723
+     K8 (8, 3)        813        829 (y)       856    K17 (7, 2)     74757     75429 (y)    75559
+     K8 (9, 4)        403        409 (s)       429    K17 (8, 2)    955977    955978 (x)    962145
+     K9 (8, 2)       23181     23184 (x)     23642    K17 (8, 3)     29475     29478 (x)    29652
+     K9 (8, 3)       1411       1413 (x)      1464    K17 (8, 4)      1446      1458 (y)     1464
+     K9 (9, 3)       8537       8544 (y)      8685    K18 (6, 2)      7664      7741 (y)     7804
+     K9 (9, 4)        690        703 (s)       722    K18 (8, 2)   1339162   1339650 (y)   1346931
+     K9 (10, 3)      54142     54144 (x)     54600    K19 (6, 2)      9468      9479 (x)     9624
+     K10 (7, 2)       5666       5676 (y)     5824    K19 (7, 2)    128968    128972 (x)    130081
+     K10 (8, 2)      42717      42772 (y)    43423    K19 (7, 3)      4236      4237 (x)     4282
+     K10 (9, 2)     333556     333560 (x)   337394    K19 (8, 2)   1842635   1842639 (x)   1852296
+     K10 (9, 4)       1123       1130 (s)     1160    K20 (7, 2)    165911    167165 (y)    167204
+     K10 (10, 2)   2676660    2676660 (a)   2699348   K20 (7, 3)      5166      5174 (x)     5215
+     K10 (10, 4)     6808        6886 (y)     6915    K20 (8, 2)   2494884   2495614 (y)   2506759
+     K11 (7, 2)       8977       9106 (y)     9193    K21 (6, 2)     14012     14131 (y)    14201
+     K11 (8, 2)      74405      74415 (s)    75448    K21 (7, 3)      6243      6249 (x)     6294
+     K12 (8, 2)     123665     123772 (y)   125156    K21 (8, 2)   3329184   3329193 (x)   3343629
+     K12 (8, 3)       5512       5577 (y)     5605    K21 (8, 3)     82338     82341 (x)    82595
+       Table 2. New lower bounds, each certified by an exact rational dual solution
+       (Section 6). “Sphere” is the sphere-covering bound ⌈q n /|BR |⌉; “prev. LB” is the
+       value of [7] with its source key: y = improved sphere-covering bound (van Wee-
+       type excess counting [15]; see also [3, Ch. 6] — the attribution is our reading of
+       the legend of [7]), x = Chen–Honkala [2], s = Lang–Quistorff–Schneider [9, 10],
+       a = sphere-covering bound. The certified rational values of the semidefinite
+       bound itself (which bounds Kq (n, R)3 ) are part of the ancillary certificates.
+
+
+
+
+   The search is a focused local search in the WalkSAT lineage, close in spirit to the simulated-
+annealing and tabu searches that produced much of the original tables [14, 13]: select a random
+uncovered word u; take as candidates every codeword at distance exactly R + 1 from u moved
+one coordinate towards u (if no codeword is that close, the codewords at minimum distance
+from u); evaluate all candidates exactly; commit a best candidate, ties broken uniformly at
+random; on stagnation, reassign one codeword to an uncovered word. In parameter studies on
+K6 (6, 3), exact evaluation of all candidates outperformed sampling them, while tabu tenures
+and WalkSAT-type noise degraded performance, and simulated annealing lost to the focused
+search despite a 33× higher move rate.
+6                                                                          MARK MAROSI
+
+
+                             local search (Sec. 4)
+                             transform engine (Sec. 5)                                                            1.04
+
+
+
+
+                                                                                  bound / sphere-covering bound
+                  20
+improvement (%)
+
+
+                                                                                                                  1.03
+                  15
+                                                                                                                                                     previous LB
+                                                                                                                  1.02                               new certified LB
+                  10
+
+                  5                                                                                               1.01
+                                                                                                                                                sphere-covering bound
+                                                                                                                  1.00
+                       1               2               4               8    12                                           6   9   12        15        18            21
+                                 slack of previous bound: UBprev |BR|/qn                                                               q
+                                                   (a)                                                                           (b)
+
+                           Figure 1. (a) Upper bounds: improvement against the slack of the previous
+                           bound over the sphere-covering bound, for the 25 cells of Table 1. Loose bounds
+                           inherited from general constructions tend to fall the furthest (the association is
+                           moderate, Spearman ρ ≈ 0.5). Squares mark the cells settled by the transform
+                           engine of Section 5, which operates where q n puts the cell beyond the reach
+                           of the local search of Section 4. (b) Lower bounds: the family (n, R) = (8, 2),
+                           6 ≤ q ≤ 21. The previous bounds sit within a fraction of a percent of the sphere-
+                           covering bound, while the certified semidefinite bound lifts the entire family, by
+                           a factor that decreases in q as predicted by the analysis of the hierarchy (Sec-
+                           tion 6.4).
+
+   Each cell is seeded with a code rebuilt from the construction that produced the incumbent
+bound (for K6 (10, 4), for instance, the direct sum (1) of an optimal K6 (4, 1) code and a best-
+known K6 (6, 3) code, both found by direct search and verified). Descent proceeds by remove-
+and-repair: delete the codeword whose private coverage is smallest and repair the deficit by
+search; on success, recurse at M − 1.
+4.2. Exact reformulations of the evaluation. Candidate evaluation dominates the run
+time (at least 92.9% on all reference cells), so the search is accelerated by reformulating the
+evaluation exactly rather than by approximating it. The following lemma removes the per-
+candidate factor from the dominant term.
+Lemma 4.2. With D(w) = {j : wj ̸= cj }, a word w leaves the ball of c under the move at
+coordinate p if and only if |D(w)| = R and p ∈
+                                             / D(w); it enters the ball of the moved codeword
+if and only if |D(w)| = R + 1, p ∈ D(w) and wp = v.
+Proof. Immediate from the distance identity in the proof of Lemma 4.1: |D(w)| = d(w, c), and
+the move changes the disagreement set only at coordinate p.                                □
+   By Lemma 4.2, with T = #{w : |D(w)| = R, cnt(w) = 1} and Hj = #{w : |D(w)| =
+R, cnt(w) = 1, j ∈ D(w)}, the number of words newly uncovered by the move at p equals
+T − Hp for every p simultaneously: a leaving word with cnt(w) = 1 has c as its unique coverer
+(it lies in the ball of no other codeword) and cannot simultaneously be re-covered by the moved
+codeword, since leaving forces wp = cp ̸= v. One enumeration of the full distance-R sphere
+of c therefore serves the loss side of all n(q − 1) single-coordinate moves of c at once; the
+entering (gain) side depends on the written value v and concerns only words with cnt(w) = 0,
+so maintaining the uncovered set U explicitly supplies it in O(n|U |) work, an improvement of
+                        NEW BOUNDS ON COVERING CODES FOR 5 ≤ q ≤ 21                               7
+
+two to four orders of magnitude throughout the useful life of a run. Finally, evaluation reads
+only whether a counter is 0 or 1, so a two-bit side array min(cnt(w), 2) serves the read path and
+shrinks the read working set into the last-level cache (on K8 (9, 4), from 268 MB to 33.5 MB).
+Evaluating the widened neighbourhood of all n(q − 1) moves, rather than the n moves towards
+a focus word, is profitable on loose cells.
+   Every reformulation computes the same objective differences as the reference implementation
+and therefore follows the same search trajectory from the same seed; this was verified bit-for-bit
+over 24 configurations spanning 2 ≤ q ≤ 7, including the extreme radii R = 0 and R = n − 1.
+The combined effect is a 2–10× speedup at identical trajectories on the reference cells (largest
+on the largest cells); the controlled measurements, together with several natural optimizations
+that provably or measurably fail, are reported in Appendix A.1.
+4.3. Structured codes. Free search over subsets of Znq is the wrong representation for cells
+whose optima are algebraic. Two restricted solvers complement it.
+   Unions of cosets of S a linear code. When q is a prime power and M = c q k , we search
+codes of the form C = ci=1 (xi + L) with L a linear [n, k]q code. Covering then depends only
+on syndromes: C covers Znq if and only if the c syndromes of the xi cover the q n−k -element
+syndrome space under the weight distribution of coset leaders, reducing a q n -word problem
+to a q n−k -syndrome one. Cells whose incumbents free search could not even reproduce are
+settled by this solver in under a second, e.g. K8 (8, 4) ≤ 512 = 83 and K5 (11, 5) ≤ 625 = 54 ;
+the descents to the new records 505 and 602 then start from verified incumbents.
+   Translation quotients. A second solver searches codes invariant under x 7→ x + 1 with a free
+remainder, working in the quotient of size q n−1 . On K6 (8, 4), neither a fully invariant code
+(which provably stalls: a single free codeword cannot repair a deficient orbit) nor a fully free
+search solves the cell, whereas a mostly invariant code with a free remainder solves it reliably;
+at equal core-seconds on the largest cells the quotient search outperforms free search by 17%.
+4.4. The production configuration. The production engine merges four independently de-
+veloped solvers — the free search of Section 4.2, a low-level SIMD variant, and the two struc-
+tured solvers of Section 4.3 — selected by a controlled solver competition with held-out evalua-
+tion instances and scoring by independently verified output only; no component won uniformly,
+and the merged engine solved at least as many held-out instances as the best single compo-
+nent. The protocol and its outcome are reported in Appendix A.2. An algebraic first phase
+(the coset solver over all feasible k; seeds from recorded codes and direct sums over all splits)
+is followed by a portfolio of independent search chains whose composition is set by measured
+thresholds on q n and the redundancy q n /(M |BR |); a finishing pass re-reads the final code from
+disk, removes duplicates, and recomputes coverage by direct ball marking.
+   All record codes of Table 1 marked L (eighteen of the twenty-five) were produced by this
+engine on 64 CPU cores, with per-cell effort between seconds and a few core-days; the six cells
+marked T are the subject of Section 5.
+
+            5. Upper bounds II: search by exact full-space transforms
+   Cells with q n ≳ 108 generally resist the method of Section 4: each chain’s working set
+exceeds the CPU caches and the per-move sphere walk becomes memory-latency-bound. (The
+one exception in Table 1 is K8 (10, 6), whose radius-6 balls cover so large a fraction of the space
+that the uncovered set stays tiny and the Section 4 engine remains effective.) Direct ports of
+the local search to a GPU do not help — two were implemented and measured (Appendix A.3),
+and at best matched one extra CPU socket — because the algorithm, not the implementation,
+is mismatched to the hardware: its dependent random accesses are mismatched to hardware
+8                                          MARK MAROSI
+
+built for streaming. The method of this section replaces the pointwise search by exact whole-
+space computations.
+5.1. The coverage transforms. For S ⊆ Znq and 0 ≤ d ≤ R let NdS (x) = #{u ∈ S : d(x, u) =
+d}. All R + 1 arrays NdS can be computed simultaneously for every x ∈ Znq by a sequential
+transform over the coordinate axes.
+Proposition 5.1. Initialize A0 as the indicator of S and A1 = · · · = AR = 0. For each axis
+j = 1, . . . , n, update along every one-dimensional fiber {x + tej }t∈Zq :
+                                       P          
+                     Ad [a] ← Ad [a] +     A
+                                          b d−1 [b]  − Ad−1 [a],     d = R, . . . , 1.
+
+After all n axes, Ad = NdS for every 0 ≤ d ≤ R. The total work is Θ(nR q n ) additions.
+Proof. Induction on the number of processed axes: after processing axes 1, . . . , j, Ad (x) counts
+the u ∈ S that differ from x in exactly d of the first j coordinates and agree with x elsewhere.
+The update adds, for each fiber position a, the count of elements at distance d − 1 in the
+first j − 1 axes whose j-th coordinate differs from a. The descending order d = R, . . . , 1 is
+essential to the in-place formulation: the update for Ad must read the values of Ad−1 from the
+previous axis, which the descending order preserves (Ad−1 is overwritten only after every Ad
+that reads it); A0 is never modified, correctly, as the indicator of S restricted to agreement
+on processed axes. Two implementation conditions are part of the statement: within each
+fiber the grade loop d = R, . . . , 1 is the outer
+                                             P     loop (so no position of the fiber sees a partially
+updated neighbour), and the fiber sum b Ad−1 [b] is formed once per fiber and grade before
+any write; the Θ(nRq n ) count assumes both.                                                       □
+  The transform is an instance of the classical fast product-domain technique going back to
+Yates [17], applied to the distance-graded filtration and truncated at grade R; what matters
+here is not novelty but the pairing with exact search primitives, as follows.
+  The update is branchless and uniform over q n−1 independent fibers — a bandwidth-bound
+workload on which a GPU operates at its design point. On the node used here (specified in
+Appendix A), the full transform takes 63 ms at q n = 710 and 143 ms at 810 with 32-bit counters
+(memory footprint 4(R + 1) + 2 bytes per word of the space).
+  Two instances of Proposition 5.1 give global exact information    that pointwise local search
+cannot afford. With S the set of uncovered words, g(x) = d≤R NdS (x) is the exact number of
+                                                           P
+words newly covered by a codeword placed at x, for every
+                                                     P candidate     position x simultaneously;
+                                                             S
+with S the set of words covered exactly once, ℓ(c) = d≤R Nd (c) is the exact number of words
+that would be uncovered by deleting c, for every codeword c.
+5.2. The search. The engine is a large-neighbourhood search over these primitives: starting
+from a seed code (a direct-sum construction or a recorded code), delete a set of codewords
+chosen by low ℓ-value (mixed with randomized removals), then rebuild by repeatedly placing
+a codeword at the maximizer of the current gain map g, recomputing or locally correcting
+g after each placement; a completed cover at size M triggers a descent attempt at M − 1
+by the same remove-and-rebuild step. Each placement is thus globally optimal with respect
+to exact coverage information, in contrast to the single-coordinate moves of Section 4; the
+engine performs far fewer moves of far higher quality. The greedy rebuild is also an effective
+constructor from an empty code: on K8 (10, 4) (q n = 1.07 · 109 ) it builds a full cover of size
+14946 in three minutes, a task on which the CPU engine failed outright.
+   Five of the bounds of Table 1 were produced by this engine on cells with 2.8 · 108 ≤ q n ≤
+3.5 · 109 , within hours and including reductions of 20.0% (K7 (10, 5)), 23.5% (K8 (10, 5)) and
+                        NEW BOUNDS ON COVERING CODES FOR 5 ≤ q ≤ 21                              9
+
+14.5% (K9 (10, 5)); all were verified by the independent protocol of Section 7. With every array
+resident in GPU memory the engine reaches q n ≈ 3.5 · 109 ; Section 5.3 removes that ceiling.
+
+
+5.3. Reaching q n = 1010 . With every array resident in GPU memory, the largest searchable
+cells have q n ≈ 3.5 · 109 — which is precisely where Kéri’s tables keep several of their loosest
+entries: K10 (10, 5) (q n = 1010 , upper bound 7106 against a sphere-covering bound of 612)
+and its neighbours sit one order of magnitude beyond that ceiling. The ceiling is removed by
+placing the streaming layer arrays of Proposition 5.1 in the node’s much larger CPU-attached
+memory, which the GPU addresses coherently, while the randomly-accessed multiplicity array
+stays in GPU memory; a transform then costs roughly 24 times more, but the whole of Kéri’s
+q ≤ 10 tables becomes feasible on one node. The measured costs, and the memory-placement
+details required to reproduce them, are collected in Appendix A.3.
+   This configuration produced the record on the largest cell attempted: on K10 (10, 5), exact
+greedy construction followed by the large-neighbourhood descent reached K10 (10, 5) ≤ 5799
+against the previous bound 7106 (a direct sum), a reduction of 18.4%, within six hours of
+a single node — to our knowledge the first covering-code bound established by exhaustive-
+evaluation search over a space of 1010 words. The code was verified by the full protocol of
+Section 7.
+
+
+5.4. Limits: private-uniform incumbents. The engine’s failures also delimit the method.
+The Kéri upper bound K8 (10, 4) ≤ 11776 is a direct sum 23 × 512 of a K8 (4, 2)-code and
+a K8 (6, 2)-code. Product structure makes the incumbent private-uniform: every codeword
+privately covers ≈9800 words (measured on the incumbent, which is reconstructible from its
+stated factors), roughly seven times the ≈1350 a random code of equal size would privately
+cover in expectation, so the deletion of any k codewords instantly owes ∼9800k words that
+a same-size rebuild must repay exactly. In a dedicated eight-hour attack with ruins of up
+to 512 codewords beyond the target deficit, removal of even a single codeword below the
+incumbent could not be repaired: the best residual over three attempts with budgets escalating
+to 2.6 hours was 77229 uncovered words, and larger deficits fared worse. The same holds
+for K9 (10, 4) = 27 × 729. We conclude that word-level ruin-and-recreate, however exact its
+evaluations, cannot dismantle a product construction whose loss landscape is flat and high
+everywhere; progress on these cells requires moves in the factor spaces (replacing the K8 (4, 2)
+factor of size 23 by one of size 22, if it exists, would give K8 (10, 4) ≤ 11264 outright) or
+seeds with genuine slack. (The factor-space move was attempted: six independent four-hour
+searches for a K8 (4, 2)-code of size 22 — the open Kéri gap is 22–23 — all stalled at exactly 36
+uncovered words of the 4096; the cell remains open.) By contrast, the loose high-redundancy
+incumbents of the same tables (ratio to the sphere-covering bound above ≈8) fall to the exact
+greedy constructor alone; the boundary between the two regimes is the practical content of
+this subsection.
+
+Remark 5.2. Nothing in the engine below the transform is specific to covering codes: the search
+interacts with the problem only through the gain and loss fields of Proposition 5.1 and a table
+describing
+Q           one solution element’s support set. Any covering-type problem over a product space
+  j Z mj whose  neighbourhood admits a separable per-axis transform fits the same machinery;
+as an existence proof, an implementation for dominating sets of torus grids under king-move
+balls runs through the unchanged search core and was validated exhaustively against brute force
+on small instances. A systematic treatment is deferred to follow-up work.
+10                                          MARK MAROSI
+
+     6. Lower bounds: exact certificates from a multiprecision SDP pipeline
+6.1. The relaxation and its exact reconstruction. Gijswijt and Polak [5] bound Kq (n, R)3
+from below by a semidefinite program over variables indexed by orbits of triples of words under
+Aut(q, n) = Sq ≀ Sn , with positive-semidefiniteness constraints from the block-diagonalization
+of the Terwilliger algebra of the Hamming scheme, linear constraints from sphere-covering
+inequalities, and matrix-cut constraints (their Proposition 4.17; the full symmetry-reduced
+bound is their Theorem 4.18). For q ≥ 3 the size of the reduced program depends only on n
+— at n = 11 it has 339 variables and 126 blocks of order at most 13 — while q enters only
+through the coefficients; published computations stop at q ≤ 5.
+   We reimplemented the reduced program with the entire model generation in exact integer
+arithmetic and validated the implementation four ways: (a) a self-test that substitutes explicit
+verified covering codes into the model and checks every constraint in exact rational arithmetic,
+with objective exactly |C|3 ; (b) a coefficient-level comparison against the authors’ published
+code, matching every generated coefficient over six (q, n, R) cells spanning 3 ≤ q ≤ 7; (c)
+reproduction of the published values: of 49 published table values recomputed, 44 agree to
+display precision, and 18 of the 22 published improved lower bounds attempted are reproduced
+exactly at the integer level — the four integer-level misses (K4 (7, 1) by 1, K5 (7, 1) by 7, K5 (8, 1)
+and K5 (8, 2)) all lie where double precision is known to fail, this validation stage predating
+the multiprecision pipeline of Section 6.3, which subsequently reproduced the hardest of them,
+K5 (8, 2) ≥ 861, exactly; every recomputed value is itself a certified lower bound on the same
+optimum, so no such discrepancy can inflate a bound; (d) the invariant that no certified
+lower bound may exceed a known upper bound, checked against all 1145 table cells and never
+violated.
+6.2. Certification. Numerical solutions are used only as suggestions. By weak duality, any
+feasible point of the dual program — multipliers yk ≥ 0 for the linear constraints and positive
+semidefinite matrices Yb for the blocks — certifies the bound it attains. Each numerical dual
+solution is rounded to rationals over a dyadic denominator, each Yb is displaced strictly into
+the semidefinite cone, and, should any dual inequality fail in exact arithmetic, the entire dual
+is scaled by a dyadic factor θ ≤ 1, which restores feasibility at proportional cost in the bound.
+   The resulting certificate is validated by a standalone checker (Python standard library only)
+that re-derives the entire program from (q, n, R) in exact integer arithmetic, verifies yk ≥
+0, verifies each Yb ⪰ 0 by exact LDLT factorization over the rationals, verifies every dual
+inequality in integer arithmetic, and extracts the integer bound by exact cube-root comparison.
+The checker also verifies that the covering inequality named in the certificate is itself valid,
+so that an unsound constraint cannot be smuggled in. The precise statement of the certified
+program, and of what a certificate proves, is given in Appendix B. The trusted base is therefore
+twofold, and we state it honestly: the checker’s validation logic, and the transcription of the
+reduced program of [5] into the model generator, which the checker shares with the solving
+pipeline; a transcription error invalid for every covering code would not be caught by the
+certificate, which is why the transcription is validated separately by the four tests of the
+previous subsection. No floating-point computation enters either component.
+6.3. Numerical solution. Two numerical issues govern whether a good dual point can be
+found at all. First, conditioning: the optimum |C|3 may exceed 1013 while every constraint
+constant is O(1), and the objective coefficients span ten orders of magnitude. All computations
+therefore use a geometric-mean equilibration — normalize the objective by the cube of the
+sphere-covering bound and give each variable the magnitude profile of the square root of its
+objective contribution — applied entirely in powers of two, so that the map back to the
+                         NEW BOUNDS ON COVERING CODES FOR 5 ≤ q ≤ 21                                11
+
+unscaled dual is exact. On K6 (8, 3) (in the double-precision stage) equilibration raises the
+certified bound from K ≥ 183 to K ≥ 240; since the cube root of the relaxation optimum is
+≈239.52, the integer bound 240 is the best the relaxation can give.
+   Second, precision. In IEEE double precision, interior-point solvers fail beyond optima of
+roughly 1.5 · 109 (cube root ≈1150), which excludes most of the cells with the largest head-
+room. All 58 certificates of Table 2 therefore come from multiprecision solves with SDPA-
+GMP [12] at 200- or 250-bit precision, compiled natively for the target architecture. (The
+ancillary collection also retains earlier certificates produced by a double-precision interior-point
+stage; they pass the same exact checker but are generally weaker, and none of them underlies
+Table 2.) The problem files are written with exact dyadic coefficients, the multiprecision dual
+is parsed into exact rationals, and rounding is performed in the equilibrated coordinates over
+denominator 2128 , with the displacement into the semidefinite cone tied to the rounding grain.
+With these choices, 52 of the 58 certificates underlying Table 2 attain θ = 1, and the remaining
+six have θ ≥ 1 − 2.3 · 10−4 , the loss never affecting the integer bound: essentially nothing of
+the numerically obtained value is lost in certification. As an end-to-end anchor, the pipeline
+reproduces the published 512-bit value K5 (8, 2) ≥ 861 of [5] exactly.
+
+6.4. Extent and limits of the method. The improvements land where the analysis of the
+hierarchy predicts. At this level the semidefinite bound exceeds the sphere-covering bound by
+a factor that decreases in q (on the scale of K itself, i.e. after the cube root; for (n, R) = (8, 4):
+1.44 at q = 4 down to 1.16 at q = 7), so it overtakes the tabulated bounds precisely where
+those are close to sphere-covering: the improved cells all carry keys y, x, s or a, and complete
+families such as (n, R) = (8, 2), 6 ≤ q ≤ 21, fall at once (Figure 1(b)).
+   The pipeline also gives evidence of limits. On the twelve cells Kq (7, 3), 15 ≤ q ≤ 18, Kq (8, 3),
+q ∈ {14, 15, 16, 20}, and Kq (8, 4), 18 ≤ q ≤ 21, the solver converges to its working precision
+at a value strictly below the tabulated bound, and the rounded dual certifies that value up to
+a factor θ ≥ 1 − 2.4 · 10−4 (with θ = 1 on two of them). We are explicit about the logical
+status of this statement: a dual certificate proves only a lower bound on the optimum of
+the relaxation, so the impossibility of improvement on these cells is attested by the solver’s
+convergence, not by exact arithmetic. The distinction matters: the ancillary collection also
+contains duals from failed solves whose certified values fall even below the sphere-covering
+bound (e.g. K9 (6, 2)), so a value below the tabulated bound is meaningful only together with
+the solver’s terminal status. On all twelve cells above, SDPA-GMP terminated in phase pdOPT
+— primal and dual feasible with relative gap below the solver tolerance at 200-bit working
+precision. An exact impossibility proof would require a rational primal feasible point with
+value below the cube of the tabulated bound, which we have not pursued. In the extreme case
+R = 1 the hierarchy tracks the sphere-covering bound closely at q ≥ 6: for K6 (7, 1) the certified
+value equals the sphere-covering bound 7776 = 67 /36 exactly, and for K6 (8, 1) it exceeds the
+sphere-covering bound by only 1.5% while remaining below the tabulated 41991. Against the
+strong combinatorial bounds of Haas, Halupczok and Schlage-Puchta [6] (key m, 11–67% above
+the sphere-covering bound on the cells we attempted) the relaxation is weaker throughout the
+range considered. We also note that the fractional covering linear program cannot improve
+any cell: every word of Znq lies in exactly |BR | balls, so summing all covering constraints shows
+the LP optimum is at least q n /|BR |, while the uniform solution attains it; the LP optimum is
+thus exactly q n /|BR |, whose ceiling is the sphere-covering bound.
+
+                                         7. Verification
+  Every bound in this paper was verified independently of the software that produced it.
+12                                        MARK MAROSI
+
+   Upper bounds. Every claimed code, re-read from its published file, was checked by four
+methods, two of which share no code with the other two: (i) ball marking over a q n bitmap;
+(ii) meet-in-the-middle bitset covering over a coordinate split; (iii) a min-distance scan over all
+q n words, which also reports the exact covering radius; (iv) R-fold neighbourhood dilation of
+the code’s indicator array, which computes no distances at all. A fifth dilation check, written
+independently of the verifiers and included in the repository’s build script, re-confirmed all 25
+codes from the published files immediately before this version was prepared; the largest check
+covers 1010 words. The distinct-codeword count of every file is checked against the claimed M .
+(Re-verifying the largest records is itself a computation: the K9 (10, 5) dilation needs a few GB
+of memory and minutes, the K10 (10, 5) check tens of GB or the meet-in-the-middle method;
+the ancillary README states the resource needs per record.)
+   Lower bounds. Every certificate was re-validated by the exact checker of Section 6.2 imme-
+diately before this version was prepared (196 certificates: 58 improving on the tabulated lower
+bound, 28 whose certified integer bound equals the tabulated value, the remainder falling short
+of the tabulated value or concerning cells without one; none exceeds a known upper bound).
+   The ancillary files contain all codes (one codeword per line, digits 0–9 then a–z for q > 10),
+all 58 record certificates, and both standalone verifiers (verify cov.py and certify.py), each
+dependency-free.
+
+                                   8. Concluding remarks
+   The upper-bound experiments show a tendency, not a law: across the improved cells (whose
+previous bounds have slack 3.3–11.6× over the sphere-covering bound) larger slack broadly
+permits larger improvements, up to 23%, while bounds set by dedicated search in the 2000s
+fall by 2–12%; the association in Figure 1(a) is moderate (Spearman ρ ≈ 0.5), and individual
+loose cells can still resist. The transform-based engine of Section 5 extends the reachable range
+to q n = 1010 and none of the large-cell descents has yet stalled, so further improvements are
+expected from computation alone. On the lower-bound side, the multiprecision pipeline has
+exhausted neither the alphabet range nor the hierarchy: the van Wee-type strengthenings of
+the linear constraints, used in [5] for q = 2 only, and the conditional use of known upper
+bounds are both untried at q ≥ 6, while the closed-cell evidence of Section 6.4 delimits what
+the present level can achieve.
+   Since the tables of [7] have had no maintainer since 2011, a merged machine-readable bounds
+table (Kéri 2011, the post-2011 literature, and the present improvements) is published alongside
+the code.
+Data availability. The codes, the certificates, both verifiers, and a README are ancillary
+files of the arXiv version of this paper. The full search, certification, and verification source
+code, together with the merged bounds table, is available at https://github.com/Mapika/
+coldcase.
+Contributions and acknowledgments. The author conceived the research programme and
+directed it throughout; its decisive turns were the author’s: the initiating idea of attacking
+record tables frozen since the 2000s with modern large-scale search; the decision to pursue
+certified lower bounds alongside constructive upper bounds; the insistence, when direct GPU
+ports of the local search failed, that the problem be reformulated in the dense, branchless form
+natural to the hardware, from which the transform engine of Section 5 resulted; the competitive
+solver-selection methodology of Section 4.4; the sustained selection of which cells and problem
+transformations to pursue; and the computational resources. The software, the mathematical
+elaboration, the computations, and the drafting of this manuscript were carried out, under
+                           NEW BOUNDS ON COVERING CODES FOR 5 ≤ q ≤ 21                                       13
+
+the author’s direction, by the AI system Claude (Anthropic), whose contribution the author
+gratefully acknowledges as substantial and essential. Every bound was verified by the protocol
+of Section 7 independently of the software that produced it.
+
+                                                References
+ 1. Mahesh C. Bhandari and C. Durairajan, A note on bounds for q-ary covering codes, IEEE Transactions on
+    Information Theory 42 (1996), no. 5, 1640–1642.
+ 2. Wende Chen and Iiro S. Honkala, Lower bounds for q-ary covering codes, IEEE Transactions on Information
+    Theory 36 (1990), no. 3, 664–671.
+ 3. Gérard Cohen, Iiro Honkala, Simon Litsyn, and Antoine Lobstein, Covering codes, North-Holland Mathe-
+    matical Library, vol. 54, North-Holland, Amsterdam, 1997.
+ 4. Andreas Florath, Formal foundations and proof-carrying certificates for q-ary covering codes in Lean 4,
+    2026, arXiv:2606.09600.
+ 5. Dion Gijswijt and Sven Polak, Semidefinite lower bounds for covering codes, 2025, arXiv:2504.01932 (v2,
+    June 2026).
+ 6. Wolfgang Haas, Immanuel Halupczok, and Jan-Christoph Schlage-Puchta, Lower bounds for q-ary codes
+    with large covering radius, Electronic Journal of Combinatorics 16 (2009), no. 1, R133.
+ 7. Gerzson Kéri, Tables for bounds on covering codes, https://old.sztaki.hu/~keri/codes/, Last updated
+    November 2011; accessed August 2026. A mirror is included in the repository accompanying this paper.
+ 8. Gerzson Kéri and Patric R. J. Östergård, Bounds for covering codes over large alphabets, Designs, Codes
+    and Cryptography 37 (2005), 45–60.
+ 9. W. Lang, Jörn Quistorff, and E. Schneider, New results on integer programming for codes, Congressus
+    Numerantium 188 (2007), 97–107.
+10.         , Integer programming for covering codes, Journal of Combinatorial Mathematics and Combinatorial
+    Computing 66 (2008), 279–288.
+11. Antoine Lobstein, Covering radius, a bibliography, https://www.lri.fr/~lobstein/bib-a-jour.pdf, 1058
+    references; last updated January 10, 2023.
+12. Maho Nakata, A numerical evaluation of highly accurate multiple-precision arithmetic version of semidefinite
+    programming solver: SDPA-GMP, -QD and -DD, Proceedings of the IEEE International Symposium on
+    Computer-Aided Control System Design, 2010, pp. 29–34.
+13. Patric R. J. Östergård, Constructing covering codes by tabu search, Journal of Combinatorial Designs 5
+    (1997), 71–80.
+14. P. J. M. van Laarhoven, E. H. L. Aarts, J. H. van Lint, and L. T. Wille, New upper bounds for the football
+    pool problem for 6, 7, and 8 matches, Journal of Combinatorial Theory, Series A 52 (1989), 304–312.
+15. Gerhard J. M. van Wee, Improved sphere bounds on the covering radius of codes, IEEE Transactions on
+    Information Theory 34 (1988), no. 2, 237–245.
+16. Ying-Sian Wu and Jun-Yo Chen, Improved lower bounds on the domination number of hypercubes and binary
+    codes with covering radius one, Discrete Mathematics 347 (2024), 113752.
+17. Frank Yates, The design and analysis of factorial experiments, Imperial Bureau of Soil Science, Harpenden,
+    1937.
+
+
+         Appendix A. Implementation notes and controlled measurements
+   This appendix collects the engineering measurements supporting the claims of Sections 4
+and 5. All comparative figures are process CPU time or paired same-window measurements on
+the same node (an NVIDIA GH200: 64 ARM cores, 480 GB LPDDR, H100-class GPU with
+96 GB HBM); wall-clock comparisons across different loads are never used.
+
+A.1. The evaluator of Section 4.2. Profiling shows candidate evaluation accounting for
+92.9%, 98.5% and 99.6% of run time on three reference cells of increasing size (K6 (6, 3) at
+M = 41, K6 (8, 4) at M = 169, K8 (9, 4) at M = 2944), with the cost of one evaluated sphere
+pattern rising from 1.9 ns to 7.4 ns as the counter array grows from cache-resident (93 kB) to
+DRAM-resident (268 MB). Table 3 isolates the implementation effect at fixed search trajectory;
+Table 4 measures end-to-end time to a fixed quality target.
+14                                        MARK MAROSI
+
+
+                  variant                        K6 (6, 3) K6 (8, 4) K8 (9, 4)
+                                                 20 000 it 600 it     50 it
+                  reference implementation       1.00×     1.00×      1.00×
+                  peeled walk, hoisted offsets 1.35×       1.29×      1.13×
+                     + 8-bit state array         1.28×     1.65×      1.65×
+                     + 2-bit state array         0.82×     1.34×      2.44×
+                  shared sphere, 8-bit state     1.32×     1.95×      1.95×
+                     + uncovered-word list       2.21×     5.57×      6.06×
+                     with 2-bit state            2.14×     6.32×      9.86×
+       Table 3. Speedup in CPU time at a fixed iteration budget, median of 9 runs
+       (6 on the largest cell). Every row performs the identical search: final uncovered
+       counts agree exactly, seed by seed, across rows. Interquartile ranges are 0.9%,
+       2.2% and 5.6% of the median.
+
+
+           cell        M        target        identical search   wide neighbourhood
+           K6 (6, 3) 41       |U | ≤ 30    2.03× [1.99, 2.13]           0.28×
+           K6 (8, 4) 169      |U | ≤ 20    6.12× [6.06, 6.62]    8.03× [5.75, 11.02]
+           K8 (9, 4) 2944 |U | ≤ 10 800 8.07× [6.19, 10.72] 11.04× [8.06, 12.17]
+       Table 4. Median per-seed speedup in CPU time to target over 20 seeds, with
+       percentile-bootstrap 95% confidence intervals. In the fourth column the opti-
+       mized solver reached the target at the same iteration as the reference on all
+       seeds, so the ratio is a pure implementation speedup; the fifth column also
+       widens the candidate neighbourhood, which changes the search (fewer itera-
+       tions to target on the two loose cells, a 3.6× loss on the tight one).
+
+
+
+   Several natural optimizations fail for structural reasons, which we record. Caching move
+evaluations between iterations requires evaluation spheres to be disjoint, i.e. d(c, c′ ) > 2R + 2;
+since 2R + 2 ≥ n on every cell of interest, every commit invalidates
+                                                                   every    cache entry. Main-
+                                                                n          R
+taining the singly-covered analogue of U pays only if n|U1 | < R (q − 1) , which fails by one
+to two orders of magnitude — uncovered words are rare by construction, singly covered words
+are not. Translation symmetry reduction (fixing one codeword at 0n ) yields no measurable
+benefit, since a local search does not revisit states. A deterministic focus rule (always the
+longest-uncovered word) is severely harmful, destroying the randomization that lets focused
+search leave plateaus. Restart schedules help only where the run-time distribution to the target
+is heavier than exponential, which occurs on tight cells (observed speedup 4.2×, p = 0.002,
+on K6 (6, 3) at a hard target) and not on the loose cells this paper improves (coefficient of
+variation 0.20–0.47; p = 1.0).
+
+A.2. The solver competition of Section 4.4. Four independently developed implementa-
+tions — the engineered free search, a low-level SIMD variant, the structured solvers, and a
+portfolio scheduler — were compared under a fixed protocol: identical interface and resource
+limits, public development instances, held-out evaluation instances, 15 seeds per instance, and
+scoring by independently verified output only (a full verified cover scores 1000; a partial cover
+scores the negated uncovered fraction; invalid output scores below any valid partial). No
+                         NEW BOUNDS ON COVERING CODES FOR 5 ≤ q ≤ 21                                15
+
+component won uniformly: the structured solvers dominated the held-out evaluation, the engi-
+neered evaluator was fastest on large cells, the SIMD variant on cache-resident cells, and many
+single-threaded chains beat multi-threaded ones except on the largest cells. Under the frozen
+protocol the merged engine of Section 4.4 solved at least as many held-out instances as the
+best single component (14/20 against 12/20).
+
+A.3. GPU measurements for Section 5. Direct ports that fail. A formulation of candidate
+evaluation as integer matrix products (to engage tensor cores) is starved by its contracted
+dimension of only nq ≈ 50 and never approached CPU throughput. A port running 256
+independent chains in one persistent kernel reaches 0.09×, 0.10× and 1.24× the throughput of
+the full 64-core socket on cells with q n = 4.7 · 104 , 1.7 · 106 and 1.3 · 108 respectively — at best
+one extra socket, obtained only where the CPU is already at its worst. These measurements
+motivated the change of algorithm in Section 5.
+   Memory placement for q n > 3.5 · 109 (Section 5.3). The node pairs the GPU (96 GB HBM)
+with 480 GB of CPU-attached LPDDR memory behind a cache-coherent interconnect: a GPU
+thread can dereference any CPU pointer, with native atomics, at interconnect rather than PCIe
+cost. Each array is placed independently: the layer arrays, touched only by the streaming axis
+passes, go to LPDDR; the multiplicity array cnt, dominated by random-access ball walks, stays
+in HBM (for K10 (10, 5): 240 GB LPDDR, 21 GB HBM). One finding matters for reproduction:
+the placement must be pinned. Allocation through the unified-memory allocator is a factor
+∼30 slower than plain malloc accessed through the coherent page tables, and plain malloc is
+not stable either, because the default kernel policy migrates GPU-hot pages into HBM until
+it overflows and thrashes; binding the allocations to the CPU NUMA node (mbind) makes the
+placement deterministic. Outputs were verified bit-identical across all placements. Table 5
+gives the measured cost of one full coverage transform (the unit of work of every search round)
+across placements.
+
+                cell                qn    arrays             placement transform
+                 K8 (10, 4) 1.1 · 109 24 GB                   HBM        0.143 s
+                 K8 (10, 4) 1.1 · 109 24 GB      LPDDR (pinned)             3.4 s
+                 K8 (10, 4) 1.1 · 109 24 GB LPDDR (managed)                 8.7 s
+                 K9 (10, 5) 3.5 · 10 9   91 GB   LPDDR (pinned)          22–26 s
+                 K10 (10, 5)     1010 260 GB     LPDDR (pinned)        73–110 s
+        Table 5. One exact coverage transform by array placement (idle node; LPDDR
+        rows keep the multiplicity array in HBM). The LPDDR penalty of ∼ 24× buys
+        an order of magnitude of problem size, and the ball-walk primitives — the other
+        half of each search round — remain HBM-resident, so the large-neighbourhood
+        search still executes at a viable rate.
+
+
+   Kernel-level optimizations of the transform engine. Ball walks are driven by a precomputed
+table of packed coordinate-shift patterns, so each visited word costs one table load and at
+most R shared-memory adds, with no division or modulo in the hot loop. Splitting each walk
+over up to 8192 thread blocks (the original engine used one) makes single-word updates —
+the innermost operation of the exact lazy-greedy rebuild — 30× faster on K8 (9, 4) (0.80 →
+0.027 ms) and 37× faster on K8 (10, 4) (1.34 → 0.036 ms), batched candidate evaluations 3.7–
+4.3× faster, and a complete exact-greedy cover construction on K8 (9, 4) 1.4× faster end to end
+at identical cover size; the change is pure scheduling. An alternative register-resident table
+16                                              MARK MAROSI
+
+format performs within measurement noise of the packed-byte format, and the engine retains
+both. One transplanted idea is recorded as a negative result: tagging each word’s last coverer
+during the mark pass, so that per-codeword losses fall out of one linear scan, replaces one
+transform but loses to it (28 vs. 17 ms on K8 (9, 4), 669 vs. 145 ms on K8 (10, 4)), because the
+mark pass re-walks every codeword’s ball (M · |BR | atomic operations) where the transform
+streams O(nRq n ) words; it wins only where M · |BR | ≪ nRq n , a regime the record cells do not
+enter.
+
+
+      Appendix B. The certified program and the meaning of a certificate
+  This appendix states precisely what a certificate of Table 2 proves, so that the certificates
+have paper-level semantics independent of any implementation. The reduced program of [5,
+Theorem 4.18] (non-binary case, q ≥ 3) is a linear–semidefinite minimization in variables
+x ∈ RN indexed by the orbits of triples of words under Aut(q, n) = Sq ≀ Sn :
+
+                   min cT x       s.t.   x ≥ 0,  ⟨lk , x⟩ + lk0 ≥ 0 (k = 1, . . . , m),
+(2)                                           PN
+                                         Cb + v=1 xv Avb ⪰ 0 (b = 1, . . . , B),
+
+where the data c, (lk , lk0 ), (Cb , Avb ) are explicit rationals determined by (q, n, R): the objective
+and the linear constraints encode sphere-covering inequalities and the matrix-cut inequalities
+of [5, Proposition 4.17], and the semidefinite blocks arise from the block-diagonalization of the
+Terwilliger algebra of the nonbinary Hamming scheme [5, §3]. The property that gives the
+program its meaning is [5, Theorem 4.18]: every code C ⊆ Znq of covering radius at most R
+induces a feasible point xC of (2) with cT xC = |C|3 . Consequently Kq (n, R)3 ≥ OPT, the
+optimum of (2).
+   A certificate for the pair (q, n, R) is a vector y ∈ Qm         ≥0 together with rational symmetric
+positive semidefinite matrices Y1 , . . . , YB (all stored over one common denominator). Define
+            X                  X                                            X           X
+     dv =       yk lk [v] +       ⟨Yb , Avb ⟩ (v = 1, . . . , N ),   d0 =      yk lk0 +    ⟨Yb , Cb ⟩.
+             k                b                                             k             b
+
+Lemma B.1. If dv ≤ cv for                                                           T
+                        1/3
+                             every v, then every feasible point x of (2) satisfies c x ≥ −d0 ;
+hence Kq (n, R) ≥ (−d0 )     .
+Proof. For feasible x,
+                   X                   X                   XD           X       E
+      cT x + d0 =      (cv − dv ) xv +   yk ⟨lk , x⟩ + lk0 +   Yb , Cb +   xv Avb ≥ 0,
+                     v                      k                      b              v
+
+since each summand is a product of nonnegative quantities (x ≥ 0 and cv − dv ≥ 0; yk ≥ 0 and
+the linear constraint value ≥ 0; and the inner product of two positive semidefinite matrices is
+nonnegative). The bound on Kq (n, R) follows from Kq (n, R)3 ≥ OPT ≥ −d0 .                   □
+
+   If the rounding of a numerical dual leaves some dv > cv , the entire certificate is scaled by the
+largest dyadic θ ≤ 1 with θdv ≤ cv for all v, which preserves feasibility of the scaled certificate
+and yields the bound −θd0 . The checker validates exactly the hypotheses of Lemma B.1 —
+nonnegativity of y, positive semidefiniteness of each Yb by exact LDLT factorization over Q, and
+the N inequalities dv ≤ cv in integer arithmetic — and re-derives the data c, (lk , lk0 ), (Cb , Avb )
+from (q, n, R) alone; the transcription of that data from [5] is the assumed part of the trusted
+base, validated as described in Section 6.
+                            NEW BOUNDS ON COVERING CODES FOR 5 ≤ q ≤ 21                        17
+
+                          Appendix C. The code proving K6 (8, 4) ≤ 166
+   The largest relative single improvement among the converged cells (216 → 166) is printed
+for self-containedness; each row lists codewords of Z86 , and the machine-readable version is the
+ancillary file K6 8 4 M166.txt.
+01430421   12541532   23052043   30103154
+45214205   50325310   03405225   14510330
+25021441   30132552   41243003   52354114
+03134001   14245112   25350223   30401334
+51512445   52010550   02442243   13553304
+24004415   35115520   40220031   51331142
+02303231   13414342   24525453   35030504
+40141015   51252120   05143544   10254055
+21305100   32410211   43521322   54032433
+04301535   13432040   20543151   31054202
+42105313   53210434   04043240   15154351
+20205402   31310513   42421024   53532135
+05111133   10222244   21333355   32444400
+43555511   54000022   01045452   12150503
+23201014   34312125   45423230   50534341
+00544125   11055230   22100341   33211452
+44322503   55433014   02231500   13342011
+24453122   35504233   40015344   51120455
+05223315   10334420   21445531   32550042
+43001153   54112204   03411050   14542101
+25033212   30144323   41255434   52300445
+04450305   15501410   20012521   31123032
+42234143   53345254   00052413   11103524
+22214035   33324140   44430251   55541302
+02115012   13220123   24331234   35442345
+40553450   51004501   01024314   12135425
+23240530   34351041   45402152   50513203
+05352332   10413443   21514554   52025505
+43130110   54241221   04205542   15315053
+20420104   31531215   42042320   53153431
+01213111   12324222   23435333   34540444
+45051555   42131403   00300252   11411303
+22522414   33033525   44104030   55255141
+05535024   10040135   21151240   32202351
+44313402   54424513   01500043   12051134
+23122205   34233310   45344421   50455532
+03314404   10402515   25530020   31021031
+41132242   52243353   12005001   03402520
+31455113   23344502   55203541   32515205
+30325000   02023150   14021545   54142054
+34124521   03523252   45250342   00522424
+44553234   53044110
+

@@ -1,0 +1,38 @@
+{
+  "axioms": [
+    "propext",
+    "Classical.choice",
+    "Quot.sound"
+  ],
+  "axioms_status": "OK",
+  "build_command": [
+    "lake",
+    "build"
+  ],
+  "build_status": "OK",
+  "clean_build": true,
+  "file": "CoveringLean/A6e_Excess.lean",
+  "formal_id": "f-k2-6-1-ge-11",
+  "lean_root": ".",
+  "lean_toolchain": "leanprover/lean4:v4.34.1",
+  "lean_version": "Lean (version 4.34.1, x86_64-unknown-linux-gnu, commit 5045d0056413266e57c625dcd7c365b10e377c52, Release)",
+  "log_sha256": "e13ecc10200abc4101c57bf20d463042bf738a151ff84aa6db6f9d8b0eba9423",
+  "machine": {
+    "arch": "x86_64",
+    "cpu": "Intel(R) Xeon(R) Processor @ 2.10GHz",
+    "cpu_count": 4,
+    "host": "vm",
+    "os": "Linux-6.18.44-fc-v64-x86_64-with-glibc2.39",
+    "ram_gib": 15.7
+  },
+  "manifest_sha256": "88d3b3c8b56dbff5d6c7f63ac444982ed9152f874d27a8174c91544dfa90ed82",
+  "mathlib_commit": "d13f23b723b8a846827a245b89c10fc7d3f11612",
+  "measured": "2026-10-03T16:40:38Z",
+  "module": "CoveringLean",
+  "repo_commit": "1df5526dc0275a9ace7c2bd86e7832f92ef1aa34",
+  "scan_findings": [],
+  "sorry_free": true,
+  "source_sha256": "2b31e93a77e4d47735bad68bcd2ca3c4406de1609b12e64318e36f05577d892e",
+  "theorem": "CoveringA6.K_2_6_1_ge_11",
+  "validation_problems": []
+}

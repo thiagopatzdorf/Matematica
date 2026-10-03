@@ -1,0 +1,13 @@
+{
+  "claim_id": "h1-alpha-nonincreasing",
+  "counterexample_id": "cx-h1-alpha-nonincreasing",
+  "created": "2026-10-03T16:38:07Z",
+  "created_by": "agente-c",
+  "data": {
+    "formal": "f-h1-counterexample",
+    "lean_statement": "theorem H1_counterexample : IsK 2 3 1 2 ∧ HasVol 2 3 1 4 ∧ IsK 2 4 1 4 ∧ HasVol 2 4 1 5 ∧ ((2 : ℚ) * 4 / 2 ^ 3 = 1) ∧ ((4 : ℚ) * 5 / 2 ^ 4 = 5 / 4) ∧ ((2 : ℚ) * 4 / 2 ^ 3 < (4 : ℚ) * 5 / 2 ^ 4) :="
+  },
+  "description": "α(2,3,1) = 2·4/8 = 1 mas α(2,4,1) = 4·5/16 = 5/4 > 1: α cresce de n=3 para n=4 (K_2(3,1)=2, V=4; K_2(4,1)=4, V=5). (CoveringA6.H1_counterexample, medido no kernel; todo o resto vem de A6_Finite.lean, sem busca).",
+  "kind": "instance",
+  "witness_id": null
+}

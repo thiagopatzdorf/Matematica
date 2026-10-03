@@ -1,0 +1,27 @@
+{
+  "M": 1285,
+  "R": 4,
+  "canonical_sha256": "aa388cc9642bc064527a0237b60522ba558491291a2adf02ab1e4d8d3f756c1f",
+  "canonical_sha256_declared_in_structured": "aa388cc9642bc064527a0237b60522ba558491291a2adf02ab1e4d8d3f756c1f",
+  "claim_ids": [],
+  "created": "2026-10-03T16:38:07Z",
+  "created_by": "agente-c",
+  "format": "covering-code/v1 (lista plana, uma palavra por linha)",
+  "implementation": "scripts/search/gen.py (3 cosets de [9,3]_7 H=[I6|A] + cosets de subcódigo + palavras soltas)",
+  "n": 9,
+  "parameters": {
+    "M": 1285,
+    "R": 4,
+    "n": 9,
+    "q": 7
+  },
+  "path": "data/codes/q7_n9_R4_M1285.txt",
+  "produced_by": "exp-k7-9-4-1285-regen",
+  "q": 7,
+  "sha256": "89cbd6b290a10d8d708e9783a405b8a12ce5efd6a8ea2ee17568b3ee25c50f31",
+  "structured_description": {
+    "path": "data/structured/q7_n9_R4_M1285.json",
+    "sha256": "c5f0a8ffa120fdff1c41aa6a829733b3ec0770ffa0e30772aaa987c98e373537"
+  },
+  "witness_id": "w-q7-n9-r4-m1285"
+}

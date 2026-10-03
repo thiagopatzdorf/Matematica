@@ -1,0 +1,37 @@
+{
+  "claim_ids": [
+    "k7-8-3-ub-1893",
+    "k7-8-3-ub-1887"
+  ],
+  "comparison": {
+    "k7-8-3-ub-1887": {
+      "classificacao": "MELHORA_APARENTE_A_CONFIRMAR",
+      "melhor_registrada": 2337,
+      "melhor_registrada_fonte": [
+        "lit-keri-k7-8-3-ub (PDF 6-21_tables.pdf, Last-Modified 2009-10-15 (diretório e index.htm atualizados até 2011-11-25), 2009-10-15)"
+      ],
+      "nosso": 1887,
+      "nota": "melhora aparente, a confirmar por revisão externa (não é afirmação de novidade: livros/artigos não lidos podem ter predecessor)",
+      "veredito": "melhor_que_a_registrada"
+    },
+    "k7-8-3-ub-1893": {
+      "classificacao": "MELHORA_APARENTE_A_CONFIRMAR",
+      "melhor_registrada": 2337,
+      "melhor_registrada_fonte": [
+        "lit-keri-k7-8-3-ub (PDF 6-21_tables.pdf, Last-Modified 2009-10-15 (diretório e index.htm atualizados até 2011-11-25), 2009-10-15)"
+      ],
+      "nosso": 1893,
+      "nota": "melhora aparente, a confirmar por revisão externa (não é afirmação de novidade: livros/artigos não lidos podem ter predecessor); mas é PIOR que o nosso próprio 1887 da mesma célula",
+      "veredito": "melhor_que_a_registrada"
+    }
+  },
+  "created": "2026-10-03T16:38:07Z",
+  "created_by": "agente-c",
+  "instances": [
+    "k7-8-3"
+  ],
+  "kind": "melhora_aparente_a_confirmar",
+  "next_step": "ler Cohen et al. 1997; registrar como o 1887 foi obtido; rodar verify_cov.py do Marosi se autorizado",
+  "reason": "MELHORA_APARENTE_A_CONFIRMAR (nunca 'novidade'): 1887 e 1893 estão abaixo do 2337 do Kéri (soma direta; Marosi v1-v3 não tem K_7(8,3) na Tabela 1), mas Cohen et al. 1997 e trabalho pós-2011 não foram lidos; o 1887 não é reprodutível (172 palavras soltas, sem comando/seed/gerador)",
+  "residual_id": "res-confirmar-k7-8-3"
+}

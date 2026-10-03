@@ -1,0 +1,27 @@
+{
+  "M": 250,
+  "R": 4,
+  "canonical_sha256": "b818a971c86488280ed74c524398dae5561dd1e231de6d734b7206cbfd9a478c",
+  "canonical_sha256_declared_in_structured": "b818a971c86488280ed74c524398dae5561dd1e231de6d734b7206cbfd9a478c",
+  "claim_ids": [],
+  "created": "2026-10-03T16:38:07Z",
+  "created_by": "agente-c",
+  "format": "covering-code/v1 (lista plana, uma palavra por linha)",
+  "implementation": null,
+  "n": 9,
+  "parameters": {
+    "M": 250,
+    "R": 4,
+    "n": 9,
+    "q": 5
+  },
+  "path": "data/codes/q5_n9_R4_M250.txt",
+  "produced_by": "exp-prior-search-unrecorded",
+  "q": 5,
+  "sha256": "c605e57c41117da0141fdd88dc3972598fb4dd6e02bedc3edd477330f3bf5922",
+  "structured_description": {
+    "path": "data/structured/q5_n9_R4_M250.json",
+    "sha256": "4f36e02f1628dff3018f18e5e1cca25ed7461bc21d0471f790a3dd9abd2870b1"
+  },
+  "witness_id": "w-q5-n9-r4-m250"
+}

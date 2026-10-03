@@ -1,0 +1,18 @@
+{
+  "created": "2026-10-03T16:38:07Z",
+  "created_by": "agente-c",
+  "instances": [
+    "k4-10-4",
+    "k5-10-4",
+    "k5-7-2",
+    "k5-9-3",
+    "k5-9-4",
+    "k5-9-5",
+    "k7-8-3",
+    "k7-9-4"
+  ],
+  "kind": "literatura",
+  "next_step": "ler as fontes listadas em cada res-confirmar-<célula> e reclassificar (MELHORA_APARENTE_A_CONFIRMAR -> PREDECESSOR_ENCONTRADO ou confirmada por revisão externa)",
+  "reason": "novidade continua sendo afirmação do autor (README:72). Lidos em 2026-10-03 (LITERATURA_CC.md): Marosi v1/v2/v3, Kéri (PDFs de 2009-10-15), Gijswijt-Polak v2 (tabelas), Florath. NÃO lidos: Cohen et al. 1997, Östergård 1999, Bhandari-Durairajan 1996, Stanton-Kalbfleisch 1968 (conteúdo), tabelas de comprimento linear de Davydov-Marcugini-Pambianco para l_5(6,4), qualquer trabalho posterior a 2011 fora do arXiv. 'Não achei predecessor' não é 'não existe': ver res-confirmar-* por célula.",
+  "residual_id": "res-novelty-unchecked"
+}

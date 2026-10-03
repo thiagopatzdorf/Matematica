@@ -1,0 +1,96 @@
+{
+  "bound": {
+    "direction": "lower",
+    "parameters": {
+      "R": 4,
+      "n": 9,
+      "q": 7
+    },
+    "value": 221
+  },
+  "claim_id": "sph-k7-9-4-lb",
+  "counterexample_search": {
+    "method": "cota de esfera: contraexemplo seria um código menor que cobre; o kernel prova que não existe",
+    "result": "nenhum",
+    "status": "completed"
+  },
+  "created": "2026-10-03T16:43:48Z",
+  "created_by": "agente-c",
+  "created_role": "PROPOSER",
+  "depends_on": [
+    "sphere-covering-general"
+  ],
+  "evidence": {
+    "counterexamples": [],
+    "experiments": [],
+    "external_reproductions": [],
+    "formal": [
+      "f-sph-k7-9-4"
+    ],
+    "literature": [],
+    "proofs": [],
+    "verifier_runs": [],
+    "witnesses": []
+  },
+  "formal_verification_blockers": [
+    "falta statement_review: o Lean certifica o enunciado formal, não que ele é o enunciado pretendido; um revisor humano/independente precisa ler"
+  ],
+  "history": [
+    {
+      "actor": "agente-c",
+      "from": null,
+      "reason": "criado",
+      "role": "PROPOSER",
+      "to": "IDEA",
+      "ts": "2026-10-03T16:43:48Z"
+    },
+    {
+      "actor": "agente-c",
+      "from": "IDEA",
+      "reason": "evidência anexada: formal=f-sph-k7-9-4",
+      "role": "PROPOSER",
+      "to": "IDEA",
+      "ts": "2026-10-03T16:43:48Z"
+    },
+    {
+      "actor": "migrate_covering.py",
+      "from": "IDEA",
+      "reason": "registro formal medido válido",
+      "role": "FORMALIZER",
+      "to": "PROVED",
+      "ts": "2026-10-03T16:43:48Z"
+    }
+  ],
+  "kind": "theorem",
+  "reviewed_by": [],
+  "scope": {
+    "assumptions": [],
+    "domain": "q=7, n=9, R=4",
+    "problem": "K_7(9,4) >= 221"
+  },
+  "sealed_evidence": {
+    "experiments": [],
+    "formal": [
+      "f-sph-k7-9-4"
+    ],
+    "proofs": [],
+    "witnesses": []
+  },
+  "sealed_sha256": "5259d54fc51d0cd4146f328602dbfc323b584f6ca2d8289045792401ba73f592",
+  "statement": "Todo C : Finset (Fin 9 -> ZMod 7) com Covers 4 C tem pelo menos 221 palavras (CoveringChain.SPH_K7_9_4_lb).",
+  "status": "PROVED",
+  "trust_boundary": [
+    {
+      "component": "kernel do Lean 4 v4.34.1 + Mathlib v4.34.1 (lean-toolchain, lake-manifest.json)",
+      "trusted_for": "a correção das inferências e das decisões `decide +kernel`"
+    },
+    {
+      "component": "axiomas propext, Classical.choice, Quot.sound",
+      "trusted_for": "lógica clássica e extensionalidade (medido via #print axioms, no alvo padrão)"
+    },
+    {
+      "component": "definições Covers/IsK/ball/hammingDist (CoveringA2, CoveringA6, Mathlib)",
+      "trusted_for": "que o enunciado formal é o enunciado pretendido: REVISÃO HUMANA PENDENTE (README:73-74)"
+    }
+  ]
+}
