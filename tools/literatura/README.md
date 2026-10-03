@@ -9,7 +9,9 @@ da primeira rodada está em `docs/literatura/VARREDURA_2026-10-03.md`.
 ## Como rodar
 
 ```sh
-python3 -m venv .venv && .venv/bin/pip install pypdf      # pdftotext é usado se existir
+python3 -m venv .venv && .venv/bin/pip install pymupdf pypdf cryptography
+# pdftotext é usado se existir; senão PyMuPDF, senão pypdf. cryptography só para `subir`.
+export OPENALEX_API_KEY=...                                # opcional, ver "Limites"
 export LIT_DIR=$PWD/literatura-dados                       # onde fica o acervo local
 export GCP_CREDENCIAL_DIR=<apps/factory/bin da Factory>    # só para a etapa `subir`
 .venv/bin/python tools/literatura/varredura.py tudo
@@ -21,8 +23,9 @@ export GCP_CREDENCIAL_DIR=<apps/factory/bin da Factory>    # só para a etapa `s
 Cada etapa é idempotente. Toda resposta HTTP de API fica em `cache/` (gzip, chave =
 sha1 da URL), os PDFs já baixados não são baixados de novo, e o `subir` só envia
 arquivo cujo sha256 mudou (`meta/.subidos.json`). Para refazer uma etapa do zero,
-apague o cache ou o arquivo de saída dela. A primeira rodada completa levou cerca
-de 1 a 2 h na factory-01, quase todo o tempo esperando os limites de taxa.
+apague o cache ou o arquivo de saída dela. A primeira rodada completa
+(2026-10-03) levou cerca de 1 h na factory-01: 33 min na expansão por OpenCitations, 8 min
+de PDFs (8 threads), 1 min de extração (PyMuPDF, 3 processos) e 2 min de envio.
 
 As sementes, as consultas, os pesos de relevância e os cortes ficam em
 `sementes.json`. Mudar a varredura é editar esse arquivo, não o código.
@@ -31,9 +34,9 @@ As sementes, as consultas, os pesos de relevância e os cortes ficam em
 
 | etapa | o que faz | fonte |
 |---|---|---|
-| `sementes` | resolve DOIs, ids arXiv e cerca de 50 títulos-chave (casamento por similaridade ≥ 0,6) | OpenAlex, arXiv |
-| `buscas` | consultas por palavra-chave; entra quem passa do `limiar_inclusao` de relevância | OpenAlex, arXiv API, zbMATH Open (inclui todo o MSC 94B75, "covering radius") |
-| `expandir` | 2 níveis de citação: referências e citantes das obras com score ≥ `limiar_expansao`; só entram as que passam do limiar | OpenAlex |
+| `sementes` | resolve DOIs, ids arXiv e cerca de 50 títulos-chave (casamento por similaridade ≥ 0,6) | OpenAlex (Crossref se faltar), arXiv |
+| `buscas` | consultas por palavra-chave; entra quem passa do `limiar_inclusao` de relevância | OpenAlex, Crossref, arXiv API, zbMATH Open (inclui todo o MSC 94B75, "covering radius") |
+| `expandir` | citações (referências e citantes) das obras com score ≥ `limiar_expansao`, `--niveis` níveis; só entram as que passam do limiar | OpenCitations + Crossref; OpenAlex quando há orçamento |
 | `arxivmeta` | filtra por streaming o dump público de metadados do arXiv (4,5 GB, `gs://arxiv-dataset`, acesso anônimo por HTTP); só as linhas que casam ficam no disco | Kaggle/arXiv |
 | `tabelas` | espelha o diretório inteiro das tabelas do Kéri (`old.sztaki.hu/~keri/codes/`), as versões arquivadas no Wayback Machine, a bibliografia do Lobstein e as tabelas pós-Kéri (coldcase, Florath) fixadas por commit | sites públicos |
 | `baixar` | PDFs de acesso aberto: arXiv primeiro, depois os links OA do OpenAlex (Unpaywall); só aceita o que começa com `%PDF-` | arXiv, repositórios OA |
@@ -68,6 +71,11 @@ OpenAlex.
 
 - **Google Scholar: não usado.** Os termos de uso proíbem raspagem e a resposta
   é 403. Nada de proxy para contornar.
+- **OpenAlex sem chave tem orçamento de US$ 0,10/dia por IP** (medido em 2026-10-03: ~100
+  chamadas de busca esgotam o dia, depois só 429 até a meia-noite UTC). Ao primeiro 429 o
+  script para de chamar o OpenAlex e segue com Crossref (busca e metadados), OpenCitations
+  (arestas de citação) e Unpaywall (links OA). Com `OPENALEX_API_KEY` (chave gratuita, mas
+  exige cadastro) a expansão pelo OpenAlex volta a valer.
 - **Semantic Scholar: não usado.** Sem chave, devolve 429.
 - **Artigos pagos sem cópia OA** ficam só com metadados (e resenha do zbMATH, quando
   existe). A lista dos relevantes está em `relatorios/nao_acessiveis_<data>.json`.
