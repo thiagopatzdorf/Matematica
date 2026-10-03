@@ -67,6 +67,38 @@ O `id` é o id do OpenAlex (`W…`) quando existe; senão `arxiv_<id>` ou `zb_<i
 Registros da mesma obra vindos de fontes diferentes são fundidos por DOI, arXiv ou
 OpenAlex.
 
+## Rodada com o conector MCP do OpenAlex (`--de-jsonl`)
+
+O conector MCP do OpenAlex tem chave pessoal, mas só existe na sessão do agente
+(não na factory-01). A divisão de trabalho que funcionou em 2026-10-03:
+
+1. **No agente, pelo conector**, o que custa orçamento: listar citantes
+   (`search_works` com `oql = works where it cites (W1 or W2 …)` pagina a união dos
+   citantes de muitas sementes de uma vez, 50 por página, sem repetir obra) e buscas em
+   texto completo (`search_works` com `search_in=fulltext`; `preview=true` para afinar).
+2. O agente grava os ids num JSONL, uma obra por linha:
+   `{"openalex": "W…", "motivo": "…", "forcar": true|false, "refs": true|false}`.
+   `forcar` é para achado de texto completo (entra mesmo sem "covering" no resumo);
+   `refs` manda seguir também as referências da obra. As listas usadas ficam em
+   `tools/literatura/openalex/<data>/`, junto com o log das consultas
+   (`fulltext_consultas.json`), para a rodada se reproduzir sem o conector.
+3. **Na factory-01**, sem chave:
+   `varredura.py --de-jsonl lista.jsonl [--de-jsonl outra.jsonl] [etapas…]`.
+   Cada obra é completada pelo GET de obra única do OpenAlex, que não gasta orçamento
+   (medido: `x-ratelimit-credits-used: 0` mesmo com o orçamento do dia zerado). O corte
+   de relevância é score ≥ `limiar_inclusao`, `forcar`, ou citar ≥ 2 sementes. O passo
+   grava `buscas/<data>/de_jsonl_<arquivo>.json` com as contagens, os rejeitados e os ids
+   novos candidatos ao nível 2 (score ≥ `limiar_expansao` ou cita ≥ 2 sementes).
+4. Depois, as etapas de sempre: `baixar extrair mencoes relatorio subir`.
+
+**O que o texto completo do OpenAlex não faz (medido em 2026-10-03):** não acha número
+dentro de tabela. Controle positivo: Marosi 2026 traz 1475 e 1843 na Tabela 1 e
+Haas–Halupczok–Schlage-Puchta 2009 traz `K7(9, 4) 5 221 227 264 1843`; a consulta
+`full text has (1843 or 1475 …)` restrita a essas obras devolve 0, enquanto palavras do
+corpo (Bhandari) e anos (1996) são achados. Então "zero achados" para um valor de tabela
+não prova ausência. Além disso só obras de acesso aberto têm corpo indexado: das 41
+sementes de cobertura, 13 (todas abertas); dos 712 citantes, 193.
+
 ## Limites e o que fica de fora
 
 - **Google Scholar: não usado.** Os termos de uso proíbem raspagem e a resposta
@@ -75,7 +107,10 @@ OpenAlex.
   chamadas de busca esgotam o dia, depois só 429 até a meia-noite UTC). Ao primeiro 429 o
   script para de chamar o OpenAlex e segue com Crossref (busca e metadados), OpenCitations
   (arestas de citação) e Unpaywall (links OA). Com `OPENALEX_API_KEY` (chave gratuita, mas
-  exige cadastro) a expansão pelo OpenAlex volta a valer.
+  exige cadastro) a expansão pelo OpenAlex volta a valer. Sem chave na máquina, use o
+  conector do agente e `--de-jsonl` (seção acima).
+- **Fora do conector, de propósito:** nada de `submit_curations` nem `claim_author_profile`
+  (escrevem no OpenAlex). Só leitura.
 - **Semantic Scholar: não usado.** Sem chave, devolve 429.
 - **Artigos pagos sem cópia OA** ficam só com metadados (e resenha do zbMATH, quando
   existe). A lista dos relevantes está em `relatorios/nao_acessiveis_<data>.json`.
