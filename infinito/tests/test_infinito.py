@@ -375,7 +375,7 @@ def test_gemini_que_falha_ou_sem_chave_continua_cobrando():
     ctx, c = _gem(cai)
     assert ctx.tools["gemini"]("oi", confirmar=True)["ok"] is False
     ctx2, c2 = _gem(None, env={"INF_REPO": str(REPO)})
-    assert "GEMINI_API_KEY" in ctx2.tools["gemini"]("oi", confirmar=True)["erro"]
+    assert "nenhum backend" in ctx2.tools["gemini"]("oi", confirmar=True)["erro"]
     assert c.saldo("a@x.com")["disponivel_usd"] == 20.0 == c2.saldo("a@x.com")["disponivel_usd"]
 
 
@@ -429,3 +429,26 @@ def test_admin_convidado_por_e_mail_come_uma_das_dez_vagas():
 def _rpc_url(c, token, metodo):
     cab = {"Accept": "application/json, text/event-stream", "Content-Type": "application/json"}
     return c.post(f"/mcp/{token}/", headers=cab, json={"jsonrpc": "2.0", "id": 1, "method": metodo, "params": {}}).json()
+
+
+def test_vertex_chama_global_com_o_token_da_sa_e_cobra_pensamento_como_saida():
+    vistos = {}
+
+    def post(url, corpo, cab):
+        vistos.update(url=url, cab=cab, corpo=corpo)
+        return {"candidates": [{"content": {"parts": [{"text": "ok"}]}}],
+                "usageMetadata": {"promptTokenCount": 6, "thoughtsTokenCount": 17}}
+
+    chamar = gemini.chamar_vertex("proj-x", token=lambda: "TOK", post=post)
+    r = chamar("gemini-3.8-flash", "oi", 20)
+    assert vistos["url"] == ("https://aiplatform.googleapis.com/v1/projects/proj-x/locations/global/"
+                             "publishers/google/models/gemini-3.8-flash:generateContent")
+    assert vistos["cab"]["Authorization"] == "Bearer TOK" and "x-goog-api-key" not in vistos["cab"]
+    assert r == {"texto": "ok", "entrada": 6, "saida": 17}          # o pensamento é cobrado como saída
+
+
+def test_backend_vertex_ligado_pelo_ambiente_substitui_a_chave_sem_credito():
+    ctx = _Ctx(creditos(), env={"INF_REPO": str(REPO), "INF_GEMINI_BACKEND": "vertex", "INF_GCP_PROJETO": "p",
+                                "GEMINI_API_KEY": "chave-sem-credito"})
+    gemini.registrar(ctx)
+    assert ctx.tools["gemini"]("oi")["seco"] is True           # registra sem exigir chave nem rede
