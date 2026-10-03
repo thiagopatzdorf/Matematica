@@ -30,6 +30,7 @@ from .gcp import token_metadata
 COMPUTE = "https://compute.googleapis.com/compute/v1/projects/{p}/zones/{z}/instances/{i}"
 SCRIPT = Path(__file__).with_name("vm") / "job.sh"
 Http = Callable[[str, str, dict | None], tuple[int, dict]]
+LIMITE_APOS_JOB_S = 6 * 3600
 
 
 def _http(metodo: str, url: str, corpo: dict | None, token: Callable[[], str] = token_metadata) -> tuple[int, dict]:
@@ -115,11 +116,14 @@ class ExecutorVM:
         self._pedir("POST", "/stop")
 
     def liberar(self) -> None:
-        """Devolve a VM ao que era: tira o job dos metadados (um boot manual futuro não reexecuta nada) e o
-        `maxRunDuration` (senão ele desligaria, sem aviso, um boot manual do dono). A limpeza do agendamento é
-        melhor-esforço: a VM pode ainda estar desligando."""
+        """Tira o job dos metadados (um boot manual futuro não reexecuta nada) e deixa o limite de ligada em
+        `LIMITE_APOS_JOB_S` (6 h). O Compute NÃO deixa remover o `maxRunDuration` (medido em 2026-10-03: omitir mantém
+        o antigo e zero é inválido), então em vez de lutar contra isso ele vira a trava permanente da máquina: nenhum
+        boot, nem manual, passa de 6 h seguidas. Melhor-esforço: a VM pode ainda estar desligando."""
         self._metadados(self._pedir("GET"), **{"infinito-job": None})
         try:
-            self._pedir("POST", "/setScheduling", {"onHostMaintenance": "MIGRATE", "automaticRestart": True})
+            self._pedir("POST", "/setScheduling", {"onHostMaintenance": "MIGRATE", "automaticRestart": True,
+                                                     "instanceTerminationAction": "STOP",
+                                                     "maxRunDuration": {"seconds": LIMITE_APOS_JOB_S}})
         except ErroCreditos:
             pass

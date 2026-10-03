@@ -615,7 +615,7 @@ def test_ligar_a_vm_apaga_a_chave_ssh_do_dono_ou_deixa_o_job_para_sempre():
     assert chaves["startup-script"].startswith("#!/bin/bash") and "shutdown -h now" in chaves["startup-script"]
     assert [c for c in api.chamadas if c[0] == "POST"][-1] == ("POST", "/start")
     vm.liberar()
-    assert [c for c in api.chamadas if c[1] == "/setScheduling"][-1] and "maxRunDuration" not in api.ultimo_scheduling
+    assert [c for c in api.chamadas if c[1] == "/setScheduling"][-1] and api.ultimo_scheduling["maxRunDuration"] == {"seconds": 6 * 3600}   # limite permanente, não removível
     assert "infinito-job" not in {i["key"] for i in api.inst["metadata"]["items"]}
     assert {i["key"] for i in api.inst["metadata"]["items"]} >= {"ssh-keys", "startup-script"}
 
