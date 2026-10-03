@@ -14,6 +14,10 @@ Etapas (cada uma idempotente, com cache em disco; rodar de novo só busca o que 
   subir      envia tudo ao bucket GCS (JSON API, token em memória)
   tudo       todas as etapas acima, nesta ordem
 
+  --de-jsonl ARQ  funde obras listadas fora do script (ex.: pelo conector MCP do OpenAlex
+                  com chave); cada linha {"openalex", "motivo", "forcar", "refs"}; o registro
+                  completo vem do GET de obra única, que não gasta orçamento do OpenAlex
+
 Diretório de dados: $LIT_DIR (padrão: ./literatura-dados). Nada aqui conhece caminho
 de máquina; o token do GCP vem de `gcp_credencial.token()` cujo diretório é
 $GCP_CREDENCIAL_DIR (o `apps/factory/bin` da Factory).
@@ -662,6 +666,87 @@ def etapa_expandir(b: Base, niveis: int = 2) -> None:
         log(f"expandir nível {nivel}: {novos} obras novas; base com {len(b.obras)}")
 
 
+def ids_sementes(b: Base) -> set[str]:
+    """Ids OpenAlex das obras-semente (as que entraram por `semente:*`)."""
+    return {w["openalex"] for w in b.obras.values()
+            if w.get("openalex") and any(m.startswith("semente") for m in w.get("motivos") or [])}
+
+
+def decide_inclusao(w: dict, sementes: set[str], forcar: bool, c: dict) -> tuple[bool, int]:
+    """Corte de relevância de uma obra vinda de fora (citante/referência/busca em texto completo).
+
+    Entra se a busca mandou forçar (achado de texto completo: o casamento está no corpo,
+    não no resumo, então o score de resumo não serve), se o score passa do limiar de
+    inclusão, ou se a obra cita duas ou mais sementes. A última regra existe porque
+    muito artigo de técnica (ILP, tabu) não diz "covering" no resumo, mas citar duas
+    sementes é sinal forte de que é da área. Devolve (entra?, quantas sementes cita)."""
+    cita = len(sementes & set(w.get("referencias") or []))
+    return bool(forcar or w.get("score", 0) >= c["limiar_inclusao"] or cita >= 2), cita
+
+
+def etapa_de_jsonl(b: Base, arq: Path) -> dict:
+    """Funde no acervo as obras listadas num JSONL feito fora do script.
+
+    Uso: o conector MCP do OpenAlex (com chave pessoal) lista citantes e achados de texto
+    completo, mas só existe na sessão do agente. O agente grava um JSONL com uma linha por
+    obra, {"openalex": "W…", "motivo": "…", "forcar": bool, "refs": bool}, e este passo
+    completa cada uma com o GET de obra única do OpenAlex, que não gasta orçamento (medido
+    em 2026-10-03: `x-ratelimit-credits-used: 0`, mesmo com o orçamento diário zerado).
+    Com `refs`, as referências da obra também entram na fila (é o nível 1 "para trás").
+
+    Grava `buscas/<data>/de_jsonl_<arquivo>.json` com as contagens e com os ids novos que
+    são candidatos ao nível 2 (score ≥ limiar_expansao ou cita ≥ 2 sementes)."""
+    c = cfg()
+    sementes = ids_sementes(b)
+    fila: list[dict] = []
+    for linha in Path(arq).read_text(encoding="utf-8").splitlines():
+        if linha.strip():
+            fila.append(json.loads(linha))
+    vistos: set[str] = set()
+    cont = {"arquivo": Path(arq).name, "lidas": len(fila), "aceitas": 0, "novas": 0, "ja_na_base": 0,
+            "rejeitadas": 0, "falhas": 0, "refs_enfileiradas": 0}
+    novas_n2, rejeitadas = [], []
+    i = 0
+    while i < len(fila):
+        e = fila[i]
+        i += 1
+        oaid = (e.get("openalex") or "").rsplit("/", 1)[-1]
+        if not oaid or oaid in vistos:
+            continue
+        vistos.add(oaid)
+        o = oa_obra(oaid)
+        if not o:
+            cont["falhas"] += 1
+            continue
+        w = de_openalex(o, "openalex")
+        if e.get("refs"):
+            for r in w.get("referencias") or []:
+                fila.append({"openalex": r, "motivo": f"citado_por:{oaid}"})
+                cont["refs_enfileiradas"] += 1
+        entra, cita = decide_inclusao(w, sementes, bool(e.get("forcar")), c)
+        w["cita_sementes"] = cita
+        if not entra:
+            cont["rejeitadas"] += 1
+            rejeitadas.append({"openalex": oaid, "titulo": w["titulo"][:120], "score": w["score"]})
+            continue
+        nova = not b.acha(w)
+        b.poe(w, e.get("motivo") or "de_jsonl")
+        cont["aceitas"] += 1
+        cont["novas" if nova else "ja_na_base"] += 1
+        if nova and (w["score"] >= c["limiar_expansao"] or cita >= 2):
+            novas_n2.append({"openalex": oaid, "titulo": w["titulo"][:160], "score": w["score"], "cita_sementes": cita})
+        if cont["aceitas"] % 100 == 0:
+            b.salva()
+            log(f"de_jsonl: {i}/{len(fila)} lidas; {cont['novas']} novas")
+    b.salva()
+    cont["candidatas_nivel2"] = len(novas_n2)
+    saida = dados() / "buscas" / HOJE / f"de_jsonl_{Path(arq).stem}.json"
+    saida.write_text(json.dumps({**cont, "nivel2": novas_n2, "rejeitadas_lista": rejeitadas},
+                                ensure_ascii=False, indent=1), encoding="utf-8")
+    log(f"de_jsonl {Path(arq).name}: {json.dumps(cont)}")
+    return cont
+
+
 RX_ARXIV_META = re.compile(r"covering (code|radius)|football pool|saturating set|covering design|"
                            r"orbital branching|orbitope|isomorph rejection", re.I)
 
@@ -1036,12 +1121,20 @@ ETAPAS = ["sementes", "buscas", "expandir", "arxivmeta", "tabelas", "baixar", "e
 
 def main(argv: list[str] | None = None) -> int:
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
-    ap.add_argument("etapas", nargs="+", choices=ETAPAS + ["tudo"])
+    ap.add_argument("etapas", nargs="*", choices=ETAPAS + ["tudo"])
+    ap.add_argument("--de-jsonl", action="append", default=[], metavar="ARQ",
+                    help="funde as obras listadas no JSONL (uma por linha: openalex, motivo, forcar, refs) "
+                         "antes das etapas; pode repetir")
     ap.add_argument("--niveis", type=int, default=2, help="níveis de expansão por citação (padrão 2)")
     ap.add_argument("--limite-gb", type=float, default=6.0, help="teto local de PDFs em GB")
     a = ap.parse_args(argv)
     etapas = ETAPAS if "tudo" in a.etapas else a.etapas
+    if not etapas and not a.de_jsonl:
+        ap.error("diga ao menos uma etapa ou --de-jsonl")
     b = Base()
+    for arq in a.de_jsonl:
+        log(f"== de_jsonl {arq}")
+        etapa_de_jsonl(b, Path(arq))
     for e in etapas:
         log(f"== etapa {e}")
         if e == "sementes":

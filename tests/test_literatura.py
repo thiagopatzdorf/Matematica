@@ -53,3 +53,41 @@ def test_base_funde_registros_da_mesma_obra_por_doi(tmp_path, monkeypatch):
     assert len(b.obras) == 1
     w = b.obras["W1"]
     assert w["zbmath"] == "1" and w["score"] == 7 and w["motivos"] == ["m1", "m2"]
+
+
+SEMENTES = {"W10", "W11", "W12"}
+CFG = {"limiar_inclusao": 4, "limiar_expansao": 6}
+
+
+def test_obra_sem_covering_no_resumo_entra_se_cita_duas_sementes():
+    w = {"score": 0, "referencias": ["W10", "W11", "W99"]}
+    assert varredura.decide_inclusao(w, SEMENTES, False, CFG) == (True, 2)
+
+
+def test_obra_irrelevante_que_cita_uma_semente_fica_de_fora():
+    w = {"score": 1, "referencias": ["W10", "W99"]}
+    assert varredura.decide_inclusao(w, SEMENTES, False, CFG) == (False, 1)
+
+
+def test_achado_de_texto_completo_entra_mesmo_com_score_zero():
+    assert varredura.decide_inclusao({"score": 0, "referencias": []}, SEMENTES, True, CFG)[0]
+
+
+def test_de_jsonl_funde_conta_novas_e_segue_referencias(tmp_path, monkeypatch):
+    monkeypatch.setenv("LIT_DIR", str(tmp_path))
+    obras = {
+        "W1": {"id": "https://openalex.org/W1", "title": "New covering codes", "referenced_works": ["https://openalex.org/W2"]},
+        "W2": {"id": "https://openalex.org/W2", "title": "Unrelated chemistry", "referenced_works": []},
+        "W3": {"id": "https://openalex.org/W3", "title": "Some table", "referenced_works": []},
+    }
+    monkeypatch.setattr(varredura, "oa_obra", lambda k: obras.get(k))
+    b = varredura.Base()
+    b.poe({"id": "W3", "openalex": "W3", "titulo": "Some table", "fontes": ["crossref"], "score": 0}, "antes")
+    arq = tmp_path / "lista.jsonl"
+    arq.write_text('{"openalex": "W1", "motivo": "cita:W10", "refs": true}\n'
+                   '{"openalex": "W3", "motivo": "busca:fulltext:x", "forcar": true}\n'
+                   '{"openalex": "W404"}\n', encoding="utf-8")
+    cont = varredura.etapa_de_jsonl(b, arq)
+    assert cont["novas"] == 1 and cont["ja_na_base"] == 1 and cont["rejeitadas"] == 1 and cont["falhas"] == 1
+    assert cont["refs_enfileiradas"] == 1
+    assert "busca:fulltext:x" in b.obras["W3"]["motivos"] and "W2" not in b.obras
