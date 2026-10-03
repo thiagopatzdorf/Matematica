@@ -17,11 +17,11 @@
 \author{Thiago Patzdorf}
 \address{Universidade de Caxias do Sul, Brazil}
 \email{thiagosleman@gmail.com}
-\date{2 October 2026}
+\date{3 October 2026 (draft v0.6, unreleased; not a Zenodo version)}
 
 \begin{document}
 \begin{abstract}
-We prove in Lean~4, against Mathlib~v4.34.1 and checked by the kernel with no \texttt{sorry} and no \texttt{native\_decide}, upper bounds on the covering number $K_q(n,R)$ for eight cells, each by an explicit code smaller than the corresponding entry in the tables we consulted.
+We prove in Lean~4, against Mathlib~v4.34.1 and checked by the kernel with no \texttt{sorry} and no \texttt{native\_decide}, upper bounds on the covering number $K_q(n,R)$ for eight cells, each by an explicit code smaller than the corresponding entry in the tables we consulted; these are apparent improvements over the recorded bounds, and their novelty is not established.
 The largest is $K_7(9,4)\le 1137$, against a best published bound of $1475$; the others are $K_7(8,3)\le 1887$, $K_5(10,4)\le 625$, $K_5(9,3)\le 1250$, $K_5(7,2)\le 500$, $K_5(9,4)\le 250$, $K_4(10,4)\le 192$ and $K_5(9,5)\le 50$.
 The codes are unions of cosets of a linear code plus a small patch, and we give two certificates: one walks digit prefixes and costs $12$ CPU-hours for $(\mathbb{Z}/7\mathbb{Z})^9$; the other works on syndromes and costs minutes (the $1137$-word code: $5.5$ CPU-minutes).
 The base of the $K_7(9,4)$ code was chosen from an enumeration of all $6362$ equivalence classes of non-degenerate $[9,3]_7$ codes.
@@ -36,11 +36,11 @@ Upper bounds come from constructions and lower bounds from counting; the tables 
 Upper bounds are certificates: a list of words and the claim that it covers.
 Checking the claim is a finite computation, but for $q^n$ in the tens of millions it is done by programs that are rarely audited.
 Florath~\cite{florath2026} built a Lean library of covering-code bounds whose derivations are replayed by the kernel; it formalizes the sphere-covering bound and records many cells.
-This note adds certificates that the kernel checks for eight cells where the codes are new, a certificate that scales by working on syndromes, and a formal determination of a small classical value.
+This note adds certificates that the kernel checks for eight cells where the codes are apparent improvements over the entries we found, a certificate that scales by working on syndromes, and a formal determination of a small classical value.
 
 The proofs use Lean~4~\cite{lean4} and Mathlib~\cite{mathlib}. The source is \url{https://github.com/thiagopatzdorf/Matematica}, tag \texttt{v0.\allowbreak 5.\allowbreak 0}.
 A statement below is a claim only when it is the name of a declaration in that tree.
-The default target \texttt{CoveringLean} builds in seconds; the prefix certificates form the target \texttt{CoveringHeavy} and the syndrome certificates the target \texttt{CoveringSyn}.
+The default target \texttt{CoveringLean} is cheap once Mathlib's compiled files and its own are cached and takes minutes otherwise (Section~\ref{sec:build} separates the cases); the prefix certificates form the target \texttt{CoveringHeavy} and the syndrome certificates the target \texttt{CoveringSyn}.
 
 \section{Definitions}
 In the development \texttt{CoveringA2} a word is a function $\mathtt{Fin}\,n\to\mathtt{ZMod}\,q$, distance is Mathlib's \texttt{hammingDist}, and
@@ -86,9 +86,10 @@ The $1351$-word code costs about $8$ CPU-minutes this way instead of $12$ CPU-ho
 Each certificate also contains an \texttt{example} in which a wrong witness is rejected by the kernel.
 
 \begin{remark}
-The best upper bound we found is $K_7(9,4)\le 1475$, by Marosi~\cite{marosi2026} (arXiv version 3, September 2026); Kéri's tables~\cite{keri} give $1843$.
-The best lower bound we know is $264$.
-That the bound is new is our reading of those sources on 2 October 2026, not something the kernel checks.
+Marosi~\cite{marosi2026} records $K_7(9,4)\le 1743$ in version~1 (20 August 2026) and $1475$ in versions~2 (23 August 2026) and~3 (2 September 2026); we checked on 3 October 2026 that no later version is listed.
+Kéri's tables~\cite{keri} give $1843$: the PDF we read is dated 15 October 2009, although the index of the site was updated as late as 25 November 2011.
+The lower bound $264$ is the entry of Kéri's table, and Marosi's table does not change it.
+That our bounds improve the recorded ones is our reading of the sources listed here, as of 3 October 2026; it is not something the kernel checks, and novelty is not established (Section~\ref{sec:evidence}).
 \end{remark}
 
 \section{A lower bound without search: $K_2(6,1)\ge 11$}
@@ -120,14 +121,14 @@ This replaces a hypothesis that the previous version of this note left open: the
 \texttt{SC.\allowbreak K\_\allowbreak 2\_\allowbreak 6\_\allowbreak 1\_\allowbreak eq12} : \texttt{IsK}\;2\;6\;1\;12.
 \end{theorem}
 
-The value is classical~\cite{sk1968}.
+The value is classical: we cite it from Kéri's table and from~\cite{sk1968}, which we did not read in the original; its exactness here rests on the proof below.
 The upper bound is an explicit $12$-word code (\texttt{code12}, encodings $0,1,2,15,28,23,57,58,59,39,44,52$).
 For the lower bound, a search \texttt{chkN} on $64$-bit masks takes a state (words still allowed, covered set, forbidden centres), picks the least uncovered word, and branches on the centres that could cover it, forbidding at each branch the siblings already tried.
 It prunes when the remaining words cannot cover what is left, at $7$ words per centre.
 \texttt{chkN\_\allowbreak sound} proves that a \texttt{true} answer means no completion exists.
 A translation argument lets one assume the word $63$ is in the code.
 The search from that root is cut at depth $2$ into $38$ states, each refuted by \texttt{decide +kernel} in its own file.
-The Lean database of Florath~\cite{florath2026} records $10\le K_2(6,1)\le 12$ at this cell.
+The data of Florath~\cite{florath2026} records $10\le K_2(6,1)\le 12$ at this cell; to our reading the Lean-proved part there is the lower bound $10$, and we did not find a Lean proof of the value $12$ in that artifact.
 
 \section{The sphere-covering bound}
 The library also proves the sphere-covering bound $q^n\le |C|\cdot V$ (\texttt{CoveringA2.\allowbreak sphere\_\allowbreak covering}), its strict form when $V\nmid q^n$, and eight numerical instances \texttt{CoveringChain.\allowbreak SPH\_\allowbreak K*\_\allowbreak lb}, among them $K_7(9,4)\ge 221$.
@@ -169,12 +170,32 @@ An exact computation of the minimum over all $6362$ classes, and over the $1375$
 For $K_7(8,3)$ the base of the $1893$-word code is five cosets of an $[8,3]_7$ code ($1715$ words) with two orphan syndromes ($686$ points); reoptimizing the patch gives $172$ words, which is optimal for that base, since no ball of radius $3$ contains more than four of the $686$ points and $\lceil 686/4\rceil=172$.
 Every candidate was checked by programs independent of the one that found it before being certified in Lean; the codes, a structured description of each (base, cosets, patch, provenance) and an official checker are in the repository.
 
+\section{Evidence, independence and literature status}\label{sec:evidence}
+Table~\ref{tab:evidence} is generated from the campaign data (witnesses, verifier runs, formal records) and not typed by hand.
+Every witness is checked by programs outside Lean: C, Rust, a Go program written from the mathematical specification alone, and a Python/numpy program.
+We call two verifiers independent when they are different programs from different implementation groups, by different authors, and neither is by the author of the claim.
+The C, Rust and Go programs count; the Python program was written by the author of the claim, so its PASS is recorded but not counted.
+The three validation programs of the repository (\texttt{verification/}) share an author with the C program and count with it.
+This is independence of implementation, not of mind: the authors are distinct agents of one model family, and that does not amount to full cognitive independence.
+The C program also refuses (exit code $2$) parameters that contradict the file name, a deliberate guard that the others lack; with neutral file names all agree.
+
+For each cell we looked for a predecessor in the sources we could read, and found none for $K_7(9,4)$ and $K_7(8,3)$ (medium confidence).
+This is not a statement that none exists.
+Amalgamated direct sums of tabulated codes would give $931$ and $1225$ for $K_7(9,4)$ and $1225$ for $K_7(8,3)$ \emph{if} suitable normal component codes exist; an exact SAT search for components realizing $931$ did not decide the question, which is a failure of search and not a proof of impossibility.
+For $K_5(7,2)$, $K_4(10,4)$ and $K_5(9,4)$ the same effect leaves the status ambiguous, and for $K_5(10,4)\le 625$, a linear $[10,4]_5$ code, we did not find the relevant table of linear covering codes and do not claim novelty.
+Several primary sources could not be read (Cohen et al.\ 1997, Bhandari and Durairajan 1996, Kéri and Östergård 2005 in full, the original of Stanton and Kalbfleisch).
+Fully independent confirmation of novelty would need an expert reading of those sources.
+
+\input{evidence_table}
+
 \section{What the kernel accepted}
-On 2 October 2026, on a virtual machine of type \texttt{e2-highmem-8}, Lean~4.34.1 and Mathlib~v4.34.1:
+On 2 October 2026, on a virtual machine of type \texttt{e2-highmem-8}, Lean~4.34.1 and Mathlib~v4.34.1 (reported by the author):
 \texttt{lake build} (default target, from a fresh clone) finished $8944$ jobs in $4$\,min\,$16$\,s, peak $10.0$\,GB;
 \texttt{lake build CoveringHeavy} (the prefix certificates and $K_2(6,1)=12$) finished $9181$ jobs in $1$\,h\,$54$\,min, about $9.3$ CPU-hours, at most $9.4$\,GB per process;
 \texttt{lake build CoveringSyn} (the four syndrome certificates) finished: $8983$ jobs in $10$\,min\,$35$\,s on 8 cores ($37$ CPU-minutes for all four), peak $6.9$\,GB per process.
 The fifth syndrome certificate, \texttt{CoveringLean.\allowbreak Syn\_\allowbreak K1137} ($K_7(9,4)\le 1137$), built in $2$\,min\,$41$\,s on 8 cores ($331$ CPU-seconds), peak $6.7$\,GB.
+On 3 October 2026 the syndrome certificates were rebuilt in a 4-vCPU container with Mathlib's compiled files fetched from the cache: the default target took $214$\,s ($8944$ jobs, of which $202$\,s for \texttt{SynBridge}, peak $6.5$\,GB per process) and \texttt{lake build CoveringSyn} $972$\,s ($8995$ jobs, peak $6.6$\,GB), with \texttt{\#print axioms} measured for the five syndrome theorems and only the three standard axioms.
+We did not time a build that compiles Mathlib itself, and \texttt{CoveringHeavy} (about $9.3$ CPU-hours) was not rebuilt there: the prefix theorems are declared in the repository and their build is the author's report.
 \texttt{\#print axioms} on Theorems~\ref{thm:k794}, \ref{thm:ge11}, \ref{thm:eq12} and on every declaration of Table~\ref{tab:other} reports \texttt{propext}, \texttt{Classical.\allowbreak choice} and \texttt{Quot.\allowbreak sound} only.
 
 \section{What is not a theorem}
@@ -185,7 +206,7 @@ Two files in the tree, \texttt{A5b\_\allowbreak Stress.\allowbreak lean} and \te
 
 \begin{thebibliography}{9}
 \bibitem{cohen1997}
-G.~Cohen, I.~Honkala, S.~Litsyn and A.~Lobstein, \emph{Covering Codes}, North-Holland, 1997.
+G.~Cohen, I.~Honkala, S.~Litsyn and A.~Lobstein, \emph{Covering Codes}, North-Holland, 1997 (not read; cited through the tables of~\cite{keri}).
 \bibitem{florath2026}
 A.~Florath, \emph{Formal foundations and proof-carrying certificates for $q$-ary covering codes in Lean~4}, arXiv:2606.09600, 2026.
 \bibitem{gp2025}
@@ -199,7 +220,7 @@ M.~Marosi, \emph{New upper and lower bounds on covering codes $K_q(n,R)$ for alp
 \bibitem{mathlib}
 The Mathlib Community, \emph{Mathlib}, \url{https://github.com/leanprover-community/mathlib4}, release v4.34.1.
 \bibitem{sk1968}
-R.~G. Stanton and J.~G. Kalbfleisch, \emph{Covering problems for dichotomized matchings}, Aequationes Math. \textbf{1} (1968), 94--103.
+R.~G. Stanton and J.~G. Kalbfleisch, \emph{Covering problems for dichotomized matchings}, Aequationes Math. \textbf{1} (1968), 94--103 (cited, not read in the original).
 \end{thebibliography}
 
 \end{document}

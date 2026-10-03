@@ -1,12 +1,12 @@
 # Snapshot científico (gerado por tools/campaign/snapshot_covering.py)
 
-Commit-base: `986889eaaf52b9b79dffd3f3385775fd4eea4fb0`. Fonte: dados da campanha, não texto.
+Commit-base: `f8139f73b48e5e2098a5bf09590ac97c0df776ec`. Fonte: dados da campanha, não texto.
 
 | Código | Tamanho | Estado do claim | Melhor registrada (Δ) | Verificadores (PASS/total) | Lean | Literatura |
 |---|---|---|---|---|---|---|
 | K_2(6,1) | 12 | PROVED (só ≤12; igualdade EXHAUSTIVE_BOUNDED) | 12 (−0, 0.0%) | 4/4 | PROVED_MEASURED (+ pesado declarado) | PREDECESSOR_FOUND (alta) |
 | K_4(10,4) | 192 | INDEPENDENTLY_REPRODUCED | 208 (−16, 7.69%) | 4/4 | EXISTS_BUILD_NOT_REPRODUCED | AMBIGUOUS (média-baixa) |
-| K_5(10,4) | 625 | INDEPENDENTLY_REPRODUCED | 875 (−250, 28.57%) | 4/4 | EXISTS_BUILD_NOT_REPRODUCED | NO_PREDECESSOR_FOUND_IN_REVIEWED_SOURCES (baixa-média) |
+| K_5(10,4) | 625 | INDEPENDENTLY_REPRODUCED | 875 (−250, 28.57%) | 4/4 | EXISTS_BUILD_NOT_REPRODUCED | AMBIGUOUS (baixa) |
 | K_5(7,2) | 500 | INDEPENDENTLY_REPRODUCED | 525 (−25, 4.76%) | 4/4 | EXISTS_BUILD_NOT_REPRODUCED | AMBIGUOUS (média) |
 | K_5(9,3) | 1250 | INDEPENDENTLY_REPRODUCED | 1275 (−25, 1.96%) | 4/4 | EXISTS_BUILD_NOT_REPRODUCED | NO_PREDECESSOR_FOUND_IN_REVIEWED_SOURCES (média) |
 | K_5(9,4) | 250 | INDEPENDENTLY_REPRODUCED | 255 (−5, 1.96%) | 4/4 | EXISTS_BUILD_NOT_REPRODUCED | AMBIGUOUS (média) |

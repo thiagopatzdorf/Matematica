@@ -21,7 +21,7 @@ LIT = {
  "w-q7-n9-r4-m1351": ("NO_PREDECESSOR_FOUND_IN_REVIEWED_SOURCES", "baixa-média", "_literatura/profunda", "superado pelo nosso 1137"),
  "w-q7-n8-r3-m1887": ("NO_PREDECESSOR_FOUND_IN_REVIEWED_SOURCES", "média", "_literatura/profunda", "risco: ADS (3,1)+(6,2)=1225 condicional a normalidade"),
  "w-q7-n8-r3-m1893": ("NO_PREDECESSOR_FOUND_IN_REVIEWED_SOURCES", "média", "_literatura/profunda", "superado pelo nosso 1887"),
- "w-q5-n10-r4-m625": ("NO_PREDECESSOR_FOUND_IN_REVIEWED_SOURCES", "baixa-média", "_literatura/profunda", "código linear [10,4,5]_5; tabela ℓ_5(6,4) não encontrada; não alegar novidade"),
+ "w-q5-n10-r4-m625": ("AMBIGUOUS", "baixa", "_literatura/profunda_c", "código linear [10,4,5]_5; tabela ℓ_5(6,4) não encontrada; não alegar novidade"),
  "w-q5-n7-r2-m500": ("AMBIGUOUS", "média", "_literatura/profunda_b", "ADS 478,4 condicional"),
  "w-q4-n10-r4-m192": ("AMBIGUOUS", "média-baixa", "_literatura/profunda_b", "ADS dá exatamente 192, condicional"),
  "w-q5-n9-r4-m250": ("AMBIGUOUS", "média", "_literatura/profunda_b", "ADS 245 condicional"),
