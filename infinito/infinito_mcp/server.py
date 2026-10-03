@@ -2,7 +2,8 @@
 
 Núcleo (este arquivo) faz o que todo módulo precisaria refazer:
 
-* **porta**: JWT do Cloudflare Access em todo pedido (auth.py);
+* **porta**: URL com token por pessoa, `/mcp/<token>/` (tokens.py), como o MCP da Factory; ou, com
+  `INF_AUTH=access`, o JWT do Cloudflare Access (auth.py);
 * **identidade**: `quem()` em qualquer tool, e auditoria JSON por chamada em stdout
   (`jsonPayload.auditoria="infinito-mcp"` no Cloud Logging);
 * **dinheiro**: o ledger de créditos (creditos.py) e as tools de administração, que só
@@ -31,10 +32,11 @@ from starlette.responses import JSONResponse
 from .armazem import Armazem, ArmazemGCS
 from .auth import CABECALHO, Config, Identidade, VerificadorAccess, configurar
 from .creditos import Creditos, ErroCreditos
+from .tokens import Tokens
 
 _quem: contextvars.ContextVar[Identidade | None] = contextvars.ContextVar("inf_quem", default=None)
 AUDITORIA = "infinito-mcp"
-MODULOS_PADRAO = "matematica,papers,pesado"
+MODULOS_PADRAO = "matematica,papers,pesado,gemini"
 
 
 class PortaDoAccess:
@@ -54,6 +56,33 @@ class PortaDoAccess:
                               "message": "pedido sem JWT do Access válido", "caminho": scope.get("path"),
                               "tinha_jwt": CABECALHO in cab}), flush=True)
             return await JSONResponse({"erro": "acesso negado"}, status_code=403)(scope, receive, send)
+        marca = _quem.set(ident)
+        try:
+            await self.app(scope, receive, send)
+        finally:
+            _quem.reset(marca)
+
+
+class PortaPorToken:
+    """ASGI: `/mcp/<token>/...` -> identidade da pessoa; o caminho vira `/mcp` para o servidor MCP.
+
+    Token errado, revogado ou ausente volta 404 genérico (não revela que o caminho existe).
+    """
+
+    def __init__(self, app, tokens: Tokens):
+        self.app, self.tokens = app, tokens
+
+    async def __call__(self, scope, receive, send):
+        if scope["type"] != "http":
+            return await self.app(scope, receive, send)
+        partes = scope["path"].split("/", 3)          # ['', 'mcp', '<token>', 'resto']
+        ident = self.tokens.decidir(partes[2]) if len(partes) > 2 and partes[1] == "mcp" else None
+        if ident is None:
+            # o caminho NÃO vai para o log: ele carrega o token
+            print(json.dumps({"severity": "WARNING", "auditoria": AUDITORIA, "recusado": True,
+                              "message": "token ausente, errado ou revogado"}), flush=True)
+            return await JSONResponse({"detail": "Not Found"}, status_code=404)(scope, receive, send)
+        scope = dict(scope, path="/mcp", raw_path=b"/mcp")
         marca = _quem.set(ident)
         try:
             await self.app(scope, receive, send)
@@ -83,6 +112,7 @@ class Contexto:
     estado: Armazem          # ledger, histórico de trabalho
     literatura: Armazem      # bucket de papers
     env: dict
+    tokens: Tokens | None = None
     tool: Callable[..., Any] = None  # type: ignore[assignment]  # preenchido por criar_mcp
 
     quem = staticmethod(quem)
@@ -131,8 +161,41 @@ def _tools_do_nucleo(ctx: Contexto) -> None:
                                                ativo=ativo, motivo=motivo)}
 
 
+def _tools_de_acesso(ctx: Contexto) -> None:
+    """[admin] Convidar e revogar. O token em claro sai UMA vez, na resposta de `admin_convidar`."""
+    tool, creditos, tokens = ctx.tool, ctx.creditos, ctx.tokens
+    base = ctx.env.get("INF_URL_BASE", "").rstrip("/")
+
+    @tool
+    def admin_convidar(nome: str, email: str, teto_usd: float | None = None) -> dict:
+        """[admin] Abre uma vaga e gera a URL pessoal (`.../mcp/<token>/`) da pessoa, com o teto de crédito
+        (padrão US$ 20). A URL é a senha dela: mande por canal privado e nunca cole em chat, issue ou PR.
+        O token só aparece nesta resposta; se perder, convide de novo e revogue o antigo."""
+        creditos.exigir_admin(quem())
+        antes = {p["quem"] for p in creditos.listar(quem())}
+        creditos.definir(quem(), email, teto_usd=teto_usd if teto_usd is not None else creditos.teto_padrao,
+                         motivo="convite")                       # recusa "lotado" ANTES de emitir token
+        token = tokens.emitir(nome, email)
+        return {"ok": True, "nome": nome, "email": email.lower(), "nova_vaga": email.lower() not in antes,
+                "url": f"{base}/mcp/{token}/" if base else f"<INF_URL_BASE>/mcp/{token}/"}
+
+    @tool
+    def admin_revogar(email: str) -> dict:
+        """[admin] Corta o acesso da pessoa (todos os tokens dela) e desativa o crédito. Não apaga histórico."""
+        creditos.exigir_admin(quem())
+        n = tokens.revogar(email)
+        creditos.definir(quem(), email, ativo=False, motivo="revogado")
+        return {"ok": True, "tokens_revogados": n}
+
+    @tool
+    def admin_acessos() -> dict:
+        """[admin] Quem tem token (sem o token), se está ativo e quando foi criado."""
+        creditos.exigir_admin(quem())
+        return {"ok": True, "acessos": tokens.listar()}
+
+
 def criar_mcp(creditos: Creditos, estado: Armazem, literatura: Armazem, env: dict | None = None,
-              modulos: list[str] | None = None) -> FastMCP:
+              modulos: list[str] | None = None, tokens: Tokens | None = None) -> FastMCP:
     env = dict(os.environ if env is None else env)
     mcp = FastMCP(
         "Infinito",
@@ -145,9 +208,11 @@ def criar_mcp(creditos: Creditos, estado: Armazem, literatura: Armazem, env: dic
         ),
         host="0.0.0.0", stateless_http=True, json_response=True,
     )
-    ctx = Contexto(mcp=mcp, creditos=creditos, estado=estado, literatura=literatura, env=env)
+    ctx = Contexto(mcp=mcp, creditos=creditos, estado=estado, literatura=literatura, env=env, tokens=tokens)
     ctx.tool = lambda fn: mcp.tool()(_auditado(fn, creditos))
     _tools_do_nucleo(ctx)
+    if tokens is not None:
+        _tools_de_acesso(ctx)
     for nome in (modulos if modulos is not None else env.get("INF_MODULOS", MODULOS_PADRAO).split(",")):
         nome = nome.strip()
         if nome:
@@ -155,7 +220,7 @@ def criar_mcp(creditos: Creditos, estado: Armazem, literatura: Armazem, env: dic
     return mcp
 
 
-def app(cfg: Config, *, estado: Armazem | None = None, literatura: Armazem | None = None,
+def app(cfg: Config | None = None, *, estado: Armazem | None = None, literatura: Armazem | None = None,
         verificador: VerificadorAccess | None = None, env: dict | None = None, modulos: list[str] | None = None):
     env = dict(os.environ if env is None else env)
     estado = estado or ArmazemGCS(env.get("INF_BUCKET_ESTADO", "infinito-mcp-estado"))
@@ -163,6 +228,9 @@ def app(cfg: Config, *, estado: Armazem | None = None, literatura: Armazem | Non
     admins = frozenset(a.strip().lower() for a in env.get("INF_ADMINS", "").split(",") if a.strip())
     creditos = Creditos(estado, admins=admins, max_usuarios=int(env.get("INF_MAX_USUARIOS", "10")),
                         teto_padrao_usd=float(env.get("INF_TETO_PADRAO_USD", "20")))
+    if cfg is None:     # padrão: URL com token por pessoa (o jeito que a Factory já usa)
+        tokens = Tokens(estado, token_admin=env.get("INF_TOKEN_ADMIN") or None)
+        return PortaPorToken(criar_mcp(creditos, estado, literatura, env, modulos, tokens).streamable_http_app(), tokens)
     return PortaDoAccess(criar_mcp(creditos, estado, literatura, env, modulos).streamable_http_app(),
                          verificador or VerificadorAccess(cfg))
 
@@ -170,7 +238,7 @@ def app(cfg: Config, *, estado: Armazem | None = None, literatura: Armazem | Non
 def main() -> None:
     import uvicorn
     env = dict(os.environ)
-    uvicorn.run(app(configurar(env), env=env), host=env.get("INF_HOST", "0.0.0.0"), port=int(env.get("PORT", "8080")))
+    uvicorn.run(app(configurar(env) if env.get("INF_AUTH") == "access" else None, env=env), host=env.get("INF_HOST", "0.0.0.0"), port=int(env.get("PORT", "8080")))
 
 
 if __name__ == "__main__":

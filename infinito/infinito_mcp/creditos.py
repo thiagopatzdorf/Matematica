@@ -101,8 +101,8 @@ class Creditos:
                 abertas.pop(e["id"], None)
         reservado = sum(abertas.values())
         teto = u["teto_usd"]
-        return {"quem": quem, "teto_usd": teto, "gasto_usd": round(gasto, 4), "reservado_usd": round(reservado, 4),
-                "disponivel_usd": None if teto is None else round(teto - gasto - reservado, 4), "admin": bool(u.get("admin"))}
+        return {"quem": quem, "teto_usd": teto, "gasto_usd": round(gasto, 6), "reservado_usd": round(reservado, 6),
+                "disponivel_usd": None if teto is None else round(teto - gasto - reservado, 6), "admin": bool(u.get("admin"))}
 
     def _evento(self, quem: str, tipo: str, id_: str, usd: float, **extra) -> None:
         ts = self._agora()

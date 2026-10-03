@@ -272,3 +272,114 @@ def test_tools_do_servidor_e_colaborador_chamando_admin(capsys):
         assert ok["teto_usd"] == 30.0
     linhas = [json.loads(l) for l in capsys.readouterr().out.splitlines() if '"tool"' in l]
     assert any(l["quem"] == DONO and l["tool"] == "admin_creditos" for l in linhas)
+
+
+# ------------------------------------------------------------ URL com token
+from infinito_mcp.modulos import gemini  # noqa: E402
+from infinito_mcp.tokens import Tokens  # noqa: E402
+
+TOKEN_ADMIN = "token-admin-de-teste-so-no-ambiente"
+
+
+def _cliente_token(estado):
+    asgi = server.app(None, estado=estado, literatura=ArmazemMemoria(),
+                      env={"INF_REPO": str(REPO), "INF_TOKEN_ADMIN": TOKEN_ADMIN, "INF_URL_BASE": "https://inf.exemplo.app"})
+    return TestClient(asgi, base_url="https://inf.exemplo.app")
+
+
+def _tool_url(c, token, nome, args):
+    cab = {"Accept": "application/json, text/event-stream", "Content-Type": "application/json"}
+    return c.post(f"/mcp/{token}/", headers=cab, json={"jsonrpc": "2.0", "id": 1, "method": "tools/call",
+                                                      "params": {"name": nome, "arguments": args}})
+
+
+def test_token_guardado_em_claro_no_ledger_vaza_com_o_bucket():
+    est = ArmazemMemoria()
+    t = Tokens(est)
+    tok = t.emitir("Dudu", "dudu@x.com")
+    assert tok.encode() not in est.ler("acesso/tokens.json")
+    assert t.decidir(tok).quem == "dudu@x.com"
+
+
+def test_token_errado_ou_revogado_responde_diferente_de_404():
+    est = ArmazemMemoria()
+    t = Tokens(est)
+    tok = t.emitir("Dudu", "dudu@x.com")
+    t.revogar("dudu@x.com")
+    with _cliente_token(est) as c:
+        for ruim in (tok, "inventado", ""):
+            assert _tool_url(c, ruim, "meus_creditos", {}).status_code == 404
+        assert c.post("/mcp", json={}).status_code == 404       # sem token no caminho
+
+
+def test_convite_pela_mcp_interna_vira_url_que_funciona_e_revogar_corta(capsys):
+    est = ArmazemMemoria()
+    with _cliente_token(est) as c:
+        # colaborador não convida
+        tok_fraco = Tokens(est).emitir("Fraco", "fraco@x.com")
+        assert _dado(_tool_url(c, tok_fraco, "admin_convidar", {"nome": "X", "email": "x@x.com"}))["ok"] is False
+        convite = _dado(_tool_url(c, TOKEN_ADMIN, "admin_convidar", {"nome": "Dudu", "email": "dudu@x.com"}))
+        assert convite["ok"] and convite["url"].startswith("https://inf.exemplo.app/mcp/")
+        tok = convite["url"].split("/mcp/")[1].strip("/")
+        assert _dado(_tool_url(c, tok, "meus_creditos", {}))["disponivel_usd"] == 20.0
+        _dado(_tool_url(c, TOKEN_ADMIN, "admin_creditos", {"email": "dudu@x.com", "somar_usd": 10, "motivo": "busca"}))
+        assert _dado(_tool_url(c, tok, "meus_creditos", {}))["teto_usd"] == 30.0
+        assert _dado(_tool_url(c, TOKEN_ADMIN, "admin_revogar", {"email": "dudu@x.com"}))["tokens_revogados"] == 1
+        assert _tool_url(c, tok, "meus_creditos", {}).status_code == 404
+        assert "dudu@x.com" in json.dumps(_dado(_tool_url(c, TOKEN_ADMIN, "admin_acessos", {})))
+    assert tok not in capsys.readouterr().out          # o token não vai para a auditoria nem para o log
+
+
+def test_convite_da_pessoa_onze_emite_token_antes_de_recusar_lotado():
+    est = ArmazemMemoria()
+    with _cliente_token(est) as c:
+        for i in range(10):
+            assert _dado(_tool_url(c, TOKEN_ADMIN, "admin_convidar", {"nome": f"p{i}", "email": f"p{i}@x.com"}))["ok"]
+        antes = est.ler("acesso/tokens.json")
+        assert _dado(_tool_url(c, TOKEN_ADMIN, "admin_convidar", {"nome": "p10", "email": "p10@x.com"}))["ok"] is False
+        assert est.ler("acesso/tokens.json") == antes
+
+
+# -------------------------------------------------------------------- gemini
+def _gem(chamada, env=None, c=None):
+    c = c or creditos()
+    ctx = _Ctx(c, env=env or {"INF_REPO": str(REPO), "GEMINI_API_KEY": "k"})
+    gemini.registrar(ctx, chamada)
+    return ctx, c
+
+
+def test_gemini_cobra_o_estimado_em_vez_dos_tokens_medidos():
+    ctx, c = _gem(lambda m, p, n: {"texto": "oi", "entrada": 1000, "saida": 500})
+    r = ctx.tools["gemini"]("a" * 300, confirmar=True)
+    esperado = round((1000 * 0.30 + 500 * 2.50) / 1e6, 6)
+    assert r["custo_usd"] == esperado
+    assert c.saldo("a@x.com")["gasto_usd"] == esperado and c.saldo("a@x.com")["reservado_usd"] == 0
+
+
+def test_gemini_seco_nao_chama_a_api_nem_reserva():
+    chamadas = []
+    ctx, c = _gem(lambda m, p, n: chamadas.append(1))
+    r = ctx.tools["gemini"]("oi")
+    assert r["seco"] and r["custo_maximo_usd"] > 0 and not chamadas
+    assert c.saldo("a@x.com")["reservado_usd"] == 0
+
+
+def test_gemini_que_falha_ou_sem_chave_continua_cobrando():
+    def cai(m, p, n):
+        raise TimeoutError
+
+    ctx, c = _gem(cai)
+    assert ctx.tools["gemini"]("oi", confirmar=True)["ok"] is False
+    ctx2, c2 = _gem(None, env={"INF_REPO": str(REPO)})
+    assert "GEMINI_API_KEY" in ctx2.tools["gemini"]("oi", confirmar=True)["erro"]
+    assert c.saldo("a@x.com")["disponivel_usd"] == 20.0 == c2.saldo("a@x.com")["disponivel_usd"]
+
+
+def test_gemini_com_saldo_curto_chama_assim_mesmo():
+    chamadas = []
+    ctx, c = _gem(lambda m, p, n: chamadas.append(1) or {"texto": "", "entrada": 1, "saida": 1})
+    c.definir(DONO, "a@x.com", teto_usd=0.0, motivo="zerado")
+    with pytest.raises(ErroCreditos, match="insuficiente"):
+        ctx.tools["gemini"]("oi", max_saida=8192, confirmar=True)
+    assert chamadas == []
+    assert ctx.tools["gemini"]("oi", modelo="inexistente")["ok"] is False
