@@ -5,7 +5,7 @@
     "data/search/p1285.json",
     "<saída>"
   ],
-  "created": "2026-10-03T15:39:17Z",
+  "created": "2026-10-03T16:38:07Z",
   "created_by": "agente-c",
   "description": "Regenera o código de 1285 palavras com o gerador versionado a partir de data/search/p1285.json.",
   "experiment_id": "exp-k7-9-4-1285-regen",
@@ -15,7 +15,7 @@
   ],
   "kind": "search",
   "ranges": null,
-  "repo_commit": "2373b67c4ba9cb0e16ae707b128327de3dfcbd94",
+  "repo_commit": "1df5526dc0275a9ace7c2bd86e7832f92ef1aa34",
   "result": {
     "executado_neste_run": true,
     "identico_byte_a_byte": true,

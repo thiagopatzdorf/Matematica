@@ -1,0 +1,78 @@
+{
+  "claim_id": "h3-alpha-le-2",
+  "counterexample_search": {
+    "status": "not_started"
+  },
+  "created": "2026-10-03T16:43:49Z",
+  "created_by": "agente-c",
+  "created_role": "PROPOSER",
+  "depends_on": [],
+  "evidence": {
+    "counterexamples": [
+      "cx-h3-alpha-le-2"
+    ],
+    "experiments": [],
+    "external_reproductions": [],
+    "formal": [
+      "f-h3-counterexample"
+    ],
+    "literature": [],
+    "proofs": [],
+    "verifier_runs": [],
+    "witnesses": []
+  },
+  "history": [
+    {
+      "actor": "agente-c",
+      "from": null,
+      "reason": "criado",
+      "role": "PROPOSER",
+      "to": "IDEA",
+      "ts": "2026-10-03T16:43:49Z"
+    },
+    {
+      "actor": "agente-c",
+      "from": "IDEA",
+      "reason": "evidência anexada: formal=f-h3-counterexample",
+      "role": "PROPOSER",
+      "to": "IDEA",
+      "ts": "2026-10-03T16:43:49Z"
+    },
+    {
+      "actor": "agente-c",
+      "from": "IDEA",
+      "reason": "hipótese registrada para ser refutada",
+      "role": "PROPOSER",
+      "to": "CONJECTURE",
+      "ts": "2026-10-03T16:43:49Z"
+    },
+    {
+      "actor": "migrate_covering.py",
+      "from": "CONJECTURE",
+      "reason": "evidência anexada: counterexamples=cx-h3-alpha-le-2",
+      "role": "COUNTEREXAMPLE_HUNTER",
+      "to": "CONJECTURE",
+      "ts": "2026-10-03T16:43:49Z"
+    },
+    {
+      "actor": "migrate_covering.py",
+      "from": "CONJECTURE",
+      "reason": "H3_counterexample medido no kernel",
+      "role": "COUNTEREXAMPLE_HUNTER",
+      "to": "REFUTED",
+      "ts": "2026-10-03T16:43:49Z"
+    }
+  ],
+  "kind": "conjecture",
+  "refuting_lean_statement": "theorem H3_counterexample : IsK 3 3 2 3 ∧ HasVol 3 3 2 19 ∧ ((3 : ℚ) * 19 / 3 ^ 3 = 19 / 9) ∧ ((2 : ℚ) < 3 * 19 / 3 ^ 3) :=",
+  "reviewed_by": [],
+  "scope": {
+    "assumptions": [],
+    "domain": "todo (q,n,R) (contraexemplo em q=3, n=3, R=2)",
+    "problem": "H3 de A6_Finite"
+  },
+  "statement": "H3: α(q,n,R) = K_q(n,R)·V/q^n ≤ 2 para todo (q,n,R) (hipótese do autor; texto original não localizado, o '2' e a desigualdade são lidos do cabeçalho de A6_Finite.lean:102 'α = 19/9 > 2').",
+  "statement_provenance": "enunciado original não localizado em arquivo versionado; ver descrição",
+  "status": "REFUTED",
+  "trust_boundary": []
+}

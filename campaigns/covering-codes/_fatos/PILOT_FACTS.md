@@ -156,3 +156,10 @@ MEDI com os dois (todos os 10 códigos, ambos `uncovered=0`, mesmo sha256 canôn
 - Cobertura do universo (9 células): 1 resolvida (K_2(6,1)), 8 residuais.
 - `lint`: 14 `same_code_verifier` (falso positivo: claims PROVED por Lean não têm corrida de verificador e a regra os trata como "reproduzidos"), 3 `unexpected_axiom` (os 2 registros pesados sem axiomas medidos: correto), 2 `shared_hidden_assumption` (literatura Kéri/Marosi não reproduzida: correto).
 - Achado da infra: `model._g_proved` só exige que EXISTA um registro formal; só `FORMALLY_VERIFIED` chama `validar_registro_formal`. O script exige validade antes de PROVED (`promover`), então o estado final não depende dessa folga.
+
+## 12. Autópsia do REFUTED (2026-10-03, Agente P1; detalhes em `_autopsia/AUTOPSIA_REFUTED.md`)
+
+- MEDI: `A6_Finite.lean` refuta H1, H3 e H5 (`H1_counterexample`, `H3_counterexample`, `H5_counterexample`) e a campanha só tinha o H2. Registrados em `tools/campaign/migrate_covering.py` como claims REFUTED (`h1-alpha-nonincreasing`, `h3-alpha-le-2`, `h5-ceil-bound-needs-perfect`) com contraexemplo e registro formal medido (`#print axioms`: `propext, Classical.choice, Quot.sound`). Estados finais: 15 PROVED, 10 INDEPENDENTLY_REPRODUCED, 2 EXHAUSTIVE_BOUNDED, **4 REFUTED** (31 claims).
+- LIMITAÇÃO: o texto original de H1, H3 e H5 não está em nenhum arquivo versionado além do nome e de um comentário de uma linha em `A6_Finite.lean`; os enunciados dos claims são leitura desses comentários, e o que o Lean refuta literalmente está em `refuting_lean_statement` de cada claim.
+- MEDI: `tests/test_refuted_hypotheses.py` (6 testes) falha se a biblioteca refutar `H<n>` sem claim REFUTED, se README/nota/docs/paper afirmarem uma hipótese refutada sem dizê-lo, ou se claim ≥ EMPIRICAL depender (mesmo transitivamente) de REFUTED.
+- A cadeia anterior à regeneração (356 eventos, âncora seq 320) está copiada em `_autopsia/audit-pre-regeneracao/` com sha256.

@@ -20,7 +20,7 @@ Nenhum `sorry`, nenhum `native_decide`, e todo `#print axioms` mostra no máximo
 | `SC.K_2_6_1_eq12` (`SearchK6ge12`) | `IsK 2 6 1 12`, isto é `K_2(6,1) = 12` | busca com poda verificada (`SearchCore.chkN`, correção em `SearchSound.chkN_sound`), translação "WLOG 63 ∈ C", exclusão de irmãos, 38 pedaços `G610_Chunk_*` com `decide +kernel` |
 | `CoveringKernel.K7_9_4_le_1351_kernel` (`K3_K7_9_4_Final`) | existe `C : Finset (Fin 9 → ZMod 7)` com `C.card = 1351` e `Covers 4 C` | o código explícito (`C1_Data_K7_9_4`, sha256 canônico `54dbdade…1162`), checagem booleana `go` com prova de correção (`K2_Core`, `K2_Loop`, `K3_Bridge`), 2401 folhas em 95 pedaços `K3_K7_9_4_P*` |
 
-`K_2(6,1) ≥ 11` deixa de ser condicional; `H2_counterexample_uncond` refuta H2 sem hipótese.
+`K_2(6,1) ≥ 11` deixa de ser condicional; `H2_counterexample_uncond` refuta H2 ("o gap `K − ⌈esfera⌉` é não decrescente em `n`") sem hipótese.
 
 **Contexto na literatura, conferido em 2026-10-01** (comparação feita por nós, sem revisão externa):
 
@@ -75,7 +75,7 @@ Espaço `Fin n → ZMod q` (A1–A3, Chain, K3) ou `Fin n → Fin q` (A6*, Searc
 | `Chain` | `sphere_covering_formula` e os 8 `CoveringChain.SPH_K*_lb` |
 | `A4_Closed` | `K_q(n,n-1)=q`, `K=1` para `R ≥ n`, monotonias |
 | `A5_Frontier` | cota para cobertura parcial e limiar de viabilidade |
-| `A6_Finite`, `A6b_Hamming` | contra-exemplos H5, H1, H3, Hamming `[7,4]` perfeito, `K_2(7,1)=16` |
+| `A6_Finite`, `A6b_Hamming` | contra-exemplos H5, H1, H3 (refutadas; H1, H2, H3 e H5 são claims REFUTED na campanha), Hamming `[7,4]` perfeito, `K_2(7,1)=16` |
 | `A6c_Search` | verificador de busca antigo (`refuted_sound`), `code12` (`K_2(6,1) ≤ 12`) |
 | `A6e_Excess` | `excess_bound` (abstrato), `K_2_6_1_ge_11`, `H2_counterexample_uncond` |
 | `SearchCore`, `SearchSound`, `SearchBridgeA2` | busca `chkN` em bitmask (só núcleo), sua correção e a ponte para `W 2 6` e `ZMod 2` |

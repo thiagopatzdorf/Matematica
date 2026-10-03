@@ -17,7 +17,7 @@
     "result": "uncovered=0 nos verificadores; kernel aceita",
     "status": "completed"
   },
-  "created": "2026-10-03T15:43:28Z",
+  "created": "2026-10-03T16:43:49Z",
   "created_by": "agente-c",
   "created_role": "PROPOSER",
   "depends_on": [],
@@ -46,7 +46,7 @@
       "reason": "criado",
       "role": "PROPOSER",
       "to": "IDEA",
-      "ts": "2026-10-03T15:43:28Z"
+      "ts": "2026-10-03T16:43:49Z"
     },
     {
       "actor": "agente-c",
@@ -54,7 +54,7 @@
       "reason": "evidência anexada: formal=f-code12-covers",
       "role": "PROPOSER",
       "to": "IDEA",
-      "ts": "2026-10-03T15:43:28Z"
+      "ts": "2026-10-03T16:43:49Z"
     },
     {
       "actor": "agente-c",
@@ -62,7 +62,7 @@
       "reason": "evidência anexada: formal=f-code12-card",
       "role": "PROPOSER",
       "to": "IDEA",
-      "ts": "2026-10-03T15:43:28Z"
+      "ts": "2026-10-03T16:43:49Z"
     },
     {
       "actor": "agente-c",
@@ -70,7 +70,7 @@
       "reason": "evidência anexada: literature=lit-florath-2606-09600-ub",
       "role": "PROPOSER",
       "to": "IDEA",
-      "ts": "2026-10-03T15:43:28Z"
+      "ts": "2026-10-03T16:43:49Z"
     },
     {
       "actor": "migrate_covering.py",
@@ -78,7 +78,7 @@
       "reason": "code12_covers e code12_card medidos no kernel (o PROVED NÃO depende do witness: ele fica em complementary_witnesses, fora de evidence.witnesses)",
       "role": "FORMALIZER",
       "to": "PROVED",
-      "ts": "2026-10-03T15:43:28Z"
+      "ts": "2026-10-03T16:43:49Z"
     }
   ],
   "kind": "theorem",

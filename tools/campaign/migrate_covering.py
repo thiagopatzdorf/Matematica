@@ -424,6 +424,8 @@ def main() -> int:
         "f-code12-covers": ("CoveringA6.code12_covers", "CoveringLean/A6c_Search.lean", "CoveringLean"),
         "f-code12-card": ("CoveringA6.code12_card", "CoveringLean/A6c_Search.lean", "CoveringLean"),
         "f-h2-counterexample": ("CoveringA6.H2_counterexample_uncond", "CoveringLean/A6e_Excess.lean", "CoveringLean"),
+        # H1, H3, H5: a biblioteca os refuta em A6_Finite.lean desde o início e a campanha não os registrava (autópsia do H2, 2026-10-03)
+        **{f"f-{h.lower()}-counterexample": (f"CoveringA6.{h}_counterexample", "CoveringLean/A6_Finite.lean", "CoveringLean") for h in ("H1", "H3", "H5")},
         "f-chkn-sound": ("SC.chkN_sound", "CoveringLean/SearchSound.lean", "CoveringLean"),
         "f-cert-of-go": ("CoveringKernel.cert_of_go", "CoveringLean/K3_Bridge.lean", "CoveringLean"),
     }
@@ -589,6 +591,46 @@ def main() -> int:
     if not validar_registro_formal(c.ler("formal", "f-h2-counterexample")):  # só refuta se o contraexemplo formal foi MEDIDO
         K.invalidar(c, "h2-gap-nondecreasing", "cx-h2-gap-nondecreasing", ator=PROMOTOR, papel="COUNTEREXAMPLE_HUNTER",
                     motivo="H2_counterexample_uncond medido no kernel")
+
+    # H1, H3, H5: as outras três hipóteses que A6_Finite.lean refuta (autópsia do H2, 2026-10-03). Nasceram fora da campanha: a biblioteca guardava
+    # a refutação e o sistema não guardava a hipótese refutada. O enunciado ORIGINAL de cada H não está escrito em nenhum arquivo versionado além do
+    # nome e de um comentário de uma linha em A6_Finite.lean; o `statement` abaixo é a leitura do comentário, e o que o Lean refuta LITERALMENTE é o
+    # `lean_statement` (copiado do .lean por regex, não digitado). A guarda REFUTED não exige witness porque o claim nunca passou de CONJECTURE.
+    lean_a6 = (REPO / "CoveringLean/A6_Finite.lean").read_text()
+    HIPOTESES = {
+        "H1": ("h1-alpha-nonincreasing",
+               "H1: α(q,n,R) = K_q(n,R)·V/q^n é não crescente em n, com q e R fixos (hipótese do autor; texto original não localizado, enunciado lido do comentário "
+               "de A6_Finite.lean:95 'H1 says α is nonincreasing in n').",
+               {"problem": "H1 de A6_Finite", "domain": "q, R fixos, n variável (contraexemplo em q=2, R=1, n=3→4)", "assumptions": []},
+               "α(2,3,1) = 2·4/8 = 1 mas α(2,4,1) = 4·5/16 = 5/4 > 1: α cresce de n=3 para n=4 (K_2(3,1)=2, V=4; K_2(4,1)=4, V=5)."),
+        "H3": ("h3-alpha-le-2",
+               "H3: α(q,n,R) = K_q(n,R)·V/q^n ≤ 2 para todo (q,n,R) (hipótese do autor; texto original não localizado, o '2' e a desigualdade são lidos do "
+               "cabeçalho de A6_Finite.lean:102 'α = 19/9 > 2').",
+               {"problem": "H3 de A6_Finite", "domain": "todo (q,n,R) (contraexemplo em q=3, n=3, R=2)", "assumptions": []},
+               "α(3,3,2) = 3·19/27 = 19/9 > 2 (K_3(3,2)=3, V=19, q^n=27)."),
+        "H5": ("h5-ceil-bound-needs-perfect",
+               "H5: se V ∤ q^n então K_q(n,R) > ⌈q^n/V⌉, isto é, a cota de esfera com teto só é atingida por códigos perfeitos (hipótese INFERIDA do enunciado "
+               "que o Lean refuta e de A2_Sphere `no_perfect`; texto original não localizado).",
+               {"problem": "H5 de A6_Finite", "domain": "todo (q,n,R) com V ∤ q^n (contraexemplo em q=2, n=2, R=1)", "assumptions": []},
+               "K_2(2,1) = 2 = ⌈4/3⌉ com V = 3 ∤ 4: o teto é atingido sem código perfeito."),
+    }
+    for h, (cid_h, enun_h, scope_h, desc_h) in HIPOTESES.items():
+        m_lean = re.search(rf"theorem {h}_counterexample :.*?:=", lean_a6, re.S)
+        assert m_lean, f"não achei o enunciado de {h}_counterexample em A6_Finite.lean"
+        lean_stmt = " ".join(m_lean.group(0).split())
+        fid_h, cxid_h = f"f-{h.lower()}-counterexample", f"cx-{cid_h}"
+        c.gravar("counterexamples", cxid_h, {
+            "counterexample_id": cxid_h, "claim_id": cid_h, "kind": "instance",
+            "description": f"{desc_h} (CoveringA6.{h}_counterexample, medido no kernel; todo o resto vem de A6_Finite.lean, sem busca).",
+            "witness_id": None, "data": {"formal": fid_h, "lean_statement": lean_stmt}, "created_by": AUTOR, "created": c.meta()["created"]},
+            ator=AUTOR, papel="COUNTEREXAMPLE_HUNTER")
+        novo(cid_h, enun_h, scope_h, kind="conjecture")
+        K.atualizar(c, cid_h, ator=AUTOR, papel="PROPOSER", statement_provenance="enunciado original não localizado em arquivo versionado; ver descrição",
+                    refuting_lean_statement=lean_stmt)
+        anexa(cid_h, "formal", fid_h)
+        K.mudar_estado(c, cid_h, "CONJECTURE", ator=AUTOR, papel="PROPOSER", motivo="hipótese registrada para ser refutada")
+        if not validar_registro_formal(c.ler("formal", fid_h)):  # só refuta se o contraexemplo formal foi MEDIDO
+            K.invalidar(c, cid_h, cxid_h, ator=PROMOTOR, papel="COUNTEREXAMPLE_HUNTER", motivo=f"{h}_counterexample medido no kernel")
 
     # K_7(9,4)
     novo("cert-of-go-lemma", "CoveringKernel.cert_of_go: a checagem booleana `go` verdadeira sobre uma lista estritamente crescente de M inteiros < q^n dá C com |C|=M e Covers R C.",
