@@ -46,7 +46,7 @@ int main(int argc, char **argv){
   double t0 = kit_now(), lastsave = 0; long best = nunc + 1; long it = 0;
   while (kit_now() - t0 < secs){
     if (nunc < best){ best = nunc;
-      if (kit_now() - lastsave > 2 || best == 0){ char fn[512]; snprintf(fn, sizeof fn, "%s_t%d_o%ld.txt", out, ns, best); FILE *F = fopen(fn, "w"); for (int i = 0; i < ns; i++) fprintf(F, "%d\n", S[i]); fclose(F); lastsave = kit_now();
+      if (1){ /* sempre: com o limite de 2 s, a melhor solução logo depois de um encolhimento se perdia (K_5(11,4), t=114, órfãs=6, 2026-10-03) */ char fn[512]; snprintf(fn, sizeof fn, "%s_t%d_o%ld.txt", out, ns, best); FILE *F = fopen(fn, "w"); for (int i = 0; i < ns; i++) fprintf(F, "%d\n", S[i]); fclose(F); lastsave = kit_now();
         printf("t=%d órfãs=%ld it=%ld (%.0fs)\n", ns, best, it, kit_now() - t0); fflush(stdout); } }
     if (!nunc){ /* encolhe */
       int wi = 0, wl = 1 << 30; for (int i = 0; i < ns; i++){ int l = 0; ADDV(S[i], if (cov[v] == 1) l++;) if (l < wl){ wl = l; wi = i; } }

@@ -90,6 +90,46 @@ PROVENANCE = {
         "notes": "o .txt daqui está na ordem canônica; o arquivo da VM (sha256 557cf336...) tem outra ordem "
                  "e o mesmo sha256 canônico.",
     },
+    "q7_n10_R4_M5667": {
+        "generator": "scripts/attack (feat/ataque-celulas-2011): hsearch -> base_search eval t=2 em [10,4]_7 -> "
+                     "lift para [10,3]_7 -> coset_sa t=16 -> patch_opt",
+        "commit": None,
+        "seed": None,
+        "command": None,
+        "date": "2026-10-03",
+        "agent": "James.V1",
+        "repo_commit": None,
+        "notes": "16 classes laterais de um [10,3]_7 (3 síndromes órfãs, 1029 pontos) + 179 palavras. Detalhes e "
+                 "síndromes em data/attack/q7_n10_R4_M5667.json. Verificado por scripts/attack/verify_bfs e "
+                 "tools/verify/verify.c. Não conferido no Lean.",
+        "dims": [3],
+    },
+    "q5_n11_R4_M2875": {
+        "generator": "scripts/attack (feat/ataque-celulas-2011): hsearch -> coset_sa t=4 em [11,4]_5 -> lift para "
+                     "[11,3]_5 -> coset_sa t=22 -> coset_wsa (w=21)",
+        "commit": None,
+        "seed": None,
+        "command": None,
+        "date": "2026-10-03",
+        "agent": "James.V1",
+        "repo_commit": None,
+        "notes": "23 classes laterais de um [11,3]_5, sem remendo. Detalhes em data/attack/q5_n11_R4_M2875.json. "
+                 "Verificado por scripts/attack/verify_bfs e tools/verify/verify.c.",
+        "dims": [3],
+    },
+    "q5_n10_R5_M163": {
+        "generator": "scripts/attack (feat/ataque-celulas-2011): hsearch t=1 em [10,3]_5 (8 síndromes órfãs) -> "
+                     "patch_opt",
+        "commit": None,
+        "seed": 7,
+        "command": "patch_opt base.json --L 0 --W 40 --secs 1500 --seed 7 --T0 1.5 --T1 0.3",
+        "date": "2026-10-03",
+        "agent": "James.V1",
+        "repo_commit": None,
+        "notes": "o próprio [10,3]_5 + 38 palavras (cota do LP para o remendo nesta base: 22). Detalhes em "
+                 "data/attack/q5_n10_R5_M163.json.",
+        "dims": [3],
+    },
 }
 
 
