@@ -2,7 +2,7 @@
 \usepackage{amsmath,amssymb,amsthm}
 \usepackage{booktabs}
 \usepackage[hidelinks]{hyperref}
-\hypersetup{pdftitle={Covering codes checked by the Lean kernel: K7(9,4) <= 1351 and K2(6,1) = 12},pdfauthor={Thiago Patzdorf}}
+\hypersetup{pdftitle={Covering codes: Lean-checked K7(9,4) <= 1351 and K2(6,1) = 12, and computer-verified witnesses},pdfauthor={Thiago Patzdorf}}
 \pdfstringdefDisableCommands{\def\\{ }\def\le{<=}}
 \usepackage[margin=1in]{geometry}
 
@@ -13,20 +13,18 @@
 \theoremstyle{remark}
 \newtheorem*{remark}{Remark}
 
-\title[Covering codes checked by the Lean kernel]{Covering codes checked by the Lean kernel:\\ $K_7(9,4)\le 1351$ and $K_2(6,1)=12$}
+\title[Covering codes: kernel-checked bounds and verified witnesses]{Covering codes: Lean-checked $K_7(9,4)\le 1351$ and $K_2(6,1)=12$,\\ and computer-verified witnesses}
 \author{Thiago Patzdorf}
 \address{Universidade de Caxias do Sul, Brazil}
 \email{thiagosleman@gmail.com}
-\date{2 October 2026}
+\date{3 October 2026 (draft v0.4, unreleased)}
 
 \begin{document}
 \begin{abstract}
-We report three results on the covering number $K_q(n,R)$, each proved in Lean~4 against Mathlib~v4.34.1 and checked by the kernel, with no \texttt{sorry} and no \texttt{native\_decide}.
-First, an explicit code of $1351$ words covers $(\mathbb{Z}/7\mathbb{Z})^9$ at Hamming radius $4$, so $K_7(9,4)\le 1351$; the best upper bound we found in the literature is $1475$.
-Second, $K_2(6,1)\ge 11$ follows from a short double-counting argument with no search.
-Third, $K_2(6,1)=12$, a classical value, is proved by a pruned search whose soundness is itself a theorem, split into $38$ kernel decisions.
-The same library contains a formal proof of the sphere-covering bound and eight numerical instances of it; those instances are below the best known lower bounds and are kept only as a test of the arithmetic.
-Seven further codes improve the tables we consulted but are verified by computer only.
+We report results on the covering number $K_q(n,R)$ of two kinds, and keep them apart.
+\emph{Formally proved} in Lean~4 against Mathlib~v4.34.1, checked by the kernel with no \texttt{sorry} and no \texttt{native\_decide}: an explicit code of $1351$ words covering $(\mathbb{Z}/7\mathbb{Z})^9$ at radius $4$ ($K_7(9,4)\le 1351$); $K_2(6,1)\ge 11$ by a short double-counting argument; and $K_2(6,1)=12$, a classical value, by a pruned search whose soundness is itself a theorem.
+\emph{Verified by computer only, with no Lean theorem}: further explicit witnesses in the same repository, among them a code of $1285$ words for $K_7(9,4)$ and one of $1887$ words for $K_7(8,3)$, each checked by independent programs.
+Relative to the bounds recorded in the sources we consulted these are apparent improvements; their novelty is not established, because our literature review covers only the sources listed here and some primary sources could not be read.
 \end{abstract}
 \maketitle
 
@@ -37,11 +35,12 @@ Upper bounds come from constructions and lower bounds from counting; the tables 
 Upper bounds are certificates: a list of words and the claim that it covers.
 Checking the claim is a finite computation, but for $q^n$ in the tens of millions it is done by programs that are rarely audited.
 Florath~\cite{florath2026} built a Lean library of covering-code bounds whose derivations are replayed by the kernel; it formalizes the sphere-covering bound and records many cells.
-This note adds a certificate that the kernel checks word by word for a cell where the code is new, and a formal determination of a small classical value.
+To our reading of its data, the Lean-proved bounds there at the cell $K_2(6,1)$ are $10\le K_2(6,1)$; the value $12$ is not formalized in Lean in Florath's artifact.
+This note adds a certificate that the kernel checks word by word for one explicit code, a formal determination of $K_2(6,1)$, and a table of further witnesses that are checked by programs only.
 
-The proofs use Lean~4~\cite{lean4} and Mathlib~\cite{mathlib}. The source is \url{https://github.com/thiagopatzdorf/Matematica}, tag \texttt{v0.\allowbreak 3.\allowbreak 0}.
+The proofs use Lean~4~\cite{lean4} and Mathlib~\cite{mathlib}. The source is \url{https://github.com/thiagopatzdorf/Matematica}, development branch of draft v0.4 (no release tag; the exact commit is recorded in \texttt{campaigns/\allowbreak covering-codes/\allowbreak snapshot/\allowbreak SNAPSHOT.json}).
 A statement below is a claim only when it is the name of a declaration in that tree.
-The default target \texttt{CoveringLean} builds in seconds; the two search certificates form the target \texttt{CoveringHeavy}.
+The default target \texttt{CoveringLean} and the two search certificates, which form the target \texttt{CoveringHeavy}, have very different costs; Section~\ref{sec:build} gives the measurements and which of them are warm-cache.
 
 \section{Definitions}
 In the development \texttt{CoveringA2} a word is a function $\mathtt{Fin}\,n\to\mathtt{ZMod}\,q$, distance is Mathlib's \texttt{hammingDist}, and
@@ -77,9 +76,12 @@ A Boolean function \texttt{go} walks the coordinates one at a time, keeping for 
 The same pipeline accepts the binary Hamming code of length $7$ and rejects a copy of it with one word replaced; both are tests in the library.
 
 \begin{remark}
-The best upper bound we found is $K_7(9,4)\le 1475$, by Marosi~\cite{marosi2026} (arXiv version 3, September 2026); Kéri's tables~\cite{keri} give $1843$.
-The best lower bound we know is $264$.
-That the bound is new is our reading of those sources on 1 October 2026, not something the kernel checks.
+Marosi~\cite{marosi2026} records $K_7(9,4)\le 1743$ in version~1 (20 August 2026), and $1475$ in versions~2 (23 August 2026) and~3 (2 September 2026).
+Kéri's tables~\cite{keri} give $1843$; the PDF we read is dated 15 October 2009, although the directory index was updated as late as 25 November 2011.
+The lower bound $264$ is taken from Kéri's table; Marosi's table does not change it.
+\emph{The repository also contains a code of $1285$ words} for the same cell (Table~\ref{tab:evidence}): it is a verified computational witness, and \emph{no Lean theorem currently exists for it}.
+We formalized $1351$ first; this is a matter of order of work, not a claim that $1351$ is the better bound.
+That either bound improves the recorded one is our reading of the sources listed, as of 3 October 2026, and is not something the kernel checks.
 \end{remark}
 
 \section{A lower bound without search: $K_2(6,1)\ge 11$}
@@ -118,52 +120,55 @@ It prunes when the remaining words cannot cover what is left, at $7$ words per c
 \texttt{chkN\_\allowbreak sound} proves that a \texttt{true} answer means no completion exists.
 A translation argument lets one assume the word $63$ is in the code.
 The search from that root is cut at depth $2$ into $38$ states, each refuted by \texttt{decide +kernel} in its own file.
-The Lean database of Florath~\cite{florath2026} records $10\le K_2(6,1)\le 12$ at this cell.
+The data of Florath~\cite{florath2026} records $10\le K_2(6,1)\le 12$ at this cell; to our reading the Lean-proved part there is the lower bound $10$, and we did not find a Lean proof of the value $12$ in that artifact.
 
 \section{The sphere-covering bound}
 The library also proves the sphere-covering bound $q^n\le |C|\cdot V$ (\texttt{CoveringA2.\allowbreak sphere\_\allowbreak covering}), its strict form when $V\nmid q^n$, and eight numerical instances \texttt{CoveringChain.\allowbreak SPH\_\allowbreak K*\_\allowbreak lb}, among them $K_7(9,4)\ge 221$.
 This was the content of version~0.2 of this note.
 The bound had already been formalized by Florath~\cite{florath2026}, and all eight instances are below the best lower bounds in the literature (for $K_7(9,4)$, $264$), so they are not claimed as results.
 
-\section{Other codes, not formalized}
-The repository contains seven more codes, each checked by three independent programs outside Lean (Table~\ref{tab:other}).
-They are below the upper bounds in the tables we consulted, but none is a Lean theorem yet.
-For $q=4$ our literature search was weaker than for $q\ge 5$, and $K_5(10,4)\le 625$ is a linear $[10,4]_5$ code, which should still be compared with the tables of Davydov, Marcugini and Pambianco on linear covering codes.
+\section{Other codes: verified by computer, not formalized}\label{sec:other}
+Besides the two formalized results the repository holds nine more codes (the number is read from the campaign data, not typed): $K_7(9,4)\le 1285$, $K_7(8,3)\le 1887$ and $1893$, $K_5(10,4)\le 625$, $K_5(7,2)\le 500$, $K_4(10,4)\le 192$, $K_5(9,3)\le 1250$, $K_5(9,4)\le 250$ and $K_5(9,5)\le 50$ (Table~\ref{tab:evidence}).
+Of these, $1285$ and $1887$ are the stronger witnesses for their cells; $1351$ and $1893$ are kept as earlier witnesses.
+For each of them \emph{no Lean theorem currently exists}; the witnesses themselves are not in doubt, since each passes the verifiers, and the missing formalization must not be read as a failure of the witness, nor the computational check as a formal proof.
 
-\begin{table}[ht]
-\centering
-\begin{tabular}{@{}lrrl@{}}
-\toprule
-cell & ours & previous & source of previous \\
-\midrule
-$K_5(7,2)$ & 500 & 525 & Kéri \\
-$K_4(10,4)$ & 192 & 208 & Kéri \\
-$K_5(9,3)$ & 1250 & 1275 & Kéri \\
-$K_5(10,4)$ & 625 & 875 & Kéri \\
-$K_5(9,5)$ & 50 & 55 & Kéri \\
-$K_5(9,4)$ & 250 & 255 & Kéri \\
-$K_7(8,3)$ & 1893 & 2337 & Kéri \\
-\bottomrule
-\end{tabular}
-\caption{Upper bounds verified by computer, not by the kernel.}
-\label{tab:other}
-\end{table}
+\subsection*{Independence of the verification}
+Three programs check every witness: one in C, one in Rust, and a Python/numpy program that dilates the Hamming ball on the grid.
+By the policy of the campaign, two verifiers are \emph{independent} when they are different programs in different implementation groups, by different authors, and neither is written by the author of the claim.
+Under that policy the C and Rust programs count; the Python program was written by the author of the claim, so its PASS is recorded but \emph{not counted}.
+This is independence of implementation, not of mind: the authors of the Rust and Python programs are distinct agents of the same model family, and distinct agents of one model family do not amount to full cognitive independence.
+A fourth program, written in Go from the mathematical specification alone without reading the other three, agrees with them on 44 black-box cases; it is not yet counted in the campaign.
+A defect found in that comparison is recorded: the Python program treated the file name as a source of parameters, and rejected a smaller radius with exit code $2$ rather than reporting uncovered words; coverage verdicts were not affected.
 
-\section{What the kernel accepted}
-On 1 October 2026, on a virtual machine of type \texttt{e2-highmem-8}, Lean~4.34.1 and Mathlib~v4.34.1:
-\texttt{lake build} finished $8942$ jobs in $32$\,s with a peak of $7.7$\,GB;
+\subsection*{Literature status}
+For each cell we looked for a predecessor in the sources we could read.
+For $K_7(9,4)$ and $K_7(8,3)$ we found none, with medium confidence; but amalgamated direct sums of tabulated codes would give smaller values ($931$, $1225$, $1344$ for $K_7(9,4)$ and $1225$ for $K_7(8,3)$) \emph{if} suitable normal component codes exist, and we neither found nor excluded them.
+For $K_5(7,2)$, $K_4(10,4)$ and $K_5(9,4)$ the same effect leaves the status ambiguous; for $K_5(9,3)$ and $K_5(9,5)$ the analogous values ($1275$, $51$) are above ours.
+$K_5(10,4)\le 625$ is a linear $[10,4]_5$ code of covering radius exactly $4$; we did not find the relevant table of linear covering codes (Davydov, Marcugini and Pambianco) giving an equal or smaller length, but that is a statement about what we read.
+We could not read several primary sources (Cohen et al.\ 1997, Bhandari and Durairajan 1996, the original paper of Stanton and Kalbfleisch, and two later papers on normality), and we do not claim novelty for any cell.
+We write only that they are apparent improvements over the recorded bounds, and that novelty is not established.
+The classical value $K_2(6,1)=12$ is cited from Kéri's table and from~\cite{sk1968}, which we did not read; its exactness here rests on our own proof.
+
+\input{evidence_table}
+
+\section{What the kernel accepted}\label{sec:build}
+On 1 October 2026, on a virtual machine of type \texttt{e2-highmem-8}, Lean~4.34.1 and Mathlib~v4.34.1 (reported by the author):
+\texttt{lake build} finished $8942$ jobs in $32$\,s with a peak of $7.7$\,GB \emph{with a warm cache} (the compiled modules of \texttt{CoveringLean} already present);
 \texttt{lake build CoveringHeavy} finished $9073$ jobs in $1$\,h\,$41$\,min with up to eight modules in parallel, about $12.4$ CPU-hours in total, at most $8.8$\,GB per process.
+On 3 October 2026, from a clean clone in a 4-vCPU container, after \texttt{lake exe cache get} (about $33$\,s to $2$\,min depending on the network, fetching Mathlib's compiled files), the default target took $221$\,s, compiling about $40$ modules.
+We did not time a build that compiles Mathlib itself.
+In that clean-clone reproduction the heavy target was not rebuilt, so the \texttt{\#print axioms} output for Theorems~\ref{thm:k794} and~\ref{thm:eq12} below is the VM report, not a measurement of the reproduction.
 \texttt{\#print axioms} on Theorems~\ref{thm:k794}, \ref{thm:ge11} and~\ref{thm:eq12} reports \texttt{propext}, \texttt{Classical.\allowbreak choice} and \texttt{Quot.\allowbreak sound} only.
 
 \section{What is not a theorem}
 Novelty is a reading of the literature, not a checked fact.
-The seven codes of Table~\ref{tab:other} are not Lean theorems.
+The nine codes of Section~\ref{sec:other}, including those with $1285$ and $1887$ words, are not Lean theorems.
 That the formal statements say what is intended is a human review: the reader should check the statements of Theorems~\ref{thm:k794}, \ref{thm:ge11}, \ref{thm:eq12} and the definitions of \texttt{Covers} and \texttt{IsK}.
 Two files in the tree, \texttt{A5b\_\allowbreak Stress.\allowbreak lean} and \texttt{A6d\_\allowbreak SearchHeavy.\allowbreak lean}, are not imported and are not claimed.
 
 \begin{thebibliography}{9}
 \bibitem{cohen1997}
-G.~Cohen, I.~Honkala, S.~Litsyn and A.~Lobstein, \emph{Covering Codes}, North-Holland, 1997.
+G.~Cohen, I.~Honkala, S.~Litsyn and A.~Lobstein, \emph{Covering Codes}, North-Holland, 1997 (not read; cited from the tables of~\cite{keri}).
 \bibitem{florath2026}
 A.~Florath, \emph{Formal foundations and proof-carrying certificates for $q$-ary covering codes in Lean~4}, arXiv:2606.09600, 2026.
 \bibitem{gp2025}
@@ -177,7 +182,7 @@ M.~Marosi, \emph{New upper and lower bounds on covering codes $K_q(n,R)$ for alp
 \bibitem{mathlib}
 The Mathlib Community, \emph{Mathlib}, \url{https://github.com/leanprover-community/mathlib4}, release v4.34.1.
 \bibitem{sk1968}
-R.~G. Stanton and J.~G. Kalbfleisch, \emph{Covering problems for dichotomized matchings}, Aequationes Math. \textbf{1} (1968), 94--103.
+R.~G. Stanton and J.~G. Kalbfleisch, \emph{Covering problems for dichotomized matchings}, Aequationes Math. \textbf{1} (1968), 94--103 (cited, not read in the original).
 \end{thebibliography}
 
 \end{document}
