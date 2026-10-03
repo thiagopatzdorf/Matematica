@@ -55,7 +55,8 @@ jobs:
       # com unittest eles nem importam (ModuleNotFoundError: targets, genesis_page, record_loop).
       - name: Testes (verificador, formato, ledger, loop, publicação)
         run: |
-          python3 -m pip install --quiet pytest==8.4.2
+          # numpy: scripts/syndrome/gen_syn.py (tests/test_gen_syn.py roda o gerador de verdade).
+          python3 -m pip install --quiet pytest==8.4.2 numpy==2.4.6
           python3 -m pytest -q tests
 
   lean:
