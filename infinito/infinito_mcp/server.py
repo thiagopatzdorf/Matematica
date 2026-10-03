@@ -31,6 +31,7 @@ from starlette.responses import JSONResponse
 
 from .armazem import Armazem, ArmazemGCS
 from .auth import CABECALHO, Config, Identidade, VerificadorAccess, configurar
+from .atividade import Atividade, iso
 from .creditos import Creditos, ErroCreditos
 from .tokens import Tokens
 
@@ -113,12 +114,13 @@ class Contexto:
     literatura: Armazem      # bucket de papers
     env: dict
     tokens: Tokens | None = None
+    atividade: Atividade | None = None
     tool: Callable[..., Any] = None  # type: ignore[assignment]  # preenchido por criar_mcp
 
     quem = staticmethod(quem)
 
 
-def _auditado(fn, creditos: Creditos):
+def _auditado(fn, creditos: Creditos, atividade: Atividade | None = None):
     assinatura = inspect.signature(fn)
 
     @functools.wraps(fn)
@@ -128,6 +130,8 @@ def _auditado(fn, creditos: Creditos):
         try:
             creditos.garantir(quem())          # a 11ª pessoa para aqui, antes de qualquer tool
             resultado = fn(*args, **kwargs)
+            if atividade and not creditos.e_admin(quem()):     # o que interessa é quem do time usa
+                atividade.registrar(quem(), fn.__name__)
         except ErroCreditos as e:
             resultado = {"ok": False, "erro": str(e)}
         except Exception as exc:  # noqa: BLE001
@@ -148,9 +152,23 @@ def _tools_do_nucleo(ctx: Contexto) -> None:
 
     @tool
     def admin_usuarios() -> dict:
-        """[admin] Todas as pessoas, com teto, gasto e disponível. Também mostra quantas vagas restam."""
+        """[admin] Quem está usando, numa consulta: cada pessoa com nome, chamadas, última atividade, tools mais
+        usadas, teto, gasto e disponível, de quem usou há menos tempo para quem nunca usou. Mostra as vagas que restam."""
         lista = creditos.listar(quem())
-        return {"ok": True, "pessoas": lista, "vagas": creditos.max_usuarios - sum(1 for p in lista if p["ativo"]), "maximo": creditos.max_usuarios}
+        nomes = {a["email"]: a["nome"] for a in ctx.tokens.listar()} if ctx.tokens else {}
+        uso = ctx.atividade.resumo() if ctx.atividade else {}
+        for p in lista:
+            u = uso.get(p["quem"], {})
+            top = sorted(u.get("tools", {}).items(), key=lambda kv: -kv[1])[:3]
+            p.update(nome=nomes.get(p["quem"]), chamadas=u.get("chamadas", 0), primeira_atividade=iso(u.get("primeira")),
+                     ultima_atividade=iso(u.get("ultima")), tools_mais_usadas=[f"{n} ({c})" for n, c in top],
+                     _ordem=u.get("ultima", 0))
+        lista.sort(key=lambda p: -p["_ordem"])
+        for p in lista:
+            p.pop("_ordem")
+        usando = sum(1 for p in lista if p["chamadas"])
+        return {"ok": True, "pessoas": lista, "usando": usando, "vagas": creditos.max_usuarios - sum(1 for p in lista if p["ativo"]),
+                "maximo": creditos.max_usuarios}
 
     @tool
     def admin_creditos(email: str, teto_usd: float | None = None, somar_usd: float | None = None,
@@ -222,7 +240,8 @@ def criar_mcp(creditos: Creditos, estado: Armazem, literatura: Armazem, env: dic
         host="0.0.0.0", stateless_http=True, json_response=True,
     )
     ctx = Contexto(mcp=mcp, creditos=creditos, estado=estado, literatura=literatura, env=env, tokens=tokens)
-    ctx.tool = lambda fn: mcp.tool()(_auditado(fn, creditos))
+    ctx.atividade = Atividade(estado)
+    ctx.tool = lambda fn: mcp.tool()(_auditado(fn, creditos, ctx.atividade))
     _tools_do_nucleo(ctx)
     _esconder_admin_de_quem_nao_e_admin(mcp, creditos)
     if tokens is not None:

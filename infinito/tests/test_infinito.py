@@ -462,3 +462,35 @@ def test_resposta_cortada_pelo_pensamento_vem_com_fim_max_tokens():
     ctx, c = _gem(gemini.chamar_vertex("p", token=lambda: "T", post=post))
     r = ctx.tools["gemini"]("oi", confirmar=True)
     assert r["fim"] == "MAX_TOKENS" and r["tokens_saida"] == 196
+
+
+def test_admin_ve_quem_usa_ordenado_e_o_proprio_admin_nao_polui_a_lista():
+    est = ArmazemMemoria()
+    with _cliente_token(est) as c:
+        a = _dado(_tool_url(c, TOKEN_ADMIN, "admin_convidar", {"nome": "Colaborador 01", "email": "c1@x.com"}))
+        b = _dado(_tool_url(c, TOKEN_ADMIN, "admin_convidar", {"nome": "Colaborador 02", "email": "c2@x.com"}))
+        ta, tb = (r["url"].split("/mcp/")[1].strip("/") for r in (a, b))
+        _tool_url(c, ta, "meus_creditos", {})
+        _tool_url(c, tb, "codigos", {})
+        _tool_url(c, tb, "codigos", {})
+        time.sleep(1.1)                                            # c1 passa a ser o mais recente
+        _tool_url(c, ta, "celula", {"id": "K7(9,4)"})
+        r = _dado(_tool_url(c, TOKEN_ADMIN, "admin_usuarios", {}))
+    assert [p["quem"] for p in r["pessoas"]] == ["c1@x.com", "c2@x.com"]
+    c1, c2 = r["pessoas"]
+    assert (c1["nome"], c1["chamadas"], c2["chamadas"]) == ("Colaborador 01", 2, 2)
+    assert c2["tools_mais_usadas"][0] == "codigos (2)" and c1["ultima_atividade"].endswith("Z")
+    assert r["usando"] == 2 and "servico:factory" not in json.dumps(r)
+
+
+def test_atividade_que_falha_ao_gravar_derruba_a_tool():
+    class Quebra(ArmazemMemoria):
+        def por(self, nome, dados, tipo, *, publico):
+            if nome.startswith("atividade/"):
+                raise OSError("bucket fora")
+            super().por(nome, dados, tipo, publico=publico)
+
+    est = Quebra()
+    with _cliente_token(est) as c:
+        tok = _dado(_tool_url(c, TOKEN_ADMIN, "admin_convidar", {"nome": "X", "email": "x@x.com"}))["url"].split("/mcp/")[1].strip("/")
+        assert _dado(_tool_url(c, tok, "meus_creditos", {}))["ok"] is True
