@@ -1,0 +1,47 @@
+{
+ "tag": "K5616",
+ "q": 7,
+ "n": 10,
+ "R": 4,
+ "M": 5616,
+ "mutations": {
+  "M1_troca": {
+   "index": 0,
+   "old": "0000000000",
+   "new": "0162100000",
+   "uncovered_points": 111,
+   "modules": [
+    "CoveringLean.SynData_K5616M1",
+    "CoveringLean.SynLeaf_K5616M1_51"
+   ]
+  },
+  "M2_remocao": {
+   "index": 0,
+   "removed": "0000000000",
+   "uncovered_points": 125,
+   "modules_card": [
+    "CoveringLean.SynData_K5616M2",
+    "CoveringLean.Card_K5616M2"
+   ],
+   "modules_cover": [
+    "CoveringLean.SynData_K5616M2",
+    "CoveringLean.SynLeaf_K5616M2_50",
+    "CoveringLean.SynLeaf_K5616M2_51"
+   ]
+  },
+  "M3_tabela": {
+   "leaf": "TK5616_0",
+   "point_t": 0,
+   "old_witness": 0,
+   "new_witness": 400,
+   "modules": [
+    "CoveringLean.SynLeaf_K5616M3_0"
+   ]
+  }
+ },
+ "control": {
+  "modules": [
+   "CoveringLean.SynLeaf_K5616C0_0"
+  ]
+ }
+}

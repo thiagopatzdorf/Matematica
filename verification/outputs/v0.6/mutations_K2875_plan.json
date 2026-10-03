@@ -1,0 +1,47 @@
+{
+ "tag": "K2875",
+ "q": 5,
+ "n": 11,
+ "R": 4,
+ "M": 2875,
+ "mutations": {
+  "M1_troca": {
+   "index": 0,
+   "old": "34440200000",
+   "new": "00000000000",
+   "uncovered_points": 55,
+   "modules": [
+    "CoveringLean.SynData_K2875M1",
+    "CoveringLean.SynLeaf_K2875M1_25"
+   ]
+  },
+  "M2_remocao": {
+   "index": 0,
+   "removed": "34440200000",
+   "uncovered_points": 59,
+   "modules_card": [
+    "CoveringLean.SynData_K2875M2",
+    "CoveringLean.Card_K2875M2"
+   ],
+   "modules_cover": [
+    "CoveringLean.SynData_K2875M2",
+    "CoveringLean.SynLeaf_K2875M2_24",
+    "CoveringLean.SynLeaf_K2875M2_25"
+   ]
+  },
+  "M3_tabela": {
+   "leaf": "TK2875_0",
+   "point_t": 0,
+   "old_witness": 0,
+   "new_witness": 33,
+   "modules": [
+    "CoveringLean.SynLeaf_K2875M3_0"
+   ]
+  }
+ },
+ "control": {
+  "modules": [
+   "CoveringLean.SynLeaf_K2875C0_0"
+  ]
+ }
+}

@@ -1,0 +1,20 @@
+verificador C (BFS multifonte no grafo de Hamming, Rust)
+q = 5
+n = 11
+R = 4
+|C| = 2875
+N_0 = 2875
+N_1 = 126500
+N_2 = 2506750
+N_3 = 23621625
+N_4 = 22570375
+total = 48828125 (esperado 48828125)
+covered = 48828125
+uncovered = 0
+max_distance = 4
+farthest_points = 22570375
+example_farthest = 00000000000
+example_farthest = 10000000000
+example_farthest = 30000000000
+runtime_internal_s = 9.5
+PASS

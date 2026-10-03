@@ -1,0 +1,25 @@
+K162 controle: compilou, como esperado (CoveringLean.SynLeaf_K162C0_0)
+  ok   CoveringLean.SynData_K162M1 (1s)
+  ok   CoveringLean.SynLeaf_K162M1_0 (52s)
+  ok   CoveringLean.SynLeaf_K162M1_1 (49s)
+  ok   CoveringLean.SynLeaf_K162M1_2 (51s)
+  ok   CoveringLean.SynLeaf_K162M1_3 (51s)
+  ok   CoveringLean.SynLeaf_K162M1_4 (39s)
+  ok   CoveringLean.SynLeaf_K162M1_5 (2s)
+  ok   CoveringLean.SynLeaf_K162M1_6 (2s)
+  FAIL CoveringLean.SynLeaf_K162M1_7 (2s) [theorem BK162M1_0] 6:360: Tactic `decide` proved that the proposition
+K162 M1_troca/modules: REJEITADA pelo Lean em CoveringLean.SynLeaf_K162M1_7
+  ok   CoveringLean.SynData_K162M2 (1s)
+  FAIL CoveringLean.Card_K162M2 (2s) [example :] 6:37: (kernel) application type mismatch
+K162 M2_remocao/modules_card: REJEITADA pelo Lean em CoveringLean.Card_K162M2
+  ok   CoveringLean.SynData_K162M2 (1s)
+  ok   CoveringLean.SynLeaf_K162M2_0 (50s)
+  ok   CoveringLean.SynLeaf_K162M2_1 (50s)
+  ok   CoveringLean.SynLeaf_K162M2_2 (50s)
+  ok   CoveringLean.SynLeaf_K162M2_3 (50s)
+  ok   CoveringLean.SynLeaf_K162M2_4 (40s)
+  FAIL CoveringLean.SynLeaf_K162M2_5 (1s) [theorem OK162M2_0] 6:363: Tactic `decide` proved that the proposition
+K162 M2_remocao/modules_cover: REJEITADA pelo Lean em CoveringLean.SynLeaf_K162M2_5
+  FAIL CoveringLean.SynLeaf_K162M3_0 (37s) [theorem TK162M3_0] 6:8688: Tactic `decide` proved that the proposition
+K162 M3_tabela/modules: REJEITADA pelo Lean em CoveringLean.SynLeaf_K162M3_0
+exit 0
