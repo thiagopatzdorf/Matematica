@@ -117,17 +117,17 @@ PROVENANCE = {
                  "Verificado por scripts/attack/verify_bfs e tools/verify/verify.c.",
         "dims": [3],
     },
-    "q5_n10_R5_M163": {
+    "q5_n10_R5_M162": {
         "generator": "scripts/attack (feat/ataque-celulas-2011): hsearch t=1 em [10,3]_5 (8 síndromes órfãs) -> "
                      "patch_opt",
         "commit": None,
-        "seed": 7,
-        "command": "patch_opt base.json --L 0 --W 40 --secs 1500 --seed 7 --T0 1.5 --T1 0.3",
+        "seed": 12,
+        "command": "patch_opt base.json --L 0 --W 38 --tauw 30 --secs 1800 --seed 12 --T0 1.5 --T1 0.3",
         "date": "2026-10-03",
         "agent": "James.V1",
         "repo_commit": None,
-        "notes": "o próprio [10,3]_5 + 38 palavras (cota do LP para o remendo nesta base: 22). Detalhes em "
-                 "data/attack/q5_n10_R5_M163.json.",
+        "notes": "o próprio [10,3]_5 + 37 palavras (cota do LP para o remendo nesta base: 22). Detalhes em "
+                 "data/attack/q5_n10_R5_M162.json.",
         "dims": [3],
     },
 }
