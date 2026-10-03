@@ -1,0 +1,55 @@
+{
+  "build": [
+    [
+      "cargo",
+      "build",
+      "--release",
+      "--offline",
+      "--manifest-path",
+      "tools/verify-rust/Cargo.toml",
+      "--target-dir",
+      "{workdir}/rust-target"
+    ],
+    [
+      "cp",
+      "{workdir}/rust-target/release/verify-rust",
+      "{workdir}/verify-rust"
+    ]
+  ],
+  "command": [
+    "{workdir}/verify-rust",
+    "--q",
+    "{param:q}",
+    "--n",
+    "{param:n}",
+    "--R",
+    "{param:R}",
+    "--M",
+    "{param:M}",
+    "{witness}"
+  ],
+  "compartilha_logica_com": [],
+  "fail_exit_codes": [
+    1,
+    2
+  ],
+  "implemented_by": "agente-verif-rust",
+  "independence_group": "rust-layered-dilation",
+  "language": "rust",
+  "notes": "Escrito por outro agente (agente-verif-rust) sem ler os outros dois verificadores nem o gerador do formato; algoritmo de dilatação por camadas com um byte por ponto (OR ao longo de cada reta de coordenada), O(R·n·q^n). Declaração de independência e do que foi lido em tools/verify-rust/README.md. Independente em linguagem, código, algoritmo e autoria; NÃO em especificação do problema (a definição de código de cobertura é a mesma).",
+  "registered": "2026-10-03T15:15:35Z",
+  "source_files": [
+    {
+      "normalized_sha256": "58b16ce6fe31a15562c3771abe3f2d6b5ef2d6574cc8a5ff435742a692338ec9",
+      "path": "tools/verify-rust/src/main.rs",
+      "sha256": "72c8db90f0edae6de9a562568e405fb6888172b2487899a0a1b642e5cd54198b"
+    },
+    {
+      "normalized_sha256": "5867fefe1d461598a505f7a70691da5ac0b71e9e3f1eec9a3ab6f98caae2efa6",
+      "path": "tools/verify-rust/Cargo.toml",
+      "sha256": "48445386b075a9428927574cd37f873c2b6cfbbf584f2adbc7035c099b9c9eb1"
+    }
+  ],
+  "timeout_s": 300,
+  "verifier_id": "verify-rust"
+}

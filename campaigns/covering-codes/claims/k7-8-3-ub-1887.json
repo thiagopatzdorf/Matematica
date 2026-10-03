@@ -1,9 +1,4 @@
 {
-  "blocked_independently_reproduced": [
-    "corrida de verify-py-dilation sobre w-q7-n8-r3-m1887 não conta: verificador verify-py-dilation foi escrito por quem criou o claim (agente-c): não é independente do autor",
-    "em w-q7-n8-r3-m1887 faltam ≥2 verificadores INDEPENDENTES (autores, implementações, código e grupos distintos) com corrida PASS válida; há 1 componente(s) independente(s)",
-    "em exp-prior-search-unrecorded faltam ≥2 verificadores INDEPENDENTES (autores, implementações, código e grupos distintos) com corrida PASS válida; há 0 componente(s) independente(s)"
-  ],
   "bound": {
     "direction": "upper",
     "parameters": {
@@ -19,7 +14,7 @@
     "result": "uncovered=0 nos dois verificadores",
     "status": "completed"
   },
-  "created": "2026-10-03T00:36:01Z",
+  "created": "2026-10-03T15:20:01Z",
   "created_by": "agente-c",
   "created_role": "PROPOSER",
   "depends_on": [],
@@ -44,7 +39,7 @@
       "reason": "criado",
       "role": "PROPOSER",
       "to": "IDEA",
-      "ts": "2026-10-03T00:36:01Z"
+      "ts": "2026-10-03T15:20:01Z"
     },
     {
       "actor": "agente-c",
@@ -52,7 +47,7 @@
       "reason": "evidência anexada: witnesses=w-q7-n8-r3-m1887",
       "role": "PROPOSER",
       "to": "IDEA",
-      "ts": "2026-10-03T00:36:01Z"
+      "ts": "2026-10-03T15:20:01Z"
     },
     {
       "actor": "agente-c",
@@ -60,15 +55,15 @@
       "reason": "evidência anexada: experiments=exp-prior-search-unrecorded",
       "role": "PROPOSER",
       "to": "IDEA",
-      "ts": "2026-10-03T00:36:01Z"
+      "ts": "2026-10-03T15:20:01Z"
     },
     {
       "actor": "migrate_covering.py",
       "from": "IDEA",
-      "reason": "witness conferido pelo verificador oficial; independência negada pela guarda (ver blocked_independently_reproduced)",
-      "role": "PROPOSER",
-      "to": "EMPIRICAL",
-      "ts": "2026-10-03T00:36:01Z"
+      "reason": "2 verificadores de autores/grupos distintos, PASS válido e sem desacordo, neste run",
+      "role": "INDEPENDENT_VERIFIER",
+      "to": "INDEPENDENTLY_REPRODUCED",
+      "ts": "2026-10-03T15:20:01Z"
     }
   ],
   "kind": "theorem",
@@ -96,7 +91,7 @@
   },
   "sealed_sha256": "349e3e15bafc5708560100c13a54a88e27b6f70f498a15bb3ce6a05eb15eeab1",
   "statement": "Existe código C em (Z_7)^8 com |C| = 1887 que cobre com raio 3 (data/codes/q7_n8_R3_M1887.txt). NÃO consta no README/paper: está em data/codes e docs/code-format.md; novidade não conferida na literatura.",
-  "status": "EMPIRICAL",
+  "status": "INDEPENDENTLY_REPRODUCED",
   "trust_boundary": [
     {
       "component": "tools/verify/verify.c compilado com gcc 13.3 (-Werror)",

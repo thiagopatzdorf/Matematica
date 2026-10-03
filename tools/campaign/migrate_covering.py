@@ -54,6 +54,9 @@ AXIOMAS_DECLARADOS = ["propext", "Classical.choice", "Quot.sound"]
 # Autor do verify_cover_dilation.py: o agente que o escreveu NESTA campanha (primeira sessão, commit 483a6c5 assinado "Claude"; na campanha esse agente
 # é `agente-c`, o mesmo que cria os claims). Registrar outro nome seria inventar autor; a guarda de independência reprova e isso é um achado.
 AUTOR_DILATACAO = AUTOR
+# Autor do verify-rust: o agente "Verif-Rust" desta sessão, que recebeu só a especificação do problema e docs/code-format.md (não leu verify.c nem o
+# verificador em Python): independência de autoria e de lógica declarada em tools/verify-rust/README.md.
+AUTOR_RUST = "agente-verif-rust"
 # Quem modificou os dois verificadores para aceitar parâmetros explícitos (2026-10-03): fica nas notas, não em `implemented_by` (autor original).
 MODIFICADO_POR = "agente-pilot-v2"
 PARAMS_CMD = ["--q", "{param:q}", "--n", "{param:n}", "--R", "{param:R}", "--M", "{param:M}"]
@@ -158,10 +161,20 @@ def main() -> int:
                             independence_group="python-numpy-dilation", fail_exit_codes=[1, 2], timeout_s=300, ator=AUTOR, papel="PROPOSER",
                             implemented_by=AUTOR_DILATACAO,
                             command=["python3", "tools/campaign/verify_cover_dilation.py", *PARAMS_CMD, "{witness}"])
+    # 3º verificador (2026-10-03): escrito por OUTRO agente que não leu os dois anteriores (tools/verify-rust/README.md declara o que leu).
+    V.registrar_verificador(c, "verify-rust", language="rust", source_files=["tools/verify-rust/src/main.rs", "tools/verify-rust/Cargo.toml"],
+                            independence_group="rust-layered-dilation", fail_exit_codes=[1, 2], timeout_s=300, ator=AUTOR, papel="PROPOSER",
+                            implemented_by=AUTOR_RUST, command=["{workdir}/verify-rust", *PARAMS_CMD, "{witness}"],
+                            build=[["cargo", "build", "--release", "--offline", "--manifest-path", "tools/verify-rust/Cargo.toml",
+                                    "--target-dir", "{workdir}/rust-target"],
+                                   ["cp", "{workdir}/rust-target/release/verify-rust", "{workdir}/verify-rust"]])
     contrato = (f" Contrato de saída: 0 cobre, 1 ponto descoberto, 2 o witness contradiz os parâmetros (FAIL = fail_exit_codes [1, 2]); 3 uso/falha operacional "
                 f"(ERROR, nunca FAIL). Recebe q,n,R,M por {{param:NOME}} e rejeita nome de arquivo que diga outra instância. Modificado em 2026-10-03 por "
                 f"{MODIFICADO_POR} (parâmetros explícitos); o autor original (implemented_by) segue o do git log.")
-    for vid, nota in (("verify-c", f"Verificador oficial do repositório (marca bolas de raio R num bitset). Escrito antes desta campanha por {autor_c} "
+    for vid, nota in (("verify-rust", "Escrito por outro agente (agente-verif-rust) sem ler os outros dois verificadores nem o gerador do formato; algoritmo de dilatação "
+                       "por camadas com um byte por ponto (OR ao longo de cada reta de coordenada), O(R·n·q^n). Declaração de independência e do que foi lido em "
+                       "tools/verify-rust/README.md. Independente em linguagem, código, algoritmo e autoria; NÃO em especificação do problema (a definição de código de cobertura é a mesma)."),
+                      ("verify-c", f"Verificador oficial do repositório (marca bolas de raio R num bitset). Escrito antes desta campanha por {autor_c} "
                                    f"(autor do primeiro commit de tools/verify/verify.c)." + contrato),
                       ("verify-py-dilation", "Escrito NESTA campanha pelo mesmo agente que cria os claims (agente-c): independente em linguagem, código e algoritmo "
                        "(dilatação do indicador do código no grid, sem enumerar bolas), mas NÃO em autoria nem em especificação do formato. "
@@ -362,9 +375,9 @@ def main() -> int:
     # ------------------------------------------------------------------ corridas de verificador
     if corridas:
         for cel, m, _ in CODIGOS:
-            for vid in ("verify-c", "verify-py-dilation"):
+            for vid in ("verify-c", "verify-py-dilation", "verify-rust"):
                 V.rodar(c, vid, wid(cel, m), ator=PROMOTOR, papel="INDEPENDENT_VERIFIER", timeout_s=300)
-        for vid in ("verify-c", "verify-py-dilation"):
+        for vid in ("verify-c", "verify-py-dilation", "verify-rust"):
             V.rodar(c, vid, "w-q2-n6-r1-m12", ator=PROMOTOR, papel="INDEPENDENT_VERIFIER", timeout_s=300)
 
     # ------------------------------------------------------------------ claims
@@ -586,12 +599,14 @@ def main() -> int:
                    "inferiores conhecidas' a Kéri, Gijswijt–Polak 2025 e Marosi 2026 sem dizer qual dá 264. O 264 saiu do universo (campo lb_literatura_declarada) "
                    "porque número sem registro de literatura não é fato desta campanha.",
             next_step="identificar a fonte do 264 (tabela, artigo, versão) e registrar com literature_register")
-    residuo("res-reverify-independent-author", kind="independencia", claim_ids=ub_claims, instances=celulas_de(ub_claims),
-            reason="MEDIDO pela guarda de INDEPENDENTLY_REPRODUCED (2026-10-03): verify-c (autor thiagopatzdorf, git log) conta; verify-py-dilation foi escrito por agente-c, "
-                   "que também criou os claims, e a guarda não conta verificador do autor do claim. Resta 1 componente independente (< 2), então os 10 claims de "
-                   "código ficam em EMPIRICAL (blocked_independently_reproduced traz os motivos exatos). Os dois verificadores continuam concordando; o que falta é um "
-                   "segundo AUTOR, não um segundo resultado.",
-            next_step="outro agente/humano (diferente de agente-c e de thiagopatzdorf) escreve ou reimplementa um verificador, registra com implemented_by verdadeiro e roda sobre os 11 witnesses")
+    bloqueados = [x for x in ub_claims if c.ler("claims", x)["status"] != "INDEPENDENTLY_REPRODUCED"]
+    if bloqueados:
+        residuo("res-reverify-independent-author", kind="independencia", claim_ids=bloqueados, instances=celulas_de(bloqueados),
+                reason="MEDIDO pela guarda de INDEPENDENTLY_REPRODUCED (2026-10-03): verify-c (autor thiagopatzdorf, git log) conta; verify-py-dilation foi escrito por agente-c, "
+                       "que também criou os claims, e a guarda não conta verificador do autor do claim. Resta 1 componente independente (< 2), então os 10 claims de "
+                       "código ficam em EMPIRICAL (blocked_independently_reproduced traz os motivos exatos). Os dois verificadores continuam concordando; o que falta é um "
+                       "segundo AUTOR, não um segundo resultado.",
+                next_step="outro agente/humano (diferente de agente-c e de thiagopatzdorf) escreve ou reimplementa um verificador, registra com implemented_by verdadeiro e roda sobre os 11 witnesses")
     residuo("res-1351-generator", kind="geracao_nao_reproduzivel", claim_id="k7-9-4-ub-1351", instances=["k7-9-4"],
             reason="lincov (Mapika/coldcase@56a8cce) fora do repo e remendo guloso de 322 palavras sem registro; gen_lean_cover.py/tests/test_lean_cover.py/data/certificates citados em C1_Data_K7_9_4.lean não existem",
             next_step="registrar o comando do lincov e o algoritmo do remendo, ou versionar o gerador do .lean")
