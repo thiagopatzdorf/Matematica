@@ -32,6 +32,11 @@ Duas perguntas:
   com só 8 síndromes órfãs. Base mais remendo guloso deu **K_5(10,5) ≤ 170**, verificado no
   espaço inteiro. É abaixo dos 175 publicados e acima dos nossos 162. Vale como base para o
   remendo por ILP (seção "Sonda").
+- **Rodada 2 (OpenAlex com chave, mesmo dia):** nível 1 completo de citações, nível 2 com
+  corte e 22 buscas em texto completo. +154 obras (1949 → 2103), +39 PDFs (543 → 582).
+  **Nada mudou no estado da arte**: nenhuma cota publicada ≤ 1134, ≤ 162, ≤ 2875 ou ≤ 5616,
+  e nenhuma abaixo das cotas da tabela acima. Detalhes e limites (o texto completo do
+  OpenAlex não acha números dentro de tabelas) na seção "Rodada 2".
 
 ## A. Estado da arte por célula
 
@@ -418,14 +423,208 @@ base ao remendo por ILP ou SA que vocês já têm. Um remendo de ≤ 36 palavras
   Crossref, OpenCitations e Unpaywall. A chave é gratuita, mas exige cadastro: **é decisão
   do Thiago** criar uma e pôr no cofre. O script lê `OPENALEX_API_KEY`. Com ela dá para
   rodar o nível 2 da expansão e os citantes pelo OpenAlex, que cobre mais que o
-  OpenCitations.
+  OpenCitations. Na rodada 2 isso foi feito pelo conector MCP, sem chave na máquina.
 - **Semantic Scholar** (429 sem chave) e **Google Scholar** (proibido) não foram usados.
 - **zbMATH**: a busca por MSC `cc:94B75` devolve 505 documentos (o total que a API informa).
 - A bibliografia do Lobstein (*Covering radius*, 1058 referências, janeiro de 2023) foi lida
   por entradas de 2012 em diante. Nenhuma trata de cotas de K_q(n,R) para q = 5 ou 7. Dela
   saiu Östergård–Weakley 2018 (item 15 acima).
 - O nível 2 de citações não rodou. Com OpenCitations o rendimento já era baixo (96 obras
-  novas para 701 sementes), e sem o OpenAlex o custo não compensava.
+  novas para 701 sementes), e sem o OpenAlex o custo não compensava. **Resolvido na rodada 2** (seção abaixo), pelo conector do OpenAlex.
+
+## Rodada 2 — OpenAlex com chave
+
+O conector MCP do OpenAlex (chave pessoal do Thiago) passou a existir na sessão do agente,
+não na factory-01. Divisão usada: o agente lista ids pelo conector (o que gasta orçamento);
+a factory-01 completa cada obra pelo GET de obra única, que é grátis (medido:
+`x-ratelimit-credits-used: 0` com o orçamento do dia zerado), pelo modo novo
+`varredura.py --de-jsonl`. As listas de ids e o log das consultas estão em
+`tools/literatura/openalex/2026-10-03/` e em `gs://factory-literatura-matematica/buscas/2026-10-03-openalex/`.
+Nada foi escrito no OpenAlex (nenhuma curadoria).
+
+### Contagens, antes e depois
+
+| item | rodada 1 | rodada 2 |
+|---|---|---|
+| obras em `meta/works.jsonl` | 1949 | **2103** (+154) |
+| com fonte OpenAlex | 986 | 1226 |
+| PDFs | 543 | **582** (+39; 37 de obras novas) |
+| textos (PDF, resenha, tabela) lidos pelo caçador de menções | — | 1314 |
+
+De onde vieram as 154 obras novas (`buscas/2026-10-03-openalex/obras_novas.json`):
+
+| origem | consulta no conector | ids listados | entraram no corte | novas |
+|---|---|---|---|---|
+| nível 1, quem cita | `works where it cites (41 sementes de cobertura)`, 15 páginas, mais as sementes de técnica (ILP com simetria, set cover, isomorfismo) com filtro de tópico | 797 (712 + 86, sem repetir) | 478 | 84 |
+| nível 1, referências | `referenced_works` das 51 sementes com id OpenAlex | 1364 | 254 | 32 |
+| nível 2, quem cita | 105 candidatas do nível 1, filtro de tópico | 233 (de 1407 sem filtro) | 131 | 27 |
+| texto completo | 22 consultas (tabela abaixo) | 28 | 28 | 8 |
+| técnicas 2015–2026 | 6 consultas por título/resumo | 18 | 18 | 3 |
+
+Corte de relevância (`decide_inclusao`): score de resumo ≥ 4, ou citar ≥ 2 sementes, ou
+achado de texto completo. Rejeitadas: 550 referências, 318 citantes de nível 1, 102 de
+nível 2 (lista em cada `de_jsonl_*.json`). 55 referências das sementes não existem mais no
+OpenAlex (404: ids fundidos ou apagados).
+
+**Decisões de corte, tomadas sozinho:**
+
+- Sementes de técnica genérica (Dancing links, Caprara–Fischetti–Toth, Margot, McKay,
+  orbitopes etc.) têm milhares de citantes de pesquisa operacional. Listei só os que dizem
+  covering code/radius, football pool, saturating set, covering design, unicost,
+  Hamming, orbital branching, orbitope ou symmetry breaking no título/resumo (185), e
+  paginei as 2 primeiras páginas por citação (86 ids).
+- Nível 2: "relevante" = obra nova de nível 1 com score ≥ 6 ou que cita ≥ 2 sementes
+  (105). Os citantes delas sem filtro somam 1407, quase todos fora do tema (PIR,
+  escalonamento, Petri). Com o mesmo filtro de tópico ficaram 233. O orçamento de ~1500
+  obras novas não foi atingido (+154).
+- Busca por número no texto completo: com 121 resultados para
+  `(175 OR 162 OR 125) AND quinary…`, li as 50 primeiras (reordenadas por relevância) e
+  parei: depois da 25ª já era só ruído.
+
+### Texto completo: o que o índice do OpenAlex cobre e o que não cobre
+
+Medido antes de interpretar qualquer "zero":
+
+- **Só obras de acesso aberto têm o corpo indexado.** Das 41 sementes de cobertura, 13 têm
+  `has_fulltext` (todas abertas: Marosi, Florath, Haas–Halupczok–Schlage-Puchta,
+  Davydov–Giulietti–Marcugini–Pambianco 2011, Kéri–Östergård 2006, van Wee 1991 (artigo e
+  tese), Héger–Nagy, Denaux, Nagy, Bonini–Borello–Byrne, Habsieger 1997,
+  Torres-Jiménez). Dos 712 citantes, 193. **Nenhum dos clássicos pagos (Bhandari–Durairajan,
+  Östergård 1991/1997, Kéri–Östergård 2005…) está no índice de texto completo.** A
+  promessa de "cobrir o que está atrás de paywall" não se cumpriu para esta área.
+- **Números dentro de tabela não são achados.** Controle positivo: Marosi 2026
+  (W7203953290) tem 1475 e 1843 na Tabela 1, e Haas–Halupczok–Schlage-Puchta 2009
+  (W1482458295) tem `K7(9, 4) 5 221 227 264 1843` na Tabela 5. A consulta
+  `full text has (1843 or 1475 or 2143 or 8575 or 602)` restrita a essas duas obras devolve
+  **0**. Já palavras do corpo (`Bhandari`, `Durairajan`) e anos (`1996`, `2009`, `2011`) são
+  achados. Então "zero achados" para um valor de tabela **não é evidência de ausência**;
+  o que vale é o caçador de menções rodando sobre o PDF.
+
+Consultas feitas (todas `search_in=fulltext`; log completo com ids em
+`fulltext_consultas.json`):
+
+| consulta | resultados | veredito |
+|---|---|---|
+| `"covering radius" AND 1475` | 15 | falso positivo (Cohen et al., ISIT 1995; tabelas de arcos em PG(2,q); física) |
+| `("covering code" OR "covering codes") AND 1475` | 20 | 4 preprints Zenodo **nossos** (K_7(9,4) ≤ 1137/1141/1351, citam 1475 do Marosi); resto falso positivo |
+| `(covering code\|codes\|radius) AND 6517` | 0 | — |
+| `… AND 8575` | 4 | falso positivo (Ozeki 2001, q = 3; relatórios NBS) |
+| `… AND 42189` | 0 | — |
+| `… AND 1843` | 14 | falso positivo |
+| `… AND 1134` | 32 | falso positivo (Bartoli et al. 2017, tabelas para q ≥ 11; Ozeki) |
+| `… AND (2875 OR 5616)` | 15 | falso positivo |
+| `… AND 3125 AND (quinary OR q=5 OR K5)` | 6 | falso positivo (código de Lee; Bartoli et al. 2017) |
+| `… AND (175 OR 162 OR 125) AND (quinary OR q=5 OR K5 OR K_5)` | 121 | lidos 50; só Gommard–Plagne 2003 (K_5(7,3) ≤ 100, outra célula) e Haas et al. 2009 (já no acervo) |
+| `… AND (175\|8575\|42189\|6517\|1843\|1475) AND (septenary\|q=7\|K7)` | 49 | van Wee 1991 (tese, já no acervo), Zenodo nossos, resto falso positivo |
+| `"football pool" AND (ternary OR quinary OR q-ary OR septenary OR nonbinary)` | 46 | clássicos ternários e mistos; nenhum valor das nossas células |
+| `"K7(9,4)" OR "K_7(9,4)" OR …` | 30 | 5 Zenodo nossos; 25 ruído de tokenização |
+| `"K5(10,5)" OR "K5(11,4)" OR "K7(10,4)" …` | 0 | — |
+| `(covering code\|codes) AND Kéri AND table`, ≥ 2011 | 28 | ver abaixo (Filippini, Seuranen, Castoldi, coldcore) |
+| `covering radius AND (q=5\|q=7) AND upper bound AND K_q(n,R)`, ≥ 2011 | 13 | só Marosi 2026 |
+| `… AND K_q(n,R)`, ≥ 2012 | 9 | Marosi, Florath (artigo e software), Monte Carmelo 2012, Zenodo nossos |
+| `… AND (septenary\|7-ary\|GF(7)\|F_7\|Z_7)`, ≥ 2005 | 10 | nenhum com cota de K_7(n,R) |
+| `saturating set AND (PG(5,7)\|PG(4,7)\|PG(6,5)\|PG(5,5)\|PG(6,7)\|PG(7,5))` | 1 | falso positivo (Pavese, 4-general sets) |
+| `coldcase OR covengine OR coldcore`, ≥ 2025 | 36 | Marosi (coldcore e o artigo de 2026); resto oceanografia ("cold-core eddies") |
+| OQL: cita uma semente de cobertura **e** texto tem um dos 9 números | 2 | falso positivo (Colbourn–Lanus 2018, CPHF; Cohen et al. 1995) |
+| restrito a 9 candidatas (coldcore, Riasat–Mahdavifar 2026, Filippini, Seuranen…): números e `quinary\|K7…` | 1 / 4 | nenhum número das células; coldcore cita K5/K7 mas não traz "covering radius" nem os números (sondado, PDF fechado atrás do Cloudflare do SSRN) |
+
+### Achados de estado da arte
+
+**Nenhuma cota publicada ≤ 1134 (K_7(9,4)), ≤ 162 (K_5(10,5)), ≤ 2875 (K_5(11,4)) ou
+≤ 5616 (K_7(10,4)).** A tabela da seção A continua valendo sem mudança.
+
+O caçador de menções, rodado sobre os 1314 textos, deu 33 achados. Só um vem de obra que
+entrou nesta rodada:
+
+- **Colbourn–Kéri–Rivas Soriano–Schlage-Puchta 2010**, *Covering and radius-covering
+  arrays: Constructions and classification* (DAM, 10.1016/j.dam.2010.03.008, PDF aberto).
+  Tabela `CANr(s, n, 7)` (colunas r = 0 a 3). Na diagonal s = n o arranjo é um código de
+  cobertura e os valores repetem Kéri. Trecho literal (texto extraído, quebras trocadas por
+  espaço):
+
+  ```
+  10,9 a 40353607 a d 733726−5420281 z d 29889−420175 e d 2077−42189 e
+  10,10 a 2824752491 a g 4630843−5764801 g g 168042−420175 g g 10577−42189 g
+  ```
+
+  e, na linha 9,9: `g 733726−823543 g g 29889−94587 g g 2077−8575 g`. Ou seja,
+  K_7(9,3) ≤ 8575 e K_7(10,3) ≤ 42189, as mesmas UB de Kéri. Não há coluna r ≥ 4.
+
+Os demais achados novos do texto completo e dos PDFs são falsos positivos: 1134 como
+tamanho de arco completo em PG(2,q) (Bartoli et al., arXiv 1404.0469), 1475 numa tabela de
+covering perfect hash families (Colbourn–Lanus 2018).
+
+Duas fontes que pareciam ameaça e não são:
+
+- **Bartoli–Davydov–Marcugini–Pambianco**, *Tables, bounds and graphics of short linear
+  codes with covering radius 3 and codimension 4 and 5* (arXiv 1712.07078). Resumo:
+  "`ℓq(5, 3) < 2.785 ∛(q² ln q) if 11 ≤ q ≤ 401`". As tabelas começam em q = 11; o 1134 e o
+  3125 do texto são valores de q grande. Não toca K_7(9,3) nem K_7(10,3).
+- **Davydov–Marcugini–Pambianco 2019**, *New covering codes of radius R, codimension tR
+  and tR + R/2* (DCC, 10.1007/s10623-019-00649-2). Texto: "`ℓq(r,R) = sq(r −1,R−1) ≤
+  Rq(r−R)/R + q(r−2R)/R + ∆q(r,R), r = tR`" com "`∆q(r,R) = 0 if t = 2, q = 5, R = 4,5`".
+  Para q = 5, R = 4 isso dá comprimento ≤ 4·5 + 1 = 21 com codimensão 8: é família de
+  códigos longos, não diz nada sobre n ≤ 11.
+
+### Técnicas novas (2015–2026) que não estavam entre os 31
+
+Só o que é de fato novo em relação à lista da seção B. PDF aberto indicado onde há; sem
+PDF, o comentário vem do resumo.
+
+32. **Marosi 2026b**, *coldcore: a GPU framework for exhaustive-coverage combinatorial
+    optimization* (SSRN, 10.2139/ssrn.7404672). O motor por trás do item 1, como biblioteca
+    (palavras-chave do OpenAlex: GPU, covering codes, dominating sets, set cover, dynamic
+    programming, CUDA). PDF atrás do desafio do Cloudflare do SSRN; não lido.
+    **Ideia:** mesma do item 1, agora com o motor separado do artigo.
+33. **Marenco–Rey 2026**, *An initial polyhedral study of the football pool problem*
+    (Discrete Optimization, 10.1016/j.disopt.2026.100946; sem PDF aberto). Facetas do
+    politopo de cobertura do grafo de Hamming. **Ideia:** desigualdades válidas para o ILP
+    do remendo, além das de cobertura simples.
+34. **Naszvadi–Ádám–Koniorczyk 2025**, *Reduction and efficient solution of ILP models of
+    mixed Hamming packings yielding improved upper bounds* (Mathematics 13, 2633;
+    10.3390/math13162633, OA, o download falhou). Redução do ILP por simetria em espaços de
+    Hamming mistos. **Ideia:** a mesma redução vale para cobertura (o dual do empacotamento);
+    comparar com a nossa redução por translação.
+35. **Gao–Yao–Weise–Li 2015**, *An efficient local search heuristic with row weighting for the
+    unicost set covering problem* (EJOR, 10.1016/j.ejor.2015.05.038), e **Wang–Ouyang–Zhang–Yin
+    2017**, *…hyperedge configuration checking and weight diversity* (Sci. China Inf. Sci.,
+    10.1007/s11432-015-5377-8). O remendo é exatamente um unicost set cover.
+    **Ideia:** pesos de linha e configuration checking são o estado da arte de busca local
+    para USCP; trocar o SA do remendo por isso e medir lado a lado, junto com o tabu do item 6.
+36. **Pfetsch–Rehn 2018**, *A computational comparison of symmetry handling methods for
+    mixed integer programs* (MPC, 10.1007/s12532-018-0140-y), e **van Doornmalen–Hojny
+    2024**, *A unified framework for symmetry handling* (Math. Prog.,
+    10.1007/s10107-024-02102-2, OA). Comparação medida de orbital fixing, orbitopes e
+    simetria em SCIP. **Ideia:** escolher pela medição deles, não pelo panorama do item 12.
+37. **Anders–Codel–Heule 2026**, *Orbitopal fixing in SAT* (LNCS, 10.1007/978-3-032-22752-2_5,
+    OA). **Ideia:** se o remendo virar instância SAT (cardinalidade ≤ k), quebra de
+    simetria dentro do solver.
+38. **Davydov–Marcugini–Pambianco 2019–2024** (DCC 2019, AMC 2022, DCC 2024, AMC 2023;
+    PDFs no acervo). Construções de códigos lineares q-ários de raio R e codimensão tR,
+    tR+1 e 3t+1. Como mostrado acima, dão códigos longos; **não servem de base para
+    n ≤ 11**. Ficam como referência para quem for atrás de ℓ_q(r,R).
+39. **Florath 2026b**, *A Lean-certified proof of K_8(4,2) = 23* (arXiv 2606.16688), e
+    o depósito Zenodo com o certificado Lean da prova SDP de Gijswijt–Polak para
+    K_2(13,1) ≥ 607 (10.5281/zenodo.21024792). **Ideia:** primeiro certificado de cota
+    *inferior* por SDP checado em Lean; é o formato a copiar se um dia certificarmos uma LB.
+40. **Riasat–Mahdavifar 2026**, *New covering bounds and constructions for Hamming and
+    Grassmann spaces* (ISIT 2026, 10.1109/isit62367.2026.11654080; fechado). Palavras-chave:
+    binary codes. Sem texto completo no índice; não dá para dizer se toca q = 5 ou 7.
+
+Também apareceram e **não** entram como técnica: arranjos de cobertura ordenados
+(Castoldi et al. 2023, espaço NRT, não Hamming), códigos de cobertura em métrica de soma
+de posto e de Lee, e o resto da família de covering arrays.
+
+### O que falhou ou ficou de fora
+
+- **PDFs:** das 154 obras novas, 37 têm PDF. Nesta rodada 33 links abertos falharam (403/HTML/desafio
+  anti-robô, lista em `pdf_falhas.json`), entre eles Naszvadi et al. 2025 (MDPI),
+  coldcore (SSRN), Filippini 2016 (ETH), Seuranen 2011 (Aalto) e Kizhakkepallathu 2015
+  (Aalto). Não insisti com outro user-agent: desafio anti-robô não se contorna.
+- **Texto completo do OpenAlex** não cobre artigo pago desta área e não acha número de
+  tabela (controle acima). A busca por número continua valendo só sobre os nossos PDFs.
+- **Riasat–Mahdavifar 2026** e **Marenco–Rey 2026** (fechados, recentes) não foram lidos.
+- O nível 2 só expandiu quem cita; as referências das obras de nível 1 não foram seguidas.
 
 ## Como reproduzir
 
