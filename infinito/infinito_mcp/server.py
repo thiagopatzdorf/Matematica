@@ -173,10 +173,11 @@ def _tools_de_acesso(ctx: Contexto) -> None:
         O token só aparece nesta resposta; se perder, convide de novo e revogue o antigo."""
         creditos.exigir_admin(quem())
         antes = {p["quem"] for p in creditos.listar(quem())}
-        creditos.definir(quem(), email, teto_usd=teto_usd if teto_usd is not None else creditos.teto_padrao,
-                         motivo="convite")                       # recusa "lotado" ANTES de emitir token
+        if not creditos.e_admin(email):                          # administrador não tem teto nem ocupa vaga
+            creditos.definir(quem(), email, teto_usd=teto_usd if teto_usd is not None else creditos.teto_padrao,
+                             motivo="convite")                   # recusa "lotado" ANTES de emitir token
         token = tokens.emitir(nome, email)
-        return {"ok": True, "nome": nome, "email": email.lower(), "nova_vaga": email.lower() not in antes,
+        return {"ok": True, "nome": nome, "email": email.lower(), "nova_vaga": not creditos.e_admin(email) and email.lower() not in antes,
                 "url": f"{base}/mcp/{token}/" if base else f"<INF_URL_BASE>/mcp/{token}/"}
 
     @tool
@@ -192,6 +193,18 @@ def _tools_de_acesso(ctx: Contexto) -> None:
         """[admin] Quem tem token (sem o token), se está ativo e quando foi criado."""
         creditos.exigir_admin(quem())
         return {"ok": True, "acessos": tokens.listar()}
+
+
+def _esconder_admin_de_quem_nao_e_admin(mcp: FastMCP, creditos: Creditos) -> None:
+    """`tools/list` sem `admin_*` para quem não é administrador. É só vitrine: quem manda continua sendo o
+    `exigir_admin` dentro de cada tool (chamar pelo nome, mesmo escondida, dá "só administrador")."""
+    original = mcp.list_tools
+
+    async def listar():
+        tools = await original()
+        return tools if creditos.e_admin(quem()) else [t for t in tools if not t.name.startswith("admin_")]
+
+    mcp._mcp_server.list_tools()(listar)       # troca o handler que o FastMCP registrou no construtor
 
 
 def criar_mcp(creditos: Creditos, estado: Armazem, literatura: Armazem, env: dict | None = None,
@@ -211,6 +224,7 @@ def criar_mcp(creditos: Creditos, estado: Armazem, literatura: Armazem, env: dic
     ctx = Contexto(mcp=mcp, creditos=creditos, estado=estado, literatura=literatura, env=env, tokens=tokens)
     ctx.tool = lambda fn: mcp.tool()(_auditado(fn, creditos))
     _tools_do_nucleo(ctx)
+    _esconder_admin_de_quem_nao_e_admin(mcp, creditos)
     if tokens is not None:
         _tools_de_acesso(ctx)
     for nome in (modulos if modulos is not None else env.get("INF_MODULOS", MODULOS_PADRAO).split(",")):

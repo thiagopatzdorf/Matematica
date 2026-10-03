@@ -264,7 +264,10 @@ def test_tools_do_servidor_e_colaborador_chamando_admin(capsys):
     est = ArmazemMemoria()
     with _cliente(est) as c:
         nomes = {t["name"] for t in _rpc(c, "tools/list", {}, _jwt()).json()["result"]["tools"]}
-        assert {"meus_creditos", "admin_creditos", "celula", "alvos", "papers_buscar", "pesado"} <= nomes
+        assert {"meus_creditos", "celula", "alvos", "papers_buscar", "pesado"} <= nomes
+        assert not any(n.startswith("admin_") for n in nomes)          # colaborador não vê botão de admin
+        admin = {t["name"] for t in _rpc(c, "tools/list", {}, _jwt(email=DONO)).json()["result"]["tools"]}
+        assert {"admin_usuarios", "admin_creditos"} <= admin
         assert _dado(_tool(c, "meus_creditos", {}, _jwt()))["disponivel_usd"] == 20.0
         negado = _dado(_tool(c, "admin_creditos", {"email": "a@x.com", "somar_usd": 500, "motivo": "x"}, _jwt()))
         assert negado["ok"] is False
@@ -405,3 +408,24 @@ def test_upload_privado_manda_acl_e_o_bucket_uniforme_recusa_com_400():
     assert "predefinedAcl" not in urls[0]
     a.por("x", b"{}", "application/json", publico=True)
     assert "predefinedAcl=publicRead" in urls[1]
+
+
+def test_admin_convidado_por_e_mail_come_uma_das_dez_vagas():
+    est = ArmazemMemoria()
+    env = {"INF_REPO": str(REPO), "INF_TOKEN_ADMIN": TOKEN_ADMIN, "INF_URL_BASE": "https://inf.exemplo.app",
+           "INF_ADMINS": DONO, "INF_MAX_USUARIOS": "1"}
+    asgi = server.app(None, estado=est, literatura=ArmazemMemoria(), env=env)
+    with TestClient(asgi, base_url="https://inf.exemplo.app") as c:
+        assert _dado(_tool_url(c, TOKEN_ADMIN, "admin_convidar", {"nome": "p", "email": "p@x.com"}))["ok"]
+        r = _dado(_tool_url(c, TOKEN_ADMIN, "admin_convidar", {"nome": "Dono", "email": DONO}))
+        assert r["ok"] and r["nova_vaga"] is False
+        tok = r["url"].split("/mcp/")[1].strip("/")
+        assert _dado(_tool_url(c, tok, "meus_creditos", {}))["admin"] is True
+        nomes = {t["name"] for t in _rpc_url(c, tok, "tools/list")["result"]["tools"]}
+        assert "admin_creditos" in nomes
+        assert _dado(_tool_url(c, tok, "admin_usuarios", {}))["vagas"] == 0     # o admin não ocupou vaga
+
+
+def _rpc_url(c, token, metodo):
+    cab = {"Accept": "application/json, text/event-stream", "Content-Type": "application/json"}
+    return c.post(f"/mcp/{token}/", headers=cab, json={"jsonrpc": "2.0", "id": 1, "method": metodo, "params": {}}).json()
