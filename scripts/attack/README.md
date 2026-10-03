@@ -62,3 +62,20 @@ palavras soltas (remendo). O tamanho final é `t*q^k + |remendo|`.
 | K7(9,3) | 8575 | sem melhora | k=4 t=3: 44 órfãs de 2401 pontos; k=3 t=24: 139 órfãs | — |
 | K7(10,3) | 42189 | sem melhora | k=5 t=3 cobre (50421); lift k=4 t=20 deixa 63 órfãs | — |
 | K7(10,6) | 175 | não atacada a fundo | k=2: B tem 5,41M de 5,76M síndromes (t=1); remendo de R=6 é caro de enumerar | — |
+
+## Rodada 2 (2026-10-03, 4 núcleos, ~3 h)
+
+* **K7(10,4)**: 80 bases grossas novas de [10,4]_7 (hsearch, |B| máximo) avaliadas com t=2:
+  a melhor tem 8 órfãs; a original (4 órfãs, A=0246 2204 3660 6166 4623 6321) segue a melhor.
+  `engine_lift.sh` (lift por x_6..x_9 × sementes, cada base avaliada pelo remendo real)
+  deu 5678-5806. `coset_cov` (estima o remendo por |O|·q^k/cobmax) achou bases t=16 com
+  est 5586 -> remendo real 5625. Com t=15 o estimador erra feio (est 5408; 450 palavras
+  ainda deixam 278 pontos descobertos): com muitas órfãs a cota |O|q^k/cobmax é frouxa.
+  Melhor continua **5616**.
+* **K5(10,5)**: candidatos com >= 30 pontos (em vez de >= 40) deram **162** (37 palavras).
+  k=2 com t pequeno é descartado pela conta: t=5 deixa 175 órfãs (4375 pontos, remendo
+  >= 95 com cobertura máx 46); k=1, t=34 deixa 217 órfãs; tirar 1 das 5 classes de [10,2]
+  deixa 158025 pontos. Os 40 reinícios de [10,3]_5 caem todos em 8 órfãs (cota LP 147).
+* **K5(11,4)**: t=22 + remendo deu 2881-2911 (engine, 12 bases) e com `coset_cov`
+  (est 2822) nem 140 palavras cobrem. Melhor continua **2875** (t=23, sem remendo).
+* **K7(9,3), K7(10,3)**: não retomados (sem caminho novo; ver tabela acima).
