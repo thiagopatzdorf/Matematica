@@ -81,8 +81,10 @@ class ArmazemGCS:
         b = "infinitofronteira7d1"
         corpo = (f"--{b}\r\nContent-Type: application/json; charset=UTF-8\r\n\r\n".encode() + meta
                  + f"\r\n--{b}\r\nContent-Type: {tipo}\r\n\r\n".encode() + dados + f"\r\n--{b}--".encode())
-        acl = "publicRead" if publico else "private"
-        st, r = self._pedir("POST", f"{UPLOAD}/b/{self.bucket}/o?uploadType=multipart&predefinedAcl={acl}",
+        # Bucket de acesso uniforme (o daqui) recusa qualquer ACL por objeto: só manda `predefinedAcl` quando
+        # o objeto é público de propósito. Medido no 1º deploy: com `private` explícito, HTTP 400.
+        acl = "&predefinedAcl=publicRead" if publico else ""
+        st, r = self._pedir("POST", f"{UPLOAD}/b/{self.bucket}/o?uploadType=multipart{acl}",
                             corpo, f"multipart/related; boundary={b}")
         if st != 200:
             raise ErroArmazem(f"upload de {nome}: HTTP {st}: {r[:300]!r}")
@@ -111,9 +113,8 @@ class ArmazemGCS:
                 return nomes
 
     def mover(self, de: str, para: str, *, publico: bool) -> None:
-        acl = "publicRead" if publico else "private"
-        url = (f"{self._obj(de)}/rewriteTo/b/{self.bucket}/o/{urllib.parse.quote(para, safe='')}"
-               f"?destinationPredefinedAcl={acl}")
+        acl = "?destinationPredefinedAcl=publicRead" if publico else ""
+        url = f"{self._obj(de)}/rewriteTo/b/{self.bucket}/o/{urllib.parse.quote(para, safe='')}{acl}"
         st, r = self._pedir("POST", url, b"{}", "application/json")
         if st != 200 or not json.loads(r).get("done", False):
             raise ErroArmazem(f"cópia {de} -> {para}: HTTP {st}: {r[:300]!r}")

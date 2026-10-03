@@ -393,3 +393,14 @@ def test_vaga_de_quem_foi_revogado_continua_ocupada():
     with pytest.raises(ErroCreditos, match="lotado"):
         c.definir(DONO, "c@x.com", teto_usd=20, motivo="convite")
     assert c.saldo("b@x.com")["teto_usd"] == 20.0
+
+
+def test_upload_privado_manda_acl_e_o_bucket_uniforme_recusa_com_400():
+    from infinito_mcp.armazem import ArmazemGCS
+    urls = []
+    a = ArmazemGCS("b", token=lambda: "t")
+    a._pedir = lambda metodo, url, dados=None, tipo=None: urls.append(url) or (200, b"{}")
+    a.por("creditos/usuarios.json", b"{}", "application/json", publico=False)
+    assert "predefinedAcl" not in urls[0]
+    a.por("x", b"{}", "application/json", publico=True)
+    assert "predefinedAcl=publicRead" in urls[1]
