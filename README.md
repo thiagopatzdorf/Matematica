@@ -66,8 +66,10 @@ fechados com teste diferencial e verificador independente.
 
 `data/codes/` traz também os outros 7 códigos (`K5(7,2) ≤ 500`, `K4(10,4) ≤ 192`, `K5(9,3) ≤ 1250`, `K5(10,4) ≤ 625`,
 `K5(9,5) ≤ 50`, `K5(9,4) ≤ 250`, `K7(8,3) ≤ 1893`), todos abaixo das tabelas que conferimos e checados por três
-verificadores independentes fora do Lean; **ainda não são teoremas Lean**. `K5(10,4) ≤ 625` é um código linear
-`[10,4]_5`; falta conferir as tabelas de comprimento de Davydov–Marcugini–Pambianco.
+verificadores fora do Lean (independência de implementação, não de mente). Cada um tem teorema Lean por prefixos
+(`CoveringKernel.K*_kernel`, alvo `CoveringHeavy`, ~9,3 h de CPU): o build pesado é o relato do autor e não foi reproduzido
+de forma independente. `K5(10,4) ≤ 625` é um código linear `[10,4]_5`; ainda não achamos a tabela de comprimento de
+Davydov–Marcugini–Pambianco que decidiria se já era conhecido (não alegamos novidade).
 
 ## Formato estruturado e verificador oficial
 

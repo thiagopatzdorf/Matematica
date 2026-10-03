@@ -1,6 +1,6 @@
-# Estado da arte: K_7(9,4)
+# Revisão de literatura: K_7(9,4) (fontes lidas; não é afirmação de recorde)
 
-Revisão bibliográfica feita em 2026-10-02. Nada foi publicado e nada foi gasto.
+Revisão bibliográfica feita em 2026-10-02; a revisão em si não publicou nada e não gastou nada. (A v0.5 do paper foi depositada no Zenodo, DOI 10.5281/zenodo.23105088, independentemente desta revisão.)
 
 **Pergunta:** qual é o menor upper bound publicado para K_7(9,4)? Ele é o tamanho
 mínimo de um código 7-ário de comprimento 9 com raio de cobertura 4.
@@ -85,3 +85,11 @@ for _ in range(R):
     A=B
 print(len(C), int((~A).sum()))   # -> 1475 0
 ```
+
+## Resíduo não decidido: soma direta amalgamada (ADS)
+
+Somas diretas amalgamadas de códigos tabelados dariam 931 e 1225 para K_7(9,4), **se** existirem códigos componentes
+normais adequados. Uma busca exata por SAT (campanha, `_literatura/profunda_c/`) não decidiu o caso de 931: é falha de
+busca, não prova de impossibilidade. Por isso "não achamos resultado com K_7(9,4) <= N para N <= 1137" vale só para as
+fontes revisadas; a novidade não está estabelecida. O 1843 do Kéri é entrada de tabela web (chave `f`) e o Marosi é um
+preprint cuja autoria declarada é de modelo (Claude).
