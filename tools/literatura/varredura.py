@@ -31,6 +31,7 @@ import re
 import shutil
 import subprocess
 import sys
+import threading
 import time
 import urllib.error
 import urllib.parse
@@ -74,13 +75,19 @@ def log(msg: str) -> None:
         f.write(linha + "\n")
 
 
+_trava = threading.Lock()
+
+
 def _espera(url: str) -> None:
+    """Reserva o próximo horário livre do host (seguro entre threads) e dorme até ele."""
     host = urllib.parse.urlparse(url).netloc
     dt_min = INTERVALO.get(host, 0.5)
-    falta = _ultimo.get(host, 0) + dt_min - time.time()
-    if falta > 0:
-        time.sleep(falta)
-    _ultimo[host] = time.time()
+    with _trava:
+        agora = time.time()
+        vez = max(agora, _ultimo.get(host, 0) + dt_min)
+        _ultimo[host] = vez
+    if vez > agora:
+        time.sleep(vez - agora)
 
 
 def baixar_bytes(url: str, *, tentativas: int = 3, tempo: int = 60, limite: int = 60_000_000) -> tuple[int, bytes]:
@@ -786,11 +793,36 @@ def etapa_tabelas() -> None:
     log(f"tabelas: {len(manifesto)} arquivos no manifesto")
 
 
-def etapa_baixar(b: Base, limite_gb: float = 6.0) -> None:
+def _baixar_uma(w: dict, alvo: Path) -> dict:
+    """Tenta os candidatos de uma obra. Roda em thread: não mexe na Base, só devolve o resultado."""
+    cands = list(w.get("pdf_candidatos") or [])
+    if w.get("arxiv") and f"https://arxiv.org/pdf/{w['arxiv']}" not in cands:
+        cands.insert(0, f"https://arxiv.org/pdf/{w['arxiv']}")
+    if w.get("doi") and not w.get("arxiv") and not w.get("unpaywall_visto"):
+        for u in unpaywall_pdf(w["doi"]):
+            if u not in cands:
+                cands.append(u)
+    if not cands:
+        return {"pdf_status": "sem_oa", "unpaywall_visto": True}
+    for u in cands[:4]:
+        # Uma tentativa e 30 s: editora que não serve o PDF costuma pendurar a conexão,
+        # e com 2 x 90 s a rodada levava horas (medido em 2026-10-03: 3 PDFs em 2 min).
+        st, corpo = baixar_bytes(u, tentativas=1, tempo=30)
+        if st == 200 and corpo[:5] == b"%PDF-":
+            tmp = alvo.with_suffix(".tmp")
+            tmp.write_bytes(corpo)
+            tmp.replace(alvo)
+            return {"pdf_status": "ok", "pdf_url_usada": u, "pdf_sha256": hashlib.sha256(corpo).hexdigest(),
+                    "unpaywall_visto": True}
+    return {"pdf_status": "falhou", "unpaywall_visto": True, "_candidatos": cands[:4]}
+
+
+def etapa_baixar(b: Base, limite_gb: float = 6.0, threads: int = 8) -> None:
+    from concurrent.futures import ThreadPoolExecutor, as_completed
+
     pdfdir = dados() / "pdf"
-    falhas = []
-    ordem = sorted(b.obras.values(), key=lambda w: -w.get("score", 0))
-    for w in ordem:
+    falhas, fila = [], []
+    for w in sorted(b.obras.values(), key=lambda w: -w.get("score", 0)):
         alvo = pdfdir / f"{id_seguro(w)}.pdf"
         if alvo.exists():
             # PDF que chegou por outro caminho (rodada anterior, pré-carga do arXiv):
@@ -799,39 +831,33 @@ def etapa_baixar(b: Base, limite_gb: float = 6.0) -> None:
                 w["pdf_status"] = "ok"
                 w["pdf_sha256"] = hashlib.sha256(alvo.read_bytes()).hexdigest()
             continue
-        if w.get("pdf_status") in ("sem_oa", "falhou"):
+        if w.get("pdf_status") in ("sem_oa", "falhou") or w.get("score", 0) < cfg()["limiar_inclusao"]:
             continue
-        if w.get("score", 0) < cfg()["limiar_inclusao"]:
-            continue
-        usado = sum(p.stat().st_size for p in pdfdir.glob("*.pdf")) / 1e9
-        if usado > limite_gb:
-            log(f"baixar: limite local de {limite_gb} GB atingido; suba e apague antes de continuar")
-            break
-        cands = list(w.get("pdf_candidatos") or [])
-        if w.get("arxiv") and f"https://arxiv.org/pdf/{w['arxiv']}" not in cands:
-            cands.insert(0, f"https://arxiv.org/pdf/{w['arxiv']}")
-        if w.get("doi") and not w.get("arxiv") and not w.get("unpaywall_visto"):
-            for u in unpaywall_pdf(w["doi"]):
-                if u not in cands:
-                    cands.append(u)
-            w["unpaywall_visto"] = True
-        if not cands:
-            w["pdf_status"] = "sem_oa"
-            continue
-        ok = False
-        for u in cands[:4]:
-            st, corpo = baixar_bytes(u, tentativas=2, tempo=90)
-            if st == 200 and corpo[:5] == b"%PDF-":
-                alvo.write_bytes(corpo)
-                w["pdf_status"], w["pdf_url_usada"] = "ok", u
-                w["pdf_sha256"] = hashlib.sha256(corpo).hexdigest()
-                ok = True
-                break
-        if not ok:
-            w["pdf_status"] = "falhou"
-            falhas.append({"id": w["id"], "titulo": w.get("titulo"), "candidatos": cands[:4]})
-        if len(list(pdfdir.glob("*.pdf"))) % 20 == 0:
-            b.salva()
+        fila.append((w, alvo))
+    usado = sum(p.stat().st_size for p in pdfdir.glob("*.pdf")) / 1e9
+    log(f"baixar: {len(fila)} obras na fila; {usado:.2f} GB já no disco")
+    feitos = 0
+    with ThreadPoolExecutor(threads) as ex:
+        futuros = {ex.submit(_baixar_uma, w, alvo): w for w, alvo in fila}
+        for fut in as_completed(futuros):
+            w = futuros[fut]
+            try:
+                res = fut.result()
+            except Exception as e:  # noqa: BLE001 - uma obra ruim não derruba a rodada
+                res = {"pdf_status": "falhou", "_erro": type(e).__name__}
+            cands = res.pop("_candidatos", None)
+            w.update(res)
+            if res["pdf_status"] == "falhou":
+                falhas.append({"id": w["id"], "titulo": w.get("titulo"), "candidatos": cands})
+            feitos += 1
+            if feitos % 50 == 0:
+                b.salva()
+                log(f"  baixar: {feitos}/{len(fila)}")
+                if sum(p.stat().st_size for p in pdfdir.glob("*.pdf")) / 1e9 > limite_gb:
+                    log(f"baixar: limite local de {limite_gb} GB atingido; cancelando o resto")
+                    for f in futuros:
+                        f.cancel()
+                    break
     b.salva()
     (dados() / "buscas" / HOJE / "pdf_falhas.json").write_text(json.dumps(falhas, ensure_ascii=False, indent=0), encoding="utf-8")
     log(f"baixar: {len(list(pdfdir.glob('*.pdf')))} PDFs locais; {len(falhas)} falhas nesta rodada")
