@@ -1,0 +1,240 @@
+{
+  "descricao": "Sementes e consultas da varredura de literatura de códigos de cobertura. Editar aqui muda a varredura; o script é idempotente e só busca o que ainda não está no cache.",
+  "celulas": [
+    {
+      "id": "K7(9,4)",
+      "q": 7,
+      "n": 9,
+      "R": 4,
+      "nossa": 1134,
+      "publicada": 1475,
+      "numeros_alvo": [
+        1475,
+        1743,
+        1843
+      ]
+    },
+    {
+      "id": "K5(10,5)",
+      "q": 5,
+      "n": 10,
+      "R": 5,
+      "nossa": 162,
+      "publicada": 175,
+      "numeros_alvo": [
+        175
+      ]
+    },
+    {
+      "id": "K5(11,4)",
+      "q": 5,
+      "n": 11,
+      "R": 4,
+      "nossa": 2875,
+      "publicada": 3125,
+      "numeros_alvo": [
+        3125
+      ]
+    },
+    {
+      "id": "K7(10,4)",
+      "q": 7,
+      "n": 10,
+      "R": 4,
+      "nossa": 5616,
+      "publicada": 6517,
+      "numeros_alvo": [
+        6517
+      ]
+    },
+    {
+      "id": "K7(9,3)",
+      "q": 7,
+      "n": 9,
+      "R": 3,
+      "nossa": null,
+      "publicada": 8575,
+      "numeros_alvo": [
+        8575
+      ]
+    },
+    {
+      "id": "K7(10,3)",
+      "q": 7,
+      "n": 10,
+      "R": 3,
+      "nossa": null,
+      "publicada": 42189,
+      "numeros_alvo": [
+        42189
+      ]
+    },
+    {
+      "id": "K5(11,6)",
+      "q": 5,
+      "n": 11,
+      "R": 6,
+      "nossa": null,
+      "publicada": 125,
+      "numeros_alvo": []
+    },
+    {
+      "id": "K7(10,6)",
+      "q": 7,
+      "n": 10,
+      "R": 6,
+      "nossa": null,
+      "publicada": 175,
+      "numeros_alvo": []
+    }
+  ],
+  "dois": [
+    "10.1109/TIT.1985.1057043"
+  ],
+  "arxiv": [
+    "2608.19872",
+    "2504.01932",
+    "2606.09600"
+  ],
+  "consultas_openalex": [
+    "covering codes",
+    "covering code q-ary",
+    "covering radius code bounds",
+    "football pool problem",
+    "mixed covering codes",
+    "covering codes tabu search",
+    "covering codes simulated annealing",
+    "covering codes matrix method",
+    "amalgamated direct sum covering codes",
+    "normality covering codes",
+    "covering radius linear codes length function",
+    "saturating sets projective space covering radius",
+    "minimal saturating sets",
+    "lower bounds covering codes excess counting",
+    "covering codes linear programming bound",
+    "semidefinite programming covering codes",
+    "short covering codes",
+    "covering designs",
+    "integer programming symmetry orbital branching",
+    "orbitopes symmetry breaking",
+    "isomorph rejection combinatorial search",
+    "set covering problem heuristic large scale",
+    "exact cover algorithm dancing links",
+    "covering codes Lean formalization",
+    "domination Hamming graph"
+  ],
+  "consultas_arxiv": [
+    "all:\"covering code\"",
+    "all:\"covering codes\"",
+    "all:\"covering radius\"",
+    "all:\"football pool\"",
+    "all:\"saturating set\"",
+    "all:\"saturating sets\"",
+    "all:\"covering design\" AND cat:math.CO",
+    "all:\"orbital branching\"",
+    "all:orbitope"
+  ],
+  "consultas_zbmath": [
+    "cc:94B75",
+    "ti:covering code",
+    "ti:covering codes",
+    "ti:football pool",
+    "ti:saturating sets",
+    "ti:covering radius"
+  ],
+  "palavras_relevancia": {
+    "covering code": 6,
+    "covering codes": 6,
+    "covering radius": 6,
+    "football pool": 5,
+    "saturating set": 5,
+    "saturating sets": 5,
+    "short covering": 4,
+    "mixed covering": 5,
+    "covering design": 3,
+    "length function": 3,
+    "normal code": 2,
+    "normality": 2,
+    "amalgamated direct sum": 5,
+    "matrix method": 3,
+    "tabu search": 2,
+    "simulated annealing": 2,
+    "hamming space": 2,
+    "hamming graph": 2,
+    "dominating set": 2,
+    "domination": 1,
+    "excess": 1,
+    "sphere covering": 3,
+    "q-ary": 2,
+    "ternary": 1,
+    "quaternary": 1,
+    "orbital branching": 3,
+    "orbitope": 3,
+    "isomorph rejection": 3,
+    "symmetry": 1,
+    "set covering": 2,
+    "set cover": 2,
+    "hitting set": 2,
+    "integer programming": 1,
+    "delsarte": 2,
+    "linear programming bound": 2,
+    "semidefinite": 1,
+    "lean": 1
+  },
+  "limiar_expansao": 6,
+  "limiar_inclusao": 4,
+  "max_citantes_por_obra": 400,
+  "max_paginas_por_consulta": 5,
+  "titulos": [
+    "Covering Codes",
+    "Bounds for covering codes over large alphabets",
+    "Further results on the covering radius of small codes",
+    "Upper bounds for q-ary covering codes",
+    "Constructing covering codes by tabu search",
+    "Constructing covering codes with given automorphisms",
+    "New upper bounds for binary covering codes",
+    "More coverings by rook domains",
+    "On the covering radius of codes",
+    "Graph domination, tabu search and the football pool problem",
+    "Lower bounds for q-ary codes with large covering radius",
+    "Improved sphere bounds on the covering radius of codes",
+    "Bounds on packings and coverings by spheres in q-ary and mixed Hamming spaces",
+    "New lower bounds for covering codes",
+    "Binary codes with covering radius one: some new lower bounds",
+    "Constructions and families of covering codes and saturated sets of points in projective geometry",
+    "Linear nonbinary covering codes and saturating sets in projective spaces",
+    "Linear codes with covering radius R=2, 3 and codimension tR",
+    "New bounds for linear codes of covering radii 2 and 3",
+    "The geometry of covering codes: small complete caps and saturating sets in Galois spaces",
+    "Constructing saturating sets in projective spaces using subgeometries",
+    "Saturating sets in projective planes and hypergraph covers",
+    "Short minimal codes and covering codes via strong blocking sets in projective spaces",
+    "Saturating systems and the rank-metric covering radius",
+    "A note on bounds for q-ary covering codes",
+    "A new table of binary/ternary mixed covering codes",
+    "An updated table of binary/ternary mixed covering codes",
+    "Football pools - a game for mathematicians",
+    "Improving bounds on the football pool problem by integer programming and high-throughput computing",
+    "On the size of optimal binary codes of length 9 and covering radius 1",
+    "Classification Algorithms for Codes and Designs",
+    "Exploiting orbits in symmetric ILP",
+    "Orbital branching",
+    "Packing and partitioning orbitopes",
+    "Symmetry in integer linear programming",
+    "Isomorph-free exhaustive generation",
+    "A heuristic method for the set covering problem",
+    "Dancing links",
+    "New constructions for covering designs",
+    "Modified bounds for covering codes",
+    "Semidefinite lower bounds for covering codes",
+    "Formal Foundations and Proof-Carrying Certificates for q-ary Covering Codes in Lean 4",
+    "New upper bounds on covering codes",
+    "Covering radius 1985-1994",
+    "On the normality of codes",
+    "The covering radius of codes and normality",
+    "Nonbinary codes with covering radius one",
+    "Covering codes, perfect codes and the football pool problem",
+    "Lower bounds for covering codes via linear programming",
+    "A simulated annealing approach to covering codes"
+  ]
+}
