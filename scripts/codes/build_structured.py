@@ -90,17 +90,17 @@ PROVENANCE = {
         "notes": "o .txt daqui está na ordem canônica; o arquivo da VM (sha256 557cf336...) tem outra ordem "
                  "e o mesmo sha256 canônico.",
     },
-    "q7_n10_R4_M5667": {
+    "q7_n10_R4_M5616": {
         "generator": "scripts/attack (feat/ataque-celulas-2011): hsearch -> base_search eval t=2 em [10,4]_7 -> "
-                     "lift para [10,3]_7 -> coset_sa t=16 -> patch_opt",
+                     "lift para [10,3]_7 -> coset_sa t=16 -> patch_opt (lift por x_6)",
         "commit": None,
         "seed": None,
         "command": None,
         "date": "2026-10-03",
         "agent": "James.V1",
         "repo_commit": None,
-        "notes": "16 classes laterais de um [10,3]_7 (3 síndromes órfãs, 1029 pontos) + 179 palavras. Detalhes e "
-                 "síndromes em data/attack/q7_n10_R4_M5667.json. Verificado por scripts/attack/verify_bfs e "
+        "notes": "16 classes laterais de um [10,3]_7 (3 síndromes órfãs, 1029 pontos) + 128 palavras. Detalhes e "
+                 "síndromes em data/attack/q7_n10_R4_M5616.json. Verificado por scripts/attack/verify_bfs e "
                  "tools/verify/verify.c. Não conferido no Lean.",
         "dims": [3],
     },
