@@ -1,0 +1,26 @@
+{
+  "claim_ids": [
+    "k4-10-4-ub-192"
+  ],
+  "comparison": {
+    "k4-10-4-ub-192": {
+      "classificacao": "MELHORA_APARENTE_A_CONFIRMAR",
+      "melhor_registrada": 208,
+      "melhor_registrada_fonte": [
+        "lit-keri-k4-10-4-ub (PDF 4-5_tables.pdf, Last-Modified 2009-10-15 (diretório e index.htm atualizados até 2011-11-25), 2009-10-15)"
+      ],
+      "nosso": 192,
+      "nota": "melhora aparente, a confirmar por revisão externa (não é afirmação de novidade: livros/artigos não lidos podem ter predecessor)",
+      "veredito": "melhor_que_a_registrada"
+    }
+  },
+  "created": "2026-10-03T15:39:17Z",
+  "created_by": "agente-c",
+  "instances": [
+    "k4-10-4"
+  ],
+  "kind": "melhora_aparente_a_confirmar",
+  "next_step": "ler Östergård 1999 e Cohen et al. 1997; procurar tabelas de q=4 posteriores a 2011",
+  "reason": "MELHORA_APARENTE_A_CONFIRMAR (nunca 'novidade'): 192 < 208 (Kéri, chave o = Östergård 1999): Östergård 1999 e Cohen et al. 1997 não lidos; q=4 está fora do escopo do Marosi e a nossa busca para q=4 é fraca",
+  "residual_id": "res-confirmar-k4-10-4"
+}

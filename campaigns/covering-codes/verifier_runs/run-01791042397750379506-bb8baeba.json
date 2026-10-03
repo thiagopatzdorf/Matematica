@@ -1,0 +1,32 @@
+{
+  "command": [
+    "{workdir}/verify-rust",
+    "--q",
+    "{param:q}",
+    "--n",
+    "{param:n}",
+    "--R",
+    "{param:R}",
+    "--M",
+    "{param:M}",
+    "{witness}"
+  ],
+  "host": "vm (Linux x86_64)",
+  "output_sha256": "144066397b12c53a67f39461252550c281c13056d674b58a816409461cbc33d1",
+  "output_tail": "COVERS q=7 n=8 R=3 M=1893 points=5764801 uncovered=0\n",
+  "params_passed": {
+    "M": 1893,
+    "R": 3,
+    "n": 8,
+    "q": 7
+  },
+  "repo_commit": "2373b67c4ba9cb0e16ae707b128327de3dfcbd94",
+  "result": "PASS",
+  "run_id": "run-01791042397750379506-bb8baeba",
+  "runtime_s": 0.57,
+  "subject_id": "w-q7-n8-r3-m1893",
+  "subject_sha256": "07e2f3c1c65608b037fb13a2e85fd9ea25c2ace2bcc9e30a128e1833c2d06e28",
+  "ts": "2026-10-03T15:46:37Z",
+  "verifier_id": "verify-rust",
+  "verifier_sha256": "a24170a53c3d7e1ea7838986cce4943bcd20a23af5d336505afa0ae4cc4a634d"
+}

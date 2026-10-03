@@ -306,33 +306,110 @@ def main() -> int:
             "created_by": AUTOR, "created": c.meta()["created"]}, "STRUCTURAL_ANALYST")
 
     # ------------------------------------------------------------------ literatura
-    hoje = "2026-10-02"
-    L.registrar(c, "lit-marosi-2608-19872-v3", title="New upper and lower bounds on covering codes K_q(n,R) for alphabets of size 5 <= q <= 21",
-                authors=["Mark Marosi"], year=2026, url="https://arxiv.org/abs/2608.19872v3", version="v3", version_date="2026-09-02", date_read=hoje,
-                ator=AUTOR, exact_statement="README.md:27-28: K_7(9,4) <= 1475 (Marosi, arXiv:2608.19872 v3, 2026-09-02). Lido por esta campanha em "
-                "2026-10-02 só a página abs: título, autor e data do v3 conferem; o 1475 NÃO está no resumo (aparece só como nome do arquivo anexo "
-                "K7_9_4_M1475.txt), então o valor é DECLARADO pelo README e apoiado indiretamente.",
-                exact_bound="K_7(9,4) <= 1475", bound={"parameters": {"q": 7, "n": 9, "R": 4}, "value": 1475, "direction": "upper"},
-                assumptions=["valor lido do README/paper do repositório; não do PDF"], claim_ids=["k7-9-4-ub-1351"])
-    # Kéri 2011 (D-30): NÃO é registrado como literatura. O registro exige versão real e leitura real; o repositório só dá título, autor, ano e URL
-    # (paper/main.tex:171-172) e nenhuma edição/data de acesso. Vira resíduo declarado "fonte não identificada" (ver `res-keri-edition-unidentified`).
-    L.registrar(c, "lit-florath-2606-09600-lb", title="Formal Foundations and Proof-Carrying Certificates for q-ary Covering Codes in Lean 4",
-                authors=["Andreas Florath"], year=2026, url="https://arxiv.org/abs/2606.09600", version="v1", version_date="2026-06-08", date_read=hoje,
-                ator=AUTOR, exact_statement="README.md:25-26: o banco Lean do Florath (florath/covering-codes-lean) tem 10 <= K_2(6,1) <= 12. Lida só a "
-                "página abs (2026-10-02): título, autor, v1 de 2026-06-08 conferem; o resumo NÃO cita K_2(6,1) nem 10/12 (afirmação sobre o banco "
-                "Lean dele é do README, não conferida).", exact_bound="10 <= K_2(6,1)",
-                bound={"parameters": {"q": 2, "n": 6, "R": 1}, "value": 10, "direction": "lower"}, formalized=True,
-                assumptions=["valor do banco Lean do autor citado no README; não reconferido"], claim_ids=["k2-6-1-lb-11"])
-    L.registrar(c, "lit-florath-2606-09600-ub", title="Formal Foundations and Proof-Carrying Certificates for q-ary Covering Codes in Lean 4",
-                authors=["Andreas Florath"], year=2026, url="https://arxiv.org/abs/2606.09600", version="v1", version_date="2026-06-08", date_read=hoje,
-                ator=AUTOR, exact_statement="idem: K_2(6,1) <= 12 no banco Lean dele (README.md:25-26), não reconferido.", exact_bound="K_2(6,1) <= 12",
-                bound={"parameters": {"q": 2, "n": 6, "R": 1}, "value": 12, "direction": "upper"}, formalized=True,
-                assumptions=["valor do banco Lean do autor citado no README; não reconferido"], claim_ids=["k2-6-1-ub-12"])
+    # Fonte: campaigns/covering-codes/_literatura/LITERATURA_CC.md + literatura.csv (revisão adversarial do agente Lit-CC, leitura de 2026-10-03).
+    # Cada registro diz o que foi LIDO (texto/tabela/arquivo, uma leitura) e o que foi só RESUMO; nada aqui afirma novidade. A versão e a data
+    # de leitura são as que o LITERATURA_CC.md diz ter lido; este script não leu nenhuma fonte, só transcreve o registro da revisão.
+    hoje = "2026-10-03"
+    LIDO = "LI por Lit-CC em 2026-10-03 (LITERATURA_CC.md; registro transcrito por migrate_covering.py, que não leu a fonte)"
+    cel_q = lambda cel: CELULAS[cel]
+    ub_claims_de = lambda cel: [f"{cel}-ub-{m}" for cc, m, _ in CODIGOS if cc == cel]
+
+    # --- Marosi, arXiv:2608.19872: 3 versões lidas (texto + tabelas), cada uma com a sua data; o bound_history de K_7(9,4) é 1743 -> 1475 -> 1475
+    marosi_t = "New upper and lower bounds on covering codes K_q(n,R) for alphabets of size 5 <= q <= 21"
+    MAROSI = [  # (id, versão, data da versão, título, UB de K_7(9,4), trecho)
+        ("lit-marosi-2608-19872-v1", "v1", "2026-08-20",
+         "título da v1 termina em '...alphabets of size six and seven' (início não transcrito pela revisão); só q em {6,7}", 1743,
+         "v1 (2026-08-20): 9 células, só q em {6,7}, sem cotas inferiores; K_7(9,4) <= 1743 no resumo e na tabela; K_7(8,4) <= 329. NÃO tem K_7(8,3)."),
+        ("lit-marosi-2608-19872-v2", "v2", "2026-08-23", marosi_t, 1475,
+         "v2 (2026-08-23), Tabela 1: linha 'K7 (9,4) 264-1843 | 221 | 1475 | -368 | 20.0% | f | L'; 25 UB + 58 LB; anexo K7_9_4_M1475.txt "
+         "(1475 linhas distintas, 9 dígitos, sha256 b3e60549...ac6ace; contei as linhas, NÃO executei)."),
+        ("lit-marosi-2608-19872-v3", "v3", "2026-09-02", marosi_t, 1475,
+         "v3 (2026-09-02), Tabela 1: K_7(9,4) <= 1475 (igual à v2); 26 UB + 58 LB; declara (Use of artificial intelligence) que manuscrito e software "
+         "foram escritos pelo sistema Claude sob direção do autor: fonte a monitorar, não oráculo. Não existe v4 (404 em 2026-10-03)."),
+    ]
+    for lid, ver, vdata, titulo, ub, trecho in MAROSI:
+        L.registrar(c, lid, title=titulo, authors=["Mark Marosi"], year=2026, url=f"https://arxiv.org/abs/2608.19872{ver}", version=ver, version_date=vdata,
+                    date_read=hoje, ator=AUTOR, exact_statement=f"{trecho} {LIDO}.", exact_bound="K_7(9,4) <= %d" % ub,
+                    bound={"parameters": {"q": 7, "n": 9, "R": 4}, "value": ub, "direction": "upper"},
+                    assumptions=["PDF desta versão lido (texto e tabelas) pelo revisor; código e anexos de terceiros NÃO executados"],
+                    claim_ids=ub_claims_de("k7-9-4"),
+                    open_questions=["a busca local dele para em 1475 e uniões de cosets chegam a 1285 (gap de 190 palavras): por quê? (LITERATURA_CC.md §7.2, HIPÓTESE)"]
+                    if ver == "v3" else [])
+    for ver, vdata in (("v2", "2026-08-23"), ("v3", "2026-09-02")):  # K_7(8,3): só a cota inferior da Tabela 2 (certificado SDP)
+        L.registrar(c, f"lit-marosi-2608-19872-{ver}-k7-8-3-lb", title=marosi_t, authors=["Mark Marosi"], year=2026,
+                    url=f"https://arxiv.org/abs/2608.19872{ver}", version=ver, version_date=vdata, date_read=hoje, ator=AUTOR,
+                    exact_statement=f"{ver}, Tabela 2: K_7(8,3) >= 471 (certificado SDP). K_7(8,3) não está na Tabela 1 (nenhuma cota superior). {LIDO}.",
+                    exact_bound="K_7(8,3) >= 471", bound={"parameters": {"q": 7, "n": 8, "R": 3}, "value": 471, "direction": "lower"},
+                    assumptions=["PDF lido pelo revisor"], claim_ids=[])
+
+    # --- Kéri: edição IDENTIFICADA (resolve res-keri-edition-unidentified e res-lb-264-source-unidentified). As tabelas q=2, 4-5, 6-21 são os
+    # PDFs de 2009-10-15 (Last-Modified do índice Apache); o index.htm é de 2011-11-25 e a lista de correções vai até 2011-11-21 sem tocar nossas células.
+    # Chaves da bibliografia dele (as que a revisão decodificou): m = Haas-Halupczok-Schlage-Puchta 2009; o = Östergård 1999; d = Bhandari-Durairajan 1996;
+    # f = soma direta; c = Stanton-Kalbfleisch (1968 e 1969). y e p: significado NÃO transcrito.
+    KERI = {  # cel: (arquivo, lb, chave lb, ub, chave ub)
+        "k7-9-4": ("6-21_tables.pdf", 264, "m", 1843, "f"), "k7-8-3": ("6-21_tables.pdf", 457, "y", 2337, "f"),
+        "k5-7-2": ("4-5_tables.pdf", 225, "m", 525, "o"), "k5-9-3": ("4-5_tables.pdf", 330, "p", 1275, "d"),
+        "k5-10-4": ("4-5_tables.pdf", 162, "y", 875, "d"), "k5-9-5": ("4-5_tables.pdf", 19, "m", 55, "d"),
+        "k5-9-4": ("4-5_tables.pdf", 64, "m", 255, "d"), "k4-10-4": ("4-5_tables.pdf", 59, "m", 208, "o"),
+        "k2-6-1": ("2_tables.pdf", 12, "c", 12, "c"),
+    }
+    assert {k: v[3] for k, v in KERI.items() if k in KERI_PREVIO} == KERI_PREVIO, "KERI_PREVIO diverge das cotas registradas da revisão"
+    for cel, (arq, lbv, lbk, ubv, ubk) in KERI.items():
+        q, n, r = cel_q(cel)
+        extra = " index.htm (2011-11-25): '875; 720 é provável erro de impressão'." if cel == "k5-10-4" else ""
+        for direc, val, chave in (("upper", ubv, ubk), ("lower", lbv, lbk)):
+            L.registrar(c, f"lit-keri-{cel}-{'ub' if direc == 'upper' else 'lb'}", title="Tables for bounds on covering codes", authors=["G. Kéri"], year=2009,
+                        url="https://old.sztaki.hu/~keri/codes/" + arq,
+                        version=f"PDF {arq}, Last-Modified 2009-10-15 (diretório e index.htm atualizados até 2011-11-25)", version_date="2009-10-15",
+                        date_read=hoje, ator=AUTOR,
+                        exact_statement=f"{arq}: linha K_{q}({n},{r}) = '{lbv}-{ubv}' (chave da cota inferior {lbk}, da superior {ubk}).{extra} {LIDO}, por pdftotext -layout. "
+                                        "Três transcrições concordam nesta célula (a do revisor, cov/bounds.json do Marosi e o CSV do Florath).",
+                        exact_bound=f"K_{q}({n},{r}) {'<=' if direc == 'upper' else '>='} {val} (chave {chave})",
+                        bound={"parameters": {"q": q, "n": n, "R": r}, "value": val, "direction": direc},
+                        assumptions=["edição = PDFs de 2009-10-15; 'Kéri 2011' do README/paper = o site atualizado em 2011-11, não tabelas novas",
+                                     "a origem de cada chave (artigo/livro) NÃO foi lida"],
+                        claim_ids=ub_claims_de(cel) if direc == "upper" else [])
+
+    # --- Gijswijt-Polak, arXiv:2504.01932 v2 (2026-06-19): cotas inferiores citadas (Tab. 3; Tab. 9 para K_5(9,5) e K_5(9,4)). v1 (2025-04-02) NÃO lida.
+    gp_t, gp_a = "Semidefinite lower bounds for covering codes", ["D. Gijswijt", "S. Polak"]
+    GP = {"k5-7-2": (236, "Tab. 3"), "k4-10-4": (62, "Tab. 3"), "k5-9-3": (354, "Tab. 3"), "k5-10-4": (177, "Tab. 3"),
+          "k5-9-5": (15.67, "Tab. 9 (valor real, não arredondado; não melhora o 19 do Kéri)"), "k5-9-4": (61.18, "Tab. 9 (valor real; não melhora o 64 do Kéri)")}
+    for cel, (val, tab) in GP.items():
+        q, n, r = cel_q(cel)
+        L.registrar(c, f"lit-gp-2504-01932v2-{cel}-lb", title=gp_t, authors=gp_a, year=2025, url="https://arxiv.org/abs/2504.01932v2", version="v2",
+                    version_date="2026-06-19", date_read=hoje, ator=AUTOR,
+                    exact_statement=f"v2, {tab}: K_{q}({n},{r}) >= {val}. {LIDO} (tabelas). A v1 de 2025-04-02 NÃO foi lida.",
+                    exact_bound=f"K_{q}({n},{r}) >= {val}", bound={"parameters": {"q": q, "n": n, "R": r}, "value": val, "direction": "lower"},
+                    assumptions=["só as tabelas da v2 foram lidas"], claim_ids=[])
+
+    # --- Florath, arXiv:2606.09600 v1 (2026-06-08), repo florath/covering-codes-lean commit bbed9a6 (2026-09-16). O resumo diz 'not new record bounds';
+    # K_2(6,1) não aparece no texto. O 10<=K<=12 é o que o LEAN dele prova (non_mixed_covering_codes.csv: '2,6,1,10,12'); a tabela de REFERÊNCIA dele
+    # (reference-data/post-keri) tem 12-12, citando Stanton-Kalbfleisch. As duas frases do README são verdadeiras, mas sem esta distinção sugerem que ele não conhece o 12 exato.
+    fl_t = "Formal Foundations and Proof-Carrying Certificates for q-ary Covering Codes in Lean 4"
+    FL = [("lit-florath-2606-09600-lb", "lower", 10, "Lean dele (reference-data/lean/non_mixed_covering_codes.csv: 2,6,1,10,12): o que ele PROVA no Lean",
+           "https://arxiv.org/abs/2606.09600", ["k2-6-1-lb-11"], True),
+          ("lit-florath-2606-09600-ub", "upper", 12, "Lean dele (reference-data/lean/non_mixed_covering_codes.csv: 2,6,1,10,12): o que ele PROVA no Lean",
+           "https://arxiv.org/abs/2606.09600", ["k2-6-1-ub-12"], True),
+          ("lit-florath-postkeri-k2-6-1-lb", "lower", 12, "tabela de REFERÊNCIA dele (reference-data/post-keri: 2,6,1,12,12), citando Stanton-Kalbfleisch",
+           "https://github.com/florath/covering-codes-lean", [], False),
+          ("lit-florath-postkeri-k2-6-1-ub", "upper", 12, "tabela de REFERÊNCIA dele (reference-data/post-keri: 2,6,1,12,12), citando Stanton-Kalbfleisch",
+           "https://github.com/florath/covering-codes-lean", [], False)]
+    for lid, direc, val, onde, url, cids, formal in FL:
+        L.registrar(c, lid, title=fl_t, authors=["Andreas Florath"], year=2026, url=url, version="v1 (arXiv, 2026-06-08); repositório no commit bbed9a6 (2026-09-16)",
+                    version_date="2026-06-08", date_read=hoje, ator=AUTOR,
+                    exact_statement=f"K_2(6,1) {'<=' if direc == 'upper' else '>='} {val} na {onde}. Resumo do arXiv: 'not new record bounds'; K_2(6,1) não está no texto do paper. "
+                                    f"{LIDO} (resumo, repositório e CSVs; a prova Lean dele NÃO foi compilada).",
+                    exact_bound=f"K_2(6,1) {'<=' if direc == 'upper' else '>='} {val}", bound={"parameters": {"q": 2, "n": 6, "R": 1}, "value": val, "direction": direc},
+                    formalized=formal, assumptions=["CSVs e README do repositório lidos; prova Lean não compilada"], claim_ids=cids)
+
+    # --- Stanton-Kalbfleisch 1968: SÓ referência citada. O artigo NÃO foi lido. date_read = a data em que a CITAÇÃO foi conferida no Kéri
+    # (2_tables.pdf, chave c); a existência do artigo foi conferida antes via Crossref (2026-10-02).
     L.registrar(c, "lit-stanton-kalbfleisch-1968", title="Covering problems for dichotomized matchings", authors=["R. G. Stanton", "J. G. Kalbfleisch"],
-                year=1968, url="doi:10.1007/bf01817562", version="Aequationes Math. 1 (1968) 94-103", date_read=hoje, ator=AUTOR,
-                exact_statement="README.md:25: K_2(6,1) = 12 é clássico (Stanton-Kalbfleisch, 1968). Conferido hoje via Crossref: o artigo existe com "
-                "esses autores, título, volume e páginas (DOI 10.1007/bf01817562); o CONTEÚDO (que ele determina K_2(6,1)=12) NÃO foi lido.",
-                exact_bound="K_2(6,1) = 12", assumptions=["atribuição do valor ao artigo é do README; conteúdo não lido"],
+                year=1968, url="doi:10.1007/bf01817562", version="Aequationes Math. 1 (1968) 94-103", date_read=hoje, ator=AUTOR, reproduced=False,
+                exact_statement="REFERÊNCIA CITADA, não lida: o Kéri (2_tables.pdf, 2009-10-15) atribui K_2(6,1) = 12 à chave c = Stanton-Kalbfleisch (cota inferior: 1968 e 1969), "
+                "e a tabela de referência do Florath também. Citação conferida no Kéri em 2026-10-03; existência do artigo (autores, título, volume, páginas) conferida via Crossref "
+                "em 2026-10-02. O CONTEÚDO do artigo (que ele determina K_2(6,1)=12) NÃO foi lido.",
+                exact_bound="K_2(6,1) = 12", assumptions=["atribuição do valor ao artigo vem do Kéri/Florath, não do artigo"],
                 claim_ids=["k2-6-1-eq-12"], open_questions=["conferir no artigo que K_2(6,1)=12 está lá"])
 
     # ------------------------------------------------------------------ registros formais
@@ -534,8 +611,10 @@ def main() -> int:
         cx(cid, "claim de existência: o witness é o certificado; dois verificadores independentes procuram ponto descoberto (uncovered=0)", "uncovered=0 nos dois verificadores")
         anexa(cid, "witnesses", wid(cel, m))
         anexa(cid, "experiments", {("k7-9-4", 1351): "exp-k7-9-4-1351-lincov", ("k7-9-4", 1285): "exp-k7-9-4-1285-regen"}.get((cel, m), "exp-prior-search-unrecorded"))
+        anexa(cid, "literature", f"lit-keri-{cel}-ub")
         if cel == "k7-9-4":
-            anexa(cid, "literature", "lit-marosi-2608-19872-v3")
+            for v_ in ("v1", "v2", "v3"):
+                anexa(cid, "literature", f"lit-marosi-2608-19872-{v_}")
         if (cel, m) == ("k7-9-4", 1351):
             anexa(cid, "experiments", "exp-lean-data-equals-witness-1351")
             anexa(cid, "experiments", "exp-structure-regeneration")
@@ -545,6 +624,25 @@ def main() -> int:
             if negado:  # a evidência não sustenta IR: o estado honesto é o de baixo (EMPIRICAL: witness + busca de contraexemplo), nunca forçado
                 promover(cid, "EMPIRICAL", "PROPOSER", "witness conferido pelo verificador oficial; independência negada pela guarda (ver blocked_independently_reproduced)")
         bloqueios_formal(cid) if c.ler("claims", cid)["evidence"]["formal"] else None
+
+    # ------------------------------------------------------------------ comparação com a literatura REGISTRADA (literature_compare)
+    # Registra o veredito em cada claim de cota superior. NÃO afirma novidade: o melhor registrado é o melhor que a revisão LEU, e um predecessor
+    # em livro/tabela não lido (res-confirmar-*) invalida qualquer "melhor que".
+    CLASSE = {"melhor_que_a_registrada": "MELHORA_APARENTE_A_CONFIRMAR", "igual": "PREDECESSOR_ENCONTRADO",
+              "pior_que_a_registrada": "PIOR_QUE_A_REGISTRADA", "SEM_REFERENCIA": "SEM_REFERENCIA"}
+    comparacoes = {}
+    for cid in [f"{cel}-ub-{m}" for cel, m, _ in CODIGOS] + ["k2-6-1-ub-12"]:
+        r_ = L.comparar(c, cid)
+        mb = r_.get("melhor_registrada") or {}
+        classe = CLASSE[r_["veredito"]]
+        nota_ = {"MELHORA_APARENTE_A_CONFIRMAR": "melhora aparente, a confirmar por revisão externa (não é afirmação de novidade: livros/artigos não lidos podem ter predecessor)",
+                 "PREDECESSOR_ENCONTRADO": "igual ao valor tabelado: predecessor encontrado na literatura registrada; não há novidade a confirmar"}.get(classe, "")
+        comparacoes[cid] = {"veredito": r_["veredito"], "classificacao": classe, "nosso": r_["nosso"], "melhor_registrada": mb.get("value"),
+                            "melhor_registrada_fonte": [f"{h['literature_id']} ({h['version']}, {h['version_date']})" for h in r_["historico"] if h["value"] == mb.get("value")], "nota": nota_}
+        irmaos_ = sorted(m for cc, m, _ in CODIGOS if cc == cid.rsplit("-ub-", 1)[0])
+        if cid.rsplit("-ub-", 1)[0] in CELULAS and len(irmaos_) > 1 and int(cid.rsplit("-ub-", 1)[1]) > irmaos_[0]:
+            comparacoes[cid]["nota"] += f"; mas é PIOR que o nosso próprio {irmaos_[0]} da mesma célula"
+        K.atualizar(c, cid, ator=AUTOR, papel="PROPOSER", literature_comparison=comparacoes[cid])
 
     # ------------------------------------------------------------------ resíduos
     def residuo(rid, **campos):
@@ -582,23 +680,43 @@ def main() -> int:
             next_step="um revisor lê Covers/IsK/ball e os enunciados e registra claim_review(scope='statement')")
     ub_claims = [f"{cel}-ub-{m}" for cel, m, _ in CODIGOS]
     residuo("res-novelty-unchecked", kind="literatura", instances=celulas_de(ub_claims),
-            reason="novidade é afirmação do autor (README:72); cotas das tabelas só parcialmente reconferidas hoje (Marosi v3 abs, Florath abs, Crossref); "
-            "Kéri 2011 (ver res-keri-edition-unidentified), as tabelas lineares de Davydov-Marcugini-Pambianco (README:37-38, fonte não identificada: NÃO registrada como literatura para não inventar título/URL) e as cotas inferiores 'conhecidas' não reconferidos", next_step="ler Kéri/Marosi PDF e DMP")
-    keri_cels = sorted(set(KERI_PREVIO) | {"k7-9-4"})
-    residuo("res-keri-edition-unidentified", kind="literatura_fonte_nao_identificada", instances=keri_cels,
-            source="G. Kéri, Tables for bounds on covering codes, https://old.sztaki.hu/~keri/codes/, 2011 (paper/main.tex:171-172)",
-            declared_bounds=[{"instance": k, "direction": "upper", "value": v, "declared_at": "paper/main.tex:139-145 (coluna 'previous')"} for k, v in KERI_PREVIO.items()]
-            + [{"instance": "k7-9-4", "direction": "upper", "value": 1843, "declared_at": "README.md:28; paper/main.tex:80"}],
-            reason="fonte não identificada: README, paper/main.tex, nota.md e docs/ dão título, autor, ano e URL do Kéri, mas nenhuma edição, versão ou data de "
-                   "acesso das tabelas. O registro de literatura exige versão REAL (D-16/D-30), então estas 8 cotas ficam como declaradas, sem registro em literature/ "
-                   "e sem apoiar nenhum claim. A comparação com a literatura (literature_compare) não as vê.",
-            next_step="alguém abre as tabelas on-line, anota a edição/data e registra com literature_register (8 registros) ou corrige o paper")
-    residuo("res-lb-264-source-unidentified", kind="literatura_fonte_nao_identificada", instances=["k7-9-4"],
-            declared_bounds=[{"instance": "k7-9-4", "direction": "lower", "value": 264, "declared_at": "paper/main.tex:81 e :126"}],
-            reason="fonte não identificada: o paper diz 'the best lower bound we know is 264' para K_7(9,4) sem citar de qual fonte; README:33 atribui as 'melhores cotas "
-                   "inferiores conhecidas' a Kéri, Gijswijt–Polak 2025 e Marosi 2026 sem dizer qual dá 264. O 264 saiu do universo (campo lb_literatura_declarada) "
-                   "porque número sem registro de literatura não é fato desta campanha.",
-            next_step="identificar a fonte do 264 (tabela, artigo, versão) e registrar com literature_register")
+            reason="novidade continua sendo afirmação do autor (README:72). Lidos em 2026-10-03 (LITERATURA_CC.md): Marosi v1/v2/v3, Kéri (PDFs de 2009-10-15), Gijswijt-Polak v2 (tabelas), "
+            "Florath. NÃO lidos: Cohen et al. 1997, Östergård 1999, Bhandari-Durairajan 1996, Stanton-Kalbfleisch 1968 (conteúdo), tabelas de comprimento linear de "
+            "Davydov-Marcugini-Pambianco para l_5(6,4), qualquer trabalho posterior a 2011 fora do arXiv. 'Não achei predecessor' não é 'não existe': ver res-confirmar-* por célula.",
+            next_step="ler as fontes listadas em cada res-confirmar-<célula> e reclassificar (MELHORA_APARENTE_A_CONFIRMAR -> PREDECESSOR_ENCONTRADO ou confirmada por revisão externa)")
+    # FECHADOS em 2026-10-03 (não são gravados: um resíduo fechado não pode continuar aparecendo em `por_que_restam`):
+    #  * res-keri-edition-unidentified: a edição está identificada e registrada (lit-keri-<cel>-ub/-lb, PDFs de 2009-10-15, índice de 2011-11-25, lidos em 2026-10-03);
+    #  * res-lb-264-source-unidentified: 264 = Kéri 6-21_tables.pdf, chave m (Haas-Halupczok-Schlage-Puchta 2009), registro lit-keri-k7-9-4-lb.
+    # Condição do fechamento, conferida aqui e não assumida: fonte E versão E data de cada cota declarada estão em literature/.
+    for cel_, v_ in KERI_PREVIO.items():
+        assert c.ler("literature", f"lit-keri-{cel_}-ub")["bound"]["value"] == v_, cel_
+    assert c.ler("literature", "lit-keri-k7-9-4-ub")["bound"]["value"] == 1843 and c.ler("literature", "lit-keri-k7-9-4-lb")["bound"]["value"] == 264
+    # --- uma pergunta aberta por célula MELHORA_APARENTE_A_CONFIRMAR (LITERATURA_CC.md §2 e §7)
+    FALTA = {
+        "k7-9-4": ("1285 e 1351 estão abaixo do 1475 do Marosi (v2/v3), mas: (1) Cohen-Honkala-Litsyn-Lobstein 1997 e Östergård 1999 não foram lidos; (2) trabalho de "
+                   "Östergård/Rivas Soriano posterior a 2011 e não indexado no arXiv; (3) o 1285 só foi verificado por nós (verify.c, verify_cover_dilation.py, verify-rust); "
+                   "rodar o verify_cov.py do Marosi daria independência real, mas é CÓDIGO DE TERCEIROS e NÃO foi executado (precisa de autorização); (4) a busca que produziu "
+                   "p1285.json não é reprodutível (sem comando/seed/log)",
+                   "autorizar e rodar verify_cov.py sobre data/codes/q7_n9_R4_M1285.txt; ler Cohen et al. 1997 e Östergård 1999; registrar o comando da busca do p1285.json"),
+        "k7-8-3": ("1887 e 1893 estão abaixo do 2337 do Kéri (soma direta; Marosi v1-v3 não tem K_7(8,3) na Tabela 1), mas Cohen et al. 1997 e trabalho pós-2011 não foram lidos; "
+                   "o 1887 não é reprodutível (172 palavras soltas, sem comando/seed/gerador)",
+                   "ler Cohen et al. 1997; registrar como o 1887 foi obtido; rodar verify_cov.py do Marosi se autorizado"),
+        "k5-7-2": ("500 < 525 (Kéri, chave o = Östergård 1999): o artigo/livro de Östergård 1999 não foi lido, nem o Cohen et al. 1997", "ler Östergård 1999 e Cohen et al. 1997"),
+        "k4-10-4": ("192 < 208 (Kéri, chave o = Östergård 1999): Östergård 1999 e Cohen et al. 1997 não lidos; q=4 está fora do escopo do Marosi e a nossa busca para q=4 é fraca",
+                    "ler Östergård 1999 e Cohen et al. 1997; procurar tabelas de q=4 posteriores a 2011"),
+        "k5-9-3": ("1250 < 1275 (Kéri, chave d = Bhandari-Durairajan 1996): Bhandari-Durairajan 1996 e Cohen et al. 1997 não lidos", "ler Bhandari-Durairajan 1996 e Cohen et al. 1997"),
+        "k5-10-4": ("625 < 875 (Kéri, chave d = Bhandari-Durairajan 1996); é código LINEAR [10,4]_5, o que o torna candidato a predecessor em tabela de comprimento linear que não "
+                    "achei: faltou l_5(6,4) em Davydov-Marcugini-Pambianco (0904.3835 v1 e 1808.09301 v2 não têm l_5(6,4)); Bhandari-Durairajan 1996 e Cohen et al. 1997 não lidos",
+                    "achar l_5(6,4) (Davydov-Marcugini-Pambianco ou outra tabela de saturating sets/PG(5,5)); ler Bhandari-Durairajan 1996"),
+        "k5-9-5": ("50 < 55 (Kéri, chave d = Bhandari-Durairajan 1996): artigo não lido; melhoria de 5 palavras é onde predecessor em tabela mais provavelmente existe (HIPÓTESE)",
+                   "ler Bhandari-Durairajan 1996 e Cohen et al. 1997"),
+        "k5-9-4": ("250 < 255 (Kéri, chave d = Bhandari-Durairajan 1996): artigo não lido; melhoria de 5 palavras (HIPÓTESE: predecessor provável em tabela)",
+                   "ler Bhandari-Durairajan 1996 e Cohen et al. 1997"),
+    }
+    for cel_, (reason_, next_) in FALTA.items():
+        residuo(f"res-confirmar-{cel_}", kind="melhora_aparente_a_confirmar", instances=[cel_], claim_ids=[x for x in ub_claims if x.startswith(cel_ + "-ub-")],
+                reason="MELHORA_APARENTE_A_CONFIRMAR (nunca 'novidade'): " + reason_, next_step=next_,
+                comparison={x: comparacoes[x] for x in ub_claims if x.startswith(cel_ + "-ub-")})
     bloqueados = [x for x in ub_claims if c.ler("claims", x)["status"] != "INDEPENDENTLY_REPRODUCED"]
     if bloqueados:
         residuo("res-reverify-independent-author", kind="independencia", claim_ids=bloqueados, instances=celulas_de(bloqueados),
@@ -611,8 +729,10 @@ def main() -> int:
             reason="lincov (Mapika/coldcase@56a8cce) fora do repo e remendo guloso de 322 palavras sem registro; gen_lean_cover.py/tests/test_lean_cover.py/data/certificates citados em C1_Data_K7_9_4.lean não existem",
             next_step="registrar o comando do lincov e o algoritmo do remendo, ou versionar o gerador do .lean")
     residuo("res-readme-vs-data", kind="inconsistencia", instances=["k7-9-4", "k7-8-3"],
-            reason="data/codes tem M1285 (K_7(9,4)) e M1887 (K_7(8,3)) melhores que os 1351/1893 do README/paper; README diz 'três verificadores independentes' e só há 1 (+este 2º)",
-            next_step="atualizar README/paper ou explicar")
+            reason="data/codes tem M1285 (K_7(9,4)) e M1887 (K_7(8,3)) melhores que os 1351/1893 do paper/main.tex e da nota.md. O README foi corrigido em 2026-10-03 "
+                   "(1285/1887 existem e são verificados por 3 verificadores, mas não têm teorema Lean; 'três verificadores independentes' trocado pelo que existe), "
+                   "mas paper/main.tex (Zenodo v0.3, publicação: mudança é decisão do dono) ainda diz 'checked by three independent programs' e só cita 1351/1893",
+            next_step="o dono decide se publica versão nova do paper; frases a corrigir listadas no relatório do Lit-Integra")
 
     # ------------------------------------------------------------------ universo (finito) e cobertura
     inst = []
@@ -620,7 +740,7 @@ def main() -> int:
         melhores = [m for cc, m, _ in CODIGOS if cc == cel]
         inst.append({"id": cel, "q": q, "n": n, "R": r, "lb_formal_esfera": LB_ESFERA.get(cel), "lb_formal_melhor": 12 if cel == "k2-6-1" else LB_ESFERA.get(cel),
                      "ub_verificado_melhor": min(melhores) if melhores else (12 if cel == "k2-6-1" else None), "ub_formal_lean": {"k7-9-4": 1351, "k2-6-1": 12}.get(cel),
-                     "size": n})  # o 264 do paper saiu: sem fonte não é fato (res-lb-264-source-unidentified)
+                     "size": n})  # o 264 do paper continua fora do universo; a fonte agora é lit-keri-k7-9-4-lb (Kéri, chave m)
     COV.definir_universo(c, {"tipo": "finito", "total": len(inst), "instancias": inst, "estado_minimo_resolvido": "EXHAUSTIVE_BOUNDED",
                              "descricao": "Células (q,n,R) tratadas pela campanha: 8 da cota de esfera (7 com código verificado + K_7(9,4)) e K_2(6,1). "
                                           "'Resolvida' = K_q(n,R) determinado (lb = ub). Só K_2(6,1). As demais têm faixa [lb, ub] aberta."},

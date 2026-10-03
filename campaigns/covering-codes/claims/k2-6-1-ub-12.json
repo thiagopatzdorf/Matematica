@@ -17,7 +17,7 @@
     "result": "uncovered=0 nos verificadores; kernel aceita",
     "status": "completed"
   },
-  "created": "2026-10-03T15:20:00Z",
+  "created": "2026-10-03T15:43:28Z",
   "created_by": "agente-c",
   "created_role": "PROPOSER",
   "depends_on": [],
@@ -46,7 +46,7 @@
       "reason": "criado",
       "role": "PROPOSER",
       "to": "IDEA",
-      "ts": "2026-10-03T15:20:00Z"
+      "ts": "2026-10-03T15:43:28Z"
     },
     {
       "actor": "agente-c",
@@ -54,7 +54,7 @@
       "reason": "evidência anexada: formal=f-code12-covers",
       "role": "PROPOSER",
       "to": "IDEA",
-      "ts": "2026-10-03T15:20:00Z"
+      "ts": "2026-10-03T15:43:28Z"
     },
     {
       "actor": "agente-c",
@@ -62,7 +62,7 @@
       "reason": "evidência anexada: formal=f-code12-card",
       "role": "PROPOSER",
       "to": "IDEA",
-      "ts": "2026-10-03T15:20:00Z"
+      "ts": "2026-10-03T15:43:28Z"
     },
     {
       "actor": "agente-c",
@@ -70,7 +70,7 @@
       "reason": "evidência anexada: literature=lit-florath-2606-09600-ub",
       "role": "PROPOSER",
       "to": "IDEA",
-      "ts": "2026-10-03T15:20:00Z"
+      "ts": "2026-10-03T15:43:28Z"
     },
     {
       "actor": "migrate_covering.py",
@@ -78,10 +78,22 @@
       "reason": "code12_covers e code12_card medidos no kernel (o PROVED NÃO depende do witness: ele fica em complementary_witnesses, fora de evidence.witnesses)",
       "role": "FORMALIZER",
       "to": "PROVED",
-      "ts": "2026-10-03T15:20:00Z"
+      "ts": "2026-10-03T15:43:28Z"
     }
   ],
   "kind": "theorem",
+  "literature_comparison": {
+    "classificacao": "PREDECESSOR_ENCONTRADO",
+    "melhor_registrada": 12,
+    "melhor_registrada_fonte": [
+      "lit-keri-k2-6-1-ub (PDF 2_tables.pdf, Last-Modified 2009-10-15 (diretório e index.htm atualizados até 2011-11-25), 2009-10-15)",
+      "lit-florath-2606-09600-ub (v1 (arXiv, 2026-06-08); repositório no commit bbed9a6 (2026-09-16), 2026-06-08)",
+      "lit-florath-postkeri-k2-6-1-ub (v1 (arXiv, 2026-06-08); repositório no commit bbed9a6 (2026-09-16), 2026-06-08)"
+    ],
+    "nosso": 12,
+    "nota": "igual ao valor tabelado: predecessor encontrado na literatura registrada; não há novidade a confirmar",
+    "veredito": "igual"
+  },
   "reviewed_by": [],
   "scope": {
     "assumptions": [],

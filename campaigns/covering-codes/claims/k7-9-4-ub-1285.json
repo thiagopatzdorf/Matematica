@@ -14,7 +14,7 @@
     "result": "uncovered=0 nos dois verificadores",
     "status": "completed"
   },
-  "created": "2026-10-03T15:20:01Z",
+  "created": "2026-10-03T15:43:28Z",
   "created_by": "agente-c",
   "created_role": "PROPOSER",
   "depends_on": [],
@@ -26,6 +26,9 @@
     "external_reproductions": [],
     "formal": [],
     "literature": [
+      "lit-keri-k7-9-4-ub",
+      "lit-marosi-2608-19872-v1",
+      "lit-marosi-2608-19872-v2",
       "lit-marosi-2608-19872-v3"
     ],
     "proofs": [],
@@ -41,7 +44,7 @@
       "reason": "criado",
       "role": "PROPOSER",
       "to": "IDEA",
-      "ts": "2026-10-03T15:20:01Z"
+      "ts": "2026-10-03T15:43:28Z"
     },
     {
       "actor": "agente-c",
@@ -49,7 +52,7 @@
       "reason": "evidência anexada: witnesses=w-q7-n9-r4-m1285",
       "role": "PROPOSER",
       "to": "IDEA",
-      "ts": "2026-10-03T15:20:01Z"
+      "ts": "2026-10-03T15:43:28Z"
     },
     {
       "actor": "agente-c",
@@ -57,7 +60,31 @@
       "reason": "evidência anexada: experiments=exp-k7-9-4-1285-regen",
       "role": "PROPOSER",
       "to": "IDEA",
-      "ts": "2026-10-03T15:20:01Z"
+      "ts": "2026-10-03T15:43:28Z"
+    },
+    {
+      "actor": "agente-c",
+      "from": "IDEA",
+      "reason": "evidência anexada: literature=lit-keri-k7-9-4-ub",
+      "role": "PROPOSER",
+      "to": "IDEA",
+      "ts": "2026-10-03T15:43:28Z"
+    },
+    {
+      "actor": "agente-c",
+      "from": "IDEA",
+      "reason": "evidência anexada: literature=lit-marosi-2608-19872-v1",
+      "role": "PROPOSER",
+      "to": "IDEA",
+      "ts": "2026-10-03T15:43:28Z"
+    },
+    {
+      "actor": "agente-c",
+      "from": "IDEA",
+      "reason": "evidência anexada: literature=lit-marosi-2608-19872-v2",
+      "role": "PROPOSER",
+      "to": "IDEA",
+      "ts": "2026-10-03T15:43:28Z"
     },
     {
       "actor": "agente-c",
@@ -65,7 +92,7 @@
       "reason": "evidência anexada: literature=lit-marosi-2608-19872-v3",
       "role": "PROPOSER",
       "to": "IDEA",
-      "ts": "2026-10-03T15:20:01Z"
+      "ts": "2026-10-03T15:43:28Z"
     },
     {
       "actor": "migrate_covering.py",
@@ -73,10 +100,21 @@
       "reason": "2 verificadores de autores/grupos distintos, PASS válido e sem desacordo, neste run",
       "role": "INDEPENDENT_VERIFIER",
       "to": "INDEPENDENTLY_REPRODUCED",
-      "ts": "2026-10-03T15:20:01Z"
+      "ts": "2026-10-03T15:43:28Z"
     }
   ],
   "kind": "theorem",
+  "literature_comparison": {
+    "classificacao": "MELHORA_APARENTE_A_CONFIRMAR",
+    "melhor_registrada": 1475,
+    "melhor_registrada_fonte": [
+      "lit-marosi-2608-19872-v2 (v2, 2026-08-23)",
+      "lit-marosi-2608-19872-v3 (v3, 2026-09-02)"
+    ],
+    "nosso": 1285,
+    "nota": "melhora aparente, a confirmar por revisão externa (não é afirmação de novidade: livros/artigos não lidos podem ter predecessor)",
+    "veredito": "melhor_que_a_registrada"
+  },
   "reviewed_by": [],
   "scope": {
     "assumptions": [],

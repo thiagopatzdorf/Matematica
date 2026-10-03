@@ -4,7 +4,7 @@
   "canonical_sha256": "54dbdade1337432303847d2fd0d1c13b506de08ba518e1694c5fb37ed0e81162",
   "canonical_sha256_declared_in_structured": "54dbdade1337432303847d2fd0d1c13b506de08ba518e1694c5fb37ed0e81162",
   "claim_ids": [],
-  "created": "2026-10-03T15:15:35Z",
+  "created": "2026-10-03T15:39:17Z",
   "created_by": "agente-c",
   "format": "covering-code/v1 (lista plana, uma palavra por linha)",
   "implementation": "lincov (Mapika/coldcase) para os 3 cosets de [9,3]_7; remendo de 322 palavras sem registro",

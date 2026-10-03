@@ -89,10 +89,51 @@ class CampaignCoherenceTest(unittest.TestCase):
         universo = {i["id"] for i in self.meta["universe"]["instancias"]}
         for i in self.meta["universe"]["instancias"]:
             self.assertNotIn("lb_literatura_declarada", i, "número de paper sem registro de literatura não entra no universo")
+        # Os dois resíduos "fonte não identificada" foram FECHADOS (2026-10-03) porque fonte, versão e data agora estão em literature/;
+        # se alguém os reabrir sem tirar o registro, ou apagar o registro sem reabrir, isto falha.
         for rid in ("res-keri-edition-unidentified", "res-lb-264-source-unidentified"):
-            self.assertIn(rid, self.residuals)
-            self.assertTrue(set(self.residuals[rid]["instances"]) <= universo)
-            self.assertIn("fonte não identificada", self.residuals[rid]["reason"])
+            self.assertNotIn(rid, self.residuals, f"{rid} está fechado: fonte e versão registradas")
+
+    def test_the_keri_edition_and_the_264_source_are_registered_with_a_real_version_and_date(self):
+        # 264 = Kéri 6-21_tables.pdf (PDF de 2009-10-15), e as 7 cotas "previous" do paper + o 1843 também são do Kéri
+        k = self.literature["lit-keri-k7-9-4-lb"]
+        self.assertEqual((k["bound"]["value"], k["bound"]["direction"]), (264, "lower"))
+        self.assertEqual(k["version_date"], "2009-10-15")
+        previous = {"k5-7-2": 525, "k4-10-4": 208, "k5-9-3": 1275, "k5-10-4": 875, "k5-9-5": 55, "k5-9-4": 255, "k7-8-3": 2337, "k7-9-4": 1843}
+        for cel, v in previous.items():
+            self.assertEqual(self.literature[f"lit-keri-{cel}-ub"]["bound"]["value"], v, cel)
+
+    def test_marosi_history_for_k7_9_4_is_1743_then_1475_then_1475_with_each_version_dated(self):
+        v = {lid: self.literature[lid] for lid in ("lit-marosi-2608-19872-v1", "lit-marosi-2608-19872-v2", "lit-marosi-2608-19872-v3")}
+        self.assertEqual([(x["version"], x["version_date"], x["bound"]["value"]) for x in v.values()],
+                         [("v1", "2026-08-20", 1743), ("v2", "2026-08-23", 1475), ("v3", "2026-09-02", 1475)])
+
+    def test_stanton_kalbfleisch_is_a_cited_reference_never_a_paper_we_read(self):
+        sk = self.literature["lit-stanton-kalbfleisch-1968"]
+        self.assertFalse(sk["reproduced"])
+        self.assertIn("NÃO foi lido", sk["exact_statement"])
+        self.assertEqual(sk["date_read"], "2026-10-03")
+
+    def test_every_upper_bound_claim_carries_its_literature_comparison_without_claiming_novelty(self):
+        melhoras = 0
+        for cid, cl in self.claims.items():
+            if cl.get("bound", {}) and cl["bound"]["direction"] == "upper" and "-ub-" in cid:
+                cmp_ = cl["literature_comparison"]
+                self.assertIn(cmp_["classificacao"], ("MELHORA_APARENTE_A_CONFIRMAR", "PREDECESSOR_ENCONTRADO"), cid)
+                self.assertNotIn("novidade confirmada", cmp_["nota"].lower())
+                if cmp_["classificacao"] == "MELHORA_APARENTE_A_CONFIRMAR":
+                    melhoras += 1
+                    self.assertIn("a confirmar por revisão externa", cmp_["nota"], cid)
+        self.assertEqual(melhoras, 10, "as 10 linhas MELHORA_APARENTE_A_CONFIRMAR de LITERATURA_CC.md")
+
+    def test_each_apparent_improvement_cell_has_an_open_residual_naming_what_was_not_read(self):
+        for cel in ("k7-9-4", "k7-8-3", "k5-7-2", "k4-10-4", "k5-9-3", "k5-10-4", "k5-9-5", "k5-9-4"):
+            r = self.residuals[f"res-confirmar-{cel}"]
+            self.assertEqual(r["instances"], [cel])
+            self.assertIn("MELHORA_APARENTE_A_CONFIRMAR", r["reason"])
+            self.assertRegex(r["reason"], r"(?i)n[ãa]o (foram |foi )?lid")
+        self.assertIn("verify_cov.py", self.residuals["res-confirmar-k7-9-4"]["reason"])
+        self.assertIn("l_5(6,4)", self.residuals["res-confirmar-k5-10-4"]["reason"])
 
     def test_every_residual_lists_its_instances_and_they_are_cells_of_the_universe(self):
         universo = {i["id"] for i in self.meta["universe"]["instancias"]}

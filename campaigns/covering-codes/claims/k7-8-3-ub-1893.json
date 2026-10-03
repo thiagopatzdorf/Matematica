@@ -14,7 +14,7 @@
     "result": "uncovered=0 nos dois verificadores",
     "status": "completed"
   },
-  "created": "2026-10-03T15:20:01Z",
+  "created": "2026-10-03T15:43:28Z",
   "created_by": "agente-c",
   "created_role": "PROPOSER",
   "depends_on": [],
@@ -25,7 +25,9 @@
     ],
     "external_reproductions": [],
     "formal": [],
-    "literature": [],
+    "literature": [
+      "lit-keri-k7-8-3-ub"
+    ],
     "proofs": [],
     "verifier_runs": [],
     "witnesses": [
@@ -39,7 +41,7 @@
       "reason": "criado",
       "role": "PROPOSER",
       "to": "IDEA",
-      "ts": "2026-10-03T15:20:01Z"
+      "ts": "2026-10-03T15:43:28Z"
     },
     {
       "actor": "agente-c",
@@ -47,7 +49,7 @@
       "reason": "evidência anexada: witnesses=w-q7-n8-r3-m1893",
       "role": "PROPOSER",
       "to": "IDEA",
-      "ts": "2026-10-03T15:20:01Z"
+      "ts": "2026-10-03T15:43:28Z"
     },
     {
       "actor": "agente-c",
@@ -55,7 +57,15 @@
       "reason": "evidência anexada: experiments=exp-prior-search-unrecorded",
       "role": "PROPOSER",
       "to": "IDEA",
-      "ts": "2026-10-03T15:20:01Z"
+      "ts": "2026-10-03T15:43:28Z"
+    },
+    {
+      "actor": "agente-c",
+      "from": "IDEA",
+      "reason": "evidência anexada: literature=lit-keri-k7-8-3-ub",
+      "role": "PROPOSER",
+      "to": "IDEA",
+      "ts": "2026-10-03T15:43:28Z"
     },
     {
       "actor": "migrate_covering.py",
@@ -63,10 +73,20 @@
       "reason": "2 verificadores de autores/grupos distintos, PASS válido e sem desacordo, neste run",
       "role": "INDEPENDENT_VERIFIER",
       "to": "INDEPENDENTLY_REPRODUCED",
-      "ts": "2026-10-03T15:20:01Z"
+      "ts": "2026-10-03T15:43:28Z"
     }
   ],
   "kind": "theorem",
+  "literature_comparison": {
+    "classificacao": "MELHORA_APARENTE_A_CONFIRMAR",
+    "melhor_registrada": 2337,
+    "melhor_registrada_fonte": [
+      "lit-keri-k7-8-3-ub (PDF 6-21_tables.pdf, Last-Modified 2009-10-15 (diretório e index.htm atualizados até 2011-11-25), 2009-10-15)"
+    ],
+    "nosso": 1893,
+    "nota": "melhora aparente, a confirmar por revisão externa (não é afirmação de novidade: livros/artigos não lidos podem ter predecessor); mas é PIOR que o nosso próprio 1887 da mesma célula",
+    "veredito": "melhor_que_a_registrada"
+  },
   "reviewed_by": [],
   "scope": {
     "assumptions": [],

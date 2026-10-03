@@ -1,6 +1,6 @@
 {
   "assumptions": [
-    "atribuição do valor ao artigo é do README; conteúdo não lido"
+    "atribuição do valor ao artigo vem do Kéri/Florath, não do artigo"
   ],
   "authors": [
     "R. G. Stanton",
@@ -10,9 +10,9 @@
   "claim_ids": [
     "k2-6-1-eq-12"
   ],
-  "date_read": "2026-10-02",
+  "date_read": "2026-10-03",
   "exact_bound": "K_2(6,1) = 12",
-  "exact_statement": "README.md:25: K_2(6,1) = 12 é clássico (Stanton-Kalbfleisch, 1968). Conferido hoje via Crossref: o artigo existe com esses autores, título, volume e páginas (DOI 10.1007/bf01817562); o CONTEÚDO (que ele determina K_2(6,1)=12) NÃO foi lido.",
+  "exact_statement": "REFERÊNCIA CITADA, não lida: o Kéri (2_tables.pdf, 2009-10-15) atribui K_2(6,1) = 12 à chave c = Stanton-Kalbfleisch (cota inferior: 1968 e 1969), e a tabela de referência do Florath também. Citação conferida no Kéri em 2026-10-03; existência do artigo (autores, título, volume, páginas) conferida via Crossref em 2026-10-02. O CONTEÚDO do artigo (que ele determina K_2(6,1)=12) NÃO foi lido.",
   "formalized": false,
   "literature_id": "lit-stanton-kalbfleisch-1968",
   "open_questions": [

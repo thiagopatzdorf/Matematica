@@ -1,0 +1,31 @@
+{
+  "assumptions": [
+    "só as tabelas da v2 foram lidas"
+  ],
+  "authors": [
+    "D. Gijswijt",
+    "S. Polak"
+  ],
+  "bound": {
+    "direction": "lower",
+    "parameters": {
+      "R": 4,
+      "n": 9,
+      "q": 5
+    },
+    "value": 61.18
+  },
+  "claim_ids": [],
+  "date_read": "2026-10-03",
+  "exact_bound": "K_5(9,4) >= 61.18",
+  "exact_statement": "v2, Tab. 9 (valor real; não melhora o 64 do Kéri): K_5(9,4) >= 61.18. LI por Lit-CC em 2026-10-03 (LITERATURA_CC.md; registro transcrito por migrate_covering.py, que não leu a fonte) (tabelas). A v1 de 2025-04-02 NÃO foi lida.",
+  "formalized": false,
+  "literature_id": "lit-gp-2504-01932v2-k5-9-4-lb",
+  "open_questions": [],
+  "reproduced": false,
+  "title": "Semidefinite lower bounds for covering codes",
+  "url": "https://arxiv.org/abs/2504.01932v2",
+  "version": "v2",
+  "version_date": "2026-06-19",
+  "year": 2025
+}

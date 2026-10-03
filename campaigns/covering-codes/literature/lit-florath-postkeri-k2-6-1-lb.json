@@ -1,0 +1,30 @@
+{
+  "assumptions": [
+    "CSVs e README do repositório lidos; prova Lean não compilada"
+  ],
+  "authors": [
+    "Andreas Florath"
+  ],
+  "bound": {
+    "direction": "lower",
+    "parameters": {
+      "R": 1,
+      "n": 6,
+      "q": 2
+    },
+    "value": 12
+  },
+  "claim_ids": [],
+  "date_read": "2026-10-03",
+  "exact_bound": "K_2(6,1) >= 12",
+  "exact_statement": "K_2(6,1) >= 12 na tabela de REFERÊNCIA dele (reference-data/post-keri: 2,6,1,12,12), citando Stanton-Kalbfleisch. Resumo do arXiv: 'not new record bounds'; K_2(6,1) não está no texto do paper. LI por Lit-CC em 2026-10-03 (LITERATURA_CC.md; registro transcrito por migrate_covering.py, que não leu a fonte) (resumo, repositório e CSVs; a prova Lean dele NÃO foi compilada).",
+  "formalized": false,
+  "literature_id": "lit-florath-postkeri-k2-6-1-lb",
+  "open_questions": [],
+  "reproduced": false,
+  "title": "Formal Foundations and Proof-Carrying Certificates for q-ary Covering Codes in Lean 4",
+  "url": "https://github.com/florath/covering-codes-lean",
+  "version": "v1 (arXiv, 2026-06-08); repositório no commit bbed9a6 (2026-09-16)",
+  "version_date": "2026-06-08",
+  "year": 2026
+}

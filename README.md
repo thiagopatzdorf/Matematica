@@ -5,7 +5,9 @@ The note is [paper/main.pdf](paper/main.pdf), source [paper/main.tex](paper/main
 
 Estado (2026-10-01), Lean 4.34.1 + Mathlib v4.34.1, VM e2-highmem-8:
 
-* `lake build` (alvo padrão, biblioteca `CoveringLean`): **passa**, 8942 jobs, 32 s, pico 7,7 GB.
+* `lake build` (alvo padrão, biblioteca `CoveringLean`): **passa**, 8942 jobs, pico 7,7 GB. Os **32 s** valem só com o cache quente (os `.olean` de
+  `CoveringLean` já presentes). **A frio, num container de 4 vCPU, foram 221 s** (medido em 2026-10-03; ~40 módulos compilados) depois de um
+  `lake exe cache get` de ~33 s a ~2 min, conforme a rede.
 * `lake build CoveringHeavy` (os dois certificados de busca, 133 módulos): **passa**, 9073 jobs, 1 h 41 min de relógio com até 8 módulos em paralelo (~12,4 h de CPU somadas), pico 8,8 GB por processo.
 
 Nenhum `sorry`, nenhum `native_decide`, e todo `#print axioms` mostra no máximo `propext, Classical.choice, Quot.sound`.
@@ -23,19 +25,36 @@ Nenhum `sorry`, nenhum `native_decide`, e todo `#print axioms` mostra no máximo
 **Contexto na literatura, conferido em 2026-10-01** (comparação feita por nós, sem revisão externa):
 
 * `K_2(6,1) = 12` é clássico (Stanton–Kalbfleisch, 1968). Novo aqui é a prova verificada pelo kernel. O banco Lean do
-  Florath ([arXiv:2606.09600](https://arxiv.org/abs/2606.09600), `florath/covering-codes-lean`) tem `10 ≤ K_2(6,1) ≤ 12`.
+  Florath ([arXiv:2606.09600](https://arxiv.org/abs/2606.09600), `florath/covering-codes-lean`) tem `10 ≤ K_2(6,1) ≤ 12` **no Lean dele** (o que ele
+  prova lá); a tabela de referência do mesmo repositório (`reference-data/post-keri`) já traz `12–12`, citando Stanton–Kalbfleisch.
 * `K_7(9,4) ≤ 1351` fica abaixo da melhor cota superior publicada que encontramos, `1475` (Marosi,
-  [arXiv:2608.19872](https://arxiv.org/abs/2608.19872) v3, 2026-09-02; Kéri 2011 tinha 1843). O código foi achado com o
+  [arXiv:2608.19872](https://arxiv.org/abs/2608.19872) v3, 2026-09-02; o Kéri tinha 1843: PDF `6-21_tables.pdf` de 2009-10-15, site atualizado até 2011-11). O código foi achado com o
   gerador `lincov` do repositório público do Marosi (`Mapika/coldcase`, commit `56a8cce`): 3 cosets de um núcleo
   `[9,3]_7` (1029 palavras) mais 322 de remendo guloso. A origem do remendo não ficou registrada; o código em si está
   em `data/codes/q7_n9_R4_M1351.txt` e o teorema não depende do gerador.
 * A cota de esfera (`A1`–`A3`, `Chain`) já estava formalizada pelo Florath em junho de 2026; as 8 instâncias `SPH_*`
   estão abaixo das melhores cotas inferiores conhecidas (Kéri, Gijswijt–Polak 2025, Marosi 2026).
 
-`data/codes/` traz também os outros 7 códigos (`K5(7,2) ≤ 500`, `K4(10,4) ≤ 192`, `K5(9,3) ≤ 1250`, `K5(10,4) ≤ 625`,
-`K5(9,5) ≤ 50`, `K5(9,4) ≤ 250`, `K7(8,3) ≤ 1893`), todos abaixo das tabelas que conferimos e checados por três
-verificadores independentes fora do Lean; **ainda não são teoremas Lean**. `K5(10,4) ≤ 625` é um código linear
+`data/codes/` traz 10 códigos. Além do `1351`, há `K5(7,2) ≤ 500`, `K4(10,4) ≤ 192`, `K5(9,3) ≤ 1250`, `K5(10,4) ≤ 625`,
+`K5(9,5) ≤ 50`, `K5(9,4) ≤ 250`, `K7(8,3) ≤ 1893` e, **melhores que os dois que citamos acima**, `K7(9,4) ≤ 1285`
+(`q7_n9_R4_M1285.txt`) e `K7(8,3) ≤ 1887` (`q7_n8_R3_M1887.txt`). Todos estão abaixo das tabelas que conferimos e são
+verificados por três programas fora do Lean: `tools/verify/verify.c` (C), `tools/campaign/verify_cover_dilation.py`
+(Python; escrito pelo mesmo agente que criou os claims da campanha, **então não conta como independente**) e
+`tools/verify-rust` (Rust; outro autor, que não leu os outros dois). **Nenhum desses 9 códigos tem teorema Lean**: o Lean
+cobre `K_7(9,4) ≤ 1351` e `K_2(6,1) = 12`, e o `1285` e o `1887` entraram em `data/` depois, sem Lean. Os
+"melhor que a literatura" aqui são `MELHORA_APARENTE_A_CONFIRMAR`: comparação com o que foi lido (Marosi v1–v3, Kéri,
+Gijswijt–Polak v2, Florath), **sem afirmar novidade** — livros e artigos antigos (Cohen et al. 1997, Östergård 1999,
+Bhandari–Durairajan 1996) não foram lidos. `K5(10,4) ≤ 625` é um código linear
 `[10,4]_5`; falta conferir as tabelas de comprimento de Davydov–Marcugini–Pambianco.
+
+## Campanha de auditoria
+
+`campaigns/covering-codes/` é a campanha de auditoria deste repositório (claims com estado e evidência, verificadores,
+corridas, registros de literatura com versão e data, resíduos, cadeia de auditoria). Refaz-se do zero e de forma
+idempotente com `tools/campaign/migrate_covering.py`; as medições feitas à mão estão em
+`campaigns/covering-codes/_fatos/PILOT_FACTS.md` e a revisão de literatura em `campaigns/covering-codes/_literatura/`.
+O relatório de reprodução (`reports/REPRODUCTION_REPORT.md`) é gerado por `reproduce` do pacote
+`factory_cauteloso.matematica` (da Fábrica de Sites) e **não está versionado** neste commit.
 
 ## Formato estruturado e verificador oficial
 
@@ -66,7 +85,7 @@ Espaço `Fin n → ZMod q` (A1–A3, Chain, K3) ou `Fin n → Fin q` (A6*, Searc
 
 ## O que NÃO está provado (declarado)
 
-* Os outros 7 códigos de `data/codes/` não têm teorema Lean (só verificação computacional).
+* Os outros 9 códigos de `data/codes/` (os 7 acima mais `M1285` e `M1887`) não têm teorema Lean (só verificação computacional).
 * Novidade na literatura é afirmação nossa, não do Lean; a busca bibliográfica está descrita acima.
 * `A6d_SearchHeavy.lean` e `A5b_Stress.lean` continuam fora da biblioteca e não compilam (o primeiro ficou obsoleto
   com `A6e` e `SearchK6ge12`).

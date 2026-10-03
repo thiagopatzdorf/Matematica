@@ -1,0 +1,33 @@
+{
+  "assumptions": [
+    "PDF desta versão lido (texto e tabelas) pelo revisor; código e anexos de terceiros NÃO executados"
+  ],
+  "authors": [
+    "Mark Marosi"
+  ],
+  "bound": {
+    "direction": "upper",
+    "parameters": {
+      "R": 4,
+      "n": 9,
+      "q": 7
+    },
+    "value": 1475
+  },
+  "claim_ids": [
+    "k7-9-4-ub-1351",
+    "k7-9-4-ub-1285"
+  ],
+  "date_read": "2026-10-03",
+  "exact_bound": "K_7(9,4) <= 1475",
+  "exact_statement": "v2 (2026-08-23), Tabela 1: linha 'K7 (9,4) 264-1843 | 221 | 1475 | -368 | 20.0% | f | L'; 25 UB + 58 LB; anexo K7_9_4_M1475.txt (1475 linhas distintas, 9 dígitos, sha256 b3e60549...ac6ace; contei as linhas, NÃO executei). LI por Lit-CC em 2026-10-03 (LITERATURA_CC.md; registro transcrito por migrate_covering.py, que não leu a fonte).",
+  "formalized": false,
+  "literature_id": "lit-marosi-2608-19872-v2",
+  "open_questions": [],
+  "reproduced": false,
+  "title": "New upper and lower bounds on covering codes K_q(n,R) for alphabets of size 5 <= q <= 21",
+  "url": "https://arxiv.org/abs/2608.19872v2",
+  "version": "v2",
+  "version_date": "2026-08-23",
+  "year": 2026
+}

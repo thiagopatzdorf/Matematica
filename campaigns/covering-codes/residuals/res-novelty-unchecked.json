@@ -1,5 +1,5 @@
 {
-  "created": "2026-10-03T15:15:35Z",
+  "created": "2026-10-03T15:39:17Z",
   "created_by": "agente-c",
   "instances": [
     "k4-10-4",
@@ -12,7 +12,7 @@
     "k7-9-4"
   ],
   "kind": "literatura",
-  "next_step": "ler Kéri/Marosi PDF e DMP",
-  "reason": "novidade é afirmação do autor (README:72); cotas das tabelas só parcialmente reconferidas hoje (Marosi v3 abs, Florath abs, Crossref); Kéri 2011 (ver res-keri-edition-unidentified), as tabelas lineares de Davydov-Marcugini-Pambianco (README:37-38, fonte não identificada: NÃO registrada como literatura para não inventar título/URL) e as cotas inferiores 'conhecidas' não reconferidos",
+  "next_step": "ler as fontes listadas em cada res-confirmar-<célula> e reclassificar (MELHORA_APARENTE_A_CONFIRMAR -> PREDECESSOR_ENCONTRADO ou confirmada por revisão externa)",
+  "reason": "novidade continua sendo afirmação do autor (README:72). Lidos em 2026-10-03 (LITERATURA_CC.md): Marosi v1/v2/v3, Kéri (PDFs de 2009-10-15), Gijswijt-Polak v2 (tabelas), Florath. NÃO lidos: Cohen et al. 1997, Östergård 1999, Bhandari-Durairajan 1996, Stanton-Kalbfleisch 1968 (conteúdo), tabelas de comprimento linear de Davydov-Marcugini-Pambianco para l_5(6,4), qualquer trabalho posterior a 2011 fora do arXiv. 'Não achei predecessor' não é 'não existe': ver res-confirmar-* por célula.",
   "residual_id": "res-novelty-unchecked"
 }

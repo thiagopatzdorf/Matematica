@@ -1,13 +1,13 @@
 {
   "campaign_id": "covering-codes",
-  "created": "2026-10-03T15:15:35Z",
+  "created": "2026-10-03T15:39:17Z",
   "data_root": "../..",
   "domain": "covering codes K_q(n,R)",
   "last_anchor": {
-    "hash": "f1405b6272d31237b5527172d3e284ef4154e3a26fa1b9f4ae19d31d9f4a45ce",
+    "hash": "fafc8c14cc74a4e7aadb486332ba718acbe64567f3eab040149075db7f1e3884",
     "hmac": null,
-    "seq": 259,
-    "ts": "2026-10-03T15:20:01Z"
+    "seq": 320,
+    "ts": "2026-10-03T15:43:28Z"
   },
   "lean_toolchain": "leanprover/lean4:v4.34.1",
   "schema": "genesis-math/campaign/v1",

@@ -1,0 +1,33 @@
+{
+  "assumptions": [
+    "PDF desta versão lido (texto e tabelas) pelo revisor; código e anexos de terceiros NÃO executados"
+  ],
+  "authors": [
+    "Mark Marosi"
+  ],
+  "bound": {
+    "direction": "upper",
+    "parameters": {
+      "R": 4,
+      "n": 9,
+      "q": 7
+    },
+    "value": 1743
+  },
+  "claim_ids": [
+    "k7-9-4-ub-1351",
+    "k7-9-4-ub-1285"
+  ],
+  "date_read": "2026-10-03",
+  "exact_bound": "K_7(9,4) <= 1743",
+  "exact_statement": "v1 (2026-08-20): 9 células, só q em {6,7}, sem cotas inferiores; K_7(9,4) <= 1743 no resumo e na tabela; K_7(8,4) <= 329. NÃO tem K_7(8,3). LI por Lit-CC em 2026-10-03 (LITERATURA_CC.md; registro transcrito por migrate_covering.py, que não leu a fonte).",
+  "formalized": false,
+  "literature_id": "lit-marosi-2608-19872-v1",
+  "open_questions": [],
+  "reproduced": false,
+  "title": "título da v1 termina em '...alphabets of size six and seven' (início não transcrito pela revisão); só q em {6,7}",
+  "url": "https://arxiv.org/abs/2608.19872v1",
+  "version": "v1",
+  "version_date": "2026-08-20",
+  "year": 2026
+}
