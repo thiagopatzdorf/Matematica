@@ -4,7 +4,7 @@
   "canonical_sha256": "98531afbd8afbcec54ec01d441836ce706f8702ece4df594447789af6732643b",
   "canonical_sha256_declared_in_structured": "98531afbd8afbcec54ec01d441836ce706f8702ece4df594447789af6732643b",
   "claim_ids": [],
-  "created": "2026-10-03T16:38:07Z",
+  "created": "2026-10-03T21:36:11Z",
   "created_by": "agente-c",
   "format": "covering-code/v1 (lista plana, uma palavra por linha)",
   "implementation": "maestro (VM lean-build2, ~/h/s2/maestro): mesmos 5 cosets de [8,3]_7 do 1893 + 172 palavras",

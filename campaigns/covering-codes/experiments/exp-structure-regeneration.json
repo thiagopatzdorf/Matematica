@@ -1,5 +1,5 @@
 {
-  "created": "2026-10-03T16:38:07Z",
+  "created": "2026-10-03T21:36:11Z",
   "created_by": "agente-c",
   "description": "Regenera data/structured/*.json de data/codes/*.txt (detecta cosets) e compara com os versionados.",
   "experiment_id": "exp-structure-regeneration",
@@ -7,16 +7,16 @@
   "instances": [],
   "kind": "symbolic",
   "ranges": null,
-  "repo_commit": "1df5526dc0275a9ace7c2bd86e7832f92ef1aa34",
+  "repo_commit": "986889eaaf52b9b79dffd3f3385775fd4eea4fb0",
   "result": {
     "executado_neste_run": true,
     "rc": 0,
-    "tail": ": 2 cosets de [9,2]_5 + 0 palavras\nq7_n8_R3_M1887.json: 5 cosets de [8,3]_7 + 172 palavras\nq7_n8_R3_M1893.json: 5 cosets de [8,3]_7 + 178 palavras\nq7_n9_R4_M1285.json: 3 cosets de [9,3]_7 + 36 cosets de [9,1]_7 + 4 palavras\nq7_n9_R4_M1351.json: 3 cosets de [9,3]_7 + 46 cosets de [9,1]_7 + 0 palavras"
+    "tail": "5 cosets de [8,3]_7 + 178 palavras\nq7_n9_R4_M1137.json: 3 cosets de [9,3]_7 + 108 palavras\nq7_n9_R4_M1141.json: 3 cosets de [9,3]_7 + 112 palavras\nq7_n9_R4_M1285.json: 3 cosets de [9,3]_7 + 36 cosets de [9,1]_7 + 4 palavras\nq7_n9_R4_M1351.json: 3 cosets de [9,3]_7 + 46 cosets de [9,1]_7 + 0 palavras"
   },
   "source_files": [
     {
       "path": "scripts/codes/build_structured.py",
-      "sha256": "8fe8c9d6155d7ed7ac96f1f893efc3c1c4c89ff7669ae57f058757cca7eb917a"
+      "sha256": "97255f71dc056092e8b55c46a7b72150163b5cc4a1d0923b4db52cd36bbfc59d"
     },
     {
       "path": "scripts/codes/structure.py",

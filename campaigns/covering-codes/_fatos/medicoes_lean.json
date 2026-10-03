@@ -1,0 +1,13 @@
+{
+  "data": "2026-10-03",
+  "medido_por": "Agente RB (rebase da campanha sobre o main v0.5), a mão, com um wrapper que mede relógio e o maior RSS de um processo filho",
+  "maquina": "4 vCPU, 15 GB de RAM, Linux 6.18, Lean 4.34.1 + Mathlib v4.34.1 (d13f23b7), cache do Mathlib já presente em .lake",
+  "nota": "o `lake build` do Lake 5.0.0 não tem opção de jobs: roda até nproc módulos em paralelo (até 4 processos Lean ao mesmo tempo aqui; o pico de 6,6 GB é de UM processo). user/sys do wrapper não somam os netos do Lake, então só o relógio e o RSS de um processo valem.",
+  "alvos": {
+    "padrao": {"comando": "lake build", "jobs": 8944, "wall_s": 213.9, "max_rss_single_proc_MB": 6502, "rc": 0,
+               "observacao": "SynCheck/SynBridge construídos do zero (SynBridge 202 s); o resto do alvo veio do cache de .olean; 'Build completed successfully'; nenhum sorry no log"},
+    "CoveringSyn": {"comando": "lake build CoveringSyn", "jobs": 8995, "wall_s": 972.4, "max_rss_single_proc_MB": 6596, "rc": 0,
+                    "observacao": "os cinco Syn_K* e as folhas SynLeaf_K*, do zero (nada deles estava em cache); 'Build completed successfully'; nenhum sorry no log"}
+  },
+  "declarado_nao_medido": {"CoveringHeavy": "lake build CoveringHeavy não foi executado (README: 9181 jobs, 1 h 54 min de relógio, ~9,3 h de CPU, pico 9,4 GB por processo)"}
+}

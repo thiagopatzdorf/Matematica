@@ -1,0 +1,30 @@
+{
+  "created": "2026-10-03T21:36:11Z",
+  "created_by": "agente-c",
+  "description": "Decodifica a lista LK1141 (e o campo empacotado PN) de CoveringLean/SynData_K1141.lean (base 7 little-endian) e compara o sha256 canônico com o de data/codes/q7_n9_R4_M1141.txt: o elo entre o teorema Syn.K7_9_4_le_1141_syn e o arquivo verificado por programas.",
+  "experiment_id": "exp-lean-syn-data-equals-witness-1141",
+  "implementation": "regex + sha256 em tools/campaign/migrate_covering.py (independente de scripts/syndrome/check_sha.py)",
+  "instances": [
+    "k7-9-4"
+  ],
+  "kind": "symbolic",
+  "ranges": null,
+  "repo_commit": "986889eaaf52b9b79dffd3f3385775fd4eea4fb0",
+  "result": {
+    "cnt_declarado": 1141,
+    "estritamente_crescente": true,
+    "executado_neste_run": true,
+    "iguais": true,
+    "palavras": 1141,
+    "sha256_canonico_lean": "bcb05960410d3f32ccd0de46720606a6df3d0402cb56c67e93766f12e41f5259",
+    "sha256_canonico_witness": "bcb05960410d3f32ccd0de46720606a6df3d0402cb56c67e93766f12e41f5259",
+    "todas_menores_que_q_n": true,
+    "unpack_PN_igual_a_lista": true
+  },
+  "source_files": [
+    {
+      "path": "CoveringLean/SynData_K1141.lean",
+      "sha256": "1f80ce6e8e32bfb2ad8fbcd0736d3028f9945bd404e88046f23ea386469eb477"
+    }
+  ]
+}

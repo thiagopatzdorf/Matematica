@@ -5,9 +5,9 @@
     "data/search/p1285.json",
     "<saída>"
   ],
-  "created": "2026-10-03T16:38:07Z",
+  "created": "2026-10-03T21:36:11Z",
   "created_by": "agente-c",
-  "description": "Regenera o código de 1285 palavras com o gerador versionado a partir de data/search/p1285.json.",
+  "description": "Regenera o código de 1285 palavras com o gerador versionado a partir de data/search/p1285.json e compara com o witness: byte a byte (identico_byte_a_byte) e como CONJUNTO de palavras (sha256 canônico; a ordem das linhas pode diferir). Isto reproduz a ESTRUTURA do código, não a busca que achou os parâmetros p<M>.json.",
   "experiment_id": "exp-k7-9-4-1285-regen",
   "implementation": "scripts/search/gen.py",
   "instances": [
@@ -15,11 +15,14 @@
   ],
   "kind": "search",
   "ranges": null,
-  "repo_commit": "1df5526dc0275a9ace7c2bd86e7832f92ef1aa34",
+  "repo_commit": "986889eaaf52b9b79dffd3f3385775fd4eea4fb0",
   "result": {
     "executado_neste_run": true,
     "identico_byte_a_byte": true,
+    "mesmo_conjunto_de_palavras": true,
     "rc": 0,
+    "sha256_canonico_regenerado": "aa388cc9642bc064527a0237b60522ba558491291a2adf02ab1e4d8d3f756c1f",
+    "sha256_canonico_witness": "aa388cc9642bc064527a0237b60522ba558491291a2adf02ab1e4d8d3f756c1f",
     "sha256_regenerado": "89cbd6b290a10d8d708e9783a405b8a12ce5efd6a8ea2ee17568b3ee25c50f31",
     "sha256_witness": "89cbd6b290a10d8d708e9783a405b8a12ce5efd6a8ea2ee17568b3ee25c50f31",
     "stdout": "1285 1285"

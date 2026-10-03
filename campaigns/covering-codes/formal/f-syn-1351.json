@@ -1,0 +1,48 @@
+{
+  "axioms": [
+    "propext",
+    "Classical.choice",
+    "Quot.sound"
+  ],
+  "axioms_status": "OK",
+  "build_command": [
+    "lake",
+    "build",
+    "CoveringSyn"
+  ],
+  "build_medido_de_zero": {
+    "comando": "lake build CoveringSyn",
+    "fonte": "campaigns/covering-codes/_fatos/medicoes_lean.json",
+    "jobs": 8995,
+    "max_rss_single_proc_MB": 6596,
+    "observacao": "os cinco Syn_K* e as folhas SynLeaf_K*, do zero (nada deles estava em cache); 'Build completed successfully'; nenhum sorry no log",
+    "rc": 0,
+    "wall_s": 972.4
+  },
+  "build_status": "OK",
+  "clean_build": true,
+  "file": "CoveringLean/Syn_K1351.lean",
+  "formal_id": "f-syn-1351",
+  "lean_root": ".",
+  "lean_toolchain": "leanprover/lean4:v4.34.1",
+  "lean_version": "Lean (version 4.34.1, x86_64-unknown-linux-gnu, commit 5045d0056413266e57c625dcd7c365b10e377c52, Release)",
+  "log_sha256": "5489bec60c3223f6bbfe0b8b173c785a80777b453c814edcc687f50d39187e02",
+  "machine": {
+    "arch": "x86_64",
+    "cpu": "Intel(R) Xeon(R) Processor @ 2.10GHz",
+    "cpu_count": 4,
+    "host": "vm",
+    "os": "Linux-6.18.44-fc-v64-x86_64-with-glibc2.39",
+    "ram_gib": 15.7
+  },
+  "manifest_sha256": "88d3b3c8b56dbff5d6c7f63ac444982ed9152f874d27a8174c91544dfa90ed82",
+  "mathlib_commit": "d13f23b723b8a846827a245b89c10fc7d3f11612",
+  "measured": "2026-10-03T21:41:38Z",
+  "module": "CoveringLean.Syn_K1351",
+  "repo_commit": "986889eaaf52b9b79dffd3f3385775fd4eea4fb0",
+  "scan_findings": [],
+  "sorry_free": true,
+  "source_sha256": "1782501fc4b37127db117844046c056fecae6a95fb3b6ca4289b2d37ab908987",
+  "theorem": "Syn.K7_9_4_le_1351_syn",
+  "validation_problems": []
+}

@@ -1,6 +1,6 @@
 {
   "command": null,
-  "created": "2026-10-03T16:38:07Z",
+  "created": "2026-10-03T21:36:11Z",
   "created_by": "agente-c",
   "description": "Geração do código de 1351 palavras: 3 cosets de um núcleo [9,3]_7 (1029 palavras) pelo gerador `lincov` do repositório público do Marosi (Mapika/coldcase, commit 56a8cce) + 322 palavras de remendo guloso. DECLARADO no README; NÃO reproduzível aqui: o lincov não está neste repositório e a origem do remendo não foi registrada. O que é reproduzível é a estrutura (46 cosets de uma reta, scripts/codes/structure.py) e a verificação do código final.",
   "experiment_id": "exp-k7-9-4-1351-lincov",
@@ -10,7 +10,7 @@
   ],
   "kind": "search",
   "ranges": null,
-  "repo_commit": "1df5526dc0275a9ace7c2bd86e7832f92ef1aa34",
+  "repo_commit": "986889eaaf52b9b79dffd3f3385775fd4eea4fb0",
   "result": {
     "declarado_em": "README.md:27-31; data/structured/q7_n9_R4_M1351.json",
     "executado_neste_run": false,

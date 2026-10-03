@@ -1,19 +1,36 @@
 {
- "repo_commit": "676e2ded76f20b3426a82c840a605ed3e23abcfa",
+ "repo_commit": "986889eaaf52b9b79dffd3f3385775fd4eea4fb0",
  "rows": [
   {
    "R": 1,
-   "best_recorded_bound": null,
-   "best_recorded_source": null,
-   "claim_id": null,
-   "claim_status": null,
-   "classification": "igual/sem comparação",
-   "containing_commit": "676e2ded76f20b3426a82c840a605ed3e23abcfa",
-   "created": "2026-10-03T16:38:07Z",
-   "diff_abs": null,
-   "diff_pct": null,
-   "independence_note": "contam como independentes C (thiagopatzdorf) e Rust (agente-verif-rust); Python é do mesmo autor da afirmação (agente-c): PASS não conta; agentes do mesmo modelo ≠ independência cognitiva total",
-   "lean": "EXISTS_BUILD_NOT_REPRODUCED: K_2(6,1)=12 via CoveringHeavy chunks not built here; lower bound 11 PROVED separately (default build)",
+   "best_recorded_bound": 12,
+   "best_recorded_source": [
+    "lit-keri-k2-6-1-ub (PDF 2_tables.pdf, Last-Modified 2009-10-15 (diretório e index.htm atualizados até 2011-11-25), 2009-10-15)",
+    "lit-florath-2606-09600-ub (v1 (arXiv, 2026-06-08); repositório no commit bbed9a6 (2026-09-16), 2026-06-08)",
+    "lit-florath-postkeri-k2-6-1-ub (v1 (arXiv, 2026-06-08); repositório no commit bbed9a6 (2026-09-16), 2026-06-08)"
+   ],
+   "claim_id": "k2-6-1-ub-12",
+   "claim_status": "PROVED",
+   "classification": "igual",
+   "containing_commit": "986889eaaf52b9b79dffd3f3385775fd4eea4fb0",
+   "created": "2026-10-03T21:36:11Z",
+   "diff_abs": 0,
+   "diff_pct": 0.0,
+   "equality_claim_status": "EXHAUSTIVE_BOUNDED",
+   "independence_note": "autor do claim: agente-c; verificadores PASS cujo autor não é o do claim: ['agente-verif-cleanroom', 'agente-verif-rust', 'thiagopatzdorf']; verificadores do mesmo autor contam como um só; agentes do mesmo modelo ≠ independência cognitiva total",
+   "independent_authors_passing": [
+    "agente-verif-cleanroom",
+    "agente-verif-rust",
+    "thiagopatzdorf"
+   ],
+   "lean": "PROVED_MEASURED: CoveringA6.code12_covers (axiomas ['Classical.choice', 'Quot.sound', 'propext'], sorry_free, build limpo, Lean 4.34.1); CoveringA6.code12_card (axiomas ['Classical.choice', 'Quot.sound', 'propext'], sorry_free, build limpo, Lean 4.34.1) | igualdade K_2(6,1)=12: EXISTS_BUILD_NOT_REPRODUCED: SC.K_2_6_1_eq12 (CoveringHeavy não construído aqui); K_2(6,1) >= 11 PROVED_MEASURED separadamente (alvo padrão)",
+   "lean_theorems_declared_only": [
+    "SC.K_2_6_1_eq12"
+   ],
+   "lean_theorems_measured": [
+    "CoveringA6.code12_covers",
+    "CoveringA6.code12_card"
+   ],
    "literature_confidence": "alta",
    "literature_note": "igualdade com valor clássico (Stanton–Kalbfleisch 1968, não lido; exatidão provada por busca exaustiva própria)",
    "literature_source": "_literatura/profunda_b",
@@ -25,12 +42,16 @@
    "size": 12,
    "verifier_authors": {
     "verify-c": "thiagopatzdorf",
+    "verify-cleanroom": "agente-verif-cleanroom",
     "verify-py-dilation": "agente-c",
     "verify-rust": "agente-verif-rust"
    },
-   "verify_c": "PASS",
-   "verify_py_dilation": "PASS",
-   "verify_rust": "PASS",
+   "verifier_results": {
+    "verify-c": "PASS",
+    "verify-cleanroom": "PASS",
+    "verify-py-dilation": "PASS",
+    "verify-rust": "PASS"
+   },
    "witness_id": "w-q2-n6-r1-m12",
    "witness_path": "campaigns/covering-codes/artifacts/q2_n6_R1_M12.txt",
    "witness_producer": null
@@ -44,12 +65,22 @@
    "claim_id": "k4-10-4-ub-192",
    "claim_status": "INDEPENDENTLY_REPRODUCED",
    "classification": "apparent improvement over the currently recorded bound; novelty not yet established",
-   "containing_commit": "676e2ded76f20b3426a82c840a605ed3e23abcfa",
-   "created": "2026-10-03T16:38:07Z",
+   "containing_commit": "986889eaaf52b9b79dffd3f3385775fd4eea4fb0",
+   "created": "2026-10-03T21:36:11Z",
    "diff_abs": 16,
    "diff_pct": 7.69,
-   "independence_note": "contam como independentes C (thiagopatzdorf) e Rust (agente-verif-rust); Python é do mesmo autor da afirmação (agente-c): PASS não conta; agentes do mesmo modelo ≠ independência cognitiva total",
-   "lean": "no Lean theorem currently exists (verified computational witness only)",
+   "equality_claim_status": null,
+   "independence_note": "autor do claim: agente-c; verificadores PASS cujo autor não é o do claim: ['agente-verif-cleanroom', 'agente-verif-rust', 'thiagopatzdorf']; verificadores do mesmo autor contam como um só; agentes do mesmo modelo ≠ independência cognitiva total",
+   "independent_authors_passing": [
+    "agente-verif-cleanroom",
+    "agente-verif-rust",
+    "thiagopatzdorf"
+   ],
+   "lean": "EXISTS_BUILD_NOT_REPRODUCED: CoveringKernel.K4_10_4_le_192_kernel (axiomas só declarados ['propext', 'Classical.choice', 'Quot.sound']; NOT_RUN: lake build CoveringHeavy não executado neste ambiente (~9,3 h de CPU (R)",
+   "lean_theorems_declared_only": [
+    "CoveringKernel.K4_10_4_le_192_kernel"
+   ],
+   "lean_theorems_measured": [],
    "literature_confidence": "média-baixa",
    "literature_note": "ADS dá exatamente 192, condicional",
    "literature_source": "_literatura/profunda_b",
@@ -61,12 +92,16 @@
    "size": 192,
    "verifier_authors": {
     "verify-c": "thiagopatzdorf",
+    "verify-cleanroom": "agente-verif-cleanroom",
     "verify-py-dilation": "agente-c",
     "verify-rust": "agente-verif-rust"
    },
-   "verify_c": "PASS",
-   "verify_py_dilation": "PASS",
-   "verify_rust": "PASS",
+   "verifier_results": {
+    "verify-c": "PASS",
+    "verify-cleanroom": "PASS",
+    "verify-py-dilation": "PASS",
+    "verify-rust": "PASS"
+   },
    "witness_id": "w-q4-n10-r4-m192",
    "witness_path": "data/codes/q4_n10_R4_M192.txt",
    "witness_producer": "exp-prior-search-unrecorded"
@@ -80,12 +115,22 @@
    "claim_id": "k5-10-4-ub-625",
    "claim_status": "INDEPENDENTLY_REPRODUCED",
    "classification": "apparent improvement over the currently recorded bound; novelty not yet established",
-   "containing_commit": "676e2ded76f20b3426a82c840a605ed3e23abcfa",
-   "created": "2026-10-03T16:38:07Z",
+   "containing_commit": "986889eaaf52b9b79dffd3f3385775fd4eea4fb0",
+   "created": "2026-10-03T21:36:11Z",
    "diff_abs": 250,
    "diff_pct": 28.57,
-   "independence_note": "contam como independentes C (thiagopatzdorf) e Rust (agente-verif-rust); Python é do mesmo autor da afirmação (agente-c): PASS não conta; agentes do mesmo modelo ≠ independência cognitiva total",
-   "lean": "no Lean theorem currently exists (verified computational witness only)",
+   "equality_claim_status": null,
+   "independence_note": "autor do claim: agente-c; verificadores PASS cujo autor não é o do claim: ['agente-verif-cleanroom', 'agente-verif-rust', 'thiagopatzdorf']; verificadores do mesmo autor contam como um só; agentes do mesmo modelo ≠ independência cognitiva total",
+   "independent_authors_passing": [
+    "agente-verif-cleanroom",
+    "agente-verif-rust",
+    "thiagopatzdorf"
+   ],
+   "lean": "EXISTS_BUILD_NOT_REPRODUCED: CoveringKernel.K5_10_4_le_625_kernel (axiomas só declarados ['propext', 'Classical.choice', 'Quot.sound']; NOT_RUN: lake build CoveringHeavy não executado neste ambiente (~9,3 h de CPU (R)",
+   "lean_theorems_declared_only": [
+    "CoveringKernel.K5_10_4_le_625_kernel"
+   ],
+   "lean_theorems_measured": [],
    "literature_confidence": "baixa-média",
    "literature_note": "código linear [10,4,5]_5; tabela ℓ_5(6,4) não encontrada; não alegar novidade",
    "literature_source": "_literatura/profunda",
@@ -97,12 +142,16 @@
    "size": 625,
    "verifier_authors": {
     "verify-c": "thiagopatzdorf",
+    "verify-cleanroom": "agente-verif-cleanroom",
     "verify-py-dilation": "agente-c",
     "verify-rust": "agente-verif-rust"
    },
-   "verify_c": "PASS",
-   "verify_py_dilation": "PASS",
-   "verify_rust": "PASS",
+   "verifier_results": {
+    "verify-c": "PASS",
+    "verify-cleanroom": "PASS",
+    "verify-py-dilation": "PASS",
+    "verify-rust": "PASS"
+   },
    "witness_id": "w-q5-n10-r4-m625",
    "witness_path": "data/codes/q5_n10_R4_M625.txt",
    "witness_producer": "exp-prior-search-unrecorded"
@@ -116,12 +165,22 @@
    "claim_id": "k5-7-2-ub-500",
    "claim_status": "INDEPENDENTLY_REPRODUCED",
    "classification": "apparent improvement over the currently recorded bound; novelty not yet established",
-   "containing_commit": "676e2ded76f20b3426a82c840a605ed3e23abcfa",
-   "created": "2026-10-03T16:38:07Z",
+   "containing_commit": "986889eaaf52b9b79dffd3f3385775fd4eea4fb0",
+   "created": "2026-10-03T21:36:11Z",
    "diff_abs": 25,
    "diff_pct": 4.76,
-   "independence_note": "contam como independentes C (thiagopatzdorf) e Rust (agente-verif-rust); Python é do mesmo autor da afirmação (agente-c): PASS não conta; agentes do mesmo modelo ≠ independência cognitiva total",
-   "lean": "no Lean theorem currently exists (verified computational witness only)",
+   "equality_claim_status": null,
+   "independence_note": "autor do claim: agente-c; verificadores PASS cujo autor não é o do claim: ['agente-verif-cleanroom', 'agente-verif-rust', 'thiagopatzdorf']; verificadores do mesmo autor contam como um só; agentes do mesmo modelo ≠ independência cognitiva total",
+   "independent_authors_passing": [
+    "agente-verif-cleanroom",
+    "agente-verif-rust",
+    "thiagopatzdorf"
+   ],
+   "lean": "EXISTS_BUILD_NOT_REPRODUCED: CoveringKernel.K5_7_2_le_500_kernel (axiomas só declarados ['propext', 'Classical.choice', 'Quot.sound']; NOT_RUN: lake build CoveringHeavy não executado neste ambiente (~9,3 h de CPU (R)",
+   "lean_theorems_declared_only": [
+    "CoveringKernel.K5_7_2_le_500_kernel"
+   ],
+   "lean_theorems_measured": [],
    "literature_confidence": "média",
    "literature_note": "ADS 478,4 condicional",
    "literature_source": "_literatura/profunda_b",
@@ -133,12 +192,16 @@
    "size": 500,
    "verifier_authors": {
     "verify-c": "thiagopatzdorf",
+    "verify-cleanroom": "agente-verif-cleanroom",
     "verify-py-dilation": "agente-c",
     "verify-rust": "agente-verif-rust"
    },
-   "verify_c": "PASS",
-   "verify_py_dilation": "PASS",
-   "verify_rust": "PASS",
+   "verifier_results": {
+    "verify-c": "PASS",
+    "verify-cleanroom": "PASS",
+    "verify-py-dilation": "PASS",
+    "verify-rust": "PASS"
+   },
    "witness_id": "w-q5-n7-r2-m500",
    "witness_path": "data/codes/q5_n7_R2_M500.txt",
    "witness_producer": "exp-prior-search-unrecorded"
@@ -152,12 +215,22 @@
    "claim_id": "k5-9-3-ub-1250",
    "claim_status": "INDEPENDENTLY_REPRODUCED",
    "classification": "apparent improvement over the currently recorded bound; novelty not yet established",
-   "containing_commit": "676e2ded76f20b3426a82c840a605ed3e23abcfa",
-   "created": "2026-10-03T16:38:07Z",
+   "containing_commit": "986889eaaf52b9b79dffd3f3385775fd4eea4fb0",
+   "created": "2026-10-03T21:36:11Z",
    "diff_abs": 25,
    "diff_pct": 1.96,
-   "independence_note": "contam como independentes C (thiagopatzdorf) e Rust (agente-verif-rust); Python é do mesmo autor da afirmação (agente-c): PASS não conta; agentes do mesmo modelo ≠ independência cognitiva total",
-   "lean": "no Lean theorem currently exists (verified computational witness only)",
+   "equality_claim_status": null,
+   "independence_note": "autor do claim: agente-c; verificadores PASS cujo autor não é o do claim: ['agente-verif-cleanroom', 'agente-verif-rust', 'thiagopatzdorf']; verificadores do mesmo autor contam como um só; agentes do mesmo modelo ≠ independência cognitiva total",
+   "independent_authors_passing": [
+    "agente-verif-cleanroom",
+    "agente-verif-rust",
+    "thiagopatzdorf"
+   ],
+   "lean": "EXISTS_BUILD_NOT_REPRODUCED: CoveringKernel.K5_9_3_le_1250_kernel (axiomas só declarados ['propext', 'Classical.choice', 'Quot.sound']; NOT_RUN: lake build CoveringHeavy não executado neste ambiente (~9,3 h de CPU (R)",
+   "lean_theorems_declared_only": [
+    "CoveringKernel.K5_9_3_le_1250_kernel"
+   ],
+   "lean_theorems_measured": [],
    "literature_confidence": "média",
    "literature_note": "ADS dá 1275 > nosso",
    "literature_source": "_literatura/profunda_b",
@@ -169,12 +242,16 @@
    "size": 1250,
    "verifier_authors": {
     "verify-c": "thiagopatzdorf",
+    "verify-cleanroom": "agente-verif-cleanroom",
     "verify-py-dilation": "agente-c",
     "verify-rust": "agente-verif-rust"
    },
-   "verify_c": "PASS",
-   "verify_py_dilation": "PASS",
-   "verify_rust": "PASS",
+   "verifier_results": {
+    "verify-c": "PASS",
+    "verify-cleanroom": "PASS",
+    "verify-py-dilation": "PASS",
+    "verify-rust": "PASS"
+   },
    "witness_id": "w-q5-n9-r3-m1250",
    "witness_path": "data/codes/q5_n9_R3_M1250.txt",
    "witness_producer": "exp-prior-search-unrecorded"
@@ -188,12 +265,22 @@
    "claim_id": "k5-9-4-ub-250",
    "claim_status": "INDEPENDENTLY_REPRODUCED",
    "classification": "apparent improvement over the currently recorded bound; novelty not yet established",
-   "containing_commit": "676e2ded76f20b3426a82c840a605ed3e23abcfa",
-   "created": "2026-10-03T16:38:07Z",
+   "containing_commit": "986889eaaf52b9b79dffd3f3385775fd4eea4fb0",
+   "created": "2026-10-03T21:36:11Z",
    "diff_abs": 5,
    "diff_pct": 1.96,
-   "independence_note": "contam como independentes C (thiagopatzdorf) e Rust (agente-verif-rust); Python é do mesmo autor da afirmação (agente-c): PASS não conta; agentes do mesmo modelo ≠ independência cognitiva total",
-   "lean": "no Lean theorem currently exists (verified computational witness only)",
+   "equality_claim_status": null,
+   "independence_note": "autor do claim: agente-c; verificadores PASS cujo autor não é o do claim: ['agente-verif-cleanroom', 'agente-verif-rust', 'thiagopatzdorf']; verificadores do mesmo autor contam como um só; agentes do mesmo modelo ≠ independência cognitiva total",
+   "independent_authors_passing": [
+    "agente-verif-cleanroom",
+    "agente-verif-rust",
+    "thiagopatzdorf"
+   ],
+   "lean": "EXISTS_BUILD_NOT_REPRODUCED: CoveringKernel.K5_9_4_le_250_kernel (axiomas só declarados ['propext', 'Classical.choice', 'Quot.sound']; NOT_RUN: lake build CoveringHeavy não executado neste ambiente (~9,3 h de CPU (R)",
+   "lean_theorems_declared_only": [
+    "CoveringKernel.K5_9_4_le_250_kernel"
+   ],
+   "lean_theorems_measured": [],
    "literature_confidence": "média",
    "literature_note": "ADS 245 condicional",
    "literature_source": "_literatura/profunda_b",
@@ -205,12 +292,16 @@
    "size": 250,
    "verifier_authors": {
     "verify-c": "thiagopatzdorf",
+    "verify-cleanroom": "agente-verif-cleanroom",
     "verify-py-dilation": "agente-c",
     "verify-rust": "agente-verif-rust"
    },
-   "verify_c": "PASS",
-   "verify_py_dilation": "PASS",
-   "verify_rust": "PASS",
+   "verifier_results": {
+    "verify-c": "PASS",
+    "verify-cleanroom": "PASS",
+    "verify-py-dilation": "PASS",
+    "verify-rust": "PASS"
+   },
    "witness_id": "w-q5-n9-r4-m250",
    "witness_path": "data/codes/q5_n9_R4_M250.txt",
    "witness_producer": "exp-prior-search-unrecorded"
@@ -224,12 +315,22 @@
    "claim_id": "k5-9-5-ub-50",
    "claim_status": "INDEPENDENTLY_REPRODUCED",
    "classification": "apparent improvement over the currently recorded bound; novelty not yet established",
-   "containing_commit": "676e2ded76f20b3426a82c840a605ed3e23abcfa",
-   "created": "2026-10-03T16:38:07Z",
+   "containing_commit": "986889eaaf52b9b79dffd3f3385775fd4eea4fb0",
+   "created": "2026-10-03T21:36:11Z",
    "diff_abs": 5,
    "diff_pct": 9.09,
-   "independence_note": "contam como independentes C (thiagopatzdorf) e Rust (agente-verif-rust); Python é do mesmo autor da afirmação (agente-c): PASS não conta; agentes do mesmo modelo ≠ independência cognitiva total",
-   "lean": "no Lean theorem currently exists (verified computational witness only)",
+   "equality_claim_status": null,
+   "independence_note": "autor do claim: agente-c; verificadores PASS cujo autor não é o do claim: ['agente-verif-cleanroom', 'agente-verif-rust', 'thiagopatzdorf']; verificadores do mesmo autor contam como um só; agentes do mesmo modelo ≠ independência cognitiva total",
+   "independent_authors_passing": [
+    "agente-verif-cleanroom",
+    "agente-verif-rust",
+    "thiagopatzdorf"
+   ],
+   "lean": "EXISTS_BUILD_NOT_REPRODUCED: CoveringKernel.K5_9_5_le_50_kernel (axiomas só declarados ['propext', 'Classical.choice', 'Quot.sound']; NOT_RUN: lake build CoveringHeavy não executado neste ambiente (~9,3 h de CPU (R)",
+   "lean_theorems_declared_only": [
+    "CoveringKernel.K5_9_5_le_50_kernel"
+   ],
+   "lean_theorems_measured": [],
    "literature_confidence": "média",
    "literature_note": "ADS dá 51 > nosso",
    "literature_source": "_literatura/profunda_b",
@@ -241,12 +342,16 @@
    "size": 50,
    "verifier_authors": {
     "verify-c": "thiagopatzdorf",
+    "verify-cleanroom": "agente-verif-cleanroom",
     "verify-py-dilation": "agente-c",
     "verify-rust": "agente-verif-rust"
    },
-   "verify_c": "PASS",
-   "verify_py_dilation": "PASS",
-   "verify_rust": "PASS",
+   "verifier_results": {
+    "verify-c": "PASS",
+    "verify-cleanroom": "PASS",
+    "verify-py-dilation": "PASS",
+    "verify-rust": "PASS"
+   },
    "witness_id": "w-q5-n9-r5-m50",
    "witness_path": "data/codes/q5_n9_R5_M50.txt",
    "witness_producer": "exp-prior-search-unrecorded"
@@ -258,14 +363,24 @@
     "lit-keri-k7-8-3-ub (PDF 6-21_tables.pdf, Last-Modified 2009-10-15 (diretório e index.htm atualizados até 2011-11-25), 2009-10-15)"
    ],
    "claim_id": "k7-8-3-ub-1887",
-   "claim_status": "INDEPENDENTLY_REPRODUCED",
+   "claim_status": "PROVED",
    "classification": "apparent improvement over the currently recorded bound; novelty not yet established",
-   "containing_commit": "676e2ded76f20b3426a82c840a605ed3e23abcfa",
-   "created": "2026-10-03T16:38:07Z",
+   "containing_commit": "986889eaaf52b9b79dffd3f3385775fd4eea4fb0",
+   "created": "2026-10-03T21:36:11Z",
    "diff_abs": 450,
    "diff_pct": 19.26,
-   "independence_note": "contam como independentes C (thiagopatzdorf) e Rust (agente-verif-rust); Python é do mesmo autor da afirmação (agente-c): PASS não conta; agentes do mesmo modelo ≠ independência cognitiva total",
-   "lean": "no Lean theorem currently exists (verified computational witness only)",
+   "equality_claim_status": null,
+   "independence_note": "autor do claim: agente-c; verificadores PASS cujo autor não é o do claim: ['agente-verif-cleanroom', 'agente-verif-rust', 'thiagopatzdorf']; verificadores do mesmo autor contam como um só; agentes do mesmo modelo ≠ independência cognitiva total",
+   "independent_authors_passing": [
+    "agente-verif-cleanroom",
+    "agente-verif-rust",
+    "thiagopatzdorf"
+   ],
+   "lean": "PROVED_MEASURED: Syn.K7_8_3_le_1887_syn (axiomas ['Classical.choice', 'Quot.sound', 'propext'], sorry_free, build limpo, Lean 4.34.1)",
+   "lean_theorems_declared_only": [],
+   "lean_theorems_measured": [
+    "Syn.K7_8_3_le_1887_syn"
+   ],
    "literature_confidence": "média",
    "literature_note": "risco: ADS (3,1)+(6,2)=1225 condicional a normalidade",
    "literature_source": "_literatura/profunda",
@@ -277,12 +392,16 @@
    "size": 1887,
    "verifier_authors": {
     "verify-c": "thiagopatzdorf",
+    "verify-cleanroom": "agente-verif-cleanroom",
     "verify-py-dilation": "agente-c",
     "verify-rust": "agente-verif-rust"
    },
-   "verify_c": "PASS",
-   "verify_py_dilation": "PASS",
-   "verify_rust": "PASS",
+   "verifier_results": {
+    "verify-c": "PASS",
+    "verify-cleanroom": "PASS",
+    "verify-py-dilation": "PASS",
+    "verify-rust": "PASS"
+   },
    "witness_id": "w-q7-n8-r3-m1887",
    "witness_path": "data/codes/q7_n8_R3_M1887.txt",
    "witness_producer": "exp-prior-search-unrecorded"
@@ -296,12 +415,22 @@
    "claim_id": "k7-8-3-ub-1893",
    "claim_status": "INDEPENDENTLY_REPRODUCED",
    "classification": "apparent improvement over the currently recorded bound; novelty not yet established",
-   "containing_commit": "676e2ded76f20b3426a82c840a605ed3e23abcfa",
-   "created": "2026-10-03T16:38:07Z",
+   "containing_commit": "986889eaaf52b9b79dffd3f3385775fd4eea4fb0",
+   "created": "2026-10-03T21:36:11Z",
    "diff_abs": 444,
    "diff_pct": 19.0,
-   "independence_note": "contam como independentes C (thiagopatzdorf) e Rust (agente-verif-rust); Python é do mesmo autor da afirmação (agente-c): PASS não conta; agentes do mesmo modelo ≠ independência cognitiva total",
-   "lean": "no Lean theorem currently exists (verified computational witness only)",
+   "equality_claim_status": null,
+   "independence_note": "autor do claim: agente-c; verificadores PASS cujo autor não é o do claim: ['agente-verif-cleanroom', 'agente-verif-rust', 'thiagopatzdorf']; verificadores do mesmo autor contam como um só; agentes do mesmo modelo ≠ independência cognitiva total",
+   "independent_authors_passing": [
+    "agente-verif-cleanroom",
+    "agente-verif-rust",
+    "thiagopatzdorf"
+   ],
+   "lean": "EXISTS_BUILD_NOT_REPRODUCED: CoveringKernel.K7_8_3_le_1893_kernel (axiomas só declarados ['propext', 'Classical.choice', 'Quot.sound']; NOT_RUN: lake build CoveringHeavy não executado neste ambiente (~9,3 h de CPU (R)",
+   "lean_theorems_declared_only": [
+    "CoveringKernel.K7_8_3_le_1893_kernel"
+   ],
+   "lean_theorems_measured": [],
    "literature_confidence": "média",
    "literature_note": "superado pelo nosso 1887",
    "literature_source": "_literatura/profunda",
@@ -313,12 +442,16 @@
    "size": 1893,
    "verifier_authors": {
     "verify-c": "thiagopatzdorf",
+    "verify-cleanroom": "agente-verif-cleanroom",
     "verify-py-dilation": "agente-c",
     "verify-rust": "agente-verif-rust"
    },
-   "verify_c": "PASS",
-   "verify_py_dilation": "PASS",
-   "verify_rust": "PASS",
+   "verifier_results": {
+    "verify-c": "PASS",
+    "verify-cleanroom": "PASS",
+    "verify-py-dilation": "PASS",
+    "verify-rust": "PASS"
+   },
    "witness_id": "w-q7-n8-r3-m1893",
    "witness_path": "data/codes/q7_n8_R3_M1893.txt",
    "witness_producer": "exp-prior-search-unrecorded"
@@ -330,17 +463,141 @@
     "lit-marosi-2608-19872-v2 (v2, 2026-08-23)",
     "lit-marosi-2608-19872-v3 (v3, 2026-09-02)"
    ],
-   "claim_id": "k7-9-4-ub-1285",
-   "claim_status": "INDEPENDENTLY_REPRODUCED",
+   "claim_id": "k7-9-4-ub-1137",
+   "claim_status": "PROVED",
    "classification": "apparent improvement over the currently recorded bound; novelty not yet established",
-   "containing_commit": "676e2ded76f20b3426a82c840a605ed3e23abcfa",
-   "created": "2026-10-03T16:38:07Z",
+   "containing_commit": "986889eaaf52b9b79dffd3f3385775fd4eea4fb0",
+   "created": "2026-10-03T21:36:11Z",
+   "diff_abs": 338,
+   "diff_pct": 22.92,
+   "equality_claim_status": null,
+   "independence_note": "autor do claim: agente-c; verificadores PASS cujo autor não é o do claim: ['agente-verif-cleanroom', 'agente-verif-rust', 'thiagopatzdorf']; verificadores do mesmo autor contam como um só; agentes do mesmo modelo ≠ independência cognitiva total",
+   "independent_authors_passing": [
+    "agente-verif-cleanroom",
+    "agente-verif-rust",
+    "thiagopatzdorf"
+   ],
+   "lean": "PROVED_MEASURED: Syn.K7_9_4_le_1137_syn (axiomas ['Classical.choice', 'Quot.sound', 'propext'], sorry_free, build limpo, Lean 4.34.1)",
+   "lean_theorems_declared_only": [],
+   "lean_theorems_measured": [
+    "Syn.K7_9_4_le_1137_syn"
+   ],
+   "literature_confidence": "média",
+   "literature_note": "risco: ADS q=7 931 (<1137) condicional a componentes normais, não verificado; lacunas do STATE_OF_ART (Scholar, bases pagas, teses, periódico)",
+   "literature_source": "STATE_OF_ART.md (conferido) + _literatura/profunda",
+   "literature_state": "NO_PREDECESSOR_FOUND_IN_REVIEWED_SOURCES",
+   "n": 9,
+   "q": 7,
+   "sha256_canonical": "df3e8d527bc393a9680fe4b2b39e7bde088ab6a02f2f94ee26019a5efc05a102",
+   "sha256_file": "df3e8d527bc393a9680fe4b2b39e7bde088ab6a02f2f94ee26019a5efc05a102",
+   "size": 1137,
+   "verifier_authors": {
+    "verify-c": "thiagopatzdorf",
+    "verify-cleanroom": "agente-verif-cleanroom",
+    "verify-py-dilation": "agente-c",
+    "verify-rust": "agente-verif-rust",
+    "verify-val-balls": "thiagopatzdorf",
+    "verify-val-bfs": "thiagopatzdorf",
+    "verify-val-bruteforce": "thiagopatzdorf"
+   },
+   "verifier_results": {
+    "verify-c": "PASS",
+    "verify-cleanroom": "PASS",
+    "verify-py-dilation": "PASS",
+    "verify-rust": "PASS",
+    "verify-val-balls": "PASS",
+    "verify-val-bfs": "PASS",
+    "verify-val-bruteforce": "PASS"
+   },
+   "witness_id": "w-q7-n9-r4-m1137",
+   "witness_path": "data/codes/q7_n9_R4_M1137.txt",
+   "witness_producer": "exp-k7-9-4-1137-regen"
+  },
+  {
+   "R": 4,
+   "best_recorded_bound": 1475,
+   "best_recorded_source": [
+    "lit-marosi-2608-19872-v2 (v2, 2026-08-23)",
+    "lit-marosi-2608-19872-v3 (v3, 2026-09-02)"
+   ],
+   "claim_id": "k7-9-4-ub-1141",
+   "claim_status": "PROVED",
+   "classification": "apparent improvement over the currently recorded bound; novelty not yet established",
+   "containing_commit": "986889eaaf52b9b79dffd3f3385775fd4eea4fb0",
+   "created": "2026-10-03T21:36:11Z",
+   "diff_abs": 334,
+   "diff_pct": 22.64,
+   "equality_claim_status": null,
+   "independence_note": "autor do claim: agente-c; verificadores PASS cujo autor não é o do claim: ['agente-verif-cleanroom', 'agente-verif-rust', 'thiagopatzdorf']; verificadores do mesmo autor contam como um só; agentes do mesmo modelo ≠ independência cognitiva total",
+   "independent_authors_passing": [
+    "agente-verif-cleanroom",
+    "agente-verif-rust",
+    "thiagopatzdorf"
+   ],
+   "lean": "PROVED_MEASURED: Syn.K7_9_4_le_1141_syn (axiomas ['Classical.choice', 'Quot.sound', 'propext'], sorry_free, build limpo, Lean 4.34.1)",
+   "lean_theorems_declared_only": [],
+   "lean_theorems_measured": [
+    "Syn.K7_9_4_le_1141_syn"
+   ],
+   "literature_confidence": "média",
+   "literature_note": "superado pelo nosso 1137; mesmo risco ADS 931 condicional",
+   "literature_source": "STATE_OF_ART.md (conferido) + _literatura/profunda",
+   "literature_state": "NO_PREDECESSOR_FOUND_IN_REVIEWED_SOURCES",
+   "n": 9,
+   "q": 7,
+   "sha256_canonical": "bcb05960410d3f32ccd0de46720606a6df3d0402cb56c67e93766f12e41f5259",
+   "sha256_file": "315692c9c722de4a9865727d8f02419c1e93701f0109683d0574af6b15685e67",
+   "size": 1141,
+   "verifier_authors": {
+    "verify-c": "thiagopatzdorf",
+    "verify-cleanroom": "agente-verif-cleanroom",
+    "verify-py-dilation": "agente-c",
+    "verify-rust": "agente-verif-rust",
+    "verify-val-balls": "thiagopatzdorf",
+    "verify-val-bfs": "thiagopatzdorf",
+    "verify-val-bruteforce": "thiagopatzdorf"
+   },
+   "verifier_results": {
+    "verify-c": "PASS",
+    "verify-cleanroom": "PASS",
+    "verify-py-dilation": "PASS",
+    "verify-rust": "PASS",
+    "verify-val-balls": "PASS",
+    "verify-val-bfs": "PASS",
+    "verify-val-bruteforce": "PASS"
+   },
+   "witness_id": "w-q7-n9-r4-m1141",
+   "witness_path": "data/codes/q7_n9_R4_M1141.txt",
+   "witness_producer": "exp-k7-9-4-1141-kit"
+  },
+  {
+   "R": 4,
+   "best_recorded_bound": 1475,
+   "best_recorded_source": [
+    "lit-marosi-2608-19872-v2 (v2, 2026-08-23)",
+    "lit-marosi-2608-19872-v3 (v3, 2026-09-02)"
+   ],
+   "claim_id": "k7-9-4-ub-1285",
+   "claim_status": "PROVED",
+   "classification": "apparent improvement over the currently recorded bound; novelty not yet established",
+   "containing_commit": "986889eaaf52b9b79dffd3f3385775fd4eea4fb0",
+   "created": "2026-10-03T21:36:11Z",
    "diff_abs": 190,
    "diff_pct": 12.88,
-   "independence_note": "contam como independentes C (thiagopatzdorf) e Rust (agente-verif-rust); Python é do mesmo autor da afirmação (agente-c): PASS não conta; agentes do mesmo modelo ≠ independência cognitiva total",
-   "lean": "no Lean theorem currently exists (verified computational witness only)",
+   "equality_claim_status": null,
+   "independence_note": "autor do claim: agente-c; verificadores PASS cujo autor não é o do claim: ['agente-verif-cleanroom', 'agente-verif-rust', 'thiagopatzdorf']; verificadores do mesmo autor contam como um só; agentes do mesmo modelo ≠ independência cognitiva total",
+   "independent_authors_passing": [
+    "agente-verif-cleanroom",
+    "agente-verif-rust",
+    "thiagopatzdorf"
+   ],
+   "lean": "PROVED_MEASURED: Syn.K7_9_4_le_1285_syn (axiomas ['Classical.choice', 'Quot.sound', 'propext'], sorry_free, build limpo, Lean 4.34.1)",
+   "lean_theorems_declared_only": [],
+   "lean_theorems_measured": [
+    "Syn.K7_9_4_le_1285_syn"
+   ],
    "literature_confidence": "média",
-   "literature_note": "risco: ADS q=7 (931/1225/1344) condicional a componentes normais, não verificado",
+   "literature_note": "risco: ADS q=7 (931/1225/1344) condicional a componentes normais, não verificado; superado pelo nosso 1137",
    "literature_source": "_literatura/profunda",
    "literature_state": "NO_PREDECESSOR_FOUND_IN_REVIEWED_SOURCES",
    "n": 9,
@@ -350,12 +607,22 @@
    "size": 1285,
    "verifier_authors": {
     "verify-c": "thiagopatzdorf",
+    "verify-cleanroom": "agente-verif-cleanroom",
     "verify-py-dilation": "agente-c",
-    "verify-rust": "agente-verif-rust"
+    "verify-rust": "agente-verif-rust",
+    "verify-val-balls": "thiagopatzdorf",
+    "verify-val-bfs": "thiagopatzdorf",
+    "verify-val-bruteforce": "thiagopatzdorf"
    },
-   "verify_c": "PASS",
-   "verify_py_dilation": "PASS",
-   "verify_rust": "PASS",
+   "verifier_results": {
+    "verify-c": "PASS",
+    "verify-cleanroom": "PASS",
+    "verify-py-dilation": "PASS",
+    "verify-rust": "PASS",
+    "verify-val-balls": "PASS",
+    "verify-val-bfs": "PASS",
+    "verify-val-bruteforce": "PASS"
+   },
    "witness_id": "w-q7-n9-r4-m1285",
    "witness_path": "data/codes/q7_n9_R4_M1285.txt",
    "witness_producer": "exp-k7-9-4-1285-regen"
@@ -368,16 +635,28 @@
     "lit-marosi-2608-19872-v3 (v3, 2026-09-02)"
    ],
    "claim_id": "k7-9-4-ub-1351",
-   "claim_status": "INDEPENDENTLY_REPRODUCED",
+   "claim_status": "PROVED",
    "classification": "apparent improvement over the currently recorded bound; novelty not yet established",
-   "containing_commit": "676e2ded76f20b3426a82c840a605ed3e23abcfa",
-   "created": "2026-10-03T16:38:07Z",
+   "containing_commit": "986889eaaf52b9b79dffd3f3385775fd4eea4fb0",
+   "created": "2026-10-03T21:36:11Z",
    "diff_abs": 124,
    "diff_pct": 8.41,
-   "independence_note": "contam como independentes C (thiagopatzdorf) e Rust (agente-verif-rust); Python é do mesmo autor da afirmação (agente-c): PASS não conta; agentes do mesmo modelo ≠ independência cognitiva total",
-   "lean": "EXISTS_BUILD_NOT_REPRODUCED: theorem K3_K7_9_4_Final declared; CoveringHeavy (~12.4 h CPU) not built here; axioms declared, not measured",
+   "equality_claim_status": null,
+   "independence_note": "autor do claim: agente-c; verificadores PASS cujo autor não é o do claim: ['agente-verif-cleanroom', 'agente-verif-rust', 'thiagopatzdorf']; verificadores do mesmo autor contam como um só; agentes do mesmo modelo ≠ independência cognitiva total",
+   "independent_authors_passing": [
+    "agente-verif-cleanroom",
+    "agente-verif-rust",
+    "thiagopatzdorf"
+   ],
+   "lean": "PROVED_MEASURED: Syn.K7_9_4_le_1351_syn (axiomas ['Classical.choice', 'Quot.sound', 'propext'], sorry_free, build limpo, Lean 4.34.1) | EXISTS_BUILD_NOT_REPRODUCED: CoveringKernel.K7_9_4_le_1351_kernel (axiomas só declarados ['propext', 'Classical.choice', 'Quot.sound']; NOT_RUN: lake build CoveringHeavy não executado neste ambiente (~9,3 h de CPU (R)",
+   "lean_theorems_declared_only": [
+    "CoveringKernel.K7_9_4_le_1351_kernel"
+   ],
+   "lean_theorems_measured": [
+    "Syn.K7_9_4_le_1351_syn"
+   ],
    "literature_confidence": "baixa-média",
-   "literature_note": "superado pelo nosso 1285",
+   "literature_note": "superado pelo nosso 1137",
    "literature_source": "_literatura/profunda",
    "literature_state": "NO_PREDECESSOR_FOUND_IN_REVIEWED_SOURCES",
    "n": 9,
@@ -387,12 +666,22 @@
    "size": 1351,
    "verifier_authors": {
     "verify-c": "thiagopatzdorf",
+    "verify-cleanroom": "agente-verif-cleanroom",
     "verify-py-dilation": "agente-c",
-    "verify-rust": "agente-verif-rust"
+    "verify-rust": "agente-verif-rust",
+    "verify-val-balls": "thiagopatzdorf",
+    "verify-val-bfs": "thiagopatzdorf",
+    "verify-val-bruteforce": "thiagopatzdorf"
    },
-   "verify_c": "PASS",
-   "verify_py_dilation": "PASS",
-   "verify_rust": "PASS",
+   "verifier_results": {
+    "verify-c": "PASS",
+    "verify-cleanroom": "PASS",
+    "verify-py-dilation": "PASS",
+    "verify-rust": "PASS",
+    "verify-val-balls": "PASS",
+    "verify-val-bfs": "PASS",
+    "verify-val-bruteforce": "PASS"
+   },
    "witness_id": "w-q7-n9-r4-m1351",
    "witness_path": "data/codes/q7_n9_R4_M1351.txt",
    "witness_producer": "exp-k7-9-4-1351-lincov"

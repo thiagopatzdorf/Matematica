@@ -6,11 +6,17 @@
       "id": "ambiente",
       "report_versions": [
         "cc",
-        "python3"
+        "python3",
+        "go",
+        "rustc"
       ],
       "requires": [
         "cc",
-        "python3"
+        "python3",
+        "go",
+        "rustc",
+        "cargo",
+        "pytest"
       ],
       "type": "ambiente"
     },
@@ -52,6 +58,17 @@
     {
       "command": [
         "python3",
+        "scripts/search/gen.py",
+        "data/search/p1137.json",
+        "/tmp/covering_p1137_regen.txt"
+      ],
+      "id": "gerador-1137",
+      "timeout_s": 120,
+      "type": "gerador"
+    },
+    {
+      "command": [
+        "python3",
         "scripts/k261/sc_ref.py",
         "6",
         "10",
@@ -65,26 +82,53 @@
       "command": [
         "python3",
         "-m",
-        "unittest",
-        "discover",
-        "-s",
-        "tests",
-        "-v"
+        "pytest",
+        "-q",
+        "tests"
       ],
-      "id": "testes-unittest",
-      "timeout_s": 900,
+      "id": "testes-pytest",
+      "timeout_s": 1800,
       "type": "teste"
     },
     {
-      "id": "verificadores-sobre-witnesses",
-      "type": "verificadores"
+      "id": "verificadores-gerais-sobre-witnesses",
+      "type": "verificadores",
+      "verifiers": [
+        "verify-c",
+        "verify-py-dilation",
+        "verify-rust",
+        "verify-cleanroom"
+      ]
+    },
+    {
+      "id": "verificadores-k794-sobre-witnesses-k7-9-4",
+      "subjects": [
+        "w-q7-n9-r4-m1351",
+        "w-q7-n9-r4-m1285",
+        "w-q7-n9-r4-m1141",
+        "w-q7-n9-r4-m1137"
+      ],
+      "type": "verificadores",
+      "verifiers": [
+        "verify-val-bruteforce",
+        "verify-val-balls",
+        "verify-val-bfs"
+      ]
     },
     {
       "id": "lake-build-alvo-padrao",
       "lean_root": ".",
-      "nota": "alvo padrão CoveringLean (8942 jobs); CoveringHeavy (~12,4 h de CPU) NÃO está aqui",
+      "nota": "alvo padrão CoveringLean (8944 jobs, com SynCheck/SynBridge)",
       "opcional": true,
       "target": null,
+      "type": "lean_build"
+    },
+    {
+      "id": "lake-build-coveringsyn",
+      "lean_root": ".",
+      "nota": "os cinco teoremas por síndromes (~10 min de relógio); CoveringHeavy (~9,3 h de CPU) NÃO está aqui",
+      "opcional": true,
+      "target": "CoveringSyn",
       "type": "lean_build"
     },
     {

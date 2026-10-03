@@ -1,7 +1,7 @@
 {
   "axioms": null,
-  "axioms_status": "DECLARED_NOT_REPRODUCED: README.md:11 e paper/main.tex:156; o módulo é do alvo CoveringHeavy (~12,4 h de CPU), não compilado aqui",
-  "build_status": "NOT_RUN: lake build CoveringHeavy não executado neste ambiente",
+  "axioms_status": "DECLARED_NOT_REPRODUCED: README.md ('Nenhum sorry, nenhum native_decide, e todo #print axioms mostra no máximo propext, Classical.choice, Quot.sound'); o módulo é do alvo CoveringHeavy, custo ~9,3 h de CPU (README.md: `lake build CoveringHeavy` 1 h 54 min de relógio, pico 9,4 GB por processo): não compilado nesta campanha",
+  "build_status": "NOT_RUN: lake build CoveringHeavy não executado neste ambiente (~9,3 h de CPU (README.md: `lake build CoveringHeavy` 1 h 54 min de relógio, pico 9,4 GB por processo))",
   "clean_build": false,
   "declared_axioms": [
     "propext",
@@ -17,7 +17,7 @@
   "mathlib_commit": "d13f23b723b8a846827a245b89c10fc7d3f11612",
   "measured": null,
   "module": "CoveringLean.SearchK6ge12",
-  "repo_commit": "1df5526dc0275a9ace7c2bd86e7832f92ef1aa34",
+  "repo_commit": "986889eaaf52b9b79dffd3f3385775fd4eea4fb0",
   "scan_findings": [],
   "sorry_free": true,
   "sorry_free_basis": "varredura estática de 40 fontes (não é build)",

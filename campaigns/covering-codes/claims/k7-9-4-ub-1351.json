@@ -9,27 +9,34 @@
     "value": 1351
   },
   "claim_id": "k7-9-4-ub-1351",
+  "complementary_formal": [
+    "f-heavy-k7-9-4-1351"
+  ],
+  "complementary_formal_note": "teorema por prefixos (CoveringHeavy) DECLARADO, não reproduzido; fica fora de evidence.formal de propósito",
   "counterexample_search": {
-    "method": "claim de existência: o witness é o certificado; dois verificadores independentes procuram ponto descoberto (uncovered=0)",
-    "result": "uncovered=0 nos dois verificadores",
+    "method": "claim de existência: o witness é o certificado; verificadores independentes procuram ponto descoberto (uncovered=0)",
+    "result": "uncovered=0 nos verificadores",
     "status": "completed"
   },
-  "created": "2026-10-03T16:43:50Z",
+  "created": "2026-10-03T21:53:49Z",
   "created_by": "agente-c",
   "created_role": "PROPOSER",
   "depends_on": [
+    "syn-cert-lemma",
     "cert-of-go-lemma"
   ],
   "evidence": {
     "counterexamples": [],
     "experiments": [
       "exp-k7-9-4-1351-lincov",
+      "exp-state-of-art-crosscheck",
+      "exp-lean-syn-data-equals-witness-1351",
       "exp-lean-data-equals-witness-1351",
       "exp-structure-regeneration"
     ],
     "external_reproductions": [],
     "formal": [
-      "f-k7-9-4-le-1351"
+      "f-syn-1351"
     ],
     "literature": [
       "lit-keri-k7-9-4-ub",
@@ -44,9 +51,6 @@
     ]
   },
   "formal_verification_blockers": [
-    "f-k7-9-4-le-1351: clean_build não é true",
-    "f-k7-9-4-le-1351: axiomas não registrados (`#print axioms` não foi capturado)",
-    "f-k7-9-4-le-1351: ambiente não registrado: falta lean_version",
     "falta statement_review: o Lean certifica o enunciado formal, não que ele é o enunciado pretendido; um revisor humano/independente precisa ler"
   ],
   "history": [
@@ -56,7 +60,7 @@
       "reason": "criado",
       "role": "PROPOSER",
       "to": "IDEA",
-      "ts": "2026-10-03T16:43:50Z"
+      "ts": "2026-10-03T21:53:49Z"
     },
     {
       "actor": "agente-c",
@@ -64,7 +68,7 @@
       "reason": "evidência anexada: witnesses=w-q7-n9-r4-m1351",
       "role": "PROPOSER",
       "to": "IDEA",
-      "ts": "2026-10-03T16:43:50Z"
+      "ts": "2026-10-03T21:53:49Z"
     },
     {
       "actor": "agente-c",
@@ -72,7 +76,7 @@
       "reason": "evidência anexada: experiments=exp-k7-9-4-1351-lincov",
       "role": "PROPOSER",
       "to": "IDEA",
-      "ts": "2026-10-03T16:43:50Z"
+      "ts": "2026-10-03T21:53:49Z"
     },
     {
       "actor": "agente-c",
@@ -80,7 +84,7 @@
       "reason": "evidência anexada: literature=lit-keri-k7-9-4-ub",
       "role": "PROPOSER",
       "to": "IDEA",
-      "ts": "2026-10-03T16:43:50Z"
+      "ts": "2026-10-03T21:53:49Z"
     },
     {
       "actor": "agente-c",
@@ -88,7 +92,7 @@
       "reason": "evidência anexada: literature=lit-marosi-2608-19872-v1",
       "role": "PROPOSER",
       "to": "IDEA",
-      "ts": "2026-10-03T16:43:50Z"
+      "ts": "2026-10-03T21:53:49Z"
     },
     {
       "actor": "agente-c",
@@ -96,7 +100,7 @@
       "reason": "evidência anexada: literature=lit-marosi-2608-19872-v2",
       "role": "PROPOSER",
       "to": "IDEA",
-      "ts": "2026-10-03T16:43:50Z"
+      "ts": "2026-10-03T21:53:49Z"
     },
     {
       "actor": "agente-c",
@@ -104,7 +108,31 @@
       "reason": "evidência anexada: literature=lit-marosi-2608-19872-v3",
       "role": "PROPOSER",
       "to": "IDEA",
-      "ts": "2026-10-03T16:43:50Z"
+      "ts": "2026-10-03T21:53:49Z"
+    },
+    {
+      "actor": "agente-c",
+      "from": "IDEA",
+      "reason": "evidência anexada: experiments=exp-state-of-art-crosscheck",
+      "role": "PROPOSER",
+      "to": "IDEA",
+      "ts": "2026-10-03T21:53:49Z"
+    },
+    {
+      "actor": "agente-c",
+      "from": "IDEA",
+      "reason": "evidência anexada: experiments=exp-lean-syn-data-equals-witness-1351",
+      "role": "PROPOSER",
+      "to": "IDEA",
+      "ts": "2026-10-03T21:53:49Z"
+    },
+    {
+      "actor": "agente-c",
+      "from": "IDEA",
+      "reason": "evidência anexada: formal=f-syn-1351",
+      "role": "PROPOSER",
+      "to": "IDEA",
+      "ts": "2026-10-03T21:53:49Z"
     },
     {
       "actor": "agente-c",
@@ -112,7 +140,7 @@
       "reason": "evidência anexada: experiments=exp-lean-data-equals-witness-1351",
       "role": "PROPOSER",
       "to": "IDEA",
-      "ts": "2026-10-03T16:43:50Z"
+      "ts": "2026-10-03T21:53:49Z"
     },
     {
       "actor": "agente-c",
@@ -120,23 +148,23 @@
       "reason": "evidência anexada: experiments=exp-structure-regeneration",
       "role": "PROPOSER",
       "to": "IDEA",
-      "ts": "2026-10-03T16:43:50Z"
-    },
-    {
-      "actor": "agente-c",
-      "from": "IDEA",
-      "reason": "evidência anexada: formal=f-k7-9-4-le-1351",
-      "role": "PROPOSER",
-      "to": "IDEA",
-      "ts": "2026-10-03T16:43:50Z"
+      "ts": "2026-10-03T21:53:49Z"
     },
     {
       "actor": "migrate_covering.py",
       "from": "IDEA",
-      "reason": "2 verificadores de autores/grupos distintos, PASS válido e sem desacordo, neste run",
+      "reason": "verificadores de autores/grupos distintos, PASS válido e sem desacordo, neste run",
       "role": "INDEPENDENT_VERIFIER",
       "to": "INDEPENDENTLY_REPRODUCED",
-      "ts": "2026-10-03T16:43:50Z"
+      "ts": "2026-10-03T21:53:49Z"
+    },
+    {
+      "actor": "migrate_covering.py",
+      "from": "INDEPENDENTLY_REPRODUCED",
+      "reason": "Syn.K7_9_4_le_1351_syn medido no kernel (axiomas só os esperados) + verificadores independentes (a guarda de PROVED exige os dois)",
+      "role": "FORMALIZER",
+      "to": "PROVED",
+      "ts": "2026-10-03T21:53:49Z"
     }
   ],
   "kind": "theorem",
@@ -148,7 +176,7 @@
       "lit-marosi-2608-19872-v3 (v3, 2026-09-02)"
     ],
     "nosso": 1351,
-    "nota": "melhora aparente, a confirmar por revisão externa (não é afirmação de novidade: livros/artigos não lidos podem ter predecessor); mas é PIOR que o nosso próprio 1285 da mesma célula",
+    "nota": "melhora aparente, a confirmar por revisão externa (não é afirmação de novidade: livros/artigos não lidos podem ter predecessor); mas é PIOR que o nosso próprio 1137 da mesma célula",
     "veredito": "melhor_que_a_registrada"
   },
   "reviewed_by": [],
@@ -167,19 +195,21 @@
     "experiments": [
       "exp-k7-9-4-1351-lincov",
       "exp-lean-data-equals-witness-1351",
+      "exp-lean-syn-data-equals-witness-1351",
+      "exp-state-of-art-crosscheck",
       "exp-structure-regeneration"
     ],
     "formal": [
-      "f-k7-9-4-le-1351"
+      "f-syn-1351"
     ],
     "proofs": [],
     "witnesses": [
       "w-q7-n9-r4-m1351"
     ]
   },
-  "sealed_sha256": "556133889568f6a64ce6f5f75e2a53662bb7e16cb03e094710fa55b60c1d1b8a",
+  "sealed_sha256": "b78e546ed91b8e608ad6d16109643ca498005a03a2b85f762bf363e233a198bd",
   "statement": "Existe código C em (Z_7)^9 com |C| = 1351 que cobre com raio 4 (data/codes/q7_n9_R4_M1351.txt).",
-  "status": "INDEPENDENTLY_REPRODUCED",
+  "status": "PROVED",
   "trust_boundary": [
     {
       "component": "tools/verify/verify.c compilado com gcc 13.3 (-Werror)",
@@ -194,12 +224,16 @@
       "trusted_for": "convenção de dígitos little-endian e do sha256 canônico"
     },
     {
-      "component": "Lean kernel (K7_9_4_le_1351_kernel), DECLARADO não reproduzido",
-      "trusted_for": "mesmo código, certificado pesado"
+      "component": "Syn.K7_9_4_le_1351_syn (lib CoveringSyn): axiomas MEDIDOS nesta campanha (f-syn-1351)",
+      "trusted_for": "que existe C com |C| = M e Covers R C, no kernel do Lean"
     },
     {
-      "component": "C1_Data_K7_9_4.lean == witness (medido: exp-lean-data-equals-witness-1351)",
+      "component": "CoveringLean/SynData_K1351.lean == witness (medido: exp-lean-syn-data-equals-witness-1351)",
       "trusted_for": "elo entre o teorema e o arquivo"
+    },
+    {
+      "component": "Lean kernel (CoveringKernel.K7_9_4_le_1351_kernel), DECLARADO, não reproduzido (~9,3 h de CPU (README.md: `lake build CoveringHeavy` 1 h 54 min de relógio, pico 9,4 GB por processo))",
+      "trusted_for": "mesmo código, certificado por prefixos"
     },
     {
       "component": "literatura registrada (Kéri/Marosi), declarada",

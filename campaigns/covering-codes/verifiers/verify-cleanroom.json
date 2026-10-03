@@ -1,0 +1,49 @@
+{
+  "build": [
+    [
+      "go",
+      "build",
+      "-C",
+      "tools/verify-cleanroom",
+      "-o",
+      "{workdir}/verify-cleanroom",
+      "."
+    ]
+  ],
+  "command": [
+    "{workdir}/verify-cleanroom",
+    "--q",
+    "{param:q}",
+    "--n",
+    "{param:n}",
+    "--R",
+    "{param:R}",
+    "--M",
+    "{param:M}",
+    "{witness}"
+  ],
+  "compartilha_logica_com": [],
+  "fail_exit_codes": [
+    1,
+    2
+  ],
+  "implemented_by": "agente-verif-cleanroom",
+  "independence_group": "go-bfs-multisource",
+  "language": "go",
+  "notes": "Escrito por outro agente (declarado no README da ferramenta) que NÃO leu verify.c, verify_cover_dilation.py nem tools/verify-rust; BFS multi-fonte no grafo de Hamming H(n,q), O(q^n·n·q). O git log só assina 'Claude' (motor), então a autoria distinta é a DECLARADA no README, não verificável pelo git. Independente em linguagem, código e algoritmo; NÃO em especificação do problema. Contrato de saída: 0 cobre, 1 ponto descoberto, 2 o witness contradiz os parâmetros (FAIL = fail_exit_codes [1, 2]); 3 uso/falha operacional (ERROR, nunca FAIL). Recebe q,n,R,M por {param:NOME} e rejeita nome de arquivo que diga outra instância. Modificado em 2026-10-03 por agente-pilot-v2 (parâmetros explícitos); o autor original (implemented_by) segue o do git log.",
+  "registered": "2026-10-03T21:36:11Z",
+  "source_files": [
+    {
+      "normalized_sha256": "7c41556d298dfdafc7cfbccbbe2366a35d7d4ef0419792fdd730ebaeff7f49dc",
+      "path": "tools/verify-cleanroom/main.go",
+      "sha256": "914c71084388e0b94586268554c7716fbd64863d77a88457f667bd3ce584645c"
+    },
+    {
+      "normalized_sha256": "6e712215a1e50a69de87af0c0ab445ad7f7601600d04eb3178512d2876010aa4",
+      "path": "tools/verify-cleanroom/go.mod",
+      "sha256": "6105a230eb1ee52b359b34016e43eb7a57d32eaef2b758152cd7d8d90aea25f0"
+    }
+  ],
+  "timeout_s": 300,
+  "verifier_id": "verify-cleanroom"
+}

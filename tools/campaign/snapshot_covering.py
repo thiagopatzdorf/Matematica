@@ -1,7 +1,8 @@
 #!/usr/bin/env python3
 """Congela o estado científico dos códigos de cobertura a partir dos DADOS
-(witnesses, verifier_runs, formal, claims), nunca de README/paper: editar texto
-não muda estado. Saída: campaigns/covering-codes/snapshot/{SNAPSHOT.json,
+(witnesses, verifier_runs, verifiers, formal, claims), nunca de README/paper: editar texto
+não muda estado. O estado Lean sai dos REGISTROS FORMAIS ligados ao claim (axiomas medidos,
+sorry_free, build limpo), não de texto. Saída: campaigns/covering-codes/snapshot/{SNAPSHOT.json,
 SNAPSHOT.csv,SNAPSHOT.md}. Determinístico dado o mesmo estado da campanha."""
 import csv, json, subprocess, sys
 from pathlib import Path
@@ -9,12 +10,15 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[2]
 CAMP = ROOT / "campaigns" / "covering-codes"
 OUT = CAMP / "snapshot"
+AXIOMAS_ESPERADOS = {"propext", "Classical.choice", "Quot.sound"}
 
-# Estado de literatura vem das revisões profundas (campaigns/.../_literatura/profunda*/),
-# transcrito aqui à mão: NENHUM é NOVELTY_EXTERNALLY_CONFIRMED (isso não se autoatribui).
+# Estado de literatura vem das revisões profundas (campaigns/.../_literatura/profunda*/ e STATE_OF_ART.md conferido em
+# exp-state-of-art-crosscheck), transcrito aqui à mão: NENHUM é NOVELTY_EXTERNALLY_CONFIRMED (isso não se autoatribui).
 LIT = {
- "w-q7-n9-r4-m1285": ("NO_PREDECESSOR_FOUND_IN_REVIEWED_SOURCES", "média", "_literatura/profunda", "risco: ADS q=7 (931/1225/1344) condicional a componentes normais, não verificado"),
- "w-q7-n9-r4-m1351": ("NO_PREDECESSOR_FOUND_IN_REVIEWED_SOURCES", "baixa-média", "_literatura/profunda", "superado pelo nosso 1285"),
+ "w-q7-n9-r4-m1137": ("NO_PREDECESSOR_FOUND_IN_REVIEWED_SOURCES", "média", "STATE_OF_ART.md (conferido) + _literatura/profunda", "risco: ADS q=7 931 (<1137) condicional a componentes normais, não verificado; lacunas do STATE_OF_ART (Scholar, bases pagas, teses, periódico)"),
+ "w-q7-n9-r4-m1141": ("NO_PREDECESSOR_FOUND_IN_REVIEWED_SOURCES", "média", "STATE_OF_ART.md (conferido) + _literatura/profunda", "superado pelo nosso 1137; mesmo risco ADS 931 condicional"),
+ "w-q7-n9-r4-m1285": ("NO_PREDECESSOR_FOUND_IN_REVIEWED_SOURCES", "média", "_literatura/profunda", "risco: ADS q=7 (931/1225/1344) condicional a componentes normais, não verificado; superado pelo nosso 1137"),
+ "w-q7-n9-r4-m1351": ("NO_PREDECESSOR_FOUND_IN_REVIEWED_SOURCES", "baixa-média", "_literatura/profunda", "superado pelo nosso 1137"),
  "w-q7-n8-r3-m1887": ("NO_PREDECESSOR_FOUND_IN_REVIEWED_SOURCES", "média", "_literatura/profunda", "risco: ADS (3,1)+(6,2)=1225 condicional a normalidade"),
  "w-q7-n8-r3-m1893": ("NO_PREDECESSOR_FOUND_IN_REVIEWED_SOURCES", "média", "_literatura/profunda", "superado pelo nosso 1887"),
  "w-q5-n10-r4-m625": ("NO_PREDECESSOR_FOUND_IN_REVIEWED_SOURCES", "baixa-média", "_literatura/profunda", "código linear [10,4,5]_5; tabela ℓ_5(6,4) não encontrada; não alegar novidade"),
@@ -28,45 +32,77 @@ LIT = {
 
 def jl(p): return json.loads(Path(p).read_text())
 
+def formal_medido(f):
+    """Registro formal MEDIDO e limpo (mesma conferência da fronteira do Lean, sem importar a infraestrutura)."""
+    return (f.get("axioms") is not None and set(f["axioms"]) <= AXIOMAS_ESPERADOS and f.get("sorry_free") is True and f.get("clean_build") is True
+            and all(f.get(k) for k in ("lean_version", "mathlib_commit", "repo_commit")))
+
+def lean_state(claim, formal):
+    """Estado Lean DERIVADO dos registros formais do claim (evidence.formal e complementary_formal)."""
+    if not claim:
+        return "no claim", [], []
+    ids = list(claim["evidence"].get("formal", [])) + list(claim.get("complementary_formal", []))
+    medidos = [formal[i] for i in ids if i in formal and formal_medido(formal[i])]
+    declarados = [formal[i] for i in ids if i in formal and not formal_medido(formal[i])]
+    partes = []
+    if medidos:
+        partes.append("PROVED_MEASURED: " + "; ".join(f"{f['theorem']} (axiomas {sorted(f['axioms'])}, sorry_free, build limpo, {f.get('lean_version','').split(',')[0].replace('Lean (version ','Lean ')})" for f in medidos))
+    if declarados:
+        partes.append("EXISTS_BUILD_NOT_REPRODUCED: " + "; ".join(f"{f['theorem']} (axiomas só declarados {f.get('declared_axioms')}; {f.get('build_status','')[:80]})" for f in declarados))
+    if not partes:
+        partes.append("no Lean theorem currently registered (verified computational witness only)")
+    return " | ".join(partes), [f["theorem"] for f in medidos], [f["theorem"] for f in declarados]
+
 def main():
     commit = subprocess.check_output(["git", "-C", str(ROOT), "rev-parse", "HEAD"], text=True).strip()
     runs = {}
     for f in sorted((CAMP / "verifier_runs").glob("*.json")):
-        r = jl(f); runs.setdefault(r["subject_id"], {})[r["verifier_id"]] = r  # a última corrida por verificador
-    vers = {jl(f)["verifier_id"] if "verifier_id" in jl(f) else f.stem: jl(f) for f in (CAMP / "verifiers").glob("*.json")}
+        r = jl(f); runs.setdefault(r["subject_id"], {})[r["verifier_id"]] = r  # a última corrida por verificador (ordem do nome = ordem do tempo)
+    vers = {jl(f).get("verifier_id", f.stem): jl(f) for f in (CAMP / "verifiers").glob("*.json")}
     claims = {c["claim_id"]: c for c in (jl(f) for f in (CAMP / "claims").glob("*.json"))}
-    formal = [jl(f) for f in (CAMP / "formal").glob("*.json")]
+    formal = {f["formal_id"]: f for f in (jl(p) for p in (CAMP / "formal").glob("*.json"))}
     rows = []
     for wf in sorted((CAMP / "witnesses").glob("*.json")):
         w = jl(wf); wid = wf.stem; p = w["parameters"]
         ub = [c for c in claims.values() if c["kind"] != "conjecture" and c.get("bound", {}) and c["bound"].get("direction") == "upper"
               and {k: p[k] for k in "qnR"} == c["bound"]["parameters"] and c["bound"]["value"] == p["M"] and wid in c["evidence"].get("witnesses", [])]
         c = ub[0] if ub else None
+        if wid == "w-q2-n6-r1-m12":  # K_2(6,1): o witness é complementar do claim ub (fora de evidence.witnesses de propósito)
+            c = claims.get("k2-6-1-ub-12")
         lc = (c or {}).get("literature_comparison", {})
         best = lc.get("melhor_registrada")
         r = runs.get(wid, {})
-        lean = [f for f in formal if c and f.get("formal_id", "").startswith("f-k7-9-4-le") and p == {"q": 7, "n": 9, "R": 4, "M": 1351}] if False else []
-        lean_state = "no Lean theorem currently exists (verified computational witness only)"
-        if wid == "w-q7-n9-r4-m1351":
-            lean_state = "EXISTS_BUILD_NOT_REPRODUCED: theorem K3_K7_9_4_Final declared; CoveringHeavy (~12.4 h CPU) not built here; axioms declared, not measured"
-        if wid == "w-q2-n6-r1-m12":
-            lean_state = "EXISTS_BUILD_NOT_REPRODUCED: K_2(6,1)=12 via CoveringHeavy chunks not built here; lower bound 11 PROVED separately (default build)"
+        lean, lean_ok, lean_decl = lean_state(c, formal)
+        if wid == "w-q2-n6-r1-m12":  # K_2(6,1) = 12: o claim de igualdade guarda o Lean pesado; o teorema medido do 12 é o do claim ub
+            c_eq = claims.get("k2-6-1-eq-12")
+            lean2, ok2, decl2 = lean_state(claims.get("k2-6-1-ub-12"), formal)
+            lean, lean_ok = lean2, ok2
+            _, _, decl_eq = lean_state(c_eq, formal)
+            lean_decl = decl_eq
+            lean += " | igualdade K_2(6,1)=12: EXISTS_BUILD_NOT_REPRODUCED: " + "; ".join(decl_eq) + " (CoveringHeavy não construído aqui); K_2(6,1) >= 11 PROVED_MEASURED separadamente (alvo padrão)"
         st, conf, src, note = LIT.get(wid, ("?", "?", "", ""))
         cnt = {k: v["result"] for k, v in r.items()}
+        autores = {k: vers.get(k, {}).get("implemented_by") for k in cnt}
+        criador = (c or {}).get("created_by")
+        # componentes independentes por AUTOR (a guarda da infraestrutura também usa grupo/fonte/hash; aqui só o que o snapshot consegue ler dos dados)
+        passam = sorted(k for k, v in cnt.items() if v == "PASS")
+        autores_validos = sorted({autores[k] for k in passam if autores[k] and autores[k] != criador})
         rows.append({
             "witness_id": wid, "q": p["q"], "n": p["n"], "R": p["R"], "size": p["M"],
             "witness_path": w["path"], "sha256_file": w["sha256"], "sha256_canonical": w["canonical_sha256"],
             "created": w.get("created"), "witness_producer": w.get("produced_by"),
             "containing_commit": commit,
-            "verify_c": cnt.get("verify-c"), "verify_rust": cnt.get("verify-rust"),
-            "verify_py_dilation": cnt.get("verify-py-dilation"),
-            "verifier_authors": {k: vers.get(k, {}).get("implemented_by") for k in ("verify-c", "verify-rust", "verify-py-dilation")},
-            "independence_note": "contam como independentes C (thiagopatzdorf) e Rust (agente-verif-rust); Python é do mesmo autor da afirmação (agente-c): PASS não conta; agentes do mesmo modelo ≠ independência cognitiva total",
+            "verifier_results": cnt, "verifier_authors": autores,
+            "independent_authors_passing": autores_validos,
+            "independence_note": f"autor do claim: {criador}; verificadores PASS cujo autor não é o do claim: {autores_validos}; verificadores do mesmo autor contam como um só; "
+                                 "agentes do mesmo modelo ≠ independência cognitiva total",
             "claim_id": c["claim_id"] if c else None, "claim_status": c["status"] if c else None,
-            "lean": lean_state,
-            "best_recorded_bound": best, "best_recorded_source": lc.get("melhor_registrada_fonte"),
-            "diff_abs": (best - p["M"]) if best else None,
-            "diff_pct": round(100 * (best - p["M"]) / best, 2) if best else None,
+            "equality_claim_status": claims["k2-6-1-eq-12"]["status"] if wid == "w-q2-n6-r1-m12" else None,
+            "lean": lean, "lean_theorems_measured": lean_ok, "lean_theorems_declared_only": lean_decl,
+            "best_recorded_bound": best.get("value") if isinstance(best, dict) else best,
+            "best_recorded_source": lc.get("melhor_registrada_fonte"),
+            "diff_abs": ((best.get("value") if isinstance(best, dict) else best) - p["M"]) if best else None,
+            "diff_pct": round(100 * ((best.get("value") if isinstance(best, dict) else best) - p["M"]) / (best.get("value") if isinstance(best, dict) else best), 2) if best else None,
             "literature_state": st, "literature_confidence": conf, "literature_source": src, "literature_note": note,
             "classification": "apparent improvement over the currently recorded bound; novelty not yet established" if lc.get("veredito") == "melhor_que_a_registrada" else (lc.get("veredito") or "igual/sem comparação"),
         })
@@ -75,14 +111,20 @@ def main():
     flat = [{k: (json.dumps(v, ensure_ascii=False) if isinstance(v, (dict, list)) else v) for k, v in r.items()} for r in rows]
     with open(OUT / "SNAPSHOT.csv", "w", newline="") as fh:
         wr = csv.DictWriter(fh, fieldnames=list(flat[0])); wr.writeheader(); wr.writerows(flat)
+    vids = sorted({v for r in rows for v in r["verifier_results"]})
     md = ["# Snapshot científico (gerado por tools/campaign/snapshot_covering.py)", "", f"Commit-base: `{commit}`. Fonte: dados da campanha, não texto.", "",
-          "| Código | Tamanho | Melhor registrada (Δ) | C | Rust | Python* | Lean | Literatura |", "|---|---|---|---|---|---|---|---|"]
+          "| Código | Tamanho | Estado do claim | Melhor registrada (Δ) | Verificadores (PASS/total) | Lean | Literatura |", "|---|---|---|---|---|---|---|"]
     for r in rows:
         d = f"{r['best_recorded_bound']} (−{r['diff_abs']}, {r['diff_pct']}%)" if r["best_recorded_bound"] else "—"
-        md.append(f"| K_{r['q']}({r['n']},{r['R']}) | {r['size']} | {d} | {r['verify_c']} | {r['verify_rust']} | {r['verify_py_dilation']} | {r['lean'].split(':')[0].split(' (')[0]} | {r['literature_state']} ({r['literature_confidence']}) |")
-    md += ["", "*Python: mesmo autor da afirmação; PASS não conta para independência.", "",
-           "Em 1285 e 1887: **verified computational witness; no Lean theorem currently exists.** Ausência de formalização não é falha do witness, e verificação computacional não é prova formal.", "",
-           "Classificação: apparent improvement over the currently recorded bound; novelty not yet established."]
+        vr = r["verifier_results"]
+        lean_curto = "PROVED_MEASURED" if r["lean_theorems_measured"] else ("EXISTS_BUILD_NOT_REPRODUCED" if r["lean_theorems_declared_only"] else "sem teorema")
+        if r["lean_theorems_measured"] and r["lean_theorems_declared_only"]:
+            lean_curto += " (+ pesado declarado)"
+        md.append(f"| K_{r['q']}({r['n']},{r['R']}) | {r['size']} | {r['claim_status']}{(' (só ≤12; igualdade ' + r['equality_claim_status'] + ')') if r['equality_claim_status'] else ''} | {d} | {sum(v == 'PASS' for v in vr.values())}/{len(vr)} | {lean_curto} | {r['literature_state']} ({r['literature_confidence']}) |")
+    md += ["", "Verificadores registrados: " + ", ".join(f"`{v}`" for v in vids) + ". Os `verify-val-*` só se aplicam a K_7(9,4) (q, n cravados no código).", "",
+           "Independência: verify-py-dilation tem o autor dos claims (PASS não conta); os `verify-val-*` têm o autor de verify.c (contam junto com ele, num componente só). "
+           "O teorema Lean MEDIDO vem de `#print axioms` real na campanha; `CoveringHeavy` (~9,3 h de CPU) fica DECLARADO, não reproduzido.", "",
+           "Classificação: apparent improvement over the currently recorded bound; novelty not yet established. Nenhum código tem NOVELTY_EXTERNALLY_CONFIRMED."]
     (OUT / "SNAPSHOT.md").write_text("\n".join(md) + "\n")
     print(f"{len(rows)} códigos congelados em {OUT}")
 

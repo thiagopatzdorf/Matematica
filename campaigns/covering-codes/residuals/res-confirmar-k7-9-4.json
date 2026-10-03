@@ -1,9 +1,33 @@
 {
   "claim_ids": [
     "k7-9-4-ub-1351",
-    "k7-9-4-ub-1285"
+    "k7-9-4-ub-1285",
+    "k7-9-4-ub-1141",
+    "k7-9-4-ub-1137"
   ],
   "comparison": {
+    "k7-9-4-ub-1137": {
+      "classificacao": "MELHORA_APARENTE_A_CONFIRMAR",
+      "melhor_registrada": 1475,
+      "melhor_registrada_fonte": [
+        "lit-marosi-2608-19872-v2 (v2, 2026-08-23)",
+        "lit-marosi-2608-19872-v3 (v3, 2026-09-02)"
+      ],
+      "nosso": 1137,
+      "nota": "melhora aparente, a confirmar por revisão externa (não é afirmação de novidade: livros/artigos não lidos podem ter predecessor)",
+      "veredito": "melhor_que_a_registrada"
+    },
+    "k7-9-4-ub-1141": {
+      "classificacao": "MELHORA_APARENTE_A_CONFIRMAR",
+      "melhor_registrada": 1475,
+      "melhor_registrada_fonte": [
+        "lit-marosi-2608-19872-v2 (v2, 2026-08-23)",
+        "lit-marosi-2608-19872-v3 (v3, 2026-09-02)"
+      ],
+      "nosso": 1141,
+      "nota": "melhora aparente, a confirmar por revisão externa (não é afirmação de novidade: livros/artigos não lidos podem ter predecessor); mas é PIOR que o nosso próprio 1137 da mesma célula",
+      "veredito": "melhor_que_a_registrada"
+    },
     "k7-9-4-ub-1285": {
       "classificacao": "MELHORA_APARENTE_A_CONFIRMAR",
       "melhor_registrada": 1475,
@@ -12,7 +36,7 @@
         "lit-marosi-2608-19872-v3 (v3, 2026-09-02)"
       ],
       "nosso": 1285,
-      "nota": "melhora aparente, a confirmar por revisão externa (não é afirmação de novidade: livros/artigos não lidos podem ter predecessor)",
+      "nota": "melhora aparente, a confirmar por revisão externa (não é afirmação de novidade: livros/artigos não lidos podem ter predecessor); mas é PIOR que o nosso próprio 1137 da mesma célula",
       "veredito": "melhor_que_a_registrada"
     },
     "k7-9-4-ub-1351": {
@@ -23,17 +47,17 @@
         "lit-marosi-2608-19872-v3 (v3, 2026-09-02)"
       ],
       "nosso": 1351,
-      "nota": "melhora aparente, a confirmar por revisão externa (não é afirmação de novidade: livros/artigos não lidos podem ter predecessor); mas é PIOR que o nosso próprio 1285 da mesma célula",
+      "nota": "melhora aparente, a confirmar por revisão externa (não é afirmação de novidade: livros/artigos não lidos podem ter predecessor); mas é PIOR que o nosso próprio 1137 da mesma célula",
       "veredito": "melhor_que_a_registrada"
     }
   },
-  "created": "2026-10-03T16:38:07Z",
+  "created": "2026-10-03T21:36:11Z",
   "created_by": "agente-c",
   "instances": [
     "k7-9-4"
   ],
   "kind": "melhora_aparente_a_confirmar",
-  "next_step": "autorizar e rodar verify_cov.py sobre data/codes/q7_n9_R4_M1285.txt; ler Cohen et al. 1997 e Östergård 1999; registrar o comando da busca do p1285.json",
-  "reason": "MELHORA_APARENTE_A_CONFIRMAR (nunca 'novidade'): 1285 e 1351 estão abaixo do 1475 do Marosi (v2/v3), mas: (1) Cohen-Honkala-Litsyn-Lobstein 1997 e Östergård 1999 não foram lidos; (2) trabalho de Östergård/Rivas Soriano posterior a 2011 e não indexado no arXiv; (3) o 1285 só foi verificado por nós (verify.c, verify_cover_dilation.py, verify-rust); rodar o verify_cov.py do Marosi daria independência real, mas é CÓDIGO DE TERCEIROS e NÃO foi executado (precisa de autorização); (4) a busca que produziu p1285.json não é reprodutível (sem comando/seed/log)",
+  "next_step": "autorizar e rodar verify_cov.py sobre data/codes/q7_n9_R4_M1137.txt; ler Cohen et al. 1997 e Östergård 1999; registrar o comando da busca dos remendos",
+  "reason": "MELHORA_APARENTE_A_CONFIRMAR (nunca 'novidade'): 1137, 1141, 1285 e 1351 estão abaixo do 1475 do Marosi (v2/v3), mas: (1) Cohen-Honkala-Litsyn-Lobstein 1997 e Östergård 1999 não foram lidos; (2) trabalho de Östergård/Rivas Soriano posterior a 2011 e não indexado no arXiv; (3) os quatro códigos só foram verificados por programas deste repositório (verify.c, dilatação, verify-rust, clean-room e, no main v0.5, A/B/C de verification/, do mesmo autor de verify.c); rodar o verify_cov.py do Marosi daria independência real, mas é CÓDIGO DE TERCEIROS e NÃO foi executado (precisa de autorização); (4) a busca que produziu p1285.json/p1137.json/o 1141 não é reprodutível (sem comando/seed/log: res-search-kit-not-in-repo); (5) STATE_OF_ART.md (revisão de 2026-10-02) não achou nada <= 1137, mas ele mesmo lista o que não checou (Google Scholar, bases pagas, teses, periódico); ver exp-state-of-art-crosscheck; (6) RISCO: pela ADS (Lobstein-van Wee) K_7(9,4) <= 931 (=19*343/7) e <= 1225, <= 1344, mas SÓ SE existirem códigos normais para as cotas tabeladas; a busca por componentes normais falhou (LITERATURA_PROFUNDA.md §1.3) e nada disso é predecessor registrado. 931 < 1137: se fosse realizável, tiraria até o 1137",
   "residual_id": "res-confirmar-k7-9-4"
 }

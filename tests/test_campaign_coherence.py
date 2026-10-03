@@ -29,6 +29,7 @@ class CampaignCoherenceTest(unittest.TestCase):
         cls.runs = carregar("verifier_runs")
         cls.residuals = carregar("residuals")
         cls.literature = carregar("literature")
+        cls.formal = carregar("formal")
         with open(os.path.join(CAMP, "campaign.json"), encoding="utf-8") as fh:
             cls.meta = json.load(fh)
 
@@ -59,23 +60,51 @@ class CampaignCoherenceTest(unittest.TestCase):
                            if v.get("implemented_by") and v["implemented_by"].strip().lower() != cl["created_by"].strip().lower()}
                 self.assertGreaterEqual(len(autores), 2, f"{cid} está {cl['status']} sem 2 autores de verificador distintos do criador")
 
-    def test_verifiers_have_real_distinct_authors_distinct_groups_and_receive_the_parameters(self):
+    def test_verifiers_have_a_real_author_distinct_groups_and_receive_the_parameters_they_can_take(self):
         self.assertGreaterEqual(len(self.verifiers), 2)
         for vid, v in self.verifiers.items():
             with self.subTest(verifier=vid):
                 self.assertTrue((v.get("implemented_by") or "").strip(), "sem implemented_by: independência seria só rótulo")
                 cmd = " ".join(v["command"])
-                for k in "qnRM":
-                    self.assertIn("{param:%s}" % k, cmd, "o verificador precisaria ler o parâmetro do nome do arquivo")
-                self.assertEqual(v["fail_exit_codes"], [1, 2], "FAIL = 1 (descoberto) e 2 (contradição); 3 é ERRO")
-        self.assertEqual(len({v["implemented_by"].strip().lower() for v in self.verifiers.values()}), len(self.verifiers))
+                # os verificadores de verification/ têm q, n (e R) cravados no código: só recebem o que podem receber, e declaram `applies_to`
+                if v.get("applies_to") is None:
+                    for k in "qnRM":
+                        self.assertIn("{param:%s}" % k, cmd, "o verificador precisaria ler o parâmetro do nome do arquivo")
+                else:
+                    self.assertIn("{param:M}", cmd)
+                    self.assertEqual(set(v["applies_to"]), {"q", "n", "R"})
+                self.assertEqual(v["fail_exit_codes"][0], 1, "FAIL = 1 (descoberto); 3 é ERRO e nunca entra em fail_exit_codes")
+                self.assertNotIn(3, v["fail_exit_codes"])
         self.assertEqual(len({v["independence_group"] for v in self.verifiers.values()}), len(self.verifiers))
 
-    def test_latest_run_of_every_verifier_on_every_witness_passed_the_claim_parameters_and_records_the_verifier_hash(self):
+    def test_verifiers_of_the_same_author_declare_that_they_share_logic_so_they_never_add_independence(self):
+        # os 3 de verification/ vieram do mesmo autor de verify.c (git log): têm de aparecer ligados a ele, senão a contagem de independência inflaria
+        por_autor = {}
+        for vid, v in self.verifiers.items():
+            por_autor.setdefault(v["implemented_by"].strip().lower(), []).append(vid)
+        for autor, vids in por_autor.items():
+            for vid in vids:
+                outros = set(vids) - {vid}
+                self.assertTrue(outros <= set(self.verifiers[vid]["compartilha_logica_com"]), f"{vid} (autor {autor}) não declara compartilhar lógica com {sorted(outros)}")
+        self.assertGreaterEqual(len(por_autor), 4, "esperava ≥4 autores: verify.c, dilatação (autor dos claims), rust, clean-room")
+
+    def test_the_cleanroom_verifier_is_registered_with_its_own_author_group_and_go_build(self):
+        v = self.verifiers["verify-cleanroom"]
+        self.assertEqual(v["language"], "go")
+        self.assertTrue(any(step[:2] == ["go", "build"] for step in v["build"]), "o pipeline de build tem de ser `go build`")
+        for outro in self.verifiers:
+            if outro != "verify-cleanroom":
+                self.assertNotEqual(v["implemented_by"], self.verifiers[outro]["implemented_by"])
+                self.assertNotEqual(v["independence_group"], self.verifiers[outro]["independence_group"])
+        self.assertEqual(v["compartilha_logica_com"], [])
+
+    def test_latest_run_of_every_verifier_on_every_witness_it_applies_to_passed_the_claim_parameters_and_records_the_verifier_hash(self):
         ultimas = {}
         for r in sorted(self.runs.values(), key=lambda r: (r["ts"], r["run_id"])):
             ultimas[(r["verifier_id"], r["subject_id"])] = r
-        self.assertEqual(sorted(ultimas), sorted((v, w) for v in self.verifiers for w in self.witnesses))
+        aplicaveis = sorted((vid, wid) for vid, v in self.verifiers.items() for wid, w in self.witnesses.items()
+                            if v.get("applies_to") is None or v["applies_to"] == {k: w["parameters"][k] for k in "qnR"})
+        self.assertEqual(sorted(ultimas), aplicaveis, "toda corrida aplicável existe e nenhuma corrida foi feita fora do que o verificador declara aplicar")
         for (vid, wid), r in ultimas.items():
             with self.subTest(verifier=vid, witness=wid):
                 self.assertEqual(r["result"], "PASS")
@@ -121,18 +150,35 @@ class CampaignCoherenceTest(unittest.TestCase):
                 cmp_ = cl["literature_comparison"]
                 self.assertIn(cmp_["classificacao"], ("MELHORA_APARENTE_A_CONFIRMAR", "PREDECESSOR_ENCONTRADO"), cid)
                 self.assertNotIn("novidade confirmada", cmp_["nota"].lower())
+                # a classe sai da comparação numérica dos registros, não de texto
+                self.assertEqual(cmp_["classificacao"] == "MELHORA_APARENTE_A_CONFIRMAR", cmp_["nosso"] < cmp_["melhor_registrada"], cid)
                 if cmp_["classificacao"] == "MELHORA_APARENTE_A_CONFIRMAR":
                     melhoras += 1
                     self.assertIn("a confirmar por revisão externa", cmp_["nota"], cid)
-        self.assertEqual(melhoras, 10, "as 10 linhas MELHORA_APARENTE_A_CONFIRMAR de LITERATURA_CC.md")
+        codigos = [f for f in os.listdir(os.path.join(ROOT, "data", "codes")) if re.search(r"q\d+_n\d+_R\d+_M\d+\.txt$", f)]
+        self.assertEqual(melhoras, len(codigos), "um claim de cota superior com comparação por código de data/codes (nenhum fixado à mão)")
+
+    def test_no_campaign_record_attributes_external_novelty_confirmation(self):
+        # NOVELTY_EXTERNALLY_CONFIRMED não se autoatribui
+        for pasta in ("claims", "literature", "residuals", "experiments"):
+            for p in glob.glob(os.path.join(CAMP, pasta, "*.json")):
+                with open(p, encoding="utf-8") as fh:
+                    txt = fh.read()
+                self.assertNotIn("NOVELTY_EXTERNALLY_CONFIRMED", txt, os.path.basename(p))
+        with open(os.path.join(CAMP, "snapshot", "SNAPSHOT.json"), encoding="utf-8") as fh:
+            for row in json.load(fh)["rows"]:
+                self.assertNotEqual(row["literature_state"], "NOVELTY_EXTERNALLY_CONFIRMED", row["witness_id"])
 
     def test_each_apparent_improvement_cell_has_an_open_residual_naming_what_was_not_read(self):
-        for cel in ("k7-9-4", "k7-8-3", "k5-7-2", "k4-10-4", "k5-9-3", "k5-10-4", "k5-9-5", "k5-9-4"):
+        celulas = {cid.rsplit("-ub-", 1)[0] for cid in self.claims if "-ub-" in cid and cid.split("-ub-")[0] != "k2-6-1"}
+        self.assertTrue(celulas)
+        for cel in sorted(celulas):
             r = self.residuals[f"res-confirmar-{cel}"]
             self.assertEqual(r["instances"], [cel])
             self.assertIn("MELHORA_APARENTE_A_CONFIRMAR", r["reason"])
             self.assertRegex(r["reason"], r"(?i)n[ãa]o (foram |foi )?lid")
         self.assertIn("verify_cov.py", self.residuals["res-confirmar-k7-9-4"]["reason"])
+        self.assertIn("931", self.residuals["res-confirmar-k7-9-4"]["reason"], "o risco ADS 931 (< 1137) é o que mais pode tirar a melhora aparente")
         self.assertIn("l_5(6,4)", self.residuals["res-confirmar-k5-10-4"]["reason"])
 
     def test_every_residual_lists_its_instances_and_they_are_cells_of_the_universe(self):
@@ -152,6 +198,84 @@ class CampaignCoherenceTest(unittest.TestCase):
         self.assertTrue(ancoras)
         for a in ancoras:
             self.assertEqual(eventos[a["seq"] - 1]["hash"], a["hash"], "a âncora aponta para um evento que não é o do log")
+
+    def test_a_claim_is_proved_only_when_every_formal_record_in_its_evidence_is_measured_and_clean(self):
+        # PROVED sem Lean medido seria o erro grave: o teorema pesado (CoveringHeavy) é só declarado e nunca fica em evidence.formal de claim PROVED
+        esperados = {"propext", "Classical.choice", "Quot.sound"}
+        fortes = ("PROVED", "FORMALLY_VERIFIED", "EXTERNALLY_REPRODUCED")
+        for cid, cl in self.claims.items():
+            if cl["status"] in fortes and cl["evidence"]["formal"]:
+                for fid in cl["evidence"]["formal"]:
+                    with self.subTest(claim=cid, formal=fid):
+                        f = self.formal[fid]
+                        self.assertIsNotNone(f["axioms"], "axiomas não medidos num claim promovido")
+                        self.assertTrue(set(f["axioms"]) <= esperados)
+                        self.assertIs(f["sorry_free"], True)
+                        self.assertIs(f["clean_build"], True)
+                        self.assertEqual(f["axioms_status"], "OK")
+                        self.assertFalse(f["validation_problems"])
+        for fid, f in self.formal.items():
+            if fid.startswith("f-heavy-") or fid == "f-k2-6-1-eq12":
+                with self.subTest(heavy=fid):
+                    self.assertIsNone(f["axioms"])
+                    self.assertTrue(f["axioms_status"].startswith("DECLARED_NOT_REPRODUCED"))
+                    self.assertIs(f["clean_build"], False)
+                    self.assertTrue(f["validation_problems"])
+
+    def test_the_syn_theorems_that_exist_in_the_lean_library_are_measured_formal_records_of_their_code_claims(self):
+        with open(os.path.join(ROOT, "lakefile.toml"), encoding="utf-8") as fh:
+            tags = re.findall(r"CoveringLean\.Syn_K(\d+)", fh.read())
+        self.assertTrue(tags, "o lakefile não declara mais a lib CoveringSyn: o teste envelheceu")
+        for m in tags:
+            with self.subTest(M=m):
+                f = self.formal[f"f-syn-{m}"]
+                self.assertEqual(f["module"], f"CoveringLean.Syn_K{m}")
+                self.assertEqual(f["axioms_status"], "OK")
+                cl = [c for c in self.claims.values() if f"f-syn-{m}" in c["evidence"]["formal"]]
+                self.assertEqual(len(cl), 1)
+                self.assertIn(f"-ub-{m}", cl[0]["claim_id"])
+                self.assertIn(cl[0]["status"], ("PROVED", "FORMALLY_VERIFIED", "EXTERNALLY_REPRODUCED"), "teorema medido + 2 componentes independentes: a guarda de PROVED deveria passar")
+
+    def test_every_kernel_theorem_in_the_lean_final_files_has_a_declared_heavy_record_on_a_claim(self):
+        finais = glob.glob(os.path.join(ROOT, "CoveringLean", "K3_K*_Final.lean"))
+        self.assertTrue(finais)
+        teoremas = set()
+        for p in finais:
+            with open(p, encoding="utf-8") as fh:
+                teoremas |= set(re.findall(r"^theorem (K\d+_\d+_\d+_le_\d+_kernel)", fh.read(), re.M))
+        registrados = {f["theorem"].split(".")[-1] for fid, f in self.formal.items() if fid.startswith("f-heavy-")}
+        self.assertEqual(teoremas, registrados)
+
+    def test_state_of_art_md_is_cross_checked_against_the_registered_sources_and_never_diverges(self):
+        with open(os.path.join(CAMP, "experiments", "exp-state-of-art-crosscheck.json"), encoding="utf-8") as fh:
+            ex = json.load(fh)["result"]
+        self.assertEqual(ex["resumo"]["diverge"], 0, [i for i in ex["itens"] if i["veredito"] == "DIVERGE"])
+        self.assertEqual(ex["resumo"]["nao_encontrada"], 0)
+        self.assertGreater(ex["resumo"]["sem_registro"], 0, "o que a campanha não tem como confirmar (Florath 2401, coldcase) tem de aparecer como SEM_REGISTRO")
+
+    def test_the_previous_audit_chain_is_preserved_with_a_checksum_before_each_regeneration(self):
+        import hashlib
+        base = os.path.join(CAMP, "_autopsia", "audit-pre-regeneracao-2")
+        with open(os.path.join(base, "SHA256SUMS"), encoding="utf-8") as fh:
+            linhas = [l.split() for l in fh if l.strip()]
+        self.assertEqual(sorted(l[1] for l in linhas), ["audit/anchors.jsonl", "audit/log.jsonl"])
+        for soma, rel in linhas:
+            with open(os.path.join(base, rel), "rb") as fh:
+                self.assertEqual(hashlib.sha256(fh.read()).hexdigest(), soma, rel)
+
+    def test_every_code_in_data_codes_has_a_witness_a_claim_and_a_lean_theorem_record(self):
+        codigos = sorted(re.search(r"(q\d+_n\d+_R\d+_M\d+)\.txt$", f).group(1) for f in os.listdir(os.path.join(ROOT, "data", "codes")) if f.endswith(".txt"))
+        paths = {os.path.basename(w["path"])[:-4] for w in self.witnesses.values()}
+        self.assertTrue(set(codigos) <= paths, sorted(set(codigos) - paths))
+        for nome in codigos:
+            m = re.match(r"q(\d+)_n(\d+)_R(\d+)_M(\d+)", nome)
+            q, n, r, M = map(int, m.groups())
+            cl = [c for c in self.claims.values() if c.get("bound") and c["bound"]["direction"] == "upper" and c["bound"]["value"] == M
+                  and c["bound"]["parameters"] == {"q": q, "n": n, "R": r} and c["evidence"]["witnesses"]]
+            with self.subTest(code=nome):
+                self.assertEqual(len(cl), 1)
+                formais = cl[0]["evidence"]["formal"] + cl[0].get("complementary_formal", [])
+                self.assertTrue(formais, "todo código do main v0.5 tem um teorema Lean (medido ou declarado)")
 
 
 if __name__ == "__main__":

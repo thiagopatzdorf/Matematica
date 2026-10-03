@@ -1,13 +1,13 @@
 {
   "campaign_id": "covering-codes",
-  "created": "2026-10-03T16:38:07Z",
+  "created": "2026-10-03T21:36:11Z",
   "data_root": "../..",
   "domain": "covering codes K_q(n,R)",
   "last_anchor": {
-    "hash": "6a65842511dd4390053573ceff5654cd541be2230c2277dfc0fdcc9760ce1986",
+    "hash": "9c92b3ff6c627648cc8ba6ad8ab88f379fc21ccd1f3c0c25aa03825b9cb9dd7f",
     "hmac": null,
-    "seq": 380,
-    "ts": "2026-10-03T17:00:04Z"
+    "seq": 572,
+    "ts": "2026-10-03T22:10:54Z"
   },
   "lean_toolchain": "leanprover/lean4:v4.34.1",
   "schema": "genesis-math/campaign/v1",
@@ -90,7 +90,7 @@
         "n": 8,
         "q": 7,
         "size": 8,
-        "ub_formal_lean": null,
+        "ub_formal_lean": 1887,
         "ub_verificado_melhor": 1887
       },
       {
@@ -101,14 +101,14 @@
         "n": 9,
         "q": 7,
         "size": 9,
-        "ub_formal_lean": 1351,
-        "ub_verificado_melhor": 1285
+        "ub_formal_lean": 1137,
+        "ub_verificado_melhor": 1137
       },
       {
         "R": 1,
         "id": "k2-6-1",
         "lb_formal_esfera": null,
-        "lb_formal_melhor": 12,
+        "lb_formal_melhor": 11,
         "n": 6,
         "q": 2,
         "size": 6,

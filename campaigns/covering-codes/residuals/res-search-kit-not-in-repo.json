@@ -1,0 +1,15 @@
+{
+  "claim_ids": [
+    "k7-9-4-ub-1141",
+    "k7-9-4-ub-1137"
+  ],
+  "created": "2026-10-03T21:36:11Z",
+  "created_by": "agente-c",
+  "instances": [
+    "k7-9-4"
+  ],
+  "kind": "geracao_nao_reproduzivel",
+  "next_step": "versionar o kit de busca (ou o comando e a semente) ou registrar p1141.json",
+  "reason": "a busca dos remendos de 1141 e 1137 (kit de busca, branch feat/kit-de-busca, commit be52cc2) não está neste repositório e nenhum comando/seed foi registrado; p1137.json regenera o MESMO conjunto de 1137 palavras (exp-k7-9-4-1137-regen), 1141 não tem p1141.json. A varredura de bases está em audit/k794-base-sweep.",
+  "residual_id": "res-search-kit-not-in-repo"
+}

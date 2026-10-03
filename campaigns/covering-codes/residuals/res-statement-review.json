@@ -6,6 +6,11 @@
     "excess-bound-lemma",
     "k2-6-1-lb-11",
     "k2-6-1-ub-12",
+    "k7-8-3-ub-1887",
+    "k7-9-4-ub-1137",
+    "k7-9-4-ub-1141",
+    "k7-9-4-ub-1285",
+    "k7-9-4-ub-1351",
     "sph-k4-10-4-lb",
     "sph-k5-10-4-lb",
     "sph-k5-7-2-lb",
@@ -14,9 +19,10 @@
     "sph-k5-9-5-lb",
     "sph-k7-8-3-lb",
     "sph-k7-9-4-lb",
-    "sphere-covering-general"
+    "sphere-covering-general",
+    "syn-cert-lemma"
   ],
-  "created": "2026-10-03T16:38:07Z",
+  "created": "2026-10-03T21:36:11Z",
   "created_by": "agente-c",
   "instances": [
     "k2-6-1",

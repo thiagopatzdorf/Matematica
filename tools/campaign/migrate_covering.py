@@ -13,13 +13,17 @@ Decisões de honestidade (explicadas nos registros):
   * claim nasce IDEA por `agente-c`; as promoções são feitas pelo ator `migrate_covering.py` (um programa, outro ator que o autor do
     claim), SEMPRE pelas guardas de `claims.mudar_estado`: se a guarda nega, o claim fica onde a evidência o deixa;
   * contrato de verificação (red team D-10/D-11/D-12, Pilot-v2 2026-10-03): witnesses declaram `parameters` {q,n,R,M}; o claim declara os mesmos em
-    `scope.parameters` (M = `bound.value`); os dois verificadores recebem os parâmetros por `{param:NOME}` e NÃO leem o nome do arquivo; cada
-    verificador registra o autor REAL (`implemented_by`). Se a guarda de INDEPENDENTLY_REPRODUCED nega (hoje: o 2º verificador foi escrito por quem
-    criou os claims), o claim fica em EMPIRICAL com os motivos em `blocked_independently_reproduced`: nada é forçado;
+    `scope.parameters` (M = `bound.value`); os verificadores recebem os parâmetros por `{param:NOME}` e NÃO leem o nome do arquivo; cada
+    verificador registra o autor REAL (`implemented_by`: git log ou a declaração do README da ferramenta). Verificador do autor do claim
+    (verify-py-dilation) e verificadores do mesmo autor de outro (verification/*, mesmo autor de verify.c) não contam como componentes extras;
+  * v0.5 (merge do main, 2026-10-03): a campanha foi refeita sobre os 12 códigos de data/codes e sobre os teoremas Lean que EXISTEM:
+      - `Syn.K7_9_4_le_{1137,1141,1285,1351}_syn` e `Syn.K7_8_3_le_1887_syn` (lib CoveringSyn): axiomas MEDIDOS aqui por `#print axioms` real;
+        o claim de cada um sobe a PROVED só se o registro formal é válido (sem sorry, build limpo, axiomas esperados) E há ≥2 componentes
+        independentes de verificador (a guarda de PROVED exige as duas coisas quando o claim tem witness);
+      - `CoveringKernel.K*_kernel` e `SC.K_2_6_1_eq12` (lib CoveringHeavy, ~9,3 h de CPU): NÃO compilados aqui; o registro formal guarda os
+        axiomas declarados em `declared_axioms`, com `axioms: null`, e NÃO sustenta promoção;
   * FORMALLY_VERIFIED nunca é pedido de fato: exige `statement_review` de um revisor que não seja o autor e ninguém revisou os
-    enunciados (README: "revisão humana"). Os motivos exatos da guarda ficam em `formal_verification_blockers` de cada claim;
-  * os teoremas pesados (CoveringHeavy, ~12,4 h de CPU) não são compilados aqui: o registro formal deles guarda os axiomas declarados
-    em `declared_axioms`, com `axioms: null`, e NÃO sustenta promoção.
+    enunciados (README: "revisão humana"). Os motivos exatos da guarda ficam em `formal_verification_blockers` de cada claim.
 """
 from __future__ import annotations
 
@@ -43,12 +47,30 @@ CELULAS = {  # (q, n, R) -> arquivo do melhor código verificado em data/codes
     "k5-9-4": (5, 9, 4), "k7-8-3": (7, 8, 3), "k7-9-4": (7, 9, 4), "k2-6-1": (2, 6, 1),
 }
 LB_ESFERA = {"k5-7-2": 215, "k4-10-4": 51, "k5-9-3": 327, "k5-10-4": 158, "k5-9-5": 12, "k5-9-4": 52, "k7-8-3": 439, "k7-9-4": 221}
-# código -> (célula, M, em README/paper?) ; M do melhor verificado em data/codes
-CODIGOS = [
-    ("k5-7-2", 500, True), ("k4-10-4", 192, True), ("k5-9-3", 1250, True), ("k5-10-4", 625, True),
-    ("k5-9-5", 50, True), ("k5-9-4", 250, True), ("k7-8-3", 1893, True), ("k7-8-3", 1887, False),
-    ("k7-9-4", 1351, True), ("k7-9-4", 1285, False),
-]
+# códigos de data/codes (12 no main v0.5): (célula, M). O 3º elemento de CODIGOS (o código aparece no README ou no paper?) é MEDIDO nos textos, não escrito.
+_BASE_CODIGOS = [("k5-7-2", 500), ("k4-10-4", 192), ("k5-9-3", 1250), ("k5-10-4", 625), ("k5-9-5", 50), ("k5-9-4", 250), ("k7-8-3", 1893), ("k7-8-3", 1887),
+                 ("k7-9-4", 1351), ("k7-9-4", 1285), ("k7-9-4", 1141), ("k7-9-4", 1137)]
+_TEXTO_PUBLICO = (REPO / "README.md").read_text(encoding="utf-8") + (REPO / "paper" / "main.tex").read_text(encoding="utf-8")
+CODIGOS = [(cel, m, re.search(rf"(?<![\d.]){m}(?![\d])", _TEXTO_PUBLICO) is not None) for cel, m in _BASE_CODIGOS]
+# Teoremas Lean por síndromes (lib CoveringSyn, módulo CoveringLean.Syn_K<M>): existem no main v0.5 e são MEDIDOS aqui. cel/M -> nome do teorema.
+SYN = {("k7-9-4", 1137): "Syn.K7_9_4_le_1137_syn", ("k7-9-4", 1141): "Syn.K7_9_4_le_1141_syn", ("k7-9-4", 1285): "Syn.K7_9_4_le_1285_syn",
+       ("k7-9-4", 1351): "Syn.K7_9_4_le_1351_syn", ("k7-8-3", 1887): "Syn.K7_8_3_le_1887_syn"}
+# Teoremas Lean por prefixos (lib CoveringHeavy, ~9,3 h de CPU): DECLARADOS, não compilados aqui. cel/M -> (teorema, arquivo Final).
+HEAVY = {("k7-9-4", 1351): ("CoveringKernel.K7_9_4_le_1351_kernel", "CoveringLean/K3_K7_9_4_Final.lean", "K7_9_4"),
+         ("k7-8-3", 1893): ("CoveringKernel.K7_8_3_le_1893_kernel", "CoveringLean/K3_K7_8_3_Final.lean", "K7_8_3"),
+         ("k5-7-2", 500): ("CoveringKernel.K5_7_2_le_500_kernel", "CoveringLean/K3_K5_7_2_Final.lean", "K5_7_2"),
+         ("k4-10-4", 192): ("CoveringKernel.K4_10_4_le_192_kernel", "CoveringLean/K3_K4_10_4_Final.lean", "K4_10_4"),
+         ("k5-9-3", 1250): ("CoveringKernel.K5_9_3_le_1250_kernel", "CoveringLean/K3_K5_9_3_Final.lean", "K5_9_3"),
+         ("k5-10-4", 625): ("CoveringKernel.K5_10_4_le_625_kernel", "CoveringLean/K3_K5_10_4_Final.lean", "K5_10_4"),
+         ("k5-9-5", 50): ("CoveringKernel.K5_9_5_le_50_kernel", "CoveringLean/K3_K5_9_5_Final.lean", "K5_9_5"),
+         ("k5-9-4", 250): ("CoveringKernel.K5_9_4_le_250_kernel", "CoveringLean/K3_K5_9_4_Final.lean", "K5_9_4")}
+
+
+def fid_heavy(tag: str, m: int) -> str:
+    return f"f-heavy-{tag.lower().replace('_', '-')}-{m}"
+
+
+CUSTO_HEAVY = "~9,3 h de CPU (README.md: `lake build CoveringHeavy` 1 h 54 min de relógio, pico 9,4 GB por processo)"
 KERI_PREVIO = {"k5-7-2": 525, "k4-10-4": 208, "k5-9-3": 1275, "k5-10-4": 875, "k5-9-5": 55, "k5-9-4": 255, "k7-8-3": 2337}
 AXIOMAS_DECLARADOS = ["propext", "Classical.choice", "Quot.sound"]
 # Autor do verify_cover_dilation.py: o agente que o escreveu NESTA campanha (primeira sessão, commit 483a6c5 assinado "Claude"; na campanha esse agente
@@ -57,6 +79,12 @@ AUTOR_DILATACAO = AUTOR
 # Autor do verify-rust: o agente "Verif-Rust" desta sessão, que recebeu só a especificação do problema e docs/code-format.md (não leu verify.c nem o
 # verificador em Python): independência de autoria e de lógica declarada em tools/verify-rust/README.md.
 AUTOR_RUST = "agente-verif-rust"
+# Autor do clean-room (tools/verify-cleanroom, Go): README da ferramenta declara um agente distinto que NÃO leu verify.c, a dilatação nem o Rust. O git log só
+# diz "Claude" (assinatura do motor), então o nome do README é o único registro de autoria distinta; fica declarado como tal nas notas.
+AUTOR_CLEANROOM = "agente-verif-cleanroom"
+# Registrar também os A/B/C de verification/ (main v0.5)? Eles são do mesmo autor de verify.c: não somam independência e fazem o lint `same_code_verifier` (alta) acusar
+# "7 verificadores PASS contam como 4" nos claims de K_7(9,4). Isso é verdade, não defeito, mas é um vermelho que não some. Mude para False para só documentá-los.
+REGISTRAR_VERIFICATION_DO_MAIN = True
 # Quem modificou os dois verificadores para aceitar parâmetros explícitos (2026-10-03): fica nas notas, não em `implemented_by` (autor original).
 MODIFICADO_POR = "agente-pilot-v2"
 PARAMS_CMD = ["--q", "{param:q}", "--n", "{param:n}", "--R", "{param:R}", "--M", "{param:M}"]
@@ -139,6 +167,7 @@ def main() -> int:
                        ator=AUTOR, papel="COORDINATOR", data_root="../..", domain="covering codes K_q(n,R)",
                        lean_toolchain=(REPO / "lean-toolchain").read_text().strip())
     commit = V.commit_do_repo(REPO)
+    raiz_fatos = raiz / "_fatos"
 
     def gravar(tipo, rid, reg, papel="PROPOSER", ator=AUTOR):
         return c.gravar(tipo, rid, reg, ator=ator, papel=papel, permitir_sobrescrever=False)
@@ -168,21 +197,72 @@ def main() -> int:
                             build=[["cargo", "build", "--release", "--offline", "--manifest-path", "tools/verify-rust/Cargo.toml",
                                     "--target-dir", "{workdir}/rust-target"],
                                    ["cp", "{workdir}/rust-target/release/verify-rust", "{workdir}/verify-rust"]])
+    # 4º verificador (2026-10-03): clean-room em Go (BFS multi-fonte), escrito por outro agente; README declara o que foi lido.
+    V.registrar_verificador(c, "verify-cleanroom", language="go", source_files=["tools/verify-cleanroom/main.go", "tools/verify-cleanroom/go.mod"],
+                            independence_group="go-bfs-multisource", fail_exit_codes=[1, 2], timeout_s=300, ator=AUTOR, papel="PROPOSER",
+                            implemented_by=AUTOR_CLEANROOM, command=["{workdir}/verify-cleanroom", *PARAMS_CMD, "{witness}"],
+                            build=[["go", "build", "-C", "tools/verify-cleanroom", "-o", "{workdir}/verify-cleanroom", "."]])
+    # Os três verificadores que o main v0.5 trouxe (verification/, validação de K_7(9,4) <= 1137). Medido no git log: UM commit, UM autor (o mesmo de
+    # tools/verify/verify.c). Por isso `implemented_by` é esse autor e a guarda os junta com verify-c no mesmo componente (não somam independência).
+    # Têm q=7, n=9 (e R=4 em B e C) cravados no código: só se aplicam às instâncias K_7(9,4); `applies_to` registra isso e as corridas só rodam nelas.
+    autor_val = autor_do_arquivo("verification/verify_bruteforce.c")
+    VAL_IDS = ("verify-val-bruteforce", "verify-val-balls", "verify-val-bfs")
+    assert autor_val == autor_do_arquivo("verification/verify_balls.py") == autor_do_arquivo("verification/verify_bfs/main.rs"), "autores diferem: rever implemented_by"
+    APLICA_794 = {"q": 7, "n": 9, "R": 4}
+    if REGISTRAR_VERIFICATION_DO_MAIN:
+        V.registrar_verificador(c, "verify-val-bruteforce", language="c", source_files=["verification/verify_bruteforce.c"], independence_group="c-openmp-bruteforce-verification",
+                                fail_exit_codes=[1], timeout_s=900, ator=AUTOR, papel="PROPOSER", implemented_by=autor_val,
+                                command=["{workdir}/verify_bruteforce", "{witness}", "{param:M}", "{param:R}"],
+                                build=[["cc", "-O2", "-fopenmp", "-o", "{workdir}/verify_bruteforce", "verification/verify_bruteforce.c"]])
+        V.registrar_verificador(c, "verify-val-balls", language="python", source_files=["verification/verify_balls.py"], independence_group="python-numpy-balls-verification",
+                                fail_exit_codes=[1], timeout_s=900, ator=AUTOR, papel="PROPOSER", implemented_by=autor_val,
+                                command=["python3", "verification/verify_balls.py", "{witness}", "{param:M}"])
+        V.registrar_verificador(c, "verify-val-bfs", language="rust", source_files=["verification/verify_bfs/main.rs"], independence_group="rust-bfs-verification",
+                                fail_exit_codes=[1], timeout_s=900, ator=AUTOR, papel="PROPOSER", implemented_by=autor_val,
+                                command=["{workdir}/verify_bfs", "{witness}", "{param:M}"],
+                                build=[["rustc", "-O", "-o", "{workdir}/verify_bfs", "verification/verify_bfs/main.rs"]])
     contrato = (f" Contrato de saída: 0 cobre, 1 ponto descoberto, 2 o witness contradiz os parâmetros (FAIL = fail_exit_codes [1, 2]); 3 uso/falha operacional "
                 f"(ERROR, nunca FAIL). Recebe q,n,R,M por {{param:NOME}} e rejeita nome de arquivo que diga outra instância. Modificado em 2026-10-03 por "
                 f"{MODIFICADO_POR} (parâmetros explícitos); o autor original (implemented_by) segue o do git log.")
-    for vid, nota in (("verify-rust", "Escrito por outro agente (agente-verif-rust) sem ler os outros dois verificadores nem o gerador do formato; algoritmo de dilatação "
-                       "por camadas com um byte por ponto (OR ao longo de cada reta de coordenada), O(R·n·q^n). Declaração de independência e do que foi lido em "
-                       "tools/verify-rust/README.md. Independente em linguagem, código, algoritmo e autoria; NÃO em especificação do problema (a definição de código de cobertura é a mesma)."),
-                      ("verify-c", f"Verificador oficial do repositório (marca bolas de raio R num bitset). Escrito antes desta campanha por {autor_c} "
-                                   f"(autor do primeiro commit de tools/verify/verify.c)." + contrato),
-                      ("verify-py-dilation", "Escrito NESTA campanha pelo mesmo agente que cria os claims (agente-c): independente em linguagem, código e algoritmo "
-                       "(dilatação do indicador do código no grid, sem enumerar bolas), mas NÃO em autoria nem em especificação do formato. "
-                       "Concorda com verify-c em positivos e negativos (tests/test_campaign_verifier.py). Por ter o mesmo autor dos claims, a guarda de "
-                       "INDEPENDENTLY_REPRODUCED não conta este verificador (achado, não defeito)." + contrato)):
+    def nota_val(parametros):
+        return (" Veio no main v0.5 (verification/, VALIDATION.md). git log: um commit (\"validate(k794): validação independente de K_7(9,4) ≤ 1137 (#10)\"), autor "
+                f"{autor_val}, o MESMO de tools/verify/verify.c: a guarda de independência os junta com verify-c num componente só. VALIDATION.md diz que A, B e C têm "
+                "parser e noção de cobertura próprios e nenhum código compartilhado (independência de método, não de autoria). q=7 e n=9 estão cravados no código "
+                f"(aplica-se só a K_7(9,4)); recebe {parametros} por {{param:NOME}}; as corridas só rodam nos witnesses de K_7(9,4). Um witness de outra instância seria "
+                "recusado no parser (comprimento/dígitos), nunca aceito em silêncio.")
+
+    notas_v = {
+        "verify-cleanroom": ("Escrito por outro agente (declarado no README da ferramenta) que NÃO leu verify.c, verify_cover_dilation.py nem tools/verify-rust; BFS multi-fonte "
+                             "no grafo de Hamming H(n,q), O(q^n·n·q). O git log só assina 'Claude' (motor), então a autoria distinta é a DECLARADA no README, não verificável "
+                             "pelo git. Independente em linguagem, código e algoritmo; NÃO em especificação do problema." + contrato),
+        "verify-rust": ("Escrito por outro agente (agente-verif-rust) sem ler os outros dois verificadores nem o gerador do formato; algoritmo de dilatação "
+                        "por camadas com um byte por ponto (OR ao longo de cada reta de coordenada), O(R·n·q^n). Declaração de independência e do que foi lido em "
+                        "tools/verify-rust/README.md. Independente em linguagem, código, algoritmo e autoria; NÃO em especificação do problema (a definição de código de cobertura é a mesma)."),
+        "verify-c": (f"Verificador oficial do repositório (marca bolas de raio R num bitset). Escrito antes desta campanha por {autor_c} "
+                     f"(autor do primeiro commit de tools/verify/verify.c)." + contrato),
+        "verify-py-dilation": ("Escrito NESTA campanha pelo mesmo agente que cria os claims (agente-c): independente em linguagem, código e algoritmo "
+                               "(dilatação do indicador do código no grid, sem enumerar bolas), mas NÃO em autoria nem em especificação do formato. "
+                               "Concorda com verify-c em positivos e negativos (tests/test_campaign_verifier.py). Por ter o mesmo autor dos claims, a guarda de "
+                               "INDEPENDENTLY_REPRODUCED não conta este verificador (achado, não defeito)." + contrato),
+        "verify-val-bruteforce": "Verificador A de VALIDATION.md: para todo x calcula d(x,C) = min sobre as palavras (força bruta, C + OpenMP)." + nota_val("M e R"),
+        "verify-val-balls": "Verificador B de VALIDATION.md: marca a bola de raio r de cada palavra (vetores de erro por itertools, NumPy); R=4 cravado." + nota_val("M"),
+        "verify-val-bfs": "Verificador C de VALIDATION.md: BFS multi-fonte no grafo H(9,7) (Rust); R=4 cravado." + nota_val("M"),
+    }
+    for vid, nota in notas_v.items():
+        if vid in VAL_IDS and not REGISTRAR_VERIFICATION_DO_MAIN:
+            continue
         r = c.ler("verifiers", vid)
         r["notes"] = nota
+        if vid.startswith("verify-val-"):
+            r["applies_to"] = dict(APLICA_794)
         c.gravar("verifiers", vid, r, ator=AUTOR, papel="PROPOSER", acao="verifiers.note")
+
+    def aplica(vid, cel):
+        """O verificador se aplica à instância? (os de `applies_to` só rodam nas instâncias que declaram)"""
+        if not c.tem("verifiers", vid):
+            return False
+        ap_ = c.ler("verifiers", vid).get("applies_to")
+        return ap_ is None or dict(zip("qnR", CELULAS[cel])) == ap_
 
     # ------------------------------------------------------------------ experimentos (executados de verdade)
     def exec_(args, cwd=REPO, t=300):
@@ -210,22 +290,40 @@ def main() -> int:
         "source_files": fonte_mirror, "instances": ["k2-6-1"], "result": {"runs": mirror, "executado_neste_run": corridas},
         "repo_commit": commit, "created_by": AUTOR, "created": c.meta()["created"]}, "EXHAUSTIVE_SEARCHER")
 
-    regen = {"executado_neste_run": False}
-    if corridas:
-        with tempfile.TemporaryDirectory() as tmp:
-            out = Path(tmp) / "q7_n9_R4_M1285.txt"
-            r = exec_(["python3", "scripts/search/gen.py", "data/search/p1285.json", str(out)])
-            regen = {"executado_neste_run": True, "rc": r["rc"], "stdout": r["stdout"].strip(),
-                     "sha256_regenerado": sha_bytes(out) if out.is_file() else None,
-                     "sha256_witness": sha_bytes(REPO / "data/codes/q7_n9_R4_M1285.txt"),
-                     "identico_byte_a_byte": out.is_file() and out.read_bytes() == (REPO / "data/codes/q7_n9_R4_M1285.txt").read_bytes()}
-    gravar("experiments", "exp-k7-9-4-1285-regen", {
-        "experiment_id": "exp-k7-9-4-1285-regen", "kind": "search",
-        "description": "Regenera o código de 1285 palavras com o gerador versionado a partir de data/search/p1285.json.",
-        "ranges": None, "implementation": "scripts/search/gen.py",
-        "command": ["python3", "scripts/search/gen.py", "data/search/p1285.json", "<saída>"],
-        "source_files": [{"path": p, "sha256": sha256_arquivo(REPO / p)} for p in ("scripts/search/gen.py", "data/search/p1285.json")],
-        "instances": ["k7-9-4"], "result": regen, "repo_commit": commit, "created_by": AUTOR, "created": c.meta()["created"]}, "EXHAUSTIVE_SEARCHER")
+    def regen_de(m):
+        """Regenera o código de K_7(9,4) com M palavras por scripts/search/gen.py a partir de data/search/p<M>.json e compara com o witness."""
+        r_ = {"executado_neste_run": False}
+        if corridas:
+            with tempfile.TemporaryDirectory() as tmp:
+                out = Path(tmp) / f"q7_n9_R4_M{m}.txt"
+                r = exec_(["python3", "scripts/search/gen.py", f"data/search/p{m}.json", str(out)])
+                wit = REPO / f"data/codes/q7_n9_R4_M{m}.txt"
+                r_ = {"executado_neste_run": True, "rc": r["rc"], "stdout": r["stdout"].strip(),
+                      "sha256_regenerado": sha_bytes(out) if out.is_file() else None, "sha256_witness": sha_bytes(wit),
+                      "identico_byte_a_byte": out.is_file() and out.read_bytes() == wit.read_bytes(),
+                      "sha256_canonico_regenerado": canonico(out) if out.is_file() else None, "sha256_canonico_witness": canonico(wit),
+                      "mesmo_conjunto_de_palavras": out.is_file() and canonico(out) == canonico(wit)}
+        return r_
+
+    for m_ in (1285, 1137):
+        gravar("experiments", f"exp-k7-9-4-{m_}-regen", {
+            "experiment_id": f"exp-k7-9-4-{m_}-regen", "kind": "search",
+            "description": f"Regenera o código de {m_} palavras com o gerador versionado a partir de data/search/p{m_}.json e compara com o witness: byte a byte "
+                           "(identico_byte_a_byte) e como CONJUNTO de palavras (sha256 canônico; a ordem das linhas pode diferir). Isto reproduz a ESTRUTURA do código, "
+                           "não a busca que achou os parâmetros p<M>.json.",
+            "ranges": None, "implementation": "scripts/search/gen.py",
+            "command": ["python3", "scripts/search/gen.py", f"data/search/p{m_}.json", "<saída>"],
+            "source_files": [{"path": p_, "sha256": sha256_arquivo(REPO / p_)} for p_ in ("scripts/search/gen.py", f"data/search/p{m_}.json")],
+            "instances": ["k7-9-4"], "result": regen_de(m_), "repo_commit": commit, "created_by": AUTOR, "created": c.meta()["created"]}, "EXHAUSTIVE_SEARCHER")
+
+    gravar("experiments", "exp-k7-9-4-1141-kit", {
+        "experiment_id": "exp-k7-9-4-1141-kit", "kind": "search",
+        "description": "Busca que produziu o código de 1141 palavras: enumeração exata das 6362 classes de [9,3]_7 + otimizador de remendo (112 palavras), no 'kit de busca' "
+                       "(branch feat/kit-de-busca, VM lean-build2). DECLARADO em data/structured/q7_n9_R4_M1141.json; NÃO reproduzível aqui: o kit não está neste repositório, "
+                       "não há data/search/p1141.json e nenhum comando/seed foi registrado. O que é reproduzível é a estrutura (build_structured --check) e a verificação.",
+        "ranges": None, "implementation": "kit de busca (feat/kit-de-busca), fora deste repositório", "command": None, "source_files": [],
+        "instances": ["k7-9-4"], "result": {"reproduzivel_aqui": False, "executado_neste_run": False, "declarado_em": "data/structured/q7_n9_R4_M1141.json; README.md (v0.5)"},
+        "repo_commit": commit, "created_by": AUTOR, "created": c.meta()["created"]}, "EXHAUSTIVE_SEARCHER")
 
     gravar("experiments", "exp-k7-9-4-1351-lincov", {
         "experiment_id": "exp-k7-9-4-1351-lincov", "kind": "search",
@@ -273,13 +371,39 @@ def main() -> int:
                                             "executado_neste_run": True},
         "repo_commit": commit, "created_by": AUTOR, "created": c.meta()["created"]}, "STRUCTURAL_ANALYST")
 
+    # elo Lean (síndromes) <-> witness (calculado, não declarado): decodifica a lista LK<M> E o campo empacotado PN (o que o teorema de fato usa:
+    # `unpack b cnt PN = L`) de CoveringLean/SynData_K<M>.lean e compara o sha256 canônico com o do witness.
+    sys.set_int_max_str_digits(0)
+    for (cel_s, m_s), teo_s in SYN.items():
+        q_, n_, r_ = CELULAS[cel_s]
+        arq_s = f"CoveringLean/SynData_K{m_s}.lean"
+        txt_s = (REPO / arq_s).read_text()
+        lista = [int(x) for x in re.search(rf"def LK{m_s} : List Nat := \[([^\]]*)\]", txt_s).group(1).split(",")]
+        campo = lambda nome: int(re.search(rf"^\s*{nome} := (\d+)\s*$", txt_s, re.M).group(1))  # noqa: E731
+        b_s, cnt_s, pn_s = campo("b"), campo("cnt"), campo("PN")
+        desemp = [(pn_s >> (b_s * j)) & ((1 << b_s) - 1) for j in range(cnt_s)]
+        sha_s = hashlib.sha256(("\n".join(sorted("".join(str((w // q_ ** k) % q_) for k in range(n_)) for w in lista)) + "\n").encode()).hexdigest()
+        sha_wit = canonico(REPO / "data/codes" / f"{nome_codigo(cel_s, m_s)}.txt")
+        gravar("experiments", f"exp-lean-syn-data-equals-witness-{m_s}", {
+            "experiment_id": f"exp-lean-syn-data-equals-witness-{m_s}", "kind": "symbolic",
+            "description": f"Decodifica a lista LK{m_s} (e o campo empacotado PN) de {arq_s} (base {q_} little-endian) e compara o sha256 canônico com o de "
+                           f"data/codes/{nome_codigo(cel_s, m_s)}.txt: o elo entre o teorema {teo_s} e o arquivo verificado por programas.",
+            "ranges": None, "implementation": "regex + sha256 em tools/campaign/migrate_covering.py (independente de scripts/syndrome/check_sha.py)",
+            "source_files": [{"path": arq_s, "sha256": sha256_arquivo(REPO / arq_s)}], "instances": [cel_s],
+            "result": {"palavras": len(lista), "cnt_declarado": cnt_s, "estritamente_crescente": lista == sorted(set(lista)), "todas_menores_que_q_n": max(lista) < q_ ** n_,
+                       "unpack_PN_igual_a_lista": desemp == lista, "sha256_canonico_lean": sha_s, "sha256_canonico_witness": sha_wit, "iguais": sha_s == sha_wit,
+                       "executado_neste_run": True},
+            "repo_commit": commit, "created_by": AUTOR, "created": c.meta()["created"]}, "STRUCTURAL_ANALYST")
+
     # ------------------------------------------------------------------ witnesses
+    PRODUZIDO_POR = {("k7-9-4", 1351): "exp-k7-9-4-1351-lincov", ("k7-9-4", 1285): "exp-k7-9-4-1285-regen", ("k7-9-4", 1141): "exp-k7-9-4-1141-kit",
+                     ("k7-9-4", 1137): "exp-k7-9-4-1137-regen"}
     descr_json = {}
     for cel, m, _ in CODIGOS:
         nome = nome_codigo(cel, m)
         p = REPO / "data/codes" / f"{nome}.txt"
         js = json.loads((REPO / "data/structured" / f"{nome}.json").read_text())
-        produzido = {("k7-9-4", 1351): "exp-k7-9-4-1351-lincov", ("k7-9-4", 1285): "exp-k7-9-4-1285-regen"}.get((cel, m), "exp-prior-search-unrecorded")
+        produzido = PRODUZIDO_POR.get((cel, m), "exp-prior-search-unrecorded")
         q, n, r = CELULAS[cel]
         descr_json[(cel, m)] = js
         gravar("witnesses", wid(cel, m), {
@@ -412,6 +536,50 @@ def main() -> int:
                 exact_bound="K_2(6,1) = 12", assumptions=["atribuição do valor ao artigo vem do Kéri/Florath, não do artigo"],
                 claim_ids=["k2-6-1-eq-12"], open_questions=["conferir no artigo que K_2(6,1)=12 está lá"])
 
+    # --- STATE_OF_ART.md (main v0.5, revisão de 2026-10-02 sobre K_7(9,4)): NÃO é fonte primária. Cada afirmação dele é conferida contra os registros acima
+    # (que vêm das fontes lidas em 2026-10-03) e o que não tem registro fica "SEM_REGISTRO": o texto não vira evidência por existir.
+    soa = (REPO / "STATE_OF_ART.md").read_text(encoding="utf-8")
+    lit_ = lambda i: c.ler("literature", i)  # noqa: E731
+    itens_soa = []
+
+    def item_soa(afirmacao, padrao, registro, esperado):
+        achou = re.search(padrao, soa, re.S) is not None
+        itens_soa.append({"afirmacao": afirmacao, "presente_no_STATE_OF_ART": achou, "registro_da_campanha": registro, "esperado_pelo_STATE_OF_ART": esperado,
+                          "confere": (registro == esperado) if registro is not None else None,
+                          "veredito": ("SEM_REGISTRO (não confirmado por esta campanha)" if registro is None else ("CONFERE" if registro == esperado else "DIVERGE")) if achou else "NÃO_ENCONTRADA_NO_TEXTO"})
+    item_soa("menor UB publicado = 1475 (Marosi v2)", r"K_7\(9,4\) <= 1475", lit_("lit-marosi-2608-19872-v2")["bound"]["value"], 1475)
+    item_soa("menor UB publicado = 1475 (Marosi v3, versão atual)", r"v3\*\* \(atual\).{0,200}?\*\*1475\*\*", lit_("lit-marosi-2608-19872-v3")["bound"]["value"], 1475)
+    item_soa("v1 do Marosi = 1743", r"\*\*v1\*\*.{0,300}?\*\*1743\*\*", lit_("lit-marosi-2608-19872-v1")["bound"]["value"], 1743)
+    item_soa("v1 de 2026-08-20", r"2026-08-20", lit_("lit-marosi-2608-19872-v1")["version_date"], "2026-08-20")
+    item_soa("v2 de 2026-08-23", r"2026-08-23", lit_("lit-marosi-2608-19872-v2")["version_date"], "2026-08-23")
+    item_soa("v3 de 2026-09-02", r"2026-09-02", lit_("lit-marosi-2608-19872-v3")["version_date"], "2026-09-02")
+    item_soa("Kéri: UB 1843 (soma direta)", r"\*\*1843\*\* \(chave `f`", lit_("lit-keri-k7-9-4-ub")["bound"]["value"], 1843)
+    item_soa("cota inferior 264 (Haas-Halupczok-Schlage-Puchta 2009, chave m do Kéri)", r"264 \(`m`\)", lit_("lit-keri-k7-9-4-lb")["bound"]["value"], 264)
+    item_soa("Kéri: PDF de 2009-10-15", r"arquivo de 2009-10-15", lit_("lit-keri-k7-9-4-ub")["version_date"], "2009-10-15")
+    item_soa("cota de esfera = 221", r"sphere 221", LB_ESFERA["k7-9-4"], 221)
+    item_soa("Δ = 1843 - 1475 = 368 (-368 na Tabela 1 do Marosi)", r"−368", lit_("lit-keri-k7-9-4-ub")["bound"]["value"] - lit_("lit-marosi-2608-19872-v2")["bound"]["value"], 368)
+    item_soa("368/1843 arredondado a 20.0%", r"20\.0%", round(100 * 368 / 1843, 1), 20.0)
+    item_soa("sha256 do anexo M1475 começa em b3e60549 e termina em ac6ace (Marosi v2/v3)", r"b3e60549…ac6ace",
+             all("b3e60549...ac6ace" in lit_(x)["exact_statement"] for x in ("lit-marosi-2608-19872-v2",)), True)
+    item_soa("v4 do Marosi não existe (404)", r"v4 não existe", "Não existe v4" in lit_("lit-marosi-2608-19872-v3")["exact_statement"], True)
+    item_soa("nenhum resultado registrado abaixo de 1475 para K_7(9,4)", r"Não achei nenhum resultado com K_7\(9,4\) <= N para N <= 1137",
+             min(h["bound"]["value"] for h in c.listar("literature") if h.get("bound") and h["bound"]["parameters"] == {"q": 7, "n": 9, "R": 4} and h["bound"]["direction"] == "upper"), 1475)
+    item_soa("Gijswijt-Polak cobrem só q <= 5 (não citam K_7(9,4))", r"só cobrem q = 2, 3, 4, 5",
+             all(h["bound"]["parameters"]["q"] <= 5 for h in c.listar("literature") if h["literature_id"].startswith("lit-gp-")), True)
+    item_soa("Florath (repositório): K_7(9,4) <= 2401 por lengthenFreeN", r"upper 2401", None, 2401)
+    item_soa("Mapika/coldcase: arquivos de K7(9,4) de 1475 a 1843, commit 56a8cce", r"HEAD do master `56a8cce`", None, "56a8cce")
+    item_soa("o código M1475 do Marosi cobre os 7^9 pontos (reverificado pelo autor do STATE_OF_ART com numpy)", r"zero descobertas", None, True)
+    soa_resumo = {"confere": sum(i["veredito"] == "CONFERE" for i in itens_soa), "diverge": sum(i["veredito"] == "DIVERGE" for i in itens_soa),
+                  "sem_registro": sum(i["veredito"].startswith("SEM_REGISTRO") for i in itens_soa), "nao_encontrada": sum(i["veredito"] == "NÃO_ENCONTRADA_NO_TEXTO" for i in itens_soa)}
+    gravar("experiments", "exp-state-of-art-crosscheck", {
+        "experiment_id": "exp-state-of-art-crosscheck", "kind": "symbolic",
+        "description": "Confere STATE_OF_ART.md (main v0.5, revisão de 2026-10-02) contra os registros de literatura desta campanha (fontes lidas por Lit-CC em 2026-10-03). O documento NÃO é fonte "
+                       "primária e não vira evidência por existir; afirmação sem registro correspondente fica SEM_REGISTRO. Não afirma novidade: STATE_OF_ART.md, VALIDATION.md e o paper dizem 'o menor "
+                       "que encontramos nas fontes revisadas', e o próprio documento lista o que não checou (Google Scholar, bases pagas, teses, periódico, páginas pessoais).",
+        "ranges": None, "implementation": "regex + comparação com literature/ em tools/campaign/migrate_covering.py",
+        "source_files": [{"path": "STATE_OF_ART.md", "sha256": sha256_arquivo(REPO / "STATE_OF_ART.md")}], "instances": ["k7-9-4"],
+        "result": {"itens": itens_soa, "resumo": soa_resumo, "executado_neste_run": True}, "repo_commit": commit, "created_by": AUTOR, "created": c.meta()["created"]}, "STRUCTURAL_ANALYST")
+
     # ------------------------------------------------------------------ registros formais
     ambiente = F.ambiente(REPO) if not a.sem_lean else {}
     lake_ok = (not a.sem_lean) and F.achar_lake() is not None
@@ -428,15 +596,33 @@ def main() -> int:
         **{f"f-{h.lower()}-counterexample": (f"CoveringA6.{h}_counterexample", "CoveringLean/A6_Finite.lean", "CoveringLean") for h in ("H1", "H3", "H5")},
         "f-chkn-sound": ("SC.chkN_sound", "CoveringLean/SearchSound.lean", "CoveringLean"),
         "f-cert-of-go": ("CoveringKernel.cert_of_go", "CoveringLean/K3_Bridge.lean", "CoveringLean"),
+        "f-syn-cert": ("Syn.syn_cert", "CoveringLean/SynBridge.lean", "CoveringLean"),  # v0.5: a ponte dos certificados por síndromes (alvo padrão)
     }
     for fid, (teo, arq, mod) in medidos.items():
         F.registrar_formal(c, fid, theorem=teo, file=arq, module=mod, raiz_lean=REPO, ator=PROMOTOR, papel="FORMALIZER",
                            rodar_build=lake_ok, lake=None if lake_ok else "/nao/existe/lake")
+    # v0.5: os teoremas por síndromes (lib CoveringSyn). Medidos aqui: build do alvo CoveringSyn + `#print axioms` real de cada um.
+    for (cel_s, m_s), teo_s in SYN.items():
+        F.registrar_formal(c, f"f-syn-{m_s}", theorem=teo_s, file=f"CoveringLean/Syn_K{m_s}.lean", module=f"CoveringLean.Syn_K{m_s}", raiz_lean=REPO,
+                           ator=PROMOTOR, papel="FORMALIZER", alvo="CoveringSyn", rodar_build=lake_ok, lake=None if lake_ok else "/nao/existe/lake")
+    # tempos/memória medidos à mão por `lake build` (a corrida de `registrar_formal` é incremental: o cache já estava de pé); vêm de _fatos/
+    medicoes_lean = {}
+    arq_med = raiz_fatos / "medicoes_lean.json"
+    if arq_med.is_file():
+        medicoes_lean = json.loads(arq_med.read_text(encoding="utf-8"))
+        for fid_ in [f["formal_id"] for f in c.listar("formal")]:
+            alvo_ = "CoveringSyn" if fid_.startswith("f-syn-") and fid_ != "f-syn-cert" else "padrao"
+            if alvo_ in medicoes_lean.get("alvos", {}):
+                r_ = c.ler("formal", fid_)
+                r_["build_medido_de_zero"] = {"fonte": "campaigns/covering-codes/_fatos/medicoes_lean.json", **medicoes_lean["alvos"][alvo_]}
+                c.gravar("formal", fid_, r_, ator=PROMOTOR, papel="FORMALIZER", acao="formal.build_measurement")
     pesados = {
         "f-k2-6-1-eq12": ("SC.K_2_6_1_eq12", "CoveringLean/SearchK6ge12.lean", "CoveringLean.SearchK6ge12",
                           sorted(str(p.relative_to(REPO)) for p in (REPO / "CoveringLean").glob("G610_*.lean"))),
-        "f-k7-9-4-le-1351": ("CoveringKernel.K7_9_4_le_1351_kernel", "CoveringLean/K3_K7_9_4_Final.lean", "CoveringLean.K3_K7_9_4_Final",
-                             sorted(str(p.relative_to(REPO)) for p in (REPO / "CoveringLean").glob("K3_K7_9_4*.lean")) + ["CoveringLean/C1_Data_K7_9_4.lean"]),
+        **{fid_heavy(tag, m_h): (teo_h, arq_h, "CoveringLean." + Path(arq_h).stem,
+                                          sorted(str(p.relative_to(REPO)) for p in (REPO / "CoveringLean").glob(f"K3_{tag}*.lean")) +
+                                          [f"CoveringLean/C1_Data_{tag}.lean"])
+           for (cel_h, m_h), (teo_h, arq_h, tag) in HEAVY.items()},
     }
     for fid, (teo, arq, mod, fontes) in pesados.items():
         achados = F.escanear_fontes(REPO, [arq, *fontes])
@@ -445,18 +631,21 @@ def main() -> int:
             "lean_toolchain": ambiente.get("lean_toolchain") or (REPO / "lean-toolchain").read_text().strip(),
             "mathlib_commit": ambiente.get("mathlib_commit"), "manifest_sha256": sha256_arquivo(REPO / "lake-manifest.json"),
             "axioms": None, "declared_axioms": AXIOMAS_DECLARADOS,
-            "axioms_status": "DECLARED_NOT_REPRODUCED: README.md:11 e paper/main.tex:156; o módulo é do alvo CoveringHeavy (~12,4 h de CPU), não compilado aqui",
+            "axioms_status": f"DECLARED_NOT_REPRODUCED: README.md ('Nenhum sorry, nenhum native_decide, e todo #print axioms mostra no máximo propext, Classical.choice, Quot.sound'); "
+                             f"o módulo é do alvo CoveringHeavy, custo {CUSTO_HEAVY}: não compilado nesta campanha",
             "sorry_free": not any(x["kind"] in F.TIPOS_SORRY for x in achados), "sorry_free_basis": f"varredura estática de {len(fontes) + 1} fontes (não é build)",
-            "clean_build": False, "build_status": "NOT_RUN: lake build CoveringHeavy não executado neste ambiente",
+            "clean_build": False, "build_status": f"NOT_RUN: lake build CoveringHeavy não executado neste ambiente ({CUSTO_HEAVY})",
             "repo_commit": commit, "source_sha256": sha256_arquivo(REPO / arq), "scan_findings": achados, "measured": None,
             "validation_problems": ["axiomas não medidos (declarados)", "clean_build não medido"]}, "FORMALIZER", PROMOTOR)
 
     # ------------------------------------------------------------------ corridas de verificador
     if corridas:
+        gerais = ("verify-c", "verify-py-dilation", "verify-rust", "verify-cleanroom")
+        pesados_val = VAL_IDS  # só K_7(9,4): q, n cravados no código
         for cel, m, _ in CODIGOS:
-            for vid in ("verify-c", "verify-py-dilation", "verify-rust"):
-                V.rodar(c, vid, wid(cel, m), ator=PROMOTOR, papel="INDEPENDENT_VERIFIER", timeout_s=300)
-        for vid in ("verify-c", "verify-py-dilation", "verify-rust"):
+            for vid in gerais + tuple(v_ for v_ in pesados_val if aplica(v_, cel)):
+                V.rodar(c, vid, wid(cel, m), ator=PROMOTOR, papel="INDEPENDENT_VERIFIER", timeout_s=900)
+        for vid in gerais:
             V.rodar(c, vid, "w-q2-n6-r1-m12", ator=PROMOTOR, papel="INDEPENDENT_VERIFIER", timeout_s=300)
 
     # ------------------------------------------------------------------ claims
@@ -632,39 +821,61 @@ def main() -> int:
         if not validar_registro_formal(c.ler("formal", fid_h)):  # só refuta se o contraexemplo formal foi MEDIDO
             K.invalidar(c, cid_h, cxid_h, ator=PROMOTOR, papel="COUNTEREXAMPLE_HUNTER", motivo=f"{h}_counterexample medido no kernel")
 
-    # K_7(9,4)
+    # K_7(9,4), K_7(8,3) e as demais células: as pontes do Lean
     novo("cert-of-go-lemma", "CoveringKernel.cert_of_go: a checagem booleana `go` verdadeira sobre uma lista estritamente crescente de M inteiros < q^n dá C com |C|=M e Covers R C.",
-         {"problem": "ponte checagem -> Covers", "domain": "K3_Bridge", "assumptions": []}, kind="lemma", trust_boundary=TB_LEAN)
+         {"problem": "ponte checagem -> Covers (certificados por prefixos, CoveringHeavy)", "domain": "K3_Bridge", "assumptions": []}, kind="lemma", trust_boundary=TB_LEAN)
     cx("cert-of-go-lemma", "lema provado no kernel", "nenhum")
     anexa("cert-of-go-lemma", "formal", "f-cert-of-go")
     promover("cert-of-go-lemma", "PROVED", "FORMALIZER", "registro formal medido válido")
+    novo("syn-cert-lemma", "Syn.syn_cert: as checagens booleanas por síndromes (okT, okO, okB) e a lista L (unpack = L, estritamente crescente, < q^n, |L| = M) dão "
+         "∃ C : Finset (Fin n → ZMod q), C.card = M ∧ Covers R C (SynBridge.lean).",
+         {"problem": "ponte certificado por síndromes -> Covers (CoveringSyn)", "domain": "SynBridge", "assumptions": ["NeZero q"]}, kind="lemma", trust_boundary=TB_LEAN)
+    cx("syn-cert-lemma", "lema provado no kernel", "nenhum")
+    anexa("syn-cert-lemma", "formal", "f-syn-cert")
+    promover("syn-cert-lemma", "PROVED", "FORMALIZER", "registro formal medido válido")
 
     for cel, m, no_readme in CODIGOS:
         q, n, r = CELULAS[cel]
         cid = f"{cel}-ub-{m}"
-        deps = ["cert-of-go-lemma"] if (cel, m) == ("k7-9-4", 1351) else []
+        e_syn, e_heavy = (cel, m) in SYN, (cel, m) in HEAVY
+        deps = (["syn-cert-lemma"] if e_syn else []) + (["cert-of-go-lemma"] if e_heavy else [])
         nota = "" if no_readme else " NÃO consta no README/paper: está em data/codes e docs/code-format.md; novidade não conferida na literatura."
+        tb_lean = []
+        if e_syn:
+            tb_lean += tb((f"{SYN[(cel, m)]} (lib CoveringSyn): axiomas MEDIDOS nesta campanha (f-syn-{m})", "que existe C com |C| = M e Covers R C, no kernel do Lean"),
+                          (f"CoveringLean/SynData_K{m}.lean == witness (medido: exp-lean-syn-data-equals-witness-{m})", "elo entre o teorema e o arquivo"))
+        if e_heavy:
+            tb_lean += tb((f"Lean kernel ({HEAVY[(cel, m)][0]}), DECLARADO, não reproduzido ({CUSTO_HEAVY})", "mesmo código, certificado por prefixos"))
         novo(cid, f"Existe código C em (Z_{q})^{n} com |C| = {m} que cobre com raio {r} (data/codes/{nome_codigo(cel, m)}.txt).{nota}",
              {"problem": f"K_{q}({n},{r}) <= {m}", "domain": f"q={q}, n={n}, R={r}", "assumptions": [], "parameters": {"q": q, "n": n, "R": r, "M": m}},
-             kind="theorem", depends_on=deps,
-             bound=bound_(cel, m, "upper"), trust_boundary=TB_C + (tb(("Lean kernel (K7_9_4_le_1351_kernel), DECLARADO não reproduzido", "mesmo código, certificado pesado"),
-                                                                       ("C1_Data_K7_9_4.lean == witness (medido: exp-lean-data-equals-witness-1351)", "elo entre o teorema e o arquivo"))
-                                                                if (cel, m) == ("k7-9-4", 1351) else []) + tb(("literatura registrada (Kéri/Marosi), declarada", "só para a afirmação de que o valor é menor que o anterior, que o Lean não checa")))
-        cx(cid, "claim de existência: o witness é o certificado; dois verificadores independentes procuram ponto descoberto (uncovered=0)", "uncovered=0 nos dois verificadores")
+             kind="theorem", depends_on=deps, bound=bound_(cel, m, "upper"),
+             trust_boundary=TB_C + tb_lean + tb(("literatura registrada (Kéri/Marosi), declarada", "só para a afirmação de que o valor é menor que o anterior, que o Lean não checa")))
+        cx(cid, "claim de existência: o witness é o certificado; verificadores independentes procuram ponto descoberto (uncovered=0)", "uncovered=0 nos verificadores")
         anexa(cid, "witnesses", wid(cel, m))
-        anexa(cid, "experiments", {("k7-9-4", 1351): "exp-k7-9-4-1351-lincov", ("k7-9-4", 1285): "exp-k7-9-4-1285-regen"}.get((cel, m), "exp-prior-search-unrecorded"))
+        anexa(cid, "experiments", PRODUZIDO_POR.get((cel, m), "exp-prior-search-unrecorded"))
         anexa(cid, "literature", f"lit-keri-{cel}-ub")
         if cel == "k7-9-4":
             for v_ in ("v1", "v2", "v3"):
                 anexa(cid, "literature", f"lit-marosi-2608-19872-{v_}")
+            anexa(cid, "experiments", "exp-state-of-art-crosscheck")
+        if e_syn:
+            anexa(cid, "experiments", f"exp-lean-syn-data-equals-witness-{m}")
+            anexa(cid, "formal", f"f-syn-{m}")
+        if e_heavy:
+            if e_syn:  # o Lean MEDIDO sustenta o claim; o pesado fica ao lado, declarado (o registro inválido dele travaria PROVED se estivesse em evidence.formal)
+                K.atualizar(c, cid, ator=AUTOR, papel="PROPOSER", complementary_formal=[fid_heavy(HEAVY[(cel, m)][2], m)],
+                            complementary_formal_note="teorema por prefixos (CoveringHeavy) DECLARADO, não reproduzido; fica fora de evidence.formal de propósito")
+            else:
+                anexa(cid, "formal", fid_heavy(HEAVY[(cel, m)][2], m))
         if (cel, m) == ("k7-9-4", 1351):
             anexa(cid, "experiments", "exp-lean-data-equals-witness-1351")
-            anexa(cid, "experiments", "exp-structure-regeneration")
-            anexa(cid, "formal", "f-k7-9-4-le-1351")
+        anexa(cid, "experiments", "exp-structure-regeneration")
         if corridas:
-            negado = promover(cid, "INDEPENDENTLY_REPRODUCED", "INDEPENDENT_VERIFIER", "2 verificadores de autores/grupos distintos, PASS válido e sem desacordo, neste run")
+            negado = promover(cid, "INDEPENDENTLY_REPRODUCED", "INDEPENDENT_VERIFIER", "verificadores de autores/grupos distintos, PASS válido e sem desacordo, neste run")
             if negado:  # a evidência não sustenta IR: o estado honesto é o de baixo (EMPIRICAL: witness + busca de contraexemplo), nunca forçado
                 promover(cid, "EMPIRICAL", "PROPOSER", "witness conferido pelo verificador oficial; independência negada pela guarda (ver blocked_independently_reproduced)")
+            elif e_syn:
+                promover(cid, "PROVED", "FORMALIZER", f"{SYN[(cel, m)]} medido no kernel (axiomas só os esperados) + verificadores independentes (a guarda de PROVED exige os dois)")
         bloqueios_formal(cid) if c.ler("claims", cid)["evidence"]["formal"] else None
 
     # ------------------------------------------------------------------ comparação com a literatura REGISTRADA (literature_compare)
@@ -699,12 +910,6 @@ def main() -> int:
                 out.add(cel_de(b_["parameters"]["q"], b_["parameters"]["n"], b_["parameters"]["R"]))
         return sorted(out)
 
-    for cel, m, no_readme in CODIGOS:
-        if cel == "k7-9-4" and m == 1351:
-            continue
-        residuo(f"res-no-lean-theorem-{cel}-{m}", kind="sem_teorema_lean", claim_id=f"{cel}-ub-{m}", instance=cel, instances=[cel],
-                reason="só verificação computacional (verificadores); sem teorema Lean (README:69)",
-                next_step="gerar C1_Data_*.lean + folhas K3 (scripts/k794/gen.py) e rodar o alvo pesado, ou provar por síndromes (docs/code-format.md)")
     residuo("res-a6d-searchheavy", kind="fora_da_biblioteca", file="CoveringLean/A6d_SearchHeavy.lean", instances=["k2-6-1"],
             reason="DECLARADO: não compila (README:71, obsoleto com A6e e SearchK6ge12). Não executado aqui (risco de OOM). Célula: K_2(6,1) >= 11 (cabeçalho do arquivo).",
             next_step="apagar (pelo templo: com volta) ou arquivar")
@@ -712,10 +917,22 @@ def main() -> int:
             instances_note="o arquivo trata q=2, n=3, R=1, que não é célula do universo desta campanha",
             reason="DECLARADO: não compila (README:71). MEDIDO: `lake env lean` terminou com rc 137 (SIGKILL) em <=110 s; causa (OOM?) não investigada.",
             next_step="investigar e consertar, ou arquivar")
-    heavy_claims = ["k2-6-1-lb-12", "k2-6-1-eq-12", "k7-9-4-ub-1351"]
+    # claims cujo teorema Lean só existe como DECLARADO (CoveringHeavy) ou tem uma segunda prova pesada declarada ao lado da medida
+    heavy_claims = sorted({"k2-6-1-lb-12", "k2-6-1-eq-12"} | {cl["claim_id"] for cl in c.listar("claims")
+                          if any(f_.startswith("f-heavy-") for f_ in cl["evidence"]["formal"] + cl.get("complementary_formal", []))})
+    sem_medido = sorted(x for x in heavy_claims if c.ler("claims", x)["status"] not in ("PROVED", "FORMALLY_VERIFIED", "EXTERNALLY_REPRODUCED"))
     residuo("res-heavy-build-not-reproduced", kind="nao_reproduzido", claim_ids=heavy_claims, instances=celulas_de(heavy_claims),
-            reason="lake build CoveringHeavy (~12,4 h de CPU, 133 módulos) não foi executado; axiomas desses dois teoremas só DECLARADOS no README/paper",
-            next_step="rodar numa máquina com RAM >= 9 GB por módulo e registrar com formal.registrar_formal")
+            reason=f"lake build CoveringHeavy ({CUSTO_HEAVY}) não foi executado; os axiomas desses {len(HEAVY) + 1} teoremas só DECLARADOS no README. Sem teorema Lean MEDIDO "
+                   f"(ficam abaixo de PROVED por isso): {sem_medido}. O 1351 de K_7(9,4) tem também o teorema por síndromes medido (Syn.K7_9_4_le_1351_syn).",
+            next_step="rodar numa máquina com RAM >= 9 GB por módulo (ou provar por síndromes: scripts/syndrome/gen_syn.py, que custa minutos) e registrar com formal.registrar_formal")
+    residuo("res-ci-sem-coveringsyn", kind="garantia_continua", claim_ids=sorted(f"{cc}-ub-{mm}" for (cc, mm) in SYN), instances=sorted({cc for (cc, _) in SYN}),
+            reason="VALIDATION.md (achado de processo): o CI do repositório só roda `lake build` do alvo padrão. MEDIDO em .github/workflows/verify-codes.yml: nenhum job constrói CoveringSyn, "
+                   "então os cinco teoremas Syn_K* são medidos aqui (esta campanha) mas não recompilados a cada commit.",
+            next_step="um job com `lake build CoveringSyn` (alto risco pela classe do AGENTS.md: .github/workflows é do Thiago)")
+    residuo("res-search-kit-not-in-repo", kind="geracao_nao_reproduzivel", claim_ids=["k7-9-4-ub-1141", "k7-9-4-ub-1137"], instances=["k7-9-4"],
+            reason="a busca dos remendos de 1141 e 1137 (kit de busca, branch feat/kit-de-busca, commit be52cc2) não está neste repositório e nenhum comando/seed foi registrado; "
+                   "p1137.json regenera o MESMO conjunto de 1137 palavras (exp-k7-9-4-1137-regen), 1141 não tem p1141.json. A varredura de bases está em audit/k794-base-sweep.",
+            next_step="versionar o kit de busca (ou o comando e a semente) ou registrar p1141.json")
     proved = sorted(cl["claim_id"] for cl in c.listar("claims") if cl["status"] == "PROVED")
     residuo("res-statement-review", kind="revisao_humana", claim_ids=proved, instances=celulas_de(proved),
             reason="FORMALLY_VERIFIED exige statement_review por revisor que não seja o autor; README:73-74 diz que a revisão dos enunciados é humana e pendente",
@@ -735,11 +952,14 @@ def main() -> int:
     assert c.ler("literature", "lit-keri-k7-9-4-ub")["bound"]["value"] == 1843 and c.ler("literature", "lit-keri-k7-9-4-lb")["bound"]["value"] == 264
     # --- uma pergunta aberta por célula MELHORA_APARENTE_A_CONFIRMAR (LITERATURA_CC.md §2 e §7)
     FALTA = {
-        "k7-9-4": ("1285 e 1351 estão abaixo do 1475 do Marosi (v2/v3), mas: (1) Cohen-Honkala-Litsyn-Lobstein 1997 e Östergård 1999 não foram lidos; (2) trabalho de "
-                   "Östergård/Rivas Soriano posterior a 2011 e não indexado no arXiv; (3) o 1285 só foi verificado por nós (verify.c, verify_cover_dilation.py, verify-rust); "
-                   "rodar o verify_cov.py do Marosi daria independência real, mas é CÓDIGO DE TERCEIROS e NÃO foi executado (precisa de autorização); (4) a busca que produziu "
-                   "p1285.json não é reprodutível (sem comando/seed/log)",
-                   "autorizar e rodar verify_cov.py sobre data/codes/q7_n9_R4_M1285.txt; ler Cohen et al. 1997 e Östergård 1999; registrar o comando da busca do p1285.json"),
+        "k7-9-4": ("1137, 1141, 1285 e 1351 estão abaixo do 1475 do Marosi (v2/v3), mas: (1) Cohen-Honkala-Litsyn-Lobstein 1997 e Östergård 1999 não foram lidos; (2) trabalho de "
+                   "Östergård/Rivas Soriano posterior a 2011 e não indexado no arXiv; (3) os quatro códigos só foram verificados por programas deste repositório (verify.c, dilatação, "
+                   "verify-rust, clean-room e, no main v0.5, A/B/C de verification/, do mesmo autor de verify.c); rodar o verify_cov.py do Marosi daria independência real, mas é CÓDIGO "
+                   "DE TERCEIROS e NÃO foi executado (precisa de autorização); (4) a busca que produziu p1285.json/p1137.json/o 1141 não é reprodutível (sem comando/seed/log: res-search-kit-not-in-repo); "
+                   "(5) STATE_OF_ART.md (revisão de 2026-10-02) não achou nada <= 1137, mas ele mesmo lista o que não checou (Google Scholar, bases pagas, teses, periódico); ver exp-state-of-art-crosscheck; (6) RISCO: pela ADS (Lobstein-van Wee) K_7(9,4) <= 931 (=19*343/7) e <= 1225, <= 1344, mas SÓ SE existirem códigos normais "
+                   "para as cotas tabeladas; a busca por componentes normais falhou (LITERATURA_PROFUNDA.md §1.3) e nada disso é predecessor registrado. 931 < 1137: se fosse realizável, "
+                   "tiraria até o 1137",
+                   "autorizar e rodar verify_cov.py sobre data/codes/q7_n9_R4_M1137.txt; ler Cohen et al. 1997 e Östergård 1999; registrar o comando da busca dos remendos"),
         "k7-8-3": ("1887 e 1893 estão abaixo do 2337 do Kéri (soma direta; Marosi v1-v3 não tem K_7(8,3) na Tabela 1), mas Cohen et al. 1997 e trabalho pós-2011 não foram lidos; "
                    "o 1887 não é reprodutível (172 palavras soltas, sem comando/seed/gerador)",
                    "ler Cohen et al. 1997; registrar como o 1887 foi obtido; rodar verify_cov.py do Marosi se autorizado"),
@@ -759,29 +979,39 @@ def main() -> int:
         residuo(f"res-confirmar-{cel_}", kind="melhora_aparente_a_confirmar", instances=[cel_], claim_ids=[x for x in ub_claims if x.startswith(cel_ + "-ub-")],
                 reason="MELHORA_APARENTE_A_CONFIRMAR (nunca 'novidade'): " + reason_, next_step=next_,
                 comparison={x: comparacoes[x] for x in ub_claims if x.startswith(cel_ + "-ub-")})
-    bloqueados = [x for x in ub_claims if c.ler("claims", x)["status"] != "INDEPENDENTLY_REPRODUCED"]
+    bloqueados = [x for x in ub_claims if c.ler("claims", x)["status"] not in ("INDEPENDENTLY_REPRODUCED", "PROVED", "FORMALLY_VERIFIED", "EXTERNALLY_REPRODUCED")]
     if bloqueados:
         residuo("res-reverify-independent-author", kind="independencia", claim_ids=bloqueados, instances=celulas_de(bloqueados),
-                reason="MEDIDO pela guarda de INDEPENDENTLY_REPRODUCED (2026-10-03): verify-c (autor thiagopatzdorf, git log) conta; verify-py-dilation foi escrito por agente-c, "
-                       "que também criou os claims, e a guarda não conta verificador do autor do claim. Resta 1 componente independente (< 2), então os 10 claims de "
-                       "código ficam em EMPIRICAL (blocked_independently_reproduced traz os motivos exatos). Os dois verificadores continuam concordando; o que falta é um "
-                       "segundo AUTOR, não um segundo resultado.",
-                next_step="outro agente/humano (diferente de agente-c e de thiagopatzdorf) escreve ou reimplementa um verificador, registra com implemented_by verdadeiro e roda sobre os 11 witnesses")
-    residuo("res-1351-generator", kind="geracao_nao_reproduzivel", claim_id="k7-9-4-ub-1351", instances=["k7-9-4"],
-            reason="lincov (Mapika/coldcase@56a8cce) fora do repo e remendo guloso de 322 palavras sem registro; gen_lean_cover.py/tests/test_lean_cover.py/data/certificates citados em C1_Data_K7_9_4.lean não existem",
-            next_step="registrar o comando do lincov e o algoritmo do remendo, ou versionar o gerador do .lean")
-    residuo("res-readme-vs-data", kind="inconsistencia", instances=["k7-9-4", "k7-8-3"],
-            reason="data/codes tem M1285 (K_7(9,4)) e M1887 (K_7(8,3)) melhores que os 1351/1893 do paper/main.tex e da nota.md. O README foi corrigido em 2026-10-03 "
-                   "(1285/1887 existem e são verificados por 3 verificadores, mas não têm teorema Lean; 'três verificadores independentes' trocado pelo que existe), "
-                   "mas paper/main.tex (Zenodo v0.3, publicação: mudança é decisão do dono) ainda diz 'checked by three independent programs' e só cita 1351/1893",
-            next_step="o dono decide se publica versão nova do paper; frases a corrigir listadas no relatório do Lit-Integra")
+                reason="MEDIDO pela guarda de INDEPENDENTLY_REPRODUCED neste run: " + " | ".join(c.ler("claims", bloqueados[0]).get("blocked_independently_reproduced", ["(sem motivo gravado)"])),
+                next_step="outro agente/humano (diferente do autor dos claims e do autor de cada verificador já contado) escreve ou reimplementa um verificador, registra com implemented_by verdadeiro")
+    residuo("res-validation-independence-wording", kind="independencia", claim_ids=[x for x in ub_claims if x.startswith("k7-9-4-ub-")], instances=["k7-9-4"],
+            reason=f"VALIDATION.md e o paper dizem 'três verificadores independentes' (A, B, C de verification/). MEDIDO no git log: os três vieram de UM commit e do MESMO autor ({autor_val}) de "
+                   "tools/verify/verify.c, então a guarda de independência os conta num componente só com verify-c. A independência de AUTORIA que a campanha mede vem de verify-rust e "
+                   "verify-cleanroom (autoria distinta declarada nos READMEs; o git log assina 'Claude' nos dois). Os A, B, C são independentes de MÉTODO (força bruta, união de bolas, BFS) e de "
+                   "código, não de autoria. A frase só vale nesse sentido.",
+            next_step="o dono decide se a frase do paper/VALIDATION.md passa a dizer 'independentes de método'; ou outro autor reescreve um dos três")
+    ler_ = lambda rel: (REPO / rel).read_text(encoding="utf-8")  # noqa: E731
+    if re.search(r"ainda não são teoremas Lean", ler_("README.md")):
+        residuo("res-readme-stale-lean", kind="inconsistencia", instances=sorted({cc for (cc, mm) in HEAVY if (cc, mm) not in SYN}),
+                reason="README.md (seção 'Resultados da v0.3') ainda diz dos outros 7 códigos de data/codes que 'ainda não são teoremas Lean', mas a tabela da v0.5 do MESMO arquivo lista "
+                       "`CoveringKernel.K*_kernel` para cada um deles (e `Syn.K7_8_3_le_1887_syn`). O texto está obsoleto; a campanha segue os arquivos .lean, não o texto.",
+                next_step="o dono corrige o parágrafo da v0.3 do README")
 
     # ------------------------------------------------------------------ universo (finito) e cobertura
+    # Os números do universo são DERIVADOS do estado dos claims (nada digitado): ub_formal_lean = menor M de claim de cota superior que chegou a PROVED+ (teorema Lean
+    # MEDIDO); lb_formal_melhor = maior cota inferior de claim PROVED+. O lb 12 de K_2(6,1) é declarado/exaustivo (Lean pesado não reproduzido), por isso NÃO entra em lb_formal_melhor.
+    FORTES = ("PROVED", "FORMALLY_VERIFIED", "EXTERNALLY_REPRODUCED")
+    FRACOS_OK = FORTES + ("INDEPENDENTLY_REPRODUCED",)
+    todos_claims = c.listar("claims")
+
+    def melhor(cel_, direcao, estados, fn):
+        vs = [cl["bound"]["value"] for cl in todos_claims if cl.get("bound") and cl["status"] in estados and cl["bound"]["direction"] == direcao
+              and cel_de(cl["bound"]["parameters"]["q"], cl["bound"]["parameters"]["n"], cl["bound"]["parameters"]["R"]) == cel_]
+        return fn(vs) if vs else None
     inst = []
     for cel, (q, n, r) in CELULAS.items():
-        melhores = [m for cc, m, _ in CODIGOS if cc == cel]
-        inst.append({"id": cel, "q": q, "n": n, "R": r, "lb_formal_esfera": LB_ESFERA.get(cel), "lb_formal_melhor": 12 if cel == "k2-6-1" else LB_ESFERA.get(cel),
-                     "ub_verificado_melhor": min(melhores) if melhores else (12 if cel == "k2-6-1" else None), "ub_formal_lean": {"k7-9-4": 1351, "k2-6-1": 12}.get(cel),
+        inst.append({"id": cel, "q": q, "n": n, "R": r, "lb_formal_esfera": LB_ESFERA.get(cel), "lb_formal_melhor": melhor(cel, "lower", FORTES, max),
+                     "ub_verificado_melhor": melhor(cel, "upper", FRACOS_OK, min), "ub_formal_lean": melhor(cel, "upper", FORTES, min),
                      "size": n})  # o 264 do paper continua fora do universo; a fonte agora é lit-keri-k7-9-4-lb (Kéri, chave m)
     COV.definir_universo(c, {"tipo": "finito", "total": len(inst), "instancias": inst, "estado_minimo_resolvido": "EXHAUSTIVE_BOUNDED",
                              "descricao": "Células (q,n,R) tratadas pela campanha: 8 da cota de esfera (7 com código verificado + K_7(9,4)) e K_2(6,1). "
@@ -789,17 +1019,24 @@ def main() -> int:
                          ator=AUTOR, papel="COORDINATOR")
 
     # ------------------------------------------------------------------ reproduce.json
+    k794_wits = [wid(cel, m) for cel, m, _ in CODIGOS if cel == "k7-9-4"]
     passos = [
-        {"id": "ambiente", "type": "ambiente", "requires": ["cc", "python3"], "report_versions": ["cc", "python3"]},
+        {"id": "ambiente", "type": "ambiente", "requires": ["cc", "python3", "go", "rustc", "cargo", "pytest"], "report_versions": ["cc", "python3", "go", "rustc"]},
         {"id": "hashes-dos-witnesses", "type": "hashes"},
         {"id": "check-all-verify-c", "type": "dados", "command": ["bash", "tools/verify/check_all.sh"], "timeout_s": 600},
         {"id": "estrutura-regenera", "type": "gerador", "command": ["python3", "scripts/codes/build_structured.py", "--check"], "timeout_s": 600},
         {"id": "gerador-1285", "type": "gerador", "command": ["python3", "-m", "unittest", "tests.test_code_format.GeneratorsRegenerateTheCodes", "-v"], "timeout_s": 600},
+        {"id": "gerador-1137", "type": "gerador", "command": ["python3", "scripts/search/gen.py", "data/search/p1137.json", "/tmp/covering_p1137_regen.txt"], "timeout_s": 120},
         {"id": "espelho-busca-k2-6-1", "type": "gerador", "command": ["python3", "scripts/k261/sc_ref.py", "6", "10", "2"], "timeout_s": 120},
-        {"id": "testes-unittest", "type": "teste", "command": ["python3", "-m", "unittest", "discover", "-s", "tests", "-v"], "timeout_s": 900},
-        {"id": "verificadores-sobre-witnesses", "type": "verificadores"},
+        # pytest, não unittest: test_ledger/test_publish/test_record_loop importam módulos por tests/conftest.py (medido: `unittest discover` dá 3 erros de import)
+        {"id": "testes-pytest", "type": "teste", "command": ["python3", "-m", "pytest", "-q", "tests"], "timeout_s": 1800},
+        {"id": "verificadores-gerais-sobre-witnesses", "type": "verificadores", "verifiers": ["verify-c", "verify-py-dilation", "verify-rust", "verify-cleanroom"]},
+        *([{"id": "verificadores-k794-sobre-witnesses-k7-9-4", "type": "verificadores", "verifiers": list(VAL_IDS), "subjects": k794_wits}]
+          if REGISTRAR_VERIFICATION_DO_MAIN else []),
         {"id": "lake-build-alvo-padrao", "type": "lean_build", "lean_root": ".", "target": None, "opcional": True,
-         "nota": "alvo padrão CoveringLean (8942 jobs); CoveringHeavy (~12,4 h de CPU) NÃO está aqui"},
+         "nota": "alvo padrão CoveringLean (8944 jobs, com SynCheck/SynBridge)"},
+        {"id": "lake-build-coveringsyn", "type": "lean_build", "lean_root": ".", "target": "CoveringSyn", "opcional": True,
+         "nota": "os cinco teoremas por síndromes (~10 min de relógio); CoveringHeavy (~9,3 h de CPU) NÃO está aqui"},
         {"id": "axiomas-dos-registros-formais", "type": "axiomas"},
         {"id": "auditoria-da-cadeia", "type": "auditoria"},
     ]

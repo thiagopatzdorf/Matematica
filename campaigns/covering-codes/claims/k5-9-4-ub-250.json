@@ -10,21 +10,26 @@
   },
   "claim_id": "k5-9-4-ub-250",
   "counterexample_search": {
-    "method": "claim de existência: o witness é o certificado; dois verificadores independentes procuram ponto descoberto (uncovered=0)",
-    "result": "uncovered=0 nos dois verificadores",
+    "method": "claim de existência: o witness é o certificado; verificadores independentes procuram ponto descoberto (uncovered=0)",
+    "result": "uncovered=0 nos verificadores",
     "status": "completed"
   },
-  "created": "2026-10-03T16:43:50Z",
+  "created": "2026-10-03T21:53:49Z",
   "created_by": "agente-c",
   "created_role": "PROPOSER",
-  "depends_on": [],
+  "depends_on": [
+    "cert-of-go-lemma"
+  ],
   "evidence": {
     "counterexamples": [],
     "experiments": [
-      "exp-prior-search-unrecorded"
+      "exp-prior-search-unrecorded",
+      "exp-structure-regeneration"
     ],
     "external_reproductions": [],
-    "formal": [],
+    "formal": [
+      "f-heavy-k5-9-4-250"
+    ],
     "literature": [
       "lit-keri-k5-9-4-ub"
     ],
@@ -34,6 +39,12 @@
       "w-q5-n9-r4-m250"
     ]
   },
+  "formal_verification_blockers": [
+    "f-heavy-k5-9-4-250: clean_build não é true",
+    "f-heavy-k5-9-4-250: axiomas não registrados (`#print axioms` não foi capturado)",
+    "f-heavy-k5-9-4-250: ambiente não registrado: falta lean_version",
+    "falta statement_review: o Lean certifica o enunciado formal, não que ele é o enunciado pretendido; um revisor humano/independente precisa ler"
+  ],
   "history": [
     {
       "actor": "agente-c",
@@ -41,7 +52,7 @@
       "reason": "criado",
       "role": "PROPOSER",
       "to": "IDEA",
-      "ts": "2026-10-03T16:43:50Z"
+      "ts": "2026-10-03T21:53:49Z"
     },
     {
       "actor": "agente-c",
@@ -49,7 +60,7 @@
       "reason": "evidência anexada: witnesses=w-q5-n9-r4-m250",
       "role": "PROPOSER",
       "to": "IDEA",
-      "ts": "2026-10-03T16:43:50Z"
+      "ts": "2026-10-03T21:53:49Z"
     },
     {
       "actor": "agente-c",
@@ -57,7 +68,7 @@
       "reason": "evidência anexada: experiments=exp-prior-search-unrecorded",
       "role": "PROPOSER",
       "to": "IDEA",
-      "ts": "2026-10-03T16:43:50Z"
+      "ts": "2026-10-03T21:53:49Z"
     },
     {
       "actor": "agente-c",
@@ -65,15 +76,31 @@
       "reason": "evidência anexada: literature=lit-keri-k5-9-4-ub",
       "role": "PROPOSER",
       "to": "IDEA",
-      "ts": "2026-10-03T16:43:50Z"
+      "ts": "2026-10-03T21:53:49Z"
+    },
+    {
+      "actor": "agente-c",
+      "from": "IDEA",
+      "reason": "evidência anexada: formal=f-heavy-k5-9-4-250",
+      "role": "PROPOSER",
+      "to": "IDEA",
+      "ts": "2026-10-03T21:53:49Z"
+    },
+    {
+      "actor": "agente-c",
+      "from": "IDEA",
+      "reason": "evidência anexada: experiments=exp-structure-regeneration",
+      "role": "PROPOSER",
+      "to": "IDEA",
+      "ts": "2026-10-03T21:53:49Z"
     },
     {
       "actor": "migrate_covering.py",
       "from": "IDEA",
-      "reason": "2 verificadores de autores/grupos distintos, PASS válido e sem desacordo, neste run",
+      "reason": "verificadores de autores/grupos distintos, PASS válido e sem desacordo, neste run",
       "role": "INDEPENDENT_VERIFIER",
       "to": "INDEPENDENTLY_REPRODUCED",
-      "ts": "2026-10-03T16:43:50Z"
+      "ts": "2026-10-03T21:53:49Z"
     }
   ],
   "kind": "theorem",
@@ -101,15 +128,18 @@
   },
   "sealed_evidence": {
     "experiments": [
-      "exp-prior-search-unrecorded"
+      "exp-prior-search-unrecorded",
+      "exp-structure-regeneration"
     ],
-    "formal": [],
+    "formal": [
+      "f-heavy-k5-9-4-250"
+    ],
     "proofs": [],
     "witnesses": [
       "w-q5-n9-r4-m250"
     ]
   },
-  "sealed_sha256": "6940c507bf9c817138d46c5d5bce831cabbf6a35b1a111c946650201f1f413c2",
+  "sealed_sha256": "5a5baa6f5f95c2d572185106f1fcfa2be649f63cb262600b069ad283d03d9bce",
   "statement": "Existe código C em (Z_5)^9 com |C| = 250 que cobre com raio 4 (data/codes/q5_n9_R4_M250.txt).",
   "status": "INDEPENDENTLY_REPRODUCED",
   "trust_boundary": [
@@ -124,6 +154,10 @@
     {
       "component": "formato covering-code/v1 (docs/code-format.md)",
       "trusted_for": "convenção de dígitos little-endian e do sha256 canônico"
+    },
+    {
+      "component": "Lean kernel (CoveringKernel.K5_9_4_le_250_kernel), DECLARADO, não reproduzido (~9,3 h de CPU (README.md: `lake build CoveringHeavy` 1 h 54 min de relógio, pico 9,4 GB por processo))",
+      "trusted_for": "mesmo código, certificado por prefixos"
     },
     {
       "component": "literatura registrada (Kéri/Marosi), declarada",

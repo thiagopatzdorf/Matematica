@@ -1,0 +1,30 @@
+{
+  "axioms": null,
+  "axioms_status": "DECLARED_NOT_REPRODUCED: README.md ('Nenhum sorry, nenhum native_decide, e todo #print axioms mostra no máximo propext, Classical.choice, Quot.sound'); o módulo é do alvo CoveringHeavy, custo ~9,3 h de CPU (README.md: `lake build CoveringHeavy` 1 h 54 min de relógio, pico 9,4 GB por processo): não compilado nesta campanha",
+  "build_status": "NOT_RUN: lake build CoveringHeavy não executado neste ambiente (~9,3 h de CPU (README.md: `lake build CoveringHeavy` 1 h 54 min de relógio, pico 9,4 GB por processo))",
+  "clean_build": false,
+  "declared_axioms": [
+    "propext",
+    "Classical.choice",
+    "Quot.sound"
+  ],
+  "file": "CoveringLean/K3_K4_10_4_Final.lean",
+  "formal_id": "f-heavy-k4-10-4-192",
+  "lean_root": ".",
+  "lean_toolchain": "leanprover/lean4:v4.34.1",
+  "lean_version": null,
+  "manifest_sha256": "88d3b3c8b56dbff5d6c7f63ac444982ed9152f874d27a8174c91544dfa90ed82",
+  "mathlib_commit": "d13f23b723b8a846827a245b89c10fc7d3f11612",
+  "measured": null,
+  "module": "CoveringLean.K3_K4_10_4_Final",
+  "repo_commit": "986889eaaf52b9b79dffd3f3385775fd4eea4fb0",
+  "scan_findings": [],
+  "sorry_free": true,
+  "sorry_free_basis": "varredura estática de 8 fontes (não é build)",
+  "source_sha256": "54180fb73fa53cc4f887ac923df075703b198f5a96663ff0cda036c760a2a934",
+  "theorem": "CoveringKernel.K4_10_4_le_192_kernel",
+  "validation_problems": [
+    "axiomas não medidos (declarados)",
+    "clean_build não medido"
+  ]
+}
