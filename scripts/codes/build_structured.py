@@ -32,6 +32,22 @@ _UNKNOWN = {
 }
 
 PROVENANCE = {
+    # dims=[3]: o JSON commitado (e o certificado Lean gerado dele) guarda o remendo como 105 palavras
+    # soltas; sem isto o structure.py detecta as 15 órbitas de 7 como cosets de [9,1]_7 e o --check
+    # acusa DIFERE no 1134.
+    "q7_n9_R4_M1134": {
+        "generator": "ILP com simetria imposta (invariância por translação pela reta 10 de C0), HiGHS, "
+                     "candidates/k7_9_4_1134/ilp_sym.py 18 line 10 600",
+        "commit": None,
+        "seed": None,
+        "command": "python3 ilp_sym.py 18 line 10 600",
+        "date": "2026-10-03",
+        "agent": "James.V1",
+        "repo_commit": None,
+        "notes": "mesma base do 1137 (H=[I6|A], A=666 065 652 643 621 615, síndromes 0, 7708, 4191) + 105 palavras "
+                 "(15 órbitas de 7). Verificado por 3 verificadores independentes (candidates/k7_9_4_1134).",
+        "dims": [3],
+    },
     "q7_n9_R4_M1351": {
         "generator": "lincov (Mapika/coldcase) para os 3 cosets de [9,3]_7; remendo de 322 palavras sem registro",
         "commit": "56a8cce",
