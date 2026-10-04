@@ -71,7 +71,9 @@ def resolver(v: int, y: list[int], p: int, tempo: int, lrat: bool, pasta: str) -
         t1 = time.time()
         c = subprocess.run([binario("LRAT_CHECK", "lrat-check"), base + ".cnf", base + ".lrat"],
                            capture_output=True, text=True)
-        reg["lrat_check"] = "VERIFIED" if "VERIFIED" in c.stdout else "FALHOU"
+        # "c NOT VERIFIED" também contém "VERIFIED": compara a linha inteira
+        ok = any(ln.strip() in ("c VERIFIED", "s VERIFIED") for ln in c.stdout.splitlines())
+        reg["lrat_check"] = "VERIFIED" if ok else "FALHOU: " + c.stdout[-200:]
         reg["lrat_seg"] = round(time.time() - t1, 2)
         reg["lrat_bytes"] = os.path.getsize(base + ".lrat")
     for ext in (".cnf", ".lrat"):

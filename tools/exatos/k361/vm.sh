@@ -8,7 +8,7 @@ sudo apt-get update -q >/dev/null 2>&1
 sudo apt-get install -y -q build-essential git python3 >/dev/null 2>&1
 mkdir -p sat && cd sat
 for r in arminbiere/cadical marijnheule/drat-trim; do [ -d $(basename $r) ] || git clone -q --depth 1 https://github.com/$r; done
-(cd cadical && git rev-parse HEAD > ../cadical.commit && ./configure >/dev/null && make -j8 >/dev/null)
+(cd cadical && git rev-parse HEAD > ../cadical.commit && [ -x build/cadical ] || (./configure >/dev/null && make -j8 >/dev/null))
 (cd drat-trim && git rev-parse HEAD > ../drat-trim.commit && make >/dev/null)
 cd ~
 [ -d Matematica ] || git clone -q -b "$BR" https://github.com/thiagopatzdorf/Matematica
