@@ -366,7 +366,7 @@ def certificar_lb(cel: dict, registro: dict | None) -> dict | None:
         prov = _prov(fonte or {"source": "nosso", "ref": registro.get("docs")}, versao or registro.get("data"),
                      registro.get("witness"), registro.get("sha256"),
                      registro.get("verificador_independente"), registro.get("lean"))
-        for k in ("formalizacao_parcial", "reproducao_independente"):
+        for k in ("formalizacao_parcial", "formalizacao_completa", "reproducao_independente"):
             if registro.get(k):
                 prov[k] = registro[k]
     elif pub is not None:

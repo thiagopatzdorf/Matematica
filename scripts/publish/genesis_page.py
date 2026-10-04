@@ -66,10 +66,14 @@ def linhas_tabela(cells: list[dict], tag: str) -> list[str]:
         pub = c["published"]
         lean, comp = c.get("ours_lean"), c.get("ours_computational")
         if lean:
-            rel = "=" if lean.get("exact") else "≤"
+            lb_lean = _inferior_no_kernel(c)
+            rel = "=" if lean.get("exact") or lb_lean else "≤"
             onde = f"<code>{escape(lean['declaration'])}</code>"
             onde += f" ({escape(lean['tag'])})" if lean.get("tag") else \
                 f" (next release{', ' + escape(lean['tag_pendente']) if lean.get('tag_pendente') else ''})"
+            if lb_lean:
+                onde += f"; exact value <code>{escape(lb_lean['declaration'])}</code>"
+                onde += f" ({escape(lb_lean['tag'])})" if lb_lean.get("tag") else ""
             cod = _link_codigo(lean.get("file"), tag)
             out.append(f"<tr><td>{k_html(c)}</td><td class=\"n\">{fonte(pub['lb'])}</td>"
                        f"<td class=\"n\">{fonte(pub['ub'])}</td><td class=\"n\"><b>{rel} {lean['M']}</b></td>"
@@ -80,6 +84,21 @@ def linhas_tabela(cells: list[dict], tag: str) -> list[str]:
                        f"<td><span class=\"cp\">computer only</span> (not yet a Lean theorem)</td>"
                        f"<td>{_link_codigo(comp.get('file'), tag)}</td></tr>")
     return out
+
+
+def _inferior_no_kernel(c: dict) -> dict | None:
+    """Declaração Lean da cota inferior quando ela é teorema sem hipótese e fecha a célula (= superior).
+
+    Sem isso a página mostraria "≤ 19" para K_7(4,2), cuja igualdade é teorema do kernel desde a v0.8.
+    """
+    cert = c.get("certification") or {}
+    lb, lean = cert.get("lb") or {}, c.get("ours_lean") or {}
+    decl = (lb.get("provenance") or {}).get("lean")
+    if (not cert.get("exact") or lb.get("state") not in ("FORMALIZED", "INDEPENDENTLY_REPRODUCED")
+            or not isinstance(decl, dict) or not decl.get("declaration") or decl.get("condicional")
+            or lb.get("value") != lean.get("M") or decl["declaration"] == lean.get("declaration")):
+        return None
+    return decl
 
 
 def _link_codigo(arquivo: str | None, tag: str) -> str:
@@ -107,6 +126,8 @@ def gerar(ledger: dict, zen: dict, prov: dict, doi: str, doi_conceito: str | Non
     decl = "\n".join(f"theorem {c['ours_lean']['declaration']}  -- {k_txt(c)} "
                      f"{'=' if c['ours_lean'].get('exact') else '≤'} {c['ours_lean']['M']}"
                      for c in lean)
+    decl += "".join(f"\ntheorem {lb_d['declaration']}  -- {k_txt(c)} = {c['ours_lean']['M']}"
+                    for c in lean if (lb_d := _inferior_no_kernel(c)))
     fontes = ledger["meta"].get("fontes", {})
     fontes_txt = "; ".join(f"{escape(k)} <code>{escape(v['commit'][:7])}</code>" for k, v in sorted(fontes.items()))
     autores = zen.get("creators", [{}])

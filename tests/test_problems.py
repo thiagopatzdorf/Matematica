@@ -243,8 +243,10 @@ def test_k742_do_cartao_bate_com_o_doc_e_com_os_certificados():
     for rel in seed.CERTS_K742:
         linhas = [json.loads(x) for x in (RAIZ / rel).read_text().splitlines()]
         assert linhas and all(x["resultado"] == "UNSAT" and x["lrat_check"] == "VERIFIED" for x in linhas)
-    # só LRAT, sem kernel do Lean: não pode estar `certificado`
-    assert c["estado"] == "verificado" and c["nosso"]["estado"] == "lrat"
+    # LRAT conferido (verificado) e depois o teorema incondicional no kernel (certificado, v0.8)
+    assert c["estado"] == "certificado" and c["nosso"] == {"valor": 19, "estado": "lean", "prova": "K742.K_7_4_2_eq_19"}
+    assert [h["para"] for h in c["historico"]][-2:] == ["verificado", "certificado"]
+    assert c["historico"][-1]["evidencia"]["tag"] == cel["certification"]["lb"]["provenance"]["lean"]["tag"]
 
 
 def test_semear_duas_vezes_gera_bytes_identicos_e_iguais_aos_cartoes_do_repositorio(tmp_path):
