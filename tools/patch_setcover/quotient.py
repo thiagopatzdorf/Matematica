@@ -52,7 +52,6 @@ def build(inst, gword):
 
 def expand_orbits(words, gword, q):
     """Palavras representantes -> todas as palavras das órbitas (lista de strings)."""
-    n = len(gword)
     g = np.array([int(c) for c in gword], dtype=np.int64)
     out = set()
     for w in words:
