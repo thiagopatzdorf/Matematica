@@ -10,6 +10,7 @@
   ],
   "file": "CoveringLean/K3_K5_9_3_Final.lean",
   "formal_id": "f-heavy-k5-9-3-1250",
+  "kernel_run": "kr-heavy-ddb16b7-lean-build2",
   "lean_root": ".",
   "lean_toolchain": "leanprover/lean4:v4.34.1",
   "lean_version": null,
@@ -43,7 +44,7 @@
     "teoremas_adicionais_do_mesmo_arquivo": []
   },
   "module": "CoveringLean.K3_K5_9_3_Final",
-  "repo_commit": "893c5c7d354d8ad3945c2cd8abec6579b265cac2",
+  "repo_commit": "971fc09117d21b31a702411570d99c7aeeea5214",
   "scan_findings": [],
   "sorry_free": true,
   "sorry_free_basis": "varredura estática de 17 fontes (não é build)",

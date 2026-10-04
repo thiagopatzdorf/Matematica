@@ -1,5 +1,5 @@
 {
-  "created": "2026-10-04T06:24:59Z",
+  "created": "2026-10-04T15:23:53Z",
   "created_by": "agente-c",
   "description": "Regenera data/structured/*.json de data/codes/*.txt (detecta cosets) e compara com os versionados.",
   "experiment_id": "exp-structure-regeneration",
@@ -7,7 +7,7 @@
   "instances": [],
   "kind": "symbolic",
   "ranges": null,
-  "repo_commit": "893c5c7d354d8ad3945c2cd8abec6579b265cac2",
+  "repo_commit": "971fc09117d21b31a702411570d99c7aeeea5214",
   "result": {
     "executado_neste_run": true,
     "rc": 0,

@@ -4,7 +4,7 @@
   "canonical_sha256": "907b0f19b29b83a89bc17b77b944c5f2ee27019abcd2d161a6861f4855149b30",
   "canonical_sha256_declared_in_structured": "907b0f19b29b83a89bc17b77b944c5f2ee27019abcd2d161a6861f4855149b30",
   "claim_ids": [],
-  "created": "2026-10-04T06:24:59Z",
+  "created": "2026-10-04T15:23:53Z",
   "created_by": "agente-c",
   "format": "covering-code/v1 (lista plana, uma palavra por linha)",
   "implementation": null,

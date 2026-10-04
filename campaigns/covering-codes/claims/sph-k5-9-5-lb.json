@@ -14,7 +14,7 @@
     "result": "nenhum",
     "status": "completed"
   },
-  "created": "2026-10-04T06:42:19Z",
+  "created": "2026-10-04T15:43:09Z",
   "created_by": "agente-c",
   "created_role": "PROPOSER",
   "depends_on": [
@@ -42,7 +42,7 @@
       "reason": "criado",
       "role": "PROPOSER",
       "to": "IDEA",
-      "ts": "2026-10-04T06:42:19Z"
+      "ts": "2026-10-04T15:43:09Z"
     },
     {
       "actor": "agente-c",
@@ -50,7 +50,7 @@
       "reason": "evidência anexada: formal=f-sph-k5-9-5",
       "role": "PROPOSER",
       "to": "IDEA",
-      "ts": "2026-10-04T06:42:19Z"
+      "ts": "2026-10-04T15:43:09Z"
     },
     {
       "actor": "migrate_covering.py",
@@ -58,7 +58,7 @@
       "reason": "registro formal medido válido",
       "role": "FORMALIZER",
       "to": "PROVED",
-      "ts": "2026-10-04T06:42:19Z"
+      "ts": "2026-10-04T15:43:09Z"
     }
   ],
   "kind": "theorem",

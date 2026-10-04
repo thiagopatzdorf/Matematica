@@ -11,7 +11,7 @@
     "k7-8-3-ub-1893",
     "k7-9-4-ub-1351"
   ],
-  "created": "2026-10-04T06:24:59Z",
+  "created": "2026-10-04T15:23:53Z",
   "created_by": "agente-c",
   "instances": [
     "k2-6-1",
@@ -25,7 +25,7 @@
     "k7-9-4"
   ],
   "kind": "nao_reproduzido",
-  "next_step": "(a) tipo de registro 'external_measurement' na infraestrutura (campaigns/covering-codes/_fatos/PROPOSTA_INFRA_medicao_externa.md) ou (b) refazer o build pela própria campanha numa máquina com RAM >= 9 GB e registrar com formal.registrar_formal (ou provar por síndromes: scripts/syndrome/gen_syn.py, minutos)",
-  "reason": "lake build CoveringHeavy (~9,3 h de CPU (README.md: `lake build CoveringHeavy` 1 h 54 min de relógio, pico 9,4 GB por processo)) não é executável neste container (4 vCPU/15 GB). Os 9 teoremas têm UMA medição externa do autor numa VM (_fatos/medicao_heavy_vm.json: 9181 jobs, 220 folhas ok, 0 falhas, axiomas só propext/Classical.choice/Quot.sound, commit ddb16b7, log sha256 ca233f40f93e8eb1…, log não versionado), não refeita em segundo ambiente e não medida por esta campanha: as guardas não a aceitam como registro Lean medido. Sem teorema Lean MEDIDO pela campanha (ficam abaixo de PROVED por isso): ['k2-6-1-eq-12', 'k2-6-1-lb-12', 'k4-10-4-ub-192', 'k5-10-4-ub-625', 'k5-7-2-ub-500', 'k5-9-3-ub-1250', 'k5-9-4-ub-250', 'k5-9-5-ub-50', 'k7-8-3-ub-1893']. O 1351 de K_7(9,4) tem também o teorema por síndromes medido (Syn.K7_9_4_le_1351_syn).",
+  "next_step": "(a) KERNEL_VERIFIED: refazer o build numa VM gerando o log, guardá-lo fora do Git e registrar com kernel.registrar_execucao (CLI: `kernel-run register`; hash de 64 hex, uri, saída real de #print axioms); (b) KERNEL_INDEPENDENTLY_REPRODUCED: uma SEGUNDA execução completa noutra VM (host.id, run_id e log distintos, mesmo commit); (c) ou refazer pela própria campanha com formal.registrar_formal numa máquina com RAM >= 9 GB (ou provar por síndromes: scripts/syndrome/gen_syn.py, minutos). Ver docs/matematica/ESCADA_DE_EVIDENCIA.md da infraestrutura",
+  "reason": "lake build CoveringHeavy (~9,3 h de CPU (README.md: `lake build CoveringHeavy` 1 h 54 min de relógio, pico 9,4 GB por processo)) não é executável neste container (4 vCPU/15 GB). Os 9 teoremas têm UMA medição externa do autor numa VM (_fatos/medicao_heavy_vm.json: 9181 jobs, 220 folhas ok, 0 falhas, axiomas só propext/Classical.choice/Quot.sound, commit ddb16b7, log sha256 ca233f40f93e8eb1…, log não versionado), não refeita em segundo ambiente e não medida por esta campanha: as guardas de formal não a aceitam como registro Lean medido; ela está registrada em kernel_runs/kr-heavy-ddb16b7-lean-build2 no nível EXTERNAL_RUN_REPORTED (só o autor atesta: log bruto NÃO persistido, sem hash de 64 hex, sem saída literal de #print axioms; abaixo de KERNEL_VERIFIED) e NÃO é reprodução independente. Sem teorema Lean MEDIDO pela campanha (ficam abaixo de PROVED por isso): ['k2-6-1-eq-12', 'k2-6-1-lb-12', 'k4-10-4-ub-192', 'k5-10-4-ub-625', 'k5-7-2-ub-500', 'k5-9-3-ub-1250', 'k5-9-4-ub-250', 'k5-9-5-ub-50', 'k7-8-3-ub-1893']. O 1351 de K_7(9,4) tem também o teorema por síndromes medido (Syn.K7_9_4_le_1351_syn).",
   "residual_id": "res-heavy-build-not-reproduced"
 }

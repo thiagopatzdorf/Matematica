@@ -1,5 +1,5 @@
 {
-  "created": "2026-10-04T06:24:59Z",
+  "created": "2026-10-04T15:23:53Z",
   "created_by": "agente-c",
   "description": "Decodifica a lista LK1351 (e o campo empacotado PN) de CoveringLean/SynData_K1351.lean (base 7 little-endian) e compara o sha256 canônico com o de data/codes/q7_n9_R4_M1351.txt: o elo entre o teorema Syn.K7_9_4_le_1351_syn e o arquivo verificado por programas.",
   "experiment_id": "exp-lean-syn-data-equals-witness-1351",
@@ -9,7 +9,7 @@
   ],
   "kind": "symbolic",
   "ranges": null,
-  "repo_commit": "893c5c7d354d8ad3945c2cd8abec6579b265cac2",
+  "repo_commit": "971fc09117d21b31a702411570d99c7aeeea5214",
   "result": {
     "cnt_declarado": 1351,
     "estritamente_crescente": true,

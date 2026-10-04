@@ -1,0 +1,202 @@
+{
+  "axioms_allowlist": [
+    "propext",
+    "Classical.choice",
+    "Quot.sound"
+  ],
+  "build": {
+    "failures": 0,
+    "jobs": 9181,
+    "leaves": 220,
+    "status": "OK"
+  },
+  "claim_ids": [
+    "k2-6-1-eq-12",
+    "k2-6-1-lb-12",
+    "k4-10-4-ub-192",
+    "k5-10-4-ub-625",
+    "k5-7-2-ub-500",
+    "k5-9-3-ub-1250",
+    "k5-9-4-ub-250",
+    "k5-9-5-ub-50",
+    "k7-8-3-ub-1893",
+    "k7-9-4-ub-1351"
+  ],
+  "command": [
+    "sh",
+    "tools/heavy_build_limitado.sh",
+    "4"
+  ],
+  "commit_sha": "ddb16b7d0a8ee71cda8c18e007869bfc650ae39a",
+  "duration_s": 15052.0,
+  "finished_at": "2026-10-04T06:17:38Z",
+  "fonte": "campaigns/covering-codes/_fatos/medicao_heavy_vm.json",
+  "host": {
+    "class": "gcp-e2-highmem-8",
+    "id": "lean-build2",
+    "note": "VM sob demanda, ligada só para este build",
+    "provider": "GCP",
+    "ram_gb": 62,
+    "vcpu": 8
+  },
+  "independent_reproduction": false,
+  "lean_toolchain": "leanprover/lean4:v4.34.1",
+  "lean_version": "leanprover/lean4:v4.34.1",
+  "lean_version_basis": "lean-toolchain do commit (o `lean --version` literal da VM não foi guardado)",
+  "mathlib_commit": "d13f23b723b8a846827a245b89c10fc7d3f11612",
+  "measured_by": {
+    "author": "autor da sessão de 2026-10-04 (o mesmo autor dos claims; sem identidade registrada além do commit)",
+    "origin": "relato do autor da execução na VM, transcrito em _fatos/medicao_heavy_vm.json"
+  },
+  "migracao": "conservadora: EXTERNAL_RUN_REPORTED por falta de log bruto persistido e de saída literal de #print axioms; não há segunda execução",
+  "native_decide_count": 0,
+  "native_decide_policy": "forbidden",
+  "raw_log": {
+    "local_sha256_calculado": null,
+    "persisted": false,
+    "sha256": null,
+    "sha256_prefix": "ca233f40f93e8eb1",
+    "size_bytes": null,
+    "storage": "nenhum: ~/heavy.log na VM lean-build2 (18 619 linhas, ~1,5 MB) nunca foi copiado para fora da VM; não há hash de 64 hex",
+    "uri": null
+  },
+  "recorded_at": "2026-10-04T15:43:11Z",
+  "recorded_by": "migrate_covering.py",
+  "run_id": "kr-heavy-ddb16b7-lean-build2",
+  "schema": "genesis-math/kernel-run/v1",
+  "sorry_count": 0,
+  "started_at": "2026-10-04T02:06:46Z",
+  "target": "CoveringHeavy",
+  "theorems": [
+    {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "print_axioms_output": null,
+      "print_axioms_output_note": "a saída literal não foi guardada; só a lista de axiomas do relato",
+      "source_file": "CoveringLean/K3_K4_10_4_Final.lean",
+      "source_sha256": "54180fb73fa53cc4f887ac923df075703b198f5a96663ff0cda036c760a2a934",
+      "source_sha256_basis": "git show ddb16b7:CoveringLean/K3_K4_10_4_Final.lean",
+      "theorem": "CoveringKernel.K4_10_4_le_192_kernel"
+    },
+    {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "print_axioms_output": null,
+      "print_axioms_output_note": "a saída literal não foi guardada; só a lista de axiomas do relato",
+      "source_file": "CoveringLean/K3_K5_10_4_Final.lean",
+      "source_sha256": "30a15ba5054e9fed24210c803c626a37711863b47ae0eb1a8549f262c0e6f16f",
+      "source_sha256_basis": "git show ddb16b7:CoveringLean/K3_K5_10_4_Final.lean",
+      "theorem": "CoveringKernel.K5_10_4_le_625_kernel"
+    },
+    {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "print_axioms_output": null,
+      "print_axioms_output_note": "a saída literal não foi guardada; só a lista de axiomas do relato",
+      "source_file": "CoveringLean/K3_K5_7_2_Final.lean",
+      "source_sha256": "a799ec1b692065b9b5be643ded5f3b5eb20f4a1515fd7d73a48d01934be26181",
+      "source_sha256_basis": "git show ddb16b7:CoveringLean/K3_K5_7_2_Final.lean",
+      "theorem": "CoveringKernel.K5_7_2_le_500_kernel"
+    },
+    {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "print_axioms_output": null,
+      "print_axioms_output_note": "a saída literal não foi guardada; só a lista de axiomas do relato",
+      "source_file": "CoveringLean/K3_K5_9_3_Final.lean",
+      "source_sha256": "4787ad7856353e20de1a552de8a2d06440f49a8f32890a2ec352526470fcd9ec",
+      "source_sha256_basis": "git show ddb16b7:CoveringLean/K3_K5_9_3_Final.lean",
+      "theorem": "CoveringKernel.K5_9_3_le_1250_kernel"
+    },
+    {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "print_axioms_output": null,
+      "print_axioms_output_note": "a saída literal não foi guardada; só a lista de axiomas do relato",
+      "source_file": "CoveringLean/K3_K5_9_4_Final.lean",
+      "source_sha256": "deacdd83a4f8013e43d735e8a04b0e86c563aa9b684d2c8245e14c5ebb7b5476",
+      "source_sha256_basis": "git show ddb16b7:CoveringLean/K3_K5_9_4_Final.lean",
+      "theorem": "CoveringKernel.K5_9_4_le_250_kernel"
+    },
+    {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "print_axioms_output": null,
+      "print_axioms_output_note": "a saída literal não foi guardada; só a lista de axiomas do relato",
+      "source_file": "CoveringLean/K3_K5_9_5_Final.lean",
+      "source_sha256": "a685360749b4041440d87ad9e2d6f0af1bdb22134bb34e3bf61e03ebfb05f5f5",
+      "source_sha256_basis": "git show ddb16b7:CoveringLean/K3_K5_9_5_Final.lean",
+      "theorem": "CoveringKernel.K5_9_5_le_50_kernel"
+    },
+    {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "print_axioms_output": null,
+      "print_axioms_output_note": "a saída literal não foi guardada; só a lista de axiomas do relato",
+      "source_file": "CoveringLean/K3_K7_8_3_Final.lean",
+      "source_sha256": "3fa51d8cf948bca3fc34e45701b9cce9e124366968ea2c131f85b964d1d969b5",
+      "source_sha256_basis": "git show ddb16b7:CoveringLean/K3_K7_8_3_Final.lean",
+      "theorem": "CoveringKernel.K7_8_3_le_1893_kernel"
+    },
+    {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "print_axioms_output": null,
+      "print_axioms_output_note": "a saída literal não foi guardada; só a lista de axiomas do relato",
+      "source_file": "CoveringLean/K3_K7_9_4_Final.lean",
+      "source_sha256": "68344709904b1b5f258bc8bcec26e61e4a973b0cc6a34c9bc1d07efbb39cf6ec",
+      "source_sha256_basis": "git show ddb16b7:CoveringLean/K3_K7_9_4_Final.lean",
+      "theorem": "CoveringKernel.K7_9_4_le_1351_kernel"
+    },
+    {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "print_axioms_output": null,
+      "print_axioms_output_note": "a saída literal não foi guardada; só a lista de axiomas do relato",
+      "source_file": "CoveringLean/SearchK6ge12.lean",
+      "source_sha256": "0b9bc23510993bb94e783724519e2d5c213d8318463cb137de3f5c7068f186f9",
+      "source_sha256_basis": "git show ddb16b7:CoveringLean/SearchK6ge12.lean",
+      "theorem": "SC.K_2_6_1_eq12"
+    },
+    {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "print_axioms_output": null,
+      "print_axioms_output_note": "a saída literal não foi guardada; só a lista de axiomas do relato",
+      "source_file": "CoveringLean/SearchK6ge12.lean",
+      "source_sha256": "0b9bc23510993bb94e783724519e2d5c213d8318463cb137de3f5c7068f186f9",
+      "source_sha256_basis": "git show ddb16b7:CoveringLean/SearchK6ge12.lean",
+      "theorem": "SC.K_2_6_1_ge12"
+    }
+  ]
+}

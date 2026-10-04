@@ -282,7 +282,7 @@ class CampaignCoherenceTest(unittest.TestCase):
 
     def test_the_previous_audit_chain_is_preserved_with_a_checksum_before_each_regeneration(self):
         import hashlib
-        for pasta in ("audit-pre-regeneracao-2", "audit-pre-regeneracao-3"):
+        for pasta in ("audit-pre-regeneracao-2", "audit-pre-regeneracao-3", "audit-pre-regeneracao-4"):
             base = os.path.join(CAMP, "_autopsia", pasta)
             with open(os.path.join(base, "SHA256SUMS"), encoding="utf-8") as fh:
                 linhas = [l.split() for l in fh if l.strip()]

@@ -1,3 +1,8 @@
+> **ATENDIDA em 2026-10-04 (infraestrutura, PR #1050 da Fábrica).** Em vez de um tipo `formal` com `measurement_kind: external`, a infraestrutura ganhou um eixo próprio,
+> `kernel_runs/` (`factory_cauteloso.matematica.kernel`), com níveis `NONE < EXTERNAL_RUN_REPORTED < KERNEL_VERIFIED < KERNEL_INDEPENDENTLY_REPRODUCED`, que **não altera estado de claim**
+> (as guardas não o leem). A execução desta VM está em `kernel_runs/kr-heavy-ddb16b7-lean-build2.json` no nível **EXTERNAL_RUN_REPORTED**: o log bruto não foi persistido e não há hash
+> de 64 hex, então não chega a KERNEL_VERIFIED, e uma execução do próprio autor não é reprodução independente. Nenhum claim subiu. O texto abaixo é o pedido original, preservado.
+
 # Proposta de infraestrutura: registro `external_measurement` para Lean medido fora do container
 
 Data: 2026-10-04. Autor: Agente RB2. Não edita a infraestrutura; é um pedido.

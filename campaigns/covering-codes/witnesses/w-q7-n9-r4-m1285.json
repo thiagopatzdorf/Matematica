@@ -4,7 +4,7 @@
   "canonical_sha256": "aa388cc9642bc064527a0237b60522ba558491291a2adf02ab1e4d8d3f756c1f",
   "canonical_sha256_declared_in_structured": "aa388cc9642bc064527a0237b60522ba558491291a2adf02ab1e4d8d3f756c1f",
   "claim_ids": [],
-  "created": "2026-10-04T06:24:59Z",
+  "created": "2026-10-04T15:23:53Z",
   "created_by": "agente-c",
   "format": "covering-code/v1 (lista plana, uma palavra por linha)",
   "implementation": "scripts/search/gen.py (3 cosets de [9,3]_7 H=[I6|A] + cosets de subcódigo + palavras soltas)",

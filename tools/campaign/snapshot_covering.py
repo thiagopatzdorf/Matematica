@@ -30,12 +30,24 @@ LIT = {
  "w-q2-n6-r1-m12": ("PREDECESSOR_FOUND", "alta", "_literatura/profunda_b", "igualdade com valor clássico (Stanton–Kalbfleisch 1968, não lido; exatidão provada por busca exaustiva própria)"),
 }
 
+KRUNS = {}  # execuções externas do kernel (kernel_runs/), preenchido em main()
+
 def jl(p): return json.loads(Path(p).read_text())
 
 def formal_medido(f):
     """Registro formal MEDIDO e limpo (mesma conferência da fronteira do Lean, sem importar a infraestrutura)."""
     return (f.get("axioms") is not None and set(f["axioms"]) <= AXIOMAS_ESPERADOS and f.get("sorry_free") is True and f.get("clean_build") is True
             and all(f.get(k) for k in ("lean_version", "mathlib_commit", "repo_commit")))
+
+_HEX64 = __import__("re").compile(r"^[0-9a-f]{64}$")
+
+def nivel_kernel_run(r):
+    """Nível de UMA execução externa lida do registro (sem importar a infraestrutura). É APROXIMAÇÃO da regra de factory_cauteloso.matematica.kernel.avaliar:
+    KERNEL_VERIFIED só com o log persistido, hash de 64 hex e uri; senão EXTERNAL_RUN_REPORTED. Quem decide é a infraestrutura (`... camadas`); o teste
+    tests/test_campaign_kernel_migration.py confere que as duas concordam quando a infraestrutura está disponível."""
+    lg = r.get("raw_log") or {}
+    ok = lg.get("persisted") is True and bool(_HEX64.match(str(lg.get("sha256") or ""))) and bool(lg.get("uri"))
+    return "KERNEL_VERIFIED" if ok else "EXTERNAL_RUN_REPORTED"
 
 def lean_state(claim, formal):
     """Estado Lean DERIVADO dos registros formais do claim (evidence.formal e complementary_formal)."""
@@ -51,8 +63,9 @@ def lean_state(claim, formal):
     if medidos:
         partes.append("PROVED_MEASURED: " + "; ".join(f"{f['theorem']} (axiomas {sorted(f['axioms'])}, sorry_free, build limpo, {f.get('lean_version','').split(',')[0].replace('Lean (version ','Lean ')})" for f in medidos))
     if externos:
-        partes.append("MEASURED_ON_EXTERNAL_VM: " + "; ".join(f"{f['theorem']} (axiomas {sorted(f['measured_external']['axioms'])} e build {f['measured_external']['jobs']} jobs/{f['measured_external']['folhas_falhou']} falhas, "
-                      f"medição do autor em VM, commit {f['measured_external']['repo_commit'][:7]}, log sha256 {f['measured_external']['log_sha256_prefixo']}…; não refeita em segundo ambiente; NÃO medido pela campanha)" for f in externos))
+        niveis = {f["formal_id"]: nivel_kernel_run(KRUNS[f["kernel_run"]]) if f.get("kernel_run") in KRUNS else "sem kernel_run" for f in externos}
+        partes.append("EXTERNAL_KERNEL_RUN: " + "; ".join(f"{f['theorem']} (nível {niveis[f['formal_id']]}; axiomas {sorted(f['measured_external']['axioms'])} e build {f['measured_external']['jobs']} jobs/{f['measured_external']['folhas_falhou']} falhas, "
+                      f"relato do autor em VM, commit {f['measured_external']['repo_commit'][:7]}, log sha256 {f['measured_external']['log_sha256_prefixo']}…, log bruto NÃO persistido; NÃO é reprodução independente; NÃO medido pela campanha)" for f in externos))
     if declarados:
         partes.append("EXISTS_BUILD_NOT_REPRODUCED: " + "; ".join(f"{f['theorem']} (axiomas só declarados {f.get('declared_axioms')}; {f.get('build_status','')[:80]})" for f in declarados))
     if not partes:
@@ -67,6 +80,8 @@ def main():
     vers = {jl(f).get("verifier_id", f.stem): jl(f) for f in (CAMP / "verifiers").glob("*.json")}
     claims = {c["claim_id"]: c for c in (jl(f) for f in (CAMP / "claims").glob("*.json"))}
     formal = {f["formal_id"]: f for f in (jl(p) for p in (CAMP / "formal").glob("*.json"))}
+    KRUNS.clear()
+    KRUNS.update({r["run_id"]: r for r in (jl(p) for p in sorted((CAMP / "kernel_runs").glob("*.json")))} if (CAMP / "kernel_runs").is_dir() else {})
     rows = []
     for wf in sorted((CAMP / "witnesses").glob("*.json")):
         w = jl(wf); wid = wf.stem; p = w["parameters"]
@@ -85,7 +100,7 @@ def main():
             lean, lean_ok = lean2, ok2
             _, _, decl_eq, ext_eq = lean_state(c_eq, formal)
             lean_decl, lean_ext = decl_eq, ext_eq
-            lean += (" | igualdade K_2(6,1)=12: " + ("MEASURED_ON_EXTERNAL_VM: " + "; ".join(ext_eq) + " (build do CoveringHeavy só na VM do autor, não refeito aqui)" if ext_eq else
+            lean += (" | igualdade K_2(6,1)=12: " + ("EXTERNAL_KERNEL_RUN (nível EXTERNAL_RUN_REPORTED; log bruto NÃO persistido; NÃO é reprodução independente): " + "; ".join(ext_eq) + " (build do CoveringHeavy só na VM do autor, não refeito aqui)" if ext_eq else
                      "EXISTS_BUILD_NOT_REPRODUCED: " + "; ".join(decl_eq) + " (CoveringHeavy não construído aqui)") + "; K_2(6,1) >= 11 PROVED_MEASURED separadamente (alvo padrão)")
         st, conf, src, note = LIT.get(wid, ("?", "?", "", ""))
         cnt = {k: v["result"] for k, v in r.items()}
@@ -124,13 +139,13 @@ def main():
     for r in rows:
         d = f"{r['best_recorded_bound']} (−{r['diff_abs']}, {r['diff_pct']}%)" if r["best_recorded_bound"] else "—"
         vr = r["verifier_results"]
-        lean_curto = "PROVED_MEASURED" if r["lean_theorems_measured"] else ("MEASURED_ON_EXTERNAL_VM" if r["lean_theorems_external_vm"] else ("EXISTS_BUILD_NOT_REPRODUCED" if r["lean_theorems_declared_only"] else "sem teorema"))
+        lean_curto = "PROVED_MEASURED" if r["lean_theorems_measured"] else ("EXTERNAL_RUN_REPORTED" if r["lean_theorems_external_vm"] else ("EXISTS_BUILD_NOT_REPRODUCED" if r["lean_theorems_declared_only"] else "sem teorema"))
         if r["lean_theorems_measured"] and (r["lean_theorems_declared_only"] or r["lean_theorems_external_vm"]):
-            lean_curto += " (+ pesado " + ("medido só em VM externa" if r["lean_theorems_external_vm"] else "declarado") + ")"
+            lean_curto += " (+ pesado " + ("relato de VM externa, log não persistido" if r["lean_theorems_external_vm"] else "declarado") + ")"
         md.append(f"| K_{r['q']}({r['n']},{r['R']}) | {r['size']} | {r['claim_status']}{(' (só ≤12; igualdade ' + r['equality_claim_status'] + ')') if r['equality_claim_status'] else ''} | {d} | {sum(v == 'PASS' for v in vr.values())}/{len(vr)} | {lean_curto} | {r['literature_state']} ({r['literature_confidence']}) |")
     md += ["", "Verificadores registrados: " + ", ".join(f"`{v}`" for v in vids) + ". Os `verify-val-*` só se aplicam a K_7(9,4) (q, n cravados no código).", "",
            "Independência: verify-py-dilation tem o autor dos claims (PASS não conta); os `verify-val-*` têm o autor de verify.c (contam junto com ele, num componente só). "
-           "O teorema Lean MEDIDO vem de `#print axioms` real na campanha; `CoveringHeavy` (~9,3 h de CPU) tem UMA medição externa do autor numa VM (`_fatos/medicao_heavy_vm.json`), não refeita em segundo ambiente nem reproduzível neste container: estado MEASURED_ON_EXTERNAL_VM, abaixo de PROVED_MEASURED.", "",
+           "O teorema Lean MEDIDO vem de `#print axioms` real na campanha; `CoveringHeavy` (~9,3 h de CPU) tem UMA medição externa do autor numa VM (`_fatos/medicao_heavy_vm.json`), não refeita em segundo ambiente nem reproduzível neste container, e o log bruto não foi persistido: nível EXTERNAL_RUN_REPORTED do eixo do kernel (abaixo de KERNEL_VERIFIED, que exige log guardado com hash de 64 hex; muito abaixo de KERNEL_INDEPENDENTLY_REPRODUCED), abaixo de PROVED_MEASURED. Nenhum estado de claim mudou por isso.", "",
            "Classificação: apparent improvement over the currently recorded bound; novelty not yet established. Nenhum código tem NOVELTY_EXTERNALLY_CONFIRMED."]
     (OUT / "SNAPSHOT.md").write_text("\n".join(md) + "\n")
     print(f"{len(rows)} códigos congelados em {OUT}")

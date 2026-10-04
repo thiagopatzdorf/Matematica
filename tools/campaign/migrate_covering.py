@@ -23,7 +23,10 @@ Decisões de honestidade (explicadas nos registros):
       - `CoveringKernel.K*_kernel` e `SC.K_2_6_1_eq12` (lib CoveringHeavy, ~9,3 h de CPU): NÃO compilados aqui; o registro formal guarda os
         axiomas declarados em `declared_axioms`, com `axioms: null`, e NÃO sustenta promoção. Desde 2026-10-04 existe uma medição EXTERNA
         (VM do autor, `_fatos/medicao_heavy_vm.json`): entra em `measured_external` e em `axioms_status = MEASURED_ON_EXTERNAL_VM`, mas
-        `axioms`/`clean_build` continuam os que a campanha mediu (nada), então a guarda segue negando PROVED;
+        `axioms`/`clean_build` continuam os que a campanha mediu (nada), então a guarda segue negando PROVED. Desde 2026-10-04 ela TAMBÉM é
+        registrada como `kernel_runs/kr-heavy-ddb16b7-lean-build2` (eixo do kernel, `factory_cauteloso.matematica.kernel`): nível
+        EXTERNAL_RUN_REPORTED (o log bruto não foi persistido: só o prefixo do sha256), nenhum claim muda de estado, e o nível nunca é gravado
+        (é calculado pela infraestrutura). Não é reprodução independente: foi uma execução do próprio autor;
   * FORMALLY_VERIFIED nunca é pedido de fato: exige `statement_review` de um revisor que não seja o autor e ninguém revisou os
     enunciados (README: "revisão humana"). Os motivos exatos da guarda ficam em `formal_verification_blockers` de cada claim.
 """
@@ -72,6 +75,7 @@ def fid_heavy(tag: str, m: int) -> str:
     return f"f-heavy-{tag.lower().replace('_', '-')}-{m}"
 
 
+KR_HEAVY = "kr-heavy-ddb16b7-lean-build2"  # a execução externa histórica do CoveringHeavy (kernel_runs/); o log bruto NÃO foi persistido
 CUSTO_HEAVY = "~9,3 h de CPU (README.md: `lake build CoveringHeavy` 1 h 54 min de relógio, pico 9,4 GB por processo)"
 KERI_PREVIO = {"k5-7-2": 525, "k4-10-4": 208, "k5-9-3": 1275, "k5-10-4": 875, "k5-9-5": 55, "k5-9-4": 255, "k7-8-3": 2337}
 AXIOMAS_DECLARADOS = ["propext", "Classical.choice", "Quot.sound"]
@@ -147,7 +151,7 @@ def main() -> int:
         print("erro: informe --factory-src ou FACTORY_SRC", file=sys.stderr)
         return 2
     sys.path.insert(0, str(Path(a.factory_src).resolve()))
-    from factory_cauteloso.matematica import claims as K, coverage as COV, formal as F, literature as L, verify as V  # noqa: E402
+    from factory_cauteloso.matematica import claims as K, coverage as COV, formal as F, kernel as KR, literature as L, verify as V  # noqa: E402
     from factory_cauteloso.matematica.model import TransicaoNegada, checar_transicao, validar_registro_formal  # noqa: E402
     from factory_cauteloso.matematica.store import Campanha, sha256_arquivo  # noqa: E402
 
@@ -158,7 +162,7 @@ def main() -> int:
     # ------------------------------------------------------------------ zera só o que o armazenamento criou
     for nome in ("campaign.json", "audit", "reproduce.json", "reports", "artifacts", "claims", "experiments", "witnesses", "counterexamples",
                  "structures", "reductions", "transfer", "families", "residuals", "formal", "verifiers", "verifier_runs", "literature",
-                 "reports", "provenance"):
+                 "reports", "provenance", "kernel_runs"):
         p = raiz / nome
         if p.is_dir():
             shutil.rmtree(p)
@@ -667,6 +671,8 @@ def main() -> int:
                              (f"DECLARED_NOT_REPRODUCED: README.md ('Nenhum sorry, nenhum native_decide, e todo #print axioms mostra no máximo propext, Classical.choice, Quot.sound'); "
                               f"o módulo é do alvo CoveringHeavy, custo {CUSTO_HEAVY}: não compilado nesta campanha"),
             "measured_external": me,
+            # a execução também vive em kernel_runs/ (nível EXTERNAL_RUN_REPORTED, calculado pela infraestrutura); este campo só aponta
+            "kernel_run": KR_HEAVY if me else None,
             "sorry_free": not any(x["kind"] in F.TIPOS_SORRY for x in achados), "sorry_free_basis": f"varredura estática de {len(fontes) + 1} fontes (não é build)",
             "clean_build": False, "build_status": f"NOT_RUN: lake build CoveringHeavy não executado neste ambiente ({CUSTO_HEAVY})"
             + ("; build completo medido só na VM do autor (ver measured_external)" if me else ""),
@@ -933,6 +939,48 @@ def main() -> int:
             comparacoes[cid]["nota"] += f"; mas é PIOR que o nosso próprio {irmaos_[0]} da mesma célula"
         K.atualizar(c, cid, ator=AUTOR, papel="PROPOSER", literature_comparison=comparacoes[cid])
 
+    # ------------------------------------------------------------------ execução externa do kernel (eixo kernel_runs/, não é estado de claim)
+    # A execução histórica do CoveringHeavy na VM. Registrada SÓ com o que a evidência já registrada diz (medicao_heavy_vm.json) mais o que o
+    # git do commit verificado responde (toolchain, manifesto, hash de cada fonte NAQUELE commit). Nada é inventado: o log bruto (~/heavy.log) não
+    # foi persistido e só existe o prefixo do sha256, então `raw_log.persisted=false` e a infraestrutura calcula EXTERNAL_RUN_REPORTED, nunca
+    # KERNEL_VERIFIED. Nenhum claim muda de estado por causa disto (as guardas não leem kernel_runs/).
+    heavy_claims = sorted({"k2-6-1-lb-12", "k2-6-1-eq-12"} | {cl["claim_id"] for cl in c.listar("claims")
+                          if any(f_.startswith("f-heavy-") for f_ in cl["evidence"]["formal"] + cl.get("complementary_formal", []))})
+    if ext:
+        def no_commit(rel):
+            r_ = subprocess.run(["git", "show", f"{ext['repo_commit']}:{rel}"], cwd=REPO, capture_output=True)
+            if r_.returncode != 0:
+                raise SystemExit(f"erro: {rel} não existe no commit {ext['repo_commit'][:7]} da medição externa (o commit verificado tem de estar no histórico)")
+            return r_.stdout
+        manifesto = json.loads(no_commit("lake-manifest.json"))
+        mathlib_rev = next(p_["rev"] for p_ in manifesto["packages"] if str(p_.get("name", "")).lower() == "mathlib")
+        no_commit("tools/heavy_build_limitado.sh")  # o comando registrado existe nesse commit
+        t_ini, t_fim = (__import__("datetime").datetime.strptime(ext[k], "%Y-%m-%dT%H:%M:%SZ") for k in ("inicio_utc", "fim_utc"))
+        teoremas_kr = [{"theorem": t_["teorema"], "axioms": t_["axiomas"], "source_file": t_["fonte"].split(":")[0],
+                        "source_sha256": hashlib.sha256(no_commit(t_["fonte"].split(":")[0])).hexdigest(),
+                        "source_sha256_basis": f"git show {ext['repo_commit'][:7]}:{t_['fonte'].split(':')[0]}",
+                        "print_axioms_output": None, "print_axioms_output_note": "a saída literal não foi guardada; só a lista de axiomas do relato"}
+                       for t_ in ext["teoremas"]]
+        KR.gravar_corrida(c, {
+            "schema": KR.SCHEMA, "run_id": KR_HEAVY, "claim_ids": heavy_claims, "commit_sha": ext["repo_commit"], "lean_version": ext["lean"],
+            "lean_version_basis": "lean-toolchain do commit (o `lean --version` literal da VM não foi guardado)",
+            "lean_toolchain": no_commit("lean-toolchain").decode().strip(), "mathlib_commit": mathlib_rev,
+            "command": ["sh", "tools/heavy_build_limitado.sh", "4"], "target": "CoveringHeavy",
+            "host": {"class": "gcp-e2-highmem-8", "id": "lean-build2", "provider": "GCP", "vcpu": 8, "ram_gb": 62, "note": "VM sob demanda, ligada só para este build"},
+            "started_at": ext["inicio_utc"], "finished_at": ext["fim_utc"], "duration_s": (t_fim - t_ini).total_seconds(),
+            "build": {"status": "OK", "jobs": ext["jobs_final"], "leaves": ext["folhas_ok"], "failures": ext["folhas_falhou"]},
+            "sorry_count": ext["sorry_no_log"], "native_decide_policy": "forbidden", "native_decide_count": ext["native_decide_ou_ofReduceBool_no_log"],
+            "axioms_allowlist": AXIOMAS_DECLARADOS, "theorems": teoremas_kr,
+            "measured_by": {"author": "autor da sessão de 2026-10-04 (o mesmo autor dos claims; sem identidade registrada além do commit)",
+                            "origin": "relato do autor da execução na VM, transcrito em _fatos/medicao_heavy_vm.json"},
+            "independent_reproduction": False,
+            "raw_log": {"sha256": None, "sha256_prefix": ext["sha256_prefixo_log_completo"], "size_bytes": None, "persisted": False, "uri": None,
+                        "storage": "nenhum: ~/heavy.log na VM lean-build2 (18 619 linhas, ~1,5 MB) nunca foi copiado para fora da VM; não há hash de 64 hex",
+                        "local_sha256_calculado": None},
+            "fonte": "campaigns/covering-codes/_fatos/medicao_heavy_vm.json",
+            "migracao": "conservadora: EXTERNAL_RUN_REPORTED por falta de log bruto persistido e de saída literal de #print axioms; não há segunda execução",
+        }, ator=PROMOTOR, papel="FORMALIZER")
+
     # ------------------------------------------------------------------ resíduos
     def residuo(rid, **campos):
         gravar("residuals", rid, {"residual_id": rid, **campos, "created_by": AUTOR, "created": c.meta()["created"]}, "COORDINATOR")
@@ -954,16 +1002,16 @@ def main() -> int:
             reason="DECLARADO: não compila (README:71). MEDIDO: `lake env lean` terminou com rc 137 (SIGKILL) em <=110 s; causa (OOM?) não investigada.",
             next_step="investigar e consertar, ou arquivar")
     # claims cujo teorema Lean só existe como DECLARADO (CoveringHeavy) ou tem uma segunda prova pesada declarada ao lado da medida
-    heavy_claims = sorted({"k2-6-1-lb-12", "k2-6-1-eq-12"} | {cl["claim_id"] for cl in c.listar("claims")
-                          if any(f_.startswith("f-heavy-") for f_ in cl["evidence"]["formal"] + cl.get("complementary_formal", []))})
     sem_medido = sorted(x for x in heavy_claims if c.ler("claims", x)["status"] not in ("PROVED", "FORMALLY_VERIFIED", "EXTERNALLY_REPRODUCED"))
     residuo("res-heavy-build-not-reproduced", kind="nao_reproduzido", claim_ids=heavy_claims, instances=celulas_de(heavy_claims),
             reason=f"lake build CoveringHeavy ({CUSTO_HEAVY}) não é executável neste container (4 vCPU/15 GB). Os {len(HEAVY) + 1} teoremas têm UMA medição externa do autor numa VM "
                    f"(_fatos/medicao_heavy_vm.json: {ext.get('jobs_final')} jobs, {ext.get('folhas_ok')} folhas ok, {ext.get('folhas_falhou')} falhas, axiomas só propext/Classical.choice/Quot.sound, "
                    f"commit {str(ext.get('repo_commit'))[:7]}, log sha256 {ext.get('sha256_prefixo_log_completo')}…, log não versionado), não refeita em segundo ambiente e não medida por esta campanha: "
-                   f"as guardas não a aceitam como registro Lean medido. Sem teorema Lean MEDIDO pela campanha "
+                   f"as guardas de formal não a aceitam como registro Lean medido; ela está registrada em kernel_runs/{KR_HEAVY} no nível EXTERNAL_RUN_REPORTED (só o autor atesta: log bruto NÃO persistido, "
+                   f"sem hash de 64 hex, sem saída literal de #print axioms; abaixo de KERNEL_VERIFIED) e NÃO é reprodução independente. Sem teorema Lean MEDIDO pela campanha "
                    f"(ficam abaixo de PROVED por isso): {sem_medido}. O 1351 de K_7(9,4) tem também o teorema por síndromes medido (Syn.K7_9_4_le_1351_syn).",
-            next_step="(a) tipo de registro 'external_measurement' na infraestrutura (campaigns/covering-codes/_fatos/PROPOSTA_INFRA_medicao_externa.md) ou (b) refazer o build pela própria campanha numa máquina com RAM >= 9 GB e registrar com formal.registrar_formal (ou provar por síndromes: scripts/syndrome/gen_syn.py, minutos)")
+            next_step="(a) KERNEL_VERIFIED: refazer o build numa VM gerando o log, guardá-lo fora do Git e registrar com kernel.registrar_execucao (CLI: `kernel-run register`; hash de 64 hex, uri, saída real de #print axioms); "
+                      "(b) KERNEL_INDEPENDENTLY_REPRODUCED: uma SEGUNDA execução completa noutra VM (host.id, run_id e log distintos, mesmo commit); (c) ou refazer pela própria campanha com formal.registrar_formal numa máquina com RAM >= 9 GB (ou provar por síndromes: scripts/syndrome/gen_syn.py, minutos). Ver docs/matematica/ESCADA_DE_EVIDENCIA.md da infraestrutura")
     residuo("res-ci-sem-coveringsyn", kind="garantia_continua", claim_ids=sorted(f"{cc}-ub-{mm}" for (cc, mm) in SYN), instances=sorted({cc for (cc, _) in SYN}),
             reason="VALIDATION.md (achado de processo): o CI do repositório só roda `lake build` do alvo padrão. MEDIDO em .github/workflows/verify-codes.yml: nenhum job constrói CoveringSyn, "
                    "então os cinco teoremas Syn_K* são medidos aqui (esta campanha) mas não recompilados a cada commit.",
