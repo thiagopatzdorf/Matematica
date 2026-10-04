@@ -70,19 +70,22 @@ def resolver_cpsat(v: int, y: list[int], p: int, tempo: int) -> dict:
             "seg": round(seg, 2), "motor": "cpsat"}
 
 
-def resolver(v: int, y: list[int], p: int, tempo: int, lrat: bool, pasta: str) -> dict:
+def resolver(v: int, y: list[int], p: int, tempo: int, lrat: bool, pasta: str,
+             motor: str = "cadical") -> dict:
     nv, cls = ysip.cnf_sb(v, y, p)
     base = os.path.join(pasta, "_".join(map(str, y)))
     ysip.escrever_dimacs(base + ".cnf", nv, cls)
     cmd = [binario("CADICAL", "cadical"), "-q", "-t", str(tempo), base + ".cnf"]
-    if lrat:
+    if motor == "kissat":  # segunda opinião, sem prova
+        cmd = [binario("KISSAT", "kissat"), "-q", f"--time={tempo}", base + ".cnf"]
+    elif lrat:
         cmd[2:2] = ["--lrat", "--binary=false"]  # lrat-check só lê LRAT em texto
         cmd.append(base + ".lrat")
     t0 = time.time()
     r = subprocess.run(cmd, capture_output=True, text=True)
     seg = time.time() - t0
     st = {10: "SAT", 20: "UNSAT"}.get(r.returncode, "TEMPO")
-    reg = {"v": v, "y": y, "p": p, "status": st, "seg": round(seg, 2), "vars": nv, "clausulas": len(cls)}
+    reg = {"v": v, "y": y, "p": p, "motor": motor, "status": st, "seg": round(seg, 2), "vars": nv, "clausulas": len(cls)}
     if lrat and st == "UNSAT":
         t1 = time.time()
         c = subprocess.run([binario("LRAT_CHECK", "lrat-check"), base + ".cnf", base + ".lrat"],
@@ -109,7 +112,7 @@ def main() -> None:
     ap.add_argument("--semente", type=int, default=1)
     ap.add_argument("--lrat", action="store_true")
     ap.add_argument("--sufixo", choices=["auto", "igual"], default="auto")
-    ap.add_argument("--motor", choices=["cadical", "cpsat"], default="cadical")
+    ap.add_argument("--motor", choices=["cadical", "kissat", "cpsat"], default="cadical")
     ap.add_argument("--procs", type=int, default=1)
     ap.add_argument("--saida", required=True)
     a = ap.parse_args()
@@ -122,7 +125,7 @@ def main() -> None:
             ps = cota_sufixo(y, a.p, a.sufixo)
             if a.motor == "cpsat":
                 return resolver_cpsat(a.v, y, ps, a.tempo)
-            return resolver(a.v, y, ps, a.tempo, a.lrat, pasta)
+            return resolver(a.v, y, ps, a.tempo, a.lrat, pasta, a.motor)
         for reg in ex.map(um, alvo):
             reg["total_seqs"] = len(seqs)
             f.write(json.dumps(reg) + "\n")

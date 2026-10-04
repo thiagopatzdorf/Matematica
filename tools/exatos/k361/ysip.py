@@ -276,3 +276,32 @@ def atribuicao(v: int, y: list[int], p: int, codigo) -> tuple[list[list[int]], d
 
 def falsas(cls: list[list[int]], val: dict[int, bool]) -> list[list[int]]:
     return [c for c in cls if not any((lit > 0) == val[abs(lit)] for lit in c)]
+
+
+def scip(v: int, y: list[int], p: int = 0, tempo: float = 60.0) -> tuple[str, float, int]:
+    """Mesmo y-SIP como PLI no SCIP (com o tratamento de simetria padrão dele). Só medição.
+
+    Devolve (status, segundos, nós). É o análogo moderno do branch-and-bound com poda de
+    isomorfos e cota de PL de LMT 2009.
+    """
+    from pyscipopt import Model, quicksum
+
+    W = palavras(v)
+    m = Model()
+    m.hideOutput()
+    m.setParam("limits/time", tempo)
+    m.setParam("parallel/maxnthreads", 1)
+    x = {w: m.addVar(vtype="B") for w in W}
+    for w in W:
+        m.addCons(quicksum(x[u] for u in bola(v, w)) >= 1)
+    for j in range(3):
+        for k in range(3):
+            m.addCons(quicksum(x[w] for w in W if w[0] == j and w[1] == k) == y[3 * j + k])
+    if p > 0:
+        for i in range(2, v):
+            for a in range(3):
+                m.addCons(quicksum(x[w] for w in W if w[i] == a) >= p)
+    m.optimize()
+    st = m.getStatus()
+    nome = {"infeasible": "UNSAT", "optimal": "SAT", "timelimit": "TEMPO"}.get(st, st.upper())
+    return nome, m.getSolvingTime(), m.getNNodes()
