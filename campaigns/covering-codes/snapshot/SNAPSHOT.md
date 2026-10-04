@@ -1,6 +1,6 @@
 # Snapshot científico (gerado por tools/campaign/snapshot_covering.py)
 
-Commit-base: `bc452a571a75010516b9b59cbd741b689dd7d10e`. Fonte: dados da campanha, não texto.
+Commit-base: `1a5fa268dc916fde689e6aa801e591ac3c863b36`. Fonte: dados da campanha, não texto.
 
 | Código | Tamanho | Claim state | Melhor registrada (Δ) | Verificadores (PASS/total) | Lean (Kernel evidence) | Literatura |
 |---|---|---|---|---|---|---|

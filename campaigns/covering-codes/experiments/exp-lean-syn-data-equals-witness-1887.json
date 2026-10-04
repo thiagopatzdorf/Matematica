@@ -1,5 +1,5 @@
 {
-  "created": "2026-10-04T16:29:01Z",
+  "created": "2026-10-04T17:29:02Z",
   "created_by": "agente-c",
   "description": "Decodifica a lista LK1887 (e o campo empacotado PN) de CoveringLean/SynData_K1887.lean (base 7 little-endian) e compara o sha256 canônico com o de data/codes/q7_n8_R3_M1887.txt: o elo entre o teorema Syn.K7_8_3_le_1887_syn e o arquivo verificado por programas.",
   "experiment_id": "exp-lean-syn-data-equals-witness-1887",
@@ -9,7 +9,7 @@
   ],
   "kind": "symbolic",
   "ranges": null,
-  "repo_commit": "bc452a571a75010516b9b59cbd741b689dd7d10e",
+  "repo_commit": "1a5fa268dc916fde689e6aa801e591ac3c863b36",
   "result": {
     "cnt_declarado": 1887,
     "estritamente_crescente": true,

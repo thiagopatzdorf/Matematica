@@ -1,0 +1,26 @@
+{
+  "command": [
+    "python3",
+    "verification/verify_balls.py",
+    "{witness}",
+    "{param:M}"
+  ],
+  "host": "vm (Linux x86_64)",
+  "output_sha256": "58ed7309be25cf931a1f43cac78aa702e0b4f1e2874173f42fc6249f3a2df8ff",
+  "output_tail": "verificador B (união de bolas, Python/NumPy)\nsha256 = 6d1b0e1abb8079df06a28d5301607d3d5247e0f2005d72e13f695ce26f6e6b52\nq = 7\nn = 9\nR = 4\n|C| = 1351\nN_0 = 1351\nN_1 = 72912\nN_2 = 1732017\nN_3 = 18908393\nN_4 = 19638934\ntotal = 40353607 (esperado 40353607)\ncovered_count = 40353607\nmissing_count = 0\nball_hits = 246950641 (= |C| * 182791 = 246950641)\nduplicate_cover_hits = 206597034\nmax_multiplicity = 16\nmax_distance = 4\nfarthest_points = 19638934\nexample_farthest = 111100000\nexample_farthest = 311100000\nexample_farthest = 411100000\nmin_unique_points_per_word = 2 (palavra 066123213)\ntotal_exclusive_points = 50813 (pontos cobertos por uma única palavra)\nredundant_words = 0\nruntime_internal_s = 62.7\nPASS\n",
+  "params_passed": {
+    "M": 1351,
+    "R": 4,
+    "n": 9,
+    "q": 7
+  },
+  "repo_commit": "1a5fa268dc916fde689e6aa801e591ac3c863b36",
+  "result": "PASS",
+  "run_id": "run-01791135518409685402-516634ab",
+  "runtime_s": 62.802,
+  "subject_id": "w-q7-n9-r4-m1351",
+  "subject_sha256": "6d1b0e1abb8079df06a28d5301607d3d5247e0f2005d72e13f695ce26f6e6b52",
+  "ts": "2026-10-04T17:38:38Z",
+  "verifier_id": "verify-val-balls",
+  "verifier_sha256": "e31f3839a90fde88300420939523f24ab5a5fb1289254b5590fef6e6a2f5c9c6"
+}

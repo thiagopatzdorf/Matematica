@@ -3,7 +3,7 @@
   "counterexample_search": {
     "status": "not_started"
   },
-  "created": "2026-10-04T16:49:25Z",
+  "created": "2026-10-04T17:48:38Z",
   "created_by": "agente-c",
   "created_role": "PROPOSER",
   "depends_on": [],
@@ -28,7 +28,7 @@
       "reason": "criado",
       "role": "PROPOSER",
       "to": "IDEA",
-      "ts": "2026-10-04T16:49:25Z"
+      "ts": "2026-10-04T17:48:38Z"
     },
     {
       "actor": "agente-c",
@@ -36,7 +36,7 @@
       "reason": "evidência anexada: formal=f-h1-counterexample",
       "role": "PROPOSER",
       "to": "IDEA",
-      "ts": "2026-10-04T16:49:26Z"
+      "ts": "2026-10-04T17:48:38Z"
     },
     {
       "actor": "agente-c",
@@ -44,7 +44,7 @@
       "reason": "hipótese registrada para ser refutada",
       "role": "PROPOSER",
       "to": "CONJECTURE",
-      "ts": "2026-10-04T16:49:26Z"
+      "ts": "2026-10-04T17:48:38Z"
     },
     {
       "actor": "migrate_covering.py",
@@ -52,7 +52,7 @@
       "reason": "evidência anexada: counterexamples=cx-h1-alpha-nonincreasing",
       "role": "COUNTEREXAMPLE_HUNTER",
       "to": "CONJECTURE",
-      "ts": "2026-10-04T16:49:26Z"
+      "ts": "2026-10-04T17:48:38Z"
     },
     {
       "actor": "migrate_covering.py",
@@ -60,7 +60,7 @@
       "reason": "H1_counterexample medido no kernel",
       "role": "COUNTEREXAMPLE_HUNTER",
       "to": "REFUTED",
-      "ts": "2026-10-04T16:49:26Z"
+      "ts": "2026-10-04T17:48:38Z"
     }
   ],
   "kind": "conjecture",

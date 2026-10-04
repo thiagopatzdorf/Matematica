@@ -5,7 +5,7 @@
     "result": "nenhum",
     "status": "completed"
   },
-  "created": "2026-10-04T16:49:25Z",
+  "created": "2026-10-04T17:48:38Z",
   "created_by": "agente-c",
   "created_role": "PROPOSER",
   "depends_on": [],
@@ -31,7 +31,7 @@
       "reason": "criado",
       "role": "PROPOSER",
       "to": "IDEA",
-      "ts": "2026-10-04T16:49:25Z"
+      "ts": "2026-10-04T17:48:38Z"
     },
     {
       "actor": "agente-c",
@@ -39,7 +39,7 @@
       "reason": "evidência anexada: formal=f-sphere-covering",
       "role": "PROPOSER",
       "to": "IDEA",
-      "ts": "2026-10-04T16:49:25Z"
+      "ts": "2026-10-04T17:48:38Z"
     },
     {
       "actor": "migrate_covering.py",
@@ -47,7 +47,7 @@
       "reason": "registro formal medido (axiomas, sorry, build) válido",
       "role": "FORMALIZER",
       "to": "PROVED",
-      "ts": "2026-10-04T16:49:25Z"
+      "ts": "2026-10-04T17:48:38Z"
     }
   ],
   "kind": "lemma",

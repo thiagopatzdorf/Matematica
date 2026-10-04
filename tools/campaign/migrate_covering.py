@@ -75,6 +75,7 @@ def fid_heavy(tag: str, m: int) -> str:
     return f"f-heavy-{tag.lower().replace('_', '-')}-{m}"
 
 
+TRACER_BUCKET = "gs://factory-cauteloso-telemetria/matematica/kernel-runs"  # onde os logs do traçador foram enviados (nome = sha256 do log)
 KR_HEAVY = "kr-heavy-ddb16b7-lean-build2"  # a execução externa histórica do CoveringHeavy (kernel_runs/); o log bruto NÃO foi persistido
 CUSTO_HEAVY = "~9,3 h de CPU (README.md: `lake build CoveringHeavy` 1 h 54 min de relógio, pico 9,4 GB por processo)"
 KERI_PREVIO = {"k5-7-2": 525, "k4-10-4": 208, "k5-9-3": 1275, "k5-10-4": 875, "k5-9-5": 55, "k5-9-4": 255, "k7-8-3": 2337}
@@ -995,6 +996,27 @@ def main() -> int:
             "fonte": "campaigns/covering-codes/_fatos/medicao_heavy_vm.json",
             "migracao": "conservadora: EXTERNAL_RUN_REPORTED por falta de log bruto persistido, de saída literal de #print axioms e de proveniência capturada (host e toolchain); não há segunda execução",
         }, ator=PROMOTOR, papel="FORMALIZER")
+
+    # ------------------------------------------------------------------ o traçador: DUAS execuções reais, em VMs distintas (teste ponta a ponta de 2026-10-04)
+    # Alvo CoveringLean.Syn_K1887 (claim k7-8-3-ub-1887). Tudo vem dos arquivos de _fatos/kernel_runs_tracer/{a,b} (log bruto, prov.json gerado NA VM pela
+    # ferramenta, spec.json); o nível (KERNEL_VERIFIED / KERNEL_INDEPENDENTLY_REPRODUCED) é CALCULADO pela infraestrutura, nunca escrito aqui. Nenhum claim muda de
+    # estado (as guardas não leem kernel_runs/). `a/spec_tentativa_copia_da_mesma_execucao.json` NÃO é registrado: é só a tentativa de quebrar do teste.
+    # LIMITE: "capturada" (pela ferramenta) não é "atestada"; o log foi enviado ao GCS por outro processo e só o `conferido_por` abaixo diz quem viu o objeto.
+    for lado in ("a", "b"):
+        pasta_tr = raiz_fatos / "kernel_runs_tracer" / lado
+        spec_tr = json.loads((pasta_tr / "spec.json").read_text(encoding="utf-8"))
+        log_tr = pasta_tr / "build.log"
+        sha_tr = sha256_arquivo(log_tr)
+        KR.registrar_execucao(
+            c, spec_tr["run_id"], log=log_tr, claim_ids=spec_tr["claim_ids"], teoremas=spec_tr["teoremas"], commit_sha=spec_tr["commit_sha"],
+            lean_version=spec_tr["lean_version"], lean_toolchain=spec_tr["lean_toolchain"], mathlib_commit=spec_tr["mathlib_commit"],
+            command=spec_tr["command"], target=spec_tr["target"], host=spec_tr["host"], started_at=spec_tr["started_at"], finished_at=spec_tr["finished_at"],
+            leaves=spec_tr["leaves"], measured_by=spec_tr["measured_by"],
+            armazenador=KR.ArmazenadorPreEnviado(
+                f"{TRACER_BUCKET}/{sha_tr}.log", log_tr.stat().st_size,
+                "sessão Claude 2026-10-04 via factory-01: upload com token de service account em memória; GET de metadados do objeto confirmou o tamanho 12622",
+                "2026-10-04 (hora do GET não registrada)"),
+            ator="agente-kr", papel="FORMALIZER", raiz_fontes=REPO, proveniencia_json=pasta_tr / "prov.json")
 
     # ------------------------------------------------------------------ resíduos
     def residuo(rid, **campos):

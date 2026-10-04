@@ -197,12 +197,222 @@ class KernelRunMigrationTest(unittest.TestCase):
             kr = json.load(open(os.path.join(camp, "kernel_runs", KR_ID + ".json"), encoding="utf-8"))
             kr.pop("recorded_at")  # único campo que carrega a hora da migração
             estados = {os.path.basename(p)[:-5]: json.load(open(p, encoding="utf-8"))["status"] for p in sorted(glob.glob(os.path.join(camp, "claims", "*.json")))}
-            return kr, estados
+            tr = {}
+            for rid in (TR_A, TR_B):
+                x = json.load(open(os.path.join(camp, "kernel_runs", rid + ".json"), encoding="utf-8"))
+                x.pop("recorded_at")
+                tr[rid] = x
+            nivel = KERNEL.nivel_do_claim(Campanha(camp), TR_CLAIM)
+            return kr, estados, tr, (nivel["nivel"], sorted(nivel["par_independente"] or []))
 
         a = roda()
         b = roda()
         self.assertEqual(a[0], b[0])
         self.assertEqual(a[1], b[1])
+        self.assertEqual(a[2], b[2], "os runs do traçador são os mesmos nas duas migrações (a menos de recorded_at)")
+        self.assertEqual(a[3], b[3])
+
+
+TR = os.path.join(CAMP, "_fatos", "kernel_runs_tracer")
+TR_A, TR_B = "kr-1887-syn-1a5fa26-kr-teste-a", "kr-1887-syn-1a5fa26-kr-teste-b"
+TR_CLAIM = "k7-8-3-ub-1887"
+TR_BUCKET = "gs://factory-cauteloso-telemetria/matematica/kernel-runs"
+ESTADOS_ESPERADOS = {"PROVED": 21, "INDEPENDENTLY_REPRODUCED": 7, "EXHAUSTIVE_BOUNDED": 2, "REFUTED": 4}  # os mesmos SEM os runs do traçador
+
+
+def _json(*partes):
+    with open(os.path.join(*partes), encoding="utf-8") as fh:
+        return json.load(fh)
+
+
+class TracerRunsTest(unittest.TestCase):
+    """As duas execuções reais do traçador (Syn_K1887, VMs kr-teste-a e kr-teste-b) e as tentativas de quebrá-las.
+
+    Leem a campanha real. As tentativas que PRECISAM registrar algo usam uma cópia temporária DENTRO do repo (campaigns/_tmp-*), na mesma
+    profundidade de campaigns/covering-codes: o `data_root` ("../..") e os caminhos relativos ao repo continuam valendo (fora do repo a
+    auditoria dá `stale`). A campanha real nunca é escrita."""
+
+    @classmethod
+    def setUpClass(cls):
+        cls.runs = carregar("kernel_runs")
+        cls.claims = carregar("claims")
+
+    def test_the_two_real_runs_are_registered_with_log_in_the_bucket_named_by_its_own_sha256(self):
+        for rid, lado in ((TR_A, "a"), (TR_B, "b")):
+            r = self.runs[rid]
+            with open(os.path.join(TR, lado, "build.log"), "rb") as fh:
+                dados = fh.read()
+            sha = hashlib.sha256(dados).hexdigest()
+            self.assertEqual(r["raw_log"]["sha256"], sha)
+            self.assertEqual(r["raw_log"]["uri"], f"{TR_BUCKET}/{sha}.log")
+            self.assertEqual(r["raw_log"]["size_bytes"], len(dados))
+            self.assertEqual(r["raw_log"]["verification"]["modo"], "pre_enviado")
+            self.assertIn("12622", r["raw_log"]["verification"]["conferido_por"])
+        self.assertNotEqual(self.runs[TR_A]["raw_log"]["sha256"], self.runs[TR_B]["raw_log"]["sha256"])
+
+    def test_the_two_runs_carry_tool_captured_provenance_of_distinct_instances_and_it_is_the_one_generated_on_the_vm(self):
+        ids = set()
+        for rid, lado in ((TR_A, "a"), (TR_B, "b")):
+            r = self.runs[rid]
+            hp = r["host"]["provenance"]
+            self.assertIs(hp["captured_by_tool"], True)
+            self.assertIs(r["toolchain_provenance"]["captured_by_tool"], True)
+            self.assertIs(r["toolchain_provenance"]["tree_clean"], True)
+            self.assertEqual(r["toolchain_provenance"]["commit_sha"], r["commit_sha"])
+            ids.add(hp["numeric_instance_id"])
+            pac = _json(TR, lado, "prov.json")
+            self.assertEqual(hp["numeric_instance_id"], pac["host_provenance"]["numeric_instance_id"], "o id vem do pacote gerado na VM, não de texto digitado")
+        self.assertEqual(ids, {"5198467000349702121", "1876810319497476070"})
+
+    def test_the_run_a_copy_attempt_spec_is_not_registered_as_a_second_run(self):
+        self.assertNotIn("kr-1887-syn-1a5fa26-copia-de-a", self.runs)
+        self.assertEqual(len([k for k in self.runs if k.startswith("kr-1887-syn-")]), 2)
+
+    def test_registering_the_tracer_runs_changes_no_claim_state(self):
+        resumo = {}
+        for cl in self.claims.values():
+            resumo[cl["status"]] = resumo.get(cl["status"], 0) + 1
+        self.assertEqual(resumo, ESTADOS_ESPERADOS)
+        self.assertEqual(self.claims[TR_CLAIM]["status"], "PROVED")
+        self.assertNotIn(TR_CLAIM, set(self.runs[KR_ID]["claim_ids"]))
+
+    def test_each_tracer_run_covers_only_the_syn_1887_claim_and_no_heavy_claim(self):
+        for rid in (TR_A, TR_B):
+            self.assertEqual(self.runs[rid]["claim_ids"], [TR_CLAIM])
+            self.assertEqual([t["theorem"] for t in self.runs[rid]["theorems"]], ["Syn.K7_8_3_le_1887_syn"])
+        self.assertEqual(len(self.runs[KR_ID]["claim_ids"]), 10)
+
+    @unittest.skipIf(KERNEL is None, "infraestrutura factory_cauteloso fora do PYTHONPATH")
+    def test_the_tracer_claim_reaches_independently_reproduced_with_the_pair_a_b_and_the_heavy_ones_do_not(self):
+        c = Campanha(CAMP)
+        for rid in (TR_A, TR_B):
+            self.assertEqual(KERNEL.avaliar(self.runs[rid])["nivel"], "KERNEL_VERIFIED", rid)
+        self.assertEqual(KERNEL.par_independente(self.runs[TR_A], self.runs[TR_B]), [])
+        n = KERNEL.nivel_do_claim(c, TR_CLAIM)
+        self.assertEqual(n["nivel"], "KERNEL_INDEPENDENTLY_REPRODUCED")
+        self.assertEqual(sorted(n["par_independente"]), sorted([TR_A, TR_B]))
+        self.assertEqual(KERNEL.camadas_do_claim(c, TR_CLAIM)["rotulo_dos_eixos"], "Claim state: PROVED / Kernel evidence: KERNEL_INDEPENDENTLY_REPRODUCED")
+        for cid in self.runs[KR_ID]["claim_ids"]:
+            self.assertEqual(KERNEL.nivel_do_claim(c, cid)["nivel"], "EXTERNAL_RUN_REPORTED", cid)
+        self.assertTrue(c.verificar_cadeia()["ok"])
+        for rid in (TR_A, TR_B):
+            self.assertTrue(c.registro_confere_com_auditoria("kernel_runs", rid)["ok"], rid)
+
+    # ------------------------------------------------------------ tentativas de quebrar (cópia temporária DENTRO do repo)
+    def _copia(self):
+        tmp = tempfile.mkdtemp(prefix="_tmp-tr-", dir=os.path.dirname(CAMP))
+        self.addCleanup(shutil.rmtree, tmp, True)
+        shutil.rmtree(tmp)
+        shutil.copytree(CAMP, tmp, symlinks=True)
+        return tmp
+
+    def _registra(self, c, lado, run_id=None, prov=None, log=None, spec_extra=None, uri=None, tamanho=None):
+        spec = _json(TR, lado, "spec.json")
+        if run_id:
+            spec["run_id"] = run_id
+        spec.update(spec_extra or {})
+        log = log or os.path.join(TR, lado, "build.log")
+        with open(log, "rb") as fh:
+            dados = fh.read()
+        sha = hashlib.sha256(dados).hexdigest()
+        arm = KERNEL.ArmazenadorPreEnviado(uri or f"{TR_BUCKET}/{sha}.log", len(dados) if tamanho is None else tamanho, "teste: declaração", "2026-10-04")
+        kw = {k: spec[k] for k in ("commit_sha", "lean_version", "lean_toolchain", "mathlib_commit", "command", "target", "host", "started_at", "finished_at", "leaves", "measured_by")}
+        return KERNEL.registrar_execucao(c, spec["run_id"], log=log, claim_ids=spec["claim_ids"], teoremas=spec["teoremas"], armazenador=arm, ator="agente-kr",
+                                         papel="FORMALIZER", raiz_fontes=ROOT, proveniencia_json=prov or os.path.join(TR, lado, "prov.json"), **kw)
+
+    @unittest.skipIf(KERNEL is None, "infraestrutura factory_cauteloso fora do PYTHONPATH")
+    def test_repeating_a_run_id_is_refused_and_the_registered_run_is_untouched(self):
+        c = Campanha(self._copia())
+        antes = open(os.path.join(c.raiz, "kernel_runs", TR_A + ".json"), "rb").read()
+        with self.assertRaises(Exception) as cm:
+            self._registra(c, "a")
+        self.assertIn("exist", str(cm.exception).lower())
+        self.assertEqual(antes, open(os.path.join(c.raiz, "kernel_runs", TR_A + ".json"), "rb").read())
+
+    @unittest.skipIf(KERNEL is None, "infraestrutura factory_cauteloso fora do PYTHONPATH")
+    def test_a_tampered_provenance_bundle_is_refused_because_its_bundle_sha256_does_not_match(self):
+        c = Campanha(self._copia())
+        pac = _json(TR, "b", "prov.json")
+        pac["host_provenance"]["numeric_instance_id"] = "1111111111111111111"
+        arq = os.path.join(tempfile.mkdtemp(prefix="_tmp-prov-", dir=os.path.dirname(CAMP)), "prov.json")
+        self.addCleanup(shutil.rmtree, os.path.dirname(arq), True)
+        with open(arq, "w", encoding="utf-8") as fh:
+            json.dump(pac, fh)
+        with self.assertRaises(Exception) as cm:
+            self._registra(c, "b", run_id="kr-teste-adulterada", prov=arq)
+        self.assertIn("bundle_sha256", str(cm.exception))
+        self.assertFalse(os.path.exists(os.path.join(c.raiz, "kernel_runs", "kr-teste-adulterada.json")))
+
+    @unittest.skipIf(KERNEL is None, "infraestrutura factory_cauteloso fora do PYTHONPATH")
+    def test_a_run_without_provenance_is_only_reported_and_does_not_pair_with_a(self):
+        c = Campanha(self._copia())
+        # `coletar_proveniencia=False`: host/toolchain só declarados; usa o log de B (outro log, outra janela)
+        spec = _json(TR, "b", "spec.json")
+        log = os.path.join(TR, "b", "build.log")
+        sha = hashlib.sha256(open(log, "rb").read()).hexdigest()
+        kw = {k: spec[k] for k in ("commit_sha", "lean_version", "lean_toolchain", "mathlib_commit", "command", "target", "host", "started_at", "finished_at", "leaves", "measured_by")}
+        KERNEL.registrar_execucao(c, "kr-teste-b-sem-prov", log=log, claim_ids=spec["claim_ids"], teoremas=spec["teoremas"], armazenador=KERNEL.ArmazenadorPreEnviado(
+            f"{TR_BUCKET}/{sha}.log", os.path.getsize(log), "teste: declaração", "2026-10-04"), ator="agente-kr", papel="FORMALIZER", raiz_fontes=ROOT,
+            coletar_proveniencia=False, **kw)
+        r = c.ler("kernel_runs", "kr-teste-b-sem-prov")
+        self.assertEqual(KERNEL.avaliar(r)["nivel"], "EXTERNAL_RUN_REPORTED")
+        self.assertTrue(any("host" in f for f in KERNEL.avaliar(r)["faltam_para_kernel_verified"]))
+        self.assertTrue(KERNEL.par_independente(c.ler("kernel_runs", TR_A), r))
+
+    @unittest.skipIf(KERNEL is None, "infraestrutura factory_cauteloso fora do PYTHONPATH")
+    def test_a_wrong_log_size_or_an_object_name_without_the_sha_is_refused_before_anything_is_written(self):
+        c = Campanha(self._copia())
+        n0 = len(os.listdir(os.path.join(c.raiz, "kernel_runs")))
+        with self.assertRaises(Exception) as cm:
+            self._registra(c, "b", run_id="kr-teste-tamanho", tamanho=12621)
+        self.assertIn("tamanho", str(cm.exception))
+        with self.assertRaises(Exception) as cm:
+            self._registra(c, "b", run_id="kr-teste-nome", uri=f"{TR_BUCKET}/build.log")
+        self.assertIn("sha256", str(cm.exception))
+        self.assertEqual(len(os.listdir(os.path.join(c.raiz, "kernel_runs"))), n0)
+
+    @unittest.skipIf(KERNEL is None, "infraestrutura factory_cauteloso fora do PYTHONPATH")
+    def test_registering_run_a_again_under_another_run_id_does_not_form_an_independent_pair(self):
+        c = Campanha(self._copia())
+        self._registra(c, "a", run_id="kr-teste-copia-de-a")
+        copia = c.ler("kernel_runs", "kr-teste-copia-de-a")
+        self.assertEqual(KERNEL.avaliar(copia)["nivel"], "KERNEL_VERIFIED")
+        motivos = KERNEL.par_independente(c.ler("kernel_runs", TR_A), copia)
+        self.assertTrue(motivos)
+        self.assertTrue(any("host.id igual" in m or "log bruto é o mesmo" in m for m in motivos), motivos)
+        # sem B (removido só da cópia temporária), A + cópia-de-A fica em KERNEL_VERIFIED: a mesma execução contada duas vezes não é reprodução
+        os.remove(os.path.join(c.raiz, "kernel_runs", TR_B + ".json"))
+        n = KERNEL.nivel_do_claim(c, TR_CLAIM)
+        self.assertEqual(n["nivel"], "KERNEL_VERIFIED")
+        self.assertIsNone(n["par_independente"])
+
+    @unittest.skipIf(KERNEL is None, "infraestrutura factory_cauteloso fora do PYTHONPATH")
+    def test_the_log_of_b_with_the_provenance_of_a_is_a_mixture_that_does_not_pair(self):
+        c = Campanha(self._copia())
+        self._registra(c, "b", run_id="kr-teste-mistura", prov=os.path.join(TR, "a", "prov.json"))
+        mix = c.ler("kernel_runs", "kr-teste-mistura")
+        self.assertEqual(mix["host"]["provenance"]["numeric_instance_id"], "5198467000349702121")
+        self.assertTrue(KERNEL.par_independente(c.ler("kernel_runs", TR_A), mix), "a mistura usa a instância de A: não é uma 2ª instância")
+
+    def test_the_migration_script_that_registers_the_tracer_is_deterministic_in_what_it_reads(self):
+        """A migração só lê arquivos versionados de _fatos/kernel_runs_tracer: sem hora do relógio nem rede nos campos que comparamos."""
+        src = open(os.path.join(ROOT, "tools", "campaign", "migrate_covering.py"), encoding="utf-8").read()
+        trecho = src[src.index("o traçador: DUAS execuções reais"):src.index("# ------------------------------------------------------------------ resíduos")]
+        self.assertIn("ArmazenadorPreEnviado", trecho)
+        self.assertNotIn("datetime.now", trecho)
+        self.assertNotIn("urlopen", trecho)
+
+    def test_the_vm_script_parses_with_bash_and_has_no_machine_paths(self):
+        p = os.path.join(ROOT, "tools", "kernel_run_na_vm.sh")
+        r = subprocess.run(["bash", "-n", p], capture_output=True, text=True)
+        self.assertEqual(r.returncode, 0, r.stderr)
+        txt = open(p, encoding="utf-8").read()
+        self.assertNotRegex(txt, r"/home/[a-z]|/Users/|10\.158\.|ssh factory01")
+        self.assertIn("lake build", txt)
+        self.assertIn("provenance", txt)
+        self.assertIn('COMMIT="${1:', txt)
+        self.assertIn('ALVO="${2:', txt)
+
 
 
 if __name__ == "__main__":

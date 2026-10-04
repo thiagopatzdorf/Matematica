@@ -54,6 +54,22 @@ def nivel_kernel_run(r):
     ok = lg.get("persisted") is True and bool(_HEX64.match(str(lg.get("sha256") or ""))) and bool(lg.get("uri")) and capturada
     return "KERNEL_VERIFIED" if ok else "EXTERNAL_RUN_REPORTED"
 
+def nivel_kernel_claim(claim_id):
+    """Nível do eixo do kernel de um claim, lido de kernel_runs/ (aproximação da regra de `kernel.nivel_do_claim`, igual a `nivel_kernel_run`):
+    NONE sem execução que o cubra; EXTERNAL_RUN_REPORTED / KERNEL_VERIFIED pelo melhor nível; KERNEL_INDEPENDENTLY_REPRODUCED se há duas execuções
+    KERNEL_VERIFIED com host.id, run_id e log distintos, mesmo commit e instâncias numéricas distintas. O teste de migração confere contra a infraestrutura."""
+    rs = [r for r in KRUNS.values() if claim_id in (r.get("claim_ids") or [])]
+    if not rs:
+        return "NONE"
+    kv = [r for r in rs if nivel_kernel_run(r) == "KERNEL_VERIFIED"]
+    for i, a in enumerate(kv):
+        for b in kv[i + 1:]:
+            ia, ib = ((x["host"].get("provenance") or {}).get("numeric_instance_id") for x in (a, b))
+            if (a["run_id"] != b["run_id"] and a["host"]["id"] != b["host"]["id"] and ia != ib and a["raw_log"]["sha256"] != b["raw_log"]["sha256"]
+                    and a["commit_sha"] == b["commit_sha"]):
+                return "KERNEL_INDEPENDENTLY_REPRODUCED"
+    return "KERNEL_VERIFIED" if kv else "EXTERNAL_RUN_REPORTED"
+
 def lean_state(claim, formal):
     """Estado Lean DERIVADO dos registros formais do claim (evidence.formal e complementary_formal)."""
     if not claim:
@@ -107,6 +123,9 @@ def main():
             lean_decl, lean_ext = decl_eq, ext_eq
             lean += (" | igualdade K_2(6,1)=12: " + ("EXTERNAL_KERNEL_RUN (Kernel evidence: EXTERNAL_RUN_REPORTED; log bruto NÃO persistido; NÃO é reprodução independente): " + "; ".join(ext_eq) + " (build do CoveringHeavy só na VM do autor, não refeito aqui)" if ext_eq else
                      "EXISTS_BUILD_NOT_REPRODUCED: " + "; ".join(decl_eq) + " (CoveringHeavy não construído aqui)") + "; K_2(6,1) >= 11 PROVED_MEASURED separadamente (alvo padrão)")
+        kn = nivel_kernel_claim(c["claim_id"]) if c else "NONE"
+        if lean_ok and kn != "NONE":  # execuções de kernel em VM que cobrem um teorema medido aqui: o nível é do eixo do kernel, nunca do claim
+            lean += f" | Kernel evidence: {kn} (execuções em VM; ver kernel_runs/ e _fatos/TESTE_PONTA_A_PONTA.md; 'capturada' não é 'atestada')"
         st, conf, src, note = LIT.get(wid, ("?", "?", "", ""))
         cnt = {k: v["result"] for k, v in r.items()}
         autores = {k: vers.get(k, {}).get("implemented_by") for k in cnt}
@@ -125,7 +144,7 @@ def main():
                                  "agentes do mesmo modelo ≠ independência cognitiva total",
             "claim_id": c["claim_id"] if c else None, "claim_status": c["status"] if c else None,
             "equality_claim_status": claims["k2-6-1-eq-12"]["status"] if wid == "w-q2-n6-r1-m12" else None,
-            "lean": lean, "lean_theorems_measured": lean_ok, "lean_theorems_declared_only": lean_decl, "lean_theorems_external_vm": lean_ext,
+            "lean": lean, "kernel_evidence": kn, "lean_theorems_measured": lean_ok, "lean_theorems_declared_only": lean_decl, "lean_theorems_external_vm": lean_ext,
             "best_recorded_bound": best.get("value") if isinstance(best, dict) else best,
             "best_recorded_source": lc.get("melhor_registrada_fonte"),
             "diff_abs": ((best.get("value") if isinstance(best, dict) else best) - p["M"]) if best else None,

@@ -14,7 +14,7 @@
     "result": "uncovered=0 nos verificadores",
     "status": "completed"
   },
-  "created": "2026-10-04T16:49:26Z",
+  "created": "2026-10-04T17:48:39Z",
   "created_by": "agente-c",
   "created_role": "PROPOSER",
   "depends_on": [
@@ -52,7 +52,7 @@
       "reason": "criado",
       "role": "PROPOSER",
       "to": "IDEA",
-      "ts": "2026-10-04T16:49:26Z"
+      "ts": "2026-10-04T17:48:39Z"
     },
     {
       "actor": "agente-c",
@@ -60,7 +60,7 @@
       "reason": "evidência anexada: witnesses=w-q7-n8-r3-m1893",
       "role": "PROPOSER",
       "to": "IDEA",
-      "ts": "2026-10-04T16:49:26Z"
+      "ts": "2026-10-04T17:48:39Z"
     },
     {
       "actor": "agente-c",
@@ -68,7 +68,7 @@
       "reason": "evidência anexada: experiments=exp-prior-search-unrecorded",
       "role": "PROPOSER",
       "to": "IDEA",
-      "ts": "2026-10-04T16:49:26Z"
+      "ts": "2026-10-04T17:48:39Z"
     },
     {
       "actor": "agente-c",
@@ -76,7 +76,7 @@
       "reason": "evidência anexada: literature=lit-keri-k7-8-3-ub",
       "role": "PROPOSER",
       "to": "IDEA",
-      "ts": "2026-10-04T16:49:26Z"
+      "ts": "2026-10-04T17:48:39Z"
     },
     {
       "actor": "agente-c",
@@ -84,7 +84,7 @@
       "reason": "evidência anexada: formal=f-heavy-k7-8-3-1893",
       "role": "PROPOSER",
       "to": "IDEA",
-      "ts": "2026-10-04T16:49:26Z"
+      "ts": "2026-10-04T17:48:39Z"
     },
     {
       "actor": "agente-c",
@@ -92,7 +92,7 @@
       "reason": "evidência anexada: experiments=exp-structure-regeneration",
       "role": "PROPOSER",
       "to": "IDEA",
-      "ts": "2026-10-04T16:49:26Z"
+      "ts": "2026-10-04T17:48:39Z"
     },
     {
       "actor": "migrate_covering.py",
@@ -100,7 +100,7 @@
       "reason": "verificadores de autores/grupos distintos, PASS válido e sem desacordo, neste run",
       "role": "INDEPENDENT_VERIFIER",
       "to": "INDEPENDENTLY_REPRODUCED",
-      "ts": "2026-10-04T16:49:26Z"
+      "ts": "2026-10-04T17:48:39Z"
     }
   ],
   "kind": "theorem",

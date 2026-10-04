@@ -1,0 +1,26 @@
+{
+  "command": [
+    "{workdir}/verify_bruteforce",
+    "{witness}",
+    "{param:M}",
+    "{param:R}"
+  ],
+  "host": "vm (Linux x86_64)",
+  "output_sha256": "d32b1ddc57a54447258b19391ef564abe925ec91f7cf0f12370325f24f9d2243",
+  "output_tail": "verificador A (força bruta, C/OpenMP)\nq = 7\nn = 9\nR = 4\n|C| = 1137\nN_0 = 1137\nN_1 = 61225\nN_2 = 1421934\nN_3 = 15340089\nN_4 = 23529222\ntotal = 40353607 (esperado 40353607)\ncovered = 40353607\nuncovered = 0\nmax_distance = 4\nfarthest_points = 23529222\nexample_farthest = 211100000\nexample_farthest = 311100000\nexample_farthest = 611100000\nPASS\n",
+  "params_passed": {
+    "M": 1137,
+    "R": 4,
+    "n": 9,
+    "q": 7
+  },
+  "repo_commit": "1a5fa268dc916fde689e6aa801e591ac3c863b36",
+  "result": "PASS",
+  "run_id": "run-01791135993502297083-d697f967",
+  "runtime_s": 64.845,
+  "subject_id": "w-q7-n9-r4-m1137",
+  "subject_sha256": "df3e8d527bc393a9680fe4b2b39e7bde088ab6a02f2f94ee26019a5efc05a102",
+  "ts": "2026-10-04T17:46:33Z",
+  "verifier_id": "verify-val-bruteforce",
+  "verifier_sha256": "19c203a249b8ae12af074ac54f2ca37853a7b53ab5c42adfefb4c8b8d77f2cf4"
+}
