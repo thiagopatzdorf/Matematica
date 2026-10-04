@@ -1,0 +1,8 @@
+# K_3(6,2), M = 15: as 6 instâncias duras da amostra, rodadas SEM --proof-log (veredito sem certificado),
+# roundingsat sozinho, teto de 30 min, t2d-standard-8 (um processo por instância). Tempo = relógio de parede.
+i10603 UNKNOWN 30:07 (parada no teto)
+i11739 UNSATISFIABLE 7:41
+i11804 UNSATISFIABLE 9:48
+i11927 UNSATISFIABLE 3:30
+i7955 UNSATISFIABLE 26:10
+i9118 UNSATISFIABLE 29:08
