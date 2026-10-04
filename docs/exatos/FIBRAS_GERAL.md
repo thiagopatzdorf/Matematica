@@ -4,7 +4,24 @@ Continuação de `FASE1_B_K742.md` (K_7(4,2) = 19). Aqui o lema das fibras e a r
 viram uma ferramenta para qualquer (q, n) com raio R = n − 2 (`tools/exatos/fibras/`), e
 medimos, célula por célula da triagem, se ela cabe no orçamento.
 
-<!-- RESULTADOS -->
+## Resultado
+
+<!-- RESUMO -->
+
+| célula | antes | depois | afirmação provada | instâncias | verificação |
+|---|---|---|---|---|---|
+| **K_7(5,3)** | 15–17 | **16–17** | ∄ código com 15 palavras | 1 perfil | CaDiCaL UNSAT (221 s), `lrat-check` VERIFIED, `lrat.py` VERIFICADO (prova de 1,56 GB, sha256 `9cc887c5…`), kissat UNSAT (11 min) |
+| **K_7(6,4)** | 13–15 | **14–15** | ∄ código com 13 palavras | 8008 perfis | 8008/8008 UNSAT, 8008/8008 `lrat-check` VERIFIED, amostra de 12 com `lrat.py` VERIFICADO |
+<!-- LINHA_M16 -->
+
+Status honesto, igual ao do k742: resultado **computacional com certificado** (LRAT conferido por
+dois verificadores, um deles em amostra), mais os lemas abaixo, escritos à mão e testados por
+máquina. Não está no Lean e não mexi no ledger.
+
+Dependências de literatura: o Lema 1 em K_7(5,3) usa K_6(4,2) = 15 (Kéri 2011; nós também
+reprovamos ∄ 14 no k742) e só a cota de Rodemich K_7(4,2) ≥ 17; em K_7(6,4) usa K_6(5,3) ≥ 12
+(que o próprio Lema 1 prova: s_min = 2 em K_6(5,3) com 11 palavras, 6 · 2 > 11) e
+K_7(5,3) ≥ 15 (HSPQ).
 
 ## Lema 1 (fibras, geral)
 
@@ -79,3 +96,45 @@ relabeladas; então ordenar cada grupo lexicograficamente preserva (a)–(f) e d
 atribuição satisfaz todas as cláusulas; com uma palavra trocada (código que não cobre) falham só
 cláusulas de cobertura, exatamente uma por ponto descoberto; e dois mutantes errados da quebra
 de simetria (precedência entre classes diferentes; lexicográfica nos dois sentidos) são pegos.
+
+## Lema 4 (ordem dos blocos de mesmo tamanho, a quebra (h))
+
+**Enunciado.** Na forma normal pode-se exigir, além de (a)–(g): (h) para blocos consecutivos
+b, b + 1 da coordenada 0 **de mesmo tamanho**, a sequência da coordenada 1 do bloco b (já não
+decrescente por (d)) é ≤_lex a do bloco b + 1.
+
+**Prova.** Símbolos da coordenada 0 com a mesma fibra podem ser permutados (isometria), o que
+permuta os blocos de um mesmo grupo de tamanho e muda a relabelagem (e) da coordenada 1.
+Construa a ordem por um guloso dentro de cada grupo: a cada passo, para cada bloco restante,
+calcule o vetor ordenado dos rótulos que a coordenada 1 teria se ele viesse agora (rótulos já
+dados ficam; símbolos novos recebem os próximos rótulos livres da sua classe) e escolha o menor
+lexicograficamente. Seja v_t o vetor escolhido no passo t e Y o bloco escolhido no passo t + 1.
+No passo t, o vetor de Y era u ≥_lex v_t (escolha gulosa). Depois do passo t, cada rótulo de Y só
+pode crescer: rótulos já dados não mudam, e um símbolo novo de Y numa classe c recebe, no passo t
+ou depois, um rótulo ≥ ao próximo livre de c no passo t; como os rótulos de uma classe são
+distintos, o vetor ordenado de Y domina, componente a componente, o vetor u. Logo
+v_{t+1} ≥_lex u ≥_lex v_t. Os rótulos que o guloso atribui são exatamente os de (e) na ordem
+final; depois disso (d), (f), (g) se refazem sem mexer nas coordenadas 0 e 1. ∎
+
+Em K_7(5,3) com M = 15 (coordenada 0 do tipo 3222222, um grupo de seis blocos de tamanho 2) os
+padrões válidos da coordenada 1 caem de 118 710 para 380 com (h), e a instância, que o kissat não
+resolvia em 20 min de CPU sem (h), sai em 221 s de CaDiCaL com prova.
+
+`fib_canon.canonizar` implementa o guloso; `test_ordem_dos_blocos_h_precisa_do_guloso` mostra
+que, sem o guloso, a forma normal viola (h) em algum código (as cláusulas restringem de verdade),
+e os testes de completude passam com ele.
+
+**Ordem da coordenada 0.** Com (h), vale pôr na coordenada 0 o tipo de **maior** simetria
+residual (mais blocos iguais): `--ordem max`. Cada perfil é completo sozinho nas duas ordens
+(a canonização com qualquer `chave_tipo` leva todo código daquele multiconjunto de tipos à CNF
+do perfil), então uma rodada pode misturar perfis provados em ordens diferentes; o `rodar.py
+--pular` usa isso, casando perfis pelo multiconjunto de tipos.
+
+## Cubos
+
+`fib_cubos.py` divide uma instância pela coordenada 1 das L primeiras palavras: a lista é a de
+todos os prefixos de atribuições que satisfazem as cláusulas que só falam da coordenada 1
+(one-hot, fibra, (d), (e), (h)); o teste confere contra força bruta. Medido em K_7(5,3), M = 15:
+cubos são mais caros no total do que a instância inteira (L = 9: 3355 cubos de ~1–2 min; a
+instância inteira com (h) leva 221 s), então não foram usados nos resultados. Ficam para provas
+que não cabem no disco (cada cubo tem sua prova pequena).

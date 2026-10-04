@@ -258,3 +258,42 @@ def test_codigo_da_particao_q7_embaralhado_satisfaz_a_cnf(n, blocos, M):
     for k in (n, 2):
         for ordem in ("min", "max"):
             checar(embaralhar(cod, 7, n, rng), 7, n, k, ordem=ordem)
+
+
+def test_cobertura_exige_todos_os_perfis_e_todos_os_cubos(tmp_path):
+    """cobertura.py: perfil fechado = UNSAT conferido inteiro ou em TODOS os cubos."""
+    import json
+    import subprocess
+    q, n, M = 5, 5, 8
+    _, ins = encode.instancias(q, n, M, 5, 1)
+    _, insmax = encode.instancias(q, n, M, 5, 1, ordem="max")
+
+    def reg(i, p, ordem="min", **kw):
+        r = {"q": q, "n": n, "M": M, "inst": i, "ordem": ordem, "resultado": "UNSAT",
+             "lrat_check": "VERIFIED", "tempo_solver_s": 0.1,
+             "tipos": ["".join(map(str, t)) for t in p]}
+        r.update(kw)
+        return json.dumps(r)
+
+    script = RAIZ / "tools" / "exatos" / "fibras" / "cobertura.py"
+
+    def roda(linhas):
+        f = tmp_path / "x.jsonl"
+        f.write_text("\n".join(linhas) + "\n")
+        return subprocess.run([sys.executable, str(script), "--q", "5", "--n", "5", "--M", "8", str(f)],
+                              capture_output=True, text=True).returncode
+
+    todas = [reg(i, p) for i, p in enumerate(ins)]
+    assert roda(todas) == 0
+    assert roda(todas[1:]) == 1
+    # o perfil 0 fechado em outra ordem também vale
+    j = insmax.index(next(p for p in insmax if sorted(p) == sorted(ins[0])))
+    assert roda(todas[1:] + [reg(j, insmax[j], "max")]) == 0
+    # o perfil 0 em cubos: só fecha com todos
+    t0, t1 = ins[0][0], ins[0][1]
+    nc = len(fib_cubos.atribuicoes_coord1(q, M, t0, t1, 1, 3))
+    cub = [reg(0, ins[0], L=3, cubo_idx=c) for c in range(nc)]
+    assert roda(todas[1:] + cub) == 0
+    assert roda(todas[1:] + cub[1:]) == 1
+    # SAT em qualquer perfil reprova
+    assert roda(todas + [reg(0, ins[0], resultado="SAT")]) == 1
