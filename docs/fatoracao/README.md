@@ -13,6 +13,7 @@ ele decide.
 | avaliador exato (`1 < d < N` e `N % d == 0`; recusa registro corrompido) | `tools/fatoracao/verificar.py` |
 | testes, com controle positivo (os fatores reais do RSA-260) e negativos | `tests/test_fatoracao.py` |
 | executor da linha de base do CADO-NFS: uma linha por tentativa, repetição determinística do `nlucky=0` (sementes 1, 2, 3), falha contada na estatística | `tools/fatoracao/medir_cado.py`, `tests/test_fatoracao_medir.py` |
+| baseline congelado: o polinômio do recorde RSA-896 (grau 6), conferido por aritmética (`p·q = N`, `Res(f,g) = −8N`) e reproduzido no CADO (alpha −11,12; Murphy-E 5,293e-10) | `tools/fatoracao/baseline/rsa896.json`, `tools/fatoracao/baseline_rsa896.py`, `tests/test_baseline_rsa896.py` |
 
 O problema em si (achar um fator do RSA-270, o menor número do desafio ainda aberto) entra pelo fluxo do repo: a
 issue **Proposta de problema**, que um mantenedor aceita; só então vira cartão em `problems/cartoes/`.
