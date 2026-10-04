@@ -1,0 +1,110 @@
+{
+ "descricao": "Build COMPLETO de `lake build CoveringHeavy` (via tools/heavy_build_limitado.sh 4), medido em VM GCP e2-highmem-8 sob demanda (lean-build2, 8 vCPU, 62 GB), a partir de clone limpo da branch claude/problem-archaeology-catalog-x6n3ps.",
+ "repo_commit": "ddb16b7d0a8ee71cda8c18e007869bfc650ae39a",
+ "lean": "leanprover/lean4:v4.34.1",
+ "inicio_utc": "2026-10-04T02:06:46Z",
+ "fim_utc": "2026-10-04T06:17:38Z",
+ "relogio_total": "4 h 11 min (inclui clone do Mathlib, cache get, compilação sequencial da 1ª folha de cada família e 220 folhas com 4 em paralelo)",
+ "jobs_final": 9181,
+ "folhas_ok": 220,
+ "folhas_falhou": 0,
+ "sorry_no_log": 0,
+ "native_decide_ou_ofReduceBool_no_log": 0,
+ "sha256_prefixo_log_completo": "ca233f40f93e8eb1",
+ "log_completo": "~/heavy.log na VM lean-build2 (18 619 linhas); não versionado (1,5 MB); só as linhas `depends on axioms` abaixo, produzidas pelos próprios arquivos Lean (#print axioms)",
+ "custo": "VM ligada de 02:05 a ~06:22 UTC (≈4,3 h); teto autorizado US$3; o preço exato sai do billing export (atrasa ~1 dia)",
+ "ressalva": "É a medição do próprio autor da sessão em VM; não foi refeita em segundo ambiente independente. O `reproduce` da campanha, que roda em container de 4 vCPU/15 GB, continua sem poder refazer estes registros.",
+ "teoremas": [
+  {
+   "teorema": "CoveringKernel.K4_10_4_le_192_kernel",
+   "fonte": "CoveringLean/K3_K4_10_4_Final.lean:20",
+   "axiomas": [
+    "propext",
+    "Classical.choice",
+    "Quot.sound"
+   ]
+  },
+  {
+   "teorema": "CoveringKernel.K5_10_4_le_625_kernel",
+   "fonte": "CoveringLean/K3_K5_10_4_Final.lean:20",
+   "axiomas": [
+    "propext",
+    "Classical.choice",
+    "Quot.sound"
+   ]
+  },
+  {
+   "teorema": "CoveringKernel.K5_7_2_le_500_kernel",
+   "fonte": "CoveringLean/K3_K5_7_2_Final.lean:20",
+   "axiomas": [
+    "propext",
+    "Classical.choice",
+    "Quot.sound"
+   ]
+  },
+  {
+   "teorema": "CoveringKernel.K5_9_3_le_1250_kernel",
+   "fonte": "CoveringLean/K3_K5_9_3_Final.lean:20",
+   "axiomas": [
+    "propext",
+    "Classical.choice",
+    "Quot.sound"
+   ]
+  },
+  {
+   "teorema": "CoveringKernel.K5_9_4_le_250_kernel",
+   "fonte": "CoveringLean/K3_K5_9_4_Final.lean:20",
+   "axiomas": [
+    "propext",
+    "Classical.choice",
+    "Quot.sound"
+   ]
+  },
+  {
+   "teorema": "CoveringKernel.K5_9_5_le_50_kernel",
+   "fonte": "CoveringLean/K3_K5_9_5_Final.lean:20",
+   "axiomas": [
+    "propext",
+    "Classical.choice",
+    "Quot.sound"
+   ]
+  },
+  {
+   "teorema": "CoveringKernel.K7_8_3_le_1893_kernel",
+   "fonte": "CoveringLean/K3_K7_8_3_Final.lean:21",
+   "axiomas": [
+    "propext",
+    "Classical.choice",
+    "Quot.sound"
+   ]
+  },
+  {
+   "teorema": "CoveringKernel.K7_9_4_le_1351_kernel",
+   "fonte": "CoveringLean/K3_K7_9_4_Final.lean:20",
+   "axiomas": [
+    "propext",
+    "Classical.choice",
+    "Quot.sound"
+   ]
+  },
+  {
+   "teorema": "SC.K_2_6_1_eq12",
+   "fonte": "CoveringLean/SearchK6ge12.lean:24",
+   "axiomas": [
+    "propext",
+    "Classical.choice",
+    "Quot.sound"
+   ]
+  },
+  {
+   "teorema": "SC.K_2_6_1_ge12",
+   "fonte": "CoveringLean/SearchK6ge12.lean:23",
+   "axiomas": [
+    "propext",
+    "Classical.choice",
+    "Quot.sound"
+   ]
+  }
+ ],
+ "todos_axiomas_do_log": "todos os #print axioms do log mostram só subconjuntos de [propext, Classical.choice, Quot.sound]; nenhum Lean.ofReduceBool nem sorryAx"
+}
