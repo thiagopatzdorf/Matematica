@@ -24,7 +24,9 @@ import encode  # noqa: E402
 
 LEAN = RAIZ / "CoveringLean"
 NOVOS = ["K742_Upper.lean", "K742_Fibras.lean", "K742_Cnf.lean", "K742_Final.lean", "LratK.lean",
-         "LratKData.lean", "LratK_K4.lean", "K742Sat/P64.lean"]
+         "LratKData.lean", "LratK_K4.lean", "K742Sat/P64.lean", "K742_PonteCnf.lean",
+         "K742_Ponte.lean", "K742_Eq19.lean", "K742Sat/Refut.lean", "LratKFinal.lean"] + sorted(
+    str(f.relative_to(RAIZ / "CoveringLean")) for f in (RAIZ / "CoveringLean" / "K742Sat").glob("S*/*.lean"))
 
 
 def perfis_do_lean(texto, nome):
@@ -75,3 +77,64 @@ def test_lean_novo_sem_atalhos_fora_do_kernel():
             assert p not in codigo, f"{p} em {f}"
         if re.search(r"^theorem ", codigo, flags=re.M):
             assert "#print axioms" in texto, f"sem #print axioms em {f}"
+
+
+def _semquebra():
+    caminho = RAIZ / "tools" / "exatos" / "k742" / "lean" / "semquebra_M18.jsonl"
+    return {e["perfil"]: e for e in map(json.loads, caminho.read_text().splitlines())}
+
+
+def test_semquebra_tem_os_70_perfis_com_a_cnf_do_encode_de_hoje():
+    reg = _semquebra()
+    ps = encode.perfis(7, 18)
+    assert sorted(reg) == list(range(70))
+    for p, e in reg.items():
+        assert e["quebra"] is False
+        assert ["".join(map(str, t)) for t in ps[p]] == e["tipos"]
+        cnf, _, _ = encode.codificar(7, 18, ps[p], quebra=False)
+        txt = cnf.dimacs([f"K_7(4,2) M=18 perfil {p} sem quebra: {ps[p]}"])
+        assert hashlib.sha256(txt.encode()).hexdigest() == e["sha256.cnf"]
+        assert e["sha256.arquivos"]["f.cnf"] == e["sha256.cnf"]
+        assert e["K"] == e["n"] + e["passos"]
+        assert sum(m["dicas"] for m in e["modulos"]) == e["dicas"]
+
+
+def test_modulos_gerados_batem_com_o_registro_e_a_lista_de_perfis():
+    reg = _semquebra()
+    ps = encode.perfis(7, 18)
+    sat = LEAN / "K742Sat"
+    for p, e in reg.items():
+        d = sat / f"S{p}"
+        bs = sorted(f.name for f in d.glob("B*.lean"))
+        assert bs == sorted(f"B{m['modulo']}.lean" for m in e["modulos"])
+        final = (d / "Final.lean").read_text()
+        tl = "[" + ", ".join("[" + ",".join(map(str, t)) + "]" for t in ps[p]) + "]"
+        assert f"cnfSemQuebra 7 18 {tl}" in final
+        assert f"#print axioms K742Sat.s{p}.unsatFor" in final
+    refut = (sat / "Refut.lean").read_text()
+    for p in range(70):
+        assert f"import CoveringLean.K742Sat.S{p}.Final" in refut
+        assert f"exact K742Sat.s{p}.unsatFor" in refut
+
+
+def test_registro_das_vms_tem_todo_modulo_compilado_com_os_axiomas_permitidos():
+    """O log de execução (logs das VMs, copiados para tools/exatos/k742/lean/execucao/) mostra
+    rc = 0 para cada módulo e `#print axioms` de cada `unsatFor` sem nada além dos três axiomas
+    padrão."""
+    ex = RAIZ / "tools" / "exatos" / "k742" / "lean" / "execucao"
+    mods = {}
+    for f in sorted(ex.glob("modulos*.jsonl")):
+        for e in map(json.loads, f.read_text().splitlines()):
+            if e["rc"] == 0:
+                mods[e["modulo"]] = e
+    reg = _semquebra()
+    for p, e in reg.items():
+        esperados = [f"CoveringLean.K742Sat.S{p}.Data", f"CoveringLean.K742Sat.S{p}.Final"] + [
+            f"CoveringLean.K742Sat.S{p}.B{m['modulo']}" for m in e["modulos"]]
+        for m in esperados:
+            assert m in mods, f"{m} sem registro de compilação com rc 0"
+    ax = (ex / "axiomas.txt").read_text().splitlines()
+    for p in range(70):
+        linha = [ln for ln in ax if f"'K742Sat.s{p}.unsatFor'" in ln]
+        assert linha, f"sem #print axioms do perfil {p}"
+        assert linha[0].endswith("depends on axioms: [propext, Classical.choice, Quot.sound]")
