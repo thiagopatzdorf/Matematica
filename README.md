@@ -64,6 +64,7 @@ por célula, certificados e reprodução: [docs/resultados.md](docs/resultados.m
 | `data/codes/`, `data/structured/` | os códigos (um por linha) e a descrição estruturada de cada um |
 | `tools/verify/` | verificador oficial em C e `check_all.sh` |
 | `tools/exatos/` | busca exata (SAT com prova LRAT, CP-SAT, busca exaustiva); `K_7(4,2) = 19` fechado assim |
+| `tools/fatoracao/` | domínio de fatoração de inteiros: registro de números do desafio RSA, importador e avaliador exato (`p * q == N`); ver `docs/fatoracao/` |
 | `tools/literatura/` | varredura de literatura |
 | `scripts/` | geradores, loop de recordes (`scripts/loop/`), certificados por síndromes, publicação |
 | `CoveringLean/` | as provas em Lean 4 (biblioteca e certificados) |
