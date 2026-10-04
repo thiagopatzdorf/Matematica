@@ -151,7 +151,7 @@ def blocos(t0):
     return b
 
 
-def codificar(q, M, perfil):
+def codificar(q, M, perfil, quebra=True):
     """Devolve (cnf, x) onde x[k][i][a] (i = 1..3) é o literal 'palavra k tem a na coord i'."""
     cnf = CNF()
     t = perfil
@@ -190,6 +190,8 @@ def codificar(q, M, perfil):
                     cnf.add([-p] + ys)
     for w in itertools.product(range(q), repeat=N):
         cnf.add([P[i, j, w[i], w[j]] for (i, j) in PARES])
+    if not quebra:  # só (a)-(c): controle para conferir que (d)-(f) não mudam o resultado
+        return cnf, x, sim0
     # (d) dentro do bloco, coord 1 não decrescente
     for B in bl:
         for k in list(B)[:-1]:
@@ -232,6 +234,7 @@ def main():
     ap.add_argument("--listar", action="store_true")
     ap.add_argument("--perfil", type=int)
     ap.add_argument("--saida")
+    ap.add_argument("--sem-quebra", action="store_true", help="omite (d)-(f) (controle)")
     a = ap.parse_args()
     ps = perfis(a.q, a.M)
     if a.listar or a.perfil is None:
@@ -239,7 +242,7 @@ def main():
         for i, p in enumerate(ps):
             print(i, " | ".join("".join(map(str, t)) for t in p))
         return
-    cnf, _, _ = codificar(a.q, a.M, ps[a.perfil])
+    cnf, _, _ = codificar(a.q, a.M, ps[a.perfil], quebra=not a.sem_quebra)
     txt = cnf.dimacs([f"K_{a.q}(4,2) M={a.M} perfil {a.perfil}: {ps[a.perfil]}"])
     if a.saida:
         open(a.saida, "w").write(txt)

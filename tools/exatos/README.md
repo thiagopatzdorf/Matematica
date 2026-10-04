@@ -12,6 +12,7 @@ independente (Lean/LRAT), nunca com um `INFEASIBLE` ou `NAO_EXISTE` destes scrip
 | `sa_cover.c` | busca local por código com M palavras (`MODO=1` recozimento, `MODO=2` adiciona-e-remove com tabu); `INIT=arquivo` semeia com um código existente | `gcc -O2 -o sa tools/exatos/sa_cover.c -lm && MODO=1 ./sa Q N R M SEG SEMENTE [SAIDA]` |
 | `dfs_cover.c` | busca exaustiva (esqueleto do `chkN`: ponto descoberto mais restrito, proibição dos irmãos, cota l·ganho_máx) com palavra 0 fixada e órbitas na raiz; `ESTIMAR=P` estima o tamanho da árvore pelo estimador de Knuth com P sondas | `gcc -O3 -march=native -o dfs tools/exatos/dfs_cover.c && ESTIMAR=2000 ./dfs Q N R M` |
 | `cpsat_cover.py` | modelo CP-SAT genérico (one-hot, z[x][c]) com quebra de simetria sã (palavra 0, double lex); `--fibra F` impõe ≥ F palavras por (coordenada, símbolo) | `python3 tools/exatos/cpsat_cover.py --q 2 --n 10 --R 3 --M 11 --tempo 600` |
+| `k742/` | **K_q(4,2) por perfis de fibras + SAT com prova LRAT** (método do Florath): fechou `K_7(4,2) = 19`; ver `k742/README.md` e `docs/exatos/FASE1_B_K742.md` | `python3 tools/exatos/k742/rodar.py --q 7 --M 18 --dir saida --prova` |
 | `proj_q42.py` | modelo CP-SAT por projeções de pares para K_q(4,2) (x coberto sse algum par (x_i,x_j) está na projeção P_ij) | `python3 tools/exatos/proj_q42.py --q 7 --M 18 --fibra 2` |
 
 Calibração do estimador de Knuth (`dfs_cover`, contagem exata ao lado):
