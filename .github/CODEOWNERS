@@ -1,0 +1,9 @@
+# Dono por padrão: o mantenedor que consta em CITATION.cff e .zenodo.json.
+*                    @thiagopatzdorf
+
+# Áreas em que um erro silencioso invalida resultado ou pipeline: exigem o dono.
+/infinito/           @thiagopatzdorf
+/.github/            @thiagopatzdorf
+/lakefile.toml       @thiagopatzdorf
+/lean-toolchain      @thiagopatzdorf
+/CoveringLean.lean   @thiagopatzdorf
