@@ -7,8 +7,7 @@
       "ours_lean": {
         "M": 1134,
         "declaration": "Syn.K7_9_4_le_1134_syn",
-        "tag": null,
-        "tag_pendente": "v0.6.0",
+        "tag": "v0.6.0",
         "file": "data/codes/q7_n9_R4_M1134.txt",
         "sha256": "a48e3a42922616b3466a5fafbfaa0e4098a77f675841df3129ac96bbcb8b7b41",
         "provenance": "P-1134"
@@ -108,8 +107,7 @@
       "ours_lean": {
         "M": 162,
         "declaration": "Syn.K5_10_5_le_162_syn",
-        "tag": null,
-        "tag_pendente": "v0.6.0",
+        "tag": "v0.6.0",
         "file": "data/codes/q5_n10_R5_M162.txt",
         "sha256": "6f8d8baa3b47d1998e2d13ad6d87188aaf6cc4bb3eb361fdea9f162718c3cd38",
         "provenance": "P-162"
@@ -120,8 +118,7 @@
       "ours_lean": {
         "M": 2875,
         "declaration": "Syn.K5_11_4_le_2875_syn",
-        "tag": null,
-        "tag_pendente": "v0.6.0",
+        "tag": "v0.6.0",
         "file": "data/codes/q5_n11_R4_M2875.txt",
         "sha256": "e8ff1f41662ffc314686ea40241dbafcaac022acdb953f3d9e4ffc0b394cabe9",
         "provenance": "P-2875"
@@ -132,8 +129,7 @@
       "ours_lean": {
         "M": 5616,
         "declaration": "Syn.K7_10_4_le_5616_syn",
-        "tag": null,
-        "tag_pendente": "v0.6.0",
+        "tag": "v0.6.0",
         "file": "data/codes/q7_n10_R4_M5616.txt",
         "sha256": "bfa4f489c610aedaa9208736a5bb3cdf5a17b116d4fd83c516835493f4f4f0a7",
         "provenance": "P-5616"
