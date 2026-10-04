@@ -8,7 +8,7 @@
   "covers": [
     "k2-6-1"
   ],
-  "created": "2026-10-04T17:48:38Z",
+  "created": "2026-10-04T21:06:17Z",
   "created_by": "agente-c",
   "created_role": "PROPOSER",
   "depends_on": [
@@ -46,7 +46,7 @@
       "reason": "criado",
       "role": "PROPOSER",
       "to": "IDEA",
-      "ts": "2026-10-04T17:48:38Z"
+      "ts": "2026-10-04T21:06:17Z"
     },
     {
       "actor": "agente-c",
@@ -54,7 +54,7 @@
       "reason": "evidência anexada: experiments=exp-k2-6-1-search-mirror",
       "role": "PROPOSER",
       "to": "IDEA",
-      "ts": "2026-10-04T17:48:38Z"
+      "ts": "2026-10-04T21:06:17Z"
     },
     {
       "actor": "agente-c",
@@ -62,7 +62,7 @@
       "reason": "evidência anexada: witnesses=w-q2-n6-r1-m12",
       "role": "PROPOSER",
       "to": "IDEA",
-      "ts": "2026-10-04T17:48:38Z"
+      "ts": "2026-10-04T21:06:17Z"
     },
     {
       "actor": "agente-c",
@@ -70,7 +70,7 @@
       "reason": "evidência anexada: formal=f-k2-6-1-eq12",
       "role": "PROPOSER",
       "to": "IDEA",
-      "ts": "2026-10-04T17:48:38Z"
+      "ts": "2026-10-04T21:06:17Z"
     },
     {
       "actor": "agente-c",
@@ -78,7 +78,7 @@
       "reason": "evidência anexada: literature=lit-stanton-kalbfleisch-1968",
       "role": "PROPOSER",
       "to": "IDEA",
-      "ts": "2026-10-04T17:48:38Z"
+      "ts": "2026-10-04T21:06:17Z"
     },
     {
       "actor": "migrate_covering.py",
@@ -86,7 +86,7 @@
       "reason": "metade superior provada+reproduzida; metade inferior exaustiva em Python, Lean pesado só declarado",
       "role": "EXHAUSTIVE_SEARCHER",
       "to": "EXHAUSTIVE_BOUNDED",
-      "ts": "2026-10-04T17:48:38Z"
+      "ts": "2026-10-04T21:06:17Z"
     }
   ],
   "kind": "theorem",

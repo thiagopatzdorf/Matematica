@@ -1,0 +1,21 @@
+import CoveringLean.Syn_K1134
+import CoveringLean.Syn_K162
+import CoveringLean.Syn_K2875
+import CoveringLean.Syn_K5616
+#print CoveringA2.Covers
+#check @Syn.K7_9_4_le_1134_syn
+#check @Syn.K5_10_5_le_162_syn
+#check @Syn.K5_11_4_le_2875_syn
+#check @Syn.K7_10_4_le_5616_syn
+-- os enunciados exatos pedidos, verificados por `example ... := teorema`
+example : ∃ C : Finset (Fin 9 → ZMod 7), C.card = 1134 ∧ CoveringA2.Covers 4 C := Syn.K7_9_4_le_1134_syn
+example : ∃ C : Finset (Fin 10 → ZMod 5), C.card = 162 ∧ CoveringA2.Covers 5 C := Syn.K5_10_5_le_162_syn
+example : ∃ C : Finset (Fin 11 → ZMod 5), C.card = 2875 ∧ CoveringA2.Covers 4 C := Syn.K5_11_4_le_2875_syn
+example : ∃ C : Finset (Fin 10 → ZMod 7), C.card = 5616 ∧ CoveringA2.Covers 4 C := Syn.K7_10_4_le_5616_syn
+-- a definição desdobrada: raio de Hamming ≤ R cobre todo o espaço
+example : ∀ {q n : ℕ} (R : ℕ) (C : Finset (Fin n → ZMod q)),
+    CoveringA2.Covers R C ↔ ∀ x : Fin n → ZMod q, ∃ c ∈ C, hammingDist x c ≤ R := fun _ _ => Iff.rfl
+#print axioms Syn.K7_9_4_le_1134_syn
+#print axioms Syn.K5_10_5_le_162_syn
+#print axioms Syn.K5_11_4_le_2875_syn
+#print axioms Syn.K7_10_4_le_5616_syn

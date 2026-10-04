@@ -1,0 +1,30 @@
+{
+  "created": "2026-10-04T20:42:21Z",
+  "created_by": "agente-c",
+  "description": "Decodifica a lista LK162 (e o campo empacotado PN) de CoveringLean/SynData_K162.lean (base 5 little-endian) e compara o sha256 canônico com o de data/codes/q5_n10_R5_M162.txt: o elo entre o teorema Syn.K5_10_5_le_162_syn e o arquivo verificado por programas.",
+  "experiment_id": "exp-lean-syn-data-equals-witness-162",
+  "implementation": "regex + sha256 em tools/campaign/migrate_covering.py (independente de scripts/syndrome/check_sha.py)",
+  "instances": [
+    "k5-10-5"
+  ],
+  "kind": "symbolic",
+  "ranges": null,
+  "repo_commit": "38a481ead0f7f03468ea9d7a5a7d0fae98335048",
+  "result": {
+    "cnt_declarado": 162,
+    "estritamente_crescente": true,
+    "executado_neste_run": true,
+    "iguais": true,
+    "palavras": 162,
+    "sha256_canonico_lean": "74176af64936119ce0d199e487127dff999888f93c7bde0b8386ba03ece12ce5",
+    "sha256_canonico_witness": "74176af64936119ce0d199e487127dff999888f93c7bde0b8386ba03ece12ce5",
+    "todas_menores_que_q_n": true,
+    "unpack_PN_igual_a_lista": true
+  },
+  "source_files": [
+    {
+      "path": "CoveringLean/SynData_K162.lean",
+      "sha256": "0d1a30292d4c1dfe7bd9c9df884e65b3c87d6e8f8bd87fed5984b32f048d5efc"
+    }
+  ]
+}

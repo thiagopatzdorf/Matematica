@@ -1,0 +1,3 @@
+q=5 n=11 R=4 |C|=2875 pontos=48828125 alcançados=48828125 raio_de_cobertura=4
+histograma: d0=2875 d1=126500 d2=2506750 d3=23621625 d4=22570375
+COBRE

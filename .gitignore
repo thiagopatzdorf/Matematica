@@ -7,3 +7,6 @@ tools/verify-cleanroom/verify-cleanroom
 .pytest_cache/
 build/
 tools/verify/verify
+CoveringLean/K742Sat/dados/
+site/out/
+.venv/

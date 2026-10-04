@@ -1,0 +1,10 @@
+{
+  "created": "2026-10-04T20:42:21Z",
+  "created_by": "agente-c",
+  "instances": [],
+  "instances_note": "K_7(4,2) não é célula do universo desta campanha (não há código em data/codes nem claim de cota)",
+  "kind": "fora_do_universo",
+  "next_step": "decidir se K_7(4,2) entra no universo (claim de cota superior com o Lean medido + comparação com o Kéri 17-19); gerar os dados do perfil 64 (CaDiCaL + lrat-trim) para medir f-k742-refut18-p64",
+  "reason": "O main (v0.7) traz K_7(4,2) = 19 (docs/exatos/LEAN_K742.md): `K742.K_7_4_2_le_19` e os lemas estão no alvo padrão e têm registro formal MEDIDO aqui (f-k742-le-19, f-k742-eq-19-of, f-lratk-k4-refut6), mas SEM claim: a cota inferior 19 depende de `Ponte18` (não formalizada) e de 69 das 70 refutações LRAT conferidas fora do Lean; só o perfil 64 está no kernel (`K742Sat.refut18_p64`, f-k742-refut18-p64, DECLARADO: dados e binários ausentes). `K_7_4_2_eq_19_of` é condicional: o registro mede o teorema como escrito, não a igualdade.",
+  "residual_id": "res-k742-fora-do-universo"
+}

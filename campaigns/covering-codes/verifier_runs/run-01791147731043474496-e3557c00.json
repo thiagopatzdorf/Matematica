@@ -1,0 +1,32 @@
+{
+  "command": [
+    "{workdir}/verify-cleanroom",
+    "--q",
+    "{param:q}",
+    "--n",
+    "{param:n}",
+    "--R",
+    "{param:R}",
+    "--M",
+    "{param:M}",
+    "{witness}"
+  ],
+  "host": "vm (Linux x86_64)",
+  "output_sha256": "1e5e6b0aeddc5c1cbce3fcaf31c64cebfb50a5262efc43e0f1392e012bbf0238",
+  "output_tail": "COBRE q=7 n=9 R=4 M=1134 points=40353607 uncovered=0\n",
+  "params_passed": {
+    "M": 1134,
+    "R": 4,
+    "n": 9,
+    "q": 7
+  },
+  "repo_commit": "38a481ead0f7f03468ea9d7a5a7d0fae98335048",
+  "result": "PASS",
+  "run_id": "run-01791147731043474496-e3557c00",
+  "runtime_s": 4.196,
+  "subject_id": "w-q7-n9-r4-m1134",
+  "subject_sha256": "a48e3a42922616b3466a5fafbfaa0e4098a77f675841df3129ac96bbcb8b7b41",
+  "ts": "2026-10-04T21:02:11Z",
+  "verifier_id": "verify-cleanroom",
+  "verifier_sha256": "e71dccb62148a1349fdcb6cef35470cb1037b8b8562a9b2b9580970c3dfda1ba"
+}

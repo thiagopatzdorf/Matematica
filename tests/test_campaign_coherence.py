@@ -8,6 +8,8 @@ import os
 import re
 import unittest
 
+from campaign_derivation import codigos_de_data_codes, estado_esperado_de_claim_de_cota, teoremas_declarados_no_main, teoremas_kernel_dos_finais
+
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 CAMP = os.path.join(ROOT, "campaigns", "covering-codes")
 
@@ -234,7 +236,8 @@ class CampaignCoherenceTest(unittest.TestCase):
             vm = json.load(fh)
         por_teorema = {t["teorema"]: t for t in vm["teoremas"]}
         pesados = {fid: f for fid, f in self.formal.items() if fid.startswith("f-heavy-") or fid == "f-k2-6-1-eq12"}
-        self.assertEqual(len(pesados), 9)
+        # 9 hoje = os 8 K*_le_*_kernel dos arquivos Final + SC.K_2_6_1_eq12; o número sai dos .lean, não é digitado
+        self.assertEqual(len(pesados), len(teoremas_kernel_dos_finais()) + 1)
         for fid, f in pesados.items():
             with self.subTest(formal=fid):
                 me = f["measured_external"]
@@ -282,8 +285,10 @@ class CampaignCoherenceTest(unittest.TestCase):
 
     def test_the_previous_audit_chain_is_preserved_with_a_checksum_before_each_regeneration(self):
         import hashlib
-        for pasta in ("audit-pre-regeneracao-2", "audit-pre-regeneracao-3", "audit-pre-regeneracao-4"):
-            base = os.path.join(CAMP, "_autopsia", pasta)
+        pastas = sorted(p for p in glob.glob(os.path.join(CAMP, "_autopsia", "audit-pre-regeneracao-*")) if os.path.isdir(p))
+        self.assertTrue(pastas)
+        for base in pastas:
+            pasta = os.path.basename(base)
             with open(os.path.join(base, "SHA256SUMS"), encoding="utf-8") as fh:
                 linhas = [l.split() for l in fh if l.strip()]
             self.assertEqual(sorted(l[1] for l in linhas), ["audit/anchors.jsonl", "audit/log.jsonl"], pasta)
@@ -292,18 +297,42 @@ class CampaignCoherenceTest(unittest.TestCase):
                     self.assertEqual(hashlib.sha256(fh.read()).hexdigest(), soma, f"{pasta}/{rel}")
 
     def test_every_code_in_data_codes_has_a_witness_a_claim_and_a_lean_theorem_record(self):
-        codigos = sorted(re.search(r"(q\d+_n\d+_R\d+_M\d+)\.txt$", f).group(1) for f in os.listdir(os.path.join(ROOT, "data", "codes")) if f.endswith(".txt"))
+        codigos = codigos_de_data_codes()
+        self.assertTrue(codigos)
         paths = {os.path.basename(w["path"])[:-4] for w in self.witnesses.values()}
-        self.assertTrue(set(codigos) <= paths, sorted(set(codigos) - paths))
-        for nome in codigos:
-            m = re.match(r"q(\d+)_n(\d+)_R(\d+)_M(\d+)", nome)
-            q, n, r, M = map(int, m.groups())
+        for q, n, r, M in codigos:
+            nome = f"q{q}_n{n}_R{r}_M{M}"
+            self.assertIn(nome, paths, "código de data/codes sem witness: rode tools/campaign/migrate_covering.py")
             cl = [c for c in self.claims.values() if c.get("bound") and c["bound"]["direction"] == "upper" and c["bound"]["value"] == M
                   and c["bound"]["parameters"] == {"q": q, "n": n, "R": r} and c["evidence"]["witnesses"]]
             with self.subTest(code=nome):
-                self.assertEqual(len(cl), 1)
+                self.assertEqual(len(cl), 1, "um claim de cota superior com o witness em evidence.witnesses")
                 formais = cl[0]["evidence"]["formal"] + cl[0].get("complementary_formal", [])
-                self.assertTrue(formais, "todo código do main v0.5 tem um teorema Lean (medido ou declarado)")
+                self.assertTrue(formais, "todo código do main tem um teorema Lean (medido ou declarado)")
+                # o estado sai das guardas, não de texto: Lean por síndromes medido + 2 componentes independentes => PROVED; só prefixos (declarado/relatado) => IR
+                self.assertEqual(cl[0]["status"], estado_esperado_de_claim_de_cota(cl[0]["claim_id"]))
+
+    def test_every_lean_theorem_declared_in_the_main_has_a_formal_record_measured_or_declared_not_reproduced_with_a_reason(self):
+        # o main declara os teoremas em lakefile.toml (CoveringSyn, CoveringHeavy, ...) e nos .lean; teorema sem registro formal na campanha é buraco silencioso
+        esperados = {"propext", "Classical.choice", "Quot.sound"}
+        por_nome = {}
+        for fid, f in self.formal.items():
+            por_nome.setdefault(f["theorem"].split(".")[-1], []).append(f)
+        faltam = sorted(teoremas_declarados_no_main() - set(por_nome))
+        self.assertEqual(faltam, [], "teorema Lean declarado no main sem registro formal")
+        for nome in sorted(teoremas_declarados_no_main()):
+            f = por_nome[nome][0]
+            with self.subTest(theorem=nome):
+                if f["axioms"] is not None:  # MEDIDO: axiomas só os esperados, sem sorry, build limpo
+                    self.assertTrue(set(f["axioms"]) <= esperados)
+                    self.assertIs(f["sorry_free"], True)
+                    self.assertIs(f["clean_build"], True)
+                    self.assertEqual(f["axioms_status"], "OK")
+                else:  # NÃO medido pela campanha: o registro diz por quê e a guarda continua negando
+                    self.assertTrue(f["axioms_status"].startswith(("DECLARED_NOT_REPRODUCED", "MEASURED_ON_EXTERNAL_VM")), f["axioms_status"])
+                    self.assertTrue(f["validation_problems"])
+                    self.assertIs(f["clean_build"], False)
+                    self.assertGreater(len(f["axioms_status"]), 60, "declarado sem motivo")
 
 
 if __name__ == "__main__":

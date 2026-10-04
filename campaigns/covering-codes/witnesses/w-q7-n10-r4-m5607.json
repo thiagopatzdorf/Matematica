@@ -1,0 +1,27 @@
+{
+  "M": 5607,
+  "R": 4,
+  "canonical_sha256": "7670a7bd3560fb6ba1ea6a68d7c6a6ec8853ab2d0406370cd2c80c0f12402fa5",
+  "canonical_sha256_declared_in_structured": "7670a7bd3560fb6ba1ea6a68d7c6a6ec8853ab2d0406370cd2c80c0f12402fa5",
+  "claim_ids": [],
+  "created": "2026-10-04T20:42:21Z",
+  "created_by": "agente-c",
+  "format": "covering-code/v1 (lista plana, uma palavra por linha)",
+  "implementation": "tools/patch_setcover (feat/patch-setcover): a mesma base de 16 classes do q7_n10_R4_M5616; remendo refeito como set cover unicusto (patch_inst T=7 + rwls -G, gulosos aleatorizados)",
+  "n": 10,
+  "parameters": {
+    "M": 5607,
+    "R": 4,
+    "n": 10,
+    "q": 7
+  },
+  "path": "data/codes/q7_n10_R4_M5607.txt",
+  "produced_by": "exp-prov-q7-n10-r4-m5607",
+  "q": 7,
+  "sha256": "68a6eaed470edc803d8d41b5afd2534053fe13a5305f2caa48b4c005b200c1ec",
+  "structured_description": {
+    "path": "data/structured/q7_n10_R4_M5607.json",
+    "sha256": "38d4ea6da38c47175a3562c8a094b6ccaca1de46f3cf5aa12b12a5f4de5010bb"
+  },
+  "witness_id": "w-q7-n10-r4-m5607"
+}

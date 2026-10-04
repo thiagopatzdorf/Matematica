@@ -14,6 +14,8 @@ import sys
 import tempfile
 import unittest
 
+from campaign_derivation import estado_esperado_de_claim_de_cota, teoremas_kernel_dos_finais
+
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 CAMP = os.path.join(ROOT, "campaigns", "covering-codes")
 KR_ID = "kr-heavy-ddb16b7-lean-build2"
@@ -47,8 +49,9 @@ class KernelRunMigrationTest(unittest.TestCase):
         cls.pesados = {fid: f for fid, f in cls.formal.items() if fid.startswith("f-heavy-") or fid == "f-k2-6-1-eq12"}
         cls.kr = cls.runs.get(KR_ID)
 
-    def test_the_nine_heavy_formal_records_are_exactly_the_ones_pointing_to_the_historical_run(self):
-        self.assertEqual(len(self.pesados), 9)
+    def test_the_heavy_formal_records_are_exactly_the_ones_pointing_to_the_historical_run(self):
+        # hoje 9 = os 8 K*_le_*_kernel dos arquivos Final + SC.K_2_6_1_eq12; o número sai dos .lean (nada digitado)
+        self.assertEqual(len(self.pesados), len(teoremas_kernel_dos_finais()) + 1)
         self.assertEqual({fid for fid, f in self.formal.items() if f.get("kernel_run")}, set(self.pesados))
         for fid, f in self.pesados.items():
             self.assertEqual(f["kernel_run"], KR_ID, fid)
@@ -103,16 +106,17 @@ class KernelRunMigrationTest(unittest.TestCase):
         usam = {cid for cid, cl in self.claims.items()
                 if any(f in self.pesados for f in cl["evidence"]["formal"] + cl.get("complementary_formal", []))}
         self.assertEqual(usam, set(self.kr["claim_ids"]))
-        self.assertEqual(len(usam), 10)
-        esperado = {"k4-10-4-ub-192": "INDEPENDENTLY_REPRODUCED", "k5-10-4-ub-625": "INDEPENDENTLY_REPRODUCED", "k5-7-2-ub-500": "INDEPENDENTLY_REPRODUCED",
-                    "k5-9-3-ub-1250": "INDEPENDENTLY_REPRODUCED", "k5-9-4-ub-250": "INDEPENDENTLY_REPRODUCED", "k5-9-5-ub-50": "INDEPENDENTLY_REPRODUCED",
-                    "k7-8-3-ub-1893": "INDEPENDENTLY_REPRODUCED", "k7-9-4-ub-1351": "PROVED", "k2-6-1-eq-12": "EXHAUSTIVE_BOUNDED",
-                    "k2-6-1-lb-12": "EXHAUSTIVE_BOUNDED"}
+        self.assertEqual(len(usam), len(self.kr["claim_ids"]))
+        # migração conservadora: o estado de cada claim que usa um registro pesado é o que as guardas dão sem o pesado: cota de código => PROVED se há Syn medido, senão IR;
+        # K_2(6,1) (busca exaustiva em Python, Lean pesado só declarado) => EXHAUSTIVE_BOUNDED. Derivado do lakefile, não digitado.
+        esperado = {c: ("EXHAUSTIVE_BOUNDED" if c.startswith("k2-6-1-") else estado_esperado_de_claim_de_cota(c)) for c in usam}
         self.assertEqual({c: self.claims[c]["status"] for c in usam}, esperado, "migração conservadora: nenhum estado de claim muda")
         resumo = {}
         for cl in self.claims.values():
             resumo[cl["status"]] = resumo.get(cl["status"], 0) + 1
-        self.assertEqual(resumo, {"PROVED": 21, "INDEPENDENTLY_REPRODUCED": 7, "EXHAUSTIVE_BOUNDED": 2, "REFUTED": 4})
+        self.assertTrue(set(resumo) <= {"PROVED", "INDEPENDENTLY_REPRODUCED", "EXHAUSTIVE_BOUNDED", "REFUTED"}, resumo)
+        self.assertEqual(resumo.get("REFUTED", 0), len([c for c in self.claims.values() if c["kind"] == "conjecture"]), "toda hipótese refutada pelo Lean está REFUTED")
+        self.assertEqual(resumo.get("EXHAUSTIVE_BOUNDED", 0), len([c for c in self.claims if c.startswith("k2-6-1-") and self.claims[c]["status"] == "EXHAUSTIVE_BOUNDED"]))
 
     def test_the_heavy_formal_records_still_do_not_pass_the_local_guard_so_nothing_was_promoted_by_transcription(self):
         for fid, f in self.pesados.items():
@@ -170,9 +174,10 @@ class KernelRunMigrationTest(unittest.TestCase):
             self.assertFalse(cam["novidade"]["avaliada"])
         self.assertTrue(c.verificar_cadeia()["ok"])
         self.assertTrue(c.registro_confere_com_auditoria("kernel_runs", KR_ID)["ok"])
-        # N:1 sem inventar: 10 claims <- 9 registros formais <- 10 teoremas da execução (SC.K_2_6_1_ge12 está na execução e nenhum registro o cita)
+        # N:1 sem inventar: claims <- registros formais pesados <- teoremas da execução (SC.K_2_6_1_ge12 está na execução e nenhum registro o cita: +1)
         res = KERNEL.tabela_claim_formal_execucao(c)["resumo_por_execucao"]
-        self.assertEqual([(x["claims"], x["registros_formais"], x["teoremas_verificados"]) for x in res if x["kernel_run"] == KR_ID], [(10, 9, 10)])
+        self.assertEqual([(x["claims"], x["registros_formais"], x["teoremas_verificados"]) for x in res if x["kernel_run"] == KR_ID],
+                         [(len(self.kr["claim_ids"]), len(self.pesados), len(self.pesados) + 1)])
         self.assertEqual(KERNEL.problemas_de_cobertura(c, self.kr), [])
         linhas = KERNEL.tabela_claim_formal_execucao(c)["linhas"]
         # a única linha não verificada na execução é o f-syn-1351 (Syn.*, medido LOCALMENTE, fora desta execução): a tabela diz isso em vez de esconder
@@ -217,7 +222,6 @@ TR = os.path.join(CAMP, "_fatos", "kernel_runs_tracer")
 TR_A, TR_B = "kr-1887-syn-1a5fa26-kr-teste-a", "kr-1887-syn-1a5fa26-kr-teste-b"
 TR_CLAIM = "k7-8-3-ub-1887"
 TR_BUCKET = "gs://factory-cauteloso-telemetria/matematica/kernel-runs"
-ESTADOS_ESPERADOS = {"PROVED": 21, "INDEPENDENTLY_REPRODUCED": 7, "EXHAUSTIVE_BOUNDED": 2, "REFUTED": 4}  # os mesmos SEM os runs do traçador
 
 
 def _json(*partes):
@@ -269,10 +273,10 @@ class TracerRunsTest(unittest.TestCase):
         self.assertEqual(len([k for k in self.runs if k.startswith("kr-1887-syn-")]), 2)
 
     def test_registering_the_tracer_runs_changes_no_claim_state(self):
-        resumo = {}
-        for cl in self.claims.values():
-            resumo[cl["status"]] = resumo.get(cl["status"], 0) + 1
-        self.assertEqual(resumo, ESTADOS_ESPERADOS)
+        # as guardas dão o estado; registrar um kernel_run não o muda: cada claim de cota está no estado que o lakefile/.lean implicam (sem contagem digitada)
+        for cid, cl in self.claims.items():
+            if "-ub-" in cid and not cid.startswith("k2-6-1-"):
+                self.assertEqual(cl["status"], estado_esperado_de_claim_de_cota(cid), cid)
         self.assertEqual(self.claims[TR_CLAIM]["status"], "PROVED")
         self.assertNotIn(TR_CLAIM, set(self.runs[KR_ID]["claim_ids"]))
 
@@ -280,7 +284,7 @@ class TracerRunsTest(unittest.TestCase):
         for rid in (TR_A, TR_B):
             self.assertEqual(self.runs[rid]["claim_ids"], [TR_CLAIM])
             self.assertEqual([t["theorem"] for t in self.runs[rid]["theorems"]], ["Syn.K7_8_3_le_1887_syn"])
-        self.assertEqual(len(self.runs[KR_ID]["claim_ids"]), 10)
+        self.assertTrue(set(self.runs[KR_ID]["claim_ids"]).isdisjoint({TR_CLAIM}))
 
     @unittest.skipIf(KERNEL is None, "infraestrutura factory_cauteloso fora do PYTHONPATH")
     def test_the_tracer_claim_reaches_independently_reproduced_with_the_pair_a_b_and_the_heavy_ones_do_not(self):

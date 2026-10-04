@@ -1,0 +1,35 @@
+# Configuração de ferramentas de desenvolvimento (não empacota nada: o repo é de pesquisa).
+# Regra da casa: gate ou é determinístico e barato, ou vira warning.
+
+[tool.ruff]
+target-version = "py311"
+line-length = 120
+extend-exclude = ["data", "paper", "audit", "candidates", ".lake"]
+
+[tool.ruff.lint]
+# Conjunto pequeno e seguro: erros de sintaxe/nomes indefinidos (E9, F63, F7, F82),
+# redefinição, comparações com None/bool e `except:` nu. Passa hoje no código existente.
+# Regras de estilo (E501, I, UP...) ficam de fora de propósito: não reformatamos o repo.
+select = ["E9", "F63", "F7", "F82", "F811", "E711", "E712", "E722", "F401", "F841"]
+
+# CATRACA: F401/F841 ainda têm 10 ocorrências antigas, listadas abaixo. O teto só desce:
+# arquivo novo não entra aqui, e ao consertar um arquivo remova a linha dele.
+[tool.ruff.lint.per-file-ignores]
+"infinito/infinito_mcp/modulos/gemini.py" = ["F401"]
+"infinito/infinito_mcp/modulos/papers.py" = ["F401"]
+"tools/exatos/k742/redteam/compara.py" = ["F401"]
+"tools/exatos/k742/redteam/mutantes.py" = ["F401"]
+"tools/exatos/k742/redteam/orbita.py" = ["F401"]
+"tools/exatos/k742/redteam/perfis_indep.py" = ["F401"]
+"tools/exatos/k742/redteam/semquebra.py" = ["F401"]
+"tools/exatos/proj_q42.py" = ["F841"]
+"tools/literatura/varredura.py" = ["F841"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests", "infinito/tests"]
+# Sem cache do pytest: o checkout pode estar somente leitura e o cache não é artefato do repo.
+addopts = "-p no:cacheprovider"
+markers = [
+    "lento: teste que leva mais de alguns segundos (excluído por `make test-rapido`)",
+    "lean: teste que exige o toolchain Lean/lake instalado",
+]

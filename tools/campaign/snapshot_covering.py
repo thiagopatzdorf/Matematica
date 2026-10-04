@@ -15,10 +15,10 @@ AXIOMAS_ESPERADOS = {"propext", "Classical.choice", "Quot.sound"}
 # Estado de literatura vem das revisões profundas (campaigns/.../_literatura/profunda*/ e STATE_OF_ART.md conferido em
 # exp-state-of-art-crosscheck), transcrito aqui à mão: NENHUM é NOVELTY_EXTERNALLY_CONFIRMED (isso não se autoatribui).
 LIT = {
- "w-q7-n9-r4-m1137": ("NO_PREDECESSOR_FOUND_IN_REVIEWED_SOURCES", "média", "STATE_OF_ART.md (conferido) + _literatura/profunda", "risco: ADS q=7 931 (<1137) condicional a componentes normais, não verificado; lacunas do STATE_OF_ART (Scholar, bases pagas, teses, periódico)"),
- "w-q7-n9-r4-m1141": ("NO_PREDECESSOR_FOUND_IN_REVIEWED_SOURCES", "média", "STATE_OF_ART.md (conferido) + _literatura/profunda", "superado pelo nosso 1137; mesmo risco ADS 931 condicional"),
- "w-q7-n9-r4-m1285": ("NO_PREDECESSOR_FOUND_IN_REVIEWED_SOURCES", "média", "_literatura/profunda", "risco: ADS q=7 (931/1225/1344) condicional a componentes normais, não verificado; superado pelo nosso 1137"),
- "w-q7-n9-r4-m1351": ("NO_PREDECESSOR_FOUND_IN_REVIEWED_SOURCES", "baixa-média", "_literatura/profunda", "superado pelo nosso 1137"),
+ "w-q7-n9-r4-m1137": ("NO_PREDECESSOR_FOUND_IN_REVIEWED_SOURCES", "média", "STATE_OF_ART.md (conferido) + _literatura/profunda", "superado pelo nosso 1134; risco: ADS q=7 931 (<1137) condicional a componentes normais, não verificado; lacunas do STATE_OF_ART (Scholar, bases pagas, teses, periódico)"),
+ "w-q7-n9-r4-m1141": ("NO_PREDECESSOR_FOUND_IN_REVIEWED_SOURCES", "média", "STATE_OF_ART.md (conferido) + _literatura/profunda", "superado pelo nosso 1134; mesmo risco ADS 931 condicional"),
+ "w-q7-n9-r4-m1285": ("NO_PREDECESSOR_FOUND_IN_REVIEWED_SOURCES", "média", "_literatura/profunda", "risco: ADS q=7 (931/1225/1344) condicional a componentes normais, não verificado; superado pelo nosso 1134"),
+ "w-q7-n9-r4-m1351": ("NO_PREDECESSOR_FOUND_IN_REVIEWED_SOURCES", "baixa-média", "_literatura/profunda", "superado pelo nosso 1134"),
  "w-q7-n8-r3-m1887": ("NO_PREDECESSOR_FOUND_IN_REVIEWED_SOURCES", "média", "_literatura/profunda", "risco: ADS (3,1)+(6,2)=1225 condicional a normalidade"),
  "w-q7-n8-r3-m1893": ("NO_PREDECESSOR_FOUND_IN_REVIEWED_SOURCES", "média", "_literatura/profunda", "superado pelo nosso 1887"),
  "w-q5-n10-r4-m625": ("AMBIGUOUS", "baixa", "_literatura/profunda_c", "código linear [10,4,5]_5; tabela ℓ_5(6,4) não encontrada; não alegar novidade"),
@@ -28,7 +28,20 @@ LIT = {
  "w-q5-n9-r3-m1250": ("NO_PREDECESSOR_FOUND_IN_REVIEWED_SOURCES", "média", "_literatura/profunda_b", "ADS dá 1275 > nosso"),
  "w-q5-n9-r5-m50": ("NO_PREDECESSOR_FOUND_IN_REVIEWED_SOURCES", "média", "_literatura/profunda_b", "ADS dá 51 > nosso"),
  "w-q2-n6-r1-m12": ("PREDECESSOR_FOUND", "alta", "_literatura/profunda_b", "igualdade com valor clássico (Stanton–Kalbfleisch 1968, não lido; exatidão provada por busca exaustiva própria)"),
+ "w-q7-n9-r4-m1134": ("NO_PREDECESSOR_FOUND_IN_REVIEWED_SOURCES", "média", "STATE_OF_ART.md (2026-10-02, anterior ao 1134: não achou nada <= 1137) + _literatura/profunda", "menor código da célula; risco: ADS q=7 931 (<1134) condicional a componentes normais, não verificado; lacunas do STATE_OF_ART (Scholar, bases pagas, teses, periódico)"),
 }
+
+def literatura_padrao(lc):
+    """Estado de literatura de um código SEM linha à mão em LIT (ex.: entrou no main depois da revisão Lit-CC): derivado da comparação numérica contra a literatura REGISTRADA
+    na campanha, com confiança baixa e a ressalva de que a fonte primária não foi relida. Nunca NOVELTY_EXTERNALLY_CONFIRMED (isso não se autoatribui)."""
+    v = (lc or {}).get("veredito")
+    fontes = "; ".join((lc or {}).get("melhor_registrada_fonte") or []) or "sem registro"
+    if v == "melhor_que_a_registrada":
+        return ("NO_PREDECESSOR_FOUND_IN_REVIEWED_SOURCES", "baixa", f"literature/ da campanha ({fontes})",
+                "derivado da comparação com a literatura registrada; fontes primárias das chaves do Kéri e trabalhos pós-2011 não lidos (res-confirmar-<célula>)")
+    if v == "igual":
+        return ("PREDECESSOR_FOUND", "média", f"literature/ da campanha ({fontes})", "igual ao valor registrado")
+    return ("?", "?", "", "sem comparação com a literatura registrada")
 
 KRUNS = {}  # execuções externas do kernel (kernel_runs/), preenchido em main()
 
@@ -126,7 +139,7 @@ def main():
         kn = nivel_kernel_claim(c["claim_id"]) if c else "NONE"
         if lean_ok and kn != "NONE":  # execuções de kernel em VM que cobrem um teorema medido aqui: o nível é do eixo do kernel, nunca do claim
             lean += f" | Kernel evidence: {kn} (execuções em VM; ver kernel_runs/ e _fatos/TESTE_PONTA_A_PONTA.md; 'capturada' não é 'atestada')"
-        st, conf, src, note = LIT.get(wid, ("?", "?", "", ""))
+        st, conf, src, note = LIT.get(wid) or literatura_padrao(lc)
         cnt = {k: v["result"] for k, v in r.items()}
         autores = {k: vers.get(k, {}).get("implemented_by") for k in cnt}
         criador = (c or {}).get("created_by")

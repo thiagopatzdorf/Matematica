@@ -74,6 +74,59 @@
       "agente": "agente E (subagente Claude, contêiner local + VM lean-build2)",
       "lacuna": "Seed e comando exatos não registrados; os parâmetros que reconstroem o código estão em data/search/p1137.json e a estrutura (base com 6 órfãs + 108 palavras) em data/structured/q7_n9_R4_M1137.json.",
       "gap": "the exact seed and command of the patch search were not recorded; data/search/p1137.json rebuilds the code and data/structured/q7_n9_R4_M1137.json has its structure (6-orphan base + 108 words)."
+    },
+    "P-1134": {
+      "codigo": "data/codes/q7_n9_R4_M1134.txt",
+      "gerador": "ILP com simetria imposta (invariância por translação pela reta 10 de C0) no HiGHS, candidates/k7_9_4_1134/ilp_sym.py, sobre a mesma base de 3 classes laterais (6 órfãs) do 1137",
+      "commit": "2da749d",
+      "seed": null,
+      "comando": "python3 candidates/k7_9_4_1134/ilp_sym.py 18 line 10 600",
+      "data": "2026-10-03",
+      "agente": "James.V1 (subagente Claude, worktree M1134)",
+      "lacuna": "O ILP (HiGHS) é determinístico e não usa seed; o campo fica nulo por não se aplicar. A estrutura (base + 105 palavras em 15 órbitas de 7) está em data/structured/q7_n9_R4_M1134.json.",
+      "gap": "the HiGHS ILP is deterministic and takes no seed; data/structured/q7_n9_R4_M1134.json has the structure (6-orphan base + 105 words in 15 orbits of 7)."
+    },
+    "P-162": {
+      "codigo": "data/codes/q5_n10_R5_M162.txt",
+      "gerador": "scripts/attack (feat/ataque-celulas-2011): hsearch t=1 em [10,3]_5 (8 síndromes órfãs) -> patch_opt",
+      "commit": "201143d",
+      "seed": 12,
+      "comando": "patch_opt base.json --L 0 --W 38 --tauw 30 --secs 1800 --seed 12 --T0 1.5 --T1 0.3",
+      "data": "2026-10-03",
+      "agente": "James.V1 (subagente Claude, branch feat/ataque-celulas-2011)"
+    },
+    "P-2875": {
+      "codigo": "data/codes/q5_n11_R4_M2875.txt",
+      "gerador": "scripts/attack (feat/ataque-celulas-2011): hsearch -> coset_sa t=4 em [11,4]_5 -> lift para [11,3]_5 -> coset_sa t=22 -> coset_wsa (w=21)",
+      "commit": "3c9a90b",
+      "seed": null,
+      "comando": null,
+      "data": "2026-10-03",
+      "agente": "James.V1 (subagente Claude, branch feat/ataque-celulas-2011)",
+      "lacuna": "Seed e comando exatos da cadeia hsearch -> coset_sa -> coset_wsa não foram registrados; o código (23 classes laterais de um [11,3]_5, sem remendo) é reconstruído byte a byte de data/structured/q5_n11_R4_M2875.json.",
+      "gap": "the exact seed and command of the hsearch -> coset_sa -> coset_wsa chain were not recorded; data/structured/q5_n11_R4_M2875.json rebuilds the code (23 cosets of an [11,3]_5, no patch)."
+    },
+    "P-5616": {
+      "codigo": "data/codes/q7_n10_R4_M5616.txt",
+      "gerador": "scripts/attack (feat/ataque-celulas-2011): hsearch -> base_search eval t=2 em [10,4]_7 -> lift para [10,3]_7 -> coset_sa t=16 -> patch_opt (lift por x_6)",
+      "commit": "0c2e49e",
+      "seed": null,
+      "comando": null,
+      "data": "2026-10-03",
+      "agente": "James.V1 (subagente Claude, branch feat/ataque-celulas-2011)",
+      "lacuna": "Seed e comando exatos da cadeia de busca não foram registrados; a estrutura (16 classes laterais de um [10,3]_7 + 128 palavras) está em data/structured/q7_n10_R4_M5616.json.",
+      "gap": "the exact seed and command of the search chain were not recorded; data/structured/q7_n10_R4_M5616.json has the structure (16 cosets of a [10,3]_7 + 128 words)."
+    },
+    "P-5607": {
+      "codigo": "data/codes/q7_n10_R4_M5607.txt",
+      "gerador": "tools/patch_setcover (feat/patch-setcover): base de P-5616 (16 classes laterais de [10,3]_7, 3 órfãs, 1029 pontos) + remendo por gulosos aleatorizados para set cover unicusto (rwls -G), instância T=7 com ~4,2 M candidatos",
+      "commit": "252bc4e",
+      "seed": null,
+      "comando": null,
+      "data": "2026-10-04",
+      "agente": "James.V1 (subagente Claude, branch feat/patch-setcover)",
+      "lacuna": "A seed exata do melhor dos ~300 gulosos aleatorizados não foi registrada; o código (16 classes laterais de um [10,3]_7 + 119 palavras) é reconstruído de data/structured/q7_n10_R4_M5607.json.",
+      "gap": "the exact seed of the best of ~300 randomized greedy runs was not recorded; data/structured/q7_n10_R4_M5607.json rebuilds the code (16 cosets of a [10,3]_7 + 119 words)."
     }
   }
 }

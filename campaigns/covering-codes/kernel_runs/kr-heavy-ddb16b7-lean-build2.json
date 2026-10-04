@@ -88,7 +88,7 @@
     "storage": "nenhum: ~/heavy.log na VM lean-build2 (18 619 linhas, ~1,5 MB) nunca foi copiado para fora da VM; não há hash de 64 hex",
     "uri": null
   },
-  "recorded_at": "2026-10-04T17:48:39Z",
+  "recorded_at": "2026-10-04T21:06:19Z",
   "recorded_by": "migrate_covering.py",
   "run_id": "kr-heavy-ddb16b7-lean-build2",
   "schema": "genesis-math/kernel-run/v1",

@@ -37,12 +37,12 @@
   "independence_group": "c-ballmark-verify.c",
   "language": "c",
   "notes": "Verificador oficial do repositório (marca bolas de raio R num bitset). Escrito antes desta campanha por thiagopatzdorf (autor do primeiro commit de tools/verify/verify.c). Contrato de saída: 0 cobre, 1 ponto descoberto, 2 o witness contradiz os parâmetros (FAIL = fail_exit_codes [1, 2]); 3 uso/falha operacional (ERROR, nunca FAIL). Recebe q,n,R,M por {param:NOME} e rejeita nome de arquivo que diga outra instância. Modificado em 2026-10-03 por agente-pilot-v2 (parâmetros explícitos); o autor original (implemented_by) segue o do git log.",
-  "registered": "2026-10-04T17:29:02Z",
+  "registered": "2026-10-04T20:42:21Z",
   "source_files": [
     {
-      "normalized_sha256": "3b6e036e0d8c238b6c921feb97a96f0d38c0b2f6d686698a6d4dcb8bf5a81fc0",
+      "normalized_sha256": "4dd5a22fbd8f5a41b7058496c2b26b2c0e28dff5836d47b03cf2134706467f60",
       "path": "tools/verify/verify.c",
-      "sha256": "d3d6bc097c54d116e89fd33e9d3def7631a3708c6165a6b8fae6369f2f070124"
+      "sha256": "206b1253e2ca3804bb3d4703b5f9beadc941424de3fcc26479fe92ef4dafb9f3"
     }
   ],
   "timeout_s": 120,

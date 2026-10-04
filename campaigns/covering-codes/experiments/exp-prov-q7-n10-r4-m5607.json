@@ -1,0 +1,21 @@
+{
+  "command": null,
+  "created": "2026-10-04T20:42:21Z",
+  "created_by": "agente-c",
+  "description": "Busca que produziu o código de 5607 palavras de k7-10-4, como DECLARADA em ledger/provenance.json (P-5607): gerador = tools/patch_setcover (feat/patch-setcover): base de P-5616 (16 classes laterais de [10,3]_7, 3 órfãs, 1029 pontos) + remendo por gulosos aleatorizados para set cover unicusto (rwls -G), instância T=7 com ~4,2 M candidatos. Comando: None; seed: None; commit do gerador: 252bc4e; data 2026-10-04; agente James.V1 (subagente Claude, branch feat/patch-setcover). Lacuna declarada no ledger: A seed exata do melhor dos ~300 gulosos aleatorizados não foi registrada; o código (16 classes laterais de um [10,3]_7 + 119 palavras) é reconstruído de data/structured/q7_n10_R4_M5607.json. NÃO reexecutado por esta campanha (busca longa; o que se reproduz aqui é a estrutura, por build_structured --check, e a verificação).",
+  "experiment_id": "exp-prov-q7-n10-r4-m5607",
+  "implementation": "tools/patch_setcover (feat/patch-setcover): base de P-5616 (16 classes laterais de [10,3]_7, 3 órfãs, 1029 pontos) + remendo por gulosos aleatorizados para set cover unicusto (rwls -G), instância T=7 com ~4,2 M candidatos",
+  "instances": [
+    "k7-10-4"
+  ],
+  "kind": "search",
+  "ranges": null,
+  "repo_commit": "38a481ead0f7f03468ea9d7a5a7d0fae98335048",
+  "result": {
+    "declarado_em": "ledger/provenance.json P-5607",
+    "executado_neste_run": false,
+    "reproduzivel_aqui": false,
+    "reproduzivel_em_tese": false
+  },
+  "source_files": []
+}

@@ -1,0 +1,37 @@
+{
+  "claim_ids": [
+    "k7-10-4-ub-5616",
+    "k7-10-4-ub-5607"
+  ],
+  "comparison": {
+    "k7-10-4-ub-5607": {
+      "classificacao": "MELHORA_APARENTE_A_CONFIRMAR",
+      "melhor_registrada": 6517,
+      "melhor_registrada_fonte": [
+        "lit-keri-k7-10-4-ub (PDF 6-21_tables.pdf, Last-Modified 2009-10-15 (diretório e index.htm atualizados até 2011-11-25), 2009-10-15)"
+      ],
+      "nosso": 5607,
+      "nota": "melhora aparente, a confirmar por revisão externa (não é afirmação de novidade: livros/artigos não lidos podem ter predecessor)",
+      "veredito": "melhor_que_a_registrada"
+    },
+    "k7-10-4-ub-5616": {
+      "classificacao": "MELHORA_APARENTE_A_CONFIRMAR",
+      "melhor_registrada": 6517,
+      "melhor_registrada_fonte": [
+        "lit-keri-k7-10-4-ub (PDF 6-21_tables.pdf, Last-Modified 2009-10-15 (diretório e index.htm atualizados até 2011-11-25), 2009-10-15)"
+      ],
+      "nosso": 5616,
+      "nota": "melhora aparente, a confirmar por revisão externa (não é afirmação de novidade: livros/artigos não lidos podem ter predecessor); mas é PIOR que o nosso próprio 5607 da mesma célula",
+      "veredito": "melhor_que_a_registrada"
+    }
+  },
+  "created": "2026-10-04T20:42:21Z",
+  "created_by": "agente-c",
+  "instances": [
+    "k7-10-4"
+  ],
+  "kind": "melhora_aparente_a_confirmar",
+  "next_step": "ler a fonte da chave f do Kéri e o Cohen et al. 1997; procurar tabelas posteriores a 2011 para K_7(10,4)",
+  "reason": "MELHORA_APARENTE_A_CONFIRMAR (nunca 'novidade'): 5616, 5607 < 6517 (Kéri, chave f): o artigo/livro da chave f e o Cohen et al. 1997 não foram lidos; trabalho posterior a 2011 fora do arXiv não foi conferido; os códigos só foram verificados por programas deste repositório e a busca que os produziu não é reexecutada aqui; o valor do Kéri vem do ledger do main (transcrição do repositório do Marosi), o PDF não foi aberto por esta campanha",
+  "residual_id": "res-confirmar-k7-10-4"
+}

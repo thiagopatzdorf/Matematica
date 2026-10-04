@@ -44,7 +44,7 @@
     "teoremas_adicionais_do_mesmo_arquivo": []
   },
   "module": "CoveringLean.K3_K5_7_2_Final",
-  "repo_commit": "1a5fa268dc916fde689e6aa801e591ac3c863b36",
+  "repo_commit": "38a481ead0f7f03468ea9d7a5a7d0fae98335048",
   "scan_findings": [],
   "sorry_free": true,
   "sorry_free_basis": "varredura estática de 5 fontes (não é build)",

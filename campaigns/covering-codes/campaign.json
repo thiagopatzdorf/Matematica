@@ -1,31 +1,31 @@
 {
   "campaign_id": "covering-codes",
-  "created": "2026-10-04T17:29:02Z",
+  "created": "2026-10-04T20:42:21Z",
   "data_root": "../..",
   "domain": "covering codes K_q(n,R)",
   "last_anchor": {
-    "hash": "8ce331f8bd83e261afa290c4c6878d0f6b6371d9dfa61ef381c0c1d2e92d39ca",
+    "hash": "72c2d482fd23f1e4f5468195a0852db83bd8501c234ba6642219888b05cef8e5",
     "hmac": null,
-    "seq": 507,
-    "ts": "2026-10-04T17:48:40Z"
+    "seq": 641,
+    "ts": "2026-10-04T21:06:19Z"
   },
   "lean_toolchain": "leanprover/lean4:v4.34.1",
   "schema": "genesis-math/campaign/v1",
   "title": "Covering codes: campanha piloto (cotas de esfera, K_2(6,1), K_7(9,4) e outros códigos)",
   "universe": {
-    "descricao": "Células (q,n,R) tratadas pela campanha: 8 da cota de esfera (7 com código verificado + K_7(9,4)) e K_2(6,1). 'Resolvida' = K_q(n,R) determinado (lb = ub). Só K_2(6,1). As demais têm faixa [lb, ub] aberta.",
+    "descricao": "Células (q,n,R) tratadas pela campanha: as 11 de data/codes (8 com teorema da cota de esfera no Lean) e K_2(6,1). 'Resolvida' = K_q(n,R) determinado (lb = ub). Só K_2(6,1). As demais têm faixa [lb, ub] aberta.",
     "estado_minimo_resolvido": "EXHAUSTIVE_BOUNDED",
     "instancias": [
       {
-        "R": 2,
-        "id": "k5-7-2",
-        "lb_formal_esfera": 215,
-        "lb_formal_melhor": 215,
-        "n": 7,
-        "q": 5,
-        "size": 7,
-        "ub_formal_lean": null,
-        "ub_verificado_melhor": 500
+        "R": 1,
+        "id": "k2-6-1",
+        "lb_formal_esfera": null,
+        "lb_formal_melhor": 11,
+        "n": 6,
+        "q": 2,
+        "size": 6,
+        "ub_formal_lean": 12,
+        "ub_verificado_melhor": 12
       },
       {
         "R": 4,
@@ -37,6 +37,17 @@
         "size": 10,
         "ub_formal_lean": null,
         "ub_verificado_melhor": 192
+      },
+      {
+        "R": 2,
+        "id": "k5-7-2",
+        "lb_formal_esfera": 215,
+        "lb_formal_melhor": 215,
+        "n": 7,
+        "q": 5,
+        "size": 7,
+        "ub_formal_lean": null,
+        "ub_verificado_melhor": 500
       },
       {
         "R": 3,
@@ -51,14 +62,14 @@
       },
       {
         "R": 4,
-        "id": "k5-10-4",
-        "lb_formal_esfera": 158,
-        "lb_formal_melhor": 158,
-        "n": 10,
+        "id": "k5-9-4",
+        "lb_formal_esfera": 52,
+        "lb_formal_melhor": 52,
+        "n": 9,
         "q": 5,
-        "size": 10,
+        "size": 9,
         "ub_formal_lean": null,
-        "ub_verificado_melhor": 625
+        "ub_verificado_melhor": 250
       },
       {
         "R": 5,
@@ -73,14 +84,36 @@
       },
       {
         "R": 4,
-        "id": "k5-9-4",
-        "lb_formal_esfera": 52,
-        "lb_formal_melhor": 52,
-        "n": 9,
+        "id": "k5-10-4",
+        "lb_formal_esfera": 158,
+        "lb_formal_melhor": 158,
+        "n": 10,
         "q": 5,
-        "size": 9,
+        "size": 10,
         "ub_formal_lean": null,
-        "ub_verificado_melhor": 250
+        "ub_verificado_melhor": 625
+      },
+      {
+        "R": 5,
+        "id": "k5-10-5",
+        "lb_formal_esfera": null,
+        "lb_formal_melhor": null,
+        "n": 10,
+        "q": 5,
+        "size": 10,
+        "ub_formal_lean": 162,
+        "ub_verificado_melhor": 162
+      },
+      {
+        "R": 4,
+        "id": "k5-11-4",
+        "lb_formal_esfera": null,
+        "lb_formal_melhor": null,
+        "n": 11,
+        "q": 5,
+        "size": 11,
+        "ub_formal_lean": 2875,
+        "ub_verificado_melhor": 2875
       },
       {
         "R": 3,
@@ -101,22 +134,22 @@
         "n": 9,
         "q": 7,
         "size": 9,
-        "ub_formal_lean": 1137,
-        "ub_verificado_melhor": 1137
+        "ub_formal_lean": 1134,
+        "ub_verificado_melhor": 1134
       },
       {
-        "R": 1,
-        "id": "k2-6-1",
+        "R": 4,
+        "id": "k7-10-4",
         "lb_formal_esfera": null,
-        "lb_formal_melhor": 11,
-        "n": 6,
-        "q": 2,
-        "size": 6,
-        "ub_formal_lean": 12,
-        "ub_verificado_melhor": 12
+        "lb_formal_melhor": null,
+        "n": 10,
+        "q": 7,
+        "size": 10,
+        "ub_formal_lean": 5607,
+        "ub_verificado_melhor": 5607
       }
     ],
     "tipo": "finito",
-    "total": 9
+    "total": 12
   }
 }

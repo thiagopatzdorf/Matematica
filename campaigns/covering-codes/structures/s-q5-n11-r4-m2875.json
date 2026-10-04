@@ -1,0 +1,24 @@
+{
+  "canonical_sha256": "2a700e2f928a8d893e8863ee100c9514a8ffd65a480776682c7560c96029dc9b",
+  "created": "2026-10-04T20:42:21Z",
+  "created_by": "agente-c",
+  "format": "covering-code/v1",
+  "group": "Zq",
+  "kind": "code-structure",
+  "linear_base_dim": 3,
+  "linear_cosets": 23,
+  "patch_words": 0,
+  "provenance": {
+    "agent": "James.V1",
+    "command": null,
+    "commit": null,
+    "date": "2026-10-03",
+    "generator": "scripts/attack (feat/ataque-celulas-2011): hsearch -> coset_sa t=4 em [11,4]_5 -> lift para [11,3]_5 -> coset_sa t=22 -> coset_wsa (w=21)",
+    "notes": "23 classes laterais de um [11,3]_5, sem remendo. Detalhes em data/attack/q5_n11_R4_M2875.json. Verificado por scripts/attack/verify_bfs e tools/verify/verify.c.",
+    "repo_commit": null,
+    "seed": null
+  },
+  "structure_id": "s-q5-n11-r4-m2875",
+  "subcode_blocks": [],
+  "witness": "w-q5-n11-r4-m2875"
+}

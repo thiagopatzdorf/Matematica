@@ -1,0 +1,56 @@
+# Compila a lib CoveringSyn: os certificados por síndromes (K_7(9,4) ≤ 1134 … ≤ 1351, K_7(8,3) ≤ 1887,
+# K_5(10,5) ≤ 162, K_5(11,4) ≤ 2875, K_7(10,4) ≤ 5616). Fora do alvo padrão porque custa ~20–40 min
+# de parede em 4 núcleos; sem este job, um certificado quebrado só aparecia no build manual (achado da v0.6).
+# Roda só quando algo que o certificado lê muda. Repo público: runner hospedado do GitHub sem custo.
+name: lean-syn
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "CoveringLean/Syn*.lean"
+      - "CoveringLean/A2_Sphere.lean"
+      - "data/structured/**"
+      - "scripts/syndrome/**"
+      - "lakefile.toml"
+      - "lake-manifest.json"
+      - "lean-toolchain"
+      - ".github/workflows/lean-syn.yml"
+  pull_request:
+    paths:
+      - "CoveringLean/Syn*.lean"
+      - "CoveringLean/A2_Sphere.lean"
+      - "data/structured/**"
+      - "scripts/syndrome/**"
+      - "lakefile.toml"
+      - "lake-manifest.json"
+      - "lean-toolchain"
+      - ".github/workflows/lean-syn.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  syn:
+    name: lake build CoveringSyn (certificados por síndromes)
+    runs-on: ubuntu-latest
+    timeout-minutes: 150
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - uses: leanprover/lean-action@50fcf42d2e460296f1a34b402e990d1b24f8b596 # v1.6.0
+        with:
+          auto-config: false
+          use-mathlib-cache: true
+          build: true
+          build-args: "CoveringSyn"
+      # Cada teorema final só com os três axiomas padrão.
+      - name: axiomas dos teoremas finais
+        run: |
+          set -euo pipefail
+          for f in CoveringLean/Syn_K*.lean; do
+            out=$(lake env lean "$f" 2>&1 | grep "depends on axioms" || true)
+            echo "$f: $out"
+            [ -n "$out" ] || { echo "sem #print axioms em $f"; exit 1; }
+            echo "$out" | grep -v "depends on axioms: \[propext, Classical.choice, Quot.sound\]" && { echo "axioma extra em $f"; exit 1; } || true
+          done

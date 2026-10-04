@@ -1,0 +1,49 @@
+{
+  "axioms": [
+    "propext",
+    "Classical.choice",
+    "Quot.sound"
+  ],
+  "axioms_status": "OK",
+  "build_command": [
+    "lake",
+    "build",
+    "CoveringSyn"
+  ],
+  "build_medido_de_zero": {
+    "ambiente": "2 CPUs (taskset -c 0,1) e LEAN_NUM_THREADS=2 (no máximo 2 processos Lean), 4 vCPU/15 GB, módulos próprios do zero (nada deles em .lake/build), 'Build completed successfully', nenhum sorry no log",
+    "comando": "lake build CoveringLean.Syn_K1134",
+    "cpu_sys_s": 54.0,
+    "cpu_user_s": 260.7,
+    "fonte": "campaigns/covering-codes/_fatos/medicoes_lean.json",
+    "max_rss_single_proc_MB": 6505,
+    "rc": 0,
+    "wall_s": 202.8
+  },
+  "build_status": "OK",
+  "clean_build": true,
+  "file": "CoveringLean/Syn_K1134.lean",
+  "formal_id": "f-syn-1134",
+  "lean_root": ".",
+  "lean_toolchain": "leanprover/lean4:v4.34.1",
+  "lean_version": "Lean (version 4.34.1, x86_64-unknown-linux-gnu, commit 5045d0056413266e57c625dcd7c365b10e377c52, Release)",
+  "log_sha256": "19e02247a36705614bebdbfb18e5a2ac27c6f9a93d2fbd9afe95009c7e836014",
+  "machine": {
+    "arch": "x86_64",
+    "cpu": "Intel(R) Xeon(R) Processor @ 2.10GHz",
+    "cpu_count": 4,
+    "host": "vm",
+    "os": "Linux-6.18.44-fc-v64-x86_64-with-glibc2.39",
+    "ram_gib": 15.7
+  },
+  "manifest_sha256": "88d3b3c8b56dbff5d6c7f63ac444982ed9152f874d27a8174c91544dfa90ed82",
+  "mathlib_commit": "d13f23b723b8a846827a245b89c10fc7d3f11612",
+  "measured": "2026-10-04T20:49:49Z",
+  "module": "CoveringLean.Syn_K1134",
+  "repo_commit": "38a481ead0f7f03468ea9d7a5a7d0fae98335048",
+  "scan_findings": [],
+  "sorry_free": true,
+  "source_sha256": "46e3c8f2702418217ab9dea6f53b8dc49f9f8ac0cca78bfa043d8aeb6fb301d0",
+  "theorem": "Syn.K7_9_4_le_1134_syn",
+  "validation_problems": []
+}

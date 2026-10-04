@@ -163,3 +163,13 @@ MEDI com os dois (todos os 10 códigos, ambos `uncovered=0`, mesmo sha256 canôn
 - LIMITAÇÃO: o texto original de H1, H3 e H5 não está em nenhum arquivo versionado além do nome e de um comentário de uma linha em `A6_Finite.lean`; os enunciados dos claims são leitura desses comentários, e o que o Lean refuta literalmente está em `refuting_lean_statement` de cada claim.
 - MEDI: `tests/test_refuted_hypotheses.py` (6 testes) falha se a biblioteca refutar `H<n>` sem claim REFUTED, se README/nota/docs/paper afirmarem uma hipótese refutada sem dizê-lo, ou se claim ≥ EMPIRICAL depender (mesmo transitivamente) de REFUTED.
 - A cadeia anterior à regeneração (356 eventos, âncora seq 320) está copiada em `_autopsia/audit-pre-regeneracao/` com sha256.
+
+## Rebase sobre o main v0.7 (2026-10-04, Agente RB3)
+
+O main trouxe as releases v0.6/v0.7 (PRs #34–#40). A campanha foi regenerada por `tools/campaign/migrate_covering.py`; a cadeia anterior (509 eventos) está preservada em `_autopsia/audit-pre-regeneracao-7/` com `SHA256SUMS`.
+
+- Códigos novos em `data/codes` (17 no total agora): K_7(9,4) <= 1134, K_5(10,5) <= 162, K_5(11,4) <= 2875, K_7(10,4) <= 5616 e <= 5607. Todos têm teorema por síndromes (`Syn.K*_syn`, lib CoveringSyn), MEDIDO aqui (`lake build CoveringLean.Syn_K<M>` do zero + `#print axioms` real: só `propext, Classical.choice, Quot.sound`). Tempos e RSS por módulo em `_fatos/medicoes_lean.json` (chave `modulos`; 2 CPUs, no máximo 2 processos Lean): 1134 203 s, 162 131 s, 2875 582 s, 5616 1223 s, 5607 1205 s; pico de RSS de um processo ~6,8 GB.
+- Derivação: a lista de códigos, as células, os teoremas Syn/Kernel e a cota de esfera saem de `data/codes`, do `lakefile.toml` e dos `.lean`; os testes não fixam contagens (helper `tests/campaign_derivation.py`). O Kéri das 3 células novas vem de `ledger/cells.json` do main (o PDF não foi reaberto; o registro diz isso). A comparação com a literatura continua sendo "melhora aparente a confirmar" (nunca novidade).
+- K_7(4,2) = 19 (v0.7) fica fora do universo: teoremas `K742.K_7_4_2_le_19`, `K_7_4_2_eq_19_of` (condicional) e `LratK_K4.refut6` com registro formal medido; `K742Sat.refut18_p64` DECLARADO (sem os dados nem CaDiCaL/lrat-trim aqui). Ver `res-k742-fora-do-universo`.
+- O main passou a compilar CoveringSyn no CI (`lean-syn.yml`): o resíduo `res-ci-sem-coveringsyn` deixou de ser gerado (conferido nos workflows).
+- Estados dos claims: 26 PROVED, 7 INDEPENDENTLY_REPRODUCED (os de só prefixos, CoveringHeavy declarado/relatado), 2 EXHAUSTIVE_BOUNDED, 4 REFUTED (39 claims; antes 21/7/2/4 = 34).

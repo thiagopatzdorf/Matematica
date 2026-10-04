@@ -12,11 +12,11 @@
   "build_medido_de_zero": {
     "comando": "lake build",
     "fonte": "campaigns/covering-codes/_fatos/medicoes_lean.json",
-    "jobs": 8944,
-    "max_rss_single_proc_MB": 6502,
-    "observacao": "SynCheck/SynBridge construídos do zero (SynBridge 202 s); o resto do alvo veio do cache de .olean; 'Build completed successfully'; nenhum sorry no log",
+    "jobs": 8951,
+    "max_rss_single_proc_MB": 9756,
+    "observacao": "2026-10-04, 2 CPUs; alvo padrão do main v0.7 (inclui K742_*, LratK*), 'Build completed successfully'; o restante veio do cache de .olean",
     "rc": 0,
-    "wall_s": 213.9
+    "wall_s": 69.4
   },
   "build_status": "OK",
   "clean_build": true,
@@ -25,7 +25,7 @@
   "lean_root": ".",
   "lean_toolchain": "leanprover/lean4:v4.34.1",
   "lean_version": "Lean (version 4.34.1, x86_64-unknown-linux-gnu, commit 5045d0056413266e57c625dcd7c365b10e377c52, Release)",
-  "log_sha256": "db5eb6365f978719d5d186d158926021e6b75373f2de3d5626b33dc143741bbd",
+  "log_sha256": "7298eb0856ade9dacd179d15466b0783a598e9df971f352bdf76bfe2b2cc3086",
   "machine": {
     "arch": "x86_64",
     "cpu": "Intel(R) Xeon(R) Processor @ 2.10GHz",
@@ -36,9 +36,9 @@
   },
   "manifest_sha256": "88d3b3c8b56dbff5d6c7f63ac444982ed9152f874d27a8174c91544dfa90ed82",
   "mathlib_commit": "d13f23b723b8a846827a245b89c10fc7d3f11612",
-  "measured": "2026-10-04T17:32:28Z",
+  "measured": "2026-10-04T20:46:12Z",
   "module": "CoveringLean",
-  "repo_commit": "1a5fa268dc916fde689e6aa801e591ac3c863b36",
+  "repo_commit": "38a481ead0f7f03468ea9d7a5a7d0fae98335048",
   "scan_findings": [],
   "sorry_free": true,
   "source_sha256": "2b31e93a77e4d47735bad68bcd2ca3c4406de1609b12e64318e36f05577d892e",

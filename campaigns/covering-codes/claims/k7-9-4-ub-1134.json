@@ -1,0 +1,224 @@
+{
+  "bound": {
+    "direction": "upper",
+    "parameters": {
+      "R": 4,
+      "n": 9,
+      "q": 7
+    },
+    "value": 1134
+  },
+  "claim_id": "k7-9-4-ub-1134",
+  "counterexample_search": {
+    "method": "claim de existência: o witness é o certificado; verificadores independentes procuram ponto descoberto (uncovered=0)",
+    "result": "uncovered=0 nos verificadores",
+    "status": "completed"
+  },
+  "created": "2026-10-04T21:06:18Z",
+  "created_by": "agente-c",
+  "created_role": "PROPOSER",
+  "depends_on": [
+    "syn-cert-lemma"
+  ],
+  "evidence": {
+    "counterexamples": [],
+    "experiments": [
+      "exp-prov-q7-n9-r4-m1134",
+      "exp-state-of-art-crosscheck",
+      "exp-lean-syn-data-equals-witness-1134",
+      "exp-structure-regeneration"
+    ],
+    "external_reproductions": [],
+    "formal": [
+      "f-syn-1134"
+    ],
+    "literature": [
+      "lit-keri-k7-9-4-ub",
+      "lit-marosi-2608-19872-v1",
+      "lit-marosi-2608-19872-v2",
+      "lit-marosi-2608-19872-v3"
+    ],
+    "proofs": [],
+    "verifier_runs": [],
+    "witnesses": [
+      "w-q7-n9-r4-m1134"
+    ]
+  },
+  "formal_verification_blockers": [
+    "falta statement_review: o Lean certifica o enunciado formal, não que ele é o enunciado pretendido; um revisor humano/independente precisa ler"
+  ],
+  "history": [
+    {
+      "actor": "agente-c",
+      "from": null,
+      "reason": "criado",
+      "role": "PROPOSER",
+      "to": "IDEA",
+      "ts": "2026-10-04T21:06:18Z"
+    },
+    {
+      "actor": "agente-c",
+      "from": "IDEA",
+      "reason": "evidência anexada: witnesses=w-q7-n9-r4-m1134",
+      "role": "PROPOSER",
+      "to": "IDEA",
+      "ts": "2026-10-04T21:06:18Z"
+    },
+    {
+      "actor": "agente-c",
+      "from": "IDEA",
+      "reason": "evidência anexada: experiments=exp-prov-q7-n9-r4-m1134",
+      "role": "PROPOSER",
+      "to": "IDEA",
+      "ts": "2026-10-04T21:06:18Z"
+    },
+    {
+      "actor": "agente-c",
+      "from": "IDEA",
+      "reason": "evidência anexada: literature=lit-keri-k7-9-4-ub",
+      "role": "PROPOSER",
+      "to": "IDEA",
+      "ts": "2026-10-04T21:06:18Z"
+    },
+    {
+      "actor": "agente-c",
+      "from": "IDEA",
+      "reason": "evidência anexada: literature=lit-marosi-2608-19872-v1",
+      "role": "PROPOSER",
+      "to": "IDEA",
+      "ts": "2026-10-04T21:06:18Z"
+    },
+    {
+      "actor": "agente-c",
+      "from": "IDEA",
+      "reason": "evidência anexada: literature=lit-marosi-2608-19872-v2",
+      "role": "PROPOSER",
+      "to": "IDEA",
+      "ts": "2026-10-04T21:06:18Z"
+    },
+    {
+      "actor": "agente-c",
+      "from": "IDEA",
+      "reason": "evidência anexada: literature=lit-marosi-2608-19872-v3",
+      "role": "PROPOSER",
+      "to": "IDEA",
+      "ts": "2026-10-04T21:06:18Z"
+    },
+    {
+      "actor": "agente-c",
+      "from": "IDEA",
+      "reason": "evidência anexada: experiments=exp-state-of-art-crosscheck",
+      "role": "PROPOSER",
+      "to": "IDEA",
+      "ts": "2026-10-04T21:06:18Z"
+    },
+    {
+      "actor": "agente-c",
+      "from": "IDEA",
+      "reason": "evidência anexada: experiments=exp-lean-syn-data-equals-witness-1134",
+      "role": "PROPOSER",
+      "to": "IDEA",
+      "ts": "2026-10-04T21:06:18Z"
+    },
+    {
+      "actor": "agente-c",
+      "from": "IDEA",
+      "reason": "evidência anexada: formal=f-syn-1134",
+      "role": "PROPOSER",
+      "to": "IDEA",
+      "ts": "2026-10-04T21:06:18Z"
+    },
+    {
+      "actor": "agente-c",
+      "from": "IDEA",
+      "reason": "evidência anexada: experiments=exp-structure-regeneration",
+      "role": "PROPOSER",
+      "to": "IDEA",
+      "ts": "2026-10-04T21:06:18Z"
+    },
+    {
+      "actor": "migrate_covering.py",
+      "from": "IDEA",
+      "reason": "verificadores de autores/grupos distintos, PASS válido e sem desacordo, neste run",
+      "role": "INDEPENDENT_VERIFIER",
+      "to": "INDEPENDENTLY_REPRODUCED",
+      "ts": "2026-10-04T21:06:18Z"
+    },
+    {
+      "actor": "migrate_covering.py",
+      "from": "INDEPENDENTLY_REPRODUCED",
+      "reason": "Syn.K7_9_4_le_1134_syn medido no kernel (axiomas só os esperados) + verificadores independentes (a guarda de PROVED exige os dois)",
+      "role": "FORMALIZER",
+      "to": "PROVED",
+      "ts": "2026-10-04T21:06:18Z"
+    }
+  ],
+  "kind": "theorem",
+  "literature_comparison": {
+    "classificacao": "MELHORA_APARENTE_A_CONFIRMAR",
+    "melhor_registrada": 1475,
+    "melhor_registrada_fonte": [
+      "lit-marosi-2608-19872-v2 (v2, 2026-08-23)",
+      "lit-marosi-2608-19872-v3 (v3, 2026-09-02)"
+    ],
+    "nosso": 1134,
+    "nota": "melhora aparente, a confirmar por revisão externa (não é afirmação de novidade: livros/artigos não lidos podem ter predecessor)",
+    "veredito": "melhor_que_a_registrada"
+  },
+  "reviewed_by": [],
+  "scope": {
+    "assumptions": [],
+    "domain": "q=7, n=9, R=4",
+    "parameters": {
+      "M": 1134,
+      "R": 4,
+      "n": 9,
+      "q": 7
+    },
+    "problem": "K_7(9,4) <= 1134"
+  },
+  "sealed_evidence": {
+    "experiments": [
+      "exp-lean-syn-data-equals-witness-1134",
+      "exp-prov-q7-n9-r4-m1134",
+      "exp-state-of-art-crosscheck",
+      "exp-structure-regeneration"
+    ],
+    "formal": [
+      "f-syn-1134"
+    ],
+    "proofs": [],
+    "witnesses": [
+      "w-q7-n9-r4-m1134"
+    ]
+  },
+  "sealed_sha256": "0df19c96c46eeb39b4a574269aaa0dae39cdf510958d622976a249ff2084753c",
+  "statement": "Existe código C em (Z_7)^9 com |C| = 1134 que cobre com raio 4 (data/codes/q7_n9_R4_M1134.txt).",
+  "status": "PROVED",
+  "trust_boundary": [
+    {
+      "component": "tools/verify/verify.c compilado com gcc 13.3 (-Werror)",
+      "trusted_for": "que a marcação de bolas e a contagem de descobertos estão certas"
+    },
+    {
+      "component": "tools/campaign/verify_cover_dilation.py + numpy 2.4.6",
+      "trusted_for": "que a dilatação do grid está certa (2º verificador, independente em código)"
+    },
+    {
+      "component": "formato covering-code/v1 (docs/code-format.md)",
+      "trusted_for": "convenção de dígitos little-endian e do sha256 canônico"
+    },
+    {
+      "component": "Syn.K7_9_4_le_1134_syn (lib CoveringSyn): axiomas MEDIDOS nesta campanha (f-syn-1134)",
+      "trusted_for": "que existe C com |C| = M e Covers R C, no kernel do Lean"
+    },
+    {
+      "component": "CoveringLean/SynData_K1134.lean == witness (medido: exp-lean-syn-data-equals-witness-1134)",
+      "trusted_for": "elo entre o teorema e o arquivo"
+    },
+    {
+      "component": "literatura registrada (Kéri/Marosi), declarada",
+      "trusted_for": "só para a afirmação de que o valor é menor que o anterior, que o Lean não checa"
+    }
+  ]
+}

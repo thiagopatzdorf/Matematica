@@ -106,7 +106,8 @@
         "w-q7-n9-r4-m1351",
         "w-q7-n9-r4-m1285",
         "w-q7-n9-r4-m1141",
-        "w-q7-n9-r4-m1137"
+        "w-q7-n9-r4-m1137",
+        "w-q7-n9-r4-m1134"
       ],
       "type": "verificadores",
       "verifiers": [
@@ -126,7 +127,7 @@
     {
       "id": "lake-build-coveringsyn",
       "lean_root": ".",
-      "nota": "os cinco teoremas por síndromes (~10 min de relógio); CoveringHeavy (~9,3 h de CPU) NÃO está aqui",
+      "nota": "os 10 teoremas por síndromes (lib CoveringSyn do lakefile.toml; ~10 min de relógio para os cinco primeiros, mais ~25 min para os cinco de v0.6/v0.7); CoveringHeavy (~9,3 h de CPU) NÃO está aqui",
       "opcional": true,
       "target": "CoveringSyn",
       "type": "lean_build"

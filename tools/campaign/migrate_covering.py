@@ -16,7 +16,7 @@ Decisões de honestidade (explicadas nos registros):
     `scope.parameters` (M = `bound.value`); os verificadores recebem os parâmetros por `{param:NOME}` e NÃO leem o nome do arquivo; cada
     verificador registra o autor REAL (`implemented_by`: git log ou a declaração do README da ferramenta). Verificador do autor do claim
     (verify-py-dilation) e verificadores do mesmo autor de outro (verification/*, mesmo autor de verify.c) não contam como componentes extras;
-  * v0.5 (merge do main, 2026-10-03): a campanha foi refeita sobre os 12 códigos de data/codes e sobre os teoremas Lean que EXISTEM:
+  * v0.5 (merge do main, 2026-10-03): a campanha foi refeita sobre os códigos de data/codes (12 no v0.5; hoje a lista SAI do diretório, 17 no v0.7) e sobre os teoremas Lean que EXISTEM:
       - `Syn.K7_9_4_le_{1137,1141,1285,1351}_syn` e `Syn.K7_8_3_le_1887_syn` (lib CoveringSyn): axiomas MEDIDOS aqui por `#print axioms` real;
         o claim de cada um sobe a PROVED só se o registro formal é válido (sem sorry, build limpo, axiomas esperados) E há ≥2 componentes
         independentes de verificador (a guarda de PROVED exige as duas coisas quando o claim tem witness);
@@ -27,6 +27,10 @@ Decisões de honestidade (explicadas nos registros):
         registrada como `kernel_runs/kr-heavy-ddb16b7-lean-build2` (eixo do kernel, `factory_cauteloso.matematica.kernel`): nível
         EXTERNAL_RUN_REPORTED (o log bruto não foi persistido: só o prefixo do sha256), nenhum claim muda de estado, e o nível nunca é gravado
         (é calculado pela infraestrutura). Não é reprodução independente: foi uma execução do próprio autor;
+  * v0.7 (rebase sobre o main com as releases v0.6/v0.7, 2026-10-04): entram K_5(10,5) <= 162, K_5(11,4) <= 2875, K_7(10,4) <= 5616 e <= 5607 e K_7(9,4) <= 1134 (todos por síndromes,
+    `Syn.K*_syn`, medidos aqui). A lista de códigos, as células, os teoremas Syn/Kernel e a cota de esfera SAEM de data/codes, do lakefile.toml e dos .lean (nada digitado); o
+    Kéri das células novas vem de ledger/cells.json (o PDF não foi reaberto: o registro diz isso); a proveniência dos códigos novos vem de ledger/provenance.json. K_7(4,2) = 19
+    (v0.7) fica FORA do universo: só os registros formais dos teoremas dele (res-k742-fora-do-universo).
   * FORMALLY_VERIFIED nunca é pedido de fato: exige `statement_review` de um revisor que não seja o autor e ninguém revisou os
     enunciados (README: "revisão humana"). Os motivos exatos da guarda ficam em `formal_verification_blockers` de cada claim.
 """
@@ -47,28 +51,67 @@ REPO = Path(__file__).resolve().parents[2]
 CAMPANHA = "covering-codes"
 AUTOR = "agente-c"
 PROMOTOR = "migrate_covering.py"
-CELULAS = {  # (q, n, R) -> arquivo do melhor código verificado em data/codes
-    "k5-7-2": (5, 7, 2), "k4-10-4": (4, 10, 4), "k5-9-3": (5, 9, 3), "k5-10-4": (5, 10, 4), "k5-9-5": (5, 9, 5),
-    "k5-9-4": (5, 9, 4), "k7-8-3": (7, 8, 3), "k7-9-4": (7, 9, 4), "k2-6-1": (2, 6, 1),
-}
-LB_ESFERA = {"k5-7-2": 215, "k4-10-4": 51, "k5-9-3": 327, "k5-10-4": 158, "k5-9-5": 12, "k5-9-4": 52, "k7-8-3": 439, "k7-9-4": 221}
-# códigos de data/codes (12 no main v0.5): (célula, M). O 3º elemento de CODIGOS (o código aparece no README ou no paper?) é MEDIDO nos textos, não escrito.
-_BASE_CODIGOS = [("k5-7-2", 500), ("k4-10-4", 192), ("k5-9-3", 1250), ("k5-10-4", 625), ("k5-9-5", 50), ("k5-9-4", 250), ("k7-8-3", 1893), ("k7-8-3", 1887),
-                 ("k7-9-4", 1351), ("k7-9-4", 1285), ("k7-9-4", 1141), ("k7-9-4", 1137)]
+def _codigos_do_main():
+    """(q, n, R, M) de cada arquivo de data/codes: a lista de códigos NUNCA é digitada aqui (um código novo no main entra sozinho)."""
+    out = []
+    for f in sorted((REPO / "data" / "codes").glob("q*_n*_R*_M*.txt")):
+        m = re.fullmatch(r"q(\d+)_n(\d+)_R(\d+)_M(\d+)\.txt", f.name)
+        if m:
+            out.append(tuple(int(x) for x in m.groups()))
+    return sorted(out)
+
+
+_COD_MAIN = _codigos_do_main()
+# células (q, n, R): as de data/codes + K_2(6,1) (o witness dela é derivado do Lean, não está em data/codes). id = k<q>-<n>-<R>
+CELULAS = {f"k{q}-{n}-{r}": (q, n, r) for q, n, r in sorted({(q, n, r) for q, n, r, _ in _COD_MAIN} | {(2, 6, 1)})}
+
+
+def _lb_esfera():
+    """Cota de esfera ceil(q^n / V) das células que TÊM teorema `CoveringChain.SPH_K<q>_<n>_<R>_lb` em Chain.lean (derivado do Lean, não digitado)."""
+    from math import ceil, comb
+    out = {}
+    for q, n, r in re.findall(r"^theorem SPH_K(\d+)_(\d+)_(\d+)_lb", (REPO / "CoveringLean" / "Chain.lean").read_text(encoding="utf-8"), re.M):
+        q, n, r = int(q), int(n), int(r)
+        out[f"k{q}-{n}-{r}"] = ceil(q ** n / sum(comb(n, i) * (q - 1) ** i for i in range(r + 1)))
+    return out
+
+
+LB_ESFERA = _lb_esfera()
+# códigos de data/codes: (célula, M), do maior M para o menor dentro da célula. O 3º elemento de CODIGOS (o código aparece no README ou no paper?) é MEDIDO nos textos.
+_BASE_CODIGOS = [(f"k{q}-{n}-{r}", m) for q, n, r, m in sorted(_COD_MAIN, key=lambda x: (x[0], x[1], x[2], -x[3]))]
 _TEXTO_PUBLICO = (REPO / "README.md").read_text(encoding="utf-8") + (REPO / "paper" / "main.tex").read_text(encoding="utf-8")
 CODIGOS = [(cel, m, re.search(rf"(?<![\d.]){m}(?![\d])", _TEXTO_PUBLICO) is not None) for cel, m in _BASE_CODIGOS]
-# Teoremas Lean por síndromes (lib CoveringSyn, módulo CoveringLean.Syn_K<M>): existem no main v0.5 e são MEDIDOS aqui. cel/M -> nome do teorema.
-SYN = {("k7-9-4", 1137): "Syn.K7_9_4_le_1137_syn", ("k7-9-4", 1141): "Syn.K7_9_4_le_1141_syn", ("k7-9-4", 1285): "Syn.K7_9_4_le_1285_syn",
-       ("k7-9-4", 1351): "Syn.K7_9_4_le_1351_syn", ("k7-8-3", 1887): "Syn.K7_8_3_le_1887_syn"}
-# Teoremas Lean por prefixos (lib CoveringHeavy, ~9,3 h de CPU): DECLARADOS, não compilados aqui. cel/M -> (teorema, arquivo Final).
-HEAVY = {("k7-9-4", 1351): ("CoveringKernel.K7_9_4_le_1351_kernel", "CoveringLean/K3_K7_9_4_Final.lean", "K7_9_4"),
-         ("k7-8-3", 1893): ("CoveringKernel.K7_8_3_le_1893_kernel", "CoveringLean/K3_K7_8_3_Final.lean", "K7_8_3"),
-         ("k5-7-2", 500): ("CoveringKernel.K5_7_2_le_500_kernel", "CoveringLean/K3_K5_7_2_Final.lean", "K5_7_2"),
-         ("k4-10-4", 192): ("CoveringKernel.K4_10_4_le_192_kernel", "CoveringLean/K3_K4_10_4_Final.lean", "K4_10_4"),
-         ("k5-9-3", 1250): ("CoveringKernel.K5_9_3_le_1250_kernel", "CoveringLean/K3_K5_9_3_Final.lean", "K5_9_3"),
-         ("k5-10-4", 625): ("CoveringKernel.K5_10_4_le_625_kernel", "CoveringLean/K3_K5_10_4_Final.lean", "K5_10_4"),
-         ("k5-9-5", 50): ("CoveringKernel.K5_9_5_le_50_kernel", "CoveringLean/K3_K5_9_5_Final.lean", "K5_9_5"),
-         ("k5-9-4", 250): ("CoveringKernel.K5_9_4_le_250_kernel", "CoveringLean/K3_K5_9_4_Final.lean", "K5_9_4")}
+
+
+def _syn_do_main():
+    """Teoremas por síndromes: os módulos `CoveringLean.Syn_K<M>` declarados nos `roots` da lib CoveringSyn do lakefile.toml; o nome do teorema e a célula saem
+    de `theorem K<q>_<n>_<R>_le_<M>_syn` em cada Syn_K<M>.lean (namespace Syn). Nada é digitado: lib nova no lakefile entra sozinha."""
+    lake = (REPO / "lakefile.toml").read_text(encoding="utf-8")
+    bloco = re.search(r'name = "CoveringSyn".*?roots = \[([^\]]*)\]', lake, re.S).group(1)
+    out = {}
+    for m in re.findall(r"CoveringLean\.Syn_K(\d+)", bloco):
+        fonte = (REPO / "CoveringLean" / f"Syn_K{m}.lean").read_text(encoding="utf-8")
+        t = re.search(rf"^theorem K(\d+)_(\d+)_(\d+)_le_{m}_syn\b", fonte, re.M)
+        assert t, f"Syn_K{m}.lean não declara theorem K<q>_<n>_<R>_le_{m}_syn"
+        out[(f"k{t.group(1)}-{t.group(2)}-{t.group(3)}", int(m))] = f"Syn.K{t.group(1)}_{t.group(2)}_{t.group(3)}_le_{m}_syn"
+    return out
+
+
+# cel/M -> nome do teorema (lib CoveringSyn); medidos aqui por `#print axioms` real
+SYN = _syn_do_main()
+
+
+def _heavy_do_main():
+    """Teoremas por prefixos (lib CoveringHeavy, ~9,3 h de CPU): `theorem K<q>_<n>_<R>_le_<M>_kernel` em cada CoveringLean/K3_K*_Final.lean. DECLARADOS, não compilados aqui."""
+    out = {}
+    for p in sorted((REPO / "CoveringLean").glob("K3_K*_Final.lean")):
+        for q, n, r, m in re.findall(r"^theorem K(\d+)_(\d+)_(\d+)_le_(\d+)_kernel", p.read_text(encoding="utf-8"), re.M):
+            out[(f"k{q}-{n}-{r}", int(m))] = (f"CoveringKernel.K{q}_{n}_{r}_le_{m}_kernel", f"CoveringLean/{p.name}", f"K{q}_{n}_{r}")
+    return out
+
+
+HEAVY = _heavy_do_main()
+assert set(SYN) | set(HEAVY) <= {(cel, m) for cel, m, _ in CODIGOS}, "teorema Lean sem código em data/codes"
 
 
 def fid_heavy(tag: str, m: int) -> str:
@@ -351,6 +394,34 @@ def main() -> int:
         "result": {"reproduzivel_aqui": False, "executado_neste_run": False}, "repo_commit": commit, "created_by": AUTOR,
         "created": c.meta()["created"]}, "EXHAUSTIVE_SEARCHER")
 
+    # Códigos que entraram no main depois da revisão desta campanha (v0.6+, ex.: 1134, 162, 2875, 5616, 5607): a proveniência é a do ledger do main
+    # (ledger/provenance.json, P-<M>), transcrita campo a campo; campo nulo continua nulo (a `lacuna` do ledger vem junto). Nada é reexecutado aqui.
+    PRIOR_SEM_REGISTRO = {("k5-7-2", 500), ("k4-10-4", 192), ("k5-9-3", 1250), ("k5-10-4", 625), ("k5-9-5", 50), ("k5-9-4", 250), ("k7-8-3", 1893), ("k7-8-3", 1887)}
+    MAO_K794 = {("k7-9-4", 1351), ("k7-9-4", 1285), ("k7-9-4", 1141), ("k7-9-4", 1137)}  # experimentos acima, escritos à mão
+    prov_ledger = json.loads((REPO / "ledger" / "provenance.json").read_text(encoding="utf-8"))["registros"]
+    PRODUZIDO_NOVOS = {}
+    for cel_n, m_n, _ in CODIGOS:
+        if (cel_n, m_n) in PRIOR_SEM_REGISTRO or (cel_n, m_n) in MAO_K794:
+            continue
+        reg_n = prov_ledger.get(f"P-{m_n}")
+        if not reg_n:
+            continue  # sem registro no ledger: cai em exp-prior-search-unrecorded (o default honesto)
+        eid_n = "exp-prov-" + nome_codigo(cel_n, m_n).lower().replace("_", "-")
+        gen_n = reg_n.get("gerador") or ""
+        fontes_n = sorted({p_ for p_ in re.findall(r"(?<![\w/.-])((?:scripts|tools|candidates)/[\w./-]+?\.(?:py|c|sh))(?![\w])", gen_n + " " + (reg_n.get("comando") or "")) if (REPO / p_).is_file()})
+        reprod_n = bool(reg_n.get("comando")) and reg_n.get("seed") is not None
+        gravar("experiments", eid_n, {
+            "experiment_id": eid_n, "kind": "search",
+            "description": f"Busca que produziu o código de {m_n} palavras de {cel_n}, como DECLARADA em ledger/provenance.json (P-{m_n}): gerador = {gen_n}. "
+                           f"Comando: {reg_n.get('comando')}; seed: {reg_n.get('seed')}; commit do gerador: {reg_n.get('commit')}; data {reg_n.get('data')}; agente {reg_n.get('agente')}. "
+                           f"Lacuna declarada no ledger: {reg_n.get('lacuna') or '(nenhuma)'} NÃO reexecutado por esta campanha (busca longa; o que se reproduz aqui é a estrutura, "
+                           "por build_structured --check, e a verificação).",
+            "ranges": None, "implementation": gen_n, "command": [reg_n["comando"]] if reg_n.get("comando") else None,
+            "source_files": [{"path": p_, "sha256": sha256_arquivo(REPO / p_)} for p_ in fontes_n], "instances": [cel_n],
+            "result": {"reproduzivel_aqui": False, "reproduzivel_em_tese": reprod_n, "executado_neste_run": False, "declarado_em": f"ledger/provenance.json P-{m_n}"},
+            "repo_commit": commit, "created_by": AUTOR, "created": c.meta()["created"]}, "EXHAUSTIVE_SEARCHER")
+        PRODUZIDO_NOVOS[(cel_n, m_n)] = eid_n
+
     est = {"executado_neste_run": False}
     if corridas:
         r = exec_(["python3", "scripts/codes/build_structured.py", "--check"])
@@ -404,7 +475,7 @@ def main() -> int:
 
     # ------------------------------------------------------------------ witnesses
     PRODUZIDO_POR = {("k7-9-4", 1351): "exp-k7-9-4-1351-lincov", ("k7-9-4", 1285): "exp-k7-9-4-1285-regen", ("k7-9-4", 1141): "exp-k7-9-4-1141-kit",
-                     ("k7-9-4", 1137): "exp-k7-9-4-1137-regen"}
+                     ("k7-9-4", 1137): "exp-k7-9-4-1137-regen", **PRODUZIDO_NOVOS}
     descr_json = {}
     for cel, m, _ in CODIGOS:
         nome = nome_codigo(cel, m)
@@ -485,20 +556,40 @@ def main() -> int:
         "k2-6-1": ("2_tables.pdf", 12, "c", 12, "c"),
     }
     assert {k: v[3] for k, v in KERI.items() if k in KERI_PREVIO} == KERI_PREVIO, "KERI_PREVIO diverge das cotas registradas da revisão"
+    # Células que entraram no main depois da revisão do Lit-CC (v0.6+): o Kéri NÃO foi relido para elas. Os valores vêm de ledger/cells.json do main
+    # (published.sources.keri_2011, transcrição das tabelas feita pelo repositório do Marosi), e o registro diz isso. As células que o Lit-CC leu no PDF são
+    # conferidas contra o ledger: se divergirem, o script PARA (duas transcrições independentes não podem discordar em silêncio).
+    ledger_ = {x["id"]: x for x in json.loads((REPO / "ledger" / "cells.json").read_text(encoding="utf-8"))["cells"]}
+    KERI_DO_LEDGER = {}
+    for cel, (q, n, r) in CELULAS.items():
+        k_ = ((ledger_.get(f"K{q}({n},{r})") or {}).get("published") or {}).get("sources", {}).get("keri_2011")
+        if not k_:
+            continue
+        arq_l = k_["src"].replace("keri_", "")
+        if cel in KERI:
+            assert (KERI[cel][1], KERI[cel][3], KERI[cel][0]) == (k_["lb"], k_["ub"], arq_l), f"{cel}: o Kéri lido pelo Lit-CC diverge do ledger do main: {KERI[cel]} x {k_}"
+        else:
+            KERI_DO_LEDGER[cel] = (arq_l, k_["lb"], k_["lb_key"], k_["ub"], k_["ub_key"])
+    KERI.update(KERI_DO_LEDGER)
+    KERI_PREVIO_TODOS = {cel: v[3] for cel, v in KERI.items() if cel != "k2-6-1"}
     for cel, (arq, lbv, lbk, ubv, ubk) in KERI.items():
         q, n, r = cel_q(cel)
         extra = " index.htm (2011-11-25): '875; 720 é provável erro de impressão'." if cel == "k5-10-4" else ""
+        lido = LIDO if cel not in KERI_DO_LEDGER else (
+            "TRANSCRITO de ledger/cells.json do main (published.sources.keri_2011, que o repositório do Marosi transcreveu das tabelas do Kéri); "
+            "o PDF NÃO foi aberto por esta campanha para esta célula (entrou no main depois da revisão Lit-CC); registro feito por migrate_covering.py em 2026-10-04")
         for direc, val, chave in (("upper", ubv, ubk), ("lower", lbv, lbk)):
             L.registrar(c, f"lit-keri-{cel}-{'ub' if direc == 'upper' else 'lb'}", title="Tables for bounds on covering codes", authors=["G. Kéri"], year=2009,
                         url="https://old.sztaki.hu/~keri/codes/" + arq,
                         version=f"PDF {arq}, Last-Modified 2009-10-15 (diretório e index.htm atualizados até 2011-11-25)", version_date="2009-10-15",
-                        date_read=hoje, ator=AUTOR,
-                        exact_statement=f"{arq}: linha K_{q}({n},{r}) = '{lbv}-{ubv}' (chave da cota inferior {lbk}, da superior {ubk}).{extra} {LIDO}, por pdftotext -layout. "
-                                        "Três transcrições concordam nesta célula (a do revisor, cov/bounds.json do Marosi e o CSV do Florath).",
+                        date_read=hoje if cel not in KERI_DO_LEDGER else "2026-10-04", ator=AUTOR,
+                        exact_statement=f"{arq}: linha K_{q}({n},{r}) = '{lbv}-{ubv}' (chave da cota inferior {lbk}, da superior {ubk}).{extra} {lido}"
+                                        + (", por pdftotext -layout. Três transcrições concordam nesta célula (a do revisor, cov/bounds.json do Marosi e o CSV do Florath)."
+                                           if cel not in KERI_DO_LEDGER else "."),
                         exact_bound=f"K_{q}({n},{r}) {'<=' if direc == 'upper' else '>='} {val} (chave {chave})",
                         bound={"parameters": {"q": q, "n": n, "R": r}, "value": val, "direction": direc},
                         assumptions=["edição = PDFs de 2009-10-15; 'Kéri 2011' do README/paper = o site atualizado em 2011-11, não tabelas novas",
-                                     "a origem de cada chave (artigo/livro) NÃO foi lida"],
+                                     "a origem de cada chave (artigo/livro) NÃO foi lida"] + (["valor transcrito do ledger do main, não conferido no PDF"] if cel in KERI_DO_LEDGER else []),
                         claim_ids=ub_claims_de(cel) if direc == "upper" else [])
 
     # --- Gijswijt-Polak, arXiv:2504.01932 v2 (2026-06-19): cotas inferiores citadas (Tab. 3; Tab. 9 para K_5(9,5) e K_5(9,4)). v1 (2025-04-02) NÃO lida.
@@ -604,6 +695,11 @@ def main() -> int:
         "f-chkn-sound": ("SC.chkN_sound", "CoveringLean/SearchSound.lean", "CoveringLean"),
         "f-cert-of-go": ("CoveringKernel.cert_of_go", "CoveringLean/K3_Bridge.lean", "CoveringLean"),
         "f-syn-cert": ("Syn.syn_cert", "CoveringLean/SynBridge.lean", "CoveringLean"),  # v0.5: a ponte dos certificados por síndromes (alvo padrão)
+        # K_7(4,2) (v0.7, docs/exatos/LEAN_K742.md): a célula não está em data/codes nem no universo desta campanha, mas os teoremas Lean DECLARADOS no main têm registro
+        # formal medido (alvo padrão). `K_7_4_2_eq_19_of` é CONDICIONAL (Ponte18/Refut18): o registro mede o teorema como está escrito, não a igualdade.
+        "f-k742-le-19": ("K742.K_7_4_2_le_19", "CoveringLean/K742_Upper.lean", "CoveringLean.K742_Upper"),
+        "f-k742-eq-19-of": ("K742.K_7_4_2_eq_19_of", "CoveringLean/K742_Final.lean", "CoveringLean.K742_Final"),
+        "f-lratk-k4-refut6": ("LratK_K4.refut6", "CoveringLean/LratK_K4.lean", "CoveringLean.LratK_K4"),
     }
     for fid, (teo, arq, mod) in medidos.items():
         F.registrar_formal(c, fid, theorem=teo, file=arq, module=mod, raiz_lean=REPO, ator=PROMOTOR, papel="FORMALIZER",
@@ -618,11 +714,30 @@ def main() -> int:
     if arq_med.is_file():
         medicoes_lean = json.loads(arq_med.read_text(encoding="utf-8"))
         for fid_ in [f["formal_id"] for f in c.listar("formal")]:
-            alvo_ = "CoveringSyn" if fid_.startswith("f-syn-") and fid_ != "f-syn-cert" else "padrao"
-            if alvo_ in medicoes_lean.get("alvos", {}):
+            alvo_ = "CoveringSyn" if fid_.startswith("f-syn-") and fid_ != "f-syn-cert" else ("padrao_v07" if "padrao_v07" in medicoes_lean.get("alvos", {}) else "padrao")
+            mod_ = medicoes_lean.get("modulos", {}).get(fid_[len("f-syn-"):]) if alvo_ == "CoveringSyn" else None
+            if mod_ or alvo_ in medicoes_lean.get("alvos", {}):
                 r_ = c.ler("formal", fid_)
-                r_["build_medido_de_zero"] = {"fonte": "campaigns/covering-codes/_fatos/medicoes_lean.json", **medicoes_lean["alvos"][alvo_]}
+                # medição do MÓDULO (lake build CoveringLean.Syn_K<M>, módulos próprios do zero) tem precedência sobre a do alvo agregado
+                r_["build_medido_de_zero"] = {"fonte": "campaigns/covering-codes/_fatos/medicoes_lean.json", **(mod_ or medicoes_lean["alvos"][alvo_])}
                 c.gravar("formal", fid_, r_, ator=PROMOTOR, papel="FORMALIZER", acao="formal.build_measurement")
+    # K_7(4,2), perfil 64 de M = 18 no kernel (lib CoveringK742Sat): DECLARADO, não reproduzido. Motivo MEDIDO aqui: os dados (CNF + LRAT aparado) não vão para o git, são
+    # gerados por tools/exatos/k742/lean/gerar_dados.py com CaDiCaL e lrat-trim, e este ambiente não tem nenhum dos dois (nem a pasta de dados).
+    teo_p64, arq_p64 = "K742Sat.refut18_p64", "CoveringLean/K742Sat/P64.lean"
+    faltam_ = [x for x in ("cadical", "lrat-trim") if shutil.which(x) is None]
+    dados_ = (REPO / "CoveringLean" / "K742Sat" / "dados").is_dir()
+    achados_p64 = F.escanear_fontes(REPO, [arq_p64])
+    gravar("formal", "f-k742-refut18-p64", {
+        "formal_id": "f-k742-refut18-p64", "theorem": teo_p64, "module": "CoveringLean.K742Sat.P64", "file": arq_p64, "lean_root": ".", "lean_version": None,
+        "lean_toolchain": ambiente.get("lean_toolchain") or (REPO / "lean-toolchain").read_text().strip(), "mathlib_commit": ambiente.get("mathlib_commit"),
+        "manifest_sha256": sha256_arquivo(REPO / "lake-manifest.json"), "axioms": None, "declared_axioms": AXIOMAS_DECLARADOS,
+        "axioms_status": "DECLARED_NOT_REPRODUCED: docs/exatos/LEAN_K742.md declara no máximo propext, Classical.choice, Quot.sound; o módulo é da lib CoveringK742Sat (fora do alvo padrão) "
+                         f"e NÃO foi compilado: dados ausentes (CoveringLean/K742Sat/dados existe: {dados_}) e binários ausentes ({', '.join(faltam_) or 'nenhum'}); custo declarado ~11-14 min e ~5 GB de RAM",
+        "measured_external": None, "kernel_run": None, "sorry_free": not any(x["kind"] in F.TIPOS_SORRY for x in achados_p64),
+        "sorry_free_basis": "varredura estática de 1 fonte (não é build)", "clean_build": False,
+        "build_status": "NOT_RUN: lake build CoveringK742Sat não executado (dados do perfil 64 ausentes; gerar_dados.py exige CaDiCaL e lrat-trim)",
+        "repo_commit": commit, "source_sha256": sha256_arquivo(REPO / arq_p64), "scan_findings": achados_p64, "measured": None,
+        "validation_problems": ["axiomas não medidos por esta campanha (declarados)", "clean_build não medido por esta campanha"]}, "FORMALIZER", PROMOTOR)
     pesados = {
         "f-k2-6-1-eq12": ("SC.K_2_6_1_eq12", "CoveringLean/SearchK6ge12.lean", "CoveringLean.SearchK6ge12",
                           sorted(str(p.relative_to(REPO)) for p in (REPO / "CoveringLean").glob("G610_*.lean"))),
@@ -1038,6 +1153,12 @@ def main() -> int:
             instances_note="o arquivo trata q=2, n=3, R=1, que não é célula do universo desta campanha",
             reason="DECLARADO: não compila (README:71). MEDIDO: `lake env lean` terminou com rc 137 (SIGKILL) em <=110 s; causa (OOM?) não investigada.",
             next_step="investigar e consertar, ou arquivar")
+    residuo("res-k742-fora-do-universo", kind="fora_do_universo", instances=[], instances_note="K_7(4,2) não é célula do universo desta campanha (não há código em data/codes nem claim de cota)",
+            reason="O main (v0.7) traz K_7(4,2) = 19 (docs/exatos/LEAN_K742.md): `K742.K_7_4_2_le_19` e os lemas estão no alvo padrão e têm registro formal MEDIDO aqui "
+                   "(f-k742-le-19, f-k742-eq-19-of, f-lratk-k4-refut6), mas SEM claim: a cota inferior 19 depende de `Ponte18` (não formalizada) e de 69 das 70 refutações LRAT conferidas fora do Lean; "
+                   "só o perfil 64 está no kernel (`K742Sat.refut18_p64`, f-k742-refut18-p64, DECLARADO: dados e binários ausentes). `K_7_4_2_eq_19_of` é condicional: o registro mede o teorema "
+                   "como escrito, não a igualdade.",
+            next_step="decidir se K_7(4,2) entra no universo (claim de cota superior com o Lean medido + comparação com o Kéri 17-19); gerar os dados do perfil 64 (CaDiCaL + lrat-trim) para medir f-k742-refut18-p64")
     # claims cujo teorema Lean só existe como DECLARADO (CoveringHeavy) ou tem uma segunda prova pesada declarada ao lado da medida
     sem_medido = sorted(x for x in heavy_claims if c.ler("claims", x)["status"] not in ("PROVED", "FORMALLY_VERIFIED", "EXTERNALLY_REPRODUCED"))
     residuo("res-heavy-build-not-reproduced", kind="nao_reproduzido", claim_ids=heavy_claims, instances=celulas_de(heavy_claims),
@@ -1049,10 +1170,13 @@ def main() -> int:
                    f"(ficam abaixo de PROVED por isso): {sem_medido}. O 1351 de K_7(9,4) tem também o teorema por síndromes medido (Syn.K7_9_4_le_1351_syn).",
             next_step="(a) KERNEL_VERIFIED: refazer o build numa VM gerando o log, guardá-lo fora do Git e registrar com kernel.registrar_execucao (CLI: `kernel-run register`; hash de 64 hex, uri, saída real de #print axioms); "
                       "(b) KERNEL_INDEPENDENTLY_REPRODUCED: uma SEGUNDA execução completa noutra VM (host.id, run_id e log distintos, mesmo commit); (c) ou refazer pela própria campanha com formal.registrar_formal numa máquina com RAM >= 9 GB (ou provar por síndromes: scripts/syndrome/gen_syn.py, minutos). Ver docs/matematica/ESCADA_DE_EVIDENCIA.md da infraestrutura")
-    residuo("res-ci-sem-coveringsyn", kind="garantia_continua", claim_ids=sorted(f"{cc}-ub-{mm}" for (cc, mm) in SYN), instances=sorted({cc for (cc, _) in SYN}),
-            reason="VALIDATION.md (achado de processo): o CI do repositório só roda `lake build` do alvo padrão. MEDIDO em .github/workflows/verify-codes.yml: nenhum job constrói CoveringSyn, "
-                   "então os cinco teoremas Syn_K* são medidos aqui (esta campanha) mas não recompilados a cada commit.",
-            next_step="um job com `lake build CoveringSyn` (alto risco pela classe do AGENTS.md: .github/workflows é do Thiago)")
+    # O CI do main passou a construir CoveringSyn (lean-syn.yml, 2026-10-04). Só vale o resíduo se NENHUM workflow o constrói: conferido nos arquivos, não assumido.
+    wf_syn = sorted(p_.name for p_ in (REPO / ".github" / "workflows").glob("*.y*ml") if re.search(r"build-args:\s*\"?CoveringSyn|lake build CoveringSyn", p_.read_text(encoding="utf-8")))
+    if not wf_syn:
+        residuo("res-ci-sem-coveringsyn", kind="garantia_continua", claim_ids=sorted(f"{cc}-ub-{mm}" for (cc, mm) in SYN), instances=sorted({cc for (cc, _) in SYN}),
+                reason=f"VALIDATION.md (achado de processo): o CI do repositório só roda `lake build` do alvo padrão. MEDIDO em .github/workflows: nenhum workflow constrói CoveringSyn, "
+                       f"então os {len(SYN)} teoremas Syn_K* são medidos aqui (esta campanha) mas não recompilados a cada commit.",
+                next_step="um job com `lake build CoveringSyn` (alto risco pela classe do AGENTS.md: .github/workflows é do Thiago)")
     residuo("res-search-kit-not-in-repo", kind="geracao_nao_reproduzivel", claim_ids=["k7-9-4-ub-1141", "k7-9-4-ub-1137"], instances=["k7-9-4"],
             reason="a busca dos remendos de 1141 e 1137 (kit de busca, branch feat/kit-de-busca, commit be52cc2) não está neste repositório e nenhum comando/seed foi registrado; "
                    "p1137.json regenera o MESMO conjunto de 1137 palavras (exp-k7-9-4-1137-regen), 1141 não tem p1141.json. A varredura de bases está em audit/k794-base-sweep.",
@@ -1076,13 +1200,13 @@ def main() -> int:
     assert c.ler("literature", "lit-keri-k7-9-4-ub")["bound"]["value"] == 1843 and c.ler("literature", "lit-keri-k7-9-4-lb")["bound"]["value"] == 264
     # --- uma pergunta aberta por célula MELHORA_APARENTE_A_CONFIRMAR (LITERATURA_CC.md §2 e §7)
     FALTA = {
-        "k7-9-4": ("1137, 1141, 1285 e 1351 estão abaixo do 1475 do Marosi (v2/v3), mas: (1) Cohen-Honkala-Litsyn-Lobstein 1997 e Östergård 1999 não foram lidos; (2) trabalho de "
-                   "Östergård/Rivas Soriano posterior a 2011 e não indexado no arXiv; (3) os quatro códigos só foram verificados por programas deste repositório (verify.c, dilatação, "
+        "k7-9-4": (f"{', '.join(str(m_) for cc_, m_, _ in CODIGOS if cc_ == 'k7-9-4')} estão abaixo do 1475 do Marosi (v2/v3), mas: (1) Cohen-Honkala-Litsyn-Lobstein 1997 e Östergård 1999 não foram lidos; (2) trabalho de "
+                   "Östergård/Rivas Soriano posterior a 2011 e não indexado no arXiv; (3) os códigos só foram verificados por programas deste repositório (verify.c, dilatação, "
                    "verify-rust, clean-room e, no main v0.5, A/B/C de verification/, do mesmo autor de verify.c); rodar o verify_cov.py do Marosi daria independência real, mas é CÓDIGO "
-                   "DE TERCEIROS e NÃO foi executado (precisa de autorização); (4) a busca que produziu p1285.json/p1137.json/o 1141 não é reprodutível (sem comando/seed/log: res-search-kit-not-in-repo); "
+                   "DE TERCEIROS e NÃO foi executado (precisa de autorização); (4) a busca que produziu p1285.json/p1137.json/o 1141 não é reprodutível (sem comando/seed/log: res-search-kit-not-in-repo) e a do 1134 (ILP determinístico, candidates/k7_9_4_1134/ilp_sym.py) não foi reexecutada; "
                    "(5) STATE_OF_ART.md (revisão de 2026-10-02) não achou nada <= 1137, mas ele mesmo lista o que não checou (Google Scholar, bases pagas, teses, periódico); ver exp-state-of-art-crosscheck; (6) RISCO: pela ADS (Lobstein-van Wee) K_7(9,4) <= 931 (=19*343/7) e <= 1225, <= 1344, mas SÓ SE existirem códigos normais "
-                   "para as cotas tabeladas; a busca por componentes normais falhou (LITERATURA_PROFUNDA.md §1.3) e nada disso é predecessor registrado. 931 < 1137: se fosse realizável, "
-                   "tiraria até o 1137",
+                   "para as cotas tabeladas; a busca por componentes normais falhou (LITERATURA_PROFUNDA.md §1.3) e nada disso é predecessor registrado. 931 < 1134: se fosse realizável, "
+                   "tiraria até o 1134",
                    "autorizar e rodar verify_cov.py sobre data/codes/q7_n9_R4_M1137.txt; ler Cohen et al. 1997 e Östergård 1999; registrar o comando da busca dos remendos"),
         "k7-8-3": ("1887 e 1893 estão abaixo do 2337 do Kéri (soma direta; Marosi v1-v3 não tem K_7(8,3) na Tabela 1), mas Cohen et al. 1997 e trabalho pós-2011 não foram lidos; "
                    "o 1887 não é reprodutível (172 palavras soltas, sem comando/seed/gerador)",
@@ -1099,6 +1223,15 @@ def main() -> int:
         "k5-9-4": ("250 < 255 (Kéri, chave d = Bhandari-Durairajan 1996): artigo não lido; melhoria de 5 palavras (HIPÓTESE: predecessor provável em tabela)",
                    "ler Bhandari-Durairajan 1996 e Cohen et al. 1997"),
     }
+    # célula sem texto escrito à mão (ex.: entrou no main depois): texto padrão montado dos registros de literatura, que diz o que NÃO foi lido. Nunca fica sem resíduo.
+    for cel_ in sorted({cc_ for cc_, _, _ in CODIGOS} - set(FALTA)):
+        ms_ = [m_ for cc_, m_, _ in CODIGOS if cc_ == cel_]
+        lk_ = c.ler("literature", f"lit-keri-{cel_}-ub")
+        chave_ = re.search(r"chave (\w+)", lk_["exact_bound"]).group(1)
+        FALTA[cel_] = (f"{', '.join(map(str, ms_))} < {lk_['bound']['value']} (Kéri, chave {chave_}): o artigo/livro da chave {chave_} e o Cohen et al. 1997 não foram lidos; "
+                       "trabalho posterior a 2011 fora do arXiv não foi conferido; os códigos só foram verificados por programas deste repositório e a busca que os produziu não é reexecutada aqui"
+                       + ("; o valor do Kéri vem do ledger do main (transcrição do repositório do Marosi), o PDF não foi aberto por esta campanha" if cel_ in KERI_DO_LEDGER else ""),
+                       f"ler a fonte da chave {chave_} do Kéri e o Cohen et al. 1997; procurar tabelas posteriores a 2011 para K_{CELULAS[cel_][0]}({CELULAS[cel_][1]},{CELULAS[cel_][2]})")
     for cel_, (reason_, next_) in FALTA.items():
         residuo(f"res-confirmar-{cel_}", kind="melhora_aparente_a_confirmar", instances=[cel_], claim_ids=[x for x in ub_claims if x.startswith(cel_ + "-ub-")],
                 reason="MELHORA_APARENTE_A_CONFIRMAR (nunca 'novidade'): " + reason_, next_step=next_,
@@ -1115,11 +1248,12 @@ def main() -> int:
                    "código, não de autoria. A frase só vale nesse sentido.",
             next_step="o dono decide se a frase do paper/VALIDATION.md passa a dizer 'independentes de método'; ou outro autor reescreve um dos três")
     ler_ = lambda rel: (REPO / rel).read_text(encoding="utf-8")  # noqa: E731
-    if re.search(r"ainda não são teoremas Lean", ler_("README.md")):
+    stale_ = [rel_ for rel_ in ("README.md", "docs/resultados.md") if re.search(r"ainda não são teoremas Lean", ler_(rel_))]
+    if stale_:
         residuo("res-readme-stale-lean", kind="inconsistencia", instances=sorted({cc for (cc, mm) in HEAVY if (cc, mm) not in SYN}),
-                reason="README.md (seção 'Resultados da v0.3') ainda diz dos outros 7 códigos de data/codes que 'ainda não são teoremas Lean', mas a tabela da v0.5 do MESMO arquivo lista "
+                reason=f"{' e '.join(stale_)} ainda diz dos outros 7 códigos de data/codes da v0.3 que 'ainda não são teoremas Lean', mas a tabela da v0.6 do MESMO documento lista "
                        "`CoveringKernel.K*_kernel` para cada um deles (e `Syn.K7_8_3_le_1887_syn`). O texto está obsoleto; a campanha segue os arquivos .lean, não o texto.",
-                next_step="o dono corrige o parágrafo da v0.3 do README")
+                next_step="o dono corrige o parágrafo da v0.3 de docs/resultados.md")
 
     # ------------------------------------------------------------------ universo (finito) e cobertura
     # Os números do universo são DERIVADOS do estado dos claims (nada digitado): ub_formal_lean = menor M de claim de cota superior que chegou a PROVED+ (teorema Lean
@@ -1138,7 +1272,7 @@ def main() -> int:
                      "ub_verificado_melhor": melhor(cel, "upper", FRACOS_OK, min), "ub_formal_lean": melhor(cel, "upper", FORTES, min),
                      "size": n})  # o 264 do paper continua fora do universo; a fonte agora é lit-keri-k7-9-4-lb (Kéri, chave m)
     COV.definir_universo(c, {"tipo": "finito", "total": len(inst), "instancias": inst, "estado_minimo_resolvido": "EXHAUSTIVE_BOUNDED",
-                             "descricao": "Células (q,n,R) tratadas pela campanha: 8 da cota de esfera (7 com código verificado + K_7(9,4)) e K_2(6,1). "
+                             "descricao": f"Células (q,n,R) tratadas pela campanha: as {len(CELULAS) - 1} de data/codes ({len(LB_ESFERA)} com teorema da cota de esfera no Lean) e K_2(6,1). "
                                           "'Resolvida' = K_q(n,R) determinado (lb = ub). Só K_2(6,1). As demais têm faixa [lb, ub] aberta."},
                          ator=AUTOR, papel="COORDINATOR")
 
@@ -1160,7 +1294,7 @@ def main() -> int:
         {"id": "lake-build-alvo-padrao", "type": "lean_build", "lean_root": ".", "target": None, "opcional": True,
          "nota": "alvo padrão CoveringLean (8944 jobs, com SynCheck/SynBridge)"},
         {"id": "lake-build-coveringsyn", "type": "lean_build", "lean_root": ".", "target": "CoveringSyn", "opcional": True,
-         "nota": "os cinco teoremas por síndromes (~10 min de relógio); CoveringHeavy (~9,3 h de CPU) NÃO está aqui"},
+         "nota": f"os {len(SYN)} teoremas por síndromes (lib CoveringSyn do lakefile.toml; ~10 min de relógio para os cinco primeiros, mais ~25 min para os cinco de v0.6/v0.7); CoveringHeavy (~9,3 h de CPU) NÃO está aqui"},
         {"id": "axiomas-dos-registros-formais", "type": "axiomas"},
         {"id": "auditoria-da-cadeia", "type": "auditoria"},
     ]

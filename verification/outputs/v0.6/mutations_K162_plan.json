@@ -1,0 +1,62 @@
+{
+ "tag": "K162",
+ "q": 5,
+ "n": 10,
+ "R": 5,
+ "M": 162,
+ "mutations": {
+  "M1_troca": {
+   "index": 0,
+   "old": "0000000000",
+   "new": "3331134000",
+   "uncovered_points": 160,
+   "modules": [
+    "CoveringLean.SynData_K162M1",
+    "CoveringLean.SynLeaf_K162M1_0",
+    "CoveringLean.SynLeaf_K162M1_1",
+    "CoveringLean.SynLeaf_K162M1_2",
+    "CoveringLean.SynLeaf_K162M1_3",
+    "CoveringLean.SynLeaf_K162M1_4",
+    "CoveringLean.SynLeaf_K162M1_5",
+    "CoveringLean.SynLeaf_K162M1_6",
+    "CoveringLean.SynLeaf_K162M1_7",
+    "CoveringLean.Syn_K162M1"
+   ]
+  },
+  "M2_remocao": {
+   "index": 0,
+   "removed": "0000000000",
+   "uncovered_points": 171,
+   "modules_card": [
+    "CoveringLean.SynData_K162M2",
+    "CoveringLean.Card_K162M2"
+   ],
+   "modules_cover": [
+    "CoveringLean.SynData_K162M2",
+    "CoveringLean.SynLeaf_K162M2_0",
+    "CoveringLean.SynLeaf_K162M2_1",
+    "CoveringLean.SynLeaf_K162M2_2",
+    "CoveringLean.SynLeaf_K162M2_3",
+    "CoveringLean.SynLeaf_K162M2_4",
+    "CoveringLean.SynLeaf_K162M2_5",
+    "CoveringLean.SynLeaf_K162M2_6",
+    "CoveringLean.SynLeaf_K162M2_7",
+    "CoveringLean.Syn_K162M2"
+   ]
+  },
+  "M3_tabela": {
+   "leaf": "TK162_0",
+   "point_t": 0,
+   "old_witness": 0,
+   "new_witness": 37,
+   "modules": [
+    "CoveringLean.SynLeaf_K162M3_0"
+   ]
+  }
+ },
+ "control": {
+  "modules": [
+   "CoveringLean.SynLeaf_K162C0_0"
+  ]
+ }
+}

@@ -1,0 +1,10 @@
+def CoveringA2.Covers : {q n : ℕ} → ℕ → Finset (Fin n → ZMod q) → Prop :=
+fun {q n} R C => ∀ (x : Fin n → ZMod q), ∃ c ∈ C, hammingDist x c ≤ R
+Syn.K7_9_4_le_1134_syn : ∃ C, C.card = 1134 ∧ CoveringA2.Covers 4 C
+Syn.K5_10_5_le_162_syn : ∃ C, C.card = 162 ∧ CoveringA2.Covers 5 C
+Syn.K5_11_4_le_2875_syn : ∃ C, C.card = 2875 ∧ CoveringA2.Covers 4 C
+Syn.K7_10_4_le_5616_syn : ∃ C, C.card = 5616 ∧ CoveringA2.Covers 4 C
+'Syn.K7_9_4_le_1134_syn' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Syn.K5_10_5_le_162_syn' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Syn.K5_11_4_le_2875_syn' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Syn.K7_10_4_le_5616_syn' depends on axioms: [propext, Classical.choice, Quot.sound]

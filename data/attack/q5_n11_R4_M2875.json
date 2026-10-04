@@ -1,0 +1,53 @@
+{
+ "format": "attack-provenance/v1",
+ "q": 5,
+ "n": 11,
+ "R": 4,
+ "M": 2875,
+ "construcao": "23 classes laterais de um [11,3]_5, sem remendo",
+ "parity_check": [
+  "10000002410",
+  "01000003201",
+  "00100004011",
+  "00010002114",
+  "00001004412",
+  "00000102341",
+  "00000012443",
+  "00000000001"
+ ],
+ "k": 3,
+ "coset_syndromes": [
+  45622,
+  123747,
+  201872,
+  279997,
+  358122,
+  52955,
+  131080,
+  209205,
+  287330,
+  365455,
+  6873,
+  84998,
+  163123,
+  241248,
+  319373,
+  15777,
+  93902,
+  172027,
+  250152,
+  328277,
+  118547,
+  352923,
+  231876
+ ],
+ "t": 23,
+ "base_words": 2875,
+ "patch_words": [],
+ "patch_size": 0,
+ "origem": "hsearch (max |B|, k=4) -> coset_sa k=4 t=4 (6 \u00f3rf\u00e3s) -> lift x_10=0 -> coset_sa t=22 (7 \u00f3rf\u00e3s) -> coset_wsa w=21 (t=23, 0 \u00f3rf\u00e3s)",
+ "verificacao": [
+  "scripts/attack/verify_bfs 5 11 4: COBRE",
+  "tools/verify/verify: uncovered=0 sha256=2a700e2f928a8d893e8863ee100c9514a8ffd65a480776682c7560c96029dc9b"
+ ]
+}

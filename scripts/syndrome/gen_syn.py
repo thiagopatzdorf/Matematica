@@ -33,6 +33,7 @@ ap.add_argument("--expect-sha", default=None)
 ap.add_argument("--out", default=os.path.join(os.path.dirname(__file__), "..", "..", "CoveringLean"))
 ap.add_argument("--wrong", action="store_true", help="teste negativo: remove uma palavra do código")
 a = ap.parse_args()
+LIST_RECDEPTH_THRESHOLD = 2048
 J = json.load(open(a.spec))
 q, n, R = J["q"], J["n"], J["R"]
 base_dir = os.path.dirname(os.path.abspath(a.spec))
@@ -193,6 +194,10 @@ with open(f"{out}/SynData_{a.tag}.lean", "w") as f:
     f.write("namespace Syn\n\n")
     f.write(f"def P{a.tag} : Spec where\n  q := {q}\n  n := {n}\n  k := {k}\n  o := {o}\n  R := {R}\n"
             f"  Gs := {grow}\n  reps := {repsN}\n  orphs := {orphs}\n  PN := {PN}\n  b := {b}\n  cnt := {M}\n\n")
+    # Literal de lista com mais de ~2000 elementos estoura o maxRecDepth padrão (512) na elaboração
+    # (medido: K5(11,4) com M=2875 falhou em SynData). Só acima do limiar, para que os certificados
+    # antigos (M <= 1887) continuem saindo byte a byte iguais.
+    if M > LIST_RECDEPTH_THRESHOLD: f.write("set_option maxRecDepth 100000 in\n")
     f.write(f"def L{a.tag} : List Nat := {Lint}\n\nend Syn\n")
 
 leaves = []   # (nome, enunciado)

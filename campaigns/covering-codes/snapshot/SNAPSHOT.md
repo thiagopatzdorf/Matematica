@@ -1,18 +1,23 @@
 # Snapshot científico (gerado por tools/campaign/snapshot_covering.py)
 
-Commit-base: `1a5fa268dc916fde689e6aa801e591ac3c863b36`. Fonte: dados da campanha, não texto.
+Commit-base: `38a481ead0f7f03468ea9d7a5a7d0fae98335048`. Fonte: dados da campanha, não texto.
 
 | Código | Tamanho | Claim state | Melhor registrada (Δ) | Verificadores (PASS/total) | Lean (Kernel evidence) | Literatura |
 |---|---|---|---|---|---|---|
 | K_2(6,1) | 12 | PROVED (só ≤12; igualdade EXHAUSTIVE_BOUNDED) | 12 (−0, 0.0%) | 4/4 | PROVED_MEASURED (+ pesado relato de VM externa, log não persistido) | PREDECESSOR_FOUND (alta) |
 | K_4(10,4) | 192 | INDEPENDENTLY_REPRODUCED | 208 (−16, 7.69%) | 4/4 | Kernel evidence: EXTERNAL_RUN_REPORTED | AMBIGUOUS (média-baixa) |
 | K_5(10,4) | 625 | INDEPENDENTLY_REPRODUCED | 875 (−250, 28.57%) | 4/4 | Kernel evidence: EXTERNAL_RUN_REPORTED | AMBIGUOUS (baixa) |
+| K_5(10,5) | 162 | PROVED | 175 (−13, 7.43%) | 4/4 | PROVED_MEASURED | NO_PREDECESSOR_FOUND_IN_REVIEWED_SOURCES (baixa) |
+| K_5(11,4) | 2875 | PROVED | 3125 (−250, 8.0%) | 4/4 | PROVED_MEASURED | NO_PREDECESSOR_FOUND_IN_REVIEWED_SOURCES (baixa) |
 | K_5(7,2) | 500 | INDEPENDENTLY_REPRODUCED | 525 (−25, 4.76%) | 4/4 | Kernel evidence: EXTERNAL_RUN_REPORTED | AMBIGUOUS (média) |
 | K_5(9,3) | 1250 | INDEPENDENTLY_REPRODUCED | 1275 (−25, 1.96%) | 4/4 | Kernel evidence: EXTERNAL_RUN_REPORTED | NO_PREDECESSOR_FOUND_IN_REVIEWED_SOURCES (média) |
 | K_5(9,4) | 250 | INDEPENDENTLY_REPRODUCED | 255 (−5, 1.96%) | 4/4 | Kernel evidence: EXTERNAL_RUN_REPORTED | AMBIGUOUS (média) |
 | K_5(9,5) | 50 | INDEPENDENTLY_REPRODUCED | 55 (−5, 9.09%) | 4/4 | Kernel evidence: EXTERNAL_RUN_REPORTED | NO_PREDECESSOR_FOUND_IN_REVIEWED_SOURCES (média) |
+| K_7(10,4) | 5607 | PROVED | 6517 (−910, 13.96%) | 4/4 | PROVED_MEASURED | NO_PREDECESSOR_FOUND_IN_REVIEWED_SOURCES (baixa) |
+| K_7(10,4) | 5616 | PROVED | 6517 (−901, 13.83%) | 4/4 | PROVED_MEASURED | NO_PREDECESSOR_FOUND_IN_REVIEWED_SOURCES (baixa) |
 | K_7(8,3) | 1887 | PROVED | 2337 (−450, 19.26%) | 4/4 | PROVED_MEASURED | NO_PREDECESSOR_FOUND_IN_REVIEWED_SOURCES (média) |
 | K_7(8,3) | 1893 | INDEPENDENTLY_REPRODUCED | 2337 (−444, 19.0%) | 4/4 | Kernel evidence: EXTERNAL_RUN_REPORTED | NO_PREDECESSOR_FOUND_IN_REVIEWED_SOURCES (média) |
+| K_7(9,4) | 1134 | PROVED | 1475 (−341, 23.12%) | 7/7 | PROVED_MEASURED | NO_PREDECESSOR_FOUND_IN_REVIEWED_SOURCES (média) |
 | K_7(9,4) | 1137 | PROVED | 1475 (−338, 22.92%) | 7/7 | PROVED_MEASURED | NO_PREDECESSOR_FOUND_IN_REVIEWED_SOURCES (média) |
 | K_7(9,4) | 1141 | PROVED | 1475 (−334, 22.64%) | 7/7 | PROVED_MEASURED | NO_PREDECESSOR_FOUND_IN_REVIEWED_SOURCES (média) |
 | K_7(9,4) | 1285 | PROVED | 1475 (−190, 12.88%) | 7/7 | PROVED_MEASURED | NO_PREDECESSOR_FOUND_IN_REVIEWED_SOURCES (média) |

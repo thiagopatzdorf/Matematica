@@ -1,0 +1,24 @@
+{
+  "canonical_sha256": "74176af64936119ce0d199e487127dff999888f93c7bde0b8386ba03ece12ce5",
+  "created": "2026-10-04T20:42:21Z",
+  "created_by": "agente-c",
+  "format": "covering-code/v1",
+  "group": "Zq",
+  "kind": "code-structure",
+  "linear_base_dim": 3,
+  "linear_cosets": 1,
+  "patch_words": 37,
+  "provenance": {
+    "agent": "James.V1",
+    "command": "patch_opt base.json --L 0 --W 38 --tauw 30 --secs 1800 --seed 12 --T0 1.5 --T1 0.3",
+    "commit": null,
+    "date": "2026-10-03",
+    "generator": "scripts/attack (feat/ataque-celulas-2011): hsearch t=1 em [10,3]_5 (8 síndromes órfãs) -> patch_opt",
+    "notes": "o próprio [10,3]_5 + 37 palavras (cota do LP para o remendo nesta base: 22). Detalhes em data/attack/q5_n10_R5_M162.json.",
+    "repo_commit": null,
+    "seed": 12
+  },
+  "structure_id": "s-q5-n10-r5-m162",
+  "subcode_blocks": [],
+  "witness": "w-q5-n10-r5-m162"
+}

@@ -1,5 +1,5 @@
 {
- "repo_commit": "1a5fa268dc916fde689e6aa801e591ac3c863b36",
+ "repo_commit": "38a481ead0f7f03468ea9d7a5a7d0fae98335048",
  "rows": [
   {
    "R": 1,
@@ -12,8 +12,8 @@
    "claim_id": "k2-6-1-ub-12",
    "claim_status": "PROVED",
    "classification": "igual",
-   "containing_commit": "1a5fa268dc916fde689e6aa801e591ac3c863b36",
-   "created": "2026-10-04T17:29:02Z",
+   "containing_commit": "38a481ead0f7f03468ea9d7a5a7d0fae98335048",
+   "created": "2026-10-04T20:42:21Z",
    "diff_abs": 0,
    "diff_pct": 0.0,
    "equality_claim_status": "EXHAUSTIVE_BOUNDED",
@@ -67,8 +67,8 @@
    "claim_id": "k4-10-4-ub-192",
    "claim_status": "INDEPENDENTLY_REPRODUCED",
    "classification": "apparent improvement over the currently recorded bound; novelty not yet established",
-   "containing_commit": "1a5fa268dc916fde689e6aa801e591ac3c863b36",
-   "created": "2026-10-04T17:29:02Z",
+   "containing_commit": "38a481ead0f7f03468ea9d7a5a7d0fae98335048",
+   "created": "2026-10-04T20:42:21Z",
    "diff_abs": 16,
    "diff_pct": 7.69,
    "equality_claim_status": null,
@@ -119,8 +119,8 @@
    "claim_id": "k5-10-4-ub-625",
    "claim_status": "INDEPENDENTLY_REPRODUCED",
    "classification": "apparent improvement over the currently recorded bound; novelty not yet established",
-   "containing_commit": "1a5fa268dc916fde689e6aa801e591ac3c863b36",
-   "created": "2026-10-04T17:29:02Z",
+   "containing_commit": "38a481ead0f7f03468ea9d7a5a7d0fae98335048",
+   "created": "2026-10-04T20:42:21Z",
    "diff_abs": 250,
    "diff_pct": 28.57,
    "equality_claim_status": null,
@@ -163,6 +163,110 @@
    "witness_producer": "exp-prior-search-unrecorded"
   },
   {
+   "R": 5,
+   "best_recorded_bound": 175,
+   "best_recorded_source": [
+    "lit-keri-k5-10-5-ub (PDF 4-5_tables.pdf, Last-Modified 2009-10-15 (diretório e index.htm atualizados até 2011-11-25), 2009-10-15)"
+   ],
+   "claim_id": "k5-10-5-ub-162",
+   "claim_status": "PROVED",
+   "classification": "apparent improvement over the currently recorded bound; novelty not yet established",
+   "containing_commit": "38a481ead0f7f03468ea9d7a5a7d0fae98335048",
+   "created": "2026-10-04T20:42:21Z",
+   "diff_abs": 13,
+   "diff_pct": 7.43,
+   "equality_claim_status": null,
+   "independence_note": "autor do claim: agente-c; verificadores PASS cujo autor não é o do claim: ['agente-verif-cleanroom', 'agente-verif-rust', 'thiagopatzdorf']; verificadores do mesmo autor contam como um só; agentes do mesmo modelo ≠ independência cognitiva total",
+   "independent_authors_passing": [
+    "agente-verif-cleanroom",
+    "agente-verif-rust",
+    "thiagopatzdorf"
+   ],
+   "kernel_evidence": "NONE",
+   "lean": "PROVED_MEASURED: Syn.K5_10_5_le_162_syn (axiomas ['Classical.choice', 'Quot.sound', 'propext'], sorry_free, build limpo, Lean 4.34.1)",
+   "lean_theorems_declared_only": [],
+   "lean_theorems_external_vm": [],
+   "lean_theorems_measured": [
+    "Syn.K5_10_5_le_162_syn"
+   ],
+   "literature_confidence": "baixa",
+   "literature_note": "derivado da comparação com a literatura registrada; fontes primárias das chaves do Kéri e trabalhos pós-2011 não lidos (res-confirmar-<célula>)",
+   "literature_source": "literature/ da campanha (lit-keri-k5-10-5-ub (PDF 4-5_tables.pdf, Last-Modified 2009-10-15 (diretório e index.htm atualizados até 2011-11-25), 2009-10-15))",
+   "literature_state": "NO_PREDECESSOR_FOUND_IN_REVIEWED_SOURCES",
+   "n": 10,
+   "q": 5,
+   "sha256_canonical": "74176af64936119ce0d199e487127dff999888f93c7bde0b8386ba03ece12ce5",
+   "sha256_file": "6f8d8baa3b47d1998e2d13ad6d87188aaf6cc4bb3eb361fdea9f162718c3cd38",
+   "size": 162,
+   "verifier_authors": {
+    "verify-c": "thiagopatzdorf",
+    "verify-cleanroom": "agente-verif-cleanroom",
+    "verify-py-dilation": "agente-c",
+    "verify-rust": "agente-verif-rust"
+   },
+   "verifier_results": {
+    "verify-c": "PASS",
+    "verify-cleanroom": "PASS",
+    "verify-py-dilation": "PASS",
+    "verify-rust": "PASS"
+   },
+   "witness_id": "w-q5-n10-r5-m162",
+   "witness_path": "data/codes/q5_n10_R5_M162.txt",
+   "witness_producer": "exp-prov-q5-n10-r5-m162"
+  },
+  {
+   "R": 4,
+   "best_recorded_bound": 3125,
+   "best_recorded_source": [
+    "lit-keri-k5-11-4-ub (PDF 4-5_tables.pdf, Last-Modified 2009-10-15 (diretório e index.htm atualizados até 2011-11-25), 2009-10-15)"
+   ],
+   "claim_id": "k5-11-4-ub-2875",
+   "claim_status": "PROVED",
+   "classification": "apparent improvement over the currently recorded bound; novelty not yet established",
+   "containing_commit": "38a481ead0f7f03468ea9d7a5a7d0fae98335048",
+   "created": "2026-10-04T20:42:21Z",
+   "diff_abs": 250,
+   "diff_pct": 8.0,
+   "equality_claim_status": null,
+   "independence_note": "autor do claim: agente-c; verificadores PASS cujo autor não é o do claim: ['agente-verif-cleanroom', 'agente-verif-rust', 'thiagopatzdorf']; verificadores do mesmo autor contam como um só; agentes do mesmo modelo ≠ independência cognitiva total",
+   "independent_authors_passing": [
+    "agente-verif-cleanroom",
+    "agente-verif-rust",
+    "thiagopatzdorf"
+   ],
+   "kernel_evidence": "NONE",
+   "lean": "PROVED_MEASURED: Syn.K5_11_4_le_2875_syn (axiomas ['Classical.choice', 'Quot.sound', 'propext'], sorry_free, build limpo, Lean 4.34.1)",
+   "lean_theorems_declared_only": [],
+   "lean_theorems_external_vm": [],
+   "lean_theorems_measured": [
+    "Syn.K5_11_4_le_2875_syn"
+   ],
+   "literature_confidence": "baixa",
+   "literature_note": "derivado da comparação com a literatura registrada; fontes primárias das chaves do Kéri e trabalhos pós-2011 não lidos (res-confirmar-<célula>)",
+   "literature_source": "literature/ da campanha (lit-keri-k5-11-4-ub (PDF 4-5_tables.pdf, Last-Modified 2009-10-15 (diretório e index.htm atualizados até 2011-11-25), 2009-10-15))",
+   "literature_state": "NO_PREDECESSOR_FOUND_IN_REVIEWED_SOURCES",
+   "n": 11,
+   "q": 5,
+   "sha256_canonical": "2a700e2f928a8d893e8863ee100c9514a8ffd65a480776682c7560c96029dc9b",
+   "sha256_file": "e8ff1f41662ffc314686ea40241dbafcaac022acdb953f3d9e4ffc0b394cabe9",
+   "size": 2875,
+   "verifier_authors": {
+    "verify-c": "thiagopatzdorf",
+    "verify-cleanroom": "agente-verif-cleanroom",
+    "verify-py-dilation": "agente-c",
+    "verify-rust": "agente-verif-rust"
+   },
+   "verifier_results": {
+    "verify-c": "PASS",
+    "verify-cleanroom": "PASS",
+    "verify-py-dilation": "PASS",
+    "verify-rust": "PASS"
+   },
+   "witness_id": "w-q5-n11-r4-m2875",
+   "witness_path": "data/codes/q5_n11_R4_M2875.txt",
+   "witness_producer": "exp-prov-q5-n11-r4-m2875"
+  },
+  {
    "R": 2,
    "best_recorded_bound": 525,
    "best_recorded_source": [
@@ -171,8 +275,8 @@
    "claim_id": "k5-7-2-ub-500",
    "claim_status": "INDEPENDENTLY_REPRODUCED",
    "classification": "apparent improvement over the currently recorded bound; novelty not yet established",
-   "containing_commit": "1a5fa268dc916fde689e6aa801e591ac3c863b36",
-   "created": "2026-10-04T17:29:02Z",
+   "containing_commit": "38a481ead0f7f03468ea9d7a5a7d0fae98335048",
+   "created": "2026-10-04T20:42:21Z",
    "diff_abs": 25,
    "diff_pct": 4.76,
    "equality_claim_status": null,
@@ -223,8 +327,8 @@
    "claim_id": "k5-9-3-ub-1250",
    "claim_status": "INDEPENDENTLY_REPRODUCED",
    "classification": "apparent improvement over the currently recorded bound; novelty not yet established",
-   "containing_commit": "1a5fa268dc916fde689e6aa801e591ac3c863b36",
-   "created": "2026-10-04T17:29:02Z",
+   "containing_commit": "38a481ead0f7f03468ea9d7a5a7d0fae98335048",
+   "created": "2026-10-04T20:42:21Z",
    "diff_abs": 25,
    "diff_pct": 1.96,
    "equality_claim_status": null,
@@ -275,8 +379,8 @@
    "claim_id": "k5-9-4-ub-250",
    "claim_status": "INDEPENDENTLY_REPRODUCED",
    "classification": "apparent improvement over the currently recorded bound; novelty not yet established",
-   "containing_commit": "1a5fa268dc916fde689e6aa801e591ac3c863b36",
-   "created": "2026-10-04T17:29:02Z",
+   "containing_commit": "38a481ead0f7f03468ea9d7a5a7d0fae98335048",
+   "created": "2026-10-04T20:42:21Z",
    "diff_abs": 5,
    "diff_pct": 1.96,
    "equality_claim_status": null,
@@ -327,8 +431,8 @@
    "claim_id": "k5-9-5-ub-50",
    "claim_status": "INDEPENDENTLY_REPRODUCED",
    "classification": "apparent improvement over the currently recorded bound; novelty not yet established",
-   "containing_commit": "1a5fa268dc916fde689e6aa801e591ac3c863b36",
-   "created": "2026-10-04T17:29:02Z",
+   "containing_commit": "38a481ead0f7f03468ea9d7a5a7d0fae98335048",
+   "created": "2026-10-04T20:42:21Z",
    "diff_abs": 5,
    "diff_pct": 9.09,
    "equality_claim_status": null,
@@ -371,6 +475,110 @@
    "witness_producer": "exp-prior-search-unrecorded"
   },
   {
+   "R": 4,
+   "best_recorded_bound": 6517,
+   "best_recorded_source": [
+    "lit-keri-k7-10-4-ub (PDF 6-21_tables.pdf, Last-Modified 2009-10-15 (diretório e index.htm atualizados até 2011-11-25), 2009-10-15)"
+   ],
+   "claim_id": "k7-10-4-ub-5607",
+   "claim_status": "PROVED",
+   "classification": "apparent improvement over the currently recorded bound; novelty not yet established",
+   "containing_commit": "38a481ead0f7f03468ea9d7a5a7d0fae98335048",
+   "created": "2026-10-04T20:42:21Z",
+   "diff_abs": 910,
+   "diff_pct": 13.96,
+   "equality_claim_status": null,
+   "independence_note": "autor do claim: agente-c; verificadores PASS cujo autor não é o do claim: ['agente-verif-cleanroom', 'agente-verif-rust', 'thiagopatzdorf']; verificadores do mesmo autor contam como um só; agentes do mesmo modelo ≠ independência cognitiva total",
+   "independent_authors_passing": [
+    "agente-verif-cleanroom",
+    "agente-verif-rust",
+    "thiagopatzdorf"
+   ],
+   "kernel_evidence": "NONE",
+   "lean": "PROVED_MEASURED: Syn.K7_10_4_le_5607_syn (axiomas ['Classical.choice', 'Quot.sound', 'propext'], sorry_free, build limpo, Lean 4.34.1)",
+   "lean_theorems_declared_only": [],
+   "lean_theorems_external_vm": [],
+   "lean_theorems_measured": [
+    "Syn.K7_10_4_le_5607_syn"
+   ],
+   "literature_confidence": "baixa",
+   "literature_note": "derivado da comparação com a literatura registrada; fontes primárias das chaves do Kéri e trabalhos pós-2011 não lidos (res-confirmar-<célula>)",
+   "literature_source": "literature/ da campanha (lit-keri-k7-10-4-ub (PDF 6-21_tables.pdf, Last-Modified 2009-10-15 (diretório e index.htm atualizados até 2011-11-25), 2009-10-15))",
+   "literature_state": "NO_PREDECESSOR_FOUND_IN_REVIEWED_SOURCES",
+   "n": 10,
+   "q": 7,
+   "sha256_canonical": "7670a7bd3560fb6ba1ea6a68d7c6a6ec8853ab2d0406370cd2c80c0f12402fa5",
+   "sha256_file": "68a6eaed470edc803d8d41b5afd2534053fe13a5305f2caa48b4c005b200c1ec",
+   "size": 5607,
+   "verifier_authors": {
+    "verify-c": "thiagopatzdorf",
+    "verify-cleanroom": "agente-verif-cleanroom",
+    "verify-py-dilation": "agente-c",
+    "verify-rust": "agente-verif-rust"
+   },
+   "verifier_results": {
+    "verify-c": "PASS",
+    "verify-cleanroom": "PASS",
+    "verify-py-dilation": "PASS",
+    "verify-rust": "PASS"
+   },
+   "witness_id": "w-q7-n10-r4-m5607",
+   "witness_path": "data/codes/q7_n10_R4_M5607.txt",
+   "witness_producer": "exp-prov-q7-n10-r4-m5607"
+  },
+  {
+   "R": 4,
+   "best_recorded_bound": 6517,
+   "best_recorded_source": [
+    "lit-keri-k7-10-4-ub (PDF 6-21_tables.pdf, Last-Modified 2009-10-15 (diretório e index.htm atualizados até 2011-11-25), 2009-10-15)"
+   ],
+   "claim_id": "k7-10-4-ub-5616",
+   "claim_status": "PROVED",
+   "classification": "apparent improvement over the currently recorded bound; novelty not yet established",
+   "containing_commit": "38a481ead0f7f03468ea9d7a5a7d0fae98335048",
+   "created": "2026-10-04T20:42:21Z",
+   "diff_abs": 901,
+   "diff_pct": 13.83,
+   "equality_claim_status": null,
+   "independence_note": "autor do claim: agente-c; verificadores PASS cujo autor não é o do claim: ['agente-verif-cleanroom', 'agente-verif-rust', 'thiagopatzdorf']; verificadores do mesmo autor contam como um só; agentes do mesmo modelo ≠ independência cognitiva total",
+   "independent_authors_passing": [
+    "agente-verif-cleanroom",
+    "agente-verif-rust",
+    "thiagopatzdorf"
+   ],
+   "kernel_evidence": "NONE",
+   "lean": "PROVED_MEASURED: Syn.K7_10_4_le_5616_syn (axiomas ['Classical.choice', 'Quot.sound', 'propext'], sorry_free, build limpo, Lean 4.34.1)",
+   "lean_theorems_declared_only": [],
+   "lean_theorems_external_vm": [],
+   "lean_theorems_measured": [
+    "Syn.K7_10_4_le_5616_syn"
+   ],
+   "literature_confidence": "baixa",
+   "literature_note": "derivado da comparação com a literatura registrada; fontes primárias das chaves do Kéri e trabalhos pós-2011 não lidos (res-confirmar-<célula>)",
+   "literature_source": "literature/ da campanha (lit-keri-k7-10-4-ub (PDF 6-21_tables.pdf, Last-Modified 2009-10-15 (diretório e index.htm atualizados até 2011-11-25), 2009-10-15))",
+   "literature_state": "NO_PREDECESSOR_FOUND_IN_REVIEWED_SOURCES",
+   "n": 10,
+   "q": 7,
+   "sha256_canonical": "750cae3ba3ded64eef208548f6e3c8fe0356c0b599ab3f605aac6fd175a78a5e",
+   "sha256_file": "bfa4f489c610aedaa9208736a5bb3cdf5a17b116d4fd83c516835493f4f4f0a7",
+   "size": 5616,
+   "verifier_authors": {
+    "verify-c": "thiagopatzdorf",
+    "verify-cleanroom": "agente-verif-cleanroom",
+    "verify-py-dilation": "agente-c",
+    "verify-rust": "agente-verif-rust"
+   },
+   "verifier_results": {
+    "verify-c": "PASS",
+    "verify-cleanroom": "PASS",
+    "verify-py-dilation": "PASS",
+    "verify-rust": "PASS"
+   },
+   "witness_id": "w-q7-n10-r4-m5616",
+   "witness_path": "data/codes/q7_n10_R4_M5616.txt",
+   "witness_producer": "exp-prov-q7-n10-r4-m5616"
+  },
+  {
    "R": 3,
    "best_recorded_bound": 2337,
    "best_recorded_source": [
@@ -379,8 +587,8 @@
    "claim_id": "k7-8-3-ub-1887",
    "claim_status": "PROVED",
    "classification": "apparent improvement over the currently recorded bound; novelty not yet established",
-   "containing_commit": "1a5fa268dc916fde689e6aa801e591ac3c863b36",
-   "created": "2026-10-04T17:29:02Z",
+   "containing_commit": "38a481ead0f7f03468ea9d7a5a7d0fae98335048",
+   "created": "2026-10-04T20:42:21Z",
    "diff_abs": 450,
    "diff_pct": 19.26,
    "equality_claim_status": null,
@@ -431,8 +639,8 @@
    "claim_id": "k7-8-3-ub-1893",
    "claim_status": "INDEPENDENTLY_REPRODUCED",
    "classification": "apparent improvement over the currently recorded bound; novelty not yet established",
-   "containing_commit": "1a5fa268dc916fde689e6aa801e591ac3c863b36",
-   "created": "2026-10-04T17:29:02Z",
+   "containing_commit": "38a481ead0f7f03468ea9d7a5a7d0fae98335048",
+   "created": "2026-10-04T20:42:21Z",
    "diff_abs": 444,
    "diff_pct": 19.0,
    "equality_claim_status": null,
@@ -481,11 +689,70 @@
     "lit-marosi-2608-19872-v2 (v2, 2026-08-23)",
     "lit-marosi-2608-19872-v3 (v3, 2026-09-02)"
    ],
+   "claim_id": "k7-9-4-ub-1134",
+   "claim_status": "PROVED",
+   "classification": "apparent improvement over the currently recorded bound; novelty not yet established",
+   "containing_commit": "38a481ead0f7f03468ea9d7a5a7d0fae98335048",
+   "created": "2026-10-04T20:42:21Z",
+   "diff_abs": 341,
+   "diff_pct": 23.12,
+   "equality_claim_status": null,
+   "independence_note": "autor do claim: agente-c; verificadores PASS cujo autor não é o do claim: ['agente-verif-cleanroom', 'agente-verif-rust', 'thiagopatzdorf']; verificadores do mesmo autor contam como um só; agentes do mesmo modelo ≠ independência cognitiva total",
+   "independent_authors_passing": [
+    "agente-verif-cleanroom",
+    "agente-verif-rust",
+    "thiagopatzdorf"
+   ],
+   "kernel_evidence": "NONE",
+   "lean": "PROVED_MEASURED: Syn.K7_9_4_le_1134_syn (axiomas ['Classical.choice', 'Quot.sound', 'propext'], sorry_free, build limpo, Lean 4.34.1)",
+   "lean_theorems_declared_only": [],
+   "lean_theorems_external_vm": [],
+   "lean_theorems_measured": [
+    "Syn.K7_9_4_le_1134_syn"
+   ],
+   "literature_confidence": "média",
+   "literature_note": "menor código da célula; risco: ADS q=7 931 (<1134) condicional a componentes normais, não verificado; lacunas do STATE_OF_ART (Scholar, bases pagas, teses, periódico)",
+   "literature_source": "STATE_OF_ART.md (2026-10-02, anterior ao 1134: não achou nada <= 1137) + _literatura/profunda",
+   "literature_state": "NO_PREDECESSOR_FOUND_IN_REVIEWED_SOURCES",
+   "n": 9,
+   "q": 7,
+   "sha256_canonical": "a48e3a42922616b3466a5fafbfaa0e4098a77f675841df3129ac96bbcb8b7b41",
+   "sha256_file": "a48e3a42922616b3466a5fafbfaa0e4098a77f675841df3129ac96bbcb8b7b41",
+   "size": 1134,
+   "verifier_authors": {
+    "verify-c": "thiagopatzdorf",
+    "verify-cleanroom": "agente-verif-cleanroom",
+    "verify-py-dilation": "agente-c",
+    "verify-rust": "agente-verif-rust",
+    "verify-val-balls": "thiagopatzdorf",
+    "verify-val-bfs": "thiagopatzdorf",
+    "verify-val-bruteforce": "thiagopatzdorf"
+   },
+   "verifier_results": {
+    "verify-c": "PASS",
+    "verify-cleanroom": "PASS",
+    "verify-py-dilation": "PASS",
+    "verify-rust": "PASS",
+    "verify-val-balls": "PASS",
+    "verify-val-bfs": "PASS",
+    "verify-val-bruteforce": "PASS"
+   },
+   "witness_id": "w-q7-n9-r4-m1134",
+   "witness_path": "data/codes/q7_n9_R4_M1134.txt",
+   "witness_producer": "exp-prov-q7-n9-r4-m1134"
+  },
+  {
+   "R": 4,
+   "best_recorded_bound": 1475,
+   "best_recorded_source": [
+    "lit-marosi-2608-19872-v2 (v2, 2026-08-23)",
+    "lit-marosi-2608-19872-v3 (v3, 2026-09-02)"
+   ],
    "claim_id": "k7-9-4-ub-1137",
    "claim_status": "PROVED",
    "classification": "apparent improvement over the currently recorded bound; novelty not yet established",
-   "containing_commit": "1a5fa268dc916fde689e6aa801e591ac3c863b36",
-   "created": "2026-10-04T17:29:02Z",
+   "containing_commit": "38a481ead0f7f03468ea9d7a5a7d0fae98335048",
+   "created": "2026-10-04T20:42:21Z",
    "diff_abs": 338,
    "diff_pct": 22.92,
    "equality_claim_status": null,
@@ -503,7 +770,7 @@
     "Syn.K7_9_4_le_1137_syn"
    ],
    "literature_confidence": "média",
-   "literature_note": "risco: ADS q=7 931 (<1137) condicional a componentes normais, não verificado; lacunas do STATE_OF_ART (Scholar, bases pagas, teses, periódico)",
+   "literature_note": "superado pelo nosso 1134; risco: ADS q=7 931 (<1137) condicional a componentes normais, não verificado; lacunas do STATE_OF_ART (Scholar, bases pagas, teses, periódico)",
    "literature_source": "STATE_OF_ART.md (conferido) + _literatura/profunda",
    "literature_state": "NO_PREDECESSOR_FOUND_IN_REVIEWED_SOURCES",
    "n": 9,
@@ -543,8 +810,8 @@
    "claim_id": "k7-9-4-ub-1141",
    "claim_status": "PROVED",
    "classification": "apparent improvement over the currently recorded bound; novelty not yet established",
-   "containing_commit": "1a5fa268dc916fde689e6aa801e591ac3c863b36",
-   "created": "2026-10-04T17:29:02Z",
+   "containing_commit": "38a481ead0f7f03468ea9d7a5a7d0fae98335048",
+   "created": "2026-10-04T20:42:21Z",
    "diff_abs": 334,
    "diff_pct": 22.64,
    "equality_claim_status": null,
@@ -562,7 +829,7 @@
     "Syn.K7_9_4_le_1141_syn"
    ],
    "literature_confidence": "média",
-   "literature_note": "superado pelo nosso 1137; mesmo risco ADS 931 condicional",
+   "literature_note": "superado pelo nosso 1134; mesmo risco ADS 931 condicional",
    "literature_source": "STATE_OF_ART.md (conferido) + _literatura/profunda",
    "literature_state": "NO_PREDECESSOR_FOUND_IN_REVIEWED_SOURCES",
    "n": 9,
@@ -602,8 +869,8 @@
    "claim_id": "k7-9-4-ub-1285",
    "claim_status": "PROVED",
    "classification": "apparent improvement over the currently recorded bound; novelty not yet established",
-   "containing_commit": "1a5fa268dc916fde689e6aa801e591ac3c863b36",
-   "created": "2026-10-04T17:29:02Z",
+   "containing_commit": "38a481ead0f7f03468ea9d7a5a7d0fae98335048",
+   "created": "2026-10-04T20:42:21Z",
    "diff_abs": 190,
    "diff_pct": 12.88,
    "equality_claim_status": null,
@@ -621,7 +888,7 @@
     "Syn.K7_9_4_le_1285_syn"
    ],
    "literature_confidence": "média",
-   "literature_note": "risco: ADS q=7 (931/1225/1344) condicional a componentes normais, não verificado; superado pelo nosso 1137",
+   "literature_note": "risco: ADS q=7 (931/1225/1344) condicional a componentes normais, não verificado; superado pelo nosso 1134",
    "literature_source": "_literatura/profunda",
    "literature_state": "NO_PREDECESSOR_FOUND_IN_REVIEWED_SOURCES",
    "n": 9,
@@ -661,8 +928,8 @@
    "claim_id": "k7-9-4-ub-1351",
    "claim_status": "PROVED",
    "classification": "apparent improvement over the currently recorded bound; novelty not yet established",
-   "containing_commit": "1a5fa268dc916fde689e6aa801e591ac3c863b36",
-   "created": "2026-10-04T17:29:02Z",
+   "containing_commit": "38a481ead0f7f03468ea9d7a5a7d0fae98335048",
+   "created": "2026-10-04T20:42:21Z",
    "diff_abs": 124,
    "diff_pct": 8.41,
    "equality_claim_status": null,
@@ -682,7 +949,7 @@
     "Syn.K7_9_4_le_1351_syn"
    ],
    "literature_confidence": "baixa-média",
-   "literature_note": "superado pelo nosso 1137",
+   "literature_note": "superado pelo nosso 1134",
    "literature_source": "_literatura/profunda",
    "literature_state": "NO_PREDECESSOR_FOUND_IN_REVIEWED_SOURCES",
    "n": 9,

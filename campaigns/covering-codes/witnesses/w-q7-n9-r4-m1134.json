@@ -1,0 +1,27 @@
+{
+  "M": 1134,
+  "R": 4,
+  "canonical_sha256": "a48e3a42922616b3466a5fafbfaa0e4098a77f675841df3129ac96bbcb8b7b41",
+  "canonical_sha256_declared_in_structured": "a48e3a42922616b3466a5fafbfaa0e4098a77f675841df3129ac96bbcb8b7b41",
+  "claim_ids": [],
+  "created": "2026-10-04T20:42:21Z",
+  "created_by": "agente-c",
+  "format": "covering-code/v1 (lista plana, uma palavra por linha)",
+  "implementation": "ILP com simetria imposta (invariância por translação pela reta 10 de C0), HiGHS, candidates/k7_9_4_1134/ilp_sym.py 18 line 10 600",
+  "n": 9,
+  "parameters": {
+    "M": 1134,
+    "R": 4,
+    "n": 9,
+    "q": 7
+  },
+  "path": "data/codes/q7_n9_R4_M1134.txt",
+  "produced_by": "exp-prov-q7-n9-r4-m1134",
+  "q": 7,
+  "sha256": "a48e3a42922616b3466a5fafbfaa0e4098a77f675841df3129ac96bbcb8b7b41",
+  "structured_description": {
+    "path": "data/structured/q7_n9_R4_M1134.json",
+    "sha256": "722b397d5e5818e1b6936413dc1e856bc40d733c126f923dccad13344af22de7"
+  },
+  "witness_id": "w-q7-n9-r4-m1134"
+}
