@@ -305,3 +305,36 @@ def scip(v: int, y: list[int], p: int = 0, tempo: float = 60.0) -> tuple[str, fl
     st = m.getStatus()
     nome = {"infeasible": "UNSAT", "optimal": "SAT", "timelimit": "TEMPO"}.get(st, st.upper())
     return nome, m.getSolvingTime(), m.getNNodes()
+
+
+def opb(v: int, y: list[int], p: int = 0, sb: bool = True) -> str:
+    """O y-SIP em OPB (pseudo-booleano linear) para solvers de planos de corte (RoundingSat).
+
+    Contagens e fibras ficam como restrições lineares nativas (sem contador); a cobertura e o
+    lex-leader entram como cláusulas.
+    """
+    idx = _indice(v)
+    W = palavras(v)
+    linhas: list[str] = []
+
+    def lit(n: int) -> str:
+        return f"x{n}" if n > 0 else f"~x{-n}"
+    for w in W:
+        linhas.append(" ".join(f"+1 {lit(idx[u])}" for u in bola(v, w)) + " >= 1 ;")
+    for j in range(3):
+        for k in range(3):
+            t = " ".join(f"+1 x{idx[w]}" for w in W if w[0] == j and w[1] == k)
+            linhas.append(f"{t} = {y[3 * j + k]} ;")
+    if p > 0:
+        for i in range(2, v):
+            for a in range(3):
+                linhas.append(" ".join(f"+1 x{idx[w]}" for w in W if w[i] == a) + f" >= {p} ;")
+    nv = 3 ** v
+    if sb:
+        nv, cls = lex_leader(v, automorfismos(v, y), nv)
+        for c in cls:
+            linhas.append(" ".join(f"+1 {lit(t)}" for t in c) + " >= 1 ;")
+    neq = sum(1 for ln in linhas if " = " in ln)
+    # cabeçalho completo: o log de prova do RoundingSat exige #equal= e intsize=
+    return (f"* #variable= {nv} #constraint= {len(linhas)} #equal= {neq} intsize= 64\n"
+            + "\n".join(linhas) + "\n")

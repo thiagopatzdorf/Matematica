@@ -64,6 +64,34 @@ def cota_sufixo(y: list[int], p: int, modo: str) -> int:
     return max(p, max(min(linhas), min(colunas)))
 
 
+def resolver_rs(v: int, y: list[int], p: int, tempo: int, pasta: str, prova: bool) -> dict:
+    """RoundingSat (planos de corte): contagens como restrições lineares nativas.
+
+    Com ``prova``, grava o log VeriPB e guarda tamanho (a conferência é do VeriPB, fora daqui).
+    """
+    base = os.path.join(pasta, "rs_" + "_".join(map(str, y)))
+    with open(base + ".opb", "w") as f:
+        f.write(ysip.opb(v, y, p))
+    cmd = [binario("ROUNDINGSAT", "roundingsat"), f"--time-limit={tempo}", base + ".opb"]
+    if prova:
+        cmd.insert(1, f"--proof-log={base}.proof")
+    t0 = time.time()
+    r = subprocess.run(cmd, capture_output=True, text=True)
+    seg = time.time() - t0
+    linhas = r.stdout.splitlines()
+    st = "UNSAT" if "s UNSATISFIABLE" in linhas else "SAT" if "s SATISFIABLE" in linhas else "TEMPO"
+    reg = {"v": v, "y": y, "p": p, "motor": "roundingsat", "status": st, "seg": round(seg, 2)}
+    for ln in linhas:
+        if ln.startswith("c conflicts "):
+            reg["conflitos"] = int(ln.split()[2])
+    for ext in (".opb", ".proof", ".formula"):
+        if os.path.exists(base + ext):
+            if ext == ".proof":
+                reg["prova_bytes"] = os.path.getsize(base + ext)
+            os.remove(base + ext)
+    return reg
+
+
 def resolver_cpsat(v: int, y: list[int], p: int, tempo: int) -> dict:
     st, seg = ysip.cpsat(v, y, p, tempo)
     return {"v": v, "y": y, "p": p, "status": "TEMPO" if st == "DESCONHECIDO" else st,
@@ -112,7 +140,7 @@ def main() -> None:
     ap.add_argument("--semente", type=int, default=1)
     ap.add_argument("--lrat", action="store_true")
     ap.add_argument("--sufixo", choices=["auto", "igual"], default="auto")
-    ap.add_argument("--motor", choices=["cadical", "kissat", "cpsat"], default="cadical")
+    ap.add_argument("--motor", choices=["cadical", "kissat", "cpsat", "roundingsat"], default="cadical")
     ap.add_argument("--procs", type=int, default=1)
     ap.add_argument("--saida", required=True)
     a = ap.parse_args()
@@ -123,6 +151,8 @@ def main() -> None:
             ThreadPoolExecutor(a.procs) as ex:
         def um(y):
             ps = cota_sufixo(y, a.p, a.sufixo)
+            if a.motor == "roundingsat":
+                return resolver_rs(a.v, y, ps, a.tempo, pasta, a.lrat)
             if a.motor == "cpsat":
                 return resolver_cpsat(a.v, y, ps, a.tempo)
             return resolver(a.v, y, ps, a.tempo, a.lrat, pasta, a.motor)
