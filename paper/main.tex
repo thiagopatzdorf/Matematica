@@ -2,7 +2,7 @@
 \usepackage{amsmath,amssymb,amsthm}
 \usepackage{booktabs}
 \usepackage[hidelinks]{hyperref}
-\hypersetup{pdftitle={Covering codes checked by the Lean kernel: K7(9,4) <= 1134, ten more upper bounds, and K2(6,1) = 12},pdfauthor={Thiago Patzdorf}}
+\hypersetup{pdftitle={Covering codes checked by the Lean kernel: K7(9,4) <= 1134, ten more upper bounds, K2(6,1) = 12, and K7(4,2) = 19 by certified SAT},pdfauthor={Thiago Patzdorf}}
 \pdfstringdefDisableCommands{\def\\{ }\def\le{<=}}
 \usepackage[margin=1in]{geometry}
 
@@ -13,19 +13,20 @@
 \theoremstyle{remark}
 \newtheorem*{remark}{Remark}
 
-\title[Covering codes checked by the Lean kernel]{Covering codes checked by the Lean kernel:\\ $K_7(9,4)\le 1134$, ten more upper bounds, and $K_2(6,1)=12$}
+\title[Covering codes checked by the Lean kernel]{Covering codes checked by the Lean kernel:\\ $K_7(9,4)\le 1134$, ten more upper bounds, $K_2(6,1)=12$,\\ and $K_7(4,2)=19$ by certified SAT}
 \author{Thiago Patzdorf}
 \address{Universidade de Caxias do Sul, Brazil}
 \email{thiagosleman@gmail.com}
-\date{3 October 2026}
+\date{4 October 2026}
 
 \begin{document}
 \begin{abstract}
 We prove in Lean~4, against Mathlib~v4.34.1 and checked by the kernel with no \texttt{sorry} and no \texttt{native\_decide}, upper bounds on the covering number $K_q(n,R)$ for eleven cells, each by an explicit code smaller than the corresponding entry in the tables we consulted.
-The largest improvement is $K_7(9,4)\le 1134$, against a best published bound of $1475$; three more cells unchanged in the tables since 2011 come down to $K_7(10,4)\le 5616$ (from $6517$), $K_5(11,4)\le 2875$ (from $3125$) and $K_5(10,5)\le 162$ (from $175$); the others are $K_7(8,3)\le 1887$, $K_5(10,4)\le 625$, $K_5(9,3)\le 1250$, $K_5(7,2)\le 500$, $K_5(9,4)\le 250$, $K_4(10,4)\le 192$ and $K_5(9,5)\le 50$.
+The largest improvement is $K_7(9,4)\le 1134$, against a best published bound of $1475$; three more cells unchanged in the tables since 2011 come down to $K_7(10,4)\le 5607$ (from $6517$), $K_5(11,4)\le 2875$ (from $3125$) and $K_5(10,5)\le 162$ (from $175$); the others are $K_7(8,3)\le 1887$, $K_5(10,4)\le 625$, $K_5(9,3)\le 1250$, $K_5(7,2)\le 500$, $K_5(9,4)\le 250$, $K_4(10,4)\le 192$ and $K_5(9,5)\le 50$.
 The codes are unions of cosets of a linear code plus a small patch, and we give two certificates: one walks digit prefixes and costs $12$ CPU-hours for $(\mathbb{Z}/7\mathbb{Z})^9$; the other works on syndromes and costs minutes (the $5616$-word code: $11$ minutes on four cores).
 The base of the $K_7(9,4)$ code was chosen from an enumeration of all $6362$ equivalence classes of non-degenerate $[9,3]_7$ codes.
 We also prove $K_2(6,1)\ge 11$ by a short double-counting argument and the classical value $K_2(6,1)=12$ by a search whose soundness is a theorem.
+Finally we determine $K_7(4,2)=19$ (previously $17\le K_7(4,2)\le 19$): the upper bound and the reduction lemmas are kernel-checked, and the non-existence of an $18$-word code is a SAT computation over $70$ profile instances, refuted with LRAT proofs checked by two independent checkers and confirmed by a second, independent encoding; one of the $70$ refutations is already checked in the kernel.
 \end{abstract}
 \maketitle
 
@@ -38,7 +39,7 @@ Checking the claim is a finite computation, but for $q^n$ in the tens of million
 Florath~\cite{florath2026} built a Lean library of covering-code bounds whose derivations are replayed by the kernel; it formalizes the sphere-covering bound and records many cells.
 This note adds certificates that the kernel checks for eleven cells where the codes are new, a certificate that scales by working on syndromes, and a formal determination of a small classical value.
 
-The proofs use Lean~4~\cite{lean4} and Mathlib~\cite{mathlib}. The source is \url{https://github.com/thiagopatzdorf/Matematica}, tag \texttt{v0.\allowbreak 6.\allowbreak 0}.
+The proofs use Lean~4~\cite{lean4} and Mathlib~\cite{mathlib}. The source is \url{https://github.com/thiagopatzdorf/Matematica}, tag \texttt{v0.\allowbreak 7.\allowbreak 0}.
 A statement below is a claim only when it is the name of a declaration in that tree.
 The default target \texttt{CoveringLean} builds in seconds; the prefix certificates form the target \texttt{CoveringHeavy} and the syndrome certificates the target \texttt{CoveringSyn}.
 
@@ -129,6 +130,21 @@ A translation argument lets one assume the word $63$ is in the code.
 The search from that root is cut at depth $2$ into $38$ states, each refuted by \texttt{decide +kernel} in its own file.
 The Lean database of Florath~\cite{florath2026} records $10\le K_2(6,1)\le 12$ at this cell.
 
+\section{An exact value by certified SAT: $K_7(4,2)=19$}\label{sec:k742}
+Kéri's tables give $17\le K_7(4,2)\le 19$.
+The upper bound is the partition construction (the word $0000$ together with an MDS $[4,2,3]_3$ code on each of the alphabets $\{1,2,3\}$ and $\{4,5,6\}$); in Lean it is \texttt{K742.\allowbreak K\_\allowbreak 7\_\allowbreak 4\_\allowbreak 2\_\allowbreak le\_\allowbreak 19}, decided by the kernel over the $2401$ words.
+For the lower bound, two words of $\mathbb{Z}_7^4$ are at distance at most $2$ exactly when they agree in at least two coordinates.
+A counting argument on a box of shortened words (Lemma~0) gives $K_6(3,1)\ge 18$ and $K_7(3,1)\ge 21$; with it, a fibre $\{c\in C: c_j=a\}$ of a code of radius $2$ with at most $18$ words has at least $2$ words (Lemma~1, \texttt{K742.\allowbreak fiber\_\allowbreak card\_\allowbreak ge\_\allowbreak two}).
+The multiset of fibre sizes per coordinate, up to permuting coordinates, is one of $70$ \emph{profiles} for $M=18$ (\texttt{profiles18\_\allowbreak card}), and each profile gives a CNF that is satisfiable whenever a code of that profile exists.
+Following the method Florath used for $K_8(4,2)=23$~\cite{florath2026}, we refuted all $70$ CNFs with CaDiCaL and LRAT proofs ($3.0$\,GB in total), each checked by \texttt{lrat-check} and by an independent checker; the $15$ profiles of $M=17$ are refuted the same way.
+An independent encoding (one variable per word, coverage by radius-$2$ balls, a totalizer for the cardinality and only lexicographic symmetry breaking) refutes again all $15$ profiles of $M=17$ and all $70$ of $M=18$, with another solver; an adversarial review checked the lemmas, the list of profiles and the symmetry breaking, including by verifying that $1200$ randomly relabelled codes satisfy the CNF of their profile and that four deliberately wrong symmetry-breaking constraints are caught.
+Together this gives $K_7(4,2)=19$.
+
+\begin{remark}
+In Lean the upper bound, Lemmas~0 and~1, the profile reduction, an LRAT checker with a soundness proof (\texttt{LratK}) and one of the $70$ refutations (profile $64$, \texttt{K742Sat.\allowbreak refut18\_\allowbreak p64}) are kernel-checked, and \texttt{K742.\allowbreak K\_\allowbreak 7\_\allowbreak 4\_\allowbreak 2\_\allowbreak eq\_\allowbreak 19\_\allowbreak of} proves the equality from two named hypotheses: the bridge from a code to its CNF and the remaining refutations.
+Discharging both is work in progress; until then the lower bound is a certified computation, not a theorem of this note.
+\end{remark}
+
 \section{The sphere-covering bound}
 The library also proves the sphere-covering bound $q^n\le |C|\cdot V$ (\texttt{CoveringA2.\allowbreak sphere\_\allowbreak covering}), its strict form when $V\nmid q^n$, and eight numerical instances \texttt{CoveringChain.\allowbreak SPH\_\allowbreak K*\_\allowbreak lb}, among them $K_7(9,4)\ge 221$.
 This was the content of version~0.2 of this note.
@@ -146,7 +162,7 @@ For $q=4$ our literature search was weaker than for $q\ge 5$, and $K_5(10,4)\le 
 cell & ours & previous & source & certificate \\
 \midrule
 $K_7(9,4)$ & 1134 & 1475 & Marosi & syndromes (also 1137, 1141, 1285; 1351 by prefixes) \\
-$K_7(10,4)$ & 5616 & 6517 & Kéri & syndromes \\
+$K_7(10,4)$ & 5607 & 6517 & Kéri & syndromes (also 5616) \\
 $K_5(11,4)$ & 2875 & 3125 & Kéri & syndromes \\
 $K_5(10,5)$ & 162 & 175 & Kéri & syndromes \\
 $K_7(8,3)$ & 1887 & 2337 & Kéri & syndromes (1893 by prefixes) \\
@@ -162,9 +178,9 @@ $K_5(9,5)$ & 50 & 55 & Kéri & prefixes \\
 \label{tab:other}
 \end{table}
 
-The three new cells of Table~\ref{tab:other} (\texttt{Syn.\allowbreak K7\_\allowbreak 10\_\allowbreak 4\_\allowbreak le\_\allowbreak 5616\_\allowbreak syn}, \texttt{Syn.\allowbreak K5\_\allowbreak 11\_\allowbreak 4\_\allowbreak le\_\allowbreak 2875\_\allowbreak syn}, \texttt{Syn.\allowbreak K5\_\allowbreak 10\_\allowbreak 5\_\allowbreak le\_\allowbreak 162\_\allowbreak syn}) have stood in Kéri's tables since at least 2004; Kéri's 2011 update and the captures we compared leave them unchanged, and we found no later publication of a smaller code (Section~\ref{sec:lit}).
+The three new cells of Table~\ref{tab:other} (\texttt{Syn.\allowbreak K7\_\allowbreak 10\_\allowbreak 4\_\allowbreak le\_\allowbreak 5607\_\allowbreak syn}, \texttt{Syn.\allowbreak K5\_\allowbreak 11\_\allowbreak 4\_\allowbreak le\_\allowbreak 2875\_\allowbreak syn}, \texttt{Syn.\allowbreak K5\_\allowbreak 10\_\allowbreak 5\_\allowbreak le\_\allowbreak 162\_\allowbreak syn}) have stood in Kéri's tables since at least 2004; Kéri's 2011 update and the captures we compared leave them unchanged, and we found no later publication of a smaller code (Section~\ref{sec:lit}).
 The best lower bounds we know are $1007$, $546$~\cite{gp2025} and $41$.
-Their canonical SHA-256 begin \texttt{750cae3b}, \texttt{2a700e2f} and \texttt{74176af6}.
+Their canonical SHA-256 begin \texttt{7670a7bd}, \texttt{2a700e2f} and \texttt{74176af6}.
 
 \section{How the codes were found}
 The first codes came from the generator \texttt{lincov} of Marosi's public repository \texttt{Mapika/coldcase}~\cite{marosi2026} followed by greedy patching.
@@ -174,7 +190,7 @@ The best, $6$ orphans against $27$ for the original base, gives the $1141$-word 
 A ball of radius $4$ contains at most $24$ of the $2058$ residual points, so this base needs at least $\lceil 2058/24\rceil = 86$ patch words; we use $108$, and the gap is open.
 An exact computation of the minimum over all $6362$ classes, and over the $1375$ classes of degenerate $[9,3]_7$ codes, is under audit and is not a claim of this note.
 For the $1134$-word code we restricted the patch to be invariant under translation along a line of $C_0$ (orbits of $7$ words); an integer program whose variables are orbits of candidate patch words, solved to optimality by HiGHS for the two best lines ($3.4$ and $3.6$ hours), shows that $105$ words ($15$ orbits) is the minimum under that symmetry, so going lower needs a less symmetric patch or another base.
-The three new cells use the same scheme: $K_7(10,4)\le 5616$ is $16$ cosets of a $[10,3]_7$ code ($5488$ words, $3$ orphan syndromes, $1029$ points) plus $128$ words; $K_5(11,4)\le 2875$ is $23$ cosets of an $[11,3]_5$ code with no patch; $K_5(10,5)\le 162$ is one $[10,3]_5$ code ($125$ words, $8$ orphan syndromes, $1000$ points) plus $37$ words, where a linear-programming bound shows that this base needs at least $22$ patch words.
+The three new cells use the same scheme: $K_7(10,4)\le 5616$ is $16$ cosets of a $[10,3]_7$ code ($5488$ words, $3$ orphan syndromes, $1029$ points) plus $128$ words, and the $5607$-word code keeps the base with a patch of $119$ words, found by a randomized greedy for unicost set cover over the $1029$ residual points; $K_5(11,4)\le 2875$ is $23$ cosets of an $[11,3]_5$ code with no patch; $K_5(10,5)\le 162$ is one $[10,3]_5$ code ($125$ words, $8$ orphan syndromes, $1000$ points) plus $37$ words, where a linear-programming bound shows that this base needs at least $22$ patch words.
 For $K_7(8,3)$ the base of the $1893$-word code is five cosets of an $[8,3]_7$ code ($1715$ words) with two orphan syndromes ($686$ points); reoptimizing the patch gives $172$ words, which is optimal for that base, since no ball of radius $3$ contains more than four of the $686$ points and $\lceil 686/4\rceil=172$.
 Every candidate was checked by programs independent of the one that found it before being certified in Lean; the codes, a structured description of each (base, cosets, patch, provenance) and an official checker are in the repository.
 
@@ -185,17 +201,19 @@ On 2 October 2026, on a virtual machine of type \texttt{e2-highmem-8}, Lean~4.34
 \texttt{lake build CoveringSyn} (the four syndrome certificates) finished: $8983$ jobs in $10$\,min\,$35$\,s on 8 cores ($37$ CPU-minutes for all four), peak $6.9$\,GB per process.
 The fifth syndrome certificate, \texttt{CoveringLean.\allowbreak Syn\_\allowbreak K1137} ($K_7(9,4)\le 1137$), built in $2$\,min\,$41$\,s on 8 cores ($331$ CPU-seconds), peak $6.7$\,GB.
 On 3 October 2026, in a container with 4 cores and 15\,GB, the four certificates of version~0.6 built from scratch (their own modules; Mathlib, \texttt{SynCheck} and \texttt{SynBridge} from cache): \texttt{Syn\_\allowbreak K1134} in $105$\,s, \texttt{Syn\_\allowbreak K162} in $101$\,s, \texttt{Syn\_\allowbreak K2875} in $364$\,s and \texttt{Syn\_\allowbreak K5616} in $654$\,s of wall-clock time.
+On 4 October 2026, in the same container, \texttt{Syn\_\allowbreak K5607} built in 1261\,s of wall-clock time.
 For each of the four, three kinds of mutation were built and rejected by Lean: replacing one codeword, removing one codeword (both for the cardinality and for the coverage check), and corrupting one witness in the coverage table.
 \texttt{\#print axioms} on Theorems~\ref{thm:k794}, \ref{thm:ge11}, \ref{thm:eq12} and on every declaration of Table~\ref{tab:other} reports \texttt{propext}, \texttt{Classical.\allowbreak choice} and \texttt{Quot.\allowbreak sound} only.
 
 \section{Literature search}\label{sec:lit}
 For version~0.6 we collected, with a reproducible script, the works citing Kéri's tables, the book~\cite{cohen1997} and the main papers on $q$-ary covering codes, through OpenAlex, zbMATH Open, Crossref, OpenCitations and arXiv, down to two levels of citations ($2103$ works, $582$ open-access PDFs read in full), together with Kéri's tables and their archived copies.
-No source we read gives a code smaller than ours in any of the four cells.
+No source we read gives a code smaller than ours in any of the four cells, nor a value of $K_7(4,2)$.
 Papers behind a paywall were read only through abstracts and reviews, and a full-text index does not find numbers inside tables, so this is a search, not a proof of novelty.
 
 \section{What is not a theorem}
 Novelty is a reading of the literature, not a checked fact.
 The search programs are not verified; only their output is.
+For $K_7(4,2)\ge 19$ the SAT encodings and the reduction to profiles are checked by the reviews and tests described in Section~\ref{sec:k742}, not yet by the kernel.
 That the formal statements say what is intended is a human review: the reader should check the statements of Theorems~\ref{thm:k794}, \ref{thm:ge11}, \ref{thm:eq12} and the definitions of \texttt{Covers} and \texttt{IsK}.
 Two files in the tree, \texttt{A5b\_\allowbreak Stress.\allowbreak lean} and \texttt{A6d\_\allowbreak SearchHeavy.\allowbreak lean}, are not imported and are not claimed.
 
