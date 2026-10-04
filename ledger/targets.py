@@ -68,6 +68,9 @@ def ranquear(cells: list[dict], max_espaco: float = 1e9, incluir_fechadas: bool 
     out = []
     for c in cells:
         lb = c["published"]["lb"]["value"] if c["published"]["lb"] else None
+        cert_lb = (c.get("certification") or {}).get("lb")
+        if cert_lb:  # inclui as nossas inferiores (K7(4,2) = 19 sai da lista de alvos)
+            lb = max(lb or 0, cert_lb["value"])
         ub = melhor_ub(c)
         if lb is None or ub is None or lb <= 0:
             continue

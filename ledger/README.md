@@ -13,6 +13,8 @@ loop de recordes (`scripts/loop/record_loop.py`) lê e escreve, e a fonte da pá
 | `sources.json` | fontes publicadas, fixadas por commit | à mão, ao reler a literatura |
 | `runs.jsonl` | toda tentativa do loop, inclusive as que falharam | `record_loop.py` |
 | `build.py` | gera `cells.json` | |
+| `cobertura.py` | gera `COBERTURA.md`: quantas cotas em cada estado de certificação, por q | |
+| `COBERTURA.md` | o relatório de cobertura | `cobertura.py` (não edite à mão) |
 | `targets.py` | ranqueia células-alvo para busca | |
 
 ## Fontes (lidas em 2026-10-02)
@@ -59,6 +61,39 @@ auditada. Uma célula "que ninguém atacou desde 2011" quer dizer: ninguém ness
 melhor cota superior conhecida contando a nossa. `ours_lean.tag` é a tag git em que o teorema saiu;
 `tag: null` com `tag_pendente` quer dizer provado mas ainda não etiquetado.
 
+## Certificação: estado e proveniência de cada cota
+
+A machine-checked ledger of covering-code upper bounds, with formally certified exact entries.
+(Não diga que a tabela inteira foi verificada formalmente: as cotas inferiores são, quase todas,
+herdadas da literatura.)
+
+Cada célula ganha `certification = {"ub": {...}, "lb": {...}, "exact": bool}`, calculado pelo
+`build.py` (nunca à mão). Cada lado tem `value`, `state` e `provenance`. A escada é cumulativa:
+
+| estado | o que exige |
+|---|---|
+| `CLAIMED` | a cota está numa fonte publicada de versão congelada; nada foi conferido aqui |
+| `WITNESS_CHECKED` | o certificado foi conferido por um verificador exato fora do Lean: código explícito no `tools/verify`, ou refutação LRAT de inexistência |
+| `FORMALIZED` | há teorema do Lean, checado pelo kernel, com exatamente esta cota e sem hipótese pendente |
+| `INDEPENDENTLY_REPRODUCED` | formalizada **e** conferida por um segundo verificador independente, executado (hoje: o código de `data/codes/` passa no `tools/verify` em C, além do kernel) |
+
+`provenance` traz sempre os seis campos `fonte` (fonte original: chave do Kéri, arquivo do Marosi,
+regra do Florath, ou `nosso`), `versao` (chave de `meta.versoes`, que guarda repo, commit, arquivo,
+data de leitura e sha256 da tabela; ou tag/data, para resultado nosso), `witness`, `sha256`,
+`verificador_independente` e `lean` (declaração e tag). Campo vazio leva `lacuna`. Uma prova Lean de
+terceiros com o mesmo valor (Florath) vai em `formalizacao_externa`, mas **não sobe o estado**: não
+foi reconstruída aqui.
+
+Cota inferior nossa entra em `ours.json` como `"lb": {value, estado, witness, sha256,
+verificador_independente, lean, ...}`. O build aborta se o registro chamar de `FORMALIZED` um
+teorema com `lean.condicional`, se a inferior ficar abaixo da publicada ou acima da superior.
+
+**K_7(4,2) = 19** (v0.7): superior `FORMALIZED` (`K742.K_7_4_2_le_19`, código da partição no Lean);
+inferior `WITNESS_CHECKED` (70 refutações LRAT conferidas por dois verificadores, mais uma
+codificação independente). No Lean há só o teorema condicional `K742.K_7_4_2_eq_19_of`, que depende
+de `Ponte18` e `Refut18` (`docs/exatos/LEAN_K742.md`); quando a prova incondicional entrar, o
+registro sobe para `FORMALIZED`.
+
 ## Nosso estado em 2026-10-03
 
 | célula | publicado (superior) | Lean | computacional |
@@ -75,6 +110,7 @@ melhor cota superior conhecida contando a nossa. `ours_lean.tag` é a tag git em
 | K4(10,4) | 208 (Kéri) | ≤ 192, `CoveringKernel.K4_10_4_le_192_kernel` | |
 | K5(9,5) | 55 (Kéri) | ≤ 50, `CoveringKernel.K5_9_5_le_50_kernel` | |
 | K2(6,1) | 12 (Kéri, exata) | = 12, `SC.K_2_6_1_eq12`, v0.3.0 | |
+| K7(4,2) | 19 (Kéri, 17–19) | ≤ 19, `K742.K_7_4_2_le_19`, v0.7.0; ≥ 19 só condicional (ver acima) | ≥ 19 por LRAT |
 
 Os sete teoremas sem tag entram na v0.4.0. Os 10 arquivos de `data/codes/` passam no verificador
 padrão (`scripts/loop/verify_cover.py`; K7(9,4) leva ~15 s, o resto < 3 s).
@@ -99,6 +135,7 @@ códigos de 1285 e 1887 foram resgatados da factory-01 na mesma situação, e os
 ```bash
 python3 ledger/build.py                 # baixa as fontes nos commits fixos (cache em ledger/.cache/)
 python3 ledger/build.py --fonte DIR     # sem rede: DIR/coldcase/... e DIR/florath/...
+python3 ledger/cobertura.py             # depois do build: reescreve COBERTURA.md
 python3 ledger/targets.py --top 15      # células-alvo
 python3 scripts/loop/record_loop.py --celula "K2(4,1)"             # seco (padrão)
 python3 scripts/loop/record_loop.py --celula "K2(4,1)" --executar  # gera, verifica, registra, prepara certs/

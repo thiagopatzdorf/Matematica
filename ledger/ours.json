@@ -1,6 +1,6 @@
 {
   "descricao": "Estado NOSSO por célula K_q(n,R). Fonte de verdade escrita à mão (ou pelo scripts/loop/record_loop.py); build.py mescla isto com as cotas publicadas e gera cells.json. Ver README.md.",
-  "atualizado": "2026-10-03",
+  "atualizado": "2026-10-04",
   "cells": {
     "7,9,4": {
       "ours_computational": null,
@@ -133,6 +133,38 @@
         "file": "data/codes/q7_n10_R4_M5607.txt",
         "sha256": "68a6eaed470edc803d8d41b5afd2534053fe13a5305f2caa48b4c005b200c1ec",
         "provenance": "P-5607"
+      }
+    },
+    "7,4,2": {
+      "ours_computational": null,
+      "ours_lean": {
+        "M": 19,
+        "declaration": "K742.K_7_4_2_le_19",
+        "tag": "v0.7.0",
+        "file": null,
+        "sha256": null,
+        "provenance": null,
+        "witness_lean": "CoveringLean/K742_Upper.lean",
+        "witness_sha256": "860f5bbeb7a4331fbaaf0d1f6c3f5932f26ce7becc0e60bd0ab90f9ea01214e4"
+      },
+      "lb": {
+        "value": 19,
+        "estado": "WITNESS_CHECKED",
+        "data": "2026-10-04",
+        "docs": "docs/exatos/FASE1_B_K742.md",
+        "witness": "tools/exatos/k742/certificados/K7_4_2_M18.jsonl",
+        "sha256": "11c05eb6d64611019c93d35ef58ef78b0e66a26a789a08a0679c1bc3f2e8d7b9",
+        "verificador_independente": "70/70 refutações LRAT conferidas por lrat-check (drat-trim 2e3b2dc) e por tools/exatos/k742/lrat.py; reprodução bit a bit em docs/exatos/REDTEAM_K742.md",
+        "lean": {
+          "declaration": "K742.K_7_4_2_eq_19_of",
+          "tag": "v0.7.0",
+          "condicional": [
+            "Ponte18 (redução código → perfil canônico; não formalizada)",
+            "Refut18 (70 CNFs de M = 18; só o perfil 64 no kernel, K742Sat.refut18_p64)"
+          ]
+        },
+        "formalizacao_parcial": "docs/exatos/LEAN_K742.md: Lemas 0 e 1, redução a perfis e verificador LRAT são teoremas; K = 19 é teorema só condicionado a Ponte18 e Refut18",
+        "reproducao_independente": "codificação independente (tools/exatos/k742/redteam/indep.py): 70/70 perfis UNSAT, sem LRAT (segunda opinião, não certificado)"
       }
     }
   }
