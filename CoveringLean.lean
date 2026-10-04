@@ -24,3 +24,4 @@ import CoveringLean.K742_Final
 import CoveringLean.LratK
 import CoveringLean.LratKData
 import CoveringLean.LratK_K4
+import CoveringLean.Regras
