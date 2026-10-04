@@ -155,6 +155,8 @@ def main():
     ap.add_argument("--dificeis-primeiro", action="store_true",
                     help="começa pelos perfis de tipos mais equilibrados (maior simetria residual), "
                          "que são os lentos: evita a cauda no fim")
+    ap.add_argument("--faceis-primeiro", action="store_true",
+                    help="o contrário de --dificeis-primeiro (para duas VMs se encontrarem no meio)")
     ap.add_argument("--cubos-sel", default="", help="subconjunto dos cubos (ex.: 0-99)")
     a = ap.parse_args()
     k = a.k or a.n
@@ -167,6 +169,8 @@ def main():
         idxs = [i for i in idxs if i % m_ == r_]
     if a.dificeis_primeiro:
         idxs.sort(key=lambda i: -sum(enc.simetria_residual(t) for t in ins[i]))
+    elif a.faceis_primeiro:
+        idxs.sort(key=lambda i: sum(enc.simetria_residual(t) for t in ins[i]))
     suf = ("_omax" if a.ordem == "max" else "") + (f"_L{a.cubos}" if a.cubos else "") + (f"_sem{a.sem}" if a.sem else "")
     log = os.path.join(a.dir, f"K{a.q}_{a.n}_{a.n-2}_M{a.M}_k{k}_s{smin}{suf}.jsonl")
     feitos = set()
