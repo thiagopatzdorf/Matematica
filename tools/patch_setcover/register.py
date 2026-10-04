@@ -2,12 +2,12 @@
 """register.py -- registra um código base + remendo novo no formato do repo.
 
 Uso: register.py data/structured/<código de origem>.json remendo.txt "<comando>" "<notas>"
-Escreve data/codes/<novo>.txt, data/structured/<novo>.json (mesma base linear, patch_words
-novas, canonical_sha256) e, se existir data/attack/<origem>.json, data/attack/<novo>.json.
+Escreve data/codes/<novo>.txt (base na ordem do código de origem + remendo) e, se existir
+data/attack/<origem>.json, data/attack/<novo>.json. O JSON de data/structured NÃO é escrito
+aqui: ele é gerado por scripts/codes/build_structured.py (acrescente a proveniência lá e rode;
+o teste test_code_format exige que o JSON versionado seja exatamente o gerado).
 NÃO verifica: rode tools/verify/verify e scripts/attack/verify_bfs no .txt antes de commitar.
 """
-import copy
-import datetime
 import hashlib
 import json
 import os
@@ -26,15 +26,7 @@ words = base + new
 M = len(words)
 nn = f"q{old['q']}_n{old['n']}_R{old['R']}_M{M}"
 open(os.path.join(root, "data", "codes", nn + ".txt"), "w").write("\n".join(words) + "\n")
-d = copy.deepcopy(old)
-d["M"] = M
-d["patch_words"] = new
-d["canonical_sha256"] = hashlib.sha256(("\n".join(sorted(words)) + "\n").encode()).hexdigest()
-d["provenance"] = {"generator": "tools/patch_setcover (patch_inst + rwls): mesma base de " + name + ", remendo novo",
-                   "commit": None, "seed": None, "command": cmd, "date": datetime.date.today().isoformat(),
-                   "agent": "James.V1", "repo_commit": None, "notes": notes}
-json.dump(d, open(os.path.join(root, "data", "structured", nn + ".json"), "w"), ensure_ascii=False, indent=1)
-open(os.path.join(root, "data", "structured", nn + ".json"), "a").write("\n")
+sha = hashlib.sha256(("\n".join(sorted(words)) + "\n").encode()).hexdigest()
 ap = os.path.join(root, "data", "attack", name + ".json")
 if os.path.exists(ap):
     a = json.load(open(ap))
@@ -46,4 +38,5 @@ if os.path.exists(ap):
     a["verificacao"] = notes
     json.dump(a, open(os.path.join(root, "data", "attack", nn + ".json"), "w"), ensure_ascii=False, indent=1)
     open(os.path.join(root, "data", "attack", nn + ".json"), "a").write("\n")
-print(nn, M, d["canonical_sha256"])
+print(nn, M, sha)
+print("falta: proveniência em scripts/codes/build_structured.py e regenerar data/structured/" + nn + ".json")
