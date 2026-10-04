@@ -38,7 +38,7 @@
 #include <string.h>
 #include <time.h>
 
-#define MAXPAL 24
+#define MAXPAL 40
 typedef uint16_t word_t; /* índice de palavra: NP <= 65536 */
 
 static int Q, N, R, M;
@@ -220,8 +220,10 @@ static int cortado(int depth, long c) {
     return 0;
 }
 
+static long long limite_nos = 0; static int abortado = 0;
 static int dfs(int l, int depth) {
     nodes++; nodes_depth[depth]++;
+    if (limite_nos && nodes > limite_nos) { abortado = 1; return 1; }
     const uint64_t *U = Ust + depth * W;
     long nu = popc(U);
     if (nu == 0) { if (contar_todos) { if (l == 0) nsol++; return 0; } solsize = depth + 1; return 1; }
@@ -381,13 +383,14 @@ int main(int argc, char **argv) {
         else if (!strcmp(argv[i], "--parte")) { sscanf(argv[++i], "%d/%d", &pi, &pP); }
         else if (!strcmp(argv[i], "--estimar")) estimar = atoi(argv[++i]);
         else if (!strcmp(argv[i], "--corte")) { cut_max = atoi(argv[++i]); cut_on = cut_max > 0; }
+        else if (!strcmp(argv[i], "--limite-nos")) limite_nos = atoll(argv[++i]);
         else if (!strcmp(argv[i], "--sem-dual")) usar_dual = 0;
         else if (!strcmp(argv[i], "--metodo-ganho")) metodo_ganho = atoi(argv[++i]);
         else if (!strcmp(argv[i], "--ordem")) { ordem_inv = !strcmp(argv[++i], "inv"); }
         else if (!strcmp(argv[i], "--semente")) krs ^= (uint64_t)atoll(argv[++i]) * 0x2545F4914F6CDD1DULL;
         else { fprintf(stderr, "opção desconhecida %s\n", argv[i]); return 2; }
     }
-    if (M > MAXPAL || M + N * Q + N > MAXN) { fprintf(stderr, "instância grande demais para o grafo (M+NQ+N <= %d)\n", MAXN); return 2; }
+    if (M > MAXPAL || M + N * Q + N > MAXN) { fprintf(stderr, "instância grande demais (M <= %d e M+NQ+N <= %d)\n", MAXPAL, MAXN); return 2; }
     setup();
     Ust = malloc((MAXPAL + 2) * W * 8); forb = calloc(W, 8); cntv = malloc(sizeof(int) * NP); gbuf = malloc(sizeof(int) * NP);
     double t0 = now();
@@ -473,13 +476,13 @@ int main(int argc, char **argv) {
         long long n0 = nodes; cur_rep = r;
         found = run_bottom(reps + r * D, D);
         done++;
-        if (cf) { fprintf(cf, "%ld", r); for (int t = 0; t < D; t++) fprintf(cf, " %u", reps[r * D + t]); fprintf(cf, " nos=%lld %s\n", nodes - n0, found ? "EXISTE" : "vazio"); fflush(cf); }
+        if (cf) { fprintf(cf, "%ld", r); for (int t = 0; t < D; t++) fprintf(cf, " %u", reps[r * D + t]); fprintf(cf, " nos=%lld %s\n", nodes - n0, abortado ? "LIMITE" : (found ? "EXISTE" : "vazio")); fflush(cf); }
     }
     tot_nodes = nodes;
     double el = now() - t0;
-    printf("K%d(%d,%d) M=%d: %s parte=%d/%d reps_feitos=%ld nos_fundo=%lld cortes=%lld canon=%lld tempo=%.2fs\n", Q, N, R, M, found ? "EXISTE" : "NAO_EXISTE", pi, pP, done, tot_nodes, ncut, ncanon, el);
+    printf("K%d(%d,%d) M=%d: %s parte=%d/%d", Q, N, R, M, abortado ? "LIMITE" : (found ? "EXISTE" : "NAO_EXISTE"), pi, pP); printf(" reps_feitos=%ld nos_fundo=%lld cortes=%lld canon=%lld tempo=%.2fs\n", done, tot_nodes, ncut, ncanon, el);
     printf("nos_por_profundidade:"); for (int d = 0; d <= M; d++) printf(" %lld", nodes_depth[d]); printf("\n");
-    if (cf) { fprintf(cf, "FIM %s reps_feitos=%ld nos=%lld tempo=%.2f\n", found ? "EXISTE" : "NAO_EXISTE", done, tot_nodes, el); fclose(cf); }
-    if (found) for (int i = 0; i < solsize; i++) { print_word(stdout, sol[i]); printf("\n"); }
-    return found ? 10 : 0;
+    if (cf) { fprintf(cf, "FIM %s reps_feitos=%ld nos=%lld tempo=%.2f\n", abortado ? "LIMITE" : (found ? "EXISTE" : "NAO_EXISTE"), done, tot_nodes, el); fclose(cf); }
+    if (found && !abortado) for (int i = 0; i < solsize; i++) { print_word(stdout, sol[i]); printf("\n"); }
+    return abortado ? 3 : (found ? 10 : 0);
 }
