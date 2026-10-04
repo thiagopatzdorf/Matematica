@@ -1,4 +1,4 @@
-# Revisão de literatura: K_7(9,4) (fontes lidas; não é afirmação de recorde)
+# Estado da arte: K_7(9,4) (revisão de literatura; fontes lidas; não é afirmação de recorde)
 
 Revisão bibliográfica feita em 2026-10-02; a revisão em si não publicou nada e não gastou nada. (A v0.5 do paper foi depositada no Zenodo, DOI 10.5281/zenodo.23105088, independentemente desta revisão.)
 
