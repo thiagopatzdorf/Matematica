@@ -1,0 +1,88 @@
+{
+  "formato": "cartao-problema/v1",
+  "id": "cobertura-k7-4-2-exato",
+  "titulo": "K_7(4,2): valor exato",
+  "dominio": "codigos-de-cobertura",
+  "tipo": "valor_exato",
+  "enunciado": "Determinar o menor número de palavras de um código C ⊆ Z_7^4 tal que toda palavra de Z_7^4 está a distância de Hamming ≤ 2 de C. Fechar o valor exato exige uma cota superior (código) e uma inferior (inexistência de código menor).",
+  "enunciado_formal": null,
+  "estado": "verificado",
+  "melhor_conhecido": {
+    "valor": null,
+    "fonte": "keri_2011",
+    "ref": "Kéri 2011 (tabelas, http://old.sztaki.hu/~keri/codes/)",
+    "intervalo": {
+      "lb": 17,
+      "ub": 19
+    }
+  },
+  "nosso": {
+    "valor": 19,
+    "estado": "lrat",
+    "prova": "docs/exatos/FASE1_B_K742.md; tools/exatos/k742/certificados/K7_4_2_M17.jsonl; tools/exatos/k742/certificados/K7_4_2_M18.jsonl"
+  },
+  "avaliador": {
+    "id": "k742-lrat",
+    "como_rodar": "python3 tools/exatos/k742/rodar.py --q 7 --M 18 --dir saida --prova",
+    "custo_estimado_usd": 0.04
+  },
+  "celula_ledger": "K7(4,2)",
+  "historico": [
+    {
+      "quem": "tools/problems/seed_from_ledger.py",
+      "papel": "qualquer",
+      "quando": "2026-10-04",
+      "de": null,
+      "para": "proposto",
+      "evidencia": {},
+      "origem": "importacao"
+    },
+    {
+      "quem": "tools/problems/seed_from_ledger.py",
+      "papel": "mantenedor",
+      "quando": "2026-10-04",
+      "de": "proposto",
+      "para": "aceito",
+      "evidencia": {},
+      "origem": "importacao"
+    },
+    {
+      "quem": "tools/problems/seed_from_ledger.py",
+      "papel": "mantenedor",
+      "quando": "2026-10-04",
+      "de": "aceito",
+      "para": "aberto",
+      "evidencia": {},
+      "origem": "importacao"
+    },
+    {
+      "quem": "tools/problems/seed_from_ledger.py",
+      "papel": "qualquer",
+      "quando": "2026-10-04",
+      "de": "aberto",
+      "para": "candidato",
+      "evidencia": {
+        "artefato": "tools/exatos/k742/certificados/K7_4_2_M18.jsonl",
+        "sha256": "11c05eb6d64611019c93d35ef58ef78b0e66a26a789a08a0679c1bc3f2e8d7b9",
+        "sha256_m17": "70be51f85a66cf88935433b9c9cf7af4f3957a6ddb23106c73b1c483cf9121f5"
+      },
+      "origem": "importacao"
+    },
+    {
+      "quem": "tools/problems/seed_from_ledger.py",
+      "papel": "avaliador",
+      "quando": "2026-10-04",
+      "de": "candidato",
+      "para": "verificado",
+      "evidencia": {
+        "avaliador": "k742-lrat",
+        "veredito": "ok",
+        "saida": "{\"M=17\": \"15/15 perfis UNSAT, lrat-check VERIFIED\", \"M=18\": \"70/70 perfis UNSAT, lrat-check VERIFIED\"}",
+        "ref": "docs/exatos/FASE1_B_K742.md",
+        "como_rodar": "python3 tools/exatos/k742/rodar.py --q 7 --M 18 --dir saida --prova",
+        "nota": "computacional com certificado LRAT; não é teorema no Lean, por isso não está certificado"
+      },
+      "origem": "importacao"
+    }
+  ]
+}

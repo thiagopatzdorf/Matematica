@@ -82,6 +82,19 @@ BUSCADORES: dict[str, Buscador] = {"arxiv": buscar_arxiv, "openalex": buscar_ope
                                    "semanticscholar": buscar_semanticscholar, "zenodo": buscar_zenodo}
 
 
+def _ano(r: dict) -> int:
+    d = str(r.get("data") or "")
+    return int(d[:4]) if d[:4].isdigit() else 0
+
+
+def _pos(resultados: list[dict], desde: int, ordem: str, limite: int) -> list[dict]:
+    """Corte por ano e ordenação por data, depois da fonte (o cache guarda o bruto, então o mesmo cache serve a todos)."""
+    saida = [r for r in resultados if not desde or _ano(r) >= desde]
+    if ordem == "data":
+        saida = sorted(saida, key=lambda r: str(r.get("data") or ""), reverse=True)
+    return saida[:limite]
+
+
 def host_permitido(url: str) -> bool:
     p = urllib.parse.urlparse(url)
     return p.scheme == "https" and (p.hostname or "") in HOSTS_PDF
@@ -92,24 +105,30 @@ def registrar(ctx, buscadores: dict[str, Buscador] | None = None, baixar: Callab
     fontes = buscadores or BUSCADORES
 
     @tool
-    def papers_buscar(consulta: str, fonte: str = "arxiv", limite: int = 10) -> dict:
+    def papers_buscar(consulta: str, fonte: str = "arxiv", limite: int = 10, desde: int = 0, ordem: str = "relevancia") -> dict:
         """Busca papers. fonte: arxiv, openalex, semanticscholar ou zenodo. Devolve título, autores, data,
-        link e (quando aberto) o PDF. A mesma busca repetida volta do cache do bucket."""
+        link e (quando aberto) o PDF. A mesma busca repetida volta do cache do bucket.
+        `desde`: ano mínimo (ex.: 2025) — a fonte não filtra, então buscamos até 3× `limite` e cortamos aqui.
+        `ordem`: "relevancia" (padrão) ou "data" (mais novos primeiro, entre os que a fonte devolveu)."""
         if fonte not in fontes:
             return {"ok": False, "erro": f"fonte inválida; use uma de: {', '.join(FONTES)}"}
+        if ordem not in ("relevancia", "data"):
+            return {"ok": False, "erro": 'ordem inválida; use "relevancia" ou "data"'}
         limite = max(1, min(limite, 50))
-        chave = hashlib.sha256(f"{fonte}|{limite}|{consulta.strip().lower()}".encode()).hexdigest()[:20]
+        busca = min(50, limite * 3) if desde else limite           # sobra margem para o corte por ano
+        chave = hashlib.sha256(f"{fonte}|{busca}|{consulta.strip().lower()}".encode()).hexdigest()[:20]
         nome = f"buscas/{fonte}/{chave}.json"
         em_cache = lit.ler(nome)
         if em_cache:
-            return {"ok": True, "cache": True, "fonte": fonte, "resultados": json.loads(em_cache)["resultados"]}
+            return {"ok": True, "cache": True, "fonte": fonte,
+                    "resultados": _pos(json.loads(em_cache)["resultados"], desde, ordem, limite)}
         try:
-            resultados = fontes[fonte](consulta, limite)
+            resultados = fontes[fonte](consulta, busca)
         except Exception as e:  # noqa: BLE001 - fonte fora do ar é resposta, não queda do servidor
             return {"ok": False, "erro": f"{fonte} não respondeu ({type(e).__name__}); tente outra fonte"}
         lit.por(nome, json.dumps({"consulta": consulta, "fonte": fonte, "resultados": resultados},
                                  ensure_ascii=False).encode(), "application/json", publico=False)
-        return {"ok": True, "cache": False, "fonte": fonte, "resultados": resultados}
+        return {"ok": True, "cache": False, "fonte": fonte, "resultados": _pos(resultados, desde, ordem, limite)}
 
     @tool
     def paper_guardar(url_pdf: str, titulo: str, doi: str = "", confirmar: bool = False) -> dict:

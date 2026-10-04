@@ -17,3 +17,10 @@ import CoveringLean.K2_Loop
 import CoveringLean.K3_Bridge
 import CoveringLean.SynCheck
 import CoveringLean.SynBridge
+import CoveringLean.K742_Upper
+import CoveringLean.K742_Fibras
+import CoveringLean.K742_Cnf
+import CoveringLean.K742_Final
+import CoveringLean.LratK
+import CoveringLean.LratKData
+import CoveringLean.LratK_K4
