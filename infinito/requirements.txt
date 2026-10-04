@@ -3,4 +3,4 @@
 mcp>=1.30,<2
 uvicorn>=0.30
 # JWT do Cloudflare Access (RS256): a porta do servidor (auth.py).
-PyJWT[crypto]>=2.8,<3
+PyJWT[crypto]>=2.15.1,<3
