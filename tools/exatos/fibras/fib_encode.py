@@ -108,24 +108,28 @@ def simetria_residual(t):
     return r
 
 
-def chave_tipo(t):
+def chave_tipo(t, ordem="min"):
     """Ordem total dos tipos: menor simetria residual primeiro (a coordenada 0 é a que mais
     quebra simetria), depois lexicográfica. A mesma do k742."""
+    if ordem == "max":
+        # coordenada 0 = tipo de MAIOR simetria residual: com a quebra (h), os blocos de mesmo
+        # tamanho da coordenada 0 é que viram ordem; medido em K_7(5,3), M = 16
+        return (-simetria_residual(t), t)
     return (simetria_residual(t), t)
 
 
-def instancias(q, n, M, k, smin=None, cotas=None, R=None):
+def instancias(q, n, M, k, smin=None, cotas=None, R=None, ordem="min"):
     """Multiconjuntos ordenados de k tipos (t_0 <= ... <= t_{k-1} em chave_tipo)."""
     R = n - 2 if R is None else R
     if smin is None:
         smin = fibra_minima(q, n, R, M, cotas)
-    return smin, _instancias(q, M, k, smin)
+    return smin, _instancias(q, M, k, smin, ordem)
 
 
 @lru_cache(maxsize=8)
-def _instancias(q, M, k, smin):
+def _instancias(q, M, k, smin, ordem="min"):
     # cache: o rodar.py pede a lista inteira a cada instância (201 376 em K_7(5,3), M = 16)
-    ts = sorted(tipos(q, M, smin), key=chave_tipo)
+    ts = sorted(tipos(q, M, smin), key=lambda t: chave_tipo(t, ordem))
     return list(itertools.combinations_with_replacement(ts, k))
 
 

@@ -22,7 +22,7 @@ import shutil
 import subprocess
 import sys
 import time
-from concurrent.futures import ProcessPoolExecutor
+from concurrent.futures import ProcessPoolExecutor, as_completed
 
 AQUI = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, AQUI)
@@ -57,11 +57,11 @@ def lrat_py(cnf, prova):
 
 
 def uma(args):
-    q, n, M, k, smin, idx, d, prova, solver, tempo, descartar, usar_py, L, ci, sem = args
-    _, ins = enc.instancias(q, n, M, k, smin)
+    q, n, M, k, smin, idx, d, prova, solver, tempo, descartar, usar_py, L, ci, sem, ordem = args
+    _, ins = enc.instancias(q, n, M, k, smin, ordem=ordem)
     pref = ins[idx]
     cnf, x, sim0, ts = enc.codificar(q, n, M, pref, smin, lex="g" not in sem, blocos_h="h" not in sem)
-    base = os.path.join(d, f"K{q}_{n}_{n-2}_M{M}_k{k}_i{idx:06d}" + (f"_sem{sem}" if sem else ""))
+    base = os.path.join(d, f"K{q}_{n}_{n-2}_M{M}_k{k}{'_omax' if ordem == 'max' else ''}_i{idx:06d}" + (f"_sem{sem}" if sem else ""))
     rot = f"K_{q}({n},{n-2}) M={M} k={k} s_min={smin} inst {idx}: {pref}" + (f" sem ({sem})" if sem else "")
     cubo = None
     if L:
@@ -72,7 +72,7 @@ def uma(args):
         rot += f" cubo L={L} #{ci}: {cubo}"
     with open(base + ".cnf", "w") as f:
         f.write(cnf.dimacs([rot]))
-    reg = {"q": q, "n": n, "M": M, "k": k, "smin": smin, "inst": idx, "sem": sem,
+    reg = {"q": q, "n": n, "M": M, "k": k, "smin": smin, "inst": idx, "sem": sem, "ordem": ordem,
            "tipos": ["".join(map(str, t)) for t in pref], "vars": cnf.nv, "clausulas": len(cnf.cl)}
     if L:
         reg.update(L=L, cubo_idx=ci, cubo="".join(map(str, cubo)))
@@ -145,15 +145,29 @@ def main():
     ap.add_argument("-j", type=int, default=os.cpu_count())
     ap.add_argument("--cubos", type=int, default=0,
                     help="divide cada instância em cubos pela coordenada 1 das L primeiras palavras")
+    ap.add_argument("--ordem", default="min", choices=["min", "max"],
+                    help="tipo da coordenada 0: menor (k742) ou maior simetria residual")
     ap.add_argument("--sem", default="", help="controle: omite quebras novas (g = lexicográfica, h = blocos)")
+    ap.add_argument("--pular", nargs="*", default=[],
+                    help="JSONL já feitos: pula perfis (como multiconjunto de tipos) com UNSAT conferido; "
+                         "vale entre ordens diferentes, porque cada perfil é completo sozinho")
+    ap.add_argument("--fatia", default="", help="r/m: só instâncias com índice = r (mod m)")
+    ap.add_argument("--dificeis-primeiro", action="store_true",
+                    help="começa pelos perfis de tipos mais equilibrados (maior simetria residual), "
+                         "que são os lentos: evita a cauda no fim")
     ap.add_argument("--cubos-sel", default="", help="subconjunto dos cubos (ex.: 0-99)")
     a = ap.parse_args()
     k = a.k or a.n
     smin = a.smin if a.smin is not None else enc.fibra_minima(a.q, a.n, a.n - 2, a.M)
     os.makedirs(a.dir, exist_ok=True)
-    _, ins = enc.instancias(a.q, a.n, a.M, k, smin)
+    _, ins = enc.instancias(a.q, a.n, a.M, k, smin, ordem=a.ordem)
     idxs = intervalo(a.inst, len(ins))
-    suf = (f"_L{a.cubos}" if a.cubos else "") + (f"_sem{a.sem}" if a.sem else "")
+    if a.fatia:
+        r_, m_ = map(int, a.fatia.split("/"))
+        idxs = [i for i in idxs if i % m_ == r_]
+    if a.dificeis_primeiro:
+        idxs.sort(key=lambda i: -sum(enc.simetria_residual(t) for t in ins[i]))
+    suf = ("_omax" if a.ordem == "max" else "") + (f"_L{a.cubos}" if a.cubos else "") + (f"_sem{a.sem}" if a.sem else "")
     log = os.path.join(a.dir, f"K{a.q}_{a.n}_{a.n-2}_M{a.M}_k{k}_s{smin}{suf}.jsonl")
     feitos = set()
     if os.path.exists(log):
@@ -161,8 +175,16 @@ def main():
             r = json.loads(ln)
             if r["resultado"] != "INDEFINIDO":
                 feitos.add((r["inst"], r.get("cubo_idx")))
+    pular = set()
+    for arq in a.pular:
+        for ln in open(arq):
+            r = json.loads(ln)
+            if r["resultado"] == "UNSAT" and r.get("lrat_check") == "VERIFIED" and r.get("cubo_idx") is None:
+                pular.add(tuple(sorted(r["tipos"])))
     tarefas = []
     for i in idxs:
+        if pular and tuple(sorted("".join(map(str, t)) for t in ins[i])) in pular:
+            continue
         if a.cubos:
             ts = list(ins[i]) + [None] * (a.n - k)
             nc = len(fib_cubos.atribuicoes_coord1(a.q, a.M, ts[0], ts[1], smin, a.cubos, blocos_h="h" not in a.sem))
@@ -170,12 +192,15 @@ def main():
         else:
             cis = [None]
         tarefas += [(a.q, a.n, a.M, k, smin, i, a.dir, a.prova, a.solver, a.tempo, a.descartar,
-                     a.lrat_py, a.cubos, c, a.sem) for c in cis if (i, c) not in feitos]
+                     a.lrat_py, a.cubos, c, a.sem, a.ordem) for c in cis if (i, c) not in feitos]
     print(f"K_{a.q}({a.n},{a.n-2}) M={a.M} k={k} s_min={smin}: {len(ins)} instâncias, "
           f"{len(tarefas)} a rodar", flush=True)
     cont = {}
     with ProcessPoolExecutor(a.j) as ex, open(log, "a") as f:
-        for reg in ex.map(uma, tarefas):
+        # grava na ordem em que terminam: um perfil lento não segura os outros (nem os perde
+        # numa preempção da VM spot)
+        for fut in as_completed([ex.submit(uma, t) for t in tarefas]):
+            reg = fut.result()
             f.write(json.dumps(reg) + "\n")
             f.flush()
             cont[reg["resultado"]] = cont.get(reg["resultado"], 0) + 1

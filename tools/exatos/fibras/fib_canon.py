@@ -20,15 +20,15 @@ def tipo_da_coord(cod, i, q):
     return tuple(sorted((Counter(c[i] for c in cod).get(a, 0) for a in range(q)), reverse=True))
 
 
-def canonizar(cod, q, n, k, smin, usar_h=True):
+def canonizar(cod, q, n, k, smin, usar_h=True, ordem="min"):
     M = len(cod)
     tipos = [tipo_da_coord(cod, i, q) for i in range(n)]
     # (a) coordenadas em ordem de chave_tipo (estável); as k primeiras definem a instância
-    perm = sorted(range(n), key=lambda i: encode.chave_tipo(tipos[i]))
+    perm = sorted(range(n), key=lambda i: encode.chave_tipo(tipos[i], ordem))
     cod = [tuple(c[i] for i in perm) for c in cod]
     tipos = [tipos[i] for i in perm]
     prefixo = tuple(tipos[:k])
-    _, ins = encode.instancias(q, n, M, k, smin)
+    _, ins = encode.instancias(q, n, M, k, smin, ordem=ordem)
     idx = ins.index(prefixo)
     ts = list(prefixo) + [None] * (n - k)
     # (b) coordenadas de tipo fixo: símbolo a passa a ter fibra ts[i][a] (decrescente)

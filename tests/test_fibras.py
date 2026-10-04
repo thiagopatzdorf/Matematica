@@ -48,11 +48,11 @@ def embaralhar(cod, q, n, rng):
     return out
 
 
-def checar(cod, q, n, k, exige_cobertura=True, quebra_mutante=None):
+def checar(cod, q, n, k, exige_cobertura=True, quebra_mutante=None, ordem="min"):
     M = len(cod)
     smin = min(min(canonizar.tipo_da_coord(cod, i, q)) for i in range(n))
-    idx, norm = canonizar.canonizar(cod, q, n, k, smin)
-    _, ins = encode.instancias(q, n, M, k, smin)
+    idx, norm = canonizar.canonizar(cod, q, n, k, smin, ordem=ordem)
+    _, ins = encode.instancias(q, n, M, k, smin, ordem=ordem)
     cnf, x, sim0, _ = encode.codificar(q, n, M, ins[idx], smin)
     if quebra_mutante:
         quebra_mutante(cnf, x, q, n, M, ins[idx])
@@ -93,9 +93,10 @@ def test_lema_geral_nos_alvos_da_triagem():
 def test_codigo_embaralhado_satisfaz_a_cnf_da_sua_instancia(q, n, k, semente):
     rng = random.Random(semente)
     cod = codigo_guloso(q, n, rng)
-    for _ in range(3):
-        norm = checar(embaralhar(cod, q, n, rng), q, n, k)
-        assert len(norm) == len(cod)
+    for ordem in ("min", "max"):
+        for _ in range(3):
+            norm = checar(embaralhar(cod, q, n, rng), q, n, k, ordem=ordem)
+            assert len(norm) == len(cod)
 
 
 @pytest.mark.parametrize("q,n,k,semente", [(4, 5, 5, 11), (4, 5, 2, 12), (3, 6, 4, 13)])
@@ -230,3 +231,30 @@ def test_ordem_dos_blocos_h_precisa_do_guloso():
         falhas += bool(canonizar.violadas(cnf, val))
         checar(cod, 4, 5, 5)  # com o guloso, nada é violado
     assert falhas >= 1
+
+
+def codigo_particao(q, n, blocos):
+    """K_q(n, n-2) <= soma de CAN(2, n, |A_i|) (construção da triagem) para blocos de
+    tamanho 1 ou 2: tamanho 1 = a palavra constante; tamanho 2 = CA(6; 2, n, 2) com as colunas
+    de peso 3 e primeiro bit 0 (duas delas sempre veem 00, 01, 10, 11; vale para n <= 10)."""
+    assert len(blocos) == n - 1 and sum(len(b) for b in blocos) == q
+    colunas = [c for c in itertools.product((0, 1), repeat=6) if c[0] == 0 and sum(c) == 3][:n]
+    cod = []
+    for A in blocos:
+        if len(A) == 1:
+            cod.append(tuple([A[0]] * n))
+        else:
+            cod += [tuple(A[colunas[j][r]] for j in range(n)) for r in range(6)]
+    return cod
+
+
+@pytest.mark.parametrize("n,blocos,M", [
+    (5, [[0], [1, 2], [3, 4], [5, 6]], 19),        # K_7(5,3) <= 19
+    (6, [[0], [1], [2], [3, 4], [5, 6]], 15)])     # K_7(6,4) <= 15 (a cota superior conhecida)
+def test_codigo_da_particao_q7_embaralhado_satisfaz_a_cnf(n, blocos, M):
+    cod = codigo_particao(7, n, blocos)
+    assert len(cod) == M and canonizar.descobertos(cod, 7, n) == 0
+    rng = random.Random(n)
+    for k in (n, 2):
+        for ordem in ("min", "max"):
+            checar(embaralhar(cod, 7, n, rng), 7, n, k, ordem=ordem)
