@@ -30,10 +30,9 @@ echo "$PERFIS" | tr ',' '\n' | xargs -P "$JP" -I{} sh -c \
    { [ -s logs/prep_{}.json ] || mv logs/prep_{}.json.tmp logs/prep_{}.json; }'
 cat logs/prep_*.json | sort -t: -k4 > tools/exatos/k742/lean/semquebra_M18.jsonl
 python3 tools/exatos/k742/lean/gerar_modulos.py --perfis "$PERFIS"
-ALVOS=$(echo "$PERFIS" | tr ',' '\n' | sed 's/^/CoveringLean.K742Sat.S/; s/$/.Final/' | tr '\n' ' ')
-echo "[rodar] $(date -u +%FT%TZ) lake build $ALVOS" | tee -a logs/rodar.log
+echo "[rodar] $(date -u +%FT%TZ) agendar $PERFIS" | tee -a logs/rodar.log
 set +e
-lake build $ALVOS >> logs/build.log 2>&1
+python3 tools/exatos/k742/lean/vm/agendar.py --perfis "$PERFIS" --jobs "${JOBS:-7}" >> logs/agendar.log 2>&1
 rc=$?
-echo "[rodar] $(date -u +%FT%TZ) lake build rc=$rc" | tee -a logs/rodar.log
+echo "[rodar] $(date -u +%FT%TZ) agendar rc=$rc" | tee -a logs/rodar.log
 exit $rc
