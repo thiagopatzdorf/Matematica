@@ -13,6 +13,7 @@ A divisão em perfis e a quebra de simetria abaixo são nossas.
 | `canonizar.py` | o argumento de completude como algoritmo: leva qualquer código à forma normal da CNF do seu perfil |
 | `rodar.py` | roda todos os perfis (CaDiCaL `--lrat` ou kissat), confere cada prova com `lrat-check` e grava uma linha JSON por perfil |
 | `lrat.py` | verificador LRAT independente em Python (só RUP), para certificados pequenos e amostras |
+| `lean/` | ponte para o Lean: `gerar_dados.py` (CNF + LRAT aparado de um perfil, sha256 em `manifesto.json`) e as medições do aparo; ver `docs/exatos/LEAN_K742.md` |
 | `certificados/` | CNF + LRAT de `K_4(4,2) ≥ 7` (5 perfis, pequenos; conferidos nos testes) e os registros JSONL das rodadas com sha256 de cada CNF e prova |
 
 ## Enunciado
