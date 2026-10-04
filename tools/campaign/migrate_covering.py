@@ -571,7 +571,6 @@ def main() -> int:
         else:
             KERI_DO_LEDGER[cel] = (arq_l, k_["lb"], k_["lb_key"], k_["ub"], k_["ub_key"])
     KERI.update(KERI_DO_LEDGER)
-    KERI_PREVIO_TODOS = {cel: v[3] for cel, v in KERI.items() if cel != "k2-6-1"}
     for cel, (arq, lbv, lbk, ubv, ubk) in KERI.items():
         q, n, r = cel_q(cel)
         extra = " index.htm (2011-11-25): '875; 720 é provável erro de impressão'." if cel == "k5-10-4" else ""

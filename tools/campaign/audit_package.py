@@ -3,7 +3,7 @@
 roda cada um com parâmetros explícitos, testes negativos, e grava ambiente/tempo/memória.
 Uso: audit_package.py q7_n9_R4_M1285 [--repo URL_OU_CAMINHO] [--ref REF]
 Saída: campaigns/covering-codes/_auditoria/<nome>/{AUDITORIA.json,AUDITORIA.md,witness.txt}"""
-import argparse, hashlib, json, os, platform, resource, shutil, subprocess, sys, tempfile, time
+import argparse, hashlib, json, os, platform, shutil, subprocess, sys, tempfile, time
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[2]

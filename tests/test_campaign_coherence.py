@@ -117,7 +117,6 @@ class CampaignCoherenceTest(unittest.TestCase):
     def test_literature_records_have_a_real_version_and_the_unsourced_numbers_are_declared_residuals(self):
         for lid, lit in self.literature.items():
             self.assertFalse(re.search(r"n[aã]o identificad|sem vers|n/a", lit["version"], re.I), f"{lid}: versão que diz que não há versão")
-        universo = {i["id"] for i in self.meta["universe"]["instancias"]}
         for i in self.meta["universe"]["instancias"]:
             self.assertNotIn("lb_literatura_declarada", i, "número de paper sem registro de literatura não entra no universo")
         # Os dois resíduos "fonte não identificada" foram FECHADOS (2026-10-03) porque fonte, versão e data agora estão em literature/;
