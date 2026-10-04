@@ -133,7 +133,8 @@ def test_ledger_do_repo_tem_a_celula_que_batemos():
     ctx = _Ctx(creditos())
     matematica.registrar(ctx)
     r = ctx.tools["celula"]("K7(9,4)")
-    assert r["ok"] and r["celula"]["best"]["ub"] == 1137
+    assert r["ok"] and r["celula"]["best"]["ub"] <= 1137           # a cota só desce: o ledger andou para 1134 na main
+    assert r["celula"]["best"]["beats_published"] is True
     assert ctx.tools["celula"]("K99(9,4)")["ok"] is False
     assert ctx.tools["alvos"](limite=3)["alvos"][0]["rank"] == 1
 
