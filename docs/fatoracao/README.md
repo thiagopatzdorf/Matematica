@@ -12,6 +12,7 @@ ele decide.
 | importador reproduzível: o número sai do texto da fonte por regra, nunca digitado à mão | `tools/fatoracao/importar_rsa.py` |
 | avaliador exato (`1 < d < N` e `N % d == 0`; recusa registro corrompido) | `tools/fatoracao/verificar.py` |
 | testes, com controle positivo (os fatores reais do RSA-260) e negativos | `tests/test_fatoracao.py` |
+| executor da linha de base do CADO-NFS: uma linha por tentativa, repetição determinística do `nlucky=0` (sementes 1, 2, 3), falha contada na estatística | `tools/fatoracao/medir_cado.py`, `tests/test_fatoracao_medir.py` |
 
 O problema em si (achar um fator do RSA-270, o menor número do desafio ainda aberto) entra pelo fluxo do repo: a
 issue **Proposta de problema**, que um mantenedor aceita; só então vira cartão em `problems/cartoes/`.
