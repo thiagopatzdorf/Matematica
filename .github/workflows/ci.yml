@@ -3,9 +3,11 @@
 #
 # Divisão de trabalho entre os três workflows (não repetir um no outro):
 #   ci.yml           ruff, higiene (tamanho/JSON/segredo/caminho), pytest de `tests` e `infinito/tests`
-#                    sem nauty (os testes do motor de exatos pulam aqui). Sempre roda.
+#                    COM nauty (libnauty-dev): com a variável CI definida o teste do motor de exatos não pula,
+#                    falta de nauty aparece como falha (medido no 1º run: 65 testes, `nauty/nauty.h` ausente).
+#                    Sempre roda.
 #   verify-codes.yml verificador C oficial + check_all sobre data/codes, pytest de `tests` COM nauty
-#                    (nada pula) e `lake build` do alvo padrão. Só com mudança em dados/Lean/ferramentas.
+#                    e `lake build` do alvo padrão. Só com mudança em dados/Lean/ferramentas.
 #   lean-syn.yml     `lake build CoveringSyn` (certificados por síndromes, 20-40 min). Só quando
 #                    algo que o certificado lê muda.
 # Os dois últimos têm filtro de caminho, então NÃO podem ser checks obrigatórios (um PR que não
@@ -54,6 +56,9 @@ jobs:
           cache-dependency-path: |
             infinito/requirements.txt
             .github/workflows/ci.yml
+      # nauty: tools/exatos/motor (tests/test_motor_exatos.py não pula com CI definido; mesmo passo do verify-codes.yml).
+      - name: Instalar libnauty-dev
+        run: sudo apt-get install -y -qq libnauty-dev >/dev/null || (sudo apt-get update -qq && sudo apt-get install -y -qq libnauty-dev >/dev/null)
       # Só o necessário: pytest, numpy (scripts/syndrome/gen_syn.py), httpx (TestClient do
       # Starlette em infinito/tests) e as dependências declaradas do servidor Infinito.
       - run: python -m pip install --quiet pytest==8.4.2 numpy==2.4.6 httpx -r infinito/requirements.txt
