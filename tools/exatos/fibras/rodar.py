@@ -157,6 +157,7 @@ def main():
                          "que são os lentos: evita a cauda no fim")
     ap.add_argument("--faceis-primeiro", action="store_true",
                     help="o contrário de --dificeis-primeiro (para duas VMs se encontrarem no meio)")
+    ap.add_argument("--excluir", default="", help="índices a não rodar aqui (ex.: os que outra VM roda inteiros)")
     ap.add_argument("--cubos-sel", default="", help="subconjunto dos cubos (ex.: 0-99)")
     a = ap.parse_args()
     k = a.k or a.n
@@ -164,6 +165,9 @@ def main():
     os.makedirs(a.dir, exist_ok=True)
     _, ins = enc.instancias(a.q, a.n, a.M, k, smin, ordem=a.ordem)
     idxs = intervalo(a.inst, len(ins))
+    if a.excluir:
+        fora = set(intervalo(a.excluir, len(ins)))
+        idxs = [i for i in idxs if i not in fora]
     if a.fatia:
         r_, m_ = map(int, a.fatia.split("/"))
         idxs = [i for i in idxs if i % m_ == r_]
