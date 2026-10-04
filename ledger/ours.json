@@ -127,12 +127,12 @@
     "7,10,4": {
       "ours_computational": null,
       "ours_lean": {
-        "M": 5616,
-        "declaration": "Syn.K7_10_4_le_5616_syn",
-        "tag": "v0.6.0",
-        "file": "data/codes/q7_n10_R4_M5616.txt",
-        "sha256": "bfa4f489c610aedaa9208736a5bb3cdf5a17b116d4fd83c516835493f4f4f0a7",
-        "provenance": "P-5616"
+        "M": 5607,
+        "declaration": "Syn.K7_10_4_le_5607_syn",
+        "tag": "v0.7.0",
+        "file": "data/codes/q7_n10_R4_M5607.txt",
+        "sha256": "68a6eaed470edc803d8d41b5afd2534053fe13a5305f2caa48b4c005b200c1ec",
+        "provenance": "P-5607"
       }
     }
   }
