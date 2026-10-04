@@ -5,6 +5,11 @@ updates:
     schedule:
       interval: weekly
     open-pull-requests-limit: 5
+    # mcp 2.x remove mcp.server.fastmcp, que o servidor usa (ver infinito/requirements.txt):
+    # subir de série é decisão do dono, não atualização automática.
+    ignore:
+      - dependency-name: "mcp"
+        update-types: ["version-update:semver-major"]
   - package-ecosystem: github-actions
     directory: /
     schedule:
