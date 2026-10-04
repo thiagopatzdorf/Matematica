@@ -121,3 +121,14 @@ def test_targets_imprime_tabela_com_top_pedido(ledger_recortado, capsys):
     targets.main(["--ledger", str(ledger_recortado / "cells.json"), "--top", "3"])
     linhas = capsys.readouterr().out.strip().splitlines()
     assert len(linhas) == 4 and linhas[1].split()[0] == "1"
+
+
+def test_n_optimal_truncado_pelo_coldcase_volta_ao_valor_da_tabela_do_keri():
+    assert build.corrigir_n_optimal({"q": 4, "n": 4, "R": 3, "n_optimal": 7})["n_optimal"] == 79
+    assert build.corrigir_n_optimal({"q": 5, "n": 4, "R": 3, "n_optimal": 471})["n_optimal"] == 471
+    assert build.corrigir_n_optimal({"q": 3, "n": 6, "R": 1, "n_optimal": None})["n_optimal"] is None
+
+
+def test_n_optimal_com_truncamento_diferente_do_esperado_aborta_o_build():
+    with pytest.raises(SystemExit):
+        build.corrigir_n_optimal({"q": 4, "n": 4, "R": 3, "n_optimal": 5})
