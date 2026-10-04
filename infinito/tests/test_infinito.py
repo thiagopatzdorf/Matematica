@@ -719,3 +719,19 @@ def test_pedido_pesado_com_cota_estourada_devolve_a_reserva_e_a_mensagem_certa()
     r = ctx.tools["pesado"]("lake_build", 1.0, confirmar=True)
     assert r["ok"] is False and "CPUS_ALL_REGIONS" in r["erro"]
     assert c.saldo("a@x.com")["disponivel_usd"] == 20.0 and ctx.tools["pesado_status"]()["jobs"] == []
+
+
+def test_verificar_codigo_que_nao_cobre_lista_pontos_descobertos_que_de_fato_estao_longe(tmp_path):
+    codes = tmp_path / "data" / "codes"
+    codes.mkdir(parents=True)
+    palavras = (REPO / "data" / "codes" / "q4_n10_R4_M192.txt").read_text().split()
+    (codes / "q4_n10_R4_M191.txt").write_text("\n".join(palavras[:-1]) + "\n")     # uma palavra a menos
+    ctx = _Ctx(creditos(), env={"INF_REPO": str(tmp_path), "INF_VERIFY_BIN": str(_compilar_verify(tmp_path))})
+    matematica.registrar(ctx)
+    r = ctx.tools["verificar_codigo"]("q4_n10_R4_M191.txt")
+    assert r["ok"] is False and "NÃO cobre" in r["veredito"] and 0 < len(r["pontos_descobertos"]) <= 10
+    for ponto in r["pontos_descobertos"]:           # confere por conta própria: distância de Hamming > R=4 de toda palavra
+        assert all(sum(a != b for a, b in zip(ponto, w)) > 4 for w in palavras[:-1])
+    cobre = _Ctx(creditos(), env={"INF_REPO": str(REPO), "INF_VERIFY_BIN": str(_compilar_verify(tmp_path))})
+    matematica.registrar(cobre)
+    assert cobre.tools["verificar_codigo"]("q4_n10_R4_M192.txt")["pontos_descobertos"] == []
