@@ -26,10 +26,11 @@ python3 $A --v 6 --M 71 --p 22 --sufixo igual --n 16 --procs $J --tempo 1800 --s
 python3 $A --v 6 --M 72 --p 22 --sufixo igual --n 16 --procs $J --tempo 1800 --saida ~/out/v6_M72_p22.jsonl
 ;;
 escada)  # o menor M com sequências (59) e o seguinte, com tempo longo: há tempo finito medível?
-python3 $A --v 5 --M 26 --todas --lrat --procs 8 --tempo 600 --saida ~/out/v5_M26.jsonl
+python3 $A --v 5 --M 26 --todas --lrat --procs 8 --tempo 600 --saida ~/out/v5_M26_lrat.jsonl
 python3 $A --v 6 --M 59 --p 19 --todas --procs 2 --tempo 14400 --saida ~/out/v6_M59_cadical.jsonl &
 python3 $A --v 6 --M 59 --p 19 --todas --procs 2 --tempo 14400 --motor kissat --saida ~/out/v6_M59_kissat.jsonl &
-python3 $A --v 6 --M 60 --p 19 --n 4 --semente 2 --procs 4 --tempo 14400 --saida ~/out/v6_M60_cadical.jsonl &
+python3 $A --v 6 --M 60 --p 19 --n 2 --semente 2 --procs 2 --tempo 14400 --saida ~/out/v6_M60_cadical.jsonl &
+python3 $A --v 6 --M 72 --p 18 --n 2 --semente 3 --procs 2 --tempo 14400 --saida ~/out/v6_M72_auto.jsonl &
 wait
 ;;
 esac
