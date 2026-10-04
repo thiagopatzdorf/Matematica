@@ -28,6 +28,7 @@
  *                   [-g gamma -r rho]   (suavização de pesos, ver smooth())
  *                   [-u cap]            (recomeço quando há mais de cap descobertos)
  *                   [-G N]              (N gulosos aleatorizados antes da busca)
+ *                   [-I d [-S s]]       (guloso iterado: tira d, refaz; s pontos amostrados)
  *   Para em -t segundos ou quando acha cobertura com <= alvo conjuntos.
  *   -i: palavras (uma por linha) que viram a solução inicial (as que não são candidatas
  *       são ignoradas, com aviso); sem -i, guloso + remoção de redundantes.
@@ -49,7 +50,7 @@ static ll *score, *wgt; static uint32_t *cnt, *xorc; static uint8_t *insol, *can
 static ll *stamp; static ll iter = 0; static double sumunc = 0;
 static uint32_t *sol, *solpos, nsol = 0; static uint32_t *unc, *uncpos, nunc = 0;
 static int ccmode = 1, tiebreak = 0;
-static long ucap = 0, nrestart = 0, grasp = 0; static double gamma_w = 0, rho_w = 0.3; static ll wsum = 0; static long nsmooth = 0;
+static long ucap = 0, nrestart = 0, grasp = 0, igd = 0, igs = 4; static double gamma_w = 0, rho_w = 0.3; static ll wsum = 0; static long nsmooth = 0;
 /* Desempate. RWLS: o mais antigo. -b 1 (nosso, medido em K_7(9,4)): antes da idade, o MAIOR
  * conjunto ao pôr e o MENOR ao tirar. POR QUE: com corte T baixo há ~170 mil conjuntos de
  * tamanho 18-19 e só 3 087 de tamanho 24; empatados em score, o "mais antigo" é quase sempre
@@ -158,6 +159,8 @@ int main(int argc, char **argv){
     else if (!strcmp(argv[i], "-g")) gamma_w = atof(argv[++i]);
     else if (!strcmp(argv[i], "-u")) ucap = atol(argv[++i]);
     else if (!strcmp(argv[i], "-G")) grasp = atol(argv[++i]);
+    else if (!strcmp(argv[i], "-I")) igd = atol(argv[++i]);
+    else if (!strcmp(argv[i], "-S")) igs = atol(argv[++i]);
     else if (!strcmp(argv[i], "-r")) rho_w = atof(argv[++i]);
     else { fprintf(stderr, "opção desconhecida %s\n", argv[i]); return 2; }
   }
@@ -225,6 +228,33 @@ int main(int argc, char **argv){
   if (!quiet) printf("best %u %.2f %lld\n", bestk, tbest, iter);
   fflush(stdout);
   uint32_t tabu = UINT32_MAX;
+  /* -I d (nosso): GULOSO ITERADO em vez do RWLS. Cada iteração tira d conjuntos sorteados da
+   * melhor solução, refaz gulosamente (amostra de -S pontos descobertos; entre os conjuntos que
+   * os cobrem, o de maior score, empate sorteado), tira redundantes em ordem aleatória e aceita
+   * se não piorou (platô aceito). POR QUE: em K_7(10,4) o guloso aleatorizado achou 119-120 e
+   * o RWLS não desceu dali (a troca 1-por-1 não atravessa o platô destas instâncias). */
+  if (igd > 0){
+    uint32_t *cur = malloc(4 * (size_t)nsets); uint32_t curk = bestk; memcpy(cur, best, 4 * bestk);
+    ccmode = 0;
+    while (now() - t0 < tlim && (long)bestk > target){
+      iter++;
+      while (nsol) del_set(sol[nsol - 1]);
+      for (uint32_t i = 0; i < curk; i++) add_set(cur[i]);
+      for (long r = 0; r < igd && nsol; r++) del_set(sol[rnd() % nsol]);
+      while (nunc){ ll bs = -1; uint32_t b = 0, nt = 0;
+        for (long k2 = 0; k2 < igs; k2++){ uint32_t e = unc[rnd() % nunc];
+          for (uint64_t a = eoff[e]; a < eoff[e + 1]; a++){ uint32_t s2 = selem[a];
+            if (score[s2] > bs){ bs = score[s2]; b = s2; nt = 1; } else if (score[s2] == bs && rnd() % ++nt == 0) b = s2; } }
+        add_set(b); }
+      for (int ch = 1; ch;){ ch = 0; uint32_t st = nsol ? rnd() % nsol : 0;
+        for (uint32_t j = 0; j < nsol; j++){ uint32_t i = (st + j) % nsol; if (score[sol[i]] == 0){ del_set(sol[i]); ch = 1; break; } } }
+      if (nsol <= curk){ curk = nsol; memcpy(cur, sol, 4 * nsol); }
+      if (nsol < bestk){ bestk = nsol; memcpy(best, sol, 4 * nsol); tbest = now() - t0; save(out, best, bestk);
+        if (!quiet){ printf("best %u %.2f %lld\n", bestk, tbest, iter); fflush(stdout); } }
+    }
+    free(cur);
+    goto done;
+  }
   while (1){
     while (nunc == 0){
       if (nsol < bestk){ bestk = nsol; memcpy(best, sol, 4 * nsol); tbest = now() - t0; save(out, best, bestk);
