@@ -5,8 +5,7 @@ set -ex
 BR=${1:-feat/k3-6-1}; J=${2:-8}
 cd ~
 sudo apt-get update -q >/dev/null 2>&1
-sudo apt-get install -y -q build-essential git python3 python3-pip >/dev/null 2>&1
-pip3 install -q --break-system-packages python-sat==1.8.dev16 2>/dev/null || pip3 install -q --break-system-packages python-sat
+sudo apt-get install -y -q build-essential git python3 >/dev/null 2>&1
 mkdir -p sat && cd sat
 for r in arminbiere/cadical marijnheule/drat-trim; do [ -d $(basename $r) ] || git clone -q --depth 1 https://github.com/$r; done
 (cd cadical && git rev-parse HEAD > ../cadical.commit && ./configure >/dev/null && make -j8 >/dev/null)

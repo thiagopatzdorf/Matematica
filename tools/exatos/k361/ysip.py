@@ -10,7 +10,65 @@ from __future__ import annotations
 
 import itertools
 
-from pysat.card import CardEnc, EncType
+
+
+class _Contador:
+    """Contador sequencial com equivalências (sem dependências externas).
+
+    r[i][j] <-> "pelo menos j dos i primeiros literais são verdadeiros", j = 1..K. Como todas
+    as variáveis auxiliares têm semântica fixa, ``avaliar`` reconstrói a atribuição completa a
+    partir de x e confere cláusula por cláusula (os testes usam isso nos dois sentidos).
+    """
+
+    def __init__(self, lits: list[int], K: int, top: int):
+        self.lits, self.K, self.top = lits, K, top
+        self.cls: list[list[int]] = []
+        self.aux: list[tuple[int, int, int]] = []  # (var, i, j): i literais, pelo menos j
+        ant = {0: True}  # j -> literal (int) ou constante bool, para i-1
+        for i, x in enumerate(lits, start=1):
+            cur = {0: True}
+            for j in range(1, min(i, K) + 1):
+                a = ant.get(j, False)      # r[i-1][j]
+                b = ant.get(j - 1, False)  # r[i-1][j-1]
+                self.top += 1
+                r = self.top
+                self.aux.append((r, i, j))
+                cur[j] = r
+                self._imp([a], r)
+                self._imp([b, x], r)
+                self._imp_ou(r, [a, x])
+                self._imp_ou(r, [a, b])
+            ant = cur
+        self.final = ant
+
+    def _imp(self, conj, r):
+        if any(c is False for c in conj):
+            return
+        self.cls.append([-c for c in conj if c is not True] + [r])
+
+    def _imp_ou(self, r, disj):
+        if any(d is True for d in disj):
+            return
+        self.cls.append([-r] + [d for d in disj if d is not False])
+
+    def pelo_menos(self, b: int) -> list[list[int]]:
+        f = self.final.get(b, False)
+        return [] if f is True else [[f]] if f is not False else [[]]
+
+    def no_maximo(self, b: int) -> list[list[int]]:
+        f = self.final.get(b + 1, False)
+        return [] if f is False else [[-f]]
+
+
+def _card(lits: list[int], top: int, minimo: int | None, maximo: int | None):
+    K = (maximo + 1) if maximo is not None else minimo
+    c = _Contador(lits, K, top)
+    cls = list(c.cls)
+    if minimo:
+        cls += c.pelo_menos(minimo)
+    if maximo is not None:
+        cls += c.no_maximo(maximo)
+    return c, cls
 
 
 def palavras(v: int) -> list[tuple[int, ...]]:
@@ -30,31 +88,38 @@ def _indice(v: int) -> dict[tuple[int, ...], int]:
     return {w: i + 1 for i, w in enumerate(palavras(v))}
 
 
+def _construir(v: int, y: list[int], p: int):
+    idx = _indice(v)
+    W = palavras(v)
+    cls: list[list[int]] = [[idx[u] for u in bola(v, w)] for w in W]
+    top = 3 ** v
+    contadores = []
+    for j in range(3):
+        for k in range(3):
+            lits = [idx[w] for w in W if w[0] == j and w[1] == k]
+            c, cc = _card(lits, top, y[3 * j + k], y[3 * j + k])
+            top = c.top
+            contadores.append(c)
+            cls.extend(cc)
+    if p > 0:
+        for i in range(2, v):
+            for a in range(3):
+                lits = [idx[w] for w in W if w[i] == a]
+                c, cc = _card(lits, top, p, None)
+                top = c.top
+                contadores.append(c)
+                cls.extend(cc)
+    return top, cls, contadores
+
+
 def cnf(v: int, y: list[int], p: int = 0) -> tuple[int, list[list[int]]]:
     """CNF do y-SIP. Variável i+1 = palavra i (ordem lexicográfica) está no código.
 
     Restrições: cobertura (uma cláusula por ponto), contagem exata por bloco de prefixo
     (j,k) e, se p > 0, toda fibra (coordenada i >= 2, símbolo a) com pelo menos p palavras.
-    As fibras das coordenadas 0 e 1 já são somas de linhas/colunas de y.
+    As fibras das coordenadas 0 e 1 são somas de linhas/colunas de y (vêm do sistema).
     """
-    idx = _indice(v)
-    cls: list[list[int]] = [[idx[u] for u in bola(v, w)] for w in palavras(v)]
-    top = 3 ** v
-    for j in range(3):
-        for k in range(3):
-            lits = [idx[w] for w in palavras(v) if w[0] == j and w[1] == k]
-            enc = CardEnc.equals(lits=lits, bound=y[3 * j + k], top_id=top, encoding=EncType.seqcounter)
-            if enc.nv > top:
-                top = enc.nv
-            cls.extend(enc.clauses)
-    if p > 0:
-        for i in range(2, v):
-            for a in range(3):
-                lits = [idx[w] for w in palavras(v) if w[i] == a]
-                enc = CardEnc.atleast(lits=lits, bound=p, top_id=top, encoding=EncType.seqcounter)
-                if enc.nv > top:
-                    top = enc.nv
-                cls.extend(enc.clauses)
+    top, cls, _ = _construir(v, y, p)
     return top, cls
 
 
@@ -144,14 +209,19 @@ def automorfismos(v: int, y: list[int]) -> list[dict[tuple[int, ...], tuple[int,
     return perms
 
 
-def lex_leader(v: int, perms, top: int) -> tuple[int, list[list[int]]]:
-    """Cláusulas de x <=lex x∘pi para cada pi (cadeia de igualdade de prefixo)."""
+def lex_leader(v: int, perms, top: int, aux: list | None = None) -> tuple[int, list[list[int]]]:
+    """Cláusulas de x <=lex x∘pi para cada pi (cadeia de igualdade de prefixo).
+
+    Ordem das variáveis: a das palavras (lexicográfica). A variável auxiliar criada na palavra
+    w vale "x e x∘pi coincidem em todas as palavras até w, inclusive"; se ``aux`` é uma lista,
+    recebe (var, índice de pi, posição de w) para a reconstrução em ``atribuicao``.
+    """
     idx = _indice(v)
     W = palavras(v)
     cls: list[list[int]] = []
-    for pi in perms:
+    for n, pi in enumerate(perms):
         e = None  # literal "prefixo igual até aqui"; None = verdadeiro
-        for w in W:
+        for pos, w in enumerate(W):
             a, b = idx[w], idx[pi[w]]
             if a == b:
                 continue
@@ -160,6 +230,8 @@ def lex_leader(v: int, perms, top: int) -> tuple[int, list[list[int]]]:
             top += 1
             cls.append(pre + [a, b, top])
             cls.append(pre + [-a, -b, top])
+            if aux is not None:
+                aux.append((top, n, pos))
             e = top
     return top, cls
 
@@ -168,3 +240,39 @@ def cnf_sb(v: int, y: list[int], p: int = 0) -> tuple[int, list[list[int]]]:
     nv, cls = cnf(v, y, p)
     nv, sb = lex_leader(v, automorfismos(v, y), nv)
     return nv, cls + sb
+
+
+def atribuicao(v: int, y: list[int], p: int, codigo) -> tuple[list[list[int]], dict[int, bool]]:
+    """(cláusulas de cnf_sb, atribuição completa induzida pelo código).
+
+    As auxiliares recebem o valor da sua semântica, então uma cláusula falsa aponta um defeito
+    real: ou o código viola a restrição, ou a codificação está errada.
+    """
+    top, cls, contadores = _construir(v, y, p)
+    W = palavras(v)
+    cod = set(codigo)
+    val = {i + 1: (w in cod) for i, w in enumerate(W)}
+    for c in contadores:
+        soma = [0]
+        for x in c.lits:
+            soma.append(soma[-1] + val[x])
+        for r, i, j in c.aux:
+            val[r] = soma[i] >= j
+    perms = automorfismos(v, y)
+    meta: list = []
+    top, sb = lex_leader(v, perms, top, meta)
+    idx = _indice(v)
+    igual_ate: dict[int, list[bool]] = {}
+    for n, pi in enumerate(perms):
+        acc, lst = True, []
+        for w in W:
+            acc = acc and val[idx[w]] == val[idx[pi[w]]]
+            lst.append(acc)
+        igual_ate[n] = lst
+    for r, n, pos in meta:
+        val[r] = igual_ate[n][pos]
+    return cls + sb, val
+
+
+def falsas(cls: list[list[int]], val: dict[int, bool]) -> list[list[int]]:
+    return [c for c in cls if not any((lit > 0) == val[abs(lit)] for lit in c)]
