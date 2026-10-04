@@ -58,6 +58,7 @@ palavras soltas (remendo). O tamanho final é `t*q^k + |remendo|`.
 | K5(10,5) | 175 | **162** | [10,3]_5, t=1 (8 órfãs) + 37 palavras (cota do LP p/ esta base: 147) | `data/codes/q5_n10_R5_M162.txt` |
 | K5(11,4) | 3125 | **2875** | 23 classes de [11,3]_5, sem remendo | `data/codes/q5_n11_R4_M2875.txt` |
 | K7(10,4) | 6517 | **5616** | 16 classes de [10,3]_7 (3 órfãs) + 128 palavras | `data/codes/q7_n10_R4_M5616.txt` |
+| K7(10,4) (2026-10-04) | 6517 | **5607** | a mesma base + 119 palavras (`tools/patch_setcover`, guloso aleatorizado; `docs/attack/SETCOVER_2026-10-04.md`) | `data/codes/q7_n10_R4_M5607.txt` |
 | K5(11,6) | 125 | 125 (= ub) | [11,3]_5 com raio 6; em k=2 com t=4 sobram 7746 órfãs | — |
 | K7(9,3) | 8575 | sem melhora | k=4 t=3: 44 órfãs de 2401 pontos; k=3 t=24: 139 órfãs | — |
 | K7(10,3) | 42189 | sem melhora | k=5 t=3 cobre (50421); lift k=4 t=20 deixa 63 órfãs | — |
