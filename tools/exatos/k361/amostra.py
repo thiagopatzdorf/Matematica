@@ -60,7 +60,7 @@ def resolver(v: int, y: list[int], p: int, tempo: int, lrat: bool, pasta: str) -
     ysip.escrever_dimacs(base + ".cnf", nv, cls)
     cmd = [binario("CADICAL", "cadical"), "-q", "-t", str(tempo), base + ".cnf"]
     if lrat:
-        cmd[2:2] = ["--lrat"]
+        cmd[2:2] = ["--lrat", "--binary=false"]  # lrat-check só lê LRAT em texto
         cmd.append(base + ".lrat")
     t0 = time.time()
     r = subprocess.run(cmd, capture_output=True, text=True)
