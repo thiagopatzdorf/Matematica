@@ -1,9 +1,11 @@
 /*
  * verify.c -- verificador oficial de códigos de cobertura K_q(n,R) <= M.  C99, sem dependências.
  *
- * Uso:   verify [-q Q -n N -r R] [-m M] ARQUIVO|-
+ * Uso:   verify [-q Q -n N -r R] [-m M] [-u K] ARQUIVO|-
  *        Sem -q/-n/-r, os parâmetros saem do nome do arquivo (q<Q>_n<N>_R<R>_M<M>.txt).
  *        "-" lê a entrada padrão (ex.: a saída de scripts/codes/expand.py).
+ *        -u K: se sobrar ponto descoberto, imprime até K deles (um por linha, "uncovered_point=<palavra>",
+ *        em ordem crescente do índice) depois da linha de resumo. Sem -u a saída é a de sempre.
  *
  * Entrada: uma palavra por linha, n dígitos '0'..'9' (s[0] .. s[n-1]); linhas vazias ignoradas.
  *          Índice da palavra = sum_k s[k] * q^k (little-endian, a convenção dos C1_Data_*.lean).
@@ -146,16 +148,17 @@ static int die(const char *msg, long line) {
 
 int main(int argc, char **argv) {
     int q = -1, n = -1, r = -1;
-    long m = -1;
+    long m = -1, show = 0;
     const char *path = NULL;
     for (int i = 1; i < argc; i++) {
         if (!strcmp(argv[i], "-q") && i + 1 < argc) q = atoi(argv[++i]);
         else if (!strcmp(argv[i], "-n") && i + 1 < argc) n = atoi(argv[++i]);
         else if (!strcmp(argv[i], "-r") && i + 1 < argc) r = atoi(argv[++i]);
         else if (!strcmp(argv[i], "-m") && i + 1 < argc) m = atol(argv[++i]);
+        else if (!strcmp(argv[i], "-u") && i + 1 < argc) show = atol(argv[++i]);
         else path = argv[i];
     }
-    if (!path) { fprintf(stderr, "uso: verify [-q Q -n N -r R] [-m M] ARQUIVO|-\n"); return 2; }
+    if (!path) { fprintf(stderr, "uso: verify [-q Q -n N -r R] [-m M] [-u K] ARQUIVO|-\n"); return 2; }
     if (q < 0 || n < 0 || r < 0) {
         int fq, fn, fr; long fm;
         if (!parse_name(path, &fq, &fn, &fr, &fm))
@@ -255,6 +258,21 @@ int main(int argc, char **argv) {
         printf(" first_uncovered=%s", s);
     }
     printf("\n");
+    if (unc && show > 0) { /* lista os K primeiros descobertos, em ordem de índice */
+        long listed = 0;
+        for (uint64_t i = 0; i < nwords64 && listed < show; i++) {
+            uint64_t x = ~COV[i];
+            while (x && listed < show) {
+                uint64_t idx = i * 64 + (uint64_t)__builtin_ctzll(x);
+                char s[MAXN + 1];
+                for (int k = 0; k < n; k++) s[k] = (char)('0' + (idx / POW[k]) % (uint64_t)q);
+                s[n] = 0;
+                printf("uncovered_point=%s\n", s);
+                listed++;
+                x &= x - 1;
+            }
+        }
+    }
     free(words); free(seen); free(COV);
     return unc ? 1 : 0;
 }
