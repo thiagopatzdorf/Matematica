@@ -137,7 +137,7 @@ def test_n_optimal_com_truncamento_diferente_do_esperado_aborta_o_build():
 # ------------------------------------------------------------ certificação (estado + proveniência)
 
 
-def test_k7_4_2_exata_19_com_inferior_so_witness_checked_porque_o_lean_e_condicional(ledger_recortado):
+def test_k7_4_2_exata_19_com_as_duas_cotas_formalized_e_inferior_sem_hipotese_pendente(ledger_recortado):
     c = _celulas(ledger_recortado)[(7, 4, 2)]
     cert = c["certification"]
     assert cert["exact"] is True and cert["ub"]["value"] == cert["lb"]["value"] == 19
@@ -146,8 +146,11 @@ def test_k7_4_2_exata_19_com_inferior_so_witness_checked_porque_o_lean_e_condici
     # A superior 19 é do Kéri–Östergård: o crédito da fonte original fica com a tabela.
     assert cert["ub"]["provenance"]["fonte"]["source"] == "keri_2011"
     lb = cert["lb"]
-    assert lb["state"] == "WITNESS_CHECKED", "inexistência por LRAT, não teorema incondicional"
-    assert lb["provenance"]["lean"]["condicional"], "o teorema K_7_4_2_eq_19_of depende de Ponte18 e Refut18"
+    assert lb["state"] == "FORMALIZED", "K742.K_7_4_2_eq_19 é incondicional no kernel (v0.8)"
+    assert lb["provenance"]["lean"] == {"declaration": "K742.K_7_4_2_eq_19", "tag": "v0.8.0"}
+    assert "condicional" not in lb["provenance"]["lean"]
+    # não sobe para INDEPENDENTLY_REPRODUCED: a codificação independente não tem LRAT (ledger/README.md)
+    assert lb["provenance"]["verificador_independente"] and lb["provenance"]["reproducao_independente"]
     assert c["published"]["exact"] is False and c["published"]["lb"]["value"] == 17
 
 
@@ -155,6 +158,7 @@ def test_registro_que_chama_de_formalized_um_teorema_condicional_aborta_o_build(
     sources = json.loads((RAIZ / "ledger" / "sources.json").read_text())
     ours = json.loads((RAIZ / "ledger" / "ours.json").read_text())
     ours["cells"]["7,4,2"]["lb"]["estado"] = "FORMALIZED"
+    ours["cells"]["7,4,2"]["lb"]["lean"]["condicional"] = ["Ponte18 (hipótese pendente)"]
     with pytest.raises(SystemExit, match="condicional"):
         build.construir(build.ler_fontes(FONTES, sources), ours, sources)
 
@@ -228,7 +232,7 @@ def test_cobertura_conta_k7_4_2_entre_as_exatas_e_usa_a_frase_aprovada():
 
     texto = cobertura.relatorio(build.carregar(RAIZ / "ledger" / "cells.json"))
     assert "A machine-checked ledger of covering-code upper bounds, with formally certified exact entries." in texto
-    assert "| K7(4,2) | 19 | FORMALIZED | 19 | WITNESS_CHECKED | sim |" in texto
+    assert "| K7(4,2) | 19 | FORMALIZED | 19 | FORMALIZED | sim |" in texto
     assert "entire covering-code table has been formally verified" not in texto
 
 
