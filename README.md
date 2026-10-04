@@ -17,7 +17,7 @@ qualquer problema em que **verificar é bem mais barato que achar**. Código de 
 * Colaboradores convidados recebem crédito de infra (US$ 20 por pessoa, até 10 pessoas) pelo MCP Infinito, com teto
   aplicado em código.
 
-## Estado atual (2026-10-03)
+## Estado atual (2026-10-04)
 
 Números conferidos no repositório (`ledger/cells.json`, `data/codes/`, `tools/verify/check_all.sh`).
 
@@ -26,7 +26,7 @@ Números conferidos no repositório (`ledger/cells.json`, `data/codes/`, `tools/
 | células `K_q(n,R)` no ledger (q de 2 a 21) | 1145, das quais 519 com valor exato e 626 abertas |
 | células em que temos teorema Lean | 12 (11 abaixo da melhor cota superior publicada que achamos; `K_2(6,1) = 12` é o clássico, agora com prova no kernel) |
 | códigos em `data/codes/` | 16, todos aprovados pelo verificador oficial em C |
-| destaque | `K_7(9,4) ≤ 1134` (publicado antes: 1475, Marosi, arXiv:2608.19872v3) |
+| destaques | `K_7(9,4) ≤ 1134` (publicado antes: 1475, Marosi, arXiv:2608.19872v3); `K_7(10,4) ≤ 5607` (antes: 6517, Kéri); `K_7(4,2) = 19` (antes: 17–19), com a cota superior e os lemas no kernel e a inexistência de 18 palavras por SAT com prova LRAT conferida (ver `docs/exatos/`) |
 | Lean e Mathlib | Lean 4.34.1, Mathlib v4.34.1; `lake build` passa e roda no CI a cada push |
 | axiomas | todo `#print axioms` mostra no máximo `propext, Classical.choice, Quot.sound` |
 
@@ -78,7 +78,7 @@ Lê-se melhor nesta ordem: [docs/GLOSSARIO.md](docs/GLOSSARIO.md), [docs/ARQUITE
 ## Como citar
 
 DOI conceitual: [10.5281/zenodo.23085769](https://doi.org/10.5281/zenodo.23085769) (aponta sempre para a versão
-mais nova). Tag `v0.6.0`. Os metadados completos estão em `CITATION.cff` e `.zenodo.json`; o GitHub oferece o botão
+mais nova). Tag `v0.7.0`. Os metadados completos estão em `CITATION.cff` e `.zenodo.json`; o GitHub oferece o botão
 "Cite this repository" a partir do primeiro. A nota está em [paper/main.pdf](paper/main.pdf).
 
 ## Licença e conduta

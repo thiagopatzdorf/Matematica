@@ -77,7 +77,7 @@ def test_publicar_faz_newversion_apaga_herdado_sobe_pdf_metadados_e_publica_ness
     metodos = [(m, u.rsplit("/", 2)[-2:]) for m, u, _ in falso.chamadas]
     assert [m for m, _ in metodos] == ["POST", "GET", "DELETE", "PUT", "PUT", "POST"]
     assert falso.chamadas[0][1].endswith("/23085770/actions/newversion")
-    assert falso.chamadas[3][1].endswith("/covering-codes-lean-kernel-v0.6.0.pdf")
+    assert falso.chamadas[3][1].endswith("/covering-codes-lean-kernel-v0.7.0.pdf")
     assert all(auth == f"Bearer {TOKEN}" for _, _, auth in falso.chamadas)
     out = capsys.readouterr()
     assert "PUBLICADO 10.5281/zenodo.1" in out.out
@@ -118,7 +118,7 @@ def test_nenhum_segredo_no_codigo_de_publicacao():
 def test_pagina_genesis_mostra_as_doze_cotas_lean_e_nenhuma_so_computacional(ledger_recortado, tmp_path):
     saida = tmp_path / "p.html"
     genesis_page.main(["--ledger", str(ledger_recortado / "cells.json"), "--doi", "10.5281/zenodo.23092580",
-                       "--tag", "v0.6.0", "--data", "2026-10-03", "--saida", str(saida)])
+                       "--tag", "v0.7.0", "--data", "2026-10-04", "--saida", str(saida)])
     html = saida.read_text()
     assert html.count('<span class="ok">Lean kernel</span>:') == 12
     assert html.count('<span class="cp">computer only</span> (not yet a Lean theorem)') == 0
