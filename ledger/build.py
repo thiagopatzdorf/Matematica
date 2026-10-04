@@ -248,6 +248,24 @@ def aplicar_nosso(cel: dict, nosso: dict | None) -> dict:
     return cel
 
 
+# A transcrição do coldcase (bounds.json, commit 56a8cce) perde o expoente de "4^79" etc. nas
+# tabelas do Kéri: n_optimal chega truncado ao primeiro dígito (K4(4,3) vem 7, não 79). Valores da
+# tabela do Kéri, recontados por classificação exaustiva em tools/exatos/motor (--classificar).
+N_OPTIMAL_CORRIGIDO = {
+    (4, 3, 2): 21, (4, 4, 3): 79, (4, 5, 4): 269, (4, 6, 5): 839,
+    (5, 3, 2): 54, (5, 4, 3): 471,
+}
+
+
+def corrigir_n_optimal(e: dict) -> dict:
+    alvo = N_OPTIMAL_CORRIGIDO.get((e["q"], e["n"], e["R"]))
+    if alvo is None or e.get("n_optimal") == alvo:
+        return e
+    if e.get("n_optimal") != int(str(alvo)[0]):
+        raise SystemExit(f"n_optimal inesperado em K{e['q']}({e['n']},{e['R']}): {e.get('n_optimal')}")
+    return {**e, "n_optimal": alvo}
+
+
 def construir(fontes: dict, ours: dict, sources: dict) -> dict:
     bounds = _json(fontes, "bounds", None)
     if bounds is None:
@@ -262,6 +280,7 @@ def construir(fontes: dict, ours: dict, sources: dict) -> dict:
     cells = []
     vistos = set()
     for e in bounds["entries"]:
+        e = corrigir_n_optimal(e)
         k = chave(e["q"], e["n"], e["R"])
         vistos.add(k)
         c = montar_celula(e, e.get("lb_updated"), mub.get(k), mlb.get(k), flo.get(k), ev.get(k), lit.get(k))

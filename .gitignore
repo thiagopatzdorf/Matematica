@@ -6,3 +6,4 @@ __pycache__/
 build/
 tools/verify/verify
 CoveringLean/K742Sat/dados/
+.venv/

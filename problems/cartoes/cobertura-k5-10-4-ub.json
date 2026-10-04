@@ -1,0 +1,95 @@
+{
+  "formato": "cartao-problema/v1",
+  "id": "cobertura-k5-10-4-ub",
+  "titulo": "K_5(10,4): cota superior",
+  "dominio": "codigos-de-cobertura",
+  "tipo": "cota_superior",
+  "enunciado": "Exibir um código C ⊆ Z_5^10 tal que toda palavra de Z_5^10 está a distância de Hamming ≤ 4 de alguma palavra de C, com |C| = M o menor possível. K_5(10,4) é o mínimo desse M; uma cota superior é um código concreto.",
+  "enunciado_formal": "CoveringKernel.K5_10_4_le_625_kernel",
+  "estado": "certificado",
+  "melhor_conhecido": {
+    "valor": 875,
+    "fonte": "keri_2011",
+    "ref": "Kéri 2011 (tabelas, http://old.sztaki.hu/~keri/codes/)"
+  },
+  "nosso": {
+    "valor": 625,
+    "estado": "lean",
+    "prova": "CoveringKernel.K5_10_4_le_625_kernel"
+  },
+  "avaliador": {
+    "id": "verify_cover",
+    "como_rodar": "python3 scripts/loop/verify_cover.py data/codes/q5_n10_R4_M625.txt 5 10 4",
+    "custo_estimado_usd": 0
+  },
+  "celula_ledger": "K5(10,4)",
+  "historico": [
+    {
+      "quem": "tools/problems/seed_from_ledger.py",
+      "papel": "qualquer",
+      "quando": "2026-10-03",
+      "de": null,
+      "para": "proposto",
+      "evidencia": {},
+      "origem": "importacao"
+    },
+    {
+      "quem": "tools/problems/seed_from_ledger.py",
+      "papel": "mantenedor",
+      "quando": "2026-10-03",
+      "de": "proposto",
+      "para": "aceito",
+      "evidencia": {},
+      "origem": "importacao"
+    },
+    {
+      "quem": "tools/problems/seed_from_ledger.py",
+      "papel": "mantenedor",
+      "quando": "2026-10-03",
+      "de": "aceito",
+      "para": "aberto",
+      "evidencia": {},
+      "origem": "importacao"
+    },
+    {
+      "quem": "tools/problems/seed_from_ledger.py",
+      "papel": "qualquer",
+      "quando": "2026-10-03",
+      "de": "aberto",
+      "para": "candidato",
+      "evidencia": {
+        "artefato": "data/codes/q5_n10_R4_M625.txt",
+        "sha256": "ba1ec554be784e105c9c729c0cb5ea08c5cf10d120ee617ede96d864a83e53b9"
+      },
+      "origem": "importacao"
+    },
+    {
+      "quem": "tools/problems/seed_from_ledger.py",
+      "papel": "avaliador",
+      "quando": "2026-10-03",
+      "de": "candidato",
+      "para": "verificado",
+      "evidencia": {
+        "avaliador": "verify_cover",
+        "veredito": "ok",
+        "saida": "{\"M\": 625, \"R\": 4, \"descobertas\": 0, \"distintas\": 625, \"n\": 10, \"ok\": true, \"q\": 5}",
+        "como_rodar": "python3 scripts/loop/verify_cover.py data/codes/q5_n10_R4_M625.txt 5 10 4"
+      },
+      "origem": "importacao"
+    },
+    {
+      "quem": "tools/problems/seed_from_ledger.py",
+      "papel": "avaliador",
+      "quando": "2026-10-03",
+      "de": "verificado",
+      "para": "certificado",
+      "evidencia": {
+        "kernel": "lean",
+        "declaracao": "CoveringKernel.K5_10_4_le_625_kernel",
+        "tag": "v0.4.0",
+        "fonte": "ledger/cells.json (ours_lean)"
+      },
+      "origem": "importacao"
+    }
+  ]
+}

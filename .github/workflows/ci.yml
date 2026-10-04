@@ -1,0 +1,84 @@
+# CI geral do repositório: lint, higiene e testes Python. Roda em TODO push/PR (sem filtro de
+# caminho), por isso o job `gate` abaixo é o único check obrigatório da branch protection.
+#
+# Divisão de trabalho entre os três workflows (não repetir um no outro):
+#   ci.yml           ruff, higiene (tamanho/JSON/segredo/caminho), pytest de `tests` e `infinito/tests`
+#                    COM nauty (libnauty-dev): com a variável CI definida o teste do motor de exatos não pula,
+#                    falta de nauty aparece como falha (medido no 1º run: 65 testes, `nauty/nauty.h` ausente).
+#                    Sempre roda.
+#   verify-codes.yml verificador C oficial + check_all sobre data/codes, pytest de `tests` COM nauty
+#                    e `lake build` do alvo padrão. Só com mudança em dados/Lean/ferramentas.
+#   lean-syn.yml     `lake build CoveringSyn` (certificados por síndromes, 20-40 min). Só quando
+#                    algo que o certificado lê muda.
+# Os dois últimos têm filtro de caminho, então NÃO podem ser checks obrigatórios (um PR que não
+# os dispara ficaria esperando para sempre); quando disparam, o merge deve esperar por eles.
+# Ações fixadas por SHA (comentário = versão); permissões mínimas; sem segredos.
+name: ci
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+# Um run novo na mesma branch/PR cancela o anterior.
+concurrency:
+  group: ci-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  lint:
+    name: ruff
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1 # v6.3.0
+        with:
+          python-version: "3.11"
+      # Mesma versão de scripts/dev/setup.sh e do .pre-commit-config.yaml; regras em pyproject.toml.
+      - run: python -m pip install --quiet ruff==0.15.20
+      - run: ruff check .
+
+  testes:
+    name: pytest (tests + infinito/tests)
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1 # v6.3.0
+        with:
+          python-version: "3.11"
+          cache: pip
+          cache-dependency-path: |
+            infinito/requirements.txt
+            .github/workflows/ci.yml
+      # nauty: tools/exatos/motor (tests/test_motor_exatos.py não pula com CI definido; mesmo passo do verify-codes.yml).
+      - name: Instalar libnauty-dev
+        run: sudo apt-get install -y -qq libnauty-dev >/dev/null || (sudo apt-get update -qq && sudo apt-get install -y -qq libnauty-dev >/dev/null)
+      # Só o necessário: pytest, numpy (scripts/syndrome/gen_syn.py), httpx (TestClient do
+      # Starlette em infinito/tests) e as dependências declaradas do servidor Infinito.
+      - run: python -m pip install --quiet pytest==8.4.2 numpy==2.4.6 httpx -r infinito/requirements.txt
+      # Inclui tests/test_repo_higiene.py: tamanho, JSON de dados, caminho de máquina e segredos.
+      - name: Testes e higiene
+        run: python -m pytest -q tests infinito/tests
+
+  # Único check obrigatório: falha se qualquer job acima falhar, for cancelado ou pular.
+  gate:
+    name: gate
+    if: always()
+    needs: [lint, testes]
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Todos os jobs obrigatórios passaram?
+        env:
+          RESULTADOS: ${{ join(needs.*.result, ' ') }}
+        run: |
+          echo "resultados: $RESULTADOS"
+          for r in $RESULTADOS; do
+            [ "$r" = "success" ] || { echo "job obrigatório terminou como: $r"; exit 1; }
+          done

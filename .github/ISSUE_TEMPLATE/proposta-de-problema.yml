@@ -1,0 +1,91 @@
+name: Proposta de problema
+description: Propor um problema para o registro (vira um Cartão de Problema, estado "proposto").
+title: "[problema] <slug-do-problema>"
+labels: ["problema:proposto"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Os campos abaixo são exatamente os do Cartão de Problema v1 (`problems/SPEC.md`).
+        Um mantenedor aceita (ou arquiva com motivo). Sem avaliador exato, o problema fica em "aceito" e não vira "aberto".
+  - type: input
+    id: id
+    attributes:
+      label: id (slug estável)
+      description: "Minúsculas, números e hífen, 3 a 64 caracteres. Nunca muda depois. Ex.: cobertura-k7-9-4-ub"
+    validations: {required: true}
+  - type: input
+    id: titulo
+    attributes:
+      label: titulo
+    validations: {required: true}
+  - type: input
+    id: dominio
+    attributes:
+      label: dominio
+      description: "Ex.: codigos-de-cobertura"
+    validations: {required: true}
+  - type: dropdown
+    id: tipo
+    attributes:
+      label: tipo
+      options: [cota_superior, cota_inferior, valor_exato, construcao, formalizacao]
+    validations: {required: true}
+  - type: textarea
+    id: enunciado
+    attributes:
+      label: enunciado
+      description: "Texto autocontido, sem ambiguidade: o que seria uma resposta."
+    validations: {required: true}
+  - type: input
+    id: enunciado_formal
+    attributes:
+      label: enunciado_formal (opcional)
+      description: "Nome da declaração Lean que formaliza o enunciado."
+  - type: input
+    id: melhor_conhecido_valor
+    attributes:
+      label: melhor_conhecido.valor
+      description: "Número. Em branco se só se conhece um intervalo (informe-o na fonte)."
+  - type: input
+    id: melhor_conhecido_fonte
+    attributes:
+      label: melhor_conhecido.fonte
+      description: "Ex.: keri_2011"
+    validations: {required: true}
+  - type: input
+    id: melhor_conhecido_ref
+    attributes:
+      label: melhor_conhecido.ref
+      description: "Link ou citação que um revisor consiga abrir."
+    validations: {required: true}
+  - type: input
+    id: avaliador_id
+    attributes:
+      label: avaliador.id
+      description: "O avaliador exato que decide se um candidato vale. Ex.: verify_cover"
+    validations: {required: true}
+  - type: input
+    id: avaliador_como_rodar
+    attributes:
+      label: avaliador.como_rodar
+      description: "Comando que roda no checkout, sem segredo."
+    validations: {required: true}
+  - type: input
+    id: avaliador_custo_estimado_usd
+    attributes:
+      label: avaliador.custo_estimado_usd
+      description: "Número >= 0. Medido, não chutado; 0 se roda local."
+    validations: {required: true}
+  - type: input
+    id: celula_ledger
+    attributes:
+      label: celula_ledger (opcional)
+      description: "Ex.: K7(9,4), se o problema é uma célula do ledger."
+  - type: checkboxes
+    id: confirmacoes
+    attributes:
+      label: Antes de enviar
+      options:
+        - label: Procurei o problema em problems/cartoes/ e nas issues abertas (não é duplicado).
+          required: true

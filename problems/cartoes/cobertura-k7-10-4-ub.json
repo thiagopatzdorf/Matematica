@@ -1,0 +1,95 @@
+{
+  "formato": "cartao-problema/v1",
+  "id": "cobertura-k7-10-4-ub",
+  "titulo": "K_7(10,4): cota superior",
+  "dominio": "codigos-de-cobertura",
+  "tipo": "cota_superior",
+  "enunciado": "Exibir um código C ⊆ Z_7^10 tal que toda palavra de Z_7^10 está a distância de Hamming ≤ 4 de alguma palavra de C, com |C| = M o menor possível. K_7(10,4) é o mínimo desse M; uma cota superior é um código concreto.",
+  "enunciado_formal": "Syn.K7_10_4_le_5616_syn",
+  "estado": "certificado",
+  "melhor_conhecido": {
+    "valor": 6517,
+    "fonte": "keri_2011",
+    "ref": "Kéri 2011 (tabelas, http://old.sztaki.hu/~keri/codes/)"
+  },
+  "nosso": {
+    "valor": 5616,
+    "estado": "lean",
+    "prova": "Syn.K7_10_4_le_5616_syn"
+  },
+  "avaliador": {
+    "id": "verify_cover",
+    "como_rodar": "python3 scripts/loop/verify_cover.py data/codes/q7_n10_R4_M5616.txt 7 10 4",
+    "custo_estimado_usd": 0
+  },
+  "celula_ledger": "K7(10,4)",
+  "historico": [
+    {
+      "quem": "tools/problems/seed_from_ledger.py",
+      "papel": "qualquer",
+      "quando": "2026-10-03",
+      "de": null,
+      "para": "proposto",
+      "evidencia": {},
+      "origem": "importacao"
+    },
+    {
+      "quem": "tools/problems/seed_from_ledger.py",
+      "papel": "mantenedor",
+      "quando": "2026-10-03",
+      "de": "proposto",
+      "para": "aceito",
+      "evidencia": {},
+      "origem": "importacao"
+    },
+    {
+      "quem": "tools/problems/seed_from_ledger.py",
+      "papel": "mantenedor",
+      "quando": "2026-10-03",
+      "de": "aceito",
+      "para": "aberto",
+      "evidencia": {},
+      "origem": "importacao"
+    },
+    {
+      "quem": "tools/problems/seed_from_ledger.py",
+      "papel": "qualquer",
+      "quando": "2026-10-03",
+      "de": "aberto",
+      "para": "candidato",
+      "evidencia": {
+        "artefato": "data/codes/q7_n10_R4_M5616.txt",
+        "sha256": "bfa4f489c610aedaa9208736a5bb3cdf5a17b116d4fd83c516835493f4f4f0a7"
+      },
+      "origem": "importacao"
+    },
+    {
+      "quem": "tools/problems/seed_from_ledger.py",
+      "papel": "avaliador",
+      "quando": "2026-10-03",
+      "de": "candidato",
+      "para": "verificado",
+      "evidencia": {
+        "avaliador": "verify_cover",
+        "veredito": "ok",
+        "saida": "{\"M\": 5616, \"R\": 4, \"descobertas\": 0, \"distintas\": 5616, \"n\": 10, \"ok\": true, \"q\": 7}",
+        "como_rodar": "python3 scripts/loop/verify_cover.py data/codes/q7_n10_R4_M5616.txt 7 10 4"
+      },
+      "origem": "importacao"
+    },
+    {
+      "quem": "tools/problems/seed_from_ledger.py",
+      "papel": "avaliador",
+      "quando": "2026-10-03",
+      "de": "verificado",
+      "para": "certificado",
+      "evidencia": {
+        "kernel": "lean",
+        "declaracao": "Syn.K7_10_4_le_5616_syn",
+        "tag": "v0.6.0",
+        "fonte": "ledger/cells.json (ours_lean)"
+      },
+      "origem": "importacao"
+    }
+  ]
+}
