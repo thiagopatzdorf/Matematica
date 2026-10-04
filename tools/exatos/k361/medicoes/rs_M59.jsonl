@@ -1,0 +1,2 @@
+{"v": 6, "y": [6, 6, 7, 6, 8, 6, 8, 6, 6], "p": 19, "motor": "roundingsat", "status": "UNSAT", "seg": 34.7, "conflitos": 15001, "total_seqs": 2}
+{"v": 6, "y": [6, 6, 7, 7, 7, 6, 7, 7, 6], "p": 19, "motor": "roundingsat", "status": "UNSAT", "seg": 621.41, "conflitos": 164341, "total_seqs": 2}

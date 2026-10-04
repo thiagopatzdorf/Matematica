@@ -7,12 +7,12 @@ Estados (cumulativos, ver `ledger/README.md`): **C** = CLAIMED, **W** = WITNESS_
 **F** = FORMALIZED, **I** = INDEPENDENTLY_REPRODUCED. As cotas inferiores são, quase todas,
 herdadas da literatura (CLAIMED).
 
-Total: 1145 células; exatas (inferior = superior): 520; exatas com as duas cotas no Lean daqui: 1.
+Total: 1145 células; exatas (inferior = superior): 520; exatas com as duas cotas no Lean daqui: 2.
 
 | lado | CLAIMED | WITNESS_CHECKED | FORMALIZED | INDEPENDENTLY_REPRODUCED |
 |---|---:|---:|---:|---:|
 | ub | 659 | 0 | 435 | 51 |
-| lb | 1143 | 1 | 1 | 0 |
+| lb | 1143 | 0 | 2 | 0 |
 
 Cotas superiores com prova Lean externa da mesma cota (Florath, commit fixado, não reconstruída aqui, por isso não sobe o estado): 527.
 
@@ -25,7 +25,7 @@ Cotas superiores com prova Lean externa da mesma cota (Florath, commit fixado, n
 | 4 | 60 | 30 | 0 | 26 | 4 | 60 | 0 | 0 | 0 | 31 | 33 |
 | 5 | 60 | 29 | 0 | 22 | 9 | 60 | 0 | 0 | 0 | 27 | 28 |
 | 6 | 52 | 30 | 0 | 20 | 2 | 52 | 0 | 0 | 0 | 25 | 24 |
-| 7 | 52 | 28 | 0 | 20 | 4 | 51 | 1 | 0 | 0 | 23 | 25 |
+| 7 | 52 | 28 | 0 | 20 | 4 | 51 | 0 | 1 | 0 | 23 | 25 |
 | 8 | 52 | 32 | 0 | 18 | 2 | 52 | 0 | 0 | 0 | 23 | 25 |
 | 9 | 52 | 31 | 0 | 19 | 2 | 52 | 0 | 0 | 0 | 22 | 22 |
 | 10 | 52 | 33 | 0 | 17 | 2 | 52 | 0 | 0 | 0 | 20 | 21 |
@@ -275,7 +275,7 @@ Cotas superiores com prova Lean externa da mesma cota (Florath, commit fixado, n
 | K7(3,1) | 25 | INDEPENDENTLY_REPRODUCED | 25 | CLAIMED | sim |
 | K7(3,2) | 7 | FORMALIZED | 7 | CLAIMED | sim |
 | K7(3,3) | 1 | FORMALIZED | 1 | CLAIMED | sim |
-| K7(4,2) | 19 | FORMALIZED | 19 | WITNESS_CHECKED | sim |
+| K7(4,2) | 19 | FORMALIZED | 19 | FORMALIZED | sim |
 | K7(4,3) | 7 | FORMALIZED | 7 | CLAIMED | sim |
 | K7(4,4) | 1 | FORMALIZED | 1 | CLAIMED | sim |
 | K7(5,4) | 7 | FORMALIZED | 7 | CLAIMED | sim |

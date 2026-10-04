@@ -88,11 +88,13 @@ Cota inferior nossa entra em `ours.json` como `"lb": {value, estado, witness, sh
 verificador_independente, lean, ...}`. O build aborta se o registro chamar de `FORMALIZED` um
 teorema com `lean.condicional`, se a inferior ficar abaixo da publicada ou acima da superior.
 
-**K_7(4,2) = 19** (v0.7): superior `FORMALIZED` (`K742.K_7_4_2_le_19`, código da partição no Lean);
-inferior `WITNESS_CHECKED` (70 refutações LRAT conferidas por dois verificadores, mais uma
-codificação independente). No Lean há só o teorema condicional `K742.K_7_4_2_eq_19_of`, que depende
-de `Ponte18` e `Refut18` (`docs/exatos/LEAN_K742.md`); quando a prova incondicional entrar, o
-registro sobe para `FORMALIZED`.
+**K_7(4,2) = 19**: superior `FORMALIZED` (`K742.K_7_4_2_le_19`, código da partição no Lean, v0.7);
+inferior `FORMALIZED` desde a v0.8 (`K742.K_7_4_2_eq_19`, incondicional, lib `CoveringK742Sat`; ver
+`docs/exatos/LEAN_K742.md`). Fica em `FORMALIZED`, não em `INDEPENDENTLY_REPRODUCED`: a escada hoje
+só reconhece como segundo verificador o `tools/verify` em C (ou o avaliador Python) sobre um código
+explícito; as 70 refutações LRAT conferidas por `lrat-check` e `lrat.py` ficam registradas em
+`verificador_independente`, e a codificação independente não tem LRAT (segunda opinião, não
+certificado). Subir de estado por esse caminho é decisão do mantenedor.
 
 ## Certificação em lote das cotas superiores (`tools/certificar/`)
 
@@ -135,7 +137,7 @@ python3 ledger/build.py && python3 ledger/cobertura.py
 | K4(10,4) | 208 (Kéri) | ≤ 192, `CoveringKernel.K4_10_4_le_192_kernel` | |
 | K5(9,5) | 55 (Kéri) | ≤ 50, `CoveringKernel.K5_9_5_le_50_kernel` | |
 | K2(6,1) | 12 (Kéri, exata) | = 12, `SC.K_2_6_1_eq12`, v0.3.0 | |
-| K7(4,2) | 19 (Kéri, 17–19) | ≤ 19, `K742.K_7_4_2_le_19`, v0.7.0; ≥ 19 só condicional (ver acima) | ≥ 19 por LRAT |
+| K7(4,2) | 19 (Kéri, 17–19) | ≤ 19, `K742.K_7_4_2_le_19`, v0.7.0; = 19, `K742.K_7_4_2_eq_19`, v0.8.0 | ≥ 19 por LRAT |
 
 Os sete teoremas sem tag entram na v0.4.0. Os 10 arquivos de `data/codes/` passam no verificador
 padrão (`scripts/loop/verify_cover.py`; K7(9,4) leva ~15 s, o resto < 3 s).

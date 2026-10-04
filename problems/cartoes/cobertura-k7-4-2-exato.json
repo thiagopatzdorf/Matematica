@@ -5,8 +5,8 @@
   "dominio": "codigos-de-cobertura",
   "tipo": "valor_exato",
   "enunciado": "Determinar o menor número de palavras de um código C ⊆ Z_7^4 tal que toda palavra de Z_7^4 está a distância de Hamming ≤ 2 de C. Fechar o valor exato exige uma cota superior (código) e uma inferior (inexistência de código menor).",
-  "enunciado_formal": null,
-  "estado": "verificado",
+  "enunciado_formal": "K742.K_7_4_2_eq_19",
+  "estado": "certificado",
   "melhor_conhecido": {
     "valor": null,
     "fonte": "keri_2011",
@@ -18,8 +18,8 @@
   },
   "nosso": {
     "valor": 19,
-    "estado": "lrat",
-    "prova": "docs/exatos/FASE1_B_K742.md; tools/exatos/k742/certificados/K7_4_2_M17.jsonl; tools/exatos/k742/certificados/K7_4_2_M18.jsonl"
+    "estado": "lean",
+    "prova": "K742.K_7_4_2_eq_19"
   },
   "avaliador": {
     "id": "k742-lrat",
@@ -80,7 +80,21 @@
         "saida": "{\"M=17\": \"15/15 perfis UNSAT, lrat-check VERIFIED\", \"M=18\": \"70/70 perfis UNSAT, lrat-check VERIFIED\"}",
         "ref": "docs/exatos/FASE1_B_K742.md",
         "como_rodar": "python3 tools/exatos/k742/rodar.py --q 7 --M 18 --dir saida --prova",
-        "nota": "computacional com certificado LRAT; não é teorema no Lean, por isso não está certificado"
+        "nota": "computacional com certificado LRAT, conferido fora do kernel"
+      },
+      "origem": "importacao"
+    },
+    {
+      "quem": "tools/problems/seed_from_ledger.py",
+      "papel": "avaliador",
+      "quando": "2026-10-04",
+      "de": "verificado",
+      "para": "certificado",
+      "evidencia": {
+        "kernel": "lean",
+        "declaracao": "K742.K_7_4_2_eq_19",
+        "tag": "v0.8.0",
+        "fonte": "ledger/cells.json (certification.lb)"
       },
       "origem": "importacao"
     }

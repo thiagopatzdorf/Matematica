@@ -111,6 +111,12 @@ def cartao_k742(c: dict, raiz: Path) -> dict:
         resumo[f"M={linhas[0]['M']}"] = f"{len(linhas)}/{len(linhas)} perfis UNSAT, lrat-check VERIFIED"
     como = "python3 tools/exatos/k742/rodar.py --q 7 --M 18 --dir saida --prova"
     pub = c["published"]
+    # A inferior vira teorema quando o ledger a marca FORMALIZED (ou acima) com declaração Lean sem
+    # hipótese pendente; até lá o cartão fica em `verificado` (LRAT conferido, fora do kernel).
+    lb_cert = (c.get("certification") or {}).get("lb") or {}
+    lean_lb = (lb_cert.get("provenance") or {}).get("lean") or {}
+    no_kernel = (lb_cert.get("state") in ("FORMALIZED", "INDEPENDENTLY_REPRODUCED")
+                 and isinstance(lean_lb, dict) and lean_lb.get("declaration") and not lean_lb.get("condicional"))
     cart = {
         "formato": "cartao-problema/v1", "id": "cobertura-k7-4-2-exato",
         "titulo": "K_7(4,2): valor exato",
@@ -118,12 +124,12 @@ def cartao_k742(c: dict, raiz: Path) -> dict:
         "enunciado": ("Determinar o menor número de palavras de um código C ⊆ Z_7^4 tal que toda palavra de "
                       "Z_7^4 está a distância de Hamming ≤ 2 de C. Fechar o valor exato exige uma cota "
                       "superior (código) e uma inferior (inexistência de código menor)."),
-        "enunciado_formal": None,
-        "estado": "verificado",
+        "enunciado_formal": lean_lb["declaration"] if no_kernel else None,
+        "estado": "certificado" if no_kernel else "verificado",
         "melhor_conhecido": {"valor": None, "fonte": pub["lb"]["source"], "ref": pub["lb"]["ref"],
                              "intervalo": {"lb": pub["lb"]["value"], "ub": pub["ub"]["value"]}},
-        "nosso": {"valor": exato, "estado": "lrat",
-                  "prova": f"{DOC_K742}; " + "; ".join(CERTS_K742)},
+        "nosso": ({"valor": exato, "estado": "lean", "prova": lean_lb["declaration"]} if no_kernel else
+                  {"valor": exato, "estado": "lrat", "prova": f"{DOC_K742}; " + "; ".join(CERTS_K742)}),
         "avaliador": {"id": "k742-lrat", "como_rodar": como, "custo_estimado_usd": float(m_custo[1].replace(",", "."))},
         "celula_ledger": c["id"],
         "historico": [],
@@ -139,8 +145,13 @@ def cartao_k742(c: dict, raiz: Path) -> dict:
         ("verificado", "avaliador", {"avaliador": "k742-lrat", "veredito": "ok",
                                       "saida": json.dumps(resumo, sort_keys=True, ensure_ascii=False),
                                       "ref": DOC_K742, "como_rodar": como,
-                                      "nota": "computacional com certificado LRAT; não é teorema no Lean, por isso não está certificado"}),
+                                      "nota": ("computacional com certificado LRAT, conferido fora do kernel" if no_kernel else
+                                               "computacional com certificado LRAT; não é teorema no Lean, por isso não está certificado")}),
     ]
+    if no_kernel:
+        passos.append(("certificado", "avaliador", {"kernel": "lean", "declaracao": lean_lb["declaration"],
+                                                     "tag": lean_lb.get("tag"),
+                                                     "fonte": "ledger/cells.json (certification.lb)"}))
     return _aplicar(cart, passos, base)
 
 
