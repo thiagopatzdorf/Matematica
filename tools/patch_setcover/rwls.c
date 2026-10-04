@@ -70,6 +70,10 @@ static inline uint64_t rnd(void){ rng_s ^= rng_s << 13; rng_s ^= rng_s >> 7; rng
 static double now(void){ struct timespec t; clock_gettime(CLOCK_MONOTONIC, &t); return t.tv_sec + 1e-9 * t.tv_nsec; }
 
 static inline uint32_t ssize(uint32_t s){ return (uint32_t)(off[s + 1] - off[s]); }
+static int bucket_on = 0, maxsz = 0; static uint32_t **bk; static uint64_t *bn, *bcap;
+static void bpush(uint32_t s){ int k = (int)score[s];
+  if (bn[k] == bcap[k]){ bcap[k] = bcap[k] ? 2 * bcap[k] : 1024; bk[k] = realloc(bk[k], 4 * bcap[k]); }
+  bk[k][bn[k]++] = s; }
 static void unc_add(uint32_t e){ uncpos[e] = nunc; unc[nunc++] = e; }
 static void unc_del(uint32_t e){ uint32_t p = uncpos[e], l = unc[--nunc]; unc[p] = l; uncpos[l] = p; }
 static void neigh_free(uint32_t s){
@@ -82,7 +86,7 @@ static void add_set(uint32_t s){
     uint32_t e = elem[a], c = cnt[e];
     if (c == 0){
       unc_del(e);
-      for (uint64_t b = eoff[e]; b < eoff[e + 1]; b++){ uint32_t t = selem[b]; if (t != s){ score[t] -= wgt[e]; if (ccmode == 2) canadd[t] = 1; } }
+      for (uint64_t b = eoff[e]; b < eoff[e + 1]; b++){ uint32_t t = selem[b]; if (t != s){ score[t] -= wgt[e]; if (ccmode == 2) canadd[t] = 1; if (bucket_on && score[t] > 0) bpush(t); } }
     } else if (c == 1){ score[xorc[e]] += wgt[e]; }
     cnt[e] = c + 1; xorc[e] ^= s;
   }
@@ -129,14 +133,6 @@ static void smooth(void){
       if (insol[s]){ if (cnt[e] == 1) v -= wgt[e]; } else if (cnt[e] == 0) v += wgt[e]; }
     score[s] = v; }
   nsmooth++;
-}
-static uint64_t *hk; static uint32_t *hs;
-static void sift(long i, uint32_t hn){
-  while (1){ long l = 2 * i + 1, r = l + 1, m = i;
-    if (l < (long)hn && hk[l] > hk[m]) m = l;
-    if (r < (long)hn && hk[r] > hk[m]) m = r;
-    if (m == i) return;
-    uint64_t t = hk[i]; hk[i] = hk[m]; hk[m] = t; uint32_t u = hs[i]; hs[i] = hs[m]; hs[m] = u; i = m; }
 }
 static int find_set(uint32_t w){ /* setw é crescente (patch_inst gera em ordem) */
   long lo = 0, hi = (long)nsets - 1;
@@ -215,24 +211,26 @@ int main(int argc, char **argv){
    * cara, abaixo dos 128 do SA, e o RWLS não desceu dali; o guloso é barato (~1 s). */
   if (grasp > 0){
     uint32_t gk = nsol; uint32_t *gb = malloc(4 * (size_t)nsets); memcpy(gb, sol, 4 * nsol);
-    hk = malloc(8 * (size_t)nsets); hs = malloc(4 * (size_t)nsets);
+    for (uint32_t s = 0; s < nsets; s++) if ((int)ssize(s) > maxsz) maxsz = (int)ssize(s);
+    bk = calloc(maxsz + 1, sizeof *bk); bn = calloc(maxsz + 1, 8); bcap = calloc(maxsz + 1, 8);
     for (long r = 0; r < grasp && now() - t0 < tlim; r++){
       while (nsol) del_set(sol[nsol - 1]);
-      /* guloso preguiçoso: heap de (score, sorteio); no guloso o score de quem está fora só
-       * cai, então topo com score velho é reinserido com o atual (Minoux 1978). O sorteio por
-       * rodada faz o desempate aleatório. ~30x mais rápido que varrer todos a cada passo. */
-      { uint32_t hn = 0;
-        for (uint32_t s = 0; s < nsets; s++) if (!insol[s] && score[s] > 0){ hk[hn] = ((uint64_t)score[s] << 32) | (uint32_t)rnd(); hs[hn] = s; hn++; }
-        for (long i = (long)hn / 2 - 1; i >= 0; i--) sift(i, hn);
-        while (nunc && hn){
-          uint32_t s = hs[0]; uint64_t sc = hk[0] >> 32;
-          if ((ll)sc != score[s] || insol[s]){
-            if (score[s] > 0 && !insol[s]){ hk[0] = ((uint64_t)score[s] << 32) | (hk[0] & 0xffffffffu); sift(0, hn); }
-            else { hn--; hk[0] = hk[hn]; hs[0] = hs[hn]; sift(0, hn); }
-            continue; }
-          add_set(s); hn--; hk[0] = hk[hn]; hs[0] = hs[hn]; sift(0, hn);
+      /* guloso com fila de baldes: score inteiro pequeno (pesos = 1 aqui), um balde por score;
+       * quando um score cai, add_set empurra o conjunto no balde novo e a entrada velha fica
+       * obsoleta (descartada ao ser sorteada). Sorteio uniforme dentro do balde máximo = desempate
+       * aleatório. Custo O(incidências) por guloso, sem varrer os conjuntos a cada passo. */
+      { for (int k2 = 0; k2 <= maxsz; k2++) bn[k2] = 0;
+        for (uint32_t s = 0; s < nsets; s++) if (!insol[s] && score[s] > 0) bpush(s);
+        bucket_on = 1; int top = maxsz;
+        while (nunc){
+          while (top > 0 && bn[top] == 0) top--;
+          if (top == 0) break;
+          uint64_t j = rnd() % bn[top]; uint32_t s = bk[top][j];
+          if (insol[s] || score[s] != top){ bk[top][j] = bk[top][--bn[top]]; continue; }
+          bk[top][j] = bk[top][--bn[top]];
+          add_set(s);
         }
-      }
+        bucket_on = 0; }
       for (int ch = 1; ch;){ ch = 0; uint32_t st = nsol ? rnd() % nsol : 0;
         for (uint32_t j = 0; j < nsol; j++){ uint32_t i = (st + j) % nsol; if (score[sol[i]] == 0){ del_set(sol[i]); ch = 1; break; } } }
       if (!quiet){ printf("guloso %ld %u %.2f\n", r, nsol, now() - t0); fflush(stdout); }
