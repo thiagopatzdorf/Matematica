@@ -105,3 +105,12 @@ def test_o_detector_de_segredo_pega_formatos_conhecidos():
     assert PADROES_SEGREDO["chave AWS"].search("AK" + "IA" + "A" * 16)
     assert PADROES_SEGREDO["chave privada"].search("-----BEGIN RSA PRIVATE" + " KEY-----")
     assert not PADROES_SEGREDO["chave sk-"].search("task-force-de-teste-curto") and not PADROES_SEGREDO["chave sk-"].search("x sk-" + "a" * 4) and PADROES_SEGREDO["chave sk-"].search("k=sk-" + "a" * 30)
+
+
+def test_dependabot_nao_sobe_a_serie_do_mcp_que_remove_o_fastmcp_do_servidor():
+    """O primeiro PR do Dependabot (#33) pedia mcp>=2.2.0, e a 2.x remove `mcp.server.fastmcp`."""
+    raiz = Path(__file__).resolve().parents[1]
+    reqs = (raiz / "infinito" / "requirements.txt").read_text()
+    assert any(l.startswith("mcp") and "<2" in l for l in reqs.splitlines()), "o servidor precisa do mcp 1.x"
+    dep = (raiz / ".github" / "dependabot.yml").read_text()
+    assert 'dependency-name: "mcp"' in dep and "version-update:semver-major" in dep

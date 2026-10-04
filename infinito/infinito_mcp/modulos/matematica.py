@@ -97,7 +97,7 @@ def registrar(ctx) -> None:
     @tool
     def verificar_codigo(arquivo: str, tempo_limite_s: int = 120) -> dict:
         """Roda o verificador oficial em C num código de `data/codes/`: palavras distintas, M certo, todo
-        ponto do espaço a distância ≤ R de alguma palavra. Devolve o sha256 canônico. Grátis, exato."""
+        ponto do espaço a distância ≤ R de alguma palavra. Devolve os dois sha256 e, se não cobre, até 10 pontos descobertos. Grátis, exato."""
         if not _ARQ_CODIGO.match(arquivo) or not arquivo.endswith(".txt"):
             return {"ok": False, "erro": "arquivo tem de ser data/codes/q<Q>_n<N>_R<R>_M<M>.txt"}
         alvo = repo / "data" / "codes" / arquivo
@@ -107,13 +107,14 @@ def registrar(ctx) -> None:
         if not binario.exists():
             return {"ok": False, "erro": "verificador não compilado nesta instalação (INF_VERIFY_BIN)"}
         try:
-            p = subprocess.run([str(binario), str(alvo)], capture_output=True, text=True,
+            p = subprocess.run([str(binario), "-u", "10", str(alvo)], capture_output=True, text=True,
                                timeout=max(5, min(tempo_limite_s, 600)))
         except subprocess.TimeoutExpired:
             return {"ok": False, "erro": f"verificador passou de {tempo_limite_s}s"}
         veredito = {0: "cobre", 1: "NÃO cobre: há pontos descobertos", 2: "formato inválido"}.get(p.returncode, "erro")
         canonico = re.search(r"sha256=([0-9a-f]{64})", p.stdout)
         return {"ok": p.returncode == 0, "veredito": veredito, "codigo_de_saida": p.returncode,
+                "pontos_descobertos": re.findall(r"^uncovered_point=(\S+)$", p.stdout, flags=re.M),   # até 10, quando não cobre
                 "sha256_canonico": canonico.group(1) if canonico else None,
                 "sha256_arquivo": hashlib.sha256(alvo.read_bytes()).hexdigest(),
                 "sobre_os_sha256": "o do ARQUIVO é o dos bytes como estão e é o que o ledger guarda em ours_*.sha256; "
