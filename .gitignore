@@ -5,3 +5,4 @@ __pycache__/
 .pytest_cache/
 build/
 tools/verify/verify
+CoveringLean/K742Sat/dados/

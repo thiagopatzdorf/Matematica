@@ -31,3 +31,11 @@ roots = ["CoveringLean.SearchK6ge12", "CoveringLean.K3_K7_9_4_Final", "CoveringL
 name = "CoveringSyn"
 srcDir = "."
 roots = ["CoveringLean.Syn_K1351", "CoveringLean.Syn_K1285", "CoveringLean.Syn_K1141", "CoveringLean.Syn_K1137", "CoveringLean.Syn_K1134", "CoveringLean.Syn_K1887", "CoveringLean.Syn_K162", "CoveringLean.Syn_K2875", "CoveringLean.Syn_K5616"]
+
+# K_7(4,2) ≥ 19: refutações LRAT dos perfis de M = 18 conferidas pelo kernel com `LratK`.
+# Os dados (CNF + LRAT aparado) não vão para o git: `tools/exatos/k742/lean/gerar_dados.py`.
+# Pesado (~11–14 min e ~5 GB de RAM só para o perfil 64): fora do alvo padrão e do CI.
+[[lean_lib]]
+name = "CoveringK742Sat"
+srcDir = "."
+roots = ["CoveringLean.K742Sat.P64"]
