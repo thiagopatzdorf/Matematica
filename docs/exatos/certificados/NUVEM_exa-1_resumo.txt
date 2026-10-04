@@ -1,0 +1,24 @@
+# Execuções na VM exa-1 (t2d-standard-8 spot, 2026-10-04, motor.c md5 f94ead14bdaa6b2dc06a9691843322cb, commit 308e4e7)
+# Por parte: arquivo de certificado, sha256 (16 primeiros hex), linha FIM. Os certificados completos
+# (uma linha por representante) não foram trazidos antes de destruir a VM; são reexecutáveis:
+#   motor 3 5 1 26 --D 8 --reps-out r.reps ; motor 3 5 1 26 --reps-in r.reps --parte i/8 --cert cert_i.txt
+#   motor 5 4 2 10 --D 6 --reps-out r.reps ; motor 5 4 2 10 --reps-in r.reps --corte 8 --parte i/8 --cert c542_i.txt
+# k351_d8.reps sha256 b4f5dbd6f9594e6f3ddc21ef582509d461a7ca11db5222a0e7f4660ac8af9cc0 (102202 representantes)
+cert_0.txt 4e4a1e622f3e49a3 FIM NAO_EXISTE reps_feitos=12776 nos=627940611 tempo=2318.91
+cert_1.txt b8d7febe9137cb54 FIM NAO_EXISTE reps_feitos=12776 nos=632373640 tempo=2336.98
+cert_2.txt 33e2404064e412af FIM NAO_EXISTE reps_feitos=12775 nos=635018877 tempo=2476.17
+cert_3.txt 3745be075ca95bc4 FIM NAO_EXISTE reps_feitos=12775 nos=637840449 tempo=2352.86
+cert_4.txt 879dc9d3e8871fe9 FIM NAO_EXISTE reps_feitos=12775 nos=626330297 tempo=2312.54
+cert_5.txt f709779964ed42ca FIM NAO_EXISTE reps_feitos=12775 nos=630652463 tempo=2328.82
+cert_6.txt f7ac48c7dca1f084 FIM NAO_EXISTE reps_feitos=12775 nos=635332245 tempo=2350.41
+cert_7.txt 257b5c56f935af72 FIM NAO_EXISTE reps_feitos=12775 nos=629238858 tempo=2326.23
+c542_0.txt 9096aac9a331198d FIM NAO_EXISTE reps_feitos=5620 nos=10978594 tempo=146.01
+c542_1.txt 3131a3b4a0d136c7 FIM NAO_EXISTE reps_feitos=5619 nos=11057755 tempo=140.52
+c542_2.txt bbda20302fdee356 FIM NAO_EXISTE reps_feitos=5619 nos=11752668 tempo=144.69
+c542_3.txt 0ea79b9de6a68425 FIM NAO_EXISTE reps_feitos=5619 nos=12469648 tempo=141.22
+c542_4.txt 052f5e28cdc804ca FIM NAO_EXISTE reps_feitos=5619 nos=12234863 tempo=143.58
+c542_5.txt dd62adf8bbd4aa57 FIM NAO_EXISTE reps_feitos=5619 nos=10612866 tempo=146.46
+c542_6.txt 0ce9c0f3976234c0 FIM NAO_EXISTE reps_feitos=5619 nos=13549813 tempo=144.29
+c542_7.txt ad9a4a4f10842eb6 FIM NAO_EXISTE reps_feitos=5619 nos=12960610 tempo=145.34
+# K5(4,2) M=10, 2ª execução (ordem inv no topo, D 6: 82910 representantes, corte 8), 8 partes: todas NAO_EXISTE,
+#   nós 13575181+14960620+14785217+15252228+18421793+14543621+14329539+13461353 = 119329552, ~288 s por parte
