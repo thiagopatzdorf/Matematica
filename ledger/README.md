@@ -94,6 +94,31 @@ codificação independente). No Lean há só o teorema condicional `K742.K_7_4_2
 de `Ponte18` e `Refut18` (`docs/exatos/LEAN_K742.md`); quando a prova incondicional entrar, o
 registro sobe para `FORMALIZED`.
 
+## Certificação em lote das cotas superiores (`tools/certificar/`)
+
+Nenhuma célula ganha prova artesanal: `tools/certificar/gerar.py` escolhe, para cada célula, o
+certificado mais barato que atinge `best.ub` e gera o Lean.
+
+* **Base sem witness**: espaço inteiro, raio ≥ n (uma palavra), palavras constantes (pombal).
+* **Witness explícito pequeno** (`tools/certificar/witnesses/`, conferido pelo kernel com
+  `UB.of_go`): achado por recozimento (`buscar.py`), importado do banco do Florath
+  (`importar_florath.py`, BSD-3, aviso em `witnesses/LICENSE-florath`) ou da construção por
+  partição (`tools/exatos/particao_q42.py --gravar DIR` e `buscar.py --importar DIR`).
+* **Regra** a partir de outras células (`CoveringLean/Regras.lean`): soma direta, alongamento
+  livre, coordenada muda, punção, monotonia do raio, projeção de alfabeto.
+
+Saídas geradas: `CoveringLean/Ledger/W*.lean` (witnesses), `CoveringLean/Ledger/Cotas.lean` (um
+`CoveringLedger.K<q>_<n>_<R>_le_<M> : K q n R ≤ M` por célula) e `ledger/formal_ub.json`, que o
+`build.py` lê: cota com teorema gerado sobe para `FORMALIZED`; se vier de witness explícito, o
+avaliador Python de `buscar.py` reconfere o código em todo pytest e a cota fica
+`INDEPENDENTLY_REPRODUCED`.
+
+```bash
+python3 tools/certificar/buscar.py --limite 2000000 --segundos 10   # witnesses novos (opcional)
+python3 tools/certificar/gerar.py && lake build CoveringLedger
+python3 ledger/build.py && python3 ledger/cobertura.py
+```
+
 ## Nosso estado em 2026-10-03
 
 | célula | publicado (superior) | Lean | computacional |

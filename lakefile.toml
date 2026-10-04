@@ -39,3 +39,11 @@ roots = ["CoveringLean.Syn_K1351", "CoveringLean.Syn_K1285", "CoveringLean.Syn_K
 name = "CoveringK742Sat"
 srcDir = "."
 roots = ["CoveringLean.K742Sat.P64"]
+
+# Cotas superiores do ledger certificadas em lote (célula base + regra), GERADAS por
+# tools/certificar/gerar.py: um teorema `K q n R ≤ M` por célula (ledger/formal_ub.json).
+# `lake build CoveringLedger`.
+[[lean_lib]]
+name = "CoveringLedger"
+srcDir = "."
+roots = ["CoveringLean.Ledger.Cotas"]

@@ -1,0 +1,3847 @@
+{
+ "cells": {
+  "10,1,1": {
+   "M": 1,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "raio ≥ n: uma palavra",
+   "declaration": "CoveringLedger.K10_1_1_le_1",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": null
+  },
+  "10,2,1": {
+   "M": 10,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "palavras constantes (pombal)",
+   "declaration": "CoveringLedger.K10_2_1_le_10",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": null
+  },
+  "10,2,2": {
+   "M": 1,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "raio ≥ n: uma palavra",
+   "declaration": "CoveringLedger.K10_2_2_le_1",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": null
+  },
+  "10,3,1": {
+   "M": 50,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "witness explícito",
+   "declaration": "CoveringLedger.K10_3_1_le_50",
+   "sha256": "31b0f40bb6fc1c0ef2864b16d736fb40d86c652c5187c6e128231a5d51b3a5f0",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": "tools/certificar/witnesses/K10_3_1_M50.txt"
+  },
+  "10,3,2": {
+   "M": 10,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "palavras constantes (pombal)",
+   "declaration": "CoveringLedger.K10_3_2_le_10",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": null
+  },
+  "10,3,3": {
+   "M": 1,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "raio ≥ n: uma palavra",
+   "declaration": "CoveringLedger.K10_3_3_le_1",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": null
+  },
+  "10,4,2": {
+   "M": 34,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "witness explícito",
+   "declaration": "CoveringLedger.K10_4_2_le_34",
+   "sha256": "85cd80a42cd146c8d049a8d1c365faf0b1cfaec69b2bd4979f798b7c9bbff483",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": "tools/certificar/witnesses/K10_4_2_M34.txt"
+  },
+  "10,4,3": {
+   "M": 10,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "palavras constantes (pombal)",
+   "declaration": "CoveringLedger.K10_4_3_le_10",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": null
+  },
+  "10,4,4": {
+   "M": 1,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "raio ≥ n: uma palavra",
+   "declaration": "CoveringLedger.K10_4_4_le_1",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": null
+  },
+  "10,5,4": {
+   "M": 10,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "palavras constantes (pombal)",
+   "declaration": "CoveringLedger.K10_5_4_le_10",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": null
+  },
+  "10,5,5": {
+   "M": 1,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "raio ≥ n: uma palavra",
+   "declaration": "CoveringLedger.K10_5_5_le_1",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": null
+  },
+  "10,6,5": {
+   "M": 10,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "palavras constantes (pombal)",
+   "declaration": "CoveringLedger.K10_6_5_le_10",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": null
+  },
+  "10,6,6": {
+   "M": 1,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "raio ≥ n: uma palavra",
+   "declaration": "CoveringLedger.K10_6_6_le_1",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": null
+  },
+  "10,7,6": {
+   "M": 10,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "palavras constantes (pombal)",
+   "declaration": "CoveringLedger.K10_7_6_le_10",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": null
+  },
+  "10,7,7": {
+   "M": 1,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "raio ≥ n: uma palavra",
+   "declaration": "CoveringLedger.K10_7_7_le_1",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": null
+  },
+  "10,8,4": {
+   "M": 1156,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "soma direta de K10(4,2) ≤ 34 e K10(4,2) ≤ 34",
+   "declaration": "CoveringLedger.K10_8_4_le_1156",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": null
+  },
+  "10,8,7": {
+   "M": 10,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "palavras constantes (pombal)",
+   "declaration": "CoveringLedger.K10_8_7_le_10",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": null
+  },
+  "10,8,8": {
+   "M": 1,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "raio ≥ n: uma palavra",
+   "declaration": "CoveringLedger.K10_8_8_le_1",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": null
+  },
+  "10,9,8": {
+   "M": 10,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "palavras constantes (pombal)",
+   "declaration": "CoveringLedger.K10_9_8_le_10",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": null
+  },
+  "11,1,1": {
+   "M": 1,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "raio ≥ n: uma palavra",
+   "declaration": "CoveringLedger.K11_1_1_le_1",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": null
+  },
+  "11,2,1": {
+   "M": 11,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "palavras constantes (pombal)",
+   "declaration": "CoveringLedger.K11_2_1_le_11",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": null
+  },
+  "11,2,2": {
+   "M": 1,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "raio ≥ n: uma palavra",
+   "declaration": "CoveringLedger.K11_2_2_le_1",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": null
+  },
+  "11,3,1": {
+   "M": 61,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "witness explícito",
+   "declaration": "CoveringLedger.K11_3_1_le_61",
+   "sha256": "e230aaf3ab6dc32af22eb8512008d1876b70f6d25ff2198595878ff95317f2ba",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": "tools/certificar/witnesses/K11_3_1_M61.txt"
+  },
+  "11,3,2": {
+   "M": 11,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "palavras constantes (pombal)",
+   "declaration": "CoveringLedger.K11_3_2_le_11",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": null
+  },
+  "11,3,3": {
+   "M": 1,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "raio ≥ n: uma palavra",
+   "declaration": "CoveringLedger.K11_3_3_le_1",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": null
+  },
+  "11,4,2": {
+   "M": 41,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "witness explícito",
+   "declaration": "CoveringLedger.K11_4_2_le_41",
+   "sha256": "a898990a736e2b317ac33c4451e1824452c3bff2954cee828837dca35730d2ff",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": "tools/certificar/witnesses/K11_4_2_M41.txt"
+  },
+  "11,4,3": {
+   "M": 11,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "palavras constantes (pombal)",
+   "declaration": "CoveringLedger.K11_4_3_le_11",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": null
+  },
+  "11,4,4": {
+   "M": 1,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "raio ≥ n: uma palavra",
+   "declaration": "CoveringLedger.K11_4_4_le_1",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": null
+  },
+  "11,5,4": {
+   "M": 11,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "palavras constantes (pombal)",
+   "declaration": "CoveringLedger.K11_5_4_le_11",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": null
+  },
+  "11,5,5": {
+   "M": 1,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "raio ≥ n: uma palavra",
+   "declaration": "CoveringLedger.K11_5_5_le_1",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": null
+  },
+  "11,6,5": {
+   "M": 11,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "palavras constantes (pombal)",
+   "declaration": "CoveringLedger.K11_6_5_le_11",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": null
+  },
+  "11,6,6": {
+   "M": 1,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "raio ≥ n: uma palavra",
+   "declaration": "CoveringLedger.K11_6_6_le_1",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": null
+  },
+  "11,7,6": {
+   "M": 11,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "palavras constantes (pombal)",
+   "declaration": "CoveringLedger.K11_7_6_le_11",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": null
+  },
+  "11,7,7": {
+   "M": 1,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "raio ≥ n: uma palavra",
+   "declaration": "CoveringLedger.K11_7_7_le_1",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": null
+  },
+  "11,8,4": {
+   "M": 1681,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "soma direta de K11(4,2) ≤ 41 e K11(4,2) ≤ 41",
+   "declaration": "CoveringLedger.K11_8_4_le_1681",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": null
+  },
+  "11,8,7": {
+   "M": 11,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "palavras constantes (pombal)",
+   "declaration": "CoveringLedger.K11_8_7_le_11",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": null
+  },
+  "11,8,8": {
+   "M": 1,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "raio ≥ n: uma palavra",
+   "declaration": "CoveringLedger.K11_8_8_le_1",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": null
+  },
+  "12,1,1": {
+   "M": 1,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "raio ≥ n: uma palavra",
+   "declaration": "CoveringLedger.K12_1_1_le_1",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": null
+  },
+  "12,2,1": {
+   "M": 12,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "palavras constantes (pombal)",
+   "declaration": "CoveringLedger.K12_2_1_le_12",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": null
+  },
+  "12,2,2": {
+   "M": 1,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "raio ≥ n: uma palavra",
+   "declaration": "CoveringLedger.K12_2_2_le_1",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": null
+  },
+  "12,3,1": {
+   "M": 72,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "witness explícito",
+   "declaration": "CoveringLedger.K12_3_1_le_72",
+   "sha256": "ef12d32d8d392c3b61004231543a8bdd6de63544054f01b5a4fce40b2a2f53cc",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": "tools/certificar/witnesses/K12_3_1_M72.txt"
+  },
+  "12,3,2": {
+   "M": 12,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "palavras constantes (pombal)",
+   "declaration": "CoveringLedger.K12_3_2_le_12",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": null
+  },
+  "12,3,3": {
+   "M": 1,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "raio ≥ n: uma palavra",
+   "declaration": "CoveringLedger.K12_3_3_le_1",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": null
+  },
+  "12,4,2": {
+   "M": 48,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "witness explícito",
+   "declaration": "CoveringLedger.K12_4_2_le_48",
+   "sha256": "061b108a2fe1ada534ba17bfe7ad0eaa113629573d0e74784aafcc0b8a22ef8c",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": "tools/certificar/witnesses/K12_4_2_M48.txt"
+  },
+  "12,4,3": {
+   "M": 12,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "palavras constantes (pombal)",
+   "declaration": "CoveringLedger.K12_4_3_le_12",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": null
+  },
+  "12,4,4": {
+   "M": 1,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "raio ≥ n: uma palavra",
+   "declaration": "CoveringLedger.K12_4_4_le_1",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": null
+  },
+  "12,5,4": {
+   "M": 12,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "palavras constantes (pombal)",
+   "declaration": "CoveringLedger.K12_5_4_le_12",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": null
+  },
+  "12,5,5": {
+   "M": 1,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "raio ≥ n: uma palavra",
+   "declaration": "CoveringLedger.K12_5_5_le_1",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": null
+  },
+  "12,6,5": {
+   "M": 12,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "palavras constantes (pombal)",
+   "declaration": "CoveringLedger.K12_6_5_le_12",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": null
+  },
+  "12,6,6": {
+   "M": 1,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "raio ≥ n: uma palavra",
+   "declaration": "CoveringLedger.K12_6_6_le_1",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": null
+  },
+  "12,7,3": {
+   "M": 3456,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "soma direta de K12(3,1) ≤ 72 e K12(4,2) ≤ 48",
+   "declaration": "CoveringLedger.K12_7_3_le_3456",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": null
+  },
+  "12,7,6": {
+   "M": 12,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "palavras constantes (pombal)",
+   "declaration": "CoveringLedger.K12_7_6_le_12",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": null
+  },
+  "12,7,7": {
+   "M": 1,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "raio ≥ n: uma palavra",
+   "declaration": "CoveringLedger.K12_7_7_le_1",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": null
+  },
+  "12,8,4": {
+   "M": 2304,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "soma direta de K12(4,2) ≤ 48 e K12(4,2) ≤ 48",
+   "declaration": "CoveringLedger.K12_8_4_le_2304",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": null
+  },
+  "12,8,7": {
+   "M": 12,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "palavras constantes (pombal)",
+   "declaration": "CoveringLedger.K12_8_7_le_12",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": null
+  },
+  "12,8,8": {
+   "M": 1,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "raio ≥ n: uma palavra",
+   "declaration": "CoveringLedger.K12_8_8_le_1",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": null
+  },
+  "13,1,1": {
+   "M": 1,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "raio ≥ n: uma palavra",
+   "declaration": "CoveringLedger.K13_1_1_le_1",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": null
+  },
+  "13,2,1": {
+   "M": 13,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "palavras constantes (pombal)",
+   "declaration": "CoveringLedger.K13_2_1_le_13",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": null
+  },
+  "13,2,2": {
+   "M": 1,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "raio ≥ n: uma palavra",
+   "declaration": "CoveringLedger.K13_2_2_le_1",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": null
+  },
+  "13,3,1": {
+   "M": 85,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "witness explícito",
+   "declaration": "CoveringLedger.K13_3_1_le_85",
+   "sha256": "57a7ff8e7691bfeb97a2c79c2e3567079327a51ba4ee1ec99398e242096df707",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": "tools/certificar/witnesses/K13_3_1_M85.txt"
+  },
+  "13,3,2": {
+   "M": 13,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "palavras constantes (pombal)",
+   "declaration": "CoveringLedger.K13_3_2_le_13",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": null
+  },
+  "13,3,3": {
+   "M": 1,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "raio ≥ n: uma palavra",
+   "declaration": "CoveringLedger.K13_3_3_le_1",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": null
+  },
+  "13,4,3": {
+   "M": 13,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "palavras constantes (pombal)",
+   "declaration": "CoveringLedger.K13_4_3_le_13",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": null
+  },
+  "13,4,4": {
+   "M": 1,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "raio ≥ n: uma palavra",
+   "declaration": "CoveringLedger.K13_4_4_le_1",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": null
+  },
+  "13,5,4": {
+   "M": 13,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "palavras constantes (pombal)",
+   "declaration": "CoveringLedger.K13_5_4_le_13",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": null
+  },
+  "13,5,5": {
+   "M": 1,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "raio ≥ n: uma palavra",
+   "declaration": "CoveringLedger.K13_5_5_le_1",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": null
+  },
+  "13,6,5": {
+   "M": 13,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "palavras constantes (pombal)",
+   "declaration": "CoveringLedger.K13_6_5_le_13",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": null
+  },
+  "13,6,6": {
+   "M": 1,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "raio ≥ n: uma palavra",
+   "declaration": "CoveringLedger.K13_6_6_le_1",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": null
+  },
+  "13,7,6": {
+   "M": 13,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "palavras constantes (pombal)",
+   "declaration": "CoveringLedger.K13_7_6_le_13",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": null
+  },
+  "13,7,7": {
+   "M": 1,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "raio ≥ n: uma palavra",
+   "declaration": "CoveringLedger.K13_7_7_le_1",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": null
+  },
+  "13,8,7": {
+   "M": 13,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "palavras constantes (pombal)",
+   "declaration": "CoveringLedger.K13_8_7_le_13",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": null
+  },
+  "13,8,8": {
+   "M": 1,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "raio ≥ n: uma palavra",
+   "declaration": "CoveringLedger.K13_8_8_le_1",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": null
+  },
+  "14,1,1": {
+   "M": 1,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "raio ≥ n: uma palavra",
+   "declaration": "CoveringLedger.K14_1_1_le_1",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": null
+  },
+  "14,2,1": {
+   "M": 14,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "palavras constantes (pombal)",
+   "declaration": "CoveringLedger.K14_2_1_le_14",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": null
+  },
+  "14,2,2": {
+   "M": 1,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "raio ≥ n: uma palavra",
+   "declaration": "CoveringLedger.K14_2_2_le_1",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": null
+  },
+  "14,3,1": {
+   "M": 98,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "witness explícito",
+   "declaration": "CoveringLedger.K14_3_1_le_98",
+   "sha256": "2e6e8031d84a8b96988d7f7a4a69f3db0c0a3a02735353ad0b3ee20998d56fab",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": "tools/certificar/witnesses/K14_3_1_M98.txt"
+  },
+  "14,3,2": {
+   "M": 14,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "palavras constantes (pombal)",
+   "declaration": "CoveringLedger.K14_3_2_le_14",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": null
+  },
+  "14,3,3": {
+   "M": 1,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "raio ≥ n: uma palavra",
+   "declaration": "CoveringLedger.K14_3_3_le_1",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": null
+  },
+  "14,4,3": {
+   "M": 14,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "palavras constantes (pombal)",
+   "declaration": "CoveringLedger.K14_4_3_le_14",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": null
+  },
+  "14,4,4": {
+   "M": 1,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "raio ≥ n: uma palavra",
+   "declaration": "CoveringLedger.K14_4_4_le_1",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": null
+  },
+  "14,5,4": {
+   "M": 14,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "palavras constantes (pombal)",
+   "declaration": "CoveringLedger.K14_5_4_le_14",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": null
+  },
+  "14,5,5": {
+   "M": 1,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "raio ≥ n: uma palavra",
+   "declaration": "CoveringLedger.K14_5_5_le_1",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": null
+  },
+  "14,6,5": {
+   "M": 14,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "palavras constantes (pombal)",
+   "declaration": "CoveringLedger.K14_6_5_le_14",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": null
+  },
+  "14,6,6": {
+   "M": 1,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "raio ≥ n: uma palavra",
+   "declaration": "CoveringLedger.K14_6_6_le_1",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": null
+  },
+  "14,7,6": {
+   "M": 14,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "palavras constantes (pombal)",
+   "declaration": "CoveringLedger.K14_7_6_le_14",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": null
+  },
+  "14,7,7": {
+   "M": 1,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "raio ≥ n: uma palavra",
+   "declaration": "CoveringLedger.K14_7_7_le_1",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": null
+  },
+  "14,8,7": {
+   "M": 14,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "palavras constantes (pombal)",
+   "declaration": "CoveringLedger.K14_8_7_le_14",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": null
+  },
+  "14,8,8": {
+   "M": 1,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "raio ≥ n: uma palavra",
+   "declaration": "CoveringLedger.K14_8_8_le_1",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": null
+  },
+  "15,1,1": {
+   "M": 1,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "raio ≥ n: uma palavra",
+   "declaration": "CoveringLedger.K15_1_1_le_1",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": null
+  },
+  "15,2,1": {
+   "M": 15,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "palavras constantes (pombal)",
+   "declaration": "CoveringLedger.K15_2_1_le_15",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": null
+  },
+  "15,2,2": {
+   "M": 1,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "raio ≥ n: uma palavra",
+   "declaration": "CoveringLedger.K15_2_2_le_1",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": null
+  },
+  "15,3,1": {
+   "M": 113,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "witness explícito",
+   "declaration": "CoveringLedger.K15_3_1_le_113",
+   "sha256": "1c0be6a5359bf8834d29fe9960ded4544ae70a3a61fc7acca559f1a6e411240c",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": "tools/certificar/witnesses/K15_3_1_M113.txt"
+  },
+  "15,3,2": {
+   "M": 15,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "palavras constantes (pombal)",
+   "declaration": "CoveringLedger.K15_3_2_le_15",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": null
+  },
+  "15,3,3": {
+   "M": 1,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "raio ≥ n: uma palavra",
+   "declaration": "CoveringLedger.K15_3_3_le_1",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": null
+  },
+  "15,4,3": {
+   "M": 15,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "palavras constantes (pombal)",
+   "declaration": "CoveringLedger.K15_4_3_le_15",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": null
+  },
+  "15,4,4": {
+   "M": 1,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "raio ≥ n: uma palavra",
+   "declaration": "CoveringLedger.K15_4_4_le_1",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": null
+  },
+  "15,5,4": {
+   "M": 15,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "palavras constantes (pombal)",
+   "declaration": "CoveringLedger.K15_5_4_le_15",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": null
+  },
+  "15,5,5": {
+   "M": 1,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "raio ≥ n: uma palavra",
+   "declaration": "CoveringLedger.K15_5_5_le_1",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": null
+  },
+  "15,6,5": {
+   "M": 15,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "palavras constantes (pombal)",
+   "declaration": "CoveringLedger.K15_6_5_le_15",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": null
+  },
+  "15,6,6": {
+   "M": 1,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "raio ≥ n: uma palavra",
+   "declaration": "CoveringLedger.K15_6_6_le_1",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": null
+  },
+  "15,7,6": {
+   "M": 15,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "palavras constantes (pombal)",
+   "declaration": "CoveringLedger.K15_7_6_le_15",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": null
+  },
+  "15,7,7": {
+   "M": 1,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "raio ≥ n: uma palavra",
+   "declaration": "CoveringLedger.K15_7_7_le_1",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": null
+  },
+  "15,8,7": {
+   "M": 15,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "palavras constantes (pombal)",
+   "declaration": "CoveringLedger.K15_8_7_le_15",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": null
+  },
+  "15,8,8": {
+   "M": 1,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "raio ≥ n: uma palavra",
+   "declaration": "CoveringLedger.K15_8_8_le_1",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": null
+  },
+  "16,1,1": {
+   "M": 1,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "raio ≥ n: uma palavra",
+   "declaration": "CoveringLedger.K16_1_1_le_1",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": null
+  },
+  "16,2,1": {
+   "M": 16,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "palavras constantes (pombal)",
+   "declaration": "CoveringLedger.K16_2_1_le_16",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": null
+  },
+  "16,2,2": {
+   "M": 1,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "raio ≥ n: uma palavra",
+   "declaration": "CoveringLedger.K16_2_2_le_1",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": null
+  },
+  "16,3,1": {
+   "M": 128,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "witness explícito",
+   "declaration": "CoveringLedger.K16_3_1_le_128",
+   "sha256": "cb7dcd842b4c0f3f19bd265c84b2b3bdbf09149314adaf56a7b4f8baffccce8f",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": "tools/certificar/witnesses/K16_3_1_M128.txt"
+  },
+  "16,3,2": {
+   "M": 16,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "palavras constantes (pombal)",
+   "declaration": "CoveringLedger.K16_3_2_le_16",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": null
+  },
+  "16,3,3": {
+   "M": 1,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "raio ≥ n: uma palavra",
+   "declaration": "CoveringLedger.K16_3_3_le_1",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": null
+  },
+  "16,4,3": {
+   "M": 16,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "palavras constantes (pombal)",
+   "declaration": "CoveringLedger.K16_4_3_le_16",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": null
+  },
+  "16,4,4": {
+   "M": 1,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "raio ≥ n: uma palavra",
+   "declaration": "CoveringLedger.K16_4_4_le_1",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": null
+  },
+  "16,5,4": {
+   "M": 16,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "palavras constantes (pombal)",
+   "declaration": "CoveringLedger.K16_5_4_le_16",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": null
+  },
+  "16,5,5": {
+   "M": 1,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "raio ≥ n: uma palavra",
+   "declaration": "CoveringLedger.K16_5_5_le_1",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": null
+  },
+  "16,6,5": {
+   "M": 16,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "palavras constantes (pombal)",
+   "declaration": "CoveringLedger.K16_6_5_le_16",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": null
+  },
+  "16,6,6": {
+   "M": 1,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "raio ≥ n: uma palavra",
+   "declaration": "CoveringLedger.K16_6_6_le_1",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": null
+  },
+  "16,7,6": {
+   "M": 16,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "palavras constantes (pombal)",
+   "declaration": "CoveringLedger.K16_7_6_le_16",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": null
+  },
+  "16,7,7": {
+   "M": 1,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "raio ≥ n: uma palavra",
+   "declaration": "CoveringLedger.K16_7_7_le_1",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": null
+  },
+  "16,8,7": {
+   "M": 16,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "palavras constantes (pombal)",
+   "declaration": "CoveringLedger.K16_8_7_le_16",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": null
+  },
+  "16,8,8": {
+   "M": 1,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "raio ≥ n: uma palavra",
+   "declaration": "CoveringLedger.K16_8_8_le_1",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": null
+  },
+  "17,1,1": {
+   "M": 1,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "raio ≥ n: uma palavra",
+   "declaration": "CoveringLedger.K17_1_1_le_1",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": null
+  },
+  "17,2,1": {
+   "M": 17,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "palavras constantes (pombal)",
+   "declaration": "CoveringLedger.K17_2_1_le_17",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": null
+  },
+  "17,2,2": {
+   "M": 1,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "raio ≥ n: uma palavra",
+   "declaration": "CoveringLedger.K17_2_2_le_1",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": null
+  },
+  "17,3,1": {
+   "M": 145,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "witness explícito",
+   "declaration": "CoveringLedger.K17_3_1_le_145",
+   "sha256": "850b5043961427555c2e6711cb0093252964dd95929c196f621eaf4c8bc7e8d1",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": "tools/certificar/witnesses/K17_3_1_M145.txt"
+  },
+  "17,3,2": {
+   "M": 17,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "palavras constantes (pombal)",
+   "declaration": "CoveringLedger.K17_3_2_le_17",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": null
+  },
+  "17,3,3": {
+   "M": 1,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "raio ≥ n: uma palavra",
+   "declaration": "CoveringLedger.K17_3_3_le_1",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": null
+  },
+  "17,4,3": {
+   "M": 17,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "palavras constantes (pombal)",
+   "declaration": "CoveringLedger.K17_4_3_le_17",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": null
+  },
+  "17,4,4": {
+   "M": 1,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "raio ≥ n: uma palavra",
+   "declaration": "CoveringLedger.K17_4_4_le_1",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": null
+  },
+  "17,5,4": {
+   "M": 17,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "palavras constantes (pombal)",
+   "declaration": "CoveringLedger.K17_5_4_le_17",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": null
+  },
+  "17,5,5": {
+   "M": 1,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "raio ≥ n: uma palavra",
+   "declaration": "CoveringLedger.K17_5_5_le_1",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": null
+  },
+  "17,6,5": {
+   "M": 17,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "palavras constantes (pombal)",
+   "declaration": "CoveringLedger.K17_6_5_le_17",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": null
+  },
+  "17,6,6": {
+   "M": 1,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "raio ≥ n: uma palavra",
+   "declaration": "CoveringLedger.K17_6_6_le_1",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": null
+  },
+  "17,7,6": {
+   "M": 17,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "palavras constantes (pombal)",
+   "declaration": "CoveringLedger.K17_7_6_le_17",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": null
+  },
+  "17,7,7": {
+   "M": 1,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "raio ≥ n: uma palavra",
+   "declaration": "CoveringLedger.K17_7_7_le_1",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": null
+  },
+  "17,8,7": {
+   "M": 17,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "palavras constantes (pombal)",
+   "declaration": "CoveringLedger.K17_8_7_le_17",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": null
+  },
+  "17,8,8": {
+   "M": 1,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "raio ≥ n: uma palavra",
+   "declaration": "CoveringLedger.K17_8_8_le_1",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": null
+  },
+  "18,1,1": {
+   "M": 1,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "raio ≥ n: uma palavra",
+   "declaration": "CoveringLedger.K18_1_1_le_1",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": null
+  },
+  "18,2,1": {
+   "M": 18,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "palavras constantes (pombal)",
+   "declaration": "CoveringLedger.K18_2_1_le_18",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": null
+  },
+  "18,2,2": {
+   "M": 1,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "raio ≥ n: uma palavra",
+   "declaration": "CoveringLedger.K18_2_2_le_1",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": null
+  },
+  "18,3,1": {
+   "M": 162,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "witness explícito",
+   "declaration": "CoveringLedger.K18_3_1_le_162",
+   "sha256": "9cb163595f0d062ccb5a3b6274147c9c3617a13c350bbc438e365aa6bf96a680",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": "tools/certificar/witnesses/K18_3_1_M162.txt"
+  },
+  "18,3,2": {
+   "M": 18,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "palavras constantes (pombal)",
+   "declaration": "CoveringLedger.K18_3_2_le_18",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": null
+  },
+  "18,3,3": {
+   "M": 1,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "raio ≥ n: uma palavra",
+   "declaration": "CoveringLedger.K18_3_3_le_1",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": null
+  },
+  "18,4,3": {
+   "M": 18,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "palavras constantes (pombal)",
+   "declaration": "CoveringLedger.K18_4_3_le_18",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": null
+  },
+  "18,4,4": {
+   "M": 1,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "raio ≥ n: uma palavra",
+   "declaration": "CoveringLedger.K18_4_4_le_1",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": null
+  },
+  "18,5,4": {
+   "M": 18,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "palavras constantes (pombal)",
+   "declaration": "CoveringLedger.K18_5_4_le_18",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": null
+  },
+  "18,5,5": {
+   "M": 1,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "raio ≥ n: uma palavra",
+   "declaration": "CoveringLedger.K18_5_5_le_1",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": null
+  },
+  "18,6,5": {
+   "M": 18,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "palavras constantes (pombal)",
+   "declaration": "CoveringLedger.K18_6_5_le_18",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": null
+  },
+  "18,6,6": {
+   "M": 1,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "raio ≥ n: uma palavra",
+   "declaration": "CoveringLedger.K18_6_6_le_1",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": null
+  },
+  "18,7,6": {
+   "M": 18,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "palavras constantes (pombal)",
+   "declaration": "CoveringLedger.K18_7_6_le_18",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": null
+  },
+  "18,7,7": {
+   "M": 1,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "raio ≥ n: uma palavra",
+   "declaration": "CoveringLedger.K18_7_7_le_1",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": null
+  },
+  "18,8,7": {
+   "M": 18,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "palavras constantes (pombal)",
+   "declaration": "CoveringLedger.K18_8_7_le_18",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": null
+  },
+  "18,8,8": {
+   "M": 1,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "raio ≥ n: uma palavra",
+   "declaration": "CoveringLedger.K18_8_8_le_1",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": null
+  },
+  "19,1,1": {
+   "M": 1,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "raio ≥ n: uma palavra",
+   "declaration": "CoveringLedger.K19_1_1_le_1",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": null
+  },
+  "19,2,1": {
+   "M": 19,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "palavras constantes (pombal)",
+   "declaration": "CoveringLedger.K19_2_1_le_19",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": null
+  },
+  "19,2,2": {
+   "M": 1,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "raio ≥ n: uma palavra",
+   "declaration": "CoveringLedger.K19_2_2_le_1",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": null
+  },
+  "19,3,2": {
+   "M": 19,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "palavras constantes (pombal)",
+   "declaration": "CoveringLedger.K19_3_2_le_19",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": null
+  },
+  "19,3,3": {
+   "M": 1,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "raio ≥ n: uma palavra",
+   "declaration": "CoveringLedger.K19_3_3_le_1",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": null
+  },
+  "19,4,3": {
+   "M": 19,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "palavras constantes (pombal)",
+   "declaration": "CoveringLedger.K19_4_3_le_19",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": null
+  },
+  "19,4,4": {
+   "M": 1,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "raio ≥ n: uma palavra",
+   "declaration": "CoveringLedger.K19_4_4_le_1",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": null
+  },
+  "19,5,4": {
+   "M": 19,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "palavras constantes (pombal)",
+   "declaration": "CoveringLedger.K19_5_4_le_19",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": null
+  },
+  "19,5,5": {
+   "M": 1,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "raio ≥ n: uma palavra",
+   "declaration": "CoveringLedger.K19_5_5_le_1",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": null
+  },
+  "19,6,5": {
+   "M": 19,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "palavras constantes (pombal)",
+   "declaration": "CoveringLedger.K19_6_5_le_19",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": null
+  },
+  "19,6,6": {
+   "M": 1,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "raio ≥ n: uma palavra",
+   "declaration": "CoveringLedger.K19_6_6_le_1",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": null
+  },
+  "19,7,6": {
+   "M": 19,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "palavras constantes (pombal)",
+   "declaration": "CoveringLedger.K19_7_6_le_19",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": null
+  },
+  "19,7,7": {
+   "M": 1,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "raio ≥ n: uma palavra",
+   "declaration": "CoveringLedger.K19_7_7_le_1",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": null
+  },
+  "19,8,7": {
+   "M": 19,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "palavras constantes (pombal)",
+   "declaration": "CoveringLedger.K19_8_7_le_19",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": null
+  },
+  "19,8,8": {
+   "M": 1,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "raio ≥ n: uma palavra",
+   "declaration": "CoveringLedger.K19_8_8_le_1",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": null
+  },
+  "2,1,1": {
+   "M": 1,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "raio ≥ n: uma palavra",
+   "declaration": "CoveringLedger.K2_1_1_le_1",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": null
+  },
+  "2,10,10": {
+   "M": 1,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "raio ≥ n: uma palavra",
+   "declaration": "CoveringLedger.K2_10_10_le_1",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": null
+  },
+  "2,10,3": {
+   "M": 12,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "witness explícito",
+   "declaration": "CoveringLedger.K2_10_3_le_12",
+   "sha256": "09afa62611086d92125b4187cb1386e1139ace7c7699710446c0504f0189fefc",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": "tools/certificar/witnesses/K2_10_3_M12.txt"
+  },
+  "2,10,4": {
+   "M": 4,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "coordenada muda (t = 1) de K2(9,4) ≤ 2",
+   "declaration": "CoveringLedger.K2_10_4_le_4",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": null
+  },
+  "2,10,5": {
+   "M": 2,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "palavras constantes (pombal)",
+   "declaration": "CoveringLedger.K2_10_5_le_2",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": null
+  },
+  "2,10,6": {
+   "M": 2,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "palavras constantes (pombal)",
+   "declaration": "CoveringLedger.K2_10_6_le_2",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": null
+  },
+  "2,10,7": {
+   "M": 2,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "palavras constantes (pombal)",
+   "declaration": "CoveringLedger.K2_10_7_le_2",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": null
+  },
+  "2,10,8": {
+   "M": 2,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "palavras constantes (pombal)",
+   "declaration": "CoveringLedger.K2_10_8_le_2",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": null
+  },
+  "2,10,9": {
+   "M": 2,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "palavras constantes (pombal)",
+   "declaration": "CoveringLedger.K2_10_9_le_2",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": null
+  },
+  "2,11,1": {
+   "M": 192,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "witness explícito",
+   "declaration": "CoveringLedger.K2_11_1_le_192",
+   "sha256": "0b99ccbb1bc32cb0d6d2c6ed2816c3dd098317d59d4b00c2fe609c58e6878c1c",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": "tools/certificar/witnesses/K2_11_1_M192.txt"
+  },
+  "2,11,10": {
+   "M": 2,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "palavras constantes (pombal)",
+   "declaration": "CoveringLedger.K2_11_10_le_2",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": null
+  },
+  "2,11,3": {
+   "M": 16,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "witness explícito",
+   "declaration": "CoveringLedger.K2_11_3_le_16",
+   "sha256": "2b8210af479263b5e5251eeeaaf594b16695705641b25b1722fb67b2581e77f3",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": "tools/certificar/witnesses/K2_11_3_M16.txt"
+  },
+  "2,11,5": {
+   "M": 2,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "palavras constantes (pombal)",
+   "declaration": "CoveringLedger.K2_11_5_le_2",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": null
+  },
+  "2,11,6": {
+   "M": 2,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "palavras constantes (pombal)",
+   "declaration": "CoveringLedger.K2_11_6_le_2",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": null
+  },
+  "2,11,7": {
+   "M": 2,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "palavras constantes (pombal)",
+   "declaration": "CoveringLedger.K2_11_7_le_2",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": null
+  },
+  "2,11,8": {
+   "M": 2,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "palavras constantes (pombal)",
+   "declaration": "CoveringLedger.K2_11_8_le_2",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": null
+  },
+  "2,11,9": {
+   "M": 2,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "palavras constantes (pombal)",
+   "declaration": "CoveringLedger.K2_11_9_le_2",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": null
+  },
+  "2,12,10": {
+   "M": 2,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "palavras constantes (pombal)",
+   "declaration": "CoveringLedger.K2_12_10_le_2",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": null
+  },
+  "2,12,5": {
+   "M": 4,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "coordenada muda (t = 1) de K2(11,5) ≤ 2",
+   "declaration": "CoveringLedger.K2_12_5_le_4",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": null
+  },
+  "2,12,6": {
+   "M": 2,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "palavras constantes (pombal)",
+   "declaration": "CoveringLedger.K2_12_6_le_2",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": null
+  },
+  "2,12,7": {
+   "M": 2,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "palavras constantes (pombal)",
+   "declaration": "CoveringLedger.K2_12_7_le_2",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": null
+  },
+  "2,12,8": {
+   "M": 2,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "palavras constantes (pombal)",
+   "declaration": "CoveringLedger.K2_12_8_le_2",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": null
+  },
+  "2,12,9": {
+   "M": 2,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "palavras constantes (pombal)",
+   "declaration": "CoveringLedger.K2_12_9_le_2",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": null
+  },
+  "2,13,10": {
+   "M": 2,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "palavras constantes (pombal)",
+   "declaration": "CoveringLedger.K2_13_10_le_2",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": null
+  },
+  "2,13,6": {
+   "M": 2,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "palavras constantes (pombal)",
+   "declaration": "CoveringLedger.K2_13_6_le_2",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": null
+  },
+  "2,13,7": {
+   "M": 2,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "palavras constantes (pombal)",
+   "declaration": "CoveringLedger.K2_13_7_le_2",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": null
+  },
+  "2,13,8": {
+   "M": 2,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "palavras constantes (pombal)",
+   "declaration": "CoveringLedger.K2_13_8_le_2",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": null
+  },
+  "2,13,9": {
+   "M": 2,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "palavras constantes (pombal)",
+   "declaration": "CoveringLedger.K2_13_9_le_2",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": null
+  },
+  "2,14,10": {
+   "M": 2,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "palavras constantes (pombal)",
+   "declaration": "CoveringLedger.K2_14_10_le_2",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": null
+  },
+  "2,14,6": {
+   "M": 4,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "coordenada muda (t = 1) de K2(13,6) ≤ 2",
+   "declaration": "CoveringLedger.K2_14_6_le_4",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": null
+  },
+  "2,14,7": {
+   "M": 2,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "palavras constantes (pombal)",
+   "declaration": "CoveringLedger.K2_14_7_le_2",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": null
+  },
+  "2,14,8": {
+   "M": 2,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "palavras constantes (pombal)",
+   "declaration": "CoveringLedger.K2_14_8_le_2",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": null
+  },
+  "2,14,9": {
+   "M": 2,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "palavras constantes (pombal)",
+   "declaration": "CoveringLedger.K2_14_9_le_2",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": null
+  },
+  "2,15,10": {
+   "M": 2,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "palavras constantes (pombal)",
+   "declaration": "CoveringLedger.K2_15_10_le_2",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": null
+  },
+  "2,15,7": {
+   "M": 2,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "palavras constantes (pombal)",
+   "declaration": "CoveringLedger.K2_15_7_le_2",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": null
+  },
+  "2,15,8": {
+   "M": 2,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "palavras constantes (pombal)",
+   "declaration": "CoveringLedger.K2_15_8_le_2",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": null
+  },
+  "2,15,9": {
+   "M": 2,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "palavras constantes (pombal)",
+   "declaration": "CoveringLedger.K2_15_9_le_2",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": null
+  },
+  "2,16,10": {
+   "M": 2,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "palavras constantes (pombal)",
+   "declaration": "CoveringLedger.K2_16_10_le_2",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": null
+  },
+  "2,16,7": {
+   "M": 4,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "coordenada muda (t = 1) de K2(15,7) ≤ 2",
+   "declaration": "CoveringLedger.K2_16_7_le_4",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": null
+  },
+  "2,16,8": {
+   "M": 2,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "palavras constantes (pombal)",
+   "declaration": "CoveringLedger.K2_16_8_le_2",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": null
+  },
+  "2,16,9": {
+   "M": 2,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "palavras constantes (pombal)",
+   "declaration": "CoveringLedger.K2_16_9_le_2",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": null
+  },
+  "2,17,10": {
+   "M": 2,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "palavras constantes (pombal)",
+   "declaration": "CoveringLedger.K2_17_10_le_2",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": null
+  },
+  "2,17,8": {
+   "M": 2,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "palavras constantes (pombal)",
+   "declaration": "CoveringLedger.K2_17_8_le_2",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": null
+  },
+  "2,17,9": {
+   "M": 2,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "palavras constantes (pombal)",
+   "declaration": "CoveringLedger.K2_17_9_le_2",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": null
+  },
+  "2,18,10": {
+   "M": 2,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "palavras constantes (pombal)",
+   "declaration": "CoveringLedger.K2_18_10_le_2",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": null
+  },
+  "2,18,8": {
+   "M": 4,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "coordenada muda (t = 1) de K2(17,8) ≤ 2",
+   "declaration": "CoveringLedger.K2_18_8_le_4",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": null
+  },
+  "2,18,9": {
+   "M": 2,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "palavras constantes (pombal)",
+   "declaration": "CoveringLedger.K2_18_9_le_2",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": null
+  },
+  "2,19,10": {
+   "M": 2,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "palavras constantes (pombal)",
+   "declaration": "CoveringLedger.K2_19_10_le_2",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": null
+  },
+  "2,19,9": {
+   "M": 2,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "palavras constantes (pombal)",
+   "declaration": "CoveringLedger.K2_19_9_le_2",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": null
+  },
+  "2,2,1": {
+   "M": 2,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "palavras constantes (pombal)",
+   "declaration": "CoveringLedger.K2_2_1_le_2",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": null
+  },
+  "2,2,2": {
+   "M": 1,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "raio ≥ n: uma palavra",
+   "declaration": "CoveringLedger.K2_2_2_le_1",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": null
+  },
+  "2,20,10": {
+   "M": 2,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "palavras constantes (pombal)",
+   "declaration": "CoveringLedger.K2_20_10_le_2",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": null
+  },
+  "2,20,9": {
+   "M": 4,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "coordenada muda (t = 1) de K2(19,9) ≤ 2",
+   "declaration": "CoveringLedger.K2_20_9_le_4",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": null
+  },
+  "2,21,10": {
+   "M": 2,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "palavras constantes (pombal)",
+   "declaration": "CoveringLedger.K2_21_10_le_2",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": null
+  },
+  "2,22,10": {
+   "M": 4,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "coordenada muda (t = 1) de K2(21,10) ≤ 2",
+   "declaration": "CoveringLedger.K2_22_10_le_4",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": null
+  },
+  "2,3,1": {
+   "M": 2,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "palavras constantes (pombal)",
+   "declaration": "CoveringLedger.K2_3_1_le_2",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": null
+  },
+  "2,3,2": {
+   "M": 2,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "palavras constantes (pombal)",
+   "declaration": "CoveringLedger.K2_3_2_le_2",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": null
+  },
+  "2,3,3": {
+   "M": 1,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "raio ≥ n: uma palavra",
+   "declaration": "CoveringLedger.K2_3_3_le_1",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": null
+  },
+  "2,4,1": {
+   "M": 4,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "coordenada muda (t = 1) de K2(3,1) ≤ 2",
+   "declaration": "CoveringLedger.K2_4_1_le_4",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": null
+  },
+  "2,4,2": {
+   "M": 2,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "palavras constantes (pombal)",
+   "declaration": "CoveringLedger.K2_4_2_le_2",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": null
+  },
+  "2,4,3": {
+   "M": 2,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "palavras constantes (pombal)",
+   "declaration": "CoveringLedger.K2_4_3_le_2",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": null
+  },
+  "2,4,4": {
+   "M": 1,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "raio ≥ n: uma palavra",
+   "declaration": "CoveringLedger.K2_4_4_le_1",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": null
+  },
+  "2,5,1": {
+   "M": 7,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "witness explícito",
+   "declaration": "CoveringLedger.K2_5_1_le_7",
+   "sha256": "34ad062869baa6251832231b68f1276f16fe836d8b29702328774e1ff98c8f51",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": "tools/certificar/witnesses/K2_5_1_M7.txt"
+  },
+  "2,5,2": {
+   "M": 2,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "palavras constantes (pombal)",
+   "declaration": "CoveringLedger.K2_5_2_le_2",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": null
+  },
+  "2,5,3": {
+   "M": 2,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "palavras constantes (pombal)",
+   "declaration": "CoveringLedger.K2_5_3_le_2",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": null
+  },
+  "2,5,4": {
+   "M": 2,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "palavras constantes (pombal)",
+   "declaration": "CoveringLedger.K2_5_4_le_2",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": null
+  },
+  "2,5,5": {
+   "M": 1,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "raio ≥ n: uma palavra",
+   "declaration": "CoveringLedger.K2_5_5_le_1",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": null
+  },
+  "2,6,1": {
+   "M": 12,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "witness explícito",
+   "declaration": "CoveringLedger.K2_6_1_le_12",
+   "sha256": "f1f5eac2704146a97b4df91e2fe332c3ea95e4015255baf8653f804707399c78",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": "tools/certificar/witnesses/K2_6_1_M12.txt"
+  },
+  "2,6,2": {
+   "M": 4,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "witness explícito",
+   "declaration": "CoveringLedger.K2_6_2_le_4",
+   "sha256": "54de5c406a7aea57b4782c21971aa40f38326d03855d850846356a0341631a2b",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": "tools/certificar/witnesses/K2_6_2_M4.txt"
+  },
+  "2,6,3": {
+   "M": 2,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "palavras constantes (pombal)",
+   "declaration": "CoveringLedger.K2_6_3_le_2",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": null
+  },
+  "2,6,4": {
+   "M": 2,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "palavras constantes (pombal)",
+   "declaration": "CoveringLedger.K2_6_4_le_2",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": null
+  },
+  "2,6,5": {
+   "M": 2,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "palavras constantes (pombal)",
+   "declaration": "CoveringLedger.K2_6_5_le_2",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": null
+  },
+  "2,6,6": {
+   "M": 1,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "raio ≥ n: uma palavra",
+   "declaration": "CoveringLedger.K2_6_6_le_1",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": null
+  },
+  "2,7,1": {
+   "M": 16,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "witness explícito",
+   "declaration": "CoveringLedger.K2_7_1_le_16",
+   "sha256": "75f159db24acfba7cbcc4fe1b96c9c40e35994e3cd6e77ef70206ef3ce26045c",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": "tools/certificar/witnesses/K2_7_1_M16.txt"
+  },
+  "2,7,2": {
+   "M": 7,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "witness explícito",
+   "declaration": "CoveringLedger.K2_7_2_le_7",
+   "sha256": "6366f7d1959d100c7cafc4751407fd5be18ae09224125cb111b650d440bdcdec",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": "tools/certificar/witnesses/K2_7_2_M7.txt"
+  },
+  "2,7,3": {
+   "M": 2,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "palavras constantes (pombal)",
+   "declaration": "CoveringLedger.K2_7_3_le_2",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": null
+  },
+  "2,7,4": {
+   "M": 2,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "palavras constantes (pombal)",
+   "declaration": "CoveringLedger.K2_7_4_le_2",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": null
+  },
+  "2,7,5": {
+   "M": 2,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "palavras constantes (pombal)",
+   "declaration": "CoveringLedger.K2_7_5_le_2",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": null
+  },
+  "2,7,6": {
+   "M": 2,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "palavras constantes (pombal)",
+   "declaration": "CoveringLedger.K2_7_6_le_2",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": null
+  },
+  "2,7,7": {
+   "M": 1,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "raio ≥ n: uma palavra",
+   "declaration": "CoveringLedger.K2_7_7_le_1",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": null
+  },
+  "2,8,1": {
+   "M": 32,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "witness explícito",
+   "declaration": "CoveringLedger.K2_8_1_le_32",
+   "sha256": "c4b7f80308ae4ffa4b07b66cde1a187429860cb3bc7f71df2a45c1c5951a3f7e",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": "tools/certificar/witnesses/K2_8_1_M32.txt"
+  },
+  "2,8,2": {
+   "M": 12,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "witness explícito",
+   "declaration": "CoveringLedger.K2_8_2_le_12",
+   "sha256": "1b695288a306a8ff164960410ef7a2913021d09ec842ce31e150b4899d5e8514",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": "tools/certificar/witnesses/K2_8_2_M12.txt"
+  },
+  "2,8,3": {
+   "M": 4,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "coordenada muda (t = 1) de K2(7,3) ≤ 2",
+   "declaration": "CoveringLedger.K2_8_3_le_4",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": null
+  },
+  "2,8,4": {
+   "M": 2,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "palavras constantes (pombal)",
+   "declaration": "CoveringLedger.K2_8_4_le_2",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": null
+  },
+  "2,8,5": {
+   "M": 2,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "palavras constantes (pombal)",
+   "declaration": "CoveringLedger.K2_8_5_le_2",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": null
+  },
+  "2,8,6": {
+   "M": 2,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "palavras constantes (pombal)",
+   "declaration": "CoveringLedger.K2_8_6_le_2",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": null
+  },
+  "2,8,7": {
+   "M": 2,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "palavras constantes (pombal)",
+   "declaration": "CoveringLedger.K2_8_7_le_2",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": null
+  },
+  "2,8,8": {
+   "M": 1,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "raio ≥ n: uma palavra",
+   "declaration": "CoveringLedger.K2_8_8_le_1",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": null
+  },
+  "2,9,2": {
+   "M": 16,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "witness explícito",
+   "declaration": "CoveringLedger.K2_9_2_le_16",
+   "sha256": "ce329baa238bbb07221e0e40b2e2e8563c9f32365f5ee1d428c381ac7f4b1187",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": "tools/certificar/witnesses/K2_9_2_M16.txt"
+  },
+  "2,9,3": {
+   "M": 7,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "witness explícito",
+   "declaration": "CoveringLedger.K2_9_3_le_7",
+   "sha256": "3aad45cd17e31168f93b681e5e634a1b3312bb367124840959b17ab11d0c3002",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": "tools/certificar/witnesses/K2_9_3_M7.txt"
+  },
+  "2,9,4": {
+   "M": 2,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "palavras constantes (pombal)",
+   "declaration": "CoveringLedger.K2_9_4_le_2",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": null
+  },
+  "2,9,5": {
+   "M": 2,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "palavras constantes (pombal)",
+   "declaration": "CoveringLedger.K2_9_5_le_2",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": null
+  },
+  "2,9,6": {
+   "M": 2,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "palavras constantes (pombal)",
+   "declaration": "CoveringLedger.K2_9_6_le_2",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": null
+  },
+  "2,9,7": {
+   "M": 2,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "palavras constantes (pombal)",
+   "declaration": "CoveringLedger.K2_9_7_le_2",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": null
+  },
+  "2,9,8": {
+   "M": 2,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "palavras constantes (pombal)",
+   "declaration": "CoveringLedger.K2_9_8_le_2",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": null
+  },
+  "2,9,9": {
+   "M": 1,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "raio ≥ n: uma palavra",
+   "declaration": "CoveringLedger.K2_9_9_le_1",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": null
+  },
+  "20,1,1": {
+   "M": 1,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "raio ≥ n: uma palavra",
+   "declaration": "CoveringLedger.K20_1_1_le_1",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": null
+  },
+  "20,2,1": {
+   "M": 20,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "palavras constantes (pombal)",
+   "declaration": "CoveringLedger.K20_2_1_le_20",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": null
+  },
+  "20,2,2": {
+   "M": 1,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "raio ≥ n: uma palavra",
+   "declaration": "CoveringLedger.K20_2_2_le_1",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": null
+  },
+  "20,3,2": {
+   "M": 20,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "palavras constantes (pombal)",
+   "declaration": "CoveringLedger.K20_3_2_le_20",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": null
+  },
+  "20,3,3": {
+   "M": 1,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "raio ≥ n: uma palavra",
+   "declaration": "CoveringLedger.K20_3_3_le_1",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": null
+  },
+  "20,4,3": {
+   "M": 20,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "palavras constantes (pombal)",
+   "declaration": "CoveringLedger.K20_4_3_le_20",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": null
+  },
+  "20,4,4": {
+   "M": 1,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "raio ≥ n: uma palavra",
+   "declaration": "CoveringLedger.K20_4_4_le_1",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": null
+  },
+  "20,5,4": {
+   "M": 20,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "palavras constantes (pombal)",
+   "declaration": "CoveringLedger.K20_5_4_le_20",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": null
+  },
+  "20,5,5": {
+   "M": 1,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "raio ≥ n: uma palavra",
+   "declaration": "CoveringLedger.K20_5_5_le_1",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": null
+  },
+  "20,6,5": {
+   "M": 20,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "palavras constantes (pombal)",
+   "declaration": "CoveringLedger.K20_6_5_le_20",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": null
+  },
+  "20,6,6": {
+   "M": 1,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "raio ≥ n: uma palavra",
+   "declaration": "CoveringLedger.K20_6_6_le_1",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": null
+  },
+  "20,7,6": {
+   "M": 20,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "palavras constantes (pombal)",
+   "declaration": "CoveringLedger.K20_7_6_le_20",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": null
+  },
+  "20,7,7": {
+   "M": 1,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "raio ≥ n: uma palavra",
+   "declaration": "CoveringLedger.K20_7_7_le_1",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": null
+  },
+  "20,8,7": {
+   "M": 20,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "palavras constantes (pombal)",
+   "declaration": "CoveringLedger.K20_8_7_le_20",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": null
+  },
+  "20,8,8": {
+   "M": 1,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "raio ≥ n: uma palavra",
+   "declaration": "CoveringLedger.K20_8_8_le_1",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": null
+  },
+  "21,1,1": {
+   "M": 1,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "raio ≥ n: uma palavra",
+   "declaration": "CoveringLedger.K21_1_1_le_1",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": null
+  },
+  "21,2,1": {
+   "M": 21,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "palavras constantes (pombal)",
+   "declaration": "CoveringLedger.K21_2_1_le_21",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": null
+  },
+  "21,2,2": {
+   "M": 1,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "raio ≥ n: uma palavra",
+   "declaration": "CoveringLedger.K21_2_2_le_1",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": null
+  },
+  "21,3,2": {
+   "M": 21,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "palavras constantes (pombal)",
+   "declaration": "CoveringLedger.K21_3_2_le_21",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": null
+  },
+  "21,3,3": {
+   "M": 1,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "raio ≥ n: uma palavra",
+   "declaration": "CoveringLedger.K21_3_3_le_1",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": null
+  },
+  "21,4,3": {
+   "M": 21,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "palavras constantes (pombal)",
+   "declaration": "CoveringLedger.K21_4_3_le_21",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": null
+  },
+  "21,4,4": {
+   "M": 1,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "raio ≥ n: uma palavra",
+   "declaration": "CoveringLedger.K21_4_4_le_1",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": null
+  },
+  "21,5,4": {
+   "M": 21,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "palavras constantes (pombal)",
+   "declaration": "CoveringLedger.K21_5_4_le_21",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": null
+  },
+  "21,5,5": {
+   "M": 1,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "raio ≥ n: uma palavra",
+   "declaration": "CoveringLedger.K21_5_5_le_1",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": null
+  },
+  "21,6,5": {
+   "M": 21,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "palavras constantes (pombal)",
+   "declaration": "CoveringLedger.K21_6_5_le_21",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": null
+  },
+  "21,6,6": {
+   "M": 1,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "raio ≥ n: uma palavra",
+   "declaration": "CoveringLedger.K21_6_6_le_1",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": null
+  },
+  "21,7,6": {
+   "M": 21,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "palavras constantes (pombal)",
+   "declaration": "CoveringLedger.K21_7_6_le_21",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": null
+  },
+  "21,7,7": {
+   "M": 1,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "raio ≥ n: uma palavra",
+   "declaration": "CoveringLedger.K21_7_7_le_1",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": null
+  },
+  "21,8,7": {
+   "M": 21,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "palavras constantes (pombal)",
+   "declaration": "CoveringLedger.K21_8_7_le_21",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": null
+  },
+  "21,8,8": {
+   "M": 1,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "raio ≥ n: uma palavra",
+   "declaration": "CoveringLedger.K21_8_8_le_1",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": null
+  },
+  "3,1,1": {
+   "M": 1,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "raio ≥ n: uma palavra",
+   "declaration": "CoveringLedger.K3_1_1_le_1",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": null
+  },
+  "3,10,6": {
+   "M": 3,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "palavras constantes (pombal)",
+   "declaration": "CoveringLedger.K3_10_6_le_3",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": null
+  },
+  "3,10,7": {
+   "M": 3,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "palavras constantes (pombal)",
+   "declaration": "CoveringLedger.K3_10_7_le_3",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": null
+  },
+  "3,10,8": {
+   "M": 3,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "palavras constantes (pombal)",
+   "declaration": "CoveringLedger.K3_10_8_le_3",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": null
+  },
+  "3,11,5": {
+   "M": 27,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "soma direta de K3(4,1) ≤ 9 e K3(7,4) ≤ 3",
+   "declaration": "CoveringLedger.K3_11_5_le_27",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": null
+  },
+  "3,11,6": {
+   "M": 9,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "coordenada muda (t = 1) de K3(10,6) ≤ 3",
+   "declaration": "CoveringLedger.K3_11_6_le_9",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": null
+  },
+  "3,11,7": {
+   "M": 3,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "palavras constantes (pombal)",
+   "declaration": "CoveringLedger.K3_11_7_le_3",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": null
+  },
+  "3,11,8": {
+   "M": 3,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "palavras constantes (pombal)",
+   "declaration": "CoveringLedger.K3_11_8_le_3",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": null
+  },
+  "3,12,8": {
+   "M": 3,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "palavras constantes (pombal)",
+   "declaration": "CoveringLedger.K3_12_8_le_3",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": null
+  },
+  "3,13,8": {
+   "M": 3,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "palavras constantes (pombal)",
+   "declaration": "CoveringLedger.K3_13_8_le_3",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": null
+  },
+  "3,14,7": {
+   "M": 27,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "soma direta de K3(4,1) ≤ 9 e K3(10,6) ≤ 3",
+   "declaration": "CoveringLedger.K3_14_7_le_27",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": null
+  },
+  "3,14,8": {
+   "M": 9,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "coordenada muda (t = 1) de K3(13,8) ≤ 3",
+   "declaration": "CoveringLedger.K3_14_8_le_9",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": null
+  },
+  "3,2,1": {
+   "M": 3,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "palavras constantes (pombal)",
+   "declaration": "CoveringLedger.K3_2_1_le_3",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": null
+  },
+  "3,2,2": {
+   "M": 1,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "raio ≥ n: uma palavra",
+   "declaration": "CoveringLedger.K3_2_2_le_1",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": null
+  },
+  "3,3,1": {
+   "M": 5,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "witness explícito",
+   "declaration": "CoveringLedger.K3_3_1_le_5",
+   "sha256": "200d1f183fc69669fb6cf79ef250aaac91e5066979922ad531e2ba7cadcb4231",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": "tools/certificar/witnesses/K3_3_1_M5.txt"
+  },
+  "3,3,2": {
+   "M": 3,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "palavras constantes (pombal)",
+   "declaration": "CoveringLedger.K3_3_2_le_3",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": null
+  },
+  "3,3,3": {
+   "M": 1,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "raio ≥ n: uma palavra",
+   "declaration": "CoveringLedger.K3_3_3_le_1",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": null
+  },
+  "3,4,1": {
+   "M": 9,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "witness explícito",
+   "declaration": "CoveringLedger.K3_4_1_le_9",
+   "sha256": "3a6829fd2c9529a5cdfe631976170f7ede955191266d02440c4770bd98b51ba4",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": "tools/certificar/witnesses/K3_4_1_M9.txt"
+  },
+  "3,4,2": {
+   "M": 3,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "palavras constantes (pombal)",
+   "declaration": "CoveringLedger.K3_4_2_le_3",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": null
+  },
+  "3,4,3": {
+   "M": 3,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "palavras constantes (pombal)",
+   "declaration": "CoveringLedger.K3_4_3_le_3",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": null
+  },
+  "3,4,4": {
+   "M": 1,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "raio ≥ n: uma palavra",
+   "declaration": "CoveringLedger.K3_4_4_le_1",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": null
+  },
+  "3,5,1": {
+   "M": 27,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "coordenada muda (t = 1) de K3(4,1) ≤ 9",
+   "declaration": "CoveringLedger.K3_5_1_le_27",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": null
+  },
+  "3,5,2": {
+   "M": 8,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "witness explícito",
+   "declaration": "CoveringLedger.K3_5_2_le_8",
+   "sha256": "582bbac822f704a28d6448139c94977aa90fcb5d153cb5565956e99107791d64",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": "tools/certificar/witnesses/K3_5_2_M8.txt"
+  },
+  "3,5,3": {
+   "M": 3,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "palavras constantes (pombal)",
+   "declaration": "CoveringLedger.K3_5_3_le_3",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": null
+  },
+  "3,5,4": {
+   "M": 3,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "palavras constantes (pombal)",
+   "declaration": "CoveringLedger.K3_5_4_le_3",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": null
+  },
+  "3,5,5": {
+   "M": 1,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "raio ≥ n: uma palavra",
+   "declaration": "CoveringLedger.K3_5_5_le_1",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": null
+  },
+  "3,6,2": {
+   "M": 17,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "witness explícito",
+   "declaration": "CoveringLedger.K3_6_2_le_17",
+   "sha256": "05a84d52749696a920738aa26d58103bf92f09dfc074068e1dedc27e4e77eaf4",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": "tools/certificar/witnesses/K3_6_2_M17.txt"
+  },
+  "3,6,3": {
+   "M": 6,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "witness explícito",
+   "declaration": "CoveringLedger.K3_6_3_le_6",
+   "sha256": "fb715ae302cffe257ce6ba3772cd5248eec68031c4fda804be96b56a9aee0497",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": "tools/certificar/witnesses/K3_6_3_M6.txt"
+  },
+  "3,6,4": {
+   "M": 3,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "palavras constantes (pombal)",
+   "declaration": "CoveringLedger.K3_6_4_le_3",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": null
+  },
+  "3,6,5": {
+   "M": 3,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "palavras constantes (pombal)",
+   "declaration": "CoveringLedger.K3_6_5_le_3",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": null
+  },
+  "3,6,6": {
+   "M": 1,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "raio ≥ n: uma palavra",
+   "declaration": "CoveringLedger.K3_6_6_le_1",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": null
+  },
+  "3,7,4": {
+   "M": 3,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "palavras constantes (pombal)",
+   "declaration": "CoveringLedger.K3_7_4_le_3",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": null
+  },
+  "3,7,5": {
+   "M": 3,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "palavras constantes (pombal)",
+   "declaration": "CoveringLedger.K3_7_5_le_3",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": null
+  },
+  "3,7,6": {
+   "M": 3,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "palavras constantes (pombal)",
+   "declaration": "CoveringLedger.K3_7_6_le_3",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": null
+  },
+  "3,7,7": {
+   "M": 1,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "raio ≥ n: uma palavra",
+   "declaration": "CoveringLedger.K3_7_7_le_1",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": null
+  },
+  "3,8,2": {
+   "M": 81,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "soma direta de K3(4,1) ≤ 9 e K3(4,1) ≤ 9",
+   "declaration": "CoveringLedger.K3_8_2_le_81",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": null
+  },
+  "3,8,3": {
+   "M": 27,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "soma direta de K3(4,1) ≤ 9 e K3(4,2) ≤ 3",
+   "declaration": "CoveringLedger.K3_8_3_le_27",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": null
+  },
+  "3,8,4": {
+   "M": 9,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "coordenada muda (t = 1) de K3(7,4) ≤ 3",
+   "declaration": "CoveringLedger.K3_8_4_le_9",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": null
+  },
+  "3,8,5": {
+   "M": 3,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "palavras constantes (pombal)",
+   "declaration": "CoveringLedger.K3_8_5_le_3",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": null
+  },
+  "3,8,6": {
+   "M": 3,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "palavras constantes (pombal)",
+   "declaration": "CoveringLedger.K3_8_6_le_3",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": null
+  },
+  "3,8,7": {
+   "M": 3,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "palavras constantes (pombal)",
+   "declaration": "CoveringLedger.K3_8_7_le_3",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": null
+  },
+  "3,8,8": {
+   "M": 1,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "raio ≥ n: uma palavra",
+   "declaration": "CoveringLedger.K3_8_8_le_1",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": null
+  },
+  "3,9,6": {
+   "M": 3,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "palavras constantes (pombal)",
+   "declaration": "CoveringLedger.K3_9_6_le_3",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": null
+  },
+  "3,9,7": {
+   "M": 3,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "palavras constantes (pombal)",
+   "declaration": "CoveringLedger.K3_9_7_le_3",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": null
+  },
+  "3,9,8": {
+   "M": 3,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "palavras constantes (pombal)",
+   "declaration": "CoveringLedger.K3_9_8_le_3",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": null
+  },
+  "4,1,1": {
+   "M": 1,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "raio ≥ n: uma palavra",
+   "declaration": "CoveringLedger.K4_1_1_le_1",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": null
+  },
+  "4,10,6": {
+   "M": 16,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "coordenada muda (t = 1) de K4(9,6) ≤ 4",
+   "declaration": "CoveringLedger.K4_10_6_le_16",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": null
+  },
+  "4,10,7": {
+   "M": 4,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "palavras constantes (pombal)",
+   "declaration": "CoveringLedger.K4_10_7_le_4",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": null
+  },
+  "4,10,8": {
+   "M": 4,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "palavras constantes (pombal)",
+   "declaration": "CoveringLedger.K4_10_8_le_4",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": null
+  },
+  "4,11,8": {
+   "M": 4,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "palavras constantes (pombal)",
+   "declaration": "CoveringLedger.K4_11_8_le_4",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": null
+  },
+  "4,2,1": {
+   "M": 4,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "palavras constantes (pombal)",
+   "declaration": "CoveringLedger.K4_2_1_le_4",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": null
+  },
+  "4,2,2": {
+   "M": 1,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "raio ≥ n: uma palavra",
+   "declaration": "CoveringLedger.K4_2_2_le_1",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": null
+  },
+  "4,3,1": {
+   "M": 8,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "witness explícito",
+   "declaration": "CoveringLedger.K4_3_1_le_8",
+   "sha256": "d69b103ce941066b2875721dde6b60e75c421163d7e2d09b7fdc69eeb133954c",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": "tools/certificar/witnesses/K4_3_1_M8.txt"
+  },
+  "4,3,2": {
+   "M": 4,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "palavras constantes (pombal)",
+   "declaration": "CoveringLedger.K4_3_2_le_4",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": null
+  },
+  "4,3,3": {
+   "M": 1,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "raio ≥ n: uma palavra",
+   "declaration": "CoveringLedger.K4_3_3_le_1",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": null
+  },
+  "4,4,1": {
+   "M": 24,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "witness explícito",
+   "declaration": "CoveringLedger.K4_4_1_le_24",
+   "sha256": "ead0f58508d9d3b5fcf8fc7aa5b48a7b6a238734e179b2ec11b5183d9131c791",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": "tools/certificar/witnesses/K4_4_1_M24.txt"
+  },
+  "4,4,2": {
+   "M": 7,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "witness explícito",
+   "declaration": "CoveringLedger.K4_4_2_le_7",
+   "sha256": "6536781ac3e42ee00ea377fdc8e7df739912db9faaf405d198379b20f6e1e6a6",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": "tools/certificar/witnesses/K4_4_2_M7.txt"
+  },
+  "4,4,3": {
+   "M": 4,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "palavras constantes (pombal)",
+   "declaration": "CoveringLedger.K4_4_3_le_4",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": null
+  },
+  "4,4,4": {
+   "M": 1,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "raio ≥ n: uma palavra",
+   "declaration": "CoveringLedger.K4_4_4_le_1",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": null
+  },
+  "4,5,3": {
+   "M": 4,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "palavras constantes (pombal)",
+   "declaration": "CoveringLedger.K4_5_3_le_4",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": null
+  },
+  "4,5,4": {
+   "M": 4,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "palavras constantes (pombal)",
+   "declaration": "CoveringLedger.K4_5_4_le_4",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": null
+  },
+  "4,5,5": {
+   "M": 1,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "raio ≥ n: uma palavra",
+   "declaration": "CoveringLedger.K4_5_5_le_1",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": null
+  },
+  "4,6,4": {
+   "M": 4,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "palavras constantes (pombal)",
+   "declaration": "CoveringLedger.K4_6_4_le_4",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": null
+  },
+  "4,6,5": {
+   "M": 4,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "palavras constantes (pombal)",
+   "declaration": "CoveringLedger.K4_6_5_le_4",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": null
+  },
+  "4,6,6": {
+   "M": 1,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "raio ≥ n: uma palavra",
+   "declaration": "CoveringLedger.K4_6_6_le_1",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": null
+  },
+  "4,7,5": {
+   "M": 4,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "palavras constantes (pombal)",
+   "declaration": "CoveringLedger.K4_7_5_le_4",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": null
+  },
+  "4,7,6": {
+   "M": 4,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "palavras constantes (pombal)",
+   "declaration": "CoveringLedger.K4_7_6_le_4",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": null
+  },
+  "4,7,7": {
+   "M": 1,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "raio ≥ n: uma palavra",
+   "declaration": "CoveringLedger.K4_7_7_le_1",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": null
+  },
+  "4,8,6": {
+   "M": 4,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "palavras constantes (pombal)",
+   "declaration": "CoveringLedger.K4_8_6_le_4",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": null
+  },
+  "4,8,7": {
+   "M": 4,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "palavras constantes (pombal)",
+   "declaration": "CoveringLedger.K4_8_7_le_4",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": null
+  },
+  "4,8,8": {
+   "M": 1,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "raio ≥ n: uma palavra",
+   "declaration": "CoveringLedger.K4_8_8_le_1",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": null
+  },
+  "4,9,6": {
+   "M": 4,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "palavras constantes (pombal)",
+   "declaration": "CoveringLedger.K4_9_6_le_4",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": null
+  },
+  "4,9,7": {
+   "M": 4,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "palavras constantes (pombal)",
+   "declaration": "CoveringLedger.K4_9_7_le_4",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": null
+  },
+  "4,9,8": {
+   "M": 4,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "palavras constantes (pombal)",
+   "declaration": "CoveringLedger.K4_9_8_le_4",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": null
+  },
+  "5,1,1": {
+   "M": 1,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "raio ≥ n: uma palavra",
+   "declaration": "CoveringLedger.K5_1_1_le_1",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": null
+  },
+  "5,10,8": {
+   "M": 5,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "palavras constantes (pombal)",
+   "declaration": "CoveringLedger.K5_10_8_le_5",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": null
+  },
+  "5,11,8": {
+   "M": 5,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "palavras constantes (pombal)",
+   "declaration": "CoveringLedger.K5_11_8_le_5",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": null
+  },
+  "5,2,1": {
+   "M": 5,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "palavras constantes (pombal)",
+   "declaration": "CoveringLedger.K5_2_1_le_5",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": null
+  },
+  "5,2,2": {
+   "M": 1,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "raio ≥ n: uma palavra",
+   "declaration": "CoveringLedger.K5_2_2_le_1",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": null
+  },
+  "5,3,1": {
+   "M": 13,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "witness explícito",
+   "declaration": "CoveringLedger.K5_3_1_le_13",
+   "sha256": "ecb1836591889393f8113cdc925bdbe5432ab627970bfd4ac65274eea7a25c36",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": "tools/certificar/witnesses/K5_3_1_M13.txt"
+  },
+  "5,3,2": {
+   "M": 5,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "palavras constantes (pombal)",
+   "declaration": "CoveringLedger.K5_3_2_le_5",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": null
+  },
+  "5,3,3": {
+   "M": 1,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "raio ≥ n: uma palavra",
+   "declaration": "CoveringLedger.K5_3_3_le_1",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": null
+  },
+  "5,4,2": {
+   "M": 11,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "witness explícito",
+   "declaration": "CoveringLedger.K5_4_2_le_11",
+   "sha256": "9232f6c96b8ca8e7099ca0d56ec33a29a83fab521767edaac81a6eb99a160c4e",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": "tools/certificar/witnesses/K5_4_2_M11.txt"
+  },
+  "5,4,3": {
+   "M": 5,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "palavras constantes (pombal)",
+   "declaration": "CoveringLedger.K5_4_3_le_5",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": null
+  },
+  "5,4,4": {
+   "M": 1,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "raio ≥ n: uma palavra",
+   "declaration": "CoveringLedger.K5_4_4_le_1",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": null
+  },
+  "5,5,4": {
+   "M": 5,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "palavras constantes (pombal)",
+   "declaration": "CoveringLedger.K5_5_4_le_5",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": null
+  },
+  "5,5,5": {
+   "M": 1,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "raio ≥ n: uma palavra",
+   "declaration": "CoveringLedger.K5_5_5_le_1",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": null
+  },
+  "5,6,4": {
+   "M": 5,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "palavras constantes (pombal)",
+   "declaration": "CoveringLedger.K5_6_4_le_5",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": null
+  },
+  "5,6,5": {
+   "M": 5,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "palavras constantes (pombal)",
+   "declaration": "CoveringLedger.K5_6_5_le_5",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": null
+  },
+  "5,6,6": {
+   "M": 1,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "raio ≥ n: uma palavra",
+   "declaration": "CoveringLedger.K5_6_6_le_1",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": null
+  },
+  "5,7,5": {
+   "M": 5,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "palavras constantes (pombal)",
+   "declaration": "CoveringLedger.K5_7_5_le_5",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": null
+  },
+  "5,7,6": {
+   "M": 5,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "palavras constantes (pombal)",
+   "declaration": "CoveringLedger.K5_7_6_le_5",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": null
+  },
+  "5,7,7": {
+   "M": 1,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "raio ≥ n: uma palavra",
+   "declaration": "CoveringLedger.K5_7_7_le_1",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": null
+  },
+  "5,8,6": {
+   "M": 5,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "palavras constantes (pombal)",
+   "declaration": "CoveringLedger.K5_8_6_le_5",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": null
+  },
+  "5,8,7": {
+   "M": 5,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "palavras constantes (pombal)",
+   "declaration": "CoveringLedger.K5_8_7_le_5",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": null
+  },
+  "5,8,8": {
+   "M": 1,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "raio ≥ n: uma palavra",
+   "declaration": "CoveringLedger.K5_8_8_le_1",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": null
+  },
+  "5,9,7": {
+   "M": 5,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "palavras constantes (pombal)",
+   "declaration": "CoveringLedger.K5_9_7_le_5",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": null
+  },
+  "5,9,8": {
+   "M": 5,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "palavras constantes (pombal)",
+   "declaration": "CoveringLedger.K5_9_8_le_5",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": null
+  },
+  "6,1,1": {
+   "M": 1,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "raio ≥ n: uma palavra",
+   "declaration": "CoveringLedger.K6_1_1_le_1",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": null
+  },
+  "6,10,8": {
+   "M": 6,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "palavras constantes (pombal)",
+   "declaration": "CoveringLedger.K6_10_8_le_6",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": null
+  },
+  "6,2,1": {
+   "M": 6,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "palavras constantes (pombal)",
+   "declaration": "CoveringLedger.K6_2_1_le_6",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": null
+  },
+  "6,2,2": {
+   "M": 1,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "raio ≥ n: uma palavra",
+   "declaration": "CoveringLedger.K6_2_2_le_1",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": null
+  },
+  "6,3,1": {
+   "M": 18,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "witness explícito",
+   "declaration": "CoveringLedger.K6_3_1_le_18",
+   "sha256": "840346219b114ea26fcdc66d053be46b3b8f37f1e4a20053b68a5d0eb7a22101",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": "tools/certificar/witnesses/K6_3_1_M18.txt"
+  },
+  "6,3,2": {
+   "M": 6,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "palavras constantes (pombal)",
+   "declaration": "CoveringLedger.K6_3_2_le_6",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": null
+  },
+  "6,3,3": {
+   "M": 1,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "raio ≥ n: uma palavra",
+   "declaration": "CoveringLedger.K6_3_3_le_1",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": null
+  },
+  "6,4,2": {
+   "M": 15,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "witness explícito",
+   "declaration": "CoveringLedger.K6_4_2_le_15",
+   "sha256": "0e33d11155bbccbe04c382c476d8b89ee5940b1b1d8c7591f70d5ad73a12d4c6",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": "tools/certificar/witnesses/K6_4_2_M15.txt"
+  },
+  "6,4,3": {
+   "M": 6,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "palavras constantes (pombal)",
+   "declaration": "CoveringLedger.K6_4_3_le_6",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": null
+  },
+  "6,4,4": {
+   "M": 1,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "raio ≥ n: uma palavra",
+   "declaration": "CoveringLedger.K6_4_4_le_1",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": null
+  },
+  "6,5,4": {
+   "M": 6,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "palavras constantes (pombal)",
+   "declaration": "CoveringLedger.K6_5_4_le_6",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": null
+  },
+  "6,5,5": {
+   "M": 1,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "raio ≥ n: uma palavra",
+   "declaration": "CoveringLedger.K6_5_5_le_1",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": null
+  },
+  "6,6,5": {
+   "M": 6,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "palavras constantes (pombal)",
+   "declaration": "CoveringLedger.K6_6_5_le_6",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": null
+  },
+  "6,6,6": {
+   "M": 1,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "raio ≥ n: uma palavra",
+   "declaration": "CoveringLedger.K6_6_6_le_1",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": null
+  },
+  "6,7,5": {
+   "M": 6,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "palavras constantes (pombal)",
+   "declaration": "CoveringLedger.K6_7_5_le_6",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": null
+  },
+  "6,7,6": {
+   "M": 6,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "palavras constantes (pombal)",
+   "declaration": "CoveringLedger.K6_7_6_le_6",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": null
+  },
+  "6,7,7": {
+   "M": 1,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "raio ≥ n: uma palavra",
+   "declaration": "CoveringLedger.K6_7_7_le_1",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": null
+  },
+  "6,8,6": {
+   "M": 6,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "palavras constantes (pombal)",
+   "declaration": "CoveringLedger.K6_8_6_le_6",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": null
+  },
+  "6,8,7": {
+   "M": 6,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "palavras constantes (pombal)",
+   "declaration": "CoveringLedger.K6_8_7_le_6",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": null
+  },
+  "6,8,8": {
+   "M": 1,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "raio ≥ n: uma palavra",
+   "declaration": "CoveringLedger.K6_8_8_le_1",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": null
+  },
+  "6,9,7": {
+   "M": 6,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "palavras constantes (pombal)",
+   "declaration": "CoveringLedger.K6_9_7_le_6",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": null
+  },
+  "6,9,8": {
+   "M": 6,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "palavras constantes (pombal)",
+   "declaration": "CoveringLedger.K6_9_8_le_6",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": null
+  },
+  "7,1,1": {
+   "M": 1,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "raio ≥ n: uma palavra",
+   "declaration": "CoveringLedger.K7_1_1_le_1",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": null
+  },
+  "7,10,8": {
+   "M": 7,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "palavras constantes (pombal)",
+   "declaration": "CoveringLedger.K7_10_8_le_7",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": null
+  },
+  "7,2,1": {
+   "M": 7,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "palavras constantes (pombal)",
+   "declaration": "CoveringLedger.K7_2_1_le_7",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": null
+  },
+  "7,2,2": {
+   "M": 1,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "raio ≥ n: uma palavra",
+   "declaration": "CoveringLedger.K7_2_2_le_1",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": null
+  },
+  "7,3,1": {
+   "M": 25,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "witness explícito",
+   "declaration": "CoveringLedger.K7_3_1_le_25",
+   "sha256": "f212ef8cf73d95bd88e0fb63c6f38f3796317a04ea68ede2f7be1caf07790a12",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": "tools/certificar/witnesses/K7_3_1_M25.txt"
+  },
+  "7,3,2": {
+   "M": 7,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "palavras constantes (pombal)",
+   "declaration": "CoveringLedger.K7_3_2_le_7",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": null
+  },
+  "7,3,3": {
+   "M": 1,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "raio ≥ n: uma palavra",
+   "declaration": "CoveringLedger.K7_3_3_le_1",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": null
+  },
+  "7,4,2": {
+   "M": 19,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "witness explícito",
+   "declaration": "CoveringLedger.K7_4_2_le_19",
+   "sha256": "c7e7eff3544dfc10e9a15425b1af2d41e98e6e7393867d858501e3a84942d823",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": "tools/certificar/witnesses/K7_4_2_M19.txt"
+  },
+  "7,4,3": {
+   "M": 7,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "palavras constantes (pombal)",
+   "declaration": "CoveringLedger.K7_4_3_le_7",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": null
+  },
+  "7,4,4": {
+   "M": 1,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "raio ≥ n: uma palavra",
+   "declaration": "CoveringLedger.K7_4_4_le_1",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": null
+  },
+  "7,5,4": {
+   "M": 7,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "palavras constantes (pombal)",
+   "declaration": "CoveringLedger.K7_5_4_le_7",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": null
+  },
+  "7,5,5": {
+   "M": 1,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "raio ≥ n: uma palavra",
+   "declaration": "CoveringLedger.K7_5_5_le_1",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": null
+  },
+  "7,6,5": {
+   "M": 7,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "palavras constantes (pombal)",
+   "declaration": "CoveringLedger.K7_6_5_le_7",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": null
+  },
+  "7,6,6": {
+   "M": 1,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "raio ≥ n: uma palavra",
+   "declaration": "CoveringLedger.K7_6_6_le_1",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": null
+  },
+  "7,7,6": {
+   "M": 7,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "palavras constantes (pombal)",
+   "declaration": "CoveringLedger.K7_7_6_le_7",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": null
+  },
+  "7,7,7": {
+   "M": 1,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "raio ≥ n: uma palavra",
+   "declaration": "CoveringLedger.K7_7_7_le_1",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": null
+  },
+  "7,8,6": {
+   "M": 7,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "palavras constantes (pombal)",
+   "declaration": "CoveringLedger.K7_8_6_le_7",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": null
+  },
+  "7,8,7": {
+   "M": 7,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "palavras constantes (pombal)",
+   "declaration": "CoveringLedger.K7_8_7_le_7",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": null
+  },
+  "7,8,8": {
+   "M": 1,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "raio ≥ n: uma palavra",
+   "declaration": "CoveringLedger.K7_8_8_le_1",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": null
+  },
+  "7,9,7": {
+   "M": 7,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "palavras constantes (pombal)",
+   "declaration": "CoveringLedger.K7_9_7_le_7",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": null
+  },
+  "7,9,8": {
+   "M": 7,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "palavras constantes (pombal)",
+   "declaration": "CoveringLedger.K7_9_8_le_7",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": null
+  },
+  "8,1,1": {
+   "M": 1,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "raio ≥ n: uma palavra",
+   "declaration": "CoveringLedger.K8_1_1_le_1",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": null
+  },
+  "8,10,8": {
+   "M": 8,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "palavras constantes (pombal)",
+   "declaration": "CoveringLedger.K8_10_8_le_8",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": null
+  },
+  "8,2,1": {
+   "M": 8,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "palavras constantes (pombal)",
+   "declaration": "CoveringLedger.K8_2_1_le_8",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": null
+  },
+  "8,2,2": {
+   "M": 1,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "raio ≥ n: uma palavra",
+   "declaration": "CoveringLedger.K8_2_2_le_1",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": null
+  },
+  "8,3,1": {
+   "M": 32,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "witness explícito",
+   "declaration": "CoveringLedger.K8_3_1_le_32",
+   "sha256": "063118a71b34685e6847e7de616080128d47b4903f0a24fc3c68820724dc1aa8",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": "tools/certificar/witnesses/K8_3_1_M32.txt"
+  },
+  "8,3,2": {
+   "M": 8,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "palavras constantes (pombal)",
+   "declaration": "CoveringLedger.K8_3_2_le_8",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": null
+  },
+  "8,3,3": {
+   "M": 1,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "raio ≥ n: uma palavra",
+   "declaration": "CoveringLedger.K8_3_3_le_1",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": null
+  },
+  "8,4,2": {
+   "M": 23,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "witness explícito",
+   "declaration": "CoveringLedger.K8_4_2_le_23",
+   "sha256": "432036c6939e440d92415b2eee9931d725ccdff376c7d2718bacadbfa72b13fe",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": "tools/certificar/witnesses/K8_4_2_M23.txt"
+  },
+  "8,4,3": {
+   "M": 8,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "palavras constantes (pombal)",
+   "declaration": "CoveringLedger.K8_4_3_le_8",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": null
+  },
+  "8,4,4": {
+   "M": 1,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "raio ≥ n: uma palavra",
+   "declaration": "CoveringLedger.K8_4_4_le_1",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": null
+  },
+  "8,5,4": {
+   "M": 8,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "palavras constantes (pombal)",
+   "declaration": "CoveringLedger.K8_5_4_le_8",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": null
+  },
+  "8,5,5": {
+   "M": 1,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "raio ≥ n: uma palavra",
+   "declaration": "CoveringLedger.K8_5_5_le_1",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": null
+  },
+  "8,6,5": {
+   "M": 8,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "palavras constantes (pombal)",
+   "declaration": "CoveringLedger.K8_6_5_le_8",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": null
+  },
+  "8,6,6": {
+   "M": 1,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "raio ≥ n: uma palavra",
+   "declaration": "CoveringLedger.K8_6_6_le_1",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": null
+  },
+  "8,7,6": {
+   "M": 8,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "palavras constantes (pombal)",
+   "declaration": "CoveringLedger.K8_7_6_le_8",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": null
+  },
+  "8,7,7": {
+   "M": 1,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "raio ≥ n: uma palavra",
+   "declaration": "CoveringLedger.K8_7_7_le_1",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": null
+  },
+  "8,8,7": {
+   "M": 8,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "palavras constantes (pombal)",
+   "declaration": "CoveringLedger.K8_8_7_le_8",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": null
+  },
+  "8,8,8": {
+   "M": 1,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "raio ≥ n: uma palavra",
+   "declaration": "CoveringLedger.K8_8_8_le_1",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": null
+  },
+  "8,9,7": {
+   "M": 8,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "palavras constantes (pombal)",
+   "declaration": "CoveringLedger.K8_9_7_le_8",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": null
+  },
+  "8,9,8": {
+   "M": 8,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "palavras constantes (pombal)",
+   "declaration": "CoveringLedger.K8_9_8_le_8",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": null
+  },
+  "9,1,1": {
+   "M": 1,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "raio ≥ n: uma palavra",
+   "declaration": "CoveringLedger.K9_1_1_le_1",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": null
+  },
+  "9,10,8": {
+   "M": 9,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "palavras constantes (pombal)",
+   "declaration": "CoveringLedger.K9_10_8_le_9",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": null
+  },
+  "9,2,1": {
+   "M": 9,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "palavras constantes (pombal)",
+   "declaration": "CoveringLedger.K9_2_1_le_9",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": null
+  },
+  "9,2,2": {
+   "M": 1,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "raio ≥ n: uma palavra",
+   "declaration": "CoveringLedger.K9_2_2_le_1",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": null
+  },
+  "9,3,1": {
+   "M": 41,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "witness explícito",
+   "declaration": "CoveringLedger.K9_3_1_le_41",
+   "sha256": "40bbbbcb5c5a40f362de1e6e33be2d3b4821d2d235a1070a96c42b217b16dc18",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": "tools/certificar/witnesses/K9_3_1_M41.txt"
+  },
+  "9,3,2": {
+   "M": 9,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "palavras constantes (pombal)",
+   "declaration": "CoveringLedger.K9_3_2_le_9",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": null
+  },
+  "9,3,3": {
+   "M": 1,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "raio ≥ n: uma palavra",
+   "declaration": "CoveringLedger.K9_3_3_le_1",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": null
+  },
+  "9,4,2": {
+   "M": 27,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "witness explícito",
+   "declaration": "CoveringLedger.K9_4_2_le_27",
+   "sha256": "d27abf719e8d48bc64d73b888fac1fe4cf840d25158f7df5402156c3d468b03d",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": "tools/certificar/witnesses/K9_4_2_M27.txt"
+  },
+  "9,4,3": {
+   "M": 9,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "palavras constantes (pombal)",
+   "declaration": "CoveringLedger.K9_4_3_le_9",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": null
+  },
+  "9,4,4": {
+   "M": 1,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "raio ≥ n: uma palavra",
+   "declaration": "CoveringLedger.K9_4_4_le_1",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": null
+  },
+  "9,5,3": {
+   "M": 27,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "alongamento livre (t = 1) de K9(4,2) ≤ 27",
+   "declaration": "CoveringLedger.K9_5_3_le_27",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": null
+  },
+  "9,5,4": {
+   "M": 9,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "palavras constantes (pombal)",
+   "declaration": "CoveringLedger.K9_5_4_le_9",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": null
+  },
+  "9,5,5": {
+   "M": 1,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "raio ≥ n: uma palavra",
+   "declaration": "CoveringLedger.K9_5_5_le_1",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": null
+  },
+  "9,6,5": {
+   "M": 9,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "palavras constantes (pombal)",
+   "declaration": "CoveringLedger.K9_6_5_le_9",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": null
+  },
+  "9,6,6": {
+   "M": 1,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "raio ≥ n: uma palavra",
+   "declaration": "CoveringLedger.K9_6_6_le_1",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": null
+  },
+  "9,7,6": {
+   "M": 9,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "palavras constantes (pombal)",
+   "declaration": "CoveringLedger.K9_7_6_le_9",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": null
+  },
+  "9,7,7": {
+   "M": 1,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "raio ≥ n: uma palavra",
+   "declaration": "CoveringLedger.K9_7_7_le_1",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": null
+  },
+  "9,8,4": {
+   "M": 729,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "soma direta de K9(4,2) ≤ 27 e K9(4,2) ≤ 27",
+   "declaration": "CoveringLedger.K9_8_4_le_729",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": null
+  },
+  "9,8,7": {
+   "M": 9,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "palavras constantes (pombal)",
+   "declaration": "CoveringLedger.K9_8_7_le_9",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": null
+  },
+  "9,8,8": {
+   "M": 1,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "raio ≥ n: uma palavra",
+   "declaration": "CoveringLedger.K9_8_8_le_1",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": null
+  },
+  "9,9,8": {
+   "M": 9,
+   "arquivo": "CoveringLean/Ledger/Cotas.lean",
+   "construcao": "palavras constantes (pombal)",
+   "declaration": "CoveringLedger.K9_9_8_le_9",
+   "sha256_arquivo": "bdb2c4984958329427af5dda048ac59ed0e92171d6e6115bed698cb2bf88b258",
+   "witness": null
+  }
+ },
+ "descricao": "GERADO por tools/certificar/gerar.py: células cuja melhor cota superior tem teorema em CoveringLean/Ledger/Cotas.lean (lake build CoveringLedger). Não edite à mão."
+}

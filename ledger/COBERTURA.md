@@ -11,7 +11,7 @@ Total: 1145 células; exatas (inferior = superior): 520; exatas com as duas cota
 
 | lado | CLAIMED | WITNESS_CHECKED | FORMALIZED | INDEPENDENTLY_REPRODUCED |
 |---|---:|---:|---:|---:|
-| ub | 1132 | 0 | 2 | 11 |
+| ub | 659 | 0 | 435 | 51 |
 | lb | 1143 | 1 | 1 | 0 |
 
 Cotas superiores com prova Lean externa da mesma cota (Florath, commit fixado, não reconstruída aqui, por isso não sobe o estado): 527.
@@ -20,41 +20,514 @@ Cotas superiores com prova Lean externa da mesma cota (Florath, commit fixado, n
 
 | q | células | ub C | ub W | ub F | ub I | lb C | lb W | lb F | lb I | exatas | ub Lean externo |
 |---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|
-| 2 | 285 | 284 | 0 | 1 | 0 | 284 | 0 | 1 | 0 | 107 | 116 |
-| 3 | 84 | 84 | 0 | 0 | 0 | 84 | 0 | 0 | 0 | 44 | 50 |
-| 4 | 60 | 59 | 0 | 0 | 1 | 60 | 0 | 0 | 0 | 31 | 33 |
-| 5 | 60 | 53 | 0 | 0 | 7 | 60 | 0 | 0 | 0 | 27 | 28 |
-| 6 | 52 | 52 | 0 | 0 | 0 | 52 | 0 | 0 | 0 | 25 | 24 |
-| 7 | 52 | 48 | 0 | 1 | 3 | 51 | 1 | 0 | 0 | 23 | 25 |
-| 8 | 52 | 52 | 0 | 0 | 0 | 52 | 0 | 0 | 0 | 23 | 25 |
-| 9 | 52 | 52 | 0 | 0 | 0 | 52 | 0 | 0 | 0 | 22 | 22 |
-| 10 | 52 | 52 | 0 | 0 | 0 | 52 | 0 | 0 | 0 | 20 | 21 |
-| 11 | 36 | 36 | 0 | 0 | 0 | 36 | 0 | 0 | 0 | 17 | 16 |
-| 12 | 36 | 36 | 0 | 0 | 0 | 36 | 0 | 0 | 0 | 19 | 18 |
-| 13 | 36 | 36 | 0 | 0 | 0 | 36 | 0 | 0 | 0 | 17 | 17 |
-| 14 | 36 | 36 | 0 | 0 | 0 | 36 | 0 | 0 | 0 | 18 | 17 |
-| 15 | 36 | 36 | 0 | 0 | 0 | 36 | 0 | 0 | 0 | 19 | 17 |
-| 16 | 36 | 36 | 0 | 0 | 0 | 36 | 0 | 0 | 0 | 18 | 18 |
-| 17 | 36 | 36 | 0 | 0 | 0 | 36 | 0 | 0 | 0 | 17 | 16 |
-| 18 | 36 | 36 | 0 | 0 | 0 | 36 | 0 | 0 | 0 | 18 | 16 |
-| 19 | 36 | 36 | 0 | 0 | 0 | 36 | 0 | 0 | 0 | 17 | 16 |
-| 20 | 36 | 36 | 0 | 0 | 0 | 36 | 0 | 0 | 0 | 19 | 16 |
-| 21 | 36 | 36 | 0 | 0 | 0 | 36 | 0 | 0 | 0 | 19 | 16 |
+| 2 | 285 | 189 | 0 | 85 | 11 | 284 | 0 | 1 | 0 | 107 | 116 |
+| 3 | 84 | 39 | 0 | 40 | 5 | 84 | 0 | 0 | 0 | 44 | 50 |
+| 4 | 60 | 30 | 0 | 26 | 4 | 60 | 0 | 0 | 0 | 31 | 33 |
+| 5 | 60 | 29 | 0 | 22 | 9 | 60 | 0 | 0 | 0 | 27 | 28 |
+| 6 | 52 | 30 | 0 | 20 | 2 | 52 | 0 | 0 | 0 | 25 | 24 |
+| 7 | 52 | 28 | 0 | 20 | 4 | 51 | 1 | 0 | 0 | 23 | 25 |
+| 8 | 52 | 32 | 0 | 18 | 2 | 52 | 0 | 0 | 0 | 23 | 25 |
+| 9 | 52 | 31 | 0 | 19 | 2 | 52 | 0 | 0 | 0 | 22 | 22 |
+| 10 | 52 | 33 | 0 | 17 | 2 | 52 | 0 | 0 | 0 | 20 | 21 |
+| 11 | 36 | 18 | 0 | 16 | 2 | 36 | 0 | 0 | 0 | 17 | 16 |
+| 12 | 36 | 17 | 0 | 17 | 2 | 36 | 0 | 0 | 0 | 19 | 18 |
+| 13 | 36 | 20 | 0 | 15 | 1 | 36 | 0 | 0 | 0 | 17 | 17 |
+| 14 | 36 | 20 | 0 | 15 | 1 | 36 | 0 | 0 | 0 | 18 | 17 |
+| 15 | 36 | 20 | 0 | 15 | 1 | 36 | 0 | 0 | 0 | 19 | 17 |
+| 16 | 36 | 20 | 0 | 15 | 1 | 36 | 0 | 0 | 0 | 18 | 18 |
+| 17 | 36 | 20 | 0 | 15 | 1 | 36 | 0 | 0 | 0 | 17 | 16 |
+| 18 | 36 | 20 | 0 | 15 | 1 | 36 | 0 | 0 | 0 | 18 | 16 |
+| 19 | 36 | 21 | 0 | 15 | 0 | 36 | 0 | 0 | 0 | 17 | 16 |
+| 20 | 36 | 21 | 0 | 15 | 0 | 36 | 0 | 0 | 0 | 19 | 16 |
+| 21 | 36 | 21 | 0 | 15 | 0 | 36 | 0 | 0 | 0 | 19 | 16 |
 
 ## Células acima de CLAIMED
 
 | célula | ub | estado ub | lb | estado lb | exata |
 |---|---:|---|---:|---|---|
+| K2(1,1) | 1 | FORMALIZED | 1 | CLAIMED | sim |
+| K2(2,1) | 2 | FORMALIZED | 2 | CLAIMED | sim |
+| K2(2,2) | 1 | FORMALIZED | 1 | CLAIMED | sim |
+| K2(3,1) | 2 | FORMALIZED | 2 | CLAIMED | sim |
+| K2(3,2) | 2 | FORMALIZED | 2 | CLAIMED | sim |
+| K2(3,3) | 1 | FORMALIZED | 1 | CLAIMED | sim |
+| K2(4,1) | 4 | FORMALIZED | 4 | CLAIMED | sim |
+| K2(4,2) | 2 | FORMALIZED | 2 | CLAIMED | sim |
+| K2(4,3) | 2 | FORMALIZED | 2 | CLAIMED | sim |
+| K2(4,4) | 1 | FORMALIZED | 1 | CLAIMED | sim |
+| K2(5,1) | 7 | INDEPENDENTLY_REPRODUCED | 7 | CLAIMED | sim |
+| K2(5,2) | 2 | FORMALIZED | 2 | CLAIMED | sim |
+| K2(5,3) | 2 | FORMALIZED | 2 | CLAIMED | sim |
+| K2(5,4) | 2 | FORMALIZED | 2 | CLAIMED | sim |
+| K2(5,5) | 1 | FORMALIZED | 1 | CLAIMED | sim |
 | K2(6,1) | 12 | FORMALIZED | 12 | FORMALIZED | sim |
+| K2(6,2) | 4 | INDEPENDENTLY_REPRODUCED | 4 | CLAIMED | sim |
+| K2(6,3) | 2 | FORMALIZED | 2 | CLAIMED | sim |
+| K2(6,4) | 2 | FORMALIZED | 2 | CLAIMED | sim |
+| K2(6,5) | 2 | FORMALIZED | 2 | CLAIMED | sim |
+| K2(6,6) | 1 | FORMALIZED | 1 | CLAIMED | sim |
+| K2(7,1) | 16 | INDEPENDENTLY_REPRODUCED | 16 | CLAIMED | sim |
+| K2(7,2) | 7 | INDEPENDENTLY_REPRODUCED | 7 | CLAIMED | sim |
+| K2(7,3) | 2 | FORMALIZED | 2 | CLAIMED | sim |
+| K2(7,4) | 2 | FORMALIZED | 2 | CLAIMED | sim |
+| K2(7,5) | 2 | FORMALIZED | 2 | CLAIMED | sim |
+| K2(7,6) | 2 | FORMALIZED | 2 | CLAIMED | sim |
+| K2(7,7) | 1 | FORMALIZED | 1 | CLAIMED | sim |
+| K2(8,1) | 32 | INDEPENDENTLY_REPRODUCED | 32 | CLAIMED | sim |
+| K2(8,2) | 12 | INDEPENDENTLY_REPRODUCED | 12 | CLAIMED | sim |
+| K2(8,3) | 4 | FORMALIZED | 4 | CLAIMED | sim |
+| K2(8,4) | 2 | FORMALIZED | 2 | CLAIMED | sim |
+| K2(8,5) | 2 | FORMALIZED | 2 | CLAIMED | sim |
+| K2(8,6) | 2 | FORMALIZED | 2 | CLAIMED | sim |
+| K2(8,7) | 2 | FORMALIZED | 2 | CLAIMED | sim |
+| K2(8,8) | 1 | FORMALIZED | 1 | CLAIMED | sim |
+| K2(9,2) | 16 | INDEPENDENTLY_REPRODUCED | 16 | CLAIMED | sim |
+| K2(9,3) | 7 | INDEPENDENTLY_REPRODUCED | 7 | CLAIMED | sim |
+| K2(9,4) | 2 | FORMALIZED | 2 | CLAIMED | sim |
+| K2(9,5) | 2 | FORMALIZED | 2 | CLAIMED | sim |
+| K2(9,6) | 2 | FORMALIZED | 2 | CLAIMED | sim |
+| K2(9,7) | 2 | FORMALIZED | 2 | CLAIMED | sim |
+| K2(9,8) | 2 | FORMALIZED | 2 | CLAIMED | sim |
+| K2(9,9) | 1 | FORMALIZED | 1 | CLAIMED | sim |
+| K2(10,3) | 12 | INDEPENDENTLY_REPRODUCED | 12 | CLAIMED | sim |
+| K2(10,4) | 4 | FORMALIZED | 4 | CLAIMED | sim |
+| K2(10,5) | 2 | FORMALIZED | 2 | CLAIMED | sim |
+| K2(10,6) | 2 | FORMALIZED | 2 | CLAIMED | sim |
+| K2(10,7) | 2 | FORMALIZED | 2 | CLAIMED | sim |
+| K2(10,8) | 2 | FORMALIZED | 2 | CLAIMED | sim |
+| K2(10,9) | 2 | FORMALIZED | 2 | CLAIMED | sim |
+| K2(10,10) | 1 | FORMALIZED | 1 | CLAIMED | sim |
+| K2(11,1) | 192 | INDEPENDENTLY_REPRODUCED | 180 | CLAIMED | não |
+| K2(11,3) | 16 | INDEPENDENTLY_REPRODUCED | 15 | CLAIMED | não |
+| K2(11,5) | 2 | FORMALIZED | 2 | CLAIMED | sim |
+| K2(11,6) | 2 | FORMALIZED | 2 | CLAIMED | sim |
+| K2(11,7) | 2 | FORMALIZED | 2 | CLAIMED | sim |
+| K2(11,8) | 2 | FORMALIZED | 2 | CLAIMED | sim |
+| K2(11,9) | 2 | FORMALIZED | 2 | CLAIMED | sim |
+| K2(11,10) | 2 | FORMALIZED | 2 | CLAIMED | sim |
+| K2(12,5) | 4 | FORMALIZED | 4 | CLAIMED | sim |
+| K2(12,6) | 2 | FORMALIZED | 2 | CLAIMED | sim |
+| K2(12,7) | 2 | FORMALIZED | 2 | CLAIMED | sim |
+| K2(12,8) | 2 | FORMALIZED | 2 | CLAIMED | sim |
+| K2(12,9) | 2 | FORMALIZED | 2 | CLAIMED | sim |
+| K2(12,10) | 2 | FORMALIZED | 2 | CLAIMED | sim |
+| K2(13,6) | 2 | FORMALIZED | 2 | CLAIMED | sim |
+| K2(13,7) | 2 | FORMALIZED | 2 | CLAIMED | sim |
+| K2(13,8) | 2 | FORMALIZED | 2 | CLAIMED | sim |
+| K2(13,9) | 2 | FORMALIZED | 2 | CLAIMED | sim |
+| K2(13,10) | 2 | FORMALIZED | 2 | CLAIMED | sim |
+| K2(14,6) | 4 | FORMALIZED | 4 | CLAIMED | sim |
+| K2(14,7) | 2 | FORMALIZED | 2 | CLAIMED | sim |
+| K2(14,8) | 2 | FORMALIZED | 2 | CLAIMED | sim |
+| K2(14,9) | 2 | FORMALIZED | 2 | CLAIMED | sim |
+| K2(14,10) | 2 | FORMALIZED | 2 | CLAIMED | sim |
+| K2(15,7) | 2 | FORMALIZED | 2 | CLAIMED | sim |
+| K2(15,8) | 2 | FORMALIZED | 2 | CLAIMED | sim |
+| K2(15,9) | 2 | FORMALIZED | 2 | CLAIMED | sim |
+| K2(15,10) | 2 | FORMALIZED | 2 | CLAIMED | sim |
+| K2(16,7) | 4 | FORMALIZED | 4 | CLAIMED | sim |
+| K2(16,8) | 2 | FORMALIZED | 2 | CLAIMED | sim |
+| K2(16,9) | 2 | FORMALIZED | 2 | CLAIMED | sim |
+| K2(16,10) | 2 | FORMALIZED | 2 | CLAIMED | sim |
+| K2(17,8) | 2 | FORMALIZED | 2 | CLAIMED | sim |
+| K2(17,9) | 2 | FORMALIZED | 2 | CLAIMED | sim |
+| K2(17,10) | 2 | FORMALIZED | 2 | CLAIMED | sim |
+| K2(18,8) | 4 | FORMALIZED | 4 | CLAIMED | sim |
+| K2(18,9) | 2 | FORMALIZED | 2 | CLAIMED | sim |
+| K2(18,10) | 2 | FORMALIZED | 2 | CLAIMED | sim |
+| K2(19,9) | 2 | FORMALIZED | 2 | CLAIMED | sim |
+| K2(19,10) | 2 | FORMALIZED | 2 | CLAIMED | sim |
+| K2(20,9) | 4 | FORMALIZED | 4 | CLAIMED | sim |
+| K2(20,10) | 2 | FORMALIZED | 2 | CLAIMED | sim |
+| K2(21,10) | 2 | FORMALIZED | 2 | CLAIMED | sim |
+| K2(22,10) | 4 | FORMALIZED | 4 | CLAIMED | sim |
+| K3(1,1) | 1 | FORMALIZED | 1 | CLAIMED | sim |
+| K3(2,1) | 3 | FORMALIZED | 3 | CLAIMED | sim |
+| K3(2,2) | 1 | FORMALIZED | 1 | CLAIMED | sim |
+| K3(3,1) | 5 | INDEPENDENTLY_REPRODUCED | 5 | CLAIMED | sim |
+| K3(3,2) | 3 | FORMALIZED | 3 | CLAIMED | sim |
+| K3(3,3) | 1 | FORMALIZED | 1 | CLAIMED | sim |
+| K3(4,1) | 9 | INDEPENDENTLY_REPRODUCED | 9 | CLAIMED | sim |
+| K3(4,2) | 3 | FORMALIZED | 3 | CLAIMED | sim |
+| K3(4,3) | 3 | FORMALIZED | 3 | CLAIMED | sim |
+| K3(4,4) | 1 | FORMALIZED | 1 | CLAIMED | sim |
+| K3(5,1) | 27 | FORMALIZED | 27 | CLAIMED | sim |
+| K3(5,2) | 8 | INDEPENDENTLY_REPRODUCED | 8 | CLAIMED | sim |
+| K3(5,3) | 3 | FORMALIZED | 3 | CLAIMED | sim |
+| K3(5,4) | 3 | FORMALIZED | 3 | CLAIMED | sim |
+| K3(5,5) | 1 | FORMALIZED | 1 | CLAIMED | sim |
+| K3(6,2) | 17 | INDEPENDENTLY_REPRODUCED | 15 | CLAIMED | não |
+| K3(6,3) | 6 | INDEPENDENTLY_REPRODUCED | 6 | CLAIMED | sim |
+| K3(6,4) | 3 | FORMALIZED | 3 | CLAIMED | sim |
+| K3(6,5) | 3 | FORMALIZED | 3 | CLAIMED | sim |
+| K3(6,6) | 1 | FORMALIZED | 1 | CLAIMED | sim |
+| K3(7,4) | 3 | FORMALIZED | 3 | CLAIMED | sim |
+| K3(7,5) | 3 | FORMALIZED | 3 | CLAIMED | sim |
+| K3(7,6) | 3 | FORMALIZED | 3 | CLAIMED | sim |
+| K3(7,7) | 1 | FORMALIZED | 1 | CLAIMED | sim |
+| K3(8,2) | 81 | FORMALIZED | 58 | CLAIMED | não |
+| K3(8,3) | 27 | FORMALIZED | 16 | CLAIMED | não |
+| K3(8,4) | 9 | FORMALIZED | 9 | CLAIMED | sim |
+| K3(8,5) | 3 | FORMALIZED | 3 | CLAIMED | sim |
+| K3(8,6) | 3 | FORMALIZED | 3 | CLAIMED | sim |
+| K3(8,7) | 3 | FORMALIZED | 3 | CLAIMED | sim |
+| K3(8,8) | 1 | FORMALIZED | 1 | CLAIMED | sim |
+| K3(9,6) | 3 | FORMALIZED | 3 | CLAIMED | sim |
+| K3(9,7) | 3 | FORMALIZED | 3 | CLAIMED | sim |
+| K3(9,8) | 3 | FORMALIZED | 3 | CLAIMED | sim |
+| K3(10,6) | 3 | FORMALIZED | 3 | CLAIMED | sim |
+| K3(10,7) | 3 | FORMALIZED | 3 | CLAIMED | sim |
+| K3(10,8) | 3 | FORMALIZED | 3 | CLAIMED | sim |
+| K3(11,5) | 27 | FORMALIZED | 12 | CLAIMED | não |
+| K3(11,6) | 9 | FORMALIZED | 9 | CLAIMED | sim |
+| K3(11,7) | 3 | FORMALIZED | 3 | CLAIMED | sim |
+| K3(11,8) | 3 | FORMALIZED | 3 | CLAIMED | sim |
+| K3(12,8) | 3 | FORMALIZED | 3 | CLAIMED | sim |
+| K3(13,8) | 3 | FORMALIZED | 3 | CLAIMED | sim |
+| K3(14,7) | 27 | FORMALIZED | 11 | CLAIMED | não |
+| K3(14,8) | 9 | FORMALIZED | 9 | CLAIMED | sim |
+| K4(1,1) | 1 | FORMALIZED | 1 | CLAIMED | sim |
+| K4(2,1) | 4 | FORMALIZED | 4 | CLAIMED | sim |
+| K4(2,2) | 1 | FORMALIZED | 1 | CLAIMED | sim |
+| K4(3,1) | 8 | INDEPENDENTLY_REPRODUCED | 8 | CLAIMED | sim |
+| K4(3,2) | 4 | FORMALIZED | 4 | CLAIMED | sim |
+| K4(3,3) | 1 | FORMALIZED | 1 | CLAIMED | sim |
+| K4(4,1) | 24 | INDEPENDENTLY_REPRODUCED | 24 | CLAIMED | sim |
+| K4(4,2) | 7 | INDEPENDENTLY_REPRODUCED | 7 | CLAIMED | sim |
+| K4(4,3) | 4 | FORMALIZED | 4 | CLAIMED | sim |
+| K4(4,4) | 1 | FORMALIZED | 1 | CLAIMED | sim |
+| K4(5,3) | 4 | FORMALIZED | 4 | CLAIMED | sim |
+| K4(5,4) | 4 | FORMALIZED | 4 | CLAIMED | sim |
+| K4(5,5) | 1 | FORMALIZED | 1 | CLAIMED | sim |
+| K4(6,4) | 4 | FORMALIZED | 4 | CLAIMED | sim |
+| K4(6,5) | 4 | FORMALIZED | 4 | CLAIMED | sim |
+| K4(6,6) | 1 | FORMALIZED | 1 | CLAIMED | sim |
+| K4(7,5) | 4 | FORMALIZED | 4 | CLAIMED | sim |
+| K4(7,6) | 4 | FORMALIZED | 4 | CLAIMED | sim |
+| K4(7,7) | 1 | FORMALIZED | 1 | CLAIMED | sim |
+| K4(8,6) | 4 | FORMALIZED | 4 | CLAIMED | sim |
+| K4(8,7) | 4 | FORMALIZED | 4 | CLAIMED | sim |
+| K4(8,8) | 1 | FORMALIZED | 1 | CLAIMED | sim |
+| K4(9,6) | 4 | FORMALIZED | 4 | CLAIMED | sim |
+| K4(9,7) | 4 | FORMALIZED | 4 | CLAIMED | sim |
+| K4(9,8) | 4 | FORMALIZED | 4 | CLAIMED | sim |
 | K4(10,4) | 192 | INDEPENDENTLY_REPRODUCED | 62 | CLAIMED | não |
+| K4(10,6) | 16 | FORMALIZED | 8 | CLAIMED | não |
+| K4(10,7) | 4 | FORMALIZED | 4 | CLAIMED | sim |
+| K4(10,8) | 4 | FORMALIZED | 4 | CLAIMED | sim |
+| K4(11,8) | 4 | FORMALIZED | 4 | CLAIMED | sim |
+| K5(1,1) | 1 | FORMALIZED | 1 | CLAIMED | sim |
+| K5(2,1) | 5 | FORMALIZED | 5 | CLAIMED | sim |
+| K5(2,2) | 1 | FORMALIZED | 1 | CLAIMED | sim |
+| K5(3,1) | 13 | INDEPENDENTLY_REPRODUCED | 13 | CLAIMED | sim |
+| K5(3,2) | 5 | FORMALIZED | 5 | CLAIMED | sim |
+| K5(3,3) | 1 | FORMALIZED | 1 | CLAIMED | sim |
+| K5(4,2) | 11 | INDEPENDENTLY_REPRODUCED | 11 | CLAIMED | sim |
+| K5(4,3) | 5 | FORMALIZED | 5 | CLAIMED | sim |
+| K5(4,4) | 1 | FORMALIZED | 1 | CLAIMED | sim |
+| K5(5,4) | 5 | FORMALIZED | 5 | CLAIMED | sim |
+| K5(5,5) | 1 | FORMALIZED | 1 | CLAIMED | sim |
+| K5(6,4) | 5 | FORMALIZED | 5 | CLAIMED | sim |
+| K5(6,5) | 5 | FORMALIZED | 5 | CLAIMED | sim |
+| K5(6,6) | 1 | FORMALIZED | 1 | CLAIMED | sim |
 | K5(7,2) | 500 | INDEPENDENTLY_REPRODUCED | 236 | CLAIMED | não |
+| K5(7,5) | 5 | FORMALIZED | 5 | CLAIMED | sim |
+| K5(7,6) | 5 | FORMALIZED | 5 | CLAIMED | sim |
+| K5(7,7) | 1 | FORMALIZED | 1 | CLAIMED | sim |
+| K5(8,6) | 5 | FORMALIZED | 5 | CLAIMED | sim |
+| K5(8,7) | 5 | FORMALIZED | 5 | CLAIMED | sim |
+| K5(8,8) | 1 | FORMALIZED | 1 | CLAIMED | sim |
 | K5(9,3) | 1250 | INDEPENDENTLY_REPRODUCED | 354 | CLAIMED | não |
 | K5(9,4) | 250 | INDEPENDENTLY_REPRODUCED | 64 | CLAIMED | não |
 | K5(9,5) | 50 | INDEPENDENTLY_REPRODUCED | 19 | CLAIMED | não |
+| K5(9,7) | 5 | FORMALIZED | 5 | CLAIMED | sim |
+| K5(9,8) | 5 | FORMALIZED | 5 | CLAIMED | sim |
 | K5(10,4) | 625 | INDEPENDENTLY_REPRODUCED | 177 | CLAIMED | não |
 | K5(10,5) | 162 | INDEPENDENTLY_REPRODUCED | 41 | CLAIMED | não |
+| K5(10,8) | 5 | FORMALIZED | 5 | CLAIMED | sim |
 | K5(11,4) | 2875 | INDEPENDENTLY_REPRODUCED | 546 | CLAIMED | não |
+| K5(11,8) | 5 | FORMALIZED | 5 | CLAIMED | sim |
+| K6(1,1) | 1 | FORMALIZED | 1 | CLAIMED | sim |
+| K6(2,1) | 6 | FORMALIZED | 6 | CLAIMED | sim |
+| K6(2,2) | 1 | FORMALIZED | 1 | CLAIMED | sim |
+| K6(3,1) | 18 | INDEPENDENTLY_REPRODUCED | 18 | CLAIMED | sim |
+| K6(3,2) | 6 | FORMALIZED | 6 | CLAIMED | sim |
+| K6(3,3) | 1 | FORMALIZED | 1 | CLAIMED | sim |
+| K6(4,2) | 15 | INDEPENDENTLY_REPRODUCED | 15 | CLAIMED | sim |
+| K6(4,3) | 6 | FORMALIZED | 6 | CLAIMED | sim |
+| K6(4,4) | 1 | FORMALIZED | 1 | CLAIMED | sim |
+| K6(5,4) | 6 | FORMALIZED | 6 | CLAIMED | sim |
+| K6(5,5) | 1 | FORMALIZED | 1 | CLAIMED | sim |
+| K6(6,5) | 6 | FORMALIZED | 6 | CLAIMED | sim |
+| K6(6,6) | 1 | FORMALIZED | 1 | CLAIMED | sim |
+| K6(7,5) | 6 | FORMALIZED | 6 | CLAIMED | sim |
+| K6(7,6) | 6 | FORMALIZED | 6 | CLAIMED | sim |
+| K6(7,7) | 1 | FORMALIZED | 1 | CLAIMED | sim |
+| K6(8,6) | 6 | FORMALIZED | 6 | CLAIMED | sim |
+| K6(8,7) | 6 | FORMALIZED | 6 | CLAIMED | sim |
+| K6(8,8) | 1 | FORMALIZED | 1 | CLAIMED | sim |
+| K6(9,7) | 6 | FORMALIZED | 6 | CLAIMED | sim |
+| K6(9,8) | 6 | FORMALIZED | 6 | CLAIMED | sim |
+| K6(10,8) | 6 | FORMALIZED | 6 | CLAIMED | sim |
+| K7(1,1) | 1 | FORMALIZED | 1 | CLAIMED | sim |
+| K7(2,1) | 7 | FORMALIZED | 7 | CLAIMED | sim |
+| K7(2,2) | 1 | FORMALIZED | 1 | CLAIMED | sim |
+| K7(3,1) | 25 | INDEPENDENTLY_REPRODUCED | 25 | CLAIMED | sim |
+| K7(3,2) | 7 | FORMALIZED | 7 | CLAIMED | sim |
+| K7(3,3) | 1 | FORMALIZED | 1 | CLAIMED | sim |
 | K7(4,2) | 19 | FORMALIZED | 19 | WITNESS_CHECKED | sim |
+| K7(4,3) | 7 | FORMALIZED | 7 | CLAIMED | sim |
+| K7(4,4) | 1 | FORMALIZED | 1 | CLAIMED | sim |
+| K7(5,4) | 7 | FORMALIZED | 7 | CLAIMED | sim |
+| K7(5,5) | 1 | FORMALIZED | 1 | CLAIMED | sim |
+| K7(6,5) | 7 | FORMALIZED | 7 | CLAIMED | sim |
+| K7(6,6) | 1 | FORMALIZED | 1 | CLAIMED | sim |
+| K7(7,6) | 7 | FORMALIZED | 7 | CLAIMED | sim |
+| K7(7,7) | 1 | FORMALIZED | 1 | CLAIMED | sim |
 | K7(8,3) | 1887 | INDEPENDENTLY_REPRODUCED | 471 | CLAIMED | não |
+| K7(8,6) | 7 | FORMALIZED | 7 | CLAIMED | sim |
+| K7(8,7) | 7 | FORMALIZED | 7 | CLAIMED | sim |
+| K7(8,8) | 1 | FORMALIZED | 1 | CLAIMED | sim |
 | K7(9,4) | 1134 | INDEPENDENTLY_REPRODUCED | 264 | CLAIMED | não |
+| K7(9,7) | 7 | FORMALIZED | 7 | CLAIMED | sim |
+| K7(9,8) | 7 | FORMALIZED | 7 | CLAIMED | sim |
 | K7(10,4) | 5607 | INDEPENDENTLY_REPRODUCED | 1007 | CLAIMED | não |
+| K7(10,8) | 7 | FORMALIZED | 7 | CLAIMED | sim |
+| K8(1,1) | 1 | FORMALIZED | 1 | CLAIMED | sim |
+| K8(2,1) | 8 | FORMALIZED | 8 | CLAIMED | sim |
+| K8(2,2) | 1 | FORMALIZED | 1 | CLAIMED | sim |
+| K8(3,1) | 32 | INDEPENDENTLY_REPRODUCED | 32 | CLAIMED | sim |
+| K8(3,2) | 8 | FORMALIZED | 8 | CLAIMED | sim |
+| K8(3,3) | 1 | FORMALIZED | 1 | CLAIMED | sim |
+| K8(4,2) | 23 | INDEPENDENTLY_REPRODUCED | 23 | CLAIMED | sim |
+| K8(4,3) | 8 | FORMALIZED | 8 | CLAIMED | sim |
+| K8(4,4) | 1 | FORMALIZED | 1 | CLAIMED | sim |
+| K8(5,4) | 8 | FORMALIZED | 8 | CLAIMED | sim |
+| K8(5,5) | 1 | FORMALIZED | 1 | CLAIMED | sim |
+| K8(6,5) | 8 | FORMALIZED | 8 | CLAIMED | sim |
+| K8(6,6) | 1 | FORMALIZED | 1 | CLAIMED | sim |
+| K8(7,6) | 8 | FORMALIZED | 8 | CLAIMED | sim |
+| K8(7,7) | 1 | FORMALIZED | 1 | CLAIMED | sim |
+| K8(8,7) | 8 | FORMALIZED | 8 | CLAIMED | sim |
+| K8(8,8) | 1 | FORMALIZED | 1 | CLAIMED | sim |
+| K8(9,7) | 8 | FORMALIZED | 8 | CLAIMED | sim |
+| K8(9,8) | 8 | FORMALIZED | 8 | CLAIMED | sim |
+| K8(10,8) | 8 | FORMALIZED | 8 | CLAIMED | sim |
+| K9(1,1) | 1 | FORMALIZED | 1 | CLAIMED | sim |
+| K9(2,1) | 9 | FORMALIZED | 9 | CLAIMED | sim |
+| K9(2,2) | 1 | FORMALIZED | 1 | CLAIMED | sim |
+| K9(3,1) | 41 | INDEPENDENTLY_REPRODUCED | 41 | CLAIMED | sim |
+| K9(3,2) | 9 | FORMALIZED | 9 | CLAIMED | sim |
+| K9(3,3) | 1 | FORMALIZED | 1 | CLAIMED | sim |
+| K9(4,2) | 27 | INDEPENDENTLY_REPRODUCED | 27 | CLAIMED | sim |
+| K9(4,3) | 9 | FORMALIZED | 9 | CLAIMED | sim |
+| K9(4,4) | 1 | FORMALIZED | 1 | CLAIMED | sim |
+| K9(5,3) | 27 | FORMALIZED | 21 | CLAIMED | não |
+| K9(5,4) | 9 | FORMALIZED | 9 | CLAIMED | sim |
+| K9(5,5) | 1 | FORMALIZED | 1 | CLAIMED | sim |
+| K9(6,5) | 9 | FORMALIZED | 9 | CLAIMED | sim |
+| K9(6,6) | 1 | FORMALIZED | 1 | CLAIMED | sim |
+| K9(7,6) | 9 | FORMALIZED | 9 | CLAIMED | sim |
+| K9(7,7) | 1 | FORMALIZED | 1 | CLAIMED | sim |
+| K9(8,4) | 729 | FORMALIZED | 181 | CLAIMED | não |
+| K9(8,7) | 9 | FORMALIZED | 9 | CLAIMED | sim |
+| K9(8,8) | 1 | FORMALIZED | 1 | CLAIMED | sim |
+| K9(9,8) | 9 | FORMALIZED | 9 | CLAIMED | sim |
+| K9(10,8) | 9 | FORMALIZED | 9 | CLAIMED | sim |
+| K10(1,1) | 1 | FORMALIZED | 1 | CLAIMED | sim |
+| K10(2,1) | 10 | FORMALIZED | 10 | CLAIMED | sim |
+| K10(2,2) | 1 | FORMALIZED | 1 | CLAIMED | sim |
+| K10(3,1) | 50 | INDEPENDENTLY_REPRODUCED | 50 | CLAIMED | sim |
+| K10(3,2) | 10 | FORMALIZED | 10 | CLAIMED | sim |
+| K10(3,3) | 1 | FORMALIZED | 1 | CLAIMED | sim |
+| K10(4,2) | 34 | INDEPENDENTLY_REPRODUCED | 34 | CLAIMED | sim |
+| K10(4,3) | 10 | FORMALIZED | 10 | CLAIMED | sim |
+| K10(4,4) | 1 | FORMALIZED | 1 | CLAIMED | sim |
+| K10(5,4) | 10 | FORMALIZED | 10 | CLAIMED | sim |
+| K10(5,5) | 1 | FORMALIZED | 1 | CLAIMED | sim |
+| K10(6,5) | 10 | FORMALIZED | 10 | CLAIMED | sim |
+| K10(6,6) | 1 | FORMALIZED | 1 | CLAIMED | sim |
+| K10(7,6) | 10 | FORMALIZED | 10 | CLAIMED | sim |
+| K10(7,7) | 1 | FORMALIZED | 1 | CLAIMED | sim |
+| K10(8,4) | 1156 | FORMALIZED | 265 | CLAIMED | não |
+| K10(8,7) | 10 | FORMALIZED | 10 | CLAIMED | sim |
+| K10(8,8) | 1 | FORMALIZED | 1 | CLAIMED | sim |
+| K10(9,8) | 10 | FORMALIZED | 10 | CLAIMED | sim |
+| K11(1,1) | 1 | FORMALIZED | 1 | CLAIMED | sim |
+| K11(2,1) | 11 | FORMALIZED | 11 | CLAIMED | sim |
+| K11(2,2) | 1 | FORMALIZED | 1 | CLAIMED | sim |
+| K11(3,1) | 61 | INDEPENDENTLY_REPRODUCED | 61 | CLAIMED | sim |
+| K11(3,2) | 11 | FORMALIZED | 11 | CLAIMED | sim |
+| K11(3,3) | 1 | FORMALIZED | 1 | CLAIMED | sim |
+| K11(4,2) | 41 | INDEPENDENTLY_REPRODUCED | 41 | CLAIMED | sim |
+| K11(4,3) | 11 | FORMALIZED | 11 | CLAIMED | sim |
+| K11(4,4) | 1 | FORMALIZED | 1 | CLAIMED | sim |
+| K11(5,4) | 11 | FORMALIZED | 11 | CLAIMED | sim |
+| K11(5,5) | 1 | FORMALIZED | 1 | CLAIMED | sim |
+| K11(6,5) | 11 | FORMALIZED | 11 | CLAIMED | sim |
+| K11(6,6) | 1 | FORMALIZED | 1 | CLAIMED | sim |
+| K11(7,6) | 11 | FORMALIZED | 11 | CLAIMED | sim |
+| K11(7,7) | 1 | FORMALIZED | 1 | CLAIMED | sim |
+| K11(8,4) | 1681 | FORMALIZED | 374 | CLAIMED | não |
+| K11(8,7) | 11 | FORMALIZED | 11 | CLAIMED | sim |
+| K11(8,8) | 1 | FORMALIZED | 1 | CLAIMED | sim |
+| K12(1,1) | 1 | FORMALIZED | 1 | CLAIMED | sim |
+| K12(2,1) | 12 | FORMALIZED | 12 | CLAIMED | sim |
+| K12(2,2) | 1 | FORMALIZED | 1 | CLAIMED | sim |
+| K12(3,1) | 72 | INDEPENDENTLY_REPRODUCED | 72 | CLAIMED | sim |
+| K12(3,2) | 12 | FORMALIZED | 12 | CLAIMED | sim |
+| K12(3,3) | 1 | FORMALIZED | 1 | CLAIMED | sim |
+| K12(4,2) | 48 | INDEPENDENTLY_REPRODUCED | 48 | CLAIMED | sim |
+| K12(4,3) | 12 | FORMALIZED | 12 | CLAIMED | sim |
+| K12(4,4) | 1 | FORMALIZED | 1 | CLAIMED | sim |
+| K12(5,4) | 12 | FORMALIZED | 12 | CLAIMED | sim |
+| K12(5,5) | 1 | FORMALIZED | 1 | CLAIMED | sim |
+| K12(6,5) | 12 | FORMALIZED | 12 | CLAIMED | sim |
+| K12(6,6) | 1 | FORMALIZED | 1 | CLAIMED | sim |
+| K12(7,3) | 3456 | FORMALIZED | 878 | CLAIMED | não |
+| K12(7,6) | 12 | FORMALIZED | 12 | CLAIMED | sim |
+| K12(7,7) | 1 | FORMALIZED | 1 | CLAIMED | sim |
+| K12(8,4) | 2304 | FORMALIZED | 513 | CLAIMED | não |
+| K12(8,7) | 12 | FORMALIZED | 12 | CLAIMED | sim |
+| K12(8,8) | 1 | FORMALIZED | 1 | CLAIMED | sim |
+| K13(1,1) | 1 | FORMALIZED | 1 | CLAIMED | sim |
+| K13(2,1) | 13 | FORMALIZED | 13 | CLAIMED | sim |
+| K13(2,2) | 1 | FORMALIZED | 1 | CLAIMED | sim |
+| K13(3,1) | 85 | INDEPENDENTLY_REPRODUCED | 85 | CLAIMED | sim |
+| K13(3,2) | 13 | FORMALIZED | 13 | CLAIMED | sim |
+| K13(3,3) | 1 | FORMALIZED | 1 | CLAIMED | sim |
+| K13(4,3) | 13 | FORMALIZED | 13 | CLAIMED | sim |
+| K13(4,4) | 1 | FORMALIZED | 1 | CLAIMED | sim |
+| K13(5,4) | 13 | FORMALIZED | 13 | CLAIMED | sim |
+| K13(5,5) | 1 | FORMALIZED | 1 | CLAIMED | sim |
+| K13(6,5) | 13 | FORMALIZED | 13 | CLAIMED | sim |
+| K13(6,6) | 1 | FORMALIZED | 1 | CLAIMED | sim |
+| K13(7,6) | 13 | FORMALIZED | 13 | CLAIMED | sim |
+| K13(7,7) | 1 | FORMALIZED | 1 | CLAIMED | sim |
+| K13(8,7) | 13 | FORMALIZED | 13 | CLAIMED | sim |
+| K13(8,8) | 1 | FORMALIZED | 1 | CLAIMED | sim |
+| K14(1,1) | 1 | FORMALIZED | 1 | CLAIMED | sim |
+| K14(2,1) | 14 | FORMALIZED | 14 | CLAIMED | sim |
+| K14(2,2) | 1 | FORMALIZED | 1 | CLAIMED | sim |
+| K14(3,1) | 98 | INDEPENDENTLY_REPRODUCED | 98 | CLAIMED | sim |
+| K14(3,2) | 14 | FORMALIZED | 14 | CLAIMED | sim |
+| K14(3,3) | 1 | FORMALIZED | 1 | CLAIMED | sim |
+| K14(4,3) | 14 | FORMALIZED | 14 | CLAIMED | sim |
+| K14(4,4) | 1 | FORMALIZED | 1 | CLAIMED | sim |
+| K14(5,4) | 14 | FORMALIZED | 14 | CLAIMED | sim |
+| K14(5,5) | 1 | FORMALIZED | 1 | CLAIMED | sim |
+| K14(6,5) | 14 | FORMALIZED | 14 | CLAIMED | sim |
+| K14(6,6) | 1 | FORMALIZED | 1 | CLAIMED | sim |
+| K14(7,6) | 14 | FORMALIZED | 14 | CLAIMED | sim |
+| K14(7,7) | 1 | FORMALIZED | 1 | CLAIMED | sim |
+| K14(8,7) | 14 | FORMALIZED | 14 | CLAIMED | sim |
+| K14(8,8) | 1 | FORMALIZED | 1 | CLAIMED | sim |
+| K15(1,1) | 1 | FORMALIZED | 1 | CLAIMED | sim |
+| K15(2,1) | 15 | FORMALIZED | 15 | CLAIMED | sim |
+| K15(2,2) | 1 | FORMALIZED | 1 | CLAIMED | sim |
+| K15(3,1) | 113 | INDEPENDENTLY_REPRODUCED | 113 | CLAIMED | sim |
+| K15(3,2) | 15 | FORMALIZED | 15 | CLAIMED | sim |
+| K15(3,3) | 1 | FORMALIZED | 1 | CLAIMED | sim |
+| K15(4,3) | 15 | FORMALIZED | 15 | CLAIMED | sim |
+| K15(4,4) | 1 | FORMALIZED | 1 | CLAIMED | sim |
+| K15(5,4) | 15 | FORMALIZED | 15 | CLAIMED | sim |
+| K15(5,5) | 1 | FORMALIZED | 1 | CLAIMED | sim |
+| K15(6,5) | 15 | FORMALIZED | 15 | CLAIMED | sim |
+| K15(6,6) | 1 | FORMALIZED | 1 | CLAIMED | sim |
+| K15(7,6) | 15 | FORMALIZED | 15 | CLAIMED | sim |
+| K15(7,7) | 1 | FORMALIZED | 1 | CLAIMED | sim |
+| K15(8,7) | 15 | FORMALIZED | 15 | CLAIMED | sim |
+| K15(8,8) | 1 | FORMALIZED | 1 | CLAIMED | sim |
+| K16(1,1) | 1 | FORMALIZED | 1 | CLAIMED | sim |
+| K16(2,1) | 16 | FORMALIZED | 16 | CLAIMED | sim |
+| K16(2,2) | 1 | FORMALIZED | 1 | CLAIMED | sim |
+| K16(3,1) | 128 | INDEPENDENTLY_REPRODUCED | 128 | CLAIMED | sim |
+| K16(3,2) | 16 | FORMALIZED | 16 | CLAIMED | sim |
+| K16(3,3) | 1 | FORMALIZED | 1 | CLAIMED | sim |
+| K16(4,3) | 16 | FORMALIZED | 16 | CLAIMED | sim |
+| K16(4,4) | 1 | FORMALIZED | 1 | CLAIMED | sim |
+| K16(5,4) | 16 | FORMALIZED | 16 | CLAIMED | sim |
+| K16(5,5) | 1 | FORMALIZED | 1 | CLAIMED | sim |
+| K16(6,5) | 16 | FORMALIZED | 16 | CLAIMED | sim |
+| K16(6,6) | 1 | FORMALIZED | 1 | CLAIMED | sim |
+| K16(7,6) | 16 | FORMALIZED | 16 | CLAIMED | sim |
+| K16(7,7) | 1 | FORMALIZED | 1 | CLAIMED | sim |
+| K16(8,7) | 16 | FORMALIZED | 16 | CLAIMED | sim |
+| K16(8,8) | 1 | FORMALIZED | 1 | CLAIMED | sim |
+| K17(1,1) | 1 | FORMALIZED | 1 | CLAIMED | sim |
+| K17(2,1) | 17 | FORMALIZED | 17 | CLAIMED | sim |
+| K17(2,2) | 1 | FORMALIZED | 1 | CLAIMED | sim |
+| K17(3,1) | 145 | INDEPENDENTLY_REPRODUCED | 145 | CLAIMED | sim |
+| K17(3,2) | 17 | FORMALIZED | 17 | CLAIMED | sim |
+| K17(3,3) | 1 | FORMALIZED | 1 | CLAIMED | sim |
+| K17(4,3) | 17 | FORMALIZED | 17 | CLAIMED | sim |
+| K17(4,4) | 1 | FORMALIZED | 1 | CLAIMED | sim |
+| K17(5,4) | 17 | FORMALIZED | 17 | CLAIMED | sim |
+| K17(5,5) | 1 | FORMALIZED | 1 | CLAIMED | sim |
+| K17(6,5) | 17 | FORMALIZED | 17 | CLAIMED | sim |
+| K17(6,6) | 1 | FORMALIZED | 1 | CLAIMED | sim |
+| K17(7,6) | 17 | FORMALIZED | 17 | CLAIMED | sim |
+| K17(7,7) | 1 | FORMALIZED | 1 | CLAIMED | sim |
+| K17(8,7) | 17 | FORMALIZED | 17 | CLAIMED | sim |
+| K17(8,8) | 1 | FORMALIZED | 1 | CLAIMED | sim |
+| K18(1,1) | 1 | FORMALIZED | 1 | CLAIMED | sim |
+| K18(2,1) | 18 | FORMALIZED | 18 | CLAIMED | sim |
+| K18(2,2) | 1 | FORMALIZED | 1 | CLAIMED | sim |
+| K18(3,1) | 162 | INDEPENDENTLY_REPRODUCED | 162 | CLAIMED | sim |
+| K18(3,2) | 18 | FORMALIZED | 18 | CLAIMED | sim |
+| K18(3,3) | 1 | FORMALIZED | 1 | CLAIMED | sim |
+| K18(4,3) | 18 | FORMALIZED | 18 | CLAIMED | sim |
+| K18(4,4) | 1 | FORMALIZED | 1 | CLAIMED | sim |
+| K18(5,4) | 18 | FORMALIZED | 18 | CLAIMED | sim |
+| K18(5,5) | 1 | FORMALIZED | 1 | CLAIMED | sim |
+| K18(6,5) | 18 | FORMALIZED | 18 | CLAIMED | sim |
+| K18(6,6) | 1 | FORMALIZED | 1 | CLAIMED | sim |
+| K18(7,6) | 18 | FORMALIZED | 18 | CLAIMED | sim |
+| K18(7,7) | 1 | FORMALIZED | 1 | CLAIMED | sim |
+| K18(8,7) | 18 | FORMALIZED | 18 | CLAIMED | sim |
+| K18(8,8) | 1 | FORMALIZED | 1 | CLAIMED | sim |
+| K19(1,1) | 1 | FORMALIZED | 1 | CLAIMED | sim |
+| K19(2,1) | 19 | FORMALIZED | 19 | CLAIMED | sim |
+| K19(2,2) | 1 | FORMALIZED | 1 | CLAIMED | sim |
+| K19(3,2) | 19 | FORMALIZED | 19 | CLAIMED | sim |
+| K19(3,3) | 1 | FORMALIZED | 1 | CLAIMED | sim |
+| K19(4,3) | 19 | FORMALIZED | 19 | CLAIMED | sim |
+| K19(4,4) | 1 | FORMALIZED | 1 | CLAIMED | sim |
+| K19(5,4) | 19 | FORMALIZED | 19 | CLAIMED | sim |
+| K19(5,5) | 1 | FORMALIZED | 1 | CLAIMED | sim |
+| K19(6,5) | 19 | FORMALIZED | 19 | CLAIMED | sim |
+| K19(6,6) | 1 | FORMALIZED | 1 | CLAIMED | sim |
+| K19(7,6) | 19 | FORMALIZED | 19 | CLAIMED | sim |
+| K19(7,7) | 1 | FORMALIZED | 1 | CLAIMED | sim |
+| K19(8,7) | 19 | FORMALIZED | 19 | CLAIMED | sim |
+| K19(8,8) | 1 | FORMALIZED | 1 | CLAIMED | sim |
+| K20(1,1) | 1 | FORMALIZED | 1 | CLAIMED | sim |
+| K20(2,1) | 20 | FORMALIZED | 20 | CLAIMED | sim |
+| K20(2,2) | 1 | FORMALIZED | 1 | CLAIMED | sim |
+| K20(3,2) | 20 | FORMALIZED | 20 | CLAIMED | sim |
+| K20(3,3) | 1 | FORMALIZED | 1 | CLAIMED | sim |
+| K20(4,3) | 20 | FORMALIZED | 20 | CLAIMED | sim |
+| K20(4,4) | 1 | FORMALIZED | 1 | CLAIMED | sim |
+| K20(5,4) | 20 | FORMALIZED | 20 | CLAIMED | sim |
+| K20(5,5) | 1 | FORMALIZED | 1 | CLAIMED | sim |
+| K20(6,5) | 20 | FORMALIZED | 20 | CLAIMED | sim |
+| K20(6,6) | 1 | FORMALIZED | 1 | CLAIMED | sim |
+| K20(7,6) | 20 | FORMALIZED | 20 | CLAIMED | sim |
+| K20(7,7) | 1 | FORMALIZED | 1 | CLAIMED | sim |
+| K20(8,7) | 20 | FORMALIZED | 20 | CLAIMED | sim |
+| K20(8,8) | 1 | FORMALIZED | 1 | CLAIMED | sim |
+| K21(1,1) | 1 | FORMALIZED | 1 | CLAIMED | sim |
+| K21(2,1) | 21 | FORMALIZED | 21 | CLAIMED | sim |
+| K21(2,2) | 1 | FORMALIZED | 1 | CLAIMED | sim |
+| K21(3,2) | 21 | FORMALIZED | 21 | CLAIMED | sim |
+| K21(3,3) | 1 | FORMALIZED | 1 | CLAIMED | sim |
+| K21(4,3) | 21 | FORMALIZED | 21 | CLAIMED | sim |
+| K21(4,4) | 1 | FORMALIZED | 1 | CLAIMED | sim |
+| K21(5,4) | 21 | FORMALIZED | 21 | CLAIMED | sim |
+| K21(5,5) | 1 | FORMALIZED | 1 | CLAIMED | sim |
+| K21(6,5) | 21 | FORMALIZED | 21 | CLAIMED | sim |
+| K21(6,6) | 1 | FORMALIZED | 1 | CLAIMED | sim |
+| K21(7,6) | 21 | FORMALIZED | 21 | CLAIMED | sim |
+| K21(7,7) | 1 | FORMALIZED | 1 | CLAIMED | sim |
+| K21(8,7) | 21 | FORMALIZED | 21 | CLAIMED | sim |
+| K21(8,8) | 1 | FORMALIZED | 1 | CLAIMED | sim |

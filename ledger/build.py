@@ -263,6 +263,7 @@ CAMPOS_PROVENIENCIA = ("fonte", "versao", "witness", "sha256", "verificador_inde
 VERSAO_FONTE = {"keri_2011": "coldcase:bounds", "gijswijt_polak_2025": "coldcase:bounds",
                 "marosi_2026": {"ub": "coldcase:marosi_ub", "lb": "coldcase:marosi_lb"},
                 "florath_lean": "florath:lean_table", "literatura_pos_keri": "florath:post_keri_table"}
+VERIFICADOR_PY = "avaliador Python de tools/certificar/buscar.py, rodado em tests/test_certificar.py"
 VERIFICADOR_C = "tools/verify/verify (C; tools/verify/check_all.sh confere todo data/codes/)"
 
 
@@ -307,7 +308,7 @@ def _externa(cel: dict, lado: str, valor: int):
     return None
 
 
-def certificar_ub(cel: dict) -> dict:
+def certificar_ub(cel: dict, formal: dict | None = None) -> dict:
     v = cel["best"]["ub"]
     lean, comp = cel["ours_lean"], cel["ours_computational"]
     fonte, versao = _fonte_publicada(cel, "ub", v)
@@ -320,6 +321,18 @@ def certificar_ub(cel: dict) -> dict:
                      VERIFICADOR_C if lean.get("file") else None,
                      {"declaration": lean["declaration"], "tag": lean.get("tag")},
                      None if arq else "o código está dentro da prova Lean; não há arquivo em data/codes/")
+    elif formal and formal["M"] == v:
+        # Certificado em lote (tools/certificar/gerar.py): célula base + regra, teorema gerado.
+        if fonte is None:
+            fonte, versao = {"source": "nosso", "ref": formal["construcao"]}, None
+        wit = formal.get("witness")
+        # Witness explícito: além do kernel, o avaliador Python (tools/certificar/buscar.py) reconfere
+        # o código em todo pytest (tests/test_certificar.py); regra pura não tem segundo verificador.
+        estado = "INDEPENDENTLY_REPRODUCED" if wit else "FORMALIZED"
+        prov = _prov(fonte, versao, wit or formal["arquivo"],
+                     formal.get("sha256") if wit else formal["sha256_arquivo"], VERIFICADOR_PY if wit else None,
+                     {"declaration": formal["declaration"], "lib": "CoveringLedger"})
+        prov["construcao"] = formal["construcao"]
     elif comp and comp["M"] == v:
         if fonte is None:
             fonte, versao = {"source": "nosso", "ref": comp.get("provenance")}, None
@@ -374,8 +387,8 @@ def certificar_lb(cel: dict, registro: dict | None) -> dict | None:
     return {"value": v, "state": estado, "provenance": prov}
 
 
-def certificar(cel: dict, nosso: dict | None) -> dict:
-    ub = certificar_ub(cel)
+def certificar(cel: dict, nosso: dict | None, formal: dict | None = None) -> dict:
+    ub = certificar_ub(cel, formal)
     lb = certificar_lb(cel, (nosso or {}).get("lb"))
     cel["certification"] = {"ub": ub, "lb": lb, "exact": lb is not None and lb["value"] == ub["value"]}
     return cel
@@ -411,7 +424,12 @@ def versoes(sources: dict, fontes: dict) -> dict:
     return out
 
 
-def construir(fontes: dict, ours: dict, sources: dict) -> dict:
+def carregar_formal(caminho: Path = AQUI / "formal_ub.json") -> dict:
+    """Cotas superiores certificadas em lote (gerado por tools/certificar/gerar.py)."""
+    return json.loads(caminho.read_text(encoding="utf-8"))["cells"] if caminho.exists() else {}
+
+
+def construir(fontes: dict, ours: dict, sources: dict, formal: dict | None = None) -> dict:
     bounds = _json(fontes, "bounds", None)
     if bounds is None:
         raise SystemExit("bounds.json do coldcase não encontrado")
@@ -422,6 +440,7 @@ def construir(fontes: dict, ours: dict, sources: dict) -> dict:
     lit = tabela_florath(fontes, "post_keri_table")
     ev = evidencias_marosi(fontes)
     nossos = ours.get("cells", {})
+    formal = carregar_formal() if formal is None else formal
     cells = []
     vistos = set()
     for e in bounds["entries"]:
@@ -429,7 +448,7 @@ def construir(fontes: dict, ours: dict, sources: dict) -> dict:
         k = chave(e["q"], e["n"], e["R"])
         vistos.add(k)
         c = montar_celula(e, e.get("lb_updated"), mub.get(k), mlb.get(k), flo.get(k), ev.get(k), lit.get(k))
-        cells.append(certificar(aplicar_nosso(c, nossos.get(k)), nossos.get(k)))
+        cells.append(certificar(aplicar_nosso(c, nossos.get(k)), nossos.get(k), formal.get(k)))
     faltando = sorted(set(nossos) - vistos)
     if faltando:
         raise SystemExit(f"células nossas fora da tabela do Kéri: {faltando}")
