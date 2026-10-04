@@ -90,7 +90,7 @@ class ExecutorVM:
         self._metadados(inst, **{"startup-script": SCRIPT.read_text(), "infinito-job": job,
                                  "enable-guest-attributes": "TRUE"})
         self._esperar(lambda d: any(i["key"] == "infinito-job" for i in d.get("metadata", {}).get("items", [])),
-                      "gravar o job nos metadados")
+                      "gravar o job nos metadados", tentativas=5)
         paraquedas = True
         try:
             self._pedir("POST", "/setScheduling", {"onHostMaintenance": "MIGRATE", "automaticRestart": True,
@@ -98,9 +98,29 @@ class ExecutorVM:
                                                      "maxRunDuration": {"seconds": int(horas * 3600) + 600}})
         except ErroCreditos:
             paraquedas = False        # o `timeout` + shutdown do script e o parar() do executor continuam valendo
-        self._pedir("POST", "/start")
-        self._esperar(lambda d: d["status"] in ("PROVISIONING", "STAGING", "RUNNING"), "ligar")
+        self._checar_operacao(self._pedir("POST", "/start"))
+        self._esperar(lambda d: d["status"] in ("PROVISIONING", "STAGING", "RUNNING"), "ligar", tentativas=8)
         return {"vm": "ligando", "paraquedas_maxrunduration": paraquedas}
+
+    def _checar_operacao(self, op: dict) -> None:
+        """O `start` devolve 200 mesmo quando falha: o erro (cota, capacidade) vem DENTRO da operação. Sem olhar, o
+        executor esperava a VM ligar por 60 s (medido 2026-10-04: QUOTA_EXCEEDED em CPUS_ALL_REGIONS, 73 s para dar
+        'não aconteceu a tempo'). Lê o erro já na resposta e, se a operação ainda corre, consulta-a por até ~10 s; sem
+        permissão para consultar (`compute.zoneOperations.get`), segue para a espera pelo estado da VM."""
+        for _ in range(5):
+            erros = (op.get("error") or {}).get("errors") or []
+            if erros:
+                msg = "; ".join(f"{e.get('code')}: {e.get('message', '')[:140]}" for e in erros)
+                dica = (" — o projeto está no limite global de CPUs; outras VMs estão ligadas, tente mais tarde"
+                        if any(e.get("code") == "QUOTA_EXCEEDED" for e in erros) else "")
+                raise ErroCreditos(f"a VM não ligou: {msg}{dica}. Nada foi cobrado")
+            if op.get("status") == "DONE" or not op.get("selfLink"):
+                return
+            st, novo = self._http("GET", op["selfLink"], None)
+            if st != 200:
+                return
+            op = novo
+            self._dormir(2)
 
     def status(self, job_id: str) -> dict:
         inst = self._pedir("GET")
