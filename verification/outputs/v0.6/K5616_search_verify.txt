@@ -1,0 +1,1 @@
+q=7 n=10 R=4 M=5616 duplicates=0 badlines=0 uncovered=0 sha256_canon=750cae3ba3ded64eef208548f6e3c8fe0356c0b599ab3f605aac6fd175a78a5e => VALID

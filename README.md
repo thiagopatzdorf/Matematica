@@ -1,25 +1,29 @@
 # Lean 4 + Mathlib: cotas de cobertura, verificadas pelo kernel
 
-The note is [paper/main.pdf](paper/main.pdf), source [paper/main.tex](paper/main.tex). Tag `v0.5.0`; DOI conceitual
+The note is [paper/main.pdf](paper/main.pdf), source [paper/main.tex](paper/main.tex). Tag `v0.6.0`; DOI conceitual
 [10.5281/zenodo.23085769](https://doi.org/10.5281/zenodo.23085769) (aponta sempre para a versão mais nova).
 
-Estado (2026-10-02), Lean 4.34.1 + Mathlib v4.34.1, VM e2-highmem-8:
+Estado (2026-10-03), Lean 4.34.1 + Mathlib v4.34.1, VM e2-highmem-8:
 
 * `lake build` (alvo padrão, agora com `SynCheck`/`SynBridge`, clone limpo): **passa**, 8944 jobs, 4 min 16 s, pico 10,0 GB. Também roda no CI do GitHub a cada push.
 * `lake build CoveringHeavy` (`K_2(6,1) = 12` e as oito cotas superiores): **passa**, 9181 jobs, 1 h 54 min de relógio (~9,3 h de CPU), pico 9,4 GB por processo.
 * `lake build CoveringSyn` (os quatro certificados por síndromes da v0.4): **passa**, 8983 jobs, 10 min 35 s de relógio (~37 min de CPU para os quatro), pico 6,9 GB por processo.
 * `lake build CoveringLean.Syn_K1137` (v0.5, `K_7(9,4) ≤ 1137`): **passa**, 2 min 41 s em 8 núcleos (331 s de CPU), pico 6,7 GB; `#print axioms` só `propext, Classical.choice, Quot.sound`.
+* v0.6 (2026-10-03, contêiner de 4 núcleos, módulos próprios do zero): `Syn_K1134` 105 s, `Syn_K162` 101 s, `Syn_K2875` 364 s, `Syn_K5616` 654 s, todos exit 0, axiomas só `propext, Classical.choice, Quot.sound`; mutações rejeitadas pelo Lean em `LEAN_RED_TEAM.md` (seção v0.6) e `VALIDATION_v0.6.md`.
 
 Nenhum `sorry`, nenhum `native_decide`, e todo `#print axioms` mostra no máximo `propext, Classical.choice, Quot.sound`.
 
-## v0.5: `K_7(9,4) ≤ 1137` e mais sete cotas superiores, todas no kernel
+## v0.6: `K_7(9,4) ≤ 1134` e mais dez cotas superiores, todas no kernel
 
 Um teorema `∃ C : Finset (Fin n → ZMod q), C.card = M ∧ Covers R C` por célula. Em cada célula a lista em Lean
 decodifica para o arquivo de `data/codes/` com o mesmo sha256 canônico.
 
 | célula | nossa | anterior | declaração | certificado |
 |---|---:|---:|---|---|
-| `K_7(9,4)` | **1137** | 1475 (Marosi, arXiv:2608.19872v3) | `Syn.K7_9_4_le_1137_syn` (também `…_1141_syn`, `…_1285_syn`, `…_1351_syn`, `CoveringKernel.K7_9_4_le_1351_kernel`) | síndromes |
+| `K_7(9,4)` | **1134** | 1475 (Marosi, arXiv:2608.19872v3) | `Syn.K7_9_4_le_1134_syn` (também `…_1137_syn`, `…_1141_syn`, `…_1285_syn`, `…_1351_syn`, `CoveringKernel.K7_9_4_le_1351_kernel`) | síndromes |
+| `K_7(10,4)` | **5616** | 6517 (Kéri) | `Syn.K7_10_4_le_5616_syn` | síndromes |
+| `K_5(11,4)` | **2875** | 3125 (Kéri) | `Syn.K5_11_4_le_2875_syn` | síndromes |
+| `K_5(10,5)` | **162** | 175 (Kéri) | `Syn.K5_10_5_le_162_syn` | síndromes |
 | `K_7(8,3)` | 1887 | 2337 (Kéri) | `Syn.K7_8_3_le_1887_syn` (também `CoveringKernel.K7_8_3_le_1893_kernel`) | síndromes |
 | `K_5(10,4)` | 625 | 875 | `CoveringKernel.K5_10_4_le_625_kernel` | prefixos |
 | `K_5(9,3)` | 1250 | 1275 | `CoveringKernel.K5_9_3_le_1250_kernel` | prefixos |

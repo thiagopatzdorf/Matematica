@@ -59,11 +59,14 @@ auditada. Uma célula "que ninguém atacou desde 2011" quer dizer: ninguém ness
 melhor cota superior conhecida contando a nossa. `ours_lean.tag` é a tag git em que o teorema saiu;
 `tag: null` com `tag_pendente` quer dizer provado mas ainda não etiquetado.
 
-## Nosso estado em 2026-10-02
+## Nosso estado em 2026-10-03
 
 | célula | publicado (superior) | Lean | computacional |
 |---|---|---|---|
-| K7(9,4) | 1475 (Marosi) | ≤ 1351, `CoveringKernel.K7_9_4_le_1351_kernel`, v0.3.0 | ≤ 1285 |
+| K7(9,4) | 1475 (Marosi) | ≤ 1134, `Syn.K7_9_4_le_1134_syn`, v0.6.0 (pendente) | |
+| K7(10,4) | 6517 (Kéri) | ≤ 5616, `Syn.K7_10_4_le_5616_syn`, v0.6.0 (pendente) | |
+| K5(11,4) | 3125 (Kéri) | ≤ 2875, `Syn.K5_11_4_le_2875_syn`, v0.6.0 (pendente) | |
+| K5(10,5) | 175 (Kéri) | ≤ 162, `Syn.K5_10_5_le_162_syn`, v0.6.0 (pendente) | |
 | K7(8,3) | 2337 (Kéri) | ≤ 1893, `CoveringKernel.K7_8_3_le_1893_kernel` | ≤ 1887 |
 | K5(10,4) | 875 (Kéri) | ≤ 625, `CoveringKernel.K5_10_4_le_625_kernel` | |
 | K5(9,3) | 1275 (Kéri) | ≤ 1250, `CoveringKernel.K5_9_3_le_1250_kernel` | |

@@ -1,0 +1,13 @@
+K5616 controle: compilou, como esperado (CoveringLean.SynLeaf_K5616C0_0)
+  ok   CoveringLean.SynData_K5616M1 (7s)
+  FAIL CoveringLean.SynLeaf_K5616M1_51 (3s) [theorem BK5616M1_0] 8:1404: Tactic `decide` proved that the proposition
+K5616 M1_troca/modules: REJEITADA pelo Lean em CoveringLean.SynLeaf_K5616M1_51
+  ok   CoveringLean.SynData_K5616M2 (7s)
+  FAIL CoveringLean.Card_K5616M2 (1s) [example :] 6:39: (kernel) application type mismatch
+K5616 M2_remocao/modules_card: REJEITADA pelo Lean em CoveringLean.Card_K5616M2
+  ok   CoveringLean.SynData_K5616M2 (7s)
+  FAIL CoveringLean.SynLeaf_K5616M2_50 (16s) [theorem OK5616M2_0] 10:1409: Tactic `decide` proved that the proposition
+K5616 M2_remocao/modules_cover: REJEITADA pelo Lean em CoveringLean.SynLeaf_K5616M2_50
+  FAIL CoveringLean.SynLeaf_K5616M3_0 (39s) [theorem TK5616M3_0] 6:16088: Tactic `decide` proved that the proposition
+K5616 M3_tabela/modules: REJEITADA pelo Lean em CoveringLean.SynLeaf_K5616M3_0
+exit 0

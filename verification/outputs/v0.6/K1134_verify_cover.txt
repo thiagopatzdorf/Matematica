@@ -1,0 +1,1 @@
+{"ok": true, "q": 7, "n": 9, "R": 4, "M": 1134, "distintas": 1134, "descobertas": 0}

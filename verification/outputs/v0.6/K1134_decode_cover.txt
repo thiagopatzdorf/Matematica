@@ -1,0 +1,10 @@
+tag=K1134 q=7 n=9 R=4 M=1134
+len(LK1134) = 1134
+unpack(PN) == LK1134: True
+sha256(canonical from .lean) = a48e3a42922616b3466a5fafbfaa0e4098a77f675841df3129ac96bbcb8b7b41
+sha256(canônico de ./data/codes/q7_n9_R4_M1134.txt) = a48e3a42922616b3466a5fafbfaa0e4098a77f675841df3129ac96bbcb8b7b41
+canonical == file bytes: True
+matches expected: True
+ball size = 182791
+points covered: 40353607 of 40353607
+OK

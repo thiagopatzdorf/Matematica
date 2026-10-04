@@ -1,0 +1,3 @@
+q=5 n=10 R=5 |C|=162 pontos=9765625 alcançados=9765625 raio_de_cobertura=5
+histograma: d0=162 d1=6480 d2=116454 d3=1187157 d4=5570563 d5=2884809
+COBRE

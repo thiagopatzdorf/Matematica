@@ -1,0 +1,13 @@
+K2875 controle: compilou, como esperado (CoveringLean.SynLeaf_K2875C0_0)
+  ok   CoveringLean.SynData_K2875M1 (3s)
+  FAIL CoveringLean.SynLeaf_K2875M1_25 (2s) [theorem BK2875M1_5] 8:513: Tactic `decide` proved that the proposition
+K2875 M1_troca/modules: REJEITADA pelo Lean em CoveringLean.SynLeaf_K2875M1_25
+  ok   CoveringLean.SynData_K2875M2 (4s)
+  FAIL CoveringLean.Card_K2875M2 (1s) [example :] 6:39: (kernel) application type mismatch
+K2875 M2_remocao/modules_card: REJEITADA pelo Lean em CoveringLean.Card_K2875M2
+  ok   CoveringLean.SynData_K2875M2 (4s)
+  FAIL CoveringLean.SynLeaf_K2875M2_24 (1s) [theorem BK2875M2_0] 6:514: Tactic `decide` proved that the proposition
+K2875 M2_remocao/modules_cover: REJEITADA pelo Lean em CoveringLean.SynLeaf_K2875M2_24
+  FAIL CoveringLean.SynLeaf_K2875M3_0 (46s) [theorem TK2875M3_0] 6:14855: Tactic `decide` proved that the proposition
+K2875 M3_tabela/modules: REJEITADA pelo Lean em CoveringLean.SynLeaf_K2875M3_0
+exit 0

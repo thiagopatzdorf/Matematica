@@ -1,0 +1,47 @@
+{
+ "tag": "K1134",
+ "q": 7,
+ "n": 9,
+ "R": 4,
+ "M": 1134,
+ "mutations": {
+  "M1_troca": {
+   "index": 0,
+   "old": "000000000",
+   "new": "250600000",
+   "uncovered_points": 378,
+   "modules": [
+    "CoveringLean.SynData_K1134M1",
+    "CoveringLean.SynLeaf_K1134M1_8"
+   ]
+  },
+  "M2_remocao": {
+   "index": 0,
+   "removed": "000000000",
+   "uncovered_points": 460,
+   "modules_card": [
+    "CoveringLean.SynData_K1134M2",
+    "CoveringLean.Card_K1134M2"
+   ],
+   "modules_cover": [
+    "CoveringLean.SynData_K1134M2",
+    "CoveringLean.SynLeaf_K1134M2_7",
+    "CoveringLean.SynLeaf_K1134M2_8"
+   ]
+  },
+  "M3_tabela": {
+   "leaf": "TK1134_0",
+   "point_t": 0,
+   "old_witness": 0,
+   "new_witness": 59,
+   "modules": [
+    "CoveringLean.SynLeaf_K1134M3_0"
+   ]
+  }
+ },
+ "control": {
+  "modules": [
+   "CoveringLean.SynLeaf_K1134C0_0"
+  ]
+ }
+}

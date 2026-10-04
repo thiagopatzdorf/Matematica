@@ -1,0 +1,2 @@
+{"kind": "line", "idx": 18, "gens": [[1, 1, 3]], "orbit": 7, "T": 18, "vars": 24402, "rows": 294, "status": "Optimal", "obj": 105.00000000000044, "dual_bound": 105.00000000000044, "secs": 12120.3, "patch_size": 105}
+{"kind": "line", "idx": 10, "gens": [[1, 0, 2]], "orbit": 7, "T": 18, "vars": 24402, "rows": 294, "status": "Optimal", "obj": 104.99999999999969, "dual_bound": 104.99999999999969, "secs": 12879.1, "patch_size": 105}

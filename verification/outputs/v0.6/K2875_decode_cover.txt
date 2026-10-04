@@ -1,0 +1,10 @@
+tag=K2875 q=5 n=11 R=4 M=2875
+len(LK2875) = 2875
+unpack(PN) == LK2875: True
+sha256(canonical from .lean) = 2a700e2f928a8d893e8863ee100c9514a8ffd65a480776682c7560c96029dc9b
+sha256(canônico de ./data/codes/q5_n11_R4_M2875.txt) = 2a700e2f928a8d893e8863ee100c9514a8ffd65a480776682c7560c96029dc9b
+canonical == file bytes: True
+matches expected: True
+ball size = 95965
+points covered: 48828125 of 48828125
+OK

@@ -1,0 +1,31 @@
+verificador B (união de bolas, Python/NumPy)
+sha256 = a48e3a42922616b3466a5fafbfaa0e4098a77f675841df3129ac96bbcb8b7b41
+q = 7
+n = 9
+R = 4
+|C| = 1134
+N_0 = 1134
+N_1 = 61040
+N_2 = 1417073
+N_3 = 15311828
+N_4 = 23562532
+total = 40353607 (esperado 40353607)
+covered_count = 40353607
+missing_count = 0
+ball_hits = 207284994 (= |C| * 182791 = 207284994)
+duplicate_cover_hits = 166931387
+max_multiplicity = 16
+max_distance = 4
+farthest_points = 23562532
+example_farthest = 211100000
+example_farthest = 311100000
+example_farthest = 411100000
+min_unique_points_per_word = 12 (palavra 041400232)
+total_exclusive_points = 399504 (pontos cobertos por uma única palavra)
+redundant_words = 0
+runtime_internal_s = 108.3
+PASS
+runtime_s = 108.67
+cpu_s = 107.41
+peak_memory_kb = 1646600
+exit_code = 0

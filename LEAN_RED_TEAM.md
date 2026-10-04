@@ -51,3 +51,46 @@ Os achados abaixo são de **processo e de base de confiança**, não furos na pr
 - Montagem: `A2_Sphere → K2_Loop → K2_Core → C1_CoverCheck → K3_Bridge → SynBridge → Syn_K1137 → Adv`, com `LEAN_PATH` incluindo os `.lake/build/lib/lean` dos pacotes do Mathlib (cópia por hardlink do cache).
 - Scripts Python: `indep.py` (sha, unpack e cobertura por força bruta) e `indep_neg.py` (controle negativo), no scratchpad da sessão.
 - `leanchecker` (replay do kernel) **não** foi rodado por mim. O outro agente já estava rodando sobre as mesmas folhas, então matei o meu para não duplicar CPU.
+
+---
+
+# v0.6: red team de `Syn.K7_9_4_le_1134_syn`, `Syn.K5_10_5_le_162_syn`, `Syn.K5_11_4_le_2875_syn` e `Syn.K7_10_4_le_5616_syn`
+
+- Branch `feat/v0.6` (worktree próprio), 2026-10-03. Lean 4.34.1, Mathlib `v4.34.1`.
+- Números completos (build, verificadores, sha256, mutações) em `VALIDATION_v0.6.md` e `verification/outputs/v0.6/`.
+
+## Veredito
+
+**Nenhum ataque invalidou as quatro alegações.** As quatro compilam e só dependem de `[propext,
+Classical.choice, Quot.sound]`. Os enunciados são os pedidos: n, q, R e M conferidos por `example …
+:= teorema`, com o tipo escrito por extenso. Toda mutação de dado foi rejeitada pelo kernel, e cinco
+verificadores independentes dão 0 pontos descobertos em todo o espaço. Os achados são de processo.
+
+## Tabela ataque → resultado → evidência
+
+| # | Ataque | Resultado | Evidência |
+|---|---|---|---|
+| 1 | Construções proibidas nos arquivos dos quatro certificados + `SynCheck`/`SynBridge` | FALHOU EM INVALIDAR | `grep` de `sorry`, `admit`, `native_decide`, `axiom`, `implemented_by`, `extern`, `unsafe`, `ofReduceBool`, `#eval`, `run_cmd`, `include_str`: só um comentário em `SynBridge.lean:22`. `set_option` só `maxRecDepth 100000`. |
+| 2 | Axiomas | FALHOU EM INVALIDAR | `#print axioms` dos quatro: `[propext, Classical.choice, Quot.sound]` (`verification/outputs/v0.6/lean_statements.txt`). |
+| 3 | Enunciado certo (n, q, R, M) | FALHOU EM INVALIDAR | `example : ∃ C : Finset (Fin 10 → ZMod 7), C.card = 5616 ∧ CoveringA2.Covers 4 C := Syn.K7_10_4_le_5616_syn` e os análogos (9/7/4/1134, 10/5/5/162, 11/5/4/2875) compilam (`Stmt.lean.txt`). |
+| 4 | `Covers` é a definição usual | FALHOU EM INVALIDAR | `#print CoveringA2.Covers` = `fun {q n} R C => ∀ (x : Fin n → ZMod q), ∃ c ∈ C, hammingDist x c ≤ R`; `Iff.rfl` com a forma desdobrada compila. |
+| 5 | Gerador assume q = 7 / n = 9 | FALHOU EM INVALIDAR | Os certificados q = 5 (n = 10, 11) e q = 7, n = 10 compilam. `tests/test_gen_syn.py` regenera o K162 byte a byte. A ponte `syn_cert` é genérica em `q n R M` (`[NeZero q]`). |
+| 6 | Lista do `.lean` = código publicado | FALHOU EM INVALIDAR | `decode_synData.py --tag T`: `unpack(PN) == L`, L estritamente crescente e < q^n, e forma canônica = `.txt` ordenado, com o mesmo sha256 canônico nas quatro células. |
+| 7 | M1: trocar 1 palavra por outra que descobre pontos | FALHOU EM INVALIDAR (rejeitada ×4) | O kernel recusa a folha `B…_s` da classe lateral atingida. Pontos descobertos pela troca: 378, 160, 55, 111. |
+| 8 | M2: remover 1 palavra | FALHOU EM INVALIDAR (rejeitada ×4, duas formas) | M2a, card: `decide (L.length = M)` dá kernel type mismatch. M2b, enunciado com M−1: folhas `O…`/`B…` recusadas (índices deslocados). Pontos descobertos: 460, 171, 59, 125. |
+| 9 | M3: alterar 1 entrada da tabela de cobertura | FALHOU EM INVALIDAR (rejeitada ×4) | A testemunha de t = 0 em `T…_0` trocada pela palavra a distância > R do exemplo de não-vacuidade: `decide` prova que a folha é falsa. |
+| 10 | O arranjo de mutação mente? | **ACHOU PROBLEMA (no meu harness, corrigido)** | Na 1ª versão, `lake: command not found` contava como "rejeitada". Na 2ª, o `LEAN_PATH` resolvia `CoveringLean.*` só na pasta à parte. Os dois casos foram pegos e corrigidos: só conta erro do Lean com posição no arquivo, e um controle positivo (folha original renomeada) tem de compilar antes. Os 4 controles compilam. |
+| 11 | Certificado do K2875 sem órfãs (`orphs = []`) é vácuo? | FALHOU EM INVALIDAR | Com 0 órfãs, `hO` é `absurd` sobre `orphs.length = 0` (por `rfl`). A cobertura fica toda nas 120 folhas `T`/`B`, e a M3 (testemunha falsa em `T`) é rejeitada. Os 23 × 125 pontos-base são checados por `chkB`. |
+| 12 | Verdade fora do Lean | FALHOU EM INVALIDAR | `tools/verify/verify`, `verify_cover.py`, `scripts/search/verify.py`, `scripts/attack/verify_bfs.c`, `verify_bfs/main.rs` (constantes trocadas em cópia) e a força bruta por bolas do `decode_synData.py`: 0 descobertos. Distribuições de distância idênticas nos dois BFS. |
+| 13 | CI recompila os certificados? | **ACHOU PROBLEMA (processo, baixo; herdado da v0.5)** | `CoveringSyn` continua fora do alvo padrão e do job `lean`. Os quatro teoremas novos dependem de build manual, que somam ~20 min em 4 núcleos (ver `VALIDATION_v0.6.md`). |
+| 14 | `build_structured.py --check` no 1134 | **ACHOU PROBLEMA (dado, corrigido)** | O JSON do 1134 (branch `feat/k794-1134`) não era regenerável: remendo fora de ordem e sem registro. Corrigido sem mudar palavras nem sha. O certificado regenerado é idêntico. |
+
+## Como reproduzir
+
+```bash
+export PATH=$HOME/.elan/bin:$PATH
+lake build CoveringLean.Syn_K1134 CoveringLean.Syn_K162 CoveringLean.Syn_K2875 CoveringLean.Syn_K5616
+verification/lean/run_mutations_syn.sh K162 /tmp/mut/K162 --full      # e K1134, K2875, K5616 (sem --full)
+python3 verification/lean/decode_synData.py --tag K5616 --cover
+tools/verify/check_all.sh
+```

@@ -1,0 +1,3 @@
+q=7 n=9 R=4 |C|=1134 pontos=40353607 alcançados=40353607 raio_de_cobertura=4
+histograma: d0=1134 d1=61040 d2=1417073 d3=15311828 d4=23562532
+COBRE

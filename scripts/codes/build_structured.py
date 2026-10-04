@@ -32,6 +32,22 @@ _UNKNOWN = {
 }
 
 PROVENANCE = {
+    # dims=[3]: o JSON commitado (e o certificado Lean gerado dele) guarda o remendo como 105 palavras
+    # soltas; sem isto o structure.py detecta as 15 órbitas de 7 como cosets de [9,1]_7 e o --check
+    # acusa DIFERE no 1134.
+    "q7_n9_R4_M1134": {
+        "generator": "ILP com simetria imposta (invariância por translação pela reta 10 de C0), HiGHS, "
+                     "candidates/k7_9_4_1134/ilp_sym.py 18 line 10 600",
+        "commit": None,
+        "seed": None,
+        "command": "python3 ilp_sym.py 18 line 10 600",
+        "date": "2026-10-03",
+        "agent": "James.V1",
+        "repo_commit": None,
+        "notes": "mesma base do 1137 (H=[I6|A], A=666 065 652 643 621 615, síndromes 0, 7708, 4191) + 105 palavras "
+                 "(15 órbitas de 7). Verificado por 3 verificadores independentes (candidates/k7_9_4_1134).",
+        "dims": [3],
+    },
     "q7_n9_R4_M1351": {
         "generator": "lincov (Mapika/coldcase) para os 3 cosets de [9,3]_7; remendo de 322 palavras sem registro",
         "commit": "56a8cce",
@@ -89,6 +105,46 @@ PROVENANCE = {
         "repo_commit": None,
         "notes": "o .txt daqui está na ordem canônica; o arquivo da VM (sha256 557cf336...) tem outra ordem "
                  "e o mesmo sha256 canônico.",
+    },
+    "q7_n10_R4_M5616": {
+        "generator": "scripts/attack (feat/ataque-celulas-2011): hsearch -> base_search eval t=2 em [10,4]_7 -> "
+                     "lift para [10,3]_7 -> coset_sa t=16 -> patch_opt (lift por x_6)",
+        "commit": None,
+        "seed": None,
+        "command": None,
+        "date": "2026-10-03",
+        "agent": "James.V1",
+        "repo_commit": None,
+        "notes": "16 classes laterais de um [10,3]_7 (3 síndromes órfãs, 1029 pontos) + 128 palavras. Detalhes e "
+                 "síndromes em data/attack/q7_n10_R4_M5616.json. Verificado por scripts/attack/verify_bfs e "
+                 "tools/verify/verify.c. Não conferido no Lean.",
+        "dims": [3],
+    },
+    "q5_n11_R4_M2875": {
+        "generator": "scripts/attack (feat/ataque-celulas-2011): hsearch -> coset_sa t=4 em [11,4]_5 -> lift para "
+                     "[11,3]_5 -> coset_sa t=22 -> coset_wsa (w=21)",
+        "commit": None,
+        "seed": None,
+        "command": None,
+        "date": "2026-10-03",
+        "agent": "James.V1",
+        "repo_commit": None,
+        "notes": "23 classes laterais de um [11,3]_5, sem remendo. Detalhes em data/attack/q5_n11_R4_M2875.json. "
+                 "Verificado por scripts/attack/verify_bfs e tools/verify/verify.c.",
+        "dims": [3],
+    },
+    "q5_n10_R5_M162": {
+        "generator": "scripts/attack (feat/ataque-celulas-2011): hsearch t=1 em [10,3]_5 (8 síndromes órfãs) -> "
+                     "patch_opt",
+        "commit": None,
+        "seed": 12,
+        "command": "patch_opt base.json --L 0 --W 38 --tauw 30 --secs 1800 --seed 12 --T0 1.5 --T1 0.3",
+        "date": "2026-10-03",
+        "agent": "James.V1",
+        "repo_commit": None,
+        "notes": "o próprio [10,3]_5 + 37 palavras (cota do LP para o remendo nesta base: 22). Detalhes em "
+                 "data/attack/q5_n10_R5_M162.json.",
+        "dims": [3],
     },
 }
 

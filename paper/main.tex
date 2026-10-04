@@ -2,7 +2,7 @@
 \usepackage{amsmath,amssymb,amsthm}
 \usepackage{booktabs}
 \usepackage[hidelinks]{hyperref}
-\hypersetup{pdftitle={Covering codes checked by the Lean kernel: K7(9,4) <= 1137, seven more upper bounds, and K2(6,1) = 12},pdfauthor={Thiago Patzdorf}}
+\hypersetup{pdftitle={Covering codes checked by the Lean kernel: K7(9,4) <= 1134, ten more upper bounds, and K2(6,1) = 12},pdfauthor={Thiago Patzdorf}}
 \pdfstringdefDisableCommands{\def\\{ }\def\le{<=}}
 \usepackage[margin=1in]{geometry}
 
@@ -13,17 +13,17 @@
 \theoremstyle{remark}
 \newtheorem*{remark}{Remark}
 
-\title[Covering codes checked by the Lean kernel]{Covering codes checked by the Lean kernel:\\ $K_7(9,4)\le 1137$, seven more upper bounds, and $K_2(6,1)=12$}
+\title[Covering codes checked by the Lean kernel]{Covering codes checked by the Lean kernel:\\ $K_7(9,4)\le 1134$, ten more upper bounds, and $K_2(6,1)=12$}
 \author{Thiago Patzdorf}
 \address{Universidade de Caxias do Sul, Brazil}
 \email{thiagosleman@gmail.com}
-\date{2 October 2026}
+\date{3 October 2026}
 
 \begin{document}
 \begin{abstract}
-We prove in Lean~4, against Mathlib~v4.34.1 and checked by the kernel with no \texttt{sorry} and no \texttt{native\_decide}, upper bounds on the covering number $K_q(n,R)$ for eight cells, each by an explicit code smaller than the corresponding entry in the tables we consulted.
-The largest is $K_7(9,4)\le 1137$, against a best published bound of $1475$; the others are $K_7(8,3)\le 1887$, $K_5(10,4)\le 625$, $K_5(9,3)\le 1250$, $K_5(7,2)\le 500$, $K_5(9,4)\le 250$, $K_4(10,4)\le 192$ and $K_5(9,5)\le 50$.
-The codes are unions of cosets of a linear code plus a small patch, and we give two certificates: one walks digit prefixes and costs $12$ CPU-hours for $(\mathbb{Z}/7\mathbb{Z})^9$; the other works on syndromes and costs minutes (the $1137$-word code: $5.5$ CPU-minutes).
+We prove in Lean~4, against Mathlib~v4.34.1 and checked by the kernel with no \texttt{sorry} and no \texttt{native\_decide}, upper bounds on the covering number $K_q(n,R)$ for eleven cells, each by an explicit code smaller than the corresponding entry in the tables we consulted.
+The largest improvement is $K_7(9,4)\le 1134$, against a best published bound of $1475$; three more cells unchanged in the tables since 2011 come down to $K_7(10,4)\le 5616$ (from $6517$), $K_5(11,4)\le 2875$ (from $3125$) and $K_5(10,5)\le 162$ (from $175$); the others are $K_7(8,3)\le 1887$, $K_5(10,4)\le 625$, $K_5(9,3)\le 1250$, $K_5(7,2)\le 500$, $K_5(9,4)\le 250$, $K_4(10,4)\le 192$ and $K_5(9,5)\le 50$.
+The codes are unions of cosets of a linear code plus a small patch, and we give two certificates: one walks digit prefixes and costs $12$ CPU-hours for $(\mathbb{Z}/7\mathbb{Z})^9$; the other works on syndromes and costs minutes (the $5616$-word code: $11$ minutes on four cores).
 The base of the $K_7(9,4)$ code was chosen from an enumeration of all $6362$ equivalence classes of non-degenerate $[9,3]_7$ codes.
 We also prove $K_2(6,1)\ge 11$ by a short double-counting argument and the classical value $K_2(6,1)=12$ by a search whose soundness is a theorem.
 \end{abstract}
@@ -36,9 +36,9 @@ Upper bounds come from constructions and lower bounds from counting; the tables 
 Upper bounds are certificates: a list of words and the claim that it covers.
 Checking the claim is a finite computation, but for $q^n$ in the tens of millions it is done by programs that are rarely audited.
 Florath~\cite{florath2026} built a Lean library of covering-code bounds whose derivations are replayed by the kernel; it formalizes the sphere-covering bound and records many cells.
-This note adds certificates that the kernel checks for eight cells where the codes are new, a certificate that scales by working on syndromes, and a formal determination of a small classical value.
+This note adds certificates that the kernel checks for eleven cells where the codes are new, a certificate that scales by working on syndromes, and a formal determination of a small classical value.
 
-The proofs use Lean~4~\cite{lean4} and Mathlib~\cite{mathlib}. The source is \url{https://github.com/thiagopatzdorf/Matematica}, tag \texttt{v0.\allowbreak 5.\allowbreak 0}.
+The proofs use Lean~4~\cite{lean4} and Mathlib~\cite{mathlib}. The source is \url{https://github.com/thiagopatzdorf/Matematica}, tag \texttt{v0.\allowbreak 6.\allowbreak 0}.
 A statement below is a claim only when it is the name of a declaration in that tree.
 The default target \texttt{CoveringLean} builds in seconds; the prefix certificates form the target \texttt{CoveringHeavy} and the syndrome certificates the target \texttt{CoveringSyn}.
 
@@ -56,20 +56,20 @@ which is the equality $K_q(n,R)=k$.
 \section{Upper bounds for $K_7(9,4)$}
 
 \begin{theorem}\label{thm:k794}
-There is $C\subseteq(\mathbb{Z}/7\mathbb{Z})^9$ with $|C|=1137$ that covers at radius $4$.
-In Lean: \texttt{Syn.\allowbreak K7\_\allowbreak 9\_\allowbreak 4\_\allowbreak le\_\allowbreak 1137\_\allowbreak syn}, stated as
+There is $C\subseteq(\mathbb{Z}/7\mathbb{Z})^9$ with $|C|=1134$ that covers at radius $4$.
+In Lean: \texttt{Syn.\allowbreak K7\_\allowbreak 9\_\allowbreak 4\_\allowbreak le\_\allowbreak 1134\_\allowbreak syn}, stated as
 \[
-  \exists\, C : \mathtt{Finset}\,(\mathtt{Fin}\,9\to\mathtt{ZMod}\,7),\quad C.\mathtt{card}=1137 \;\wedge\; \texttt{Covers}\;4\;C .
+  \exists\, C : \mathtt{Finset}\,(\mathtt{Fin}\,9\to\mathtt{ZMod}\,7),\quad C.\mathtt{card}=1134 \;\wedge\; \texttt{Covers}\;4\;C .
 \]
 \end{theorem}
 
-The library proves the same statement for four codes of this cell, found in succession: $1351$ words (\texttt{CoveringKernel.\allowbreak K7\_\allowbreak 9\_\allowbreak 4\_\allowbreak le\_\allowbreak 1351\_\allowbreak kernel}, and again as \texttt{Syn.\allowbreak K7\_\allowbreak 9\_\allowbreak 4\_\allowbreak le\_\allowbreak 1351\_\allowbreak syn}), $1285$ words (\texttt{Syn.\allowbreak K7\_\allowbreak 9\_\allowbreak 4\_\allowbreak le\_\allowbreak 1285\_\allowbreak syn}), $1141$ words (\texttt{Syn.\allowbreak K7\_\allowbreak 9\_\allowbreak 4\_\allowbreak le\_\allowbreak 1141\_\allowbreak syn}) and $1137$ words.
-Each code is a list of natural numbers $\sum_i w_i 7^i$ in strictly increasing order, and the same list is a text file in \texttt{data/\allowbreak codes/}; the canonical SHA-256 of the $1137$-word code begins \texttt{df3e8d52}.
+The library proves the same statement for five codes of this cell, found in succession: $1351$ words (\texttt{CoveringKernel.\allowbreak K7\_\allowbreak 9\_\allowbreak 4\_\allowbreak le\_\allowbreak 1351\_\allowbreak kernel}, and again as \texttt{Syn.\allowbreak K7\_\allowbreak 9\_\allowbreak 4\_\allowbreak le\_\allowbreak 1351\_\allowbreak syn}), $1285$ words (\texttt{Syn.\allowbreak K7\_\allowbreak 9\_\allowbreak 4\_\allowbreak le\_\allowbreak 1285\_\allowbreak syn}), $1141$ words (\texttt{Syn.\allowbreak K7\_\allowbreak 9\_\allowbreak 4\_\allowbreak le\_\allowbreak 1141\_\allowbreak syn}), $1137$ words (\texttt{Syn.\allowbreak K7\_\allowbreak 9\_\allowbreak 4\_\allowbreak le\_\allowbreak 1137\_\allowbreak syn}) and $1134$ words.
+Each code is a list of natural numbers $\sum_i w_i 7^i$ in strictly increasing order, and the same list is a text file in \texttt{data/\allowbreak codes/}; the canonical SHA-256 of the $1134$-word code begins \texttt{a48e3a42}.
 
 \subsection*{Structure}
-All four codes are three cosets $r_j+C_0$ of a linear $[9,3]_7$ code $C_0$ ($1029$ words) together with a patch.
+All five codes are three cosets $r_j+C_0$ of a linear $[9,3]_7$ code $C_0$ ($1029$ words) together with a patch.
 Write $C_0$ as the kernel of $H=[I_6\mid A]$; the three cosets cover exactly the points whose syndrome is within distance-$4$ reach of one of three syndromes, and the remaining syndromes are \emph{orphans}, whose $343$ points each must be covered by the patch.
-For the $1351$-word code there are $27$ orphans and $322$ patch words; for $1285$, $24$ orphans and $256$ patch words; for $1141$, with $A$ given by the rows $666,065,652,643,621,615$ and coset syndromes $0, 7708, 4191$, there are only $6$ orphans ($2058$ points) and $112$ patch words; the $1137$-word code keeps the same base and needs $108$ patch words.
+For the $1351$-word code there are $27$ orphans and $322$ patch words; for $1285$, $24$ orphans and $256$ patch words; for $1141$, with $A$ given by the rows $666,065,652,643,621,615$ and coset syndromes $0, 7708, 4191$, there are only $6$ orphans ($2058$ points) and $112$ patch words; the $1137$- and $1134$-word codes keep the same base and need $108$ and $105$ patch words.
 
 \subsection*{First certificate: digit prefixes}
 A Boolean function \texttt{go} walks the coordinates one at a time, keeping for each prefix the codewords still within reach and their remaining budget of mismatches; \texttt{go\_\allowbreak sound} proves that \texttt{go} returning \texttt{true} implies that every word has a codeword at distance at most $R$.
@@ -88,7 +88,7 @@ Each certificate also contains an \texttt{example} in which a wrong witness is r
 \begin{remark}
 The best upper bound we found is $K_7(9,4)\le 1475$, by Marosi~\cite{marosi2026} (arXiv version 3, September 2026); Kéri's tables~\cite{keri} give $1843$.
 The best lower bound we know is $264$.
-That the bound is new is our reading of those sources on 2 October 2026, not something the kernel checks.
+That the bound is new is our reading of those sources on 3 October 2026, not something the kernel checks.
 \end{remark}
 
 \section{A lower bound without search: $K_2(6,1)\ge 11$}
@@ -134,8 +134,8 @@ The library also proves the sphere-covering bound $q^n\le |C|\cdot V$ (\texttt{C
 This was the content of version~0.2 of this note.
 The bound had already been formalized by Florath~\cite{florath2026}, and all eight instances are below the best lower bounds in the literature (for $K_7(9,4)$, $264$), so they are not claimed as results.
 
-\section{Seven more upper bounds}
-The same certificates prove seven more upper bounds (Table~\ref{tab:other}).
+\section{Ten more upper bounds}
+The same certificates prove ten more upper bounds (Table~\ref{tab:other}).
 Each declaration is stated as $\exists\,C,\ C.\mathtt{card}=M\wedge\texttt{Covers}\;R\;C$ over $\mathtt{Fin}\,n\to\mathtt{ZMod}\,q$, and for each cell the list in Lean decodes to the code file in \texttt{data/\allowbreak codes/} with the same canonical SHA-256.
 For $q=4$ our literature search was weaker than for $q\ge 5$, and $K_5(10,4)\le 625$ is a linear $[10,4]_5$ code, which should still be compared with the tables of Davydov, Marcugini and Pambianco on linear covering codes.
 
@@ -145,7 +145,10 @@ For $q=4$ our literature search was weaker than for $q\ge 5$, and $K_5(10,4)\le 
 \toprule
 cell & ours & previous & source & certificate \\
 \midrule
-$K_7(9,4)$ & 1137 & 1475 & Marosi & syndromes (also 1141, 1285; 1351 by prefixes) \\
+$K_7(9,4)$ & 1134 & 1475 & Marosi & syndromes (also 1137, 1141, 1285; 1351 by prefixes) \\
+$K_7(10,4)$ & 5616 & 6517 & Kéri & syndromes \\
+$K_5(11,4)$ & 2875 & 3125 & Kéri & syndromes \\
+$K_5(10,5)$ & 162 & 175 & Kéri & syndromes \\
 $K_7(8,3)$ & 1887 & 2337 & Kéri & syndromes (1893 by prefixes) \\
 $K_5(10,4)$ & 625 & 875 & Kéri & prefixes \\
 $K_5(9,3)$ & 1250 & 1275 & Kéri & prefixes \\
@@ -159,6 +162,10 @@ $K_5(9,5)$ & 50 & 55 & Kéri & prefixes \\
 \label{tab:other}
 \end{table}
 
+The three new cells of Table~\ref{tab:other} (\texttt{Syn.\allowbreak K7\_\allowbreak 10\_\allowbreak 4\_\allowbreak le\_\allowbreak 5616\_\allowbreak syn}, \texttt{Syn.\allowbreak K5\_\allowbreak 11\_\allowbreak 4\_\allowbreak le\_\allowbreak 2875\_\allowbreak syn}, \texttt{Syn.\allowbreak K5\_\allowbreak 10\_\allowbreak 5\_\allowbreak le\_\allowbreak 162\_\allowbreak syn}) have stood in Kéri's tables since at least 2004; Kéri's 2011 update and the captures we compared leave them unchanged, and we found no later publication of a smaller code (Section~\ref{sec:lit}).
+The best lower bounds we know are $1007$, $546$~\cite{gp2025} and $41$.
+Their canonical SHA-256 begin \texttt{750cae3b}, \texttt{2a700e2f} and \texttt{74176af6}.
+
 \section{How the codes were found}
 The first codes came from the generator \texttt{lincov} of Marosi's public repository \texttt{Mapika/coldcase}~\cite{marosi2026} followed by greedy patching.
 The improvements came from treating the base as the main variable.
@@ -166,6 +173,8 @@ For $K_7(9,4)$ we enumerated all $6362$ classes of non-degenerate $[9,3]_7$ code
 The best, $6$ orphans against $27$ for the original base, gives the $1141$-word code after a simulated-annealing search on the residual points, and the $1137$-word code after a large-neighbourhood search whose subproblems are solved exactly as integer programs.
 A ball of radius $4$ contains at most $24$ of the $2058$ residual points, so this base needs at least $\lceil 2058/24\rceil = 86$ patch words; we use $108$, and the gap is open.
 An exact computation of the minimum over all $6362$ classes, and over the $1375$ classes of degenerate $[9,3]_7$ codes, is under audit and is not a claim of this note.
+For the $1134$-word code we restricted the patch to be invariant under translation along a line of $C_0$ (orbits of $7$ words); an integer program whose variables are orbits of candidate patch words, solved to optimality by HiGHS for the two best lines ($3.4$ and $3.6$ hours), shows that $105$ words ($15$ orbits) is the minimum under that symmetry, so going lower needs a less symmetric patch or another base.
+The three new cells use the same scheme: $K_7(10,4)\le 5616$ is $16$ cosets of a $[10,3]_7$ code ($5488$ words, $3$ orphan syndromes, $1029$ points) plus $128$ words; $K_5(11,4)\le 2875$ is $23$ cosets of an $[11,3]_5$ code with no patch; $K_5(10,5)\le 162$ is one $[10,3]_5$ code ($125$ words, $8$ orphan syndromes, $1000$ points) plus $37$ words, where a linear-programming bound shows that this base needs at least $22$ patch words.
 For $K_7(8,3)$ the base of the $1893$-word code is five cosets of an $[8,3]_7$ code ($1715$ words) with two orphan syndromes ($686$ points); reoptimizing the patch gives $172$ words, which is optimal for that base, since no ball of radius $3$ contains more than four of the $686$ points and $\lceil 686/4\rceil=172$.
 Every candidate was checked by programs independent of the one that found it before being certified in Lean; the codes, a structured description of each (base, cosets, patch, provenance) and an official checker are in the repository.
 
@@ -175,7 +184,14 @@ On 2 October 2026, on a virtual machine of type \texttt{e2-highmem-8}, Lean~4.34
 \texttt{lake build CoveringHeavy} (the prefix certificates and $K_2(6,1)=12$) finished $9181$ jobs in $1$\,h\,$54$\,min, about $9.3$ CPU-hours, at most $9.4$\,GB per process;
 \texttt{lake build CoveringSyn} (the four syndrome certificates) finished: $8983$ jobs in $10$\,min\,$35$\,s on 8 cores ($37$ CPU-minutes for all four), peak $6.9$\,GB per process.
 The fifth syndrome certificate, \texttt{CoveringLean.\allowbreak Syn\_\allowbreak K1137} ($K_7(9,4)\le 1137$), built in $2$\,min\,$41$\,s on 8 cores ($331$ CPU-seconds), peak $6.7$\,GB.
+On 3 October 2026, in a container with 4 cores and 15\,GB, the four certificates of version~0.6 built from scratch (their own modules; Mathlib, \texttt{SynCheck} and \texttt{SynBridge} from cache): \texttt{Syn\_\allowbreak K1134} in $105$\,s, \texttt{Syn\_\allowbreak K162} in $101$\,s, \texttt{Syn\_\allowbreak K2875} in $364$\,s and \texttt{Syn\_\allowbreak K5616} in $654$\,s of wall-clock time.
+For each of the four, three kinds of mutation were built and rejected by Lean: replacing one codeword, removing one codeword (both for the cardinality and for the coverage check), and corrupting one witness in the coverage table.
 \texttt{\#print axioms} on Theorems~\ref{thm:k794}, \ref{thm:ge11}, \ref{thm:eq12} and on every declaration of Table~\ref{tab:other} reports \texttt{propext}, \texttt{Classical.\allowbreak choice} and \texttt{Quot.\allowbreak sound} only.
+
+\section{Literature search}\label{sec:lit}
+For version~0.6 we collected, with a reproducible script, the works citing Kéri's tables, the book~\cite{cohen1997} and the main papers on $q$-ary covering codes, through OpenAlex, zbMATH Open, Crossref, OpenCitations and arXiv, down to two levels of citations ($2103$ works, $582$ open-access PDFs read in full), together with Kéri's tables and their archived copies.
+No source we read gives a code smaller than ours in any of the four cells.
+Papers behind a paywall were read only through abstracts and reviews, and a full-text index does not find numbers inside tables, so this is a search, not a proof of novelty.
 
 \section{What is not a theorem}
 Novelty is a reading of the literature, not a checked fact.

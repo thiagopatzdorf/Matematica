@@ -1,0 +1,10 @@
+tag=K162 q=5 n=10 R=5 M=162
+len(LK162) = 162
+unpack(PN) == LK162: True
+sha256(canonical from .lean) = 74176af64936119ce0d199e487127dff999888f93c7bde0b8386ba03ece12ce5
+sha256(canônico de ./data/codes/q5_n10_R5_M162.txt) = 74176af64936119ce0d199e487127dff999888f93c7bde0b8386ba03ece12ce5
+canonical == file bytes: True
+matches expected: True
+ball size = 320249
+points covered: 9765625 of 9765625
+OK

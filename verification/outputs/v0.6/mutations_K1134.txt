@@ -1,0 +1,13 @@
+K1134 controle: compilou, como esperado (CoveringLean.SynLeaf_K1134C0_0)
+  ok   CoveringLean.SynData_K1134M1 (2s)
+  FAIL CoveringLean.SynLeaf_K1134M1_8 (4s) [theorem BK1134M1_0] 12:1198: Tactic `decide` proved that the proposition
+K1134 M1_troca/modules: REJEITADA pelo Lean em CoveringLean.SynLeaf_K1134M1_8
+  ok   CoveringLean.SynData_K1134M2 (2s)
+  FAIL CoveringLean.Card_K1134M2 (1s) [example :] 6:39: (kernel) application type mismatch
+K1134 M2_remocao/modules_card: REJEITADA pelo Lean em CoveringLean.Card_K1134M2
+  ok   CoveringLean.SynData_K1134M2 (2s)
+  FAIL CoveringLean.SynLeaf_K1134M2_7 (11s) [theorem OK1134M2_0] 8:1202: Tactic `decide` proved that the proposition
+K1134 M2_remocao/modules_cover: REJEITADA pelo Lean em CoveringLean.SynLeaf_K1134M2_7
+  FAIL CoveringLean.SynLeaf_K1134M3_0 (36s) [theorem TK1134M3_0] 6:13619: Tactic `decide` proved that the proposition
+K1134 M3_tabela/modules: REJEITADA pelo Lean em CoveringLean.SynLeaf_K1134M3_0
+exit 0

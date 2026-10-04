@@ -1,0 +1,33 @@
+ok   data/codes/q4_n10_R4_M192.txt  q=4 n=10 R=4 M=192 points=1048576 uncovered=0 sha256=907b0f19b29b83a89bc17b77b944c5f2ee27019abcd2d161a6861f4855149b30
+ok   data/structured/q4_n10_R4_M192.json  (expand -> mesmo sha256 canônico)
+ok   data/codes/q5_n10_R4_M625.txt  q=5 n=10 R=4 M=625 points=9765625 uncovered=0 sha256=9e6866710516586faa66b91b5130c4d3c2c4c6857c5d38abfa554ecd37ef42e7
+ok   data/structured/q5_n10_R4_M625.json  (expand -> mesmo sha256 canônico)
+ok   data/codes/q5_n10_R5_M162.txt  q=5 n=10 R=5 M=162 points=9765625 uncovered=0 sha256=74176af64936119ce0d199e487127dff999888f93c7bde0b8386ba03ece12ce5
+ok   data/structured/q5_n10_R5_M162.json  (expand -> mesmo sha256 canônico)
+ok   data/codes/q5_n11_R4_M2875.txt  q=5 n=11 R=4 M=2875 points=48828125 uncovered=0 sha256=2a700e2f928a8d893e8863ee100c9514a8ffd65a480776682c7560c96029dc9b
+ok   data/structured/q5_n11_R4_M2875.json  (expand -> mesmo sha256 canônico)
+ok   data/codes/q5_n7_R2_M500.txt  q=5 n=7 R=2 M=500 points=78125 uncovered=0 sha256=5bebf8d23b3464410ac11c7fe6247fa859635117a7628732b42b4326acb9b87b
+ok   data/structured/q5_n7_R2_M500.json  (expand -> mesmo sha256 canônico)
+ok   data/codes/q5_n9_R3_M1250.txt  q=5 n=9 R=3 M=1250 points=1953125 uncovered=0 sha256=ee6235466bb1579465ef07867ab9e02e42ab36eef5d9500e6a25ade66652cd85
+ok   data/structured/q5_n9_R3_M1250.json  (expand -> mesmo sha256 canônico)
+ok   data/codes/q5_n9_R4_M250.txt  q=5 n=9 R=4 M=250 points=1953125 uncovered=0 sha256=b818a971c86488280ed74c524398dae5561dd1e231de6d734b7206cbfd9a478c
+ok   data/structured/q5_n9_R4_M250.json  (expand -> mesmo sha256 canônico)
+ok   data/codes/q5_n9_R5_M50.txt  q=5 n=9 R=5 M=50 points=1953125 uncovered=0 sha256=6125e06ca894e33348805fc2682f1e0a833ab44ac05c8174051564ea7bdfb46f
+ok   data/structured/q5_n9_R5_M50.json  (expand -> mesmo sha256 canônico)
+ok   data/codes/q7_n10_R4_M5616.txt  q=7 n=10 R=4 M=5616 points=282475249 uncovered=0 sha256=750cae3ba3ded64eef208548f6e3c8fe0356c0b599ab3f605aac6fd175a78a5e
+ok   data/structured/q7_n10_R4_M5616.json  (expand -> mesmo sha256 canônico)
+ok   data/codes/q7_n8_R3_M1887.txt  q=7 n=8 R=3 M=1887 points=5764801 uncovered=0 sha256=98531afbd8afbcec54ec01d441836ce706f8702ece4df594447789af6732643b
+ok   data/structured/q7_n8_R3_M1887.json  (expand -> mesmo sha256 canônico)
+ok   data/codes/q7_n8_R3_M1893.txt  q=7 n=8 R=3 M=1893 points=5764801 uncovered=0 sha256=7c276cf1fffe7e43da8d21fa24ebf2ec91d413fb5c8c5d08bc3ee9b8aeeb93b1
+ok   data/structured/q7_n8_R3_M1893.json  (expand -> mesmo sha256 canônico)
+ok   data/codes/q7_n9_R4_M1134.txt  q=7 n=9 R=4 M=1134 points=40353607 uncovered=0 sha256=a48e3a42922616b3466a5fafbfaa0e4098a77f675841df3129ac96bbcb8b7b41
+ok   data/structured/q7_n9_R4_M1134.json  (expand -> mesmo sha256 canônico)
+ok   data/codes/q7_n9_R4_M1137.txt  q=7 n=9 R=4 M=1137 points=40353607 uncovered=0 sha256=df3e8d527bc393a9680fe4b2b39e7bde088ab6a02f2f94ee26019a5efc05a102
+ok   data/structured/q7_n9_R4_M1137.json  (expand -> mesmo sha256 canônico)
+ok   data/codes/q7_n9_R4_M1141.txt  q=7 n=9 R=4 M=1141 points=40353607 uncovered=0 sha256=bcb05960410d3f32ccd0de46720606a6df3d0402cb56c67e93766f12e41f5259
+ok   data/structured/q7_n9_R4_M1141.json  (expand -> mesmo sha256 canônico)
+ok   data/codes/q7_n9_R4_M1285.txt  q=7 n=9 R=4 M=1285 points=40353607 uncovered=0 sha256=aa388cc9642bc064527a0237b60522ba558491291a2adf02ab1e4d8d3f756c1f
+ok   data/structured/q7_n9_R4_M1285.json  (expand -> mesmo sha256 canônico)
+ok   data/codes/q7_n9_R4_M1351.txt  q=7 n=9 R=4 M=1351 points=40353607 uncovered=0 sha256=54dbdade1337432303847d2fd0d1c13b506de08ba518e1694c5fb37ed0e81162
+ok   data/structured/q7_n9_R4_M1351.json  (expand -> mesmo sha256 canônico)
+check_all: 16 códigos, todos cobrem (0 pontos descobertos).

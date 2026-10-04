@@ -1,0 +1,10 @@
+tag=K5616 q=7 n=10 R=4 M=5616
+len(LK5616) = 5616
+unpack(PN) == LK5616: True
+sha256(canonical from .lean) = 750cae3ba3ded64eef208548f6e3c8fe0356c0b599ab3f605aac6fd175a78a5e
+sha256(canônico de ./data/codes/q7_n10_R4_M5616.txt) = 750cae3ba3ded64eef208548f6e3c8fe0356c0b599ab3f605aac6fd175a78a5e
+canonical == file bytes: True
+matches expected: True
+ball size = 299761
+points covered: 282475249 of 282475249
+OK
