@@ -133,7 +133,8 @@ def test_ledger_do_repo_tem_a_celula_que_batemos():
     ctx = _Ctx(creditos())
     matematica.registrar(ctx)
     r = ctx.tools["celula"]("K7(9,4)")
-    assert r["ok"] and r["celula"]["best"]["ub"] == 1137
+    assert r["ok"] and r["celula"]["best"]["ub"] <= 1137           # a cota só desce: o ledger andou para 1134 na main
+    assert r["celula"]["best"]["beats_published"] is True
     assert ctx.tools["celula"]("K99(9,4)")["ok"] is False
     assert ctx.tools["alvos"](limite=3)["alvos"][0]["rank"] == 1
 
@@ -574,10 +575,10 @@ from infinito_mcp.executor_vm import ExecutorVM  # noqa: E402
 class ComputeFalso:
     """Mini Compute Engine: guarda o estado da instância e responde como a API."""
 
-    def __init__(self, status="TERMINATED", sched_ok=True):
+    def __init__(self, status="TERMINATED", sched_ok=True, falha_start=False):
         self.inst = {"status": status, "metadata": {"fingerprint": "f1", "items": [{"key": "ssh-keys", "value": "thiago:ssh-rsa AAA"}]},
                      "lastStartTimestamp": "2026-10-03T10:00:00.000-07:00", "lastStopTimestamp": "2026-10-03T10:30:00.000-07:00"}
-        self.chamadas, self.sched_ok, self.guest = [], sched_ok, {}
+        self.chamadas, self.sched_ok, self.guest, self.falha_start = [], sched_ok, {}, falha_start
 
     def __call__(self, metodo, url, corpo):
         caminho = url.split("/instances/lean-build2")[1]
@@ -591,8 +592,11 @@ class ComputeFalso:
             self.ultimo_scheduling = corpo
             return (200, {}) if self.sched_ok else (400, {"error": "x"})
         if caminho == "/start":
+            if self.falha_start:
+                return 200, {"status": "DONE", "error": {"errors": [{"code": "QUOTA_EXCEEDED",
+                             "message": "Quota 'CPUS_ALL_REGIONS' exceeded.  Limit: 32.0 globally."}]}}
             self.inst["status"] = "RUNNING"
-            return 200, {}
+            return 200, {"status": "DONE"}
         if caminho == "/stop":
             self.inst["status"] = "TERMINATED"
             return 200, {}
@@ -649,3 +653,21 @@ def test_script_da_vm_so_conhece_a_allowlist_e_desliga_a_maquina():
     assert "lake_build" in sh and "verificar_grande" in sh and "shutdown -h now" in sh
     assert 'eval "$CMD"' in sh and "fullmatch" in sh                      # o comando sai de regex, não do pedido
     assert "|| exit 0" in sh                                              # boot manual sem job não faz nada
+
+
+def test_start_que_falha_por_cota_espera_a_vm_ligar_por_um_minuto_e_diz_tempo_esgotado():
+    dormidas = []
+    api = ComputeFalso(falha_start=True)
+    vm = ExecutorVM("proj", http=api, dormir=dormidas.append)
+    with pytest.raises(ErroCreditos) as e:
+        vm.iniciar("lake_build", {}, 1.0, "a@x.com", "j")
+    assert "QUOTA_EXCEEDED" in str(e.value) and "CPUS_ALL_REGIONS" in str(e.value) and "Nada foi cobrado" in str(e.value)
+    assert "a tempo" not in str(e.value) and sum(dormidas) < 10          # falhou na hora, sem esperar a VM
+
+
+def test_pedido_pesado_com_cota_estourada_devolve_a_reserva_e_a_mensagem_certa():
+    vm = ExecutorVM("proj", http=ComputeFalso(falha_start=True), dormir=lambda s: None)
+    ctx, c = _pesado(vm)
+    r = ctx.tools["pesado"]("lake_build", 1.0, confirmar=True)
+    assert r["ok"] is False and "CPUS_ALL_REGIONS" in r["erro"]
+    assert c.saldo("a@x.com")["disponivel_usd"] == 20.0 and ctx.tools["pesado_status"]()["jobs"] == []
