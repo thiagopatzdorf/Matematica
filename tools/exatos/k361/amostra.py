@@ -1,10 +1,11 @@
-"""Amostragem de y-SIPs de K_3(v,1): sorteia sequências, resolve com CaDiCaL e mede o tempo.
+"""Amostragem de y-SIPs de K_3(v,1): sorteia sequências, resolve e mede o tempo.
 
     python3 amostra.py --v 6 --M 72 --p 22 --n 30 --tempo 600 --semente 1 --saida m72.jsonl
     python3 amostra.py --v 5 --M 26 --todas --lrat --saida k5.jsonl     # validação: todas, com prova
 
 Uma linha JSON por sequência: y, status (UNSAT/SAT/TEMPO), segundos de solver, e, com --lrat,
-o veredito do lrat-check. Variáveis de ambiente: CADICAL, LRAT_CHECK, SISTEMA (binários).
+o veredito do lrat-check. Motores: cadical (LRAT), kissat, roundingsat (log VeriPB com --lrat).
+Variáveis de ambiente: CADICAL, KISSAT, ROUNDINGSAT, LRAT_CHECK, SISTEMA (binários).
 """
 from __future__ import annotations
 
@@ -92,12 +93,6 @@ def resolver_rs(v: int, y: list[int], p: int, tempo: int, pasta: str, prova: boo
     return reg
 
 
-def resolver_cpsat(v: int, y: list[int], p: int, tempo: int) -> dict:
-    st, seg = ysip.cpsat(v, y, p, tempo)
-    return {"v": v, "y": y, "p": p, "status": "TEMPO" if st == "DESCONHECIDO" else st,
-            "seg": round(seg, 2), "motor": "cpsat"}
-
-
 def resolver(v: int, y: list[int], p: int, tempo: int, lrat: bool, pasta: str,
              motor: str = "cadical") -> dict:
     nv, cls = ysip.cnf_sb(v, y, p)
@@ -140,7 +135,7 @@ def main() -> None:
     ap.add_argument("--semente", type=int, default=1)
     ap.add_argument("--lrat", action="store_true")
     ap.add_argument("--sufixo", choices=["auto", "igual"], default="auto")
-    ap.add_argument("--motor", choices=["cadical", "kissat", "cpsat", "roundingsat"], default="cadical")
+    ap.add_argument("--motor", choices=["cadical", "kissat", "roundingsat"], default="cadical")
     ap.add_argument("--procs", type=int, default=1)
     ap.add_argument("--saida", required=True)
     a = ap.parse_args()
@@ -153,8 +148,6 @@ def main() -> None:
             ps = cota_sufixo(y, a.p, a.sufixo)
             if a.motor == "roundingsat":
                 return resolver_rs(a.v, y, ps, a.tempo, pasta, a.lrat)
-            if a.motor == "cpsat":
-                return resolver_cpsat(a.v, y, ps, a.tempo)
             return resolver(a.v, y, ps, a.tempo, a.lrat, pasta, a.motor)
         for reg in ex.map(um, alvo):
             reg["total_seqs"] = len(seqs)

@@ -188,3 +188,15 @@ def test_resumo_marca_cota_inferior_quando_ha_tempo_esgotado():
     r = resumo.resumir(regs, tarifa=1.0)
     assert r["cota_inferior"] and r["censurados"] == 1
     assert r["intervalo_cpu_h"][0] <= r["total_cpu_h"] <= r["intervalo_cpu_h"][1]
+
+
+def test_escada_nao_extrapola_abaixo_do_tempo_ja_medido_no_topo():
+    import resumo
+
+    # mediana caindo da base ao topo (ruído de amostra pequena) não pode dar custo menor
+    r = resumo.escada(60, 400, 62, 300, 72, 1000, tarifa=1.0)
+    assert r["fator_por_palavra"] == 1.0 and r["seg_por_subproblema"] == 300
+    # crescimento 4x em 2 palavras = 2x por palavra; 10 palavras acima do topo = 1024x
+    r = resumo.escada(60, 100, 62, 400, 72, 9, tarifa=2.0)
+    assert r["fator_por_palavra"] == 2.0 and r["seg_por_subproblema"] == 400 * 1024
+    assert r["total_cpu_h"] == round(9 * 400 * 1024 / 3600) and r["total_usd"] == round(9 * 400 * 1024 / 3600 * 2)

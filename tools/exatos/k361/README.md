@@ -6,8 +6,10 @@ Viabilidade medida em `docs/exatos/K361_VIABILIDADE.md`. Aqui ficam o método e 
 |---|---|
 | `sistema.c` | enumera as soluções do sistema de cobertura (sequências `y`), um representante por órbita do grupo de ordem 72 |
 | `ysip.py` | a CNF do subproblema de cada sequência (y-SIP), a quebra de simetria lex-leader e a reconstrução da atribuição a partir de um código (para os testes) |
-| `amostra.py` | sorteia sequências, resolve com CaDiCaL (`--lrat` opcional, conferido pelo `lrat-check`) ou CP-SAT, grava JSONL |
+| `amostra.py` | sorteia sequências, resolve com CaDiCaL (`--lrat`, conferido pelo `lrat-check`), kissat ou RoundingSat (prova VeriPB), grava JSONL |
 | `vm.sh` | o mesmo numa VM de lote (`lote-gcp.py`) |
+| `resumo.py` | mediana/p90/máx por amostra, extrapolação com bootstrap e pela escada de M (`escada`) |
+| `medicoes/` | os JSONL medidos na VM em 2026-10-04 (RoundingSat M = 59, 60, 62, 72; CaDiCaL M = 59, 66) |
 
 Testes: `tests/test_k361.py` (~10 s, sem solver externo).
 

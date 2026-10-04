@@ -4,7 +4,8 @@
 coordenadas como restrições extras (válidas para qualquer código, ver README). Duas saídas:
 
 * ``cnf(v, y, p)`` -> (num_vars, cláusulas): CNF para CaDiCaL --lrat (prova conferível);
-* ``cpsat(v, y, p, tempo)`` -> "SAT" | "UNSAT" | "DESCONHECIDO" (sem certificado, só medição).
+* ``opb(v, y, p)``: o mesmo em pseudo-booleano para o RoundingSat (prova VeriPB);
+* ``scip(v, y, p, tempo)``: PLI no SCIP, só medição.
 """
 from __future__ import annotations
 
@@ -128,29 +129,6 @@ def escrever_dimacs(caminho: str, nv: int, cls: list[list[int]]) -> None:
         f.write(f"p cnf {nv} {len(cls)}\n")
         for c in cls:
             f.write(" ".join(map(str, c)) + " 0\n")
-
-
-def cpsat(v: int, y: list[int], p: int = 0, tempo: float = 60.0, nucleos: int = 1) -> tuple[str, float]:
-    from ortools.sat.python import cp_model
-
-    W = palavras(v)
-    m = cp_model.CpModel()
-    x = {w: m.NewBoolVar("") for w in W}
-    for w in W:
-        m.AddBoolOr([x[u] for u in bola(v, w)])
-    for j in range(3):
-        for k in range(3):
-            m.Add(sum(x[w] for w in W if w[0] == j and w[1] == k) == y[3 * j + k])
-    if p > 0:
-        for i in range(2, v):
-            for a in range(3):
-                m.Add(sum(x[w] for w in W if w[i] == a) >= p)
-    s = cp_model.CpSolver()
-    s.parameters.max_time_in_seconds = tempo
-    s.parameters.num_workers = nucleos
-    st = s.Solve(m)
-    nome = {cp_model.OPTIMAL: "SAT", cp_model.FEASIBLE: "SAT", cp_model.INFEASIBLE: "UNSAT"}.get(st, "DESCONHECIDO")
-    return nome, s.WallTime()
 
 
 # --- quebra de simetria (lex-leader) -------------------------------------------------------

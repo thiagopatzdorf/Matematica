@@ -52,6 +52,19 @@ def resumir(regs: list[dict], tarifa: float = TARIFA_PADRAO, reamostras: int = 2
     }
 
 
+def escada(base_M: int, base_s: float, topo_M: int, topo_s: float, alvo_M: int,
+           n_alvo: int, tarifa: float = TARIFA_PADRAO) -> dict:
+    """Extrapola pela escada de M: fator geométrico por palavra entre a mediana da base (sem
+    censura) e a do topo. Se a mediana do topo é censurada (TEMPO), topo_s é o tempo-limite e
+    tudo aqui é COTA INFERIOR: o fator real é maior e o tempo no alvo também. Fator < 1 (ruído)
+    vira 1, para a extrapolação nunca ficar abaixo do que o topo já mediu."""
+    fator = max(1.0, (topo_s / base_s) ** (1 / (topo_M - base_M)))
+    t_alvo = topo_s * fator ** (alvo_M - topo_M)
+    cpu_h = n_alvo * t_alvo / 3600
+    return {"fator_por_palavra": round(fator, 2), "seg_por_subproblema": round(t_alvo),
+            "total_cpu_h": round(cpu_h), "total_usd": round(cpu_h * tarifa)}
+
+
 def main() -> None:
     ap = argparse.ArgumentParser()
     ap.add_argument("jsonl", nargs="+")
