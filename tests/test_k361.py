@@ -175,3 +175,16 @@ def test_cota_auto_do_sufixo_vale_depois_de_escolher_as_coordenadas_de_menor_fib
         for i in range(2, 6):
             for a in range(3):
                 assert sum(1 for c in cod2 if c[i] == a) >= cota
+
+
+def test_resumo_marca_cota_inferior_quando_ha_tempo_esgotado():
+    import resumo
+
+    regs = [{"seg": s, "status": "UNSAT", "total_seqs": 100} for s in (10, 20, 30)]
+    r = resumo.resumir(regs, tarifa=1.0)
+    assert r["mediana_s"] == 20 and r["total_cpu_h"] == round(20 * 100 / 3600, 1)
+    assert not r["cota_inferior"]
+    regs.append({"seg": 1800, "status": "TEMPO", "total_seqs": 100})
+    r = resumo.resumir(regs, tarifa=1.0)
+    assert r["cota_inferior"] and r["censurados"] == 1
+    assert r["intervalo_cpu_h"][0] <= r["total_cpu_h"] <= r["intervalo_cpu_h"][1]
