@@ -671,3 +671,51 @@ def test_pedido_pesado_com_cota_estourada_devolve_a_reserva_e_a_mensagem_certa()
     r = ctx.tools["pesado"]("lake_build", 1.0, confirmar=True)
     assert r["ok"] is False and "CPUS_ALL_REGIONS" in r["erro"]
     assert c.saldo("a@x.com")["disponivel_usd"] == 20.0 and ctx.tools["pesado_status"]()["jobs"] == []
+
+
+# ------------------------------------------------- atritos medidos por um agente-usuário (2026-10-04)
+def test_alvos_filtrados_por_q_e_sem_nosso_devolvem_celula_que_ja_temos():
+    ctx = _Ctx(creditos())
+    matematica.registrar(ctx)
+    todos = ctx.tools["alvos"](limite=200)
+    assert todos["alvos"] and all("nosso" in a for a in todos["alvos"])
+    f = ctx.tools["alvos"](limite=200, q=7, sem_nosso=True)
+    assert f["total"] > 0 and all(a["q"] == 7 and a["nosso"] is None for a in f["alvos"])
+    assert f["total"] < todos["total"]
+    pequenos = ctx.tools["alvos"](limite=200, n_max=6)["alvos"]
+    assert pequenos and all(a["n"] <= 6 for a in pequenos)
+    assert ctx.tools["alvos"](limite=5, R=4)["alvos"][0]["R"] == 4
+
+
+def test_verificar_codigo_explica_os_dois_sha256_e_so_um_bate_com_o_verificador(tmp_path):
+    import hashlib
+    ctx = _Ctx(creditos(), env={"INF_REPO": str(REPO), "INF_VERIFY_BIN": str(_compilar_verify(tmp_path))})
+    matematica.registrar(ctx)
+    r = ctx.tools["verificar_codigo"]("q5_n7_R2_M500.txt")
+    arq = REPO / "data" / "codes" / "q5_n7_R2_M500.txt"
+    assert r["ok"] and r["sha256_arquivo"] == hashlib.sha256(arq.read_bytes()).hexdigest()
+    assert r["sha256_canonico"] and r["sha256_canonico"] != r["sha256_arquivo"] and "ARQUIVO" in r["sobre_os_sha256"]
+    ledger = next(c for c in json.loads((REPO / "ledger" / "cells.json").read_text())["cells"] if c["id"] == "K5(7,2)")
+    assert ledger["ours_lean"]["sha256"] == r["sha256_arquivo"]          # o ledger guarda o do arquivo
+
+
+def _compilar_verify(tmp_path):
+    import shutil
+    import subprocess
+    if not shutil.which("gcc"):
+        pytest.skip("sem gcc")
+    exe = tmp_path / "verify"
+    subprocess.run(["gcc", "-O2", "-o", str(exe), str(REPO / "tools" / "verify" / "verify.c")], check=True)
+    return exe
+
+
+def test_papers_desde_ano_e_ordem_data_cortam_depois_da_fonte_e_o_cache_serve_a_todos():
+    chamadas = []
+    bruto = [{"titulo": "A", "data": "2019-05-01"}, {"titulo": "B", "data": "2026-08-20"}, {"titulo": "C", "data": "2024-01-02"}]
+    ctx = _Ctx(creditos())
+    papers.registrar(ctx, {"arxiv": lambda q, n: chamadas.append(n) or list(bruto)})
+    r1 = ctx.tools["papers_buscar"]("x", limite=2, desde=2024, ordem="data")
+    assert [p["titulo"] for p in r1["resultados"]] == ["B", "C"] and chamadas == [6]
+    r2 = ctx.tools["papers_buscar"]("x", limite=2, desde=2024, ordem="relevancia")
+    assert r2["cache"] is True and [p["titulo"] for p in r2["resultados"]] == ["B", "C"] and len(chamadas) == 1
+    assert ctx.tools["papers_buscar"]("x", ordem="aleatoria")["ok"] is False
