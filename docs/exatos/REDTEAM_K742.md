@@ -70,9 +70,7 @@ lex-leader não muda o conjunto de perfis SAT de q = 4, M = 7 (com e sem: os mes
   geradores de S_6 ≀ S_4) não terminou em 10 min nem para q = 5. Ficou só a reprodução do repo.
 - **K_6(3,1) ≥ 18 por SAT**: a busca ingênua não terminou nem K_5(3,1) ≥ 13 em 25 min. Não é
   necessário: o Lema 0 dá a cota à mão, e eu a conferi.
-- **K_7(4,2) ≥ 19 independente**: M = 18 tem 70 perfis; no ritmo de M = 17 (~34 min por perfil), seriam
-  ~1 dia de CPU. Para M = 18 a evidência é a codificação do repo (com prova LRAT reproduzida e,
-  sem (d)–(f), com outro solver), mais os testes de completude acima.
+- ~~K_7(4,2) ≥ 19 independente~~: feito depois, ver a seção 6.
 
 ## 4. Observações menores (não invalidam)
 
@@ -87,13 +85,13 @@ lex-leader não muda o conjunto de perfis SAT de q = 4, M = 7 (com e sem: os mes
 
 - **K_7(4,2) ≥ 18**: duas codificações independentes (variáveis, cobertura, cardinalidade e quebra
   de simetria diferentes), dois solvers, prova LRAT conferida. Confiança muito alta.
-- **K_7(4,2) ≥ 19**: uma codificação, verificada à mão e por testes de completude que pegam
-  quatro apertos errados; prova LRAT reproduzida bit a bit e conferida; controle sem (d)–(f) com
-  outro solver. Confiança alta. O passo humano que resta confiar é o Lema 1 + a ponte
+- **K_7(4,2) ≥ 19**: duas codificações independentes (a do repo, com prova LRAT reproduzida bit a
+  bit e conferida, e controle sem (d)–(f) com outro solver; e a `indep.py`, 70/70 UNSAT, seção 6),
+  além dos testes de completude que pegam quatro apertos errados. Confiança muito alta. O passo humano que resta confiar é o Lema 1 + a ponte
   código → CNF, ambos curtos e conferidos acima.
 - **Falta para virar teorema**: Lean (Lema 0, Lema 1, ponte para a CNF do perfil, e checagem das
-  LRAT no kernel; 3,6 GB de prova precisam ser aparados ou divididos antes), e, se quiser uma
-  segunda fonte para M = 18, rodar `indep.py 7 18 2 perfil` (~1 dia de CPU, sem nuvem paga).
+  LRAT no kernel; 3,6 GB de prova precisam ser aparados ou divididos antes). A segunda fonte para M = 18 já
+  existe (seção 6).
 
 Saídas brutas em `tools/exatos/k742/redteam/resultados/` (JSONL). Reproduzir (da raiz do repo; precisa de `python-sat`; `indep.py 7 17` leva ~8 h de CPU):
 
@@ -104,3 +102,18 @@ Saídas brutas em `tools/exatos/k742/redteam/resultados/` (JSONL). Reproduzir (d
     python3 tools/exatos/k742/redteam/semquebra.py 7 18
     python3 tools/exatos/k742/redteam/indep.py 7 17 2 perfil
     python3 tools/exatos/k742/redteam/cod19.py
+
+## 6. M = 18 pela codificação independente (2026-10-04)
+
+`indep.py 7 18 2 perfil` (o mesmo script das seções acima: uma variável por palavra, cobertura pela
+bola de raio 2, totalizador, só lex-leader comprovadamente válido; sha256 `d05137eb…88e`, main em
+`67dcb38`), CaDiCaL 1.9.5 do python-sat 1.9.dev15, nos **70 perfis** de M = 18.
+
+- **Resultado: 70/70 UNSAT, 0 SAT.** Com isso, K_7(4,2) ≥ 19 tem duas codificações independentes,
+  como K_7(4,2) ≥ 18 já tinha.
+- Tempo por perfil: 192 s (perfil 64) a 6247 s (perfil 36); 48,5 h de CPU somadas.
+- Máquinas: 3 VMs t2d-standard-8 spot (exc-1, exc-3, exc-4), perfis divididos por i mod 3, 8
+  processos por VM. Custo ≈ US$1,6. VMs destruídas.
+- Sem prova LRAT nesta rodada (é a segunda opinião; a prova LRAT conferida é a da codificação do repo).
+- Saída bruta, um registro por perfil: `tools/exatos/k742/redteam/resultados/indep_q7_M18.jsonl`.
+
