@@ -69,11 +69,17 @@ A revisão confere três coisas, nesta ordem: (1) o avaliador exato aprova o can
 (2) o enunciado formal diz o que a nota diz (revisão humana dos enunciados, como em `LEAN_REVIEW.md`); (3) nada que
 não foi medido virou afirmação. Quem revisa pergunta o que tornou o erro provável, não quem errou.
 
-## Em construção
+## O que já existe para este ciclo
 
-Este hub está crescendo além dos códigos de cobertura. Em construção, ainda sem arquivos nesta branch: um diretório
-de problemas, com uma ficha por problema (enunciado, avaliador, estado, quem reivindicou) e modelos de issue para
-propor e reivindicar; um diretório de avaliadores, com um avaliador exato por tipo de problema, todos com a mesma
-interface (entrada candidata, saída aprovado ou reprovado e motivo); e um site com o mapa público das células e dos
-problemas abertos. Até chegarem, o ciclo acima roda pelo ledger e pelas issues. Se você quer propor um domínio novo,
-abra uma issue descrevendo qual seria o avaliador barato e exato: sem ele o problema ainda é subjetivo.
+* [problems/README.md](problems/README.md): o registro de problemas. Cada problema é um cartão
+  ([problems/SPEC.md](problems/SPEC.md)) com estado, avaliador e histórico; os modelos de issue em
+  `.github/ISSUE_TEMPLATE/` pedem exatamente os campos do cartão. Valide o seu com
+  `python3 tools/problems/validate.py --all`.
+* [evaluators/README.md](evaluators/README.md): um contrato único de avaliação (`python3 -m evaluators <id> <alvo>`),
+  com o avaliador de códigos de cobertura (lista os pontos descobertos quando reprova), o de honestidade do Lean
+  (`sorry`, `native_decide`, `axiom` fora de comentários) e a ponte entre ledger, código e teorema.
+* [site/README.md](site/README.md): o mapa público da fronteira, gerado do ledger por
+  `python3 scripts/site/build.py`.
+
+Quer propor um domínio novo? Abra uma issue dizendo qual seria o avaliador barato e exato: sem ele o problema ainda é
+subjetivo.
