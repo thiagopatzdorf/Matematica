@@ -297,3 +297,27 @@ def test_cobertura_exige_todos_os_perfis_e_todos_os_cubos(tmp_path):
     assert roda(todas[1:] + cub[1:]) == 1
     # SAT em qualquer perfil reprova
     assert roda(todas + [reg(0, ins[0], resultado="SAT")]) == 1
+
+
+def test_codigo_k7_6_4_com_14_palavras_nao_deixa_ponto_descoberto():
+    # K_7(6,4) <= 14 (a sonda achou no perfil 2222222^6); com o ∄ 13 por perfis, K_7(6,4) = 14
+    cod = [tuple(map(int, ln)) for ln in (RAIZ / "data" / "codes" / "q7_n6_R4_M14.txt").read_text().split()]
+    assert len(set(cod)) == 14
+    falta = [x for x in itertools.product(range(7), repeat=6) if not any(cobre_ponto(x, c, 4) for c in cod)]
+    assert falta == []
+
+
+def test_tipo_equilibrado_da_sonda_soma_M_e_varia_no_maximo_um():
+    sys.path.insert(0, str(RAIZ / "tools" / "exatos" / "fibras"))
+    import sonda
+    for q, M in [(7, 14), (8, 15), (16, 86), (20, 134), (14, 53)]:
+        t = sonda.equilibrado(q, M)
+        assert len(t) == q and sum(t) == M and max(t) - min(t) <= 1 and list(t) == sorted(t, reverse=True)
+
+
+@pytest.mark.skipif(not __import__("os").environ.get("CADICAL"), reason="precisa de CADICAL")
+def test_sonda_sem_achar_k6_5_3_com_12_quebrou_a_cnf(tmp_path):
+    sys.path.insert(0, str(RAIZ / "tools" / "exatos" / "fibras"))
+    import sonda
+    r = sonda.sondar(6, 5, 12, [sonda.equilibrado(6, 12)] * 5, str(tmp_path), tempo=120)
+    assert r["resultado"] == "SAT" and r["cobre"] is True
