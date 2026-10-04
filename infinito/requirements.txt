@@ -1,6 +1,6 @@
 # Mesma série do GoogleMestre (apps/google-mestre/requirements.txt, PR #760):
 # a 2.x remove mcp.server.fastmcp. Subir de série é decisão, não atualização.
-mcp>=1.30,<2
+mcp>=2.2.0,<3
 uvicorn>=0.54.0
 # JWT do Cloudflare Access (RS256): a porta do servidor (auth.py).
 PyJWT[crypto]>=2.15.1,<3
