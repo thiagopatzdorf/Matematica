@@ -60,6 +60,15 @@ jobs:
       # Inclui tests/test_repo_higiene.py: tamanho, JSON de dados, caminho de máquina e segredos.
       - name: Testes e higiene
         run: python -m pytest -q tests infinito/tests
+      # Gates determinísticos e baratos do hub (cada um falha com código ≠ 0):
+      - name: Cartões de problema válidos
+        run: python tools/problems/validate.py --all
+      - name: Honestidade do Lean (sem sorry, native_decide nem axiom fora de comentário)
+        run: python -m evaluators lean_honesty
+      - name: Ponte ledger, código e teorema
+        run: python -m evaluators ponte_ledger
+      - name: Mapa público gera sem erro
+        run: python scripts/site/build.py
 
   # Único check obrigatório: falha se qualquer job acima falhar, for cancelado ou pular.
   gate:
