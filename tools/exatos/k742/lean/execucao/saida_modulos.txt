@@ -22,61 +22,61 @@
 3503 blocos em 18 segmentos
 'K742Sat.s0.unsatFor' depends on axioms: [propext, Classical.choice, Quot.sound]
 == exg1logs CoveringLean.K742Sat.S1.B0
-/home/worker/k742/CoveringLean/K742Sat/S1/B0.lean:9:0: error: no such file or directory (error code: 2)
-  file: /home/worker/k742/CoveringLean/K742Sat/S1/../dados/s0001/h0.txt
+<raiz>/CoveringLean/K742Sat/S1/B0.lean:9:0: error: no such file or directory (error code: 2)
+  file: <raiz>/CoveringLean/K742Sat/S1/../dados/s0001/h0.txt
 == exg1logs CoveringLean.K742Sat.S1.Data
 19726 cláusulas, chave final 55352, 198 pedaços de F
 == exg1logs CoveringLean.K742Sat.S10.B0
-/home/worker/k742/CoveringLean/K742Sat/S10/B0.lean:9:0: error: no such file or directory (error code: 2)
-  file: /home/worker/k742/CoveringLean/K742Sat/S10/../dados/s0010/h0.txt
+<raiz>/CoveringLean/K742Sat/S10/B0.lean:9:0: error: no such file or directory (error code: 2)
+  file: <raiz>/CoveringLean/K742Sat/S10/../dados/s0010/h0.txt
 == exg1logs CoveringLean.K742Sat.S10.Data
 19726 cláusulas, chave final 58377, 198 pedaços de F
 == exg1logs CoveringLean.K742Sat.S11.B0
-/home/worker/k742/CoveringLean/K742Sat/S11/B0.lean:9:0: error: no such file or directory (error code: 2)
-  file: /home/worker/k742/CoveringLean/K742Sat/S11/../dados/s0011/h0.txt
+<raiz>/CoveringLean/K742Sat/S11/B0.lean:9:0: error: no such file or directory (error code: 2)
+  file: <raiz>/CoveringLean/K742Sat/S11/../dados/s0011/h0.txt
 == exg1logs CoveringLean.K742Sat.S11.Data
 19726 cláusulas, chave final 46323, 198 pedaços de F
 == exg1logs CoveringLean.K742Sat.S12.B0
-/home/worker/k742/CoveringLean/K742Sat/S12/B0.lean:9:0: error: no such file or directory (error code: 2)
-  file: /home/worker/k742/CoveringLean/K742Sat/S12/../dados/s0012/h0.txt
+<raiz>/CoveringLean/K742Sat/S12/B0.lean:9:0: error: no such file or directory (error code: 2)
+  file: <raiz>/CoveringLean/K742Sat/S12/../dados/s0012/h0.txt
 == exg1logs CoveringLean.K742Sat.S12.Data
 19726 cláusulas, chave final 46277, 198 pedaços de F
 == exg1logs CoveringLean.K742Sat.S13.B0
-/home/worker/k742/CoveringLean/K742Sat/S13/B0.lean:9:0: error: no such file or directory (error code: 2)
-  file: /home/worker/k742/CoveringLean/K742Sat/S13/../dados/s0013/h0.txt
+<raiz>/CoveringLean/K742Sat/S13/B0.lean:9:0: error: no such file or directory (error code: 2)
+  file: <raiz>/CoveringLean/K742Sat/S13/../dados/s0013/h0.txt
 == exg1logs CoveringLean.K742Sat.S13.Data
 19726 cláusulas, chave final 58010, 198 pedaços de F
 == exg1logs CoveringLean.K742Sat.S14.B0
-/home/worker/k742/CoveringLean/K742Sat/S14/B0.lean:9:0: error: no such file or directory (error code: 2)
-  file: /home/worker/k742/CoveringLean/K742Sat/S14/../dados/s0014/h0.txt
+<raiz>/CoveringLean/K742Sat/S14/B0.lean:9:0: error: no such file or directory (error code: 2)
+  file: <raiz>/CoveringLean/K742Sat/S14/../dados/s0014/h0.txt
 == exg1logs CoveringLean.K742Sat.S14.Data
 19726 cláusulas, chave final 68397, 198 pedaços de F
 == exg1logs CoveringLean.K742Sat.S15.B0
-/home/worker/k742/CoveringLean/K742Sat/S15/B0.lean:9:0: error: no such file or directory (error code: 2)
-  file: /home/worker/k742/CoveringLean/K742Sat/S15/../dados/s0015/h0.txt
+<raiz>/CoveringLean/K742Sat/S15/B0.lean:9:0: error: no such file or directory (error code: 2)
+  file: <raiz>/CoveringLean/K742Sat/S15/../dados/s0015/h0.txt
 == exg1logs CoveringLean.K742Sat.S15.Data
 19726 cláusulas, chave final 56741, 198 pedaços de F
 == exg1logs CoveringLean.K742Sat.S16.B0
-/home/worker/k742/CoveringLean/K742Sat/S16/B0.lean:9:0: error: no such file or directory (error code: 2)
-  file: /home/worker/k742/CoveringLean/K742Sat/S16/../dados/s0016/h0.txt
+<raiz>/CoveringLean/K742Sat/S16/B0.lean:9:0: error: no such file or directory (error code: 2)
+  file: <raiz>/CoveringLean/K742Sat/S16/../dados/s0016/h0.txt
 == exg1logs CoveringLean.K742Sat.S16.Data
 19726 cláusulas, chave final 45848, 198 pedaços de F
 == exg1logs CoveringLean.K742Sat.S17.B0
-/home/worker/k742/CoveringLean/K742Sat/S17/B0.lean:9:0: error: no such file or directory (error code: 2)
-  file: /home/worker/k742/CoveringLean/K742Sat/S17/../dados/s0017/h0.txt
+<raiz>/CoveringLean/K742Sat/S17/B0.lean:9:0: error: no such file or directory (error code: 2)
+  file: <raiz>/CoveringLean/K742Sat/S17/../dados/s0017/h0.txt
 == exg1logs CoveringLean.K742Sat.S17.Data
 19726 cláusulas, chave final 74796, 198 pedaços de F
 == exg1logs CoveringLean.K742Sat.S18.B0
-/home/worker/k742/CoveringLean/K742Sat/S18/B0.lean:9:0: error: no such file or directory (error code: 2)
-  file: /home/worker/k742/CoveringLean/K742Sat/S18/../dados/s0018/h0.txt
+<raiz>/CoveringLean/K742Sat/S18/B0.lean:9:0: error: no such file or directory (error code: 2)
+  file: <raiz>/CoveringLean/K742Sat/S18/../dados/s0018/h0.txt
 == exg1logs CoveringLean.K742Sat.S18.B1
-/home/worker/k742/CoveringLean/K742Sat/S18/B1.lean:9:0: error: no such file or directory (error code: 2)
-  file: /home/worker/k742/CoveringLean/K742Sat/S18/../dados/s0018/h1.txt
+<raiz>/CoveringLean/K742Sat/S18/B1.lean:9:0: error: no such file or directory (error code: 2)
+  file: <raiz>/CoveringLean/K742Sat/S18/../dados/s0018/h1.txt
 == exg1logs CoveringLean.K742Sat.S18.Data
 19726 cláusulas, chave final 84624, 198 pedaços de F
 == exg1logs CoveringLean.K742Sat.S19.B0
-/home/worker/k742/CoveringLean/K742Sat/S19/B0.lean:9:0: error: no such file or directory (error code: 2)
-  file: /home/worker/k742/CoveringLean/K742Sat/S19/../dados/s0019/h0.txt
+<raiz>/CoveringLean/K742Sat/S19/B0.lean:9:0: error: no such file or directory (error code: 2)
+  file: <raiz>/CoveringLean/K742Sat/S19/../dados/s0019/h0.txt
 == exg1logs CoveringLean.K742Sat.S19.Data
 19726 cláusulas, chave final 69345, 198 pedaços de F
 == exg1logs CoveringLean.K742Sat.S2.B0
@@ -101,28 +101,28 @@
 3216 blocos em 17 segmentos
 'K742Sat.s2.unsatFor' depends on axioms: [propext, Classical.choice, Quot.sound]
 == exg1logs CoveringLean.K742Sat.S20.B0
-/home/worker/k742/CoveringLean/K742Sat/S20/B0.lean:9:0: error: no such file or directory (error code: 2)
-  file: /home/worker/k742/CoveringLean/K742Sat/S20/../dados/s0020/h0.txt
+<raiz>/CoveringLean/K742Sat/S20/B0.lean:9:0: error: no such file or directory (error code: 2)
+  file: <raiz>/CoveringLean/K742Sat/S20/../dados/s0020/h0.txt
 == exg1logs CoveringLean.K742Sat.S20.Data
 19726 cláusulas, chave final 43817, 198 pedaços de F
 == exg1logs CoveringLean.K742Sat.S21.B0
-/home/worker/k742/CoveringLean/K742Sat/S21/B0.lean:9:0: error: no such file or directory (error code: 2)
-  file: /home/worker/k742/CoveringLean/K742Sat/S21/../dados/s0021/h0.txt
+<raiz>/CoveringLean/K742Sat/S21/B0.lean:9:0: error: no such file or directory (error code: 2)
+  file: <raiz>/CoveringLean/K742Sat/S21/../dados/s0021/h0.txt
 == exg1logs CoveringLean.K742Sat.S21.Data
 19726 cláusulas, chave final 52226, 198 pedaços de F
 == exg1logs CoveringLean.K742Sat.S22.B0
-/home/worker/k742/CoveringLean/K742Sat/S22/B0.lean:9:0: error: no such file or directory (error code: 2)
-  file: /home/worker/k742/CoveringLean/K742Sat/S22/../dados/s0022/h0.txt
+<raiz>/CoveringLean/K742Sat/S22/B0.lean:9:0: error: no such file or directory (error code: 2)
+  file: <raiz>/CoveringLean/K742Sat/S22/../dados/s0022/h0.txt
 == exg1logs CoveringLean.K742Sat.S22.Data
 19726 cláusulas, chave final 70070, 198 pedaços de F
 == exg1logs CoveringLean.K742Sat.S23.B0
-/home/worker/k742/CoveringLean/K742Sat/S23/B0.lean:9:0: error: no such file or directory (error code: 2)
-  file: /home/worker/k742/CoveringLean/K742Sat/S23/../dados/s0023/h0.txt
+<raiz>/CoveringLean/K742Sat/S23/B0.lean:9:0: error: no such file or directory (error code: 2)
+  file: <raiz>/CoveringLean/K742Sat/S23/../dados/s0023/h0.txt
 == exg1logs CoveringLean.K742Sat.S23.Data
 19726 cláusulas, chave final 50065, 198 pedaços de F
 == exg1logs CoveringLean.K742Sat.S24.B0
-/home/worker/k742/CoveringLean/K742Sat/S24/B0.lean:9:0: error: no such file or directory (error code: 2)
-  file: /home/worker/k742/CoveringLean/K742Sat/S24/../dados/s0024/h0.txt
+<raiz>/CoveringLean/K742Sat/S24/B0.lean:9:0: error: no such file or directory (error code: 2)
+  file: <raiz>/CoveringLean/K742Sat/S24/../dados/s0024/h0.txt
 == exg1logs CoveringLean.K742Sat.S24.Data
 19726 cláusulas, chave final 52247, 198 pedaços de F
 == exg1logs CoveringLean.K742Sat.S25.B0
@@ -161,73 +161,73 @@
 6278 blocos em 32 segmentos
 'K742Sat.s25.unsatFor' depends on axioms: [propext, Classical.choice, Quot.sound]
 == exg1logs CoveringLean.K742Sat.S26.B0
-/home/worker/k742/CoveringLean/K742Sat/S26/B0.lean:9:0: error: no such file or directory (error code: 2)
-  file: /home/worker/k742/CoveringLean/K742Sat/S26/../dados/s0026/h0.txt
+<raiz>/CoveringLean/K742Sat/S26/B0.lean:9:0: error: no such file or directory (error code: 2)
+  file: <raiz>/CoveringLean/K742Sat/S26/../dados/s0026/h0.txt
 == exg1logs CoveringLean.K742Sat.S26.Data
 19726 cláusulas, chave final 50993, 198 pedaços de F
 == exg1logs CoveringLean.K742Sat.S27.B0
-/home/worker/k742/CoveringLean/K742Sat/S27/B0.lean:9:0: error: no such file or directory (error code: 2)
-  file: /home/worker/k742/CoveringLean/K742Sat/S27/../dados/s0027/h0.txt
+<raiz>/CoveringLean/K742Sat/S27/B0.lean:9:0: error: no such file or directory (error code: 2)
+  file: <raiz>/CoveringLean/K742Sat/S27/../dados/s0027/h0.txt
 == exg1logs CoveringLean.K742Sat.S27.Data
 19726 cláusulas, chave final 61102, 198 pedaços de F
 == exg1logs CoveringLean.K742Sat.S28.B0
-/home/worker/k742/CoveringLean/K742Sat/S28/B0.lean:9:0: error: no such file or directory (error code: 2)
-  file: /home/worker/k742/CoveringLean/K742Sat/S28/../dados/s0028/h0.txt
+<raiz>/CoveringLean/K742Sat/S28/B0.lean:9:0: error: no such file or directory (error code: 2)
+  file: <raiz>/CoveringLean/K742Sat/S28/../dados/s0028/h0.txt
 == exg1logs CoveringLean.K742Sat.S28.Data
 19726 cláusulas, chave final 50187, 198 pedaços de F
 == exg1logs CoveringLean.K742Sat.S29.B0
-/home/worker/k742/CoveringLean/K742Sat/S29/B0.lean:9:0: error: no such file or directory (error code: 2)
-  file: /home/worker/k742/CoveringLean/K742Sat/S29/../dados/s0029/h0.txt
+<raiz>/CoveringLean/K742Sat/S29/B0.lean:9:0: error: no such file or directory (error code: 2)
+  file: <raiz>/CoveringLean/K742Sat/S29/../dados/s0029/h0.txt
 == exg1logs CoveringLean.K742Sat.S29.Data
 19726 cláusulas, chave final 45550, 198 pedaços de F
 == exg1logs CoveringLean.K742Sat.S3.B0
-/home/worker/k742/CoveringLean/K742Sat/S3/B0.lean:9:0: error: no such file or directory (error code: 2)
-  file: /home/worker/k742/CoveringLean/K742Sat/S3/../dados/s0003/h0.txt
+<raiz>/CoveringLean/K742Sat/S3/B0.lean:9:0: error: no such file or directory (error code: 2)
+  file: <raiz>/CoveringLean/K742Sat/S3/../dados/s0003/h0.txt
 == exg1logs CoveringLean.K742Sat.S3.Data
 19726 cláusulas, chave final 60397, 198 pedaços de F
 == exg1logs CoveringLean.K742Sat.S30.B0
-/home/worker/k742/CoveringLean/K742Sat/S30/B0.lean:9:0: error: no such file or directory (error code: 2)
-  file: /home/worker/k742/CoveringLean/K742Sat/S30/../dados/s0030/h0.txt
+<raiz>/CoveringLean/K742Sat/S30/B0.lean:9:0: error: no such file or directory (error code: 2)
+  file: <raiz>/CoveringLean/K742Sat/S30/../dados/s0030/h0.txt
 == exg1logs CoveringLean.K742Sat.S30.Data
 19726 cláusulas, chave final 54470, 198 pedaços de F
 == exg1logs CoveringLean.K742Sat.S31.B0
-/home/worker/k742/CoveringLean/K742Sat/S31/B0.lean:9:0: error: no such file or directory (error code: 2)
-  file: /home/worker/k742/CoveringLean/K742Sat/S31/../dados/s0031/h0.txt
+<raiz>/CoveringLean/K742Sat/S31/B0.lean:9:0: error: no such file or directory (error code: 2)
+  file: <raiz>/CoveringLean/K742Sat/S31/../dados/s0031/h0.txt
 == exg1logs CoveringLean.K742Sat.S31.Data
 19726 cláusulas, chave final 49373, 198 pedaços de F
 == exg1logs CoveringLean.K742Sat.S32.B0
-/home/worker/k742/CoveringLean/K742Sat/S32/B0.lean:9:0: error: no such file or directory (error code: 2)
-  file: /home/worker/k742/CoveringLean/K742Sat/S32/../dados/s0032/h0.txt
+<raiz>/CoveringLean/K742Sat/S32/B0.lean:9:0: error: no such file or directory (error code: 2)
+  file: <raiz>/CoveringLean/K742Sat/S32/../dados/s0032/h0.txt
 == exg1logs CoveringLean.K742Sat.S32.Data
 19726 cláusulas, chave final 57808, 198 pedaços de F
 == exg1logs CoveringLean.K742Sat.S33.B0
-/home/worker/k742/CoveringLean/K742Sat/S33/B0.lean:9:0: error: no such file or directory (error code: 2)
-  file: /home/worker/k742/CoveringLean/K742Sat/S33/../dados/s0033/h0.txt
+<raiz>/CoveringLean/K742Sat/S33/B0.lean:9:0: error: no such file or directory (error code: 2)
+  file: <raiz>/CoveringLean/K742Sat/S33/../dados/s0033/h0.txt
 == exg1logs CoveringLean.K742Sat.S33.Data
 19726 cláusulas, chave final 66680, 198 pedaços de F
 == exg1logs CoveringLean.K742Sat.S34.B0
-/home/worker/k742/CoveringLean/K742Sat/S34/B0.lean:9:0: error: no such file or directory (error code: 2)
-  file: /home/worker/k742/CoveringLean/K742Sat/S34/../dados/s0034/h0.txt
+<raiz>/CoveringLean/K742Sat/S34/B0.lean:9:0: error: no such file or directory (error code: 2)
+  file: <raiz>/CoveringLean/K742Sat/S34/../dados/s0034/h0.txt
 == exg1logs CoveringLean.K742Sat.S34.Data
 19726 cláusulas, chave final 50678, 198 pedaços de F
 == exg1logs CoveringLean.K742Sat.S35.B0
-/home/worker/k742/CoveringLean/K742Sat/S35/B0.lean:9:0: error: no such file or directory (error code: 2)
-  file: /home/worker/k742/CoveringLean/K742Sat/S35/../dados/s0035/h0.txt
+<raiz>/CoveringLean/K742Sat/S35/B0.lean:9:0: error: no such file or directory (error code: 2)
+  file: <raiz>/CoveringLean/K742Sat/S35/../dados/s0035/h0.txt
 == exg1logs CoveringLean.K742Sat.S35.Data
 19726 cláusulas, chave final 47453, 198 pedaços de F
 == exg1logs CoveringLean.K742Sat.S36.B0
-/home/worker/k742/CoveringLean/K742Sat/S36/B0.lean:9:0: error: no such file or directory (error code: 2)
-  file: /home/worker/k742/CoveringLean/K742Sat/S36/../dados/s0036/h0.txt
+<raiz>/CoveringLean/K742Sat/S36/B0.lean:9:0: error: no such file or directory (error code: 2)
+  file: <raiz>/CoveringLean/K742Sat/S36/../dados/s0036/h0.txt
 == exg1logs CoveringLean.K742Sat.S36.Data
 19726 cláusulas, chave final 53492, 198 pedaços de F
 == exg1logs CoveringLean.K742Sat.S37.B0
-/home/worker/k742/CoveringLean/K742Sat/S37/B0.lean:9:0: error: no such file or directory (error code: 2)
-  file: /home/worker/k742/CoveringLean/K742Sat/S37/../dados/s0037/h0.txt
+<raiz>/CoveringLean/K742Sat/S37/B0.lean:9:0: error: no such file or directory (error code: 2)
+  file: <raiz>/CoveringLean/K742Sat/S37/../dados/s0037/h0.txt
 == exg1logs CoveringLean.K742Sat.S37.Data
 19726 cláusulas, chave final 58073, 198 pedaços de F
 == exg1logs CoveringLean.K742Sat.S38.B0
-/home/worker/k742/CoveringLean/K742Sat/S38/B0.lean:9:0: error: no such file or directory (error code: 2)
-  file: /home/worker/k742/CoveringLean/K742Sat/S38/../dados/s0038/h0.txt
+<raiz>/CoveringLean/K742Sat/S38/B0.lean:9:0: error: no such file or directory (error code: 2)
+  file: <raiz>/CoveringLean/K742Sat/S38/../dados/s0038/h0.txt
 == exg1logs CoveringLean.K742Sat.S38.Data
 19726 cláusulas, chave final 67141, 198 pedaços de F
 == exg1logs CoveringLean.K742Sat.S39.B0
@@ -244,36 +244,36 @@
 1858 blocos em 10 segmentos
 'K742Sat.s39.unsatFor' depends on axioms: [propext, Classical.choice, Quot.sound]
 == exg1logs CoveringLean.K742Sat.S4.B0
-/home/worker/k742/CoveringLean/K742Sat/S4/B0.lean:9:0: error: no such file or directory (error code: 2)
-  file: /home/worker/k742/CoveringLean/K742Sat/S4/../dados/s0004/h0.txt
+<raiz>/CoveringLean/K742Sat/S4/B0.lean:9:0: error: no such file or directory (error code: 2)
+  file: <raiz>/CoveringLean/K742Sat/S4/../dados/s0004/h0.txt
 == exg1logs CoveringLean.K742Sat.S4.Data
 19726 cláusulas, chave final 54162, 198 pedaços de F
 == exg1logs CoveringLean.K742Sat.S40.B0
-/home/worker/k742/CoveringLean/K742Sat/S40/B0.lean:9:0: error: no such file or directory (error code: 2)
-  file: /home/worker/k742/CoveringLean/K742Sat/S40/../dados/s0040/h0.txt
+<raiz>/CoveringLean/K742Sat/S40/B0.lean:9:0: error: no such file or directory (error code: 2)
+  file: <raiz>/CoveringLean/K742Sat/S40/../dados/s0040/h0.txt
 == exg1logs CoveringLean.K742Sat.S40.B1
-/home/worker/k742/CoveringLean/K742Sat/S40/B1.lean:9:0: error: no such file or directory (error code: 2)
-  file: /home/worker/k742/CoveringLean/K742Sat/S40/../dados/s0040/h1.txt
+<raiz>/CoveringLean/K742Sat/S40/B1.lean:9:0: error: no such file or directory (error code: 2)
+  file: <raiz>/CoveringLean/K742Sat/S40/../dados/s0040/h1.txt
 == exg1logs CoveringLean.K742Sat.S40.Data
 19726 cláusulas, chave final 113388, 198 pedaços de F
 == exg1logs CoveringLean.K742Sat.S41.B0
-/home/worker/k742/CoveringLean/K742Sat/S41/B0.lean:9:0: error: no such file or directory (error code: 2)
-  file: /home/worker/k742/CoveringLean/K742Sat/S41/../dados/s0041/h0.txt
+<raiz>/CoveringLean/K742Sat/S41/B0.lean:9:0: error: no such file or directory (error code: 2)
+  file: <raiz>/CoveringLean/K742Sat/S41/../dados/s0041/h0.txt
 == exg1logs CoveringLean.K742Sat.S41.Data
 19726 cláusulas, chave final 52315, 198 pedaços de F
 == exg1logs CoveringLean.K742Sat.S42.B0
-/home/worker/k742/CoveringLean/K742Sat/S42/B0.lean:9:0: error: no such file or directory (error code: 2)
-  file: /home/worker/k742/CoveringLean/K742Sat/S42/../dados/s0042/h0.txt
+<raiz>/CoveringLean/K742Sat/S42/B0.lean:9:0: error: no such file or directory (error code: 2)
+  file: <raiz>/CoveringLean/K742Sat/S42/../dados/s0042/h0.txt
 == exg1logs CoveringLean.K742Sat.S42.Data
 19726 cláusulas, chave final 55931, 198 pedaços de F
 == exg1logs CoveringLean.K742Sat.S43.B0
-/home/worker/k742/CoveringLean/K742Sat/S43/B0.lean:9:0: error: no such file or directory (error code: 2)
-  file: /home/worker/k742/CoveringLean/K742Sat/S43/../dados/s0043/h0.txt
+<raiz>/CoveringLean/K742Sat/S43/B0.lean:9:0: error: no such file or directory (error code: 2)
+  file: <raiz>/CoveringLean/K742Sat/S43/../dados/s0043/h0.txt
 == exg1logs CoveringLean.K742Sat.S43.Data
 19726 cláusulas, chave final 53067, 198 pedaços de F
 == exg1logs CoveringLean.K742Sat.S44.B0
-/home/worker/k742/CoveringLean/K742Sat/S44/B0.lean:9:0: error: no such file or directory (error code: 2)
-  file: /home/worker/k742/CoveringLean/K742Sat/S44/../dados/s0044/h0.txt
+<raiz>/CoveringLean/K742Sat/S44/B0.lean:9:0: error: no such file or directory (error code: 2)
+  file: <raiz>/CoveringLean/K742Sat/S44/../dados/s0044/h0.txt
 == exg1logs CoveringLean.K742Sat.S44.Data
 19726 cláusulas, chave final 60524, 198 pedaços de F
 == exg1logs CoveringLean.K742Sat.S45.B0
@@ -288,11 +288,11 @@
 1327 blocos em 7 segmentos
 'K742Sat.s45.unsatFor' depends on axioms: [propext, Classical.choice, Quot.sound]
 == exg1logs CoveringLean.K742Sat.S46.B0
-/home/worker/k742/CoveringLean/K742Sat/S46/B0.lean:9:0: error: no such file or directory (error code: 2)
-  file: /home/worker/k742/CoveringLean/K742Sat/S46/../dados/s0046/h0.txt
+<raiz>/CoveringLean/K742Sat/S46/B0.lean:9:0: error: no such file or directory (error code: 2)
+  file: <raiz>/CoveringLean/K742Sat/S46/../dados/s0046/h0.txt
 == exg1logs CoveringLean.K742Sat.S46.B1
-/home/worker/k742/CoveringLean/K742Sat/S46/B1.lean:9:0: error: no such file or directory (error code: 2)
-  file: /home/worker/k742/CoveringLean/K742Sat/S46/../dados/s0046/h1.txt
+<raiz>/CoveringLean/K742Sat/S46/B1.lean:9:0: error: no such file or directory (error code: 2)
+  file: <raiz>/CoveringLean/K742Sat/S46/../dados/s0046/h1.txt
 == exg1logs CoveringLean.K742Sat.S46.Data
 19726 cláusulas, chave final 102649, 198 pedaços de F
 == exg1logs CoveringLean.K742Sat.S47.B0
@@ -307,49 +307,49 @@
 1466 blocos em 8 segmentos
 'K742Sat.s47.unsatFor' depends on axioms: [propext, Classical.choice, Quot.sound]
 == exg1logs CoveringLean.K742Sat.S48.B0
-/home/worker/k742/CoveringLean/K742Sat/S48/B0.lean:9:0: error: no such file or directory (error code: 2)
-  file: /home/worker/k742/CoveringLean/K742Sat/S48/../dados/s0048/h0.txt
+<raiz>/CoveringLean/K742Sat/S48/B0.lean:9:0: error: no such file or directory (error code: 2)
+  file: <raiz>/CoveringLean/K742Sat/S48/../dados/s0048/h0.txt
 == exg1logs CoveringLean.K742Sat.S48.Data
 19726 cláusulas, chave final 50558, 198 pedaços de F
 == exg1logs CoveringLean.K742Sat.S49.B0
-/home/worker/k742/CoveringLean/K742Sat/S49/B0.lean:9:0: error: no such file or directory (error code: 2)
-  file: /home/worker/k742/CoveringLean/K742Sat/S49/../dados/s0049/h0.txt
+<raiz>/CoveringLean/K742Sat/S49/B0.lean:9:0: error: no such file or directory (error code: 2)
+  file: <raiz>/CoveringLean/K742Sat/S49/../dados/s0049/h0.txt
 == exg1logs CoveringLean.K742Sat.S49.Data
 19726 cláusulas, chave final 73663, 198 pedaços de F
 == exg1logs CoveringLean.K742Sat.S5.B0
-/home/worker/k742/CoveringLean/K742Sat/S5/B0.lean:9:0: error: no such file or directory (error code: 2)
-  file: /home/worker/k742/CoveringLean/K742Sat/S5/../dados/s0005/h0.txt
+<raiz>/CoveringLean/K742Sat/S5/B0.lean:9:0: error: no such file or directory (error code: 2)
+  file: <raiz>/CoveringLean/K742Sat/S5/../dados/s0005/h0.txt
 == exg1logs CoveringLean.K742Sat.S5.Data
 19726 cláusulas, chave final 57288, 198 pedaços de F
 == exg1logs CoveringLean.K742Sat.S50.B0
-/home/worker/k742/CoveringLean/K742Sat/S50/B0.lean:9:0: error: no such file or directory (error code: 2)
-  file: /home/worker/k742/CoveringLean/K742Sat/S50/../dados/s0050/h0.txt
+<raiz>/CoveringLean/K742Sat/S50/B0.lean:9:0: error: no such file or directory (error code: 2)
+  file: <raiz>/CoveringLean/K742Sat/S50/../dados/s0050/h0.txt
 == exg1logs CoveringLean.K742Sat.S50.B1
-/home/worker/k742/CoveringLean/K742Sat/S50/B1.lean:9:0: error: no such file or directory (error code: 2)
-  file: /home/worker/k742/CoveringLean/K742Sat/S50/../dados/s0050/h1.txt
+<raiz>/CoveringLean/K742Sat/S50/B1.lean:9:0: error: no such file or directory (error code: 2)
+  file: <raiz>/CoveringLean/K742Sat/S50/../dados/s0050/h1.txt
 == exg1logs CoveringLean.K742Sat.S50.Data
 19726 cláusulas, chave final 76538, 198 pedaços de F
 == exg1logs CoveringLean.K742Sat.S51.B0
-/home/worker/k742/CoveringLean/K742Sat/S51/B0.lean:9:0: error: no such file or directory (error code: 2)
-  file: /home/worker/k742/CoveringLean/K742Sat/S51/../dados/s0051/h0.txt
+<raiz>/CoveringLean/K742Sat/S51/B0.lean:9:0: error: no such file or directory (error code: 2)
+  file: <raiz>/CoveringLean/K742Sat/S51/../dados/s0051/h0.txt
 == exg1logs CoveringLean.K742Sat.S51.Data
 19726 cláusulas, chave final 57296, 198 pedaços de F
 == exg1logs CoveringLean.K742Sat.S52.B0
-/home/worker/k742/CoveringLean/K742Sat/S52/B0.lean:9:0: error: no such file or directory (error code: 2)
-  file: /home/worker/k742/CoveringLean/K742Sat/S52/../dados/s0052/h0.txt
+<raiz>/CoveringLean/K742Sat/S52/B0.lean:9:0: error: no such file or directory (error code: 2)
+  file: <raiz>/CoveringLean/K742Sat/S52/../dados/s0052/h0.txt
 == exg1logs CoveringLean.K742Sat.S52.Data
 19726 cláusulas, chave final 60843, 198 pedaços de F
 == exg1logs CoveringLean.K742Sat.S53.B0
-/home/worker/k742/CoveringLean/K742Sat/S53/B0.lean:9:0: error: no such file or directory (error code: 2)
-  file: /home/worker/k742/CoveringLean/K742Sat/S53/../dados/s0053/h0.txt
+<raiz>/CoveringLean/K742Sat/S53/B0.lean:9:0: error: no such file or directory (error code: 2)
+  file: <raiz>/CoveringLean/K742Sat/S53/../dados/s0053/h0.txt
 == exg1logs CoveringLean.K742Sat.S53.Data
 19726 cláusulas, chave final 68837, 198 pedaços de F
 == exg1logs CoveringLean.K742Sat.S54.B0
-/home/worker/k742/CoveringLean/K742Sat/S54/B0.lean:9:0: error: no such file or directory (error code: 2)
-  file: /home/worker/k742/CoveringLean/K742Sat/S54/../dados/s0054/h0.txt
+<raiz>/CoveringLean/K742Sat/S54/B0.lean:9:0: error: no such file or directory (error code: 2)
+  file: <raiz>/CoveringLean/K742Sat/S54/../dados/s0054/h0.txt
 == exg1logs CoveringLean.K742Sat.S54.B1
-/home/worker/k742/CoveringLean/K742Sat/S54/B1.lean:9:0: error: no such file or directory (error code: 2)
-  file: /home/worker/k742/CoveringLean/K742Sat/S54/../dados/s0054/h1.txt
+<raiz>/CoveringLean/K742Sat/S54/B1.lean:9:0: error: no such file or directory (error code: 2)
+  file: <raiz>/CoveringLean/K742Sat/S54/../dados/s0054/h1.txt
 == exg1logs CoveringLean.K742Sat.S54.Data
 19726 cláusulas, chave final 82111, 198 pedaços de F
 == exg1logs CoveringLean.K742Sat.S55.B0
@@ -398,103 +398,103 @@
 8536 blocos em 43 segmentos
 'K742Sat.s55.unsatFor' depends on axioms: [propext, Classical.choice, Quot.sound]
 == exg1logs CoveringLean.K742Sat.S56.B0
-/home/worker/k742/CoveringLean/K742Sat/S56/B0.lean:9:0: error: no such file or directory (error code: 2)
-  file: /home/worker/k742/CoveringLean/K742Sat/S56/../dados/s0056/h0.txt
+<raiz>/CoveringLean/K742Sat/S56/B0.lean:9:0: error: no such file or directory (error code: 2)
+  file: <raiz>/CoveringLean/K742Sat/S56/../dados/s0056/h0.txt
 == exg1logs CoveringLean.K742Sat.S56.Data
 19726 cláusulas, chave final 50305, 198 pedaços de F
 == exg1logs CoveringLean.K742Sat.S57.B0
-/home/worker/k742/CoveringLean/K742Sat/S57/B0.lean:9:0: error: no such file or directory (error code: 2)
-  file: /home/worker/k742/CoveringLean/K742Sat/S57/../dados/s0057/h0.txt
+<raiz>/CoveringLean/K742Sat/S57/B0.lean:9:0: error: no such file or directory (error code: 2)
+  file: <raiz>/CoveringLean/K742Sat/S57/../dados/s0057/h0.txt
 == exg1logs CoveringLean.K742Sat.S57.Data
 19726 cláusulas, chave final 61995, 198 pedaços de F
 == exg1logs CoveringLean.K742Sat.S58.B0
-/home/worker/k742/CoveringLean/K742Sat/S58/B0.lean:9:0: error: no such file or directory (error code: 2)
-  file: /home/worker/k742/CoveringLean/K742Sat/S58/../dados/s0058/h0.txt
+<raiz>/CoveringLean/K742Sat/S58/B0.lean:9:0: error: no such file or directory (error code: 2)
+  file: <raiz>/CoveringLean/K742Sat/S58/../dados/s0058/h0.txt
 == exg1logs CoveringLean.K742Sat.S58.Data
 19726 cláusulas, chave final 65825, 198 pedaços de F
 == exg1logs CoveringLean.K742Sat.S59.B0
-/home/worker/k742/CoveringLean/K742Sat/S59/B0.lean:9:0: error: no such file or directory (error code: 2)
-  file: /home/worker/k742/CoveringLean/K742Sat/S59/../dados/s0059/h0.txt
+<raiz>/CoveringLean/K742Sat/S59/B0.lean:9:0: error: no such file or directory (error code: 2)
+  file: <raiz>/CoveringLean/K742Sat/S59/../dados/s0059/h0.txt
 == exg1logs CoveringLean.K742Sat.S59.Data
 19726 cláusulas, chave final 47149, 198 pedaços de F
 == exg1logs CoveringLean.K742Sat.S6.B0
-/home/worker/k742/CoveringLean/K742Sat/S6/B0.lean:9:0: error: no such file or directory (error code: 2)
-  file: /home/worker/k742/CoveringLean/K742Sat/S6/../dados/s0006/h0.txt
+<raiz>/CoveringLean/K742Sat/S6/B0.lean:9:0: error: no such file or directory (error code: 2)
+  file: <raiz>/CoveringLean/K742Sat/S6/../dados/s0006/h0.txt
 == exg1logs CoveringLean.K742Sat.S6.B1
-/home/worker/k742/CoveringLean/K742Sat/S6/B1.lean:9:0: error: no such file or directory (error code: 2)
-  file: /home/worker/k742/CoveringLean/K742Sat/S6/../dados/s0006/h1.txt
+<raiz>/CoveringLean/K742Sat/S6/B1.lean:9:0: error: no such file or directory (error code: 2)
+  file: <raiz>/CoveringLean/K742Sat/S6/../dados/s0006/h1.txt
 == exg1logs CoveringLean.K742Sat.S6.Data
 19726 cláusulas, chave final 80268, 198 pedaços de F
 == exg1logs CoveringLean.K742Sat.S60.B0
-/home/worker/k742/CoveringLean/K742Sat/S60/B0.lean:9:0: error: no such file or directory (error code: 2)
-  file: /home/worker/k742/CoveringLean/K742Sat/S60/../dados/s0060/h0.txt
+<raiz>/CoveringLean/K742Sat/S60/B0.lean:9:0: error: no such file or directory (error code: 2)
+  file: <raiz>/CoveringLean/K742Sat/S60/../dados/s0060/h0.txt
 == exg1logs CoveringLean.K742Sat.S60.Data
 19726 cláusulas, chave final 73169, 198 pedaços de F
 == exg1logs CoveringLean.K742Sat.S61.B0
-/home/worker/k742/CoveringLean/K742Sat/S61/B0.lean:9:0: error: no such file or directory (error code: 2)
-  file: /home/worker/k742/CoveringLean/K742Sat/S61/../dados/s0061/h0.txt
+<raiz>/CoveringLean/K742Sat/S61/B0.lean:9:0: error: no such file or directory (error code: 2)
+  file: <raiz>/CoveringLean/K742Sat/S61/../dados/s0061/h0.txt
 == exg1logs CoveringLean.K742Sat.S61.B1
-/home/worker/k742/CoveringLean/K742Sat/S61/B1.lean:9:0: error: no such file or directory (error code: 2)
-  file: /home/worker/k742/CoveringLean/K742Sat/S61/../dados/s0061/h1.txt
+<raiz>/CoveringLean/K742Sat/S61/B1.lean:9:0: error: no such file or directory (error code: 2)
+  file: <raiz>/CoveringLean/K742Sat/S61/../dados/s0061/h1.txt
 == exg1logs CoveringLean.K742Sat.S61.Data
 19726 cláusulas, chave final 77079, 198 pedaços de F
 == exg1logs CoveringLean.K742Sat.S62.B0
-/home/worker/k742/CoveringLean/K742Sat/S62/B0.lean:9:0: error: no such file or directory (error code: 2)
-  file: /home/worker/k742/CoveringLean/K742Sat/S62/../dados/s0062/h0.txt
+<raiz>/CoveringLean/K742Sat/S62/B0.lean:9:0: error: no such file or directory (error code: 2)
+  file: <raiz>/CoveringLean/K742Sat/S62/../dados/s0062/h0.txt
 == exg1logs CoveringLean.K742Sat.S62.Data
 19726 cláusulas, chave final 59633, 198 pedaços de F
 == exg1logs CoveringLean.K742Sat.S63.B0
-/home/worker/k742/CoveringLean/K742Sat/S63/B0.lean:9:0: error: no such file or directory (error code: 2)
-  file: /home/worker/k742/CoveringLean/K742Sat/S63/../dados/s0063/h0.txt
+<raiz>/CoveringLean/K742Sat/S63/B0.lean:9:0: error: no such file or directory (error code: 2)
+  file: <raiz>/CoveringLean/K742Sat/S63/../dados/s0063/h0.txt
 == exg1logs CoveringLean.K742Sat.S63.Data
 19726 cláusulas, chave final 59566, 198 pedaços de F
 == exg1logs CoveringLean.K742Sat.S64.B0
-/home/worker/k742/CoveringLean/K742Sat/S64/B0.lean:9:0: error: no such file or directory (error code: 2)
-  file: /home/worker/k742/CoveringLean/K742Sat/S64/../dados/s0064/h0.txt
+<raiz>/CoveringLean/K742Sat/S64/B0.lean:9:0: error: no such file or directory (error code: 2)
+  file: <raiz>/CoveringLean/K742Sat/S64/../dados/s0064/h0.txt
 == exg1logs CoveringLean.K742Sat.S64.B1
-/home/worker/k742/CoveringLean/K742Sat/S64/B1.lean:9:0: error: no such file or directory (error code: 2)
-  file: /home/worker/k742/CoveringLean/K742Sat/S64/../dados/s0064/h1.txt
+<raiz>/CoveringLean/K742Sat/S64/B1.lean:9:0: error: no such file or directory (error code: 2)
+  file: <raiz>/CoveringLean/K742Sat/S64/../dados/s0064/h1.txt
 == exg1logs CoveringLean.K742Sat.S64.Data
 19726 cláusulas, chave final 80670, 198 pedaços de F
 == exg1logs CoveringLean.K742Sat.S65.B0
-/home/worker/k742/CoveringLean/K742Sat/S65/B0.lean:9:0: error: no such file or directory (error code: 2)
-  file: /home/worker/k742/CoveringLean/K742Sat/S65/../dados/s0065/h0.txt
+<raiz>/CoveringLean/K742Sat/S65/B0.lean:9:0: error: no such file or directory (error code: 2)
+  file: <raiz>/CoveringLean/K742Sat/S65/../dados/s0065/h0.txt
 == exg1logs CoveringLean.K742Sat.S65.Data
 19726 cláusulas, chave final 39433, 198 pedaços de F
 == exg1logs CoveringLean.K742Sat.S66.B0
-/home/worker/k742/CoveringLean/K742Sat/S66/B0.lean:9:0: error: no such file or directory (error code: 2)
-  file: /home/worker/k742/CoveringLean/K742Sat/S66/../dados/s0066/h0.txt
+<raiz>/CoveringLean/K742Sat/S66/B0.lean:9:0: error: no such file or directory (error code: 2)
+  file: <raiz>/CoveringLean/K742Sat/S66/../dados/s0066/h0.txt
 == exg1logs CoveringLean.K742Sat.S66.Data
 19726 cláusulas, chave final 59090, 198 pedaços de F
 == exg1logs CoveringLean.K742Sat.S67.B0
-/home/worker/k742/CoveringLean/K742Sat/S67/B0.lean:9:0: error: no such file or directory (error code: 2)
-  file: /home/worker/k742/CoveringLean/K742Sat/S67/../dados/s0067/h0.txt
+<raiz>/CoveringLean/K742Sat/S67/B0.lean:9:0: error: no such file or directory (error code: 2)
+  file: <raiz>/CoveringLean/K742Sat/S67/../dados/s0067/h0.txt
 == exg1logs CoveringLean.K742Sat.S67.B1
-/home/worker/k742/CoveringLean/K742Sat/S67/B1.lean:9:0: error: no such file or directory (error code: 2)
-  file: /home/worker/k742/CoveringLean/K742Sat/S67/../dados/s0067/h1.txt
+<raiz>/CoveringLean/K742Sat/S67/B1.lean:9:0: error: no such file or directory (error code: 2)
+  file: <raiz>/CoveringLean/K742Sat/S67/../dados/s0067/h1.txt
 == exg1logs CoveringLean.K742Sat.S67.Data
 19726 cláusulas, chave final 84938, 198 pedaços de F
 == exg1logs CoveringLean.K742Sat.S68.B0
-/home/worker/k742/CoveringLean/K742Sat/S68/B0.lean:9:0: error: no such file or directory (error code: 2)
-  file: /home/worker/k742/CoveringLean/K742Sat/S68/../dados/s0068/h0.txt
+<raiz>/CoveringLean/K742Sat/S68/B0.lean:9:0: error: no such file or directory (error code: 2)
+  file: <raiz>/CoveringLean/K742Sat/S68/../dados/s0068/h0.txt
 == exg1logs CoveringLean.K742Sat.S68.Data
 19726 cláusulas, chave final 67308, 198 pedaços de F
 == exg1logs CoveringLean.K742Sat.S69.B0
-/home/worker/k742/CoveringLean/K742Sat/S69/B0.lean:9:0: error: no such file or directory (error code: 2)
-  file: /home/worker/k742/CoveringLean/K742Sat/S69/../dados/s0069/h0.txt
+<raiz>/CoveringLean/K742Sat/S69/B0.lean:9:0: error: no such file or directory (error code: 2)
+  file: <raiz>/CoveringLean/K742Sat/S69/../dados/s0069/h0.txt
 == exg1logs CoveringLean.K742Sat.S69.B1
-/home/worker/k742/CoveringLean/K742Sat/S69/B1.lean:9:0: error: no such file or directory (error code: 2)
-  file: /home/worker/k742/CoveringLean/K742Sat/S69/../dados/s0069/h1.txt
+<raiz>/CoveringLean/K742Sat/S69/B1.lean:9:0: error: no such file or directory (error code: 2)
+  file: <raiz>/CoveringLean/K742Sat/S69/../dados/s0069/h1.txt
 == exg1logs CoveringLean.K742Sat.S69.Data
 19726 cláusulas, chave final 72555, 198 pedaços de F
 == exg1logs CoveringLean.K742Sat.S7.B0
-/home/worker/k742/CoveringLean/K742Sat/S7/B0.lean:9:0: error: no such file or directory (error code: 2)
-  file: /home/worker/k742/CoveringLean/K742Sat/S7/../dados/s0007/h0.txt
+<raiz>/CoveringLean/K742Sat/S7/B0.lean:9:0: error: no such file or directory (error code: 2)
+  file: <raiz>/CoveringLean/K742Sat/S7/../dados/s0007/h0.txt
 == exg1logs CoveringLean.K742Sat.S7.Data
 19726 cláusulas, chave final 44564, 198 pedaços de F
 == exg1logs CoveringLean.K742Sat.S8.B0
-/home/worker/k742/CoveringLean/K742Sat/S8/B0.lean:9:0: error: no such file or directory (error code: 2)
-  file: /home/worker/k742/CoveringLean/K742Sat/S8/../dados/s0008/h0.txt
+<raiz>/CoveringLean/K742Sat/S8/B0.lean:9:0: error: no such file or directory (error code: 2)
+  file: <raiz>/CoveringLean/K742Sat/S8/../dados/s0008/h0.txt
 == exg1logs CoveringLean.K742Sat.S8.Data
 19726 cláusulas, chave final 50982, 198 pedaços de F
 == exg1logs CoveringLean.K742Sat.S9.B0

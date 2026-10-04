@@ -25,4 +25,5 @@ import CoveringLean.K742_PonteCnf
 import CoveringLean.K742_Ponte
 import CoveringLean.LratK
 import CoveringLean.LratKData
+import CoveringLean.LratKFinal
 import CoveringLean.LratK_K4
