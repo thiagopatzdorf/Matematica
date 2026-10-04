@@ -26,8 +26,16 @@ roots = ["CoveringLean.SearchK6ge12", "CoveringLean.K3_K7_9_4_Final", "CoveringL
 
 # Certificados por síndromes (CoveringLean/Syn*.lean, gerados por scripts/syndrome/gen_syn.py):
 # K_7(9,4) ≤ 1351, ≤ 1285, ≤ 1141, ≤ 1137, ≤ 1134, K_7(8,3) ≤ 1887,
-# K_5(10,5) ≤ 162, K_5(11,4) ≤ 2875 e K_7(10,4) ≤ 5616. Fora do alvo padrão; `lake build CoveringSyn`.
+# K_5(10,5) ≤ 162, K_5(11,4) ≤ 2875, K_7(10,4) ≤ 5616 e ≤ 5607. Fora do alvo padrão; `lake build CoveringSyn`.
 [[lean_lib]]
 name = "CoveringSyn"
 srcDir = "."
-roots = ["CoveringLean.Syn_K1351", "CoveringLean.Syn_K1285", "CoveringLean.Syn_K1141", "CoveringLean.Syn_K1137", "CoveringLean.Syn_K1134", "CoveringLean.Syn_K1887", "CoveringLean.Syn_K162", "CoveringLean.Syn_K2875", "CoveringLean.Syn_K5616"]
+roots = ["CoveringLean.Syn_K1351", "CoveringLean.Syn_K1285", "CoveringLean.Syn_K1141", "CoveringLean.Syn_K1137", "CoveringLean.Syn_K1134", "CoveringLean.Syn_K1887", "CoveringLean.Syn_K162", "CoveringLean.Syn_K2875", "CoveringLean.Syn_K5616", "CoveringLean.Syn_K5607"]
+
+# K_7(4,2) ≥ 19: refutações LRAT dos perfis de M = 18 conferidas pelo kernel com `LratK`.
+# Os dados (CNF + LRAT aparado) não vão para o git: `tools/exatos/k742/lean/gerar_dados.py`.
+# Pesado (~11–14 min e ~5 GB de RAM só para o perfil 64): fora do alvo padrão e do CI.
+[[lean_lib]]
+name = "CoveringK742Sat"
+srcDir = "."
+roots = ["CoveringLean.K742Sat.P64"]

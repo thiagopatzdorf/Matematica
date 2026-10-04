@@ -120,6 +120,20 @@ PROVENANCE = {
                  "tools/verify/verify.c. Não conferido no Lean.",
         "dims": [3],
     },
+    "q7_n10_R4_M5607": {
+        "generator": "tools/patch_setcover (feat/patch-setcover): a mesma base de 16 classes do q7_n10_R4_M5616; "
+                     "remendo refeito como set cover unicusto (patch_inst T=7 + rwls -G, gulosos aleatorizados)",
+        "commit": None,
+        "seed": 12,
+        "command": "patch_inst 7 10 4 base.txt 7 k7104_T7.bin && rwls k7104_T7.bin -G 100000 -t 2400 -s 12 -k 94 -c 1",
+        "date": "2026-10-04",
+        "agent": "James.V1",
+        "repo_commit": None,
+        "notes": "16 classes laterais de um [10,3]_7 (3 síndromes órfãs, 1029 pontos) + 119 palavras. Detalhes em "
+                 "data/attack/q7_n10_R4_M5607.json e docs/attack/SETCOVER_2026-10-04.md. Verificado por "
+                 "tools/verify/verify.c e scripts/attack/verify_bfs. Não conferido no Lean.",
+        "dims": [3],
+    },
     "q5_n11_R4_M2875": {
         "generator": "scripts/attack (feat/ataque-celulas-2011): hsearch -> coset_sa t=4 em [11,4]_5 -> lift para "
                      "[11,3]_5 -> coset_sa t=22 -> coset_wsa (w=21)",

@@ -93,6 +93,9 @@ estimava 0,10). Discos pd-standard de 30 e 20 GB por minutos: centavos. Total �
 
 ## Caminho para o Lean
 
+> **Atualização:** o estado atual (o que já é teorema, o verificador LRAT no kernel, números e
+> custo do que falta) está em `docs/exatos/LEAN_K742.md`. O texto abaixo é o plano original.
+
 O Florath já mostrou o caminho: `OctonaryFourTwoBlockLRAT.lean` lê CNF + LRAT com
 `include_str`, monta a fórmula reflexiva e checa a refutação no kernel
 (`Mathlib.Tactic.Sat.FromLRAT`). Para K_7(4,2) ≥ 19 falta:
