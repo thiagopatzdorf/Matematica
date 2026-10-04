@@ -25,6 +25,8 @@
  *
  * Uso: rwls inst.bin [-t segundos] [-s semente] [-k alvo] [-c 0|1|2] [-i inicial.txt]
  *                   [-o melhor.txt] [-q] [-T corte] [-b 0|1]
+ *                   [-g gamma -r rho]   (suavização de pesos, ver smooth())
+ *                   [-u cap]            (recomeço quando há mais de cap descobertos)
  *   Para em -t segundos ou quando acha cobertura com <= alvo conjuntos.
  *   -i: palavras (uma por linha) que viram a solução inicial (as que não são candidatas
  *       são ignoradas, com aviso); sem -i, guloso + remoção de redundantes.
@@ -43,9 +45,10 @@ typedef long long ll;
 static uint32_t q, n, R, T, npts, nsets; static uint64_t npairs;
 static uint32_t *pts, *setw, *elem, *selem; static uint64_t *off, *eoff;
 static ll *score, *wgt; static uint32_t *cnt, *xorc; static uint8_t *insol, *canadd;
-static ll *stamp; static ll iter = 0;
+static ll *stamp; static ll iter = 0; static double sumunc = 0;
 static uint32_t *sol, *solpos, nsol = 0; static uint32_t *unc, *uncpos, nunc = 0;
 static int ccmode = 1, tiebreak = 0;
+static long ucap = 0, nrestart = 0; static double gamma_w = 0, rho_w = 0.3; static ll wsum = 0; static long nsmooth = 0;
 /* Desempate. RWLS: o mais antigo. -b 1 (nosso, medido em K_7(9,4)): antes da idade, o MAIOR
  * conjunto ao pôr e o MENOR ao tirar. POR QUE: com corte T baixo há ~170 mil conjuntos de
  * tamanho 18-19 e só 3 087 de tamanho 24; empatados em score, o "mais antigo" é quase sempre
@@ -97,6 +100,7 @@ static void del_set(uint32_t s){
   if (ccmode) canadd[s] = 0;
 }
 static void bump_weights(void){
+  wsum += nunc;
   for (uint32_t i = 0; i < nunc; i++){ uint32_t e = unc[i]; wgt[e]++;
     for (uint64_t b = eoff[e]; b < eoff[e + 1]; b++) score[selem[b]]++; }
 }
@@ -110,6 +114,20 @@ static void check(void){
     if (v != score[s]){ fprintf(stderr, "CHECK score s=%u %lld != %lld (in=%d)\n", s, score[s], v, insol[s]); exit(9); } }
 }
 #endif
+/* Suavização de pesos (nossa, opcional; -g gamma -r rho): quando o peso médio passa de gamma,
+ * w <- max(1, rho*w) e todos os scores são recalculados. POR QUE: em K_7(9,4) com corte 18 o
+ * RWLS puro deriva para ~200 pontos descobertos em média (medido: unc_med 199 com 104
+ * conjuntos), porque os pesos antigos dominam e pontos novos de peso 1 se acumulam; é o mesmo
+ * remédio do "esquecimento" do NuMVC/SWCC. */
+static void smooth(void){
+  wsum = 0;
+  for (uint32_t e = 0; e < npts; e++){ ll v = (ll)(rho_w * wgt[e]); wgt[e] = v < 1 ? 1 : v; wsum += wgt[e]; }
+  for (uint32_t s = 0; s < nsets; s++){ ll v = 0;
+    for (uint64_t a = off[s]; a < off[s + 1]; a++){ uint32_t e = elem[a];
+      if (insol[s]){ if (cnt[e] == 1) v -= wgt[e]; } else if (cnt[e] == 0) v += wgt[e]; }
+    score[s] = v; }
+  nsmooth++;
+}
 static int find_set(uint32_t w){ /* setw é crescente (patch_inst gera em ordem) */
   long lo = 0, hi = (long)nsets - 1;
   while (lo <= hi){ long m = (lo + hi) / 2; if (setw[m] == w) return (int)m; if (setw[m] < w) lo = m + 1; else hi = m - 1; }
@@ -136,6 +154,9 @@ int main(int argc, char **argv){
     else if (!strcmp(argv[i], "-q")) quiet = 1;
     else if (!strcmp(argv[i], "-T")) tmin = atoi(argv[++i]);
     else if (!strcmp(argv[i], "-b")) tiebreak = atoi(argv[++i]);
+    else if (!strcmp(argv[i], "-g")) gamma_w = atof(argv[++i]);
+    else if (!strcmp(argv[i], "-u")) ucap = atol(argv[++i]);
+    else if (!strcmp(argv[i], "-r")) rho_w = atof(argv[++i]);
     else { fprintf(stderr, "opção desconhecida %s\n", argv[i]); return 2; }
   }
   rng_s = seed * 0x9E3779B97F4A7C15ull + 12345; for (int i = 0; i < 10; i++) rnd();
@@ -161,7 +182,7 @@ int main(int argc, char **argv){
   score = malloc(8 * (size_t)nsets); stamp = calloc(nsets, 8); insol = calloc(nsets, 1); canadd = malloc(nsets); memset(canadd, 1, nsets);
   sol = malloc(4 * (size_t)nsets); solpos = malloc(4 * (size_t)nsets);
   wgt = malloc(8 * (size_t)npts); cnt = calloc(npts, 4); xorc = calloc(npts, 4); unc = malloc(4 * (size_t)npts); uncpos = malloc(4 * (size_t)npts);
-  for (uint32_t e = 0; e < npts; e++){ wgt[e] = 1; unc_add(e); }
+  for (uint32_t e = 0; e < npts; e++){ wgt[e] = 1; unc_add(e); } wsum = npts;
   for (uint32_t s = 0; s < nsets; s++) score[s] = (ll)(off[s + 1] - off[s]);
   double t0 = now();
   int saved_cc = ccmode; ccmode = 0;
@@ -204,7 +225,21 @@ int main(int argc, char **argv){
         for (uint64_t a = eoff[e]; a < eoff[e + 1]; a++){ uint32_t s = selem[a]; if (insol[s] || (pass == 0 && ccmode && !canadd[s])) continue;
           if (b == UINT32_MAX || score[s] > bs || (score[s] == bs && better_add(s, b))){ bs = score[s]; b = s; } }
       add_set(b); tabu = b; }
+    sumunc += nunc;
     bump_weights();
+    if (gamma_w > 0 && wsum > gamma_w * npts) smooth();
+    /* -u cap (nosso): se a busca deriva para mais de cap pontos descobertos, recomeça da
+     * melhor solução menos um conjunto, com pesos zerados. POR QUE: ver smooth(); medido em
+     * K_7(9,4) T=18, a deriva não volta sozinha. */
+    if (ucap && (long)nunc > ucap){
+      while (nsol) del_set(sol[nsol - 1]);
+      for (uint32_t e = 0; e < npts; e++) wgt[e] = 1;
+      wsum = npts; for (uint32_t s2 = 0; s2 < nsets; s2++) score[s2] = (ll)(off[s2 + 1] - off[s2]);
+      memset(canadd, 1, nsets);
+      for (uint32_t i = 0; i < bestk; i++) add_set(best[i]);
+      { uint32_t r = sol[rnd() % nsol]; del_set(r); tabu = UINT32_MAX; }
+      nrestart++;
+    }
 #ifdef CHECK
     if (iter % 97 == 0) check();
 #endif
@@ -215,7 +250,7 @@ done:;
   { uint8_t *c = calloc(npts, 1); for (uint32_t i = 0; i < bestk; i++){ uint32_t s = best[i]; for (uint64_t a = off[s]; a < off[s + 1]; a++) c[elem[a]] = 1; }
     uint32_t miss = 0; for (uint32_t e = 0; e < npts; e++) miss += !c[e];
     if (miss){ fprintf(stderr, "ERRO interno: melhor solução deixa %u pontos descobertos\n", miss); return 4; } free(c); }
-  printf("{\"q\":%u,\"n\":%u,\"R\":%u,\"T\":%u,\"npts\":%u,\"nsets\":%u,\"best\":%u,\"t_best\":%.2f,\"secs\":%.2f,\"iter\":%lld,\"seed\":%llu,\"cc\":%d,\"tb\":%d}\n",
-         q, n, R, T, npts, nsets, bestk, tbest, el, iter, (unsigned long long)seed, ccmode, tiebreak);
+  printf("{\"q\":%u,\"n\":%u,\"R\":%u,\"T\":%u,\"npts\":%u,\"nsets\":%u,\"best\":%u,\"t_best\":%.2f,\"secs\":%.2f,\"iter\":%lld,\"seed\":%llu,\"cc\":%d,\"tb\":%d,\"unc_med\":%.2f,\"gamma\":%g,\"rho\":%g,\"nsmooth\":%ld,\"ucap\":%ld,\"nrestart\":%ld}\n",
+         q, n, R, T, npts, nsets, bestk, tbest, el, iter, (unsigned long long)seed, ccmode, tiebreak, iter ? sumunc / iter : 0.0, gamma_w, rho_w, nsmooth, ucap, nrestart);
   return 0;
 }
