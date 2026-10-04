@@ -67,7 +67,7 @@ melhor cota superior conhecida contando a nossa. `ours_lean.tag` é a tag git em
 | K7(10,4) | 6517 (Kéri) | ≤ 5616, `Syn.K7_10_4_le_5616_syn`, v0.6.0 (pendente) | |
 | K5(11,4) | 3125 (Kéri) | ≤ 2875, `Syn.K5_11_4_le_2875_syn`, v0.6.0 (pendente) | |
 | K5(10,5) | 175 (Kéri) | ≤ 162, `Syn.K5_10_5_le_162_syn`, v0.6.0 (pendente) | |
-| K7(8,3) | 2337 (Kéri) | ≤ 1893, `CoveringKernel.K7_8_3_le_1893_kernel` | ≤ 1887 |
+| K7(8,3) | 2337 (Kéri) | ≤ 1887, `Syn.K7_8_3_le_1887_syn`, v0.4.0 | |
 | K5(10,4) | 875 (Kéri) | ≤ 625, `CoveringKernel.K5_10_4_le_625_kernel` | |
 | K5(9,3) | 1275 (Kéri) | ≤ 1250, `CoveringKernel.K5_9_3_le_1250_kernel` | |
 | K5(7,2) | 525 (Kéri) | ≤ 500, `CoveringKernel.K5_7_2_le_500_kernel` | |

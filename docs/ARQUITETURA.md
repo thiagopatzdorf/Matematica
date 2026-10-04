@@ -27,10 +27,12 @@ flowchart LR
 | fontes e ledger | junta as cotas publicadas (Kéri, Gijswijt–Polak, Marosi, Florath) nos commits fixados e o nosso estado | `ledger/sources.json`, `ledger/build.py`, `ledger/cells.json`, `ledger/ours.json`, `ledger/provenance.json` |
 | alvos | ranqueia onde buscar; lista células com pouca folga para fechar | `ledger/targets.py`, `tools/exatos/folgas.py` |
 | geradores | propõem códigos: base linear mais remendo, recozimento, ILP, busca exaustiva, SAT | `scripts/search/gen.py`, `scripts/search/patch_lns.py`, `scripts/attack/`, `scripts/loop/gen_greedy.py`, `tools/exatos/sa_cover.c`, `tools/exatos/dfs_cover.c`, `tools/exatos/cpsat_cover.py`, `tools/exatos/k742/rodar.py` |
-| avaliadores | decidem de forma exata se o candidato cobre; conferem formato e sha256 | `tools/verify/verify.c`, `tools/verify/check_all.sh`, `scripts/loop/verify_cover.py`, `scripts/codes/expand.py`, `verification/` |
+| avaliadores | decidem de forma exata se o candidato cobre; conferem formato e sha256; contrato único `Resultado` | `evaluators/`, `tools/verify/verify.c`, `tools/verify/check_all.sh`, `scripts/loop/verify_cover.py`, `scripts/codes/expand.py`, `verification/` |
+| problemas | cartão por problema, com estado e histórico verificado por máquina | `problems/`, `tools/problems/` |
 | registro | grava o código, a descrição estruturada, a proveniência e atualiza o ledger | `scripts/loop/record_loop.py`, `data/codes/`, `data/structured/`, `scripts/codes/build_structured.py` |
 | certificado Lean | transforma o código em teorema `∃ C, C.card = M ∧ Covers R C` | `scripts/syndrome/gen_syn.py`, `scripts/k794/gen.py`, `CoveringLean/SynCheck.lean`, `CoveringLean/SynBridge.lean`, `CoveringLean/Syn_K1137.lean`, `CoveringLean/C1_Data_K7_9_4.lean`, `lakefile.toml` |
-| CI | confere códigos e testes, e roda `lake build` e os axiomas dos certificados | `.github/workflows/verify-codes.yml`, `.github/workflows/lean-syn.yml` |
+| CI | confere códigos e testes, e roda `lake build` e os axiomas dos certificados | `.github/workflows/ci.yml`, `.github/workflows/verify-codes.yml`, `.github/workflows/lean-syn.yml` |
+| mapa público | site estático gerado do ledger | `scripts/site/build.py`, `site/` |
 | publicação | nota, nova versão no Zenodo e página pública, a partir do ledger; só o dono publica | `paper/main.tex`, `scripts/publish/zenodo_newversion.py`, `scripts/publish/genesis_page.py`, `.zenodo.json`, `CITATION.cff` |
 | acesso de colaboradores | ferramentas MCP com crédito por pessoa em volta das etapas acima | `infinito/infinito_mcp/server.py`, `infinito/infinito_mcp/modulos/matematica.py` |
 
@@ -46,5 +48,4 @@ flowchart LR
 ## Onde o hub cresce
 
 O domínio de códigos de cobertura é o primeiro. Um novo domínio entra com o mesmo trio: fonte de problemas (ledger
-próprio), avaliador exato e certificado. A pasta de problemas e a de avaliadores estão em construção; ver a seção
-final de [CONTRIBUTING.md](../CONTRIBUTING.md).
+próprio), avaliador exato e certificado. Os modelos estão em `problems/` e `evaluators/`; ver [CONTRIBUTING.md](../CONTRIBUTING.md).

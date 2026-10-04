@@ -66,6 +66,9 @@ por célula, certificados e reprodução: [docs/resultados.md](docs/resultados.m
 | `tools/exatos/` | busca exata (SAT com prova LRAT, CP-SAT, busca exaustiva); `K_7(4,2) = 19` fechado assim |
 | `tools/literatura/` | varredura de literatura |
 | `scripts/` | geradores, loop de recordes (`scripts/loop/`), certificados por síndromes, publicação |
+| `problems/` | o registro de problemas: cartões com estado, avaliador e histórico (ver `problems/README.md`) |
+| `evaluators/` | avaliadores exatos com contrato único: códigos de cobertura, honestidade do Lean, ponte ledger–código–teorema |
+| `site/`, `scripts/site/` | o mapa público da fronteira, gerado do ledger |
 | `CoveringLean/` | as provas em Lean 4 (biblioteca e certificados) |
 | `infinito/` | o MCP Infinito: ferramentas para colaboradores, com teto de crédito por pessoa |
 | `paper/` | a nota (`main.tex`, `main.pdf`) |
