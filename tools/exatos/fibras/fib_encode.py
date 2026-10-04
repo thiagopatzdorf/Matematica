@@ -119,8 +119,14 @@ def instancias(q, n, M, k, smin=None, cotas=None, R=None):
     R = n - 2 if R is None else R
     if smin is None:
         smin = fibra_minima(q, n, R, M, cotas)
+    return smin, _instancias(q, M, k, smin)
+
+
+@lru_cache(maxsize=8)
+def _instancias(q, M, k, smin):
+    # cache: o rodar.py pede a lista inteira a cada instância (201 376 em K_7(5,3), M = 16)
     ts = sorted(tipos(q, M, smin), key=chave_tipo)
-    return smin, list(itertools.combinations_with_replacement(ts, k))
+    return list(itertools.combinations_with_replacement(ts, k))
 
 
 def contar_instancias(q, n, M, k, smin):
