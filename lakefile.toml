@@ -32,10 +32,13 @@ name = "CoveringSyn"
 srcDir = "."
 roots = ["CoveringLean.Syn_K1351", "CoveringLean.Syn_K1285", "CoveringLean.Syn_K1141", "CoveringLean.Syn_K1137", "CoveringLean.Syn_K1134", "CoveringLean.Syn_K1887", "CoveringLean.Syn_K162", "CoveringLean.Syn_K2875", "CoveringLean.Syn_K5616", "CoveringLean.Syn_K5607"]
 
-# K_7(4,2) ≥ 19: refutações LRAT dos perfis de M = 18 conferidas pelo kernel com `LratK`.
-# Os dados (CNF + LRAT aparado) não vão para o git: `tools/exatos/k742/lean/gerar_dados.py`.
-# Pesado (~11–14 min e ~5 GB de RAM só para o perfil 64): fora do alvo padrão e do CI.
+# K_7(4,2) = 19 incondicional: as 70 refutações LRAT sem quebra (CoveringLean/K742Sat/S*/,
+# geradas por tools/exatos/k742/lean/gerar_modulos.py) conferidas pelo kernel com `LratK`, e o
+# teorema final `K742.K_7_4_2_eq_19` (CoveringLean/K742_Eq19.lean). Os dados não vão para o git
+# (`tools/exatos/k742/lean/preparar_semquebra.py`, sha256 em semquebra_M18.jsonl). Pesado (~50 h
+# de CPU, ~3 GB de RAM por módulo): fora do alvo padrão e do CI; ver docs/exatos/LEAN_K742.md.
+# P64 é a refutação antiga do perfil 64 com a quebra (d)–(f) (dados de `gerar_dados.py`).
 [[lean_lib]]
 name = "CoveringK742Sat"
 srcDir = "."
-roots = ["CoveringLean.K742Sat.P64"]
+roots = ["CoveringLean.K742_Eq19", "CoveringLean.K742Sat.P64"]

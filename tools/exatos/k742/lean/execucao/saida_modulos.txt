@@ -1,0 +1,978 @@
+== exg1logs CoveringLean.K742Sat.S0.B0
+63300 passos a partir do bloco 0 (chave 19727)
+== exg1logs CoveringLean.K742Sat.S0.B1
+47900 passos a partir do bloco 633 (chave 83027)
+== exg1logs CoveringLean.K742Sat.S0.B2
+52300 passos a partir do bloco 1112 (chave 130927)
+== exg1logs CoveringLean.K742Sat.S0.B3
+39700 passos a partir do bloco 1635 (chave 183227)
+== exg1logs CoveringLean.K742Sat.S0.B4
+46500 passos a partir do bloco 2032 (chave 222927)
+== exg1logs CoveringLean.K742Sat.S0.B5
+23100 passos a partir do bloco 2497 (chave 269427)
+== exg1logs CoveringLean.K742Sat.S0.B6
+32100 passos a partir do bloco 2728 (chave 292527)
+== exg1logs CoveringLean.K742Sat.S0.B7
+24600 passos a partir do bloco 3049 (chave 324627)
+== exg1logs CoveringLean.K742Sat.S0.B8
+20725 passos a partir do bloco 3295 (chave 349227)
+== exg1logs CoveringLean.K742Sat.S0.Data
+19726 cláusulas, chave final 369951, 198 pedaços de F
+== exg1logs CoveringLean.K742Sat.S0.Final
+3503 blocos em 18 segmentos
+'K742Sat.s0.unsatFor' depends on axioms: [propext, Classical.choice, Quot.sound]
+== exg1logs CoveringLean.K742Sat.S1.B0
+<raiz>/CoveringLean/K742Sat/S1/B0.lean:9:0: error: no such file or directory (error code: 2)
+  file: <raiz>/CoveringLean/K742Sat/S1/../dados/s0001/h0.txt
+== exg1logs CoveringLean.K742Sat.S1.Data
+19726 cláusulas, chave final 55352, 198 pedaços de F
+== exg1logs CoveringLean.K742Sat.S10.B0
+<raiz>/CoveringLean/K742Sat/S10/B0.lean:9:0: error: no such file or directory (error code: 2)
+  file: <raiz>/CoveringLean/K742Sat/S10/../dados/s0010/h0.txt
+== exg1logs CoveringLean.K742Sat.S10.Data
+19726 cláusulas, chave final 58377, 198 pedaços de F
+== exg1logs CoveringLean.K742Sat.S11.B0
+<raiz>/CoveringLean/K742Sat/S11/B0.lean:9:0: error: no such file or directory (error code: 2)
+  file: <raiz>/CoveringLean/K742Sat/S11/../dados/s0011/h0.txt
+== exg1logs CoveringLean.K742Sat.S11.Data
+19726 cláusulas, chave final 46323, 198 pedaços de F
+== exg1logs CoveringLean.K742Sat.S12.B0
+<raiz>/CoveringLean/K742Sat/S12/B0.lean:9:0: error: no such file or directory (error code: 2)
+  file: <raiz>/CoveringLean/K742Sat/S12/../dados/s0012/h0.txt
+== exg1logs CoveringLean.K742Sat.S12.Data
+19726 cláusulas, chave final 46277, 198 pedaços de F
+== exg1logs CoveringLean.K742Sat.S13.B0
+<raiz>/CoveringLean/K742Sat/S13/B0.lean:9:0: error: no such file or directory (error code: 2)
+  file: <raiz>/CoveringLean/K742Sat/S13/../dados/s0013/h0.txt
+== exg1logs CoveringLean.K742Sat.S13.Data
+19726 cláusulas, chave final 58010, 198 pedaços de F
+== exg1logs CoveringLean.K742Sat.S14.B0
+<raiz>/CoveringLean/K742Sat/S14/B0.lean:9:0: error: no such file or directory (error code: 2)
+  file: <raiz>/CoveringLean/K742Sat/S14/../dados/s0014/h0.txt
+== exg1logs CoveringLean.K742Sat.S14.Data
+19726 cláusulas, chave final 68397, 198 pedaços de F
+== exg1logs CoveringLean.K742Sat.S15.B0
+<raiz>/CoveringLean/K742Sat/S15/B0.lean:9:0: error: no such file or directory (error code: 2)
+  file: <raiz>/CoveringLean/K742Sat/S15/../dados/s0015/h0.txt
+== exg1logs CoveringLean.K742Sat.S15.Data
+19726 cláusulas, chave final 56741, 198 pedaços de F
+== exg1logs CoveringLean.K742Sat.S16.B0
+<raiz>/CoveringLean/K742Sat/S16/B0.lean:9:0: error: no such file or directory (error code: 2)
+  file: <raiz>/CoveringLean/K742Sat/S16/../dados/s0016/h0.txt
+== exg1logs CoveringLean.K742Sat.S16.Data
+19726 cláusulas, chave final 45848, 198 pedaços de F
+== exg1logs CoveringLean.K742Sat.S17.B0
+<raiz>/CoveringLean/K742Sat/S17/B0.lean:9:0: error: no such file or directory (error code: 2)
+  file: <raiz>/CoveringLean/K742Sat/S17/../dados/s0017/h0.txt
+== exg1logs CoveringLean.K742Sat.S17.Data
+19726 cláusulas, chave final 74796, 198 pedaços de F
+== exg1logs CoveringLean.K742Sat.S18.B0
+<raiz>/CoveringLean/K742Sat/S18/B0.lean:9:0: error: no such file or directory (error code: 2)
+  file: <raiz>/CoveringLean/K742Sat/S18/../dados/s0018/h0.txt
+== exg1logs CoveringLean.K742Sat.S18.B1
+<raiz>/CoveringLean/K742Sat/S18/B1.lean:9:0: error: no such file or directory (error code: 2)
+  file: <raiz>/CoveringLean/K742Sat/S18/../dados/s0018/h1.txt
+== exg1logs CoveringLean.K742Sat.S18.Data
+19726 cláusulas, chave final 84624, 198 pedaços de F
+== exg1logs CoveringLean.K742Sat.S19.B0
+<raiz>/CoveringLean/K742Sat/S19/B0.lean:9:0: error: no such file or directory (error code: 2)
+  file: <raiz>/CoveringLean/K742Sat/S19/../dados/s0019/h0.txt
+== exg1logs CoveringLean.K742Sat.S19.Data
+19726 cláusulas, chave final 69345, 198 pedaços de F
+== exg1logs CoveringLean.K742Sat.S2.B0
+62400 passos a partir do bloco 0 (chave 19727)
+== exg1logs CoveringLean.K742Sat.S2.B1
+51400 passos a partir do bloco 624 (chave 82127)
+== exg1logs CoveringLean.K742Sat.S2.B2
+40100 passos a partir do bloco 1138 (chave 133527)
+== exg1logs CoveringLean.K742Sat.S2.B3
+54200 passos a partir do bloco 1539 (chave 173627)
+== exg1logs CoveringLean.K742Sat.S2.B4
+24900 passos a partir do bloco 2081 (chave 227827)
+== exg1logs CoveringLean.K742Sat.S2.B5
+45400 passos a partir do bloco 2330 (chave 252727)
+== exg1logs CoveringLean.K742Sat.S2.B6
+30100 passos a partir do bloco 2784 (chave 298127)
+== exg1logs CoveringLean.K742Sat.S2.B7
+13043 passos a partir do bloco 3085 (chave 328227)
+== exg1logs CoveringLean.K742Sat.S2.Data
+19726 cláusulas, chave final 341269, 198 pedaços de F
+== exg1logs CoveringLean.K742Sat.S2.Final
+3216 blocos em 17 segmentos
+'K742Sat.s2.unsatFor' depends on axioms: [propext, Classical.choice, Quot.sound]
+== exg1logs CoveringLean.K742Sat.S20.B0
+<raiz>/CoveringLean/K742Sat/S20/B0.lean:9:0: error: no such file or directory (error code: 2)
+  file: <raiz>/CoveringLean/K742Sat/S20/../dados/s0020/h0.txt
+== exg1logs CoveringLean.K742Sat.S20.Data
+19726 cláusulas, chave final 43817, 198 pedaços de F
+== exg1logs CoveringLean.K742Sat.S21.B0
+<raiz>/CoveringLean/K742Sat/S21/B0.lean:9:0: error: no such file or directory (error code: 2)
+  file: <raiz>/CoveringLean/K742Sat/S21/../dados/s0021/h0.txt
+== exg1logs CoveringLean.K742Sat.S21.Data
+19726 cláusulas, chave final 52226, 198 pedaços de F
+== exg1logs CoveringLean.K742Sat.S22.B0
+<raiz>/CoveringLean/K742Sat/S22/B0.lean:9:0: error: no such file or directory (error code: 2)
+  file: <raiz>/CoveringLean/K742Sat/S22/../dados/s0022/h0.txt
+== exg1logs CoveringLean.K742Sat.S22.Data
+19726 cláusulas, chave final 70070, 198 pedaços de F
+== exg1logs CoveringLean.K742Sat.S23.B0
+<raiz>/CoveringLean/K742Sat/S23/B0.lean:9:0: error: no such file or directory (error code: 2)
+  file: <raiz>/CoveringLean/K742Sat/S23/../dados/s0023/h0.txt
+== exg1logs CoveringLean.K742Sat.S23.Data
+19726 cláusulas, chave final 50065, 198 pedaços de F
+== exg1logs CoveringLean.K742Sat.S24.B0
+<raiz>/CoveringLean/K742Sat/S24/B0.lean:9:0: error: no such file or directory (error code: 2)
+  file: <raiz>/CoveringLean/K742Sat/S24/../dados/s0024/h0.txt
+== exg1logs CoveringLean.K742Sat.S24.Data
+19726 cláusulas, chave final 52247, 198 pedaços de F
+== exg1logs CoveringLean.K742Sat.S25.B0
+66400 passos a partir do bloco 0 (chave 19727)
+== exg1logs CoveringLean.K742Sat.S25.B1
+59800 passos a partir do bloco 664 (chave 86127)
+== exg1logs CoveringLean.K742Sat.S25.B10
+32100 passos a partir do bloco 4936 (chave 513327)
+== exg1logs CoveringLean.K742Sat.S25.B11
+25100 passos a partir do bloco 5257 (chave 545427)
+== exg1logs CoveringLean.K742Sat.S25.B12
+26900 passos a partir do bloco 5508 (chave 570527)
+== exg1logs CoveringLean.K742Sat.S25.B13
+32500 passos a partir do bloco 5777 (chave 597427)
+== exg1logs CoveringLean.K742Sat.S25.B14
+17503 passos a partir do bloco 6102 (chave 629927)
+== exg1logs CoveringLean.K742Sat.S25.B2
+69700 passos a partir do bloco 1262 (chave 145927)
+== exg1logs CoveringLean.K742Sat.S25.B3
+26900 passos a partir do bloco 1959 (chave 215627)
+== exg1logs CoveringLean.K742Sat.S25.B4
+55400 passos a partir do bloco 2228 (chave 242527)
+== exg1logs CoveringLean.K742Sat.S25.B5
+35600 passos a partir do bloco 2782 (chave 297927)
+== exg1logs CoveringLean.K742Sat.S25.B6
+37500 passos a partir do bloco 3138 (chave 333527)
+== exg1logs CoveringLean.K742Sat.S25.B7
+58900 passos a partir do bloco 3513 (chave 371027)
+== exg1logs CoveringLean.K742Sat.S25.B8
+30600 passos a partir do bloco 4102 (chave 429927)
+== exg1logs CoveringLean.K742Sat.S25.B9
+52800 passos a partir do bloco 4408 (chave 460527)
+== exg1logs CoveringLean.K742Sat.S25.Data
+19726 cláusulas, chave final 647429, 198 pedaços de F
+== exg1logs CoveringLean.K742Sat.S25.Final
+6278 blocos em 32 segmentos
+'K742Sat.s25.unsatFor' depends on axioms: [propext, Classical.choice, Quot.sound]
+== exg1logs CoveringLean.K742Sat.S26.B0
+<raiz>/CoveringLean/K742Sat/S26/B0.lean:9:0: error: no such file or directory (error code: 2)
+  file: <raiz>/CoveringLean/K742Sat/S26/../dados/s0026/h0.txt
+== exg1logs CoveringLean.K742Sat.S26.Data
+19726 cláusulas, chave final 50993, 198 pedaços de F
+== exg1logs CoveringLean.K742Sat.S27.B0
+<raiz>/CoveringLean/K742Sat/S27/B0.lean:9:0: error: no such file or directory (error code: 2)
+  file: <raiz>/CoveringLean/K742Sat/S27/../dados/s0027/h0.txt
+== exg1logs CoveringLean.K742Sat.S27.Data
+19726 cláusulas, chave final 61102, 198 pedaços de F
+== exg1logs CoveringLean.K742Sat.S28.B0
+<raiz>/CoveringLean/K742Sat/S28/B0.lean:9:0: error: no such file or directory (error code: 2)
+  file: <raiz>/CoveringLean/K742Sat/S28/../dados/s0028/h0.txt
+== exg1logs CoveringLean.K742Sat.S28.Data
+19726 cláusulas, chave final 50187, 198 pedaços de F
+== exg1logs CoveringLean.K742Sat.S29.B0
+<raiz>/CoveringLean/K742Sat/S29/B0.lean:9:0: error: no such file or directory (error code: 2)
+  file: <raiz>/CoveringLean/K742Sat/S29/../dados/s0029/h0.txt
+== exg1logs CoveringLean.K742Sat.S29.Data
+19726 cláusulas, chave final 45550, 198 pedaços de F
+== exg1logs CoveringLean.K742Sat.S3.B0
+<raiz>/CoveringLean/K742Sat/S3/B0.lean:9:0: error: no such file or directory (error code: 2)
+  file: <raiz>/CoveringLean/K742Sat/S3/../dados/s0003/h0.txt
+== exg1logs CoveringLean.K742Sat.S3.Data
+19726 cláusulas, chave final 60397, 198 pedaços de F
+== exg1logs CoveringLean.K742Sat.S30.B0
+<raiz>/CoveringLean/K742Sat/S30/B0.lean:9:0: error: no such file or directory (error code: 2)
+  file: <raiz>/CoveringLean/K742Sat/S30/../dados/s0030/h0.txt
+== exg1logs CoveringLean.K742Sat.S30.Data
+19726 cláusulas, chave final 54470, 198 pedaços de F
+== exg1logs CoveringLean.K742Sat.S31.B0
+<raiz>/CoveringLean/K742Sat/S31/B0.lean:9:0: error: no such file or directory (error code: 2)
+  file: <raiz>/CoveringLean/K742Sat/S31/../dados/s0031/h0.txt
+== exg1logs CoveringLean.K742Sat.S31.Data
+19726 cláusulas, chave final 49373, 198 pedaços de F
+== exg1logs CoveringLean.K742Sat.S32.B0
+<raiz>/CoveringLean/K742Sat/S32/B0.lean:9:0: error: no such file or directory (error code: 2)
+  file: <raiz>/CoveringLean/K742Sat/S32/../dados/s0032/h0.txt
+== exg1logs CoveringLean.K742Sat.S32.Data
+19726 cláusulas, chave final 57808, 198 pedaços de F
+== exg1logs CoveringLean.K742Sat.S33.B0
+<raiz>/CoveringLean/K742Sat/S33/B0.lean:9:0: error: no such file or directory (error code: 2)
+  file: <raiz>/CoveringLean/K742Sat/S33/../dados/s0033/h0.txt
+== exg1logs CoveringLean.K742Sat.S33.Data
+19726 cláusulas, chave final 66680, 198 pedaços de F
+== exg1logs CoveringLean.K742Sat.S34.B0
+<raiz>/CoveringLean/K742Sat/S34/B0.lean:9:0: error: no such file or directory (error code: 2)
+  file: <raiz>/CoveringLean/K742Sat/S34/../dados/s0034/h0.txt
+== exg1logs CoveringLean.K742Sat.S34.Data
+19726 cláusulas, chave final 50678, 198 pedaços de F
+== exg1logs CoveringLean.K742Sat.S35.B0
+<raiz>/CoveringLean/K742Sat/S35/B0.lean:9:0: error: no such file or directory (error code: 2)
+  file: <raiz>/CoveringLean/K742Sat/S35/../dados/s0035/h0.txt
+== exg1logs CoveringLean.K742Sat.S35.Data
+19726 cláusulas, chave final 47453, 198 pedaços de F
+== exg1logs CoveringLean.K742Sat.S36.B0
+<raiz>/CoveringLean/K742Sat/S36/B0.lean:9:0: error: no such file or directory (error code: 2)
+  file: <raiz>/CoveringLean/K742Sat/S36/../dados/s0036/h0.txt
+== exg1logs CoveringLean.K742Sat.S36.Data
+19726 cláusulas, chave final 53492, 198 pedaços de F
+== exg1logs CoveringLean.K742Sat.S37.B0
+<raiz>/CoveringLean/K742Sat/S37/B0.lean:9:0: error: no such file or directory (error code: 2)
+  file: <raiz>/CoveringLean/K742Sat/S37/../dados/s0037/h0.txt
+== exg1logs CoveringLean.K742Sat.S37.Data
+19726 cláusulas, chave final 58073, 198 pedaços de F
+== exg1logs CoveringLean.K742Sat.S38.B0
+<raiz>/CoveringLean/K742Sat/S38/B0.lean:9:0: error: no such file or directory (error code: 2)
+  file: <raiz>/CoveringLean/K742Sat/S38/../dados/s0038/h0.txt
+== exg1logs CoveringLean.K742Sat.S38.Data
+19726 cláusulas, chave final 67141, 198 pedaços de F
+== exg1logs CoveringLean.K742Sat.S39.B0
+56000 passos a partir do bloco 0 (chave 19727)
+== exg1logs CoveringLean.K742Sat.S39.B1
+55900 passos a partir do bloco 560 (chave 75727)
+== exg1logs CoveringLean.K742Sat.S39.B2
+61600 passos a partir do bloco 1119 (chave 131627)
+== exg1logs CoveringLean.K742Sat.S39.B3
+12211 passos a partir do bloco 1735 (chave 193227)
+== exg1logs CoveringLean.K742Sat.S39.Data
+19726 cláusulas, chave final 205437, 198 pedaços de F
+== exg1logs CoveringLean.K742Sat.S39.Final
+1858 blocos em 10 segmentos
+'K742Sat.s39.unsatFor' depends on axioms: [propext, Classical.choice, Quot.sound]
+== exg1logs CoveringLean.K742Sat.S4.B0
+<raiz>/CoveringLean/K742Sat/S4/B0.lean:9:0: error: no such file or directory (error code: 2)
+  file: <raiz>/CoveringLean/K742Sat/S4/../dados/s0004/h0.txt
+== exg1logs CoveringLean.K742Sat.S4.Data
+19726 cláusulas, chave final 54162, 198 pedaços de F
+== exg1logs CoveringLean.K742Sat.S40.B0
+<raiz>/CoveringLean/K742Sat/S40/B0.lean:9:0: error: no such file or directory (error code: 2)
+  file: <raiz>/CoveringLean/K742Sat/S40/../dados/s0040/h0.txt
+== exg1logs CoveringLean.K742Sat.S40.B1
+<raiz>/CoveringLean/K742Sat/S40/B1.lean:9:0: error: no such file or directory (error code: 2)
+  file: <raiz>/CoveringLean/K742Sat/S40/../dados/s0040/h1.txt
+== exg1logs CoveringLean.K742Sat.S40.Data
+19726 cláusulas, chave final 113388, 198 pedaços de F
+== exg1logs CoveringLean.K742Sat.S41.B0
+<raiz>/CoveringLean/K742Sat/S41/B0.lean:9:0: error: no such file or directory (error code: 2)
+  file: <raiz>/CoveringLean/K742Sat/S41/../dados/s0041/h0.txt
+== exg1logs CoveringLean.K742Sat.S41.Data
+19726 cláusulas, chave final 52315, 198 pedaços de F
+== exg1logs CoveringLean.K742Sat.S42.B0
+<raiz>/CoveringLean/K742Sat/S42/B0.lean:9:0: error: no such file or directory (error code: 2)
+  file: <raiz>/CoveringLean/K742Sat/S42/../dados/s0042/h0.txt
+== exg1logs CoveringLean.K742Sat.S42.Data
+19726 cláusulas, chave final 55931, 198 pedaços de F
+== exg1logs CoveringLean.K742Sat.S43.B0
+<raiz>/CoveringLean/K742Sat/S43/B0.lean:9:0: error: no such file or directory (error code: 2)
+  file: <raiz>/CoveringLean/K742Sat/S43/../dados/s0043/h0.txt
+== exg1logs CoveringLean.K742Sat.S43.Data
+19726 cláusulas, chave final 53067, 198 pedaços de F
+== exg1logs CoveringLean.K742Sat.S44.B0
+<raiz>/CoveringLean/K742Sat/S44/B0.lean:9:0: error: no such file or directory (error code: 2)
+  file: <raiz>/CoveringLean/K742Sat/S44/../dados/s0044/h0.txt
+== exg1logs CoveringLean.K742Sat.S44.Data
+19726 cláusulas, chave final 60524, 198 pedaços de F
+== exg1logs CoveringLean.K742Sat.S45.B0
+57400 passos a partir do bloco 0 (chave 19727)
+== exg1logs CoveringLean.K742Sat.S45.B1
+54400 passos a partir do bloco 574 (chave 77127)
+== exg1logs CoveringLean.K742Sat.S45.B2
+20815 passos a partir do bloco 1118 (chave 131527)
+== exg1logs CoveringLean.K742Sat.S45.Data
+19726 cláusulas, chave final 152341, 198 pedaços de F
+== exg1logs CoveringLean.K742Sat.S45.Final
+1327 blocos em 7 segmentos
+'K742Sat.s45.unsatFor' depends on axioms: [propext, Classical.choice, Quot.sound]
+== exg1logs CoveringLean.K742Sat.S46.B0
+<raiz>/CoveringLean/K742Sat/S46/B0.lean:9:0: error: no such file or directory (error code: 2)
+  file: <raiz>/CoveringLean/K742Sat/S46/../dados/s0046/h0.txt
+== exg1logs CoveringLean.K742Sat.S46.B1
+<raiz>/CoveringLean/K742Sat/S46/B1.lean:9:0: error: no such file or directory (error code: 2)
+  file: <raiz>/CoveringLean/K742Sat/S46/../dados/s0046/h1.txt
+== exg1logs CoveringLean.K742Sat.S46.Data
+19726 cláusulas, chave final 102649, 198 pedaços de F
+== exg1logs CoveringLean.K742Sat.S47.B0
+51500 passos a partir do bloco 0 (chave 19727)
+== exg1logs CoveringLean.K742Sat.S47.B1
+59800 passos a partir do bloco 515 (chave 71227)
+== exg1logs CoveringLean.K742Sat.S47.B2
+35217 passos a partir do bloco 1113 (chave 131027)
+== exg1logs CoveringLean.K742Sat.S47.Data
+19726 cláusulas, chave final 166243, 198 pedaços de F
+== exg1logs CoveringLean.K742Sat.S47.Final
+1466 blocos em 8 segmentos
+'K742Sat.s47.unsatFor' depends on axioms: [propext, Classical.choice, Quot.sound]
+== exg1logs CoveringLean.K742Sat.S48.B0
+<raiz>/CoveringLean/K742Sat/S48/B0.lean:9:0: error: no such file or directory (error code: 2)
+  file: <raiz>/CoveringLean/K742Sat/S48/../dados/s0048/h0.txt
+== exg1logs CoveringLean.K742Sat.S48.Data
+19726 cláusulas, chave final 50558, 198 pedaços de F
+== exg1logs CoveringLean.K742Sat.S49.B0
+<raiz>/CoveringLean/K742Sat/S49/B0.lean:9:0: error: no such file or directory (error code: 2)
+  file: <raiz>/CoveringLean/K742Sat/S49/../dados/s0049/h0.txt
+== exg1logs CoveringLean.K742Sat.S49.Data
+19726 cláusulas, chave final 73663, 198 pedaços de F
+== exg1logs CoveringLean.K742Sat.S5.B0
+<raiz>/CoveringLean/K742Sat/S5/B0.lean:9:0: error: no such file or directory (error code: 2)
+  file: <raiz>/CoveringLean/K742Sat/S5/../dados/s0005/h0.txt
+== exg1logs CoveringLean.K742Sat.S5.Data
+19726 cláusulas, chave final 57288, 198 pedaços de F
+== exg1logs CoveringLean.K742Sat.S50.B0
+<raiz>/CoveringLean/K742Sat/S50/B0.lean:9:0: error: no such file or directory (error code: 2)
+  file: <raiz>/CoveringLean/K742Sat/S50/../dados/s0050/h0.txt
+== exg1logs CoveringLean.K742Sat.S50.B1
+<raiz>/CoveringLean/K742Sat/S50/B1.lean:9:0: error: no such file or directory (error code: 2)
+  file: <raiz>/CoveringLean/K742Sat/S50/../dados/s0050/h1.txt
+== exg1logs CoveringLean.K742Sat.S50.Data
+19726 cláusulas, chave final 76538, 198 pedaços de F
+== exg1logs CoveringLean.K742Sat.S51.B0
+<raiz>/CoveringLean/K742Sat/S51/B0.lean:9:0: error: no such file or directory (error code: 2)
+  file: <raiz>/CoveringLean/K742Sat/S51/../dados/s0051/h0.txt
+== exg1logs CoveringLean.K742Sat.S51.Data
+19726 cláusulas, chave final 57296, 198 pedaços de F
+== exg1logs CoveringLean.K742Sat.S52.B0
+<raiz>/CoveringLean/K742Sat/S52/B0.lean:9:0: error: no such file or directory (error code: 2)
+  file: <raiz>/CoveringLean/K742Sat/S52/../dados/s0052/h0.txt
+== exg1logs CoveringLean.K742Sat.S52.Data
+19726 cláusulas, chave final 60843, 198 pedaços de F
+== exg1logs CoveringLean.K742Sat.S53.B0
+<raiz>/CoveringLean/K742Sat/S53/B0.lean:9:0: error: no such file or directory (error code: 2)
+  file: <raiz>/CoveringLean/K742Sat/S53/../dados/s0053/h0.txt
+== exg1logs CoveringLean.K742Sat.S53.Data
+19726 cláusulas, chave final 68837, 198 pedaços de F
+== exg1logs CoveringLean.K742Sat.S54.B0
+<raiz>/CoveringLean/K742Sat/S54/B0.lean:9:0: error: no such file or directory (error code: 2)
+  file: <raiz>/CoveringLean/K742Sat/S54/../dados/s0054/h0.txt
+== exg1logs CoveringLean.K742Sat.S54.B1
+<raiz>/CoveringLean/K742Sat/S54/B1.lean:9:0: error: no such file or directory (error code: 2)
+  file: <raiz>/CoveringLean/K742Sat/S54/../dados/s0054/h1.txt
+== exg1logs CoveringLean.K742Sat.S54.Data
+19726 cláusulas, chave final 82111, 198 pedaços de F
+== exg1logs CoveringLean.K742Sat.S55.B0
+66700 passos a partir do bloco 0 (chave 19727)
+== exg1logs CoveringLean.K742Sat.S55.B1
+58500 passos a partir do bloco 667 (chave 86427)
+== exg1logs CoveringLean.K742Sat.S55.B10
+49300 passos a partir do bloco 4952 (chave 514927)
+== exg1logs CoveringLean.K742Sat.S55.B11
+53000 passos a partir do bloco 5445 (chave 564227)
+== exg1logs CoveringLean.K742Sat.S55.B12
+28100 passos a partir do bloco 5975 (chave 617227)
+== exg1logs CoveringLean.K742Sat.S55.B13
+53200 passos a partir do bloco 6256 (chave 645327)
+== exg1logs CoveringLean.K742Sat.S55.B14
+25300 passos a partir do bloco 6788 (chave 698527)
+== exg1logs CoveringLean.K742Sat.S55.B15
+23700 passos a partir do bloco 7041 (chave 723827)
+== exg1logs CoveringLean.K742Sat.S55.B16
+53500 passos a partir do bloco 7278 (chave 747527)
+== exg1logs CoveringLean.K742Sat.S55.B17
+28600 passos a partir do bloco 7813 (chave 801027)
+== exg1logs CoveringLean.K742Sat.S55.B18
+28300 passos a partir do bloco 8099 (chave 829627)
+== exg1logs CoveringLean.K742Sat.S55.B19
+15345 passos a partir do bloco 8382 (chave 857927)
+== exg1logs CoveringLean.K742Sat.S55.B2
+58000 passos a partir do bloco 1252 (chave 144927)
+== exg1logs CoveringLean.K742Sat.S55.B3
+39500 passos a partir do bloco 1832 (chave 202927)
+== exg1logs CoveringLean.K742Sat.S55.B4
+40200 passos a partir do bloco 2227 (chave 242427)
+== exg1logs CoveringLean.K742Sat.S55.B5
+34800 passos a partir do bloco 2629 (chave 282627)
+== exg1logs CoveringLean.K742Sat.S55.B6
+41000 passos a partir do bloco 2977 (chave 317427)
+== exg1logs CoveringLean.K742Sat.S55.B7
+62500 passos a partir do bloco 3387 (chave 358427)
+== exg1logs CoveringLean.K742Sat.S55.B8
+45400 passos a partir do bloco 4012 (chave 420927)
+== exg1logs CoveringLean.K742Sat.S55.B9
+48600 passos a partir do bloco 4466 (chave 466327)
+== exg1logs CoveringLean.K742Sat.S55.Data
+19726 cláusulas, chave final 873271, 198 pedaços de F
+== exg1logs CoveringLean.K742Sat.S55.Final
+8536 blocos em 43 segmentos
+'K742Sat.s55.unsatFor' depends on axioms: [propext, Classical.choice, Quot.sound]
+== exg1logs CoveringLean.K742Sat.S56.B0
+<raiz>/CoveringLean/K742Sat/S56/B0.lean:9:0: error: no such file or directory (error code: 2)
+  file: <raiz>/CoveringLean/K742Sat/S56/../dados/s0056/h0.txt
+== exg1logs CoveringLean.K742Sat.S56.Data
+19726 cláusulas, chave final 50305, 198 pedaços de F
+== exg1logs CoveringLean.K742Sat.S57.B0
+<raiz>/CoveringLean/K742Sat/S57/B0.lean:9:0: error: no such file or directory (error code: 2)
+  file: <raiz>/CoveringLean/K742Sat/S57/../dados/s0057/h0.txt
+== exg1logs CoveringLean.K742Sat.S57.Data
+19726 cláusulas, chave final 61995, 198 pedaços de F
+== exg1logs CoveringLean.K742Sat.S58.B0
+<raiz>/CoveringLean/K742Sat/S58/B0.lean:9:0: error: no such file or directory (error code: 2)
+  file: <raiz>/CoveringLean/K742Sat/S58/../dados/s0058/h0.txt
+== exg1logs CoveringLean.K742Sat.S58.Data
+19726 cláusulas, chave final 65825, 198 pedaços de F
+== exg1logs CoveringLean.K742Sat.S59.B0
+<raiz>/CoveringLean/K742Sat/S59/B0.lean:9:0: error: no such file or directory (error code: 2)
+  file: <raiz>/CoveringLean/K742Sat/S59/../dados/s0059/h0.txt
+== exg1logs CoveringLean.K742Sat.S59.Data
+19726 cláusulas, chave final 47149, 198 pedaços de F
+== exg1logs CoveringLean.K742Sat.S6.B0
+<raiz>/CoveringLean/K742Sat/S6/B0.lean:9:0: error: no such file or directory (error code: 2)
+  file: <raiz>/CoveringLean/K742Sat/S6/../dados/s0006/h0.txt
+== exg1logs CoveringLean.K742Sat.S6.B1
+<raiz>/CoveringLean/K742Sat/S6/B1.lean:9:0: error: no such file or directory (error code: 2)
+  file: <raiz>/CoveringLean/K742Sat/S6/../dados/s0006/h1.txt
+== exg1logs CoveringLean.K742Sat.S6.Data
+19726 cláusulas, chave final 80268, 198 pedaços de F
+== exg1logs CoveringLean.K742Sat.S60.B0
+<raiz>/CoveringLean/K742Sat/S60/B0.lean:9:0: error: no such file or directory (error code: 2)
+  file: <raiz>/CoveringLean/K742Sat/S60/../dados/s0060/h0.txt
+== exg1logs CoveringLean.K742Sat.S60.Data
+19726 cláusulas, chave final 73169, 198 pedaços de F
+== exg1logs CoveringLean.K742Sat.S61.B0
+<raiz>/CoveringLean/K742Sat/S61/B0.lean:9:0: error: no such file or directory (error code: 2)
+  file: <raiz>/CoveringLean/K742Sat/S61/../dados/s0061/h0.txt
+== exg1logs CoveringLean.K742Sat.S61.B1
+<raiz>/CoveringLean/K742Sat/S61/B1.lean:9:0: error: no such file or directory (error code: 2)
+  file: <raiz>/CoveringLean/K742Sat/S61/../dados/s0061/h1.txt
+== exg1logs CoveringLean.K742Sat.S61.Data
+19726 cláusulas, chave final 77079, 198 pedaços de F
+== exg1logs CoveringLean.K742Sat.S62.B0
+<raiz>/CoveringLean/K742Sat/S62/B0.lean:9:0: error: no such file or directory (error code: 2)
+  file: <raiz>/CoveringLean/K742Sat/S62/../dados/s0062/h0.txt
+== exg1logs CoveringLean.K742Sat.S62.Data
+19726 cláusulas, chave final 59633, 198 pedaços de F
+== exg1logs CoveringLean.K742Sat.S63.B0
+<raiz>/CoveringLean/K742Sat/S63/B0.lean:9:0: error: no such file or directory (error code: 2)
+  file: <raiz>/CoveringLean/K742Sat/S63/../dados/s0063/h0.txt
+== exg1logs CoveringLean.K742Sat.S63.Data
+19726 cláusulas, chave final 59566, 198 pedaços de F
+== exg1logs CoveringLean.K742Sat.S64.B0
+<raiz>/CoveringLean/K742Sat/S64/B0.lean:9:0: error: no such file or directory (error code: 2)
+  file: <raiz>/CoveringLean/K742Sat/S64/../dados/s0064/h0.txt
+== exg1logs CoveringLean.K742Sat.S64.B1
+<raiz>/CoveringLean/K742Sat/S64/B1.lean:9:0: error: no such file or directory (error code: 2)
+  file: <raiz>/CoveringLean/K742Sat/S64/../dados/s0064/h1.txt
+== exg1logs CoveringLean.K742Sat.S64.Data
+19726 cláusulas, chave final 80670, 198 pedaços de F
+== exg1logs CoveringLean.K742Sat.S65.B0
+<raiz>/CoveringLean/K742Sat/S65/B0.lean:9:0: error: no such file or directory (error code: 2)
+  file: <raiz>/CoveringLean/K742Sat/S65/../dados/s0065/h0.txt
+== exg1logs CoveringLean.K742Sat.S65.Data
+19726 cláusulas, chave final 39433, 198 pedaços de F
+== exg1logs CoveringLean.K742Sat.S66.B0
+<raiz>/CoveringLean/K742Sat/S66/B0.lean:9:0: error: no such file or directory (error code: 2)
+  file: <raiz>/CoveringLean/K742Sat/S66/../dados/s0066/h0.txt
+== exg1logs CoveringLean.K742Sat.S66.Data
+19726 cláusulas, chave final 59090, 198 pedaços de F
+== exg1logs CoveringLean.K742Sat.S67.B0
+<raiz>/CoveringLean/K742Sat/S67/B0.lean:9:0: error: no such file or directory (error code: 2)
+  file: <raiz>/CoveringLean/K742Sat/S67/../dados/s0067/h0.txt
+== exg1logs CoveringLean.K742Sat.S67.B1
+<raiz>/CoveringLean/K742Sat/S67/B1.lean:9:0: error: no such file or directory (error code: 2)
+  file: <raiz>/CoveringLean/K742Sat/S67/../dados/s0067/h1.txt
+== exg1logs CoveringLean.K742Sat.S67.Data
+19726 cláusulas, chave final 84938, 198 pedaços de F
+== exg1logs CoveringLean.K742Sat.S68.B0
+<raiz>/CoveringLean/K742Sat/S68/B0.lean:9:0: error: no such file or directory (error code: 2)
+  file: <raiz>/CoveringLean/K742Sat/S68/../dados/s0068/h0.txt
+== exg1logs CoveringLean.K742Sat.S68.Data
+19726 cláusulas, chave final 67308, 198 pedaços de F
+== exg1logs CoveringLean.K742Sat.S69.B0
+<raiz>/CoveringLean/K742Sat/S69/B0.lean:9:0: error: no such file or directory (error code: 2)
+  file: <raiz>/CoveringLean/K742Sat/S69/../dados/s0069/h0.txt
+== exg1logs CoveringLean.K742Sat.S69.B1
+<raiz>/CoveringLean/K742Sat/S69/B1.lean:9:0: error: no such file or directory (error code: 2)
+  file: <raiz>/CoveringLean/K742Sat/S69/../dados/s0069/h1.txt
+== exg1logs CoveringLean.K742Sat.S69.Data
+19726 cláusulas, chave final 72555, 198 pedaços de F
+== exg1logs CoveringLean.K742Sat.S7.B0
+<raiz>/CoveringLean/K742Sat/S7/B0.lean:9:0: error: no such file or directory (error code: 2)
+  file: <raiz>/CoveringLean/K742Sat/S7/../dados/s0007/h0.txt
+== exg1logs CoveringLean.K742Sat.S7.Data
+19726 cláusulas, chave final 44564, 198 pedaços de F
+== exg1logs CoveringLean.K742Sat.S8.B0
+<raiz>/CoveringLean/K742Sat/S8/B0.lean:9:0: error: no such file or directory (error code: 2)
+  file: <raiz>/CoveringLean/K742Sat/S8/../dados/s0008/h0.txt
+== exg1logs CoveringLean.K742Sat.S8.Data
+19726 cláusulas, chave final 50982, 198 pedaços de F
+== exg1logs CoveringLean.K742Sat.S9.B0
+65600 passos a partir do bloco 0 (chave 19727)
+== exg1logs CoveringLean.K742Sat.S9.B1
+52400 passos a partir do bloco 656 (chave 85327)
+== exg1logs CoveringLean.K742Sat.S9.B2
+63000 passos a partir do bloco 1180 (chave 137727)
+== exg1logs CoveringLean.K742Sat.S9.B3
+40200 passos a partir do bloco 1810 (chave 200727)
+== exg1logs CoveringLean.K742Sat.S9.B4
+31400 passos a partir do bloco 2212 (chave 240927)
+== exg1logs CoveringLean.K742Sat.S9.B5
+46000 passos a partir do bloco 2526 (chave 272327)
+== exg1logs CoveringLean.K742Sat.S9.B6
+21300 passos a partir do bloco 2986 (chave 318327)
+== exg1logs CoveringLean.K742Sat.S9.B7
+23600 passos a partir do bloco 3199 (chave 339627)
+== exg1logs CoveringLean.K742Sat.S9.B8
+38400 passos a partir do bloco 3435 (chave 363227)
+== exg1logs CoveringLean.K742Sat.S9.B9
+19725 passos a partir do bloco 3819 (chave 401627)
+== exg1logs CoveringLean.K742Sat.S9.Data
+19726 cláusulas, chave final 421351, 198 pedaços de F
+== exg1logs CoveringLean.K742Sat.S9.Final
+4017 blocos em 21 segmentos
+'K742Sat.s9.unsatFor' depends on axioms: [propext, Classical.choice, Quot.sound]
+== exg2logs CoveringLean.K742Sat.S1.B0
+35626 passos a partir do bloco 0 (chave 19727)
+== exg2logs CoveringLean.K742Sat.S1.Data
+19726 cláusulas, chave final 55352, 198 pedaços de F
+== exg2logs CoveringLean.K742Sat.S1.Final
+357 blocos em 2 segmentos
+'K742Sat.s1.unsatFor' depends on axioms: [propext, Classical.choice, Quot.sound]
+== exg2logs CoveringLean.K742Sat.S10.B0
+38651 passos a partir do bloco 0 (chave 19727)
+== exg2logs CoveringLean.K742Sat.S10.Data
+19726 cláusulas, chave final 58377, 198 pedaços de F
+== exg2logs CoveringLean.K742Sat.S10.Final
+387 blocos em 2 segmentos
+'K742Sat.s10.unsatFor' depends on axioms: [propext, Classical.choice, Quot.sound]
+== exg2logs CoveringLean.K742Sat.S11.B0
+26597 passos a partir do bloco 0 (chave 19727)
+== exg2logs CoveringLean.K742Sat.S11.Data
+19726 cláusulas, chave final 46323, 198 pedaços de F
+== exg2logs CoveringLean.K742Sat.S11.Final
+266 blocos em 2 segmentos
+'K742Sat.s11.unsatFor' depends on axioms: [propext, Classical.choice, Quot.sound]
+== exg2logs CoveringLean.K742Sat.S12.B0
+26551 passos a partir do bloco 0 (chave 19727)
+== exg2logs CoveringLean.K742Sat.S12.Data
+19726 cláusulas, chave final 46277, 198 pedaços de F
+== exg2logs CoveringLean.K742Sat.S12.Final
+266 blocos em 2 segmentos
+'K742Sat.s12.unsatFor' depends on axioms: [propext, Classical.choice, Quot.sound]
+== exg2logs CoveringLean.K742Sat.S13.B0
+38284 passos a partir do bloco 0 (chave 19727)
+== exg2logs CoveringLean.K742Sat.S13.Data
+19726 cláusulas, chave final 58010, 198 pedaços de F
+== exg2logs CoveringLean.K742Sat.S13.Final
+383 blocos em 2 segmentos
+'K742Sat.s13.unsatFor' depends on axioms: [propext, Classical.choice, Quot.sound]
+== exg2logs CoveringLean.K742Sat.S14.B0
+48671 passos a partir do bloco 0 (chave 19727)
+== exg2logs CoveringLean.K742Sat.S14.Data
+19726 cláusulas, chave final 68397, 198 pedaços de F
+== exg2logs CoveringLean.K742Sat.S14.Final
+487 blocos em 3 segmentos
+'K742Sat.s14.unsatFor' depends on axioms: [propext, Classical.choice, Quot.sound]
+== exg2logs CoveringLean.K742Sat.S15.B0
+37015 passos a partir do bloco 0 (chave 19727)
+== exg2logs CoveringLean.K742Sat.S15.Data
+19726 cláusulas, chave final 56741, 198 pedaços de F
+== exg2logs CoveringLean.K742Sat.S15.Final
+371 blocos em 2 segmentos
+'K742Sat.s15.unsatFor' depends on axioms: [propext, Classical.choice, Quot.sound]
+== exg2logs CoveringLean.K742Sat.S16.B0
+26122 passos a partir do bloco 0 (chave 19727)
+== exg2logs CoveringLean.K742Sat.S16.Data
+19726 cláusulas, chave final 45848, 198 pedaços de F
+== exg2logs CoveringLean.K742Sat.S16.Final
+262 blocos em 2 segmentos
+'K742Sat.s16.unsatFor' depends on axioms: [propext, Classical.choice, Quot.sound]
+== exg2logs CoveringLean.K742Sat.S17.B0
+55070 passos a partir do bloco 0 (chave 19727)
+== exg2logs CoveringLean.K742Sat.S17.Data
+19726 cláusulas, chave final 74796, 198 pedaços de F
+== exg2logs CoveringLean.K742Sat.S17.Final
+551 blocos em 3 segmentos
+'K742Sat.s17.unsatFor' depends on axioms: [propext, Classical.choice, Quot.sound]
+== exg2logs CoveringLean.K742Sat.S18.B0
+55100 passos a partir do bloco 0 (chave 19727)
+== exg2logs CoveringLean.K742Sat.S18.B1
+9798 passos a partir do bloco 551 (chave 74827)
+== exg2logs CoveringLean.K742Sat.S18.Data
+19726 cláusulas, chave final 84624, 198 pedaços de F
+== exg2logs CoveringLean.K742Sat.S18.Final
+649 blocos em 4 segmentos
+'K742Sat.s18.unsatFor' depends on axioms: [propext, Classical.choice, Quot.sound]
+== exg2logs CoveringLean.K742Sat.S19.B0
+49619 passos a partir do bloco 0 (chave 19727)
+== exg2logs CoveringLean.K742Sat.S19.Data
+19726 cláusulas, chave final 69345, 198 pedaços de F
+== exg2logs CoveringLean.K742Sat.S19.Final
+497 blocos em 3 segmentos
+'K742Sat.s19.unsatFor' depends on axioms: [propext, Classical.choice, Quot.sound]
+== exg2logs CoveringLean.K742Sat.S20.B0
+24091 passos a partir do bloco 0 (chave 19727)
+== exg2logs CoveringLean.K742Sat.S20.Data
+19726 cláusulas, chave final 43817, 198 pedaços de F
+== exg2logs CoveringLean.K742Sat.S20.Final
+241 blocos em 2 segmentos
+'K742Sat.s20.unsatFor' depends on axioms: [propext, Classical.choice, Quot.sound]
+== exg2logs CoveringLean.K742Sat.S21.B0
+32500 passos a partir do bloco 0 (chave 19727)
+== exg2logs CoveringLean.K742Sat.S21.Data
+19726 cláusulas, chave final 52226, 198 pedaços de F
+== exg2logs CoveringLean.K742Sat.S21.Final
+325 blocos em 2 segmentos
+'K742Sat.s21.unsatFor' depends on axioms: [propext, Classical.choice, Quot.sound]
+== exg2logs CoveringLean.K742Sat.S22.B0
+50344 passos a partir do bloco 0 (chave 19727)
+== exg2logs CoveringLean.K742Sat.S22.Data
+19726 cláusulas, chave final 70070, 198 pedaços de F
+== exg2logs CoveringLean.K742Sat.S22.Final
+504 blocos em 3 segmentos
+'K742Sat.s22.unsatFor' depends on axioms: [propext, Classical.choice, Quot.sound]
+== exg2logs CoveringLean.K742Sat.S23.B0
+30339 passos a partir do bloco 0 (chave 19727)
+== exg2logs CoveringLean.K742Sat.S23.Data
+19726 cláusulas, chave final 50065, 198 pedaços de F
+== exg2logs CoveringLean.K742Sat.S23.Final
+304 blocos em 2 segmentos
+'K742Sat.s23.unsatFor' depends on axioms: [propext, Classical.choice, Quot.sound]
+== exg2logs CoveringLean.K742Sat.S24.B0
+32521 passos a partir do bloco 0 (chave 19727)
+== exg2logs CoveringLean.K742Sat.S24.Data
+19726 cláusulas, chave final 52247, 198 pedaços de F
+== exg2logs CoveringLean.K742Sat.S24.Final
+326 blocos em 2 segmentos
+'K742Sat.s24.unsatFor' depends on axioms: [propext, Classical.choice, Quot.sound]
+== exg2logs CoveringLean.K742Sat.S26.B0
+31267 passos a partir do bloco 0 (chave 19727)
+== exg2logs CoveringLean.K742Sat.S26.Data
+19726 cláusulas, chave final 50993, 198 pedaços de F
+== exg2logs CoveringLean.K742Sat.S26.Final
+313 blocos em 2 segmentos
+'K742Sat.s26.unsatFor' depends on axioms: [propext, Classical.choice, Quot.sound]
+== exg2logs CoveringLean.K742Sat.S27.B0
+41376 passos a partir do bloco 0 (chave 19727)
+== exg2logs CoveringLean.K742Sat.S27.Data
+19726 cláusulas, chave final 61102, 198 pedaços de F
+== exg2logs CoveringLean.K742Sat.S27.Final
+414 blocos em 3 segmentos
+'K742Sat.s27.unsatFor' depends on axioms: [propext, Classical.choice, Quot.sound]
+== exg2logs CoveringLean.K742Sat.S28.B0
+30461 passos a partir do bloco 0 (chave 19727)
+== exg2logs CoveringLean.K742Sat.S28.Data
+19726 cláusulas, chave final 50187, 198 pedaços de F
+== exg2logs CoveringLean.K742Sat.S28.Final
+305 blocos em 2 segmentos
+'K742Sat.s28.unsatFor' depends on axioms: [propext, Classical.choice, Quot.sound]
+== exg2logs CoveringLean.K742Sat.S29.B0
+25824 passos a partir do bloco 0 (chave 19727)
+== exg2logs CoveringLean.K742Sat.S29.Data
+19726 cláusulas, chave final 45550, 198 pedaços de F
+== exg2logs CoveringLean.K742Sat.S29.Final
+259 blocos em 2 segmentos
+'K742Sat.s29.unsatFor' depends on axioms: [propext, Classical.choice, Quot.sound]
+== exg2logs CoveringLean.K742Sat.S3.B0
+40671 passos a partir do bloco 0 (chave 19727)
+== exg2logs CoveringLean.K742Sat.S3.Data
+19726 cláusulas, chave final 60397, 198 pedaços de F
+== exg2logs CoveringLean.K742Sat.S3.Final
+407 blocos em 3 segmentos
+'K742Sat.s3.unsatFor' depends on axioms: [propext, Classical.choice, Quot.sound]
+== exg2logs CoveringLean.K742Sat.S30.B0
+34744 passos a partir do bloco 0 (chave 19727)
+== exg2logs CoveringLean.K742Sat.S30.Data
+19726 cláusulas, chave final 54470, 198 pedaços de F
+== exg2logs CoveringLean.K742Sat.S30.Final
+348 blocos em 2 segmentos
+'K742Sat.s30.unsatFor' depends on axioms: [propext, Classical.choice, Quot.sound]
+== exg2logs CoveringLean.K742Sat.S31.B0
+29647 passos a partir do bloco 0 (chave 19727)
+== exg2logs CoveringLean.K742Sat.S31.Data
+19726 cláusulas, chave final 49373, 198 pedaços de F
+== exg2logs CoveringLean.K742Sat.S31.Final
+297 blocos em 2 segmentos
+'K742Sat.s31.unsatFor' depends on axioms: [propext, Classical.choice, Quot.sound]
+== exg2logs CoveringLean.K742Sat.S32.B0
+38082 passos a partir do bloco 0 (chave 19727)
+== exg2logs CoveringLean.K742Sat.S32.Data
+19726 cláusulas, chave final 57808, 198 pedaços de F
+== exg2logs CoveringLean.K742Sat.S32.Final
+381 blocos em 2 segmentos
+'K742Sat.s32.unsatFor' depends on axioms: [propext, Classical.choice, Quot.sound]
+== exg2logs CoveringLean.K742Sat.S33.B0
+46954 passos a partir do bloco 0 (chave 19727)
+== exg2logs CoveringLean.K742Sat.S33.Data
+19726 cláusulas, chave final 66680, 198 pedaços de F
+== exg2logs CoveringLean.K742Sat.S33.Final
+470 blocos em 3 segmentos
+'K742Sat.s33.unsatFor' depends on axioms: [propext, Classical.choice, Quot.sound]
+== exg2logs CoveringLean.K742Sat.S34.B0
+30952 passos a partir do bloco 0 (chave 19727)
+== exg2logs CoveringLean.K742Sat.S34.Data
+19726 cláusulas, chave final 50678, 198 pedaços de F
+== exg2logs CoveringLean.K742Sat.S34.Final
+310 blocos em 2 segmentos
+'K742Sat.s34.unsatFor' depends on axioms: [propext, Classical.choice, Quot.sound]
+== exg2logs CoveringLean.K742Sat.S35.B0
+27727 passos a partir do bloco 0 (chave 19727)
+== exg2logs CoveringLean.K742Sat.S35.Data
+19726 cláusulas, chave final 47453, 198 pedaços de F
+== exg2logs CoveringLean.K742Sat.S35.Final
+278 blocos em 2 segmentos
+'K742Sat.s35.unsatFor' depends on axioms: [propext, Classical.choice, Quot.sound]
+== exg2logs CoveringLean.K742Sat.S36.B0
+33766 passos a partir do bloco 0 (chave 19727)
+== exg2logs CoveringLean.K742Sat.S36.Data
+19726 cláusulas, chave final 53492, 198 pedaços de F
+== exg2logs CoveringLean.K742Sat.S36.Final
+338 blocos em 2 segmentos
+'K742Sat.s36.unsatFor' depends on axioms: [propext, Classical.choice, Quot.sound]
+== exg2logs CoveringLean.K742Sat.S37.B0
+38347 passos a partir do bloco 0 (chave 19727)
+== exg2logs CoveringLean.K742Sat.S37.Data
+19726 cláusulas, chave final 58073, 198 pedaços de F
+== exg2logs CoveringLean.K742Sat.S37.Final
+384 blocos em 2 segmentos
+'K742Sat.s37.unsatFor' depends on axioms: [propext, Classical.choice, Quot.sound]
+== exg2logs CoveringLean.K742Sat.S38.B0
+47415 passos a partir do bloco 0 (chave 19727)
+== exg2logs CoveringLean.K742Sat.S38.Data
+19726 cláusulas, chave final 67141, 198 pedaços de F
+== exg2logs CoveringLean.K742Sat.S38.Final
+475 blocos em 3 segmentos
+'K742Sat.s38.unsatFor' depends on axioms: [propext, Classical.choice, Quot.sound]
+== exg2logs CoveringLean.K742Sat.S4.B0
+34436 passos a partir do bloco 0 (chave 19727)
+== exg2logs CoveringLean.K742Sat.S4.Data
+19726 cláusulas, chave final 54162, 198 pedaços de F
+== exg2logs CoveringLean.K742Sat.S4.Final
+345 blocos em 2 segmentos
+'K742Sat.s4.unsatFor' depends on axioms: [propext, Classical.choice, Quot.sound]
+== exg2logs CoveringLean.K742Sat.S40.B0
+55800 passos a partir do bloco 0 (chave 19727)
+== exg2logs CoveringLean.K742Sat.S40.B1
+37862 passos a partir do bloco 558 (chave 75527)
+== exg2logs CoveringLean.K742Sat.S40.Data
+19726 cláusulas, chave final 113388, 198 pedaços de F
+== exg2logs CoveringLean.K742Sat.S40.Final
+937 blocos em 5 segmentos
+'K742Sat.s40.unsatFor' depends on axioms: [propext, Classical.choice, Quot.sound]
+== exg2logs CoveringLean.K742Sat.S41.B0
+32589 passos a partir do bloco 0 (chave 19727)
+== exg2logs CoveringLean.K742Sat.S41.Data
+19726 cláusulas, chave final 52315, 198 pedaços de F
+== exg2logs CoveringLean.K742Sat.S41.Final
+326 blocos em 2 segmentos
+'K742Sat.s41.unsatFor' depends on axioms: [propext, Classical.choice, Quot.sound]
+== exg2logs CoveringLean.K742Sat.S42.B0
+36205 passos a partir do bloco 0 (chave 19727)
+== exg2logs CoveringLean.K742Sat.S42.Data
+19726 cláusulas, chave final 55931, 198 pedaços de F
+== exg2logs CoveringLean.K742Sat.S42.Final
+363 blocos em 2 segmentos
+'K742Sat.s42.unsatFor' depends on axioms: [propext, Classical.choice, Quot.sound]
+== exg2logs CoveringLean.K742Sat.S43.B0
+33341 passos a partir do bloco 0 (chave 19727)
+== exg2logs CoveringLean.K742Sat.S43.Data
+19726 cláusulas, chave final 53067, 198 pedaços de F
+== exg2logs CoveringLean.K742Sat.S43.Final
+334 blocos em 2 segmentos
+'K742Sat.s43.unsatFor' depends on axioms: [propext, Classical.choice, Quot.sound]
+== exg2logs CoveringLean.K742Sat.S44.B0
+40798 passos a partir do bloco 0 (chave 19727)
+== exg2logs CoveringLean.K742Sat.S44.Data
+19726 cláusulas, chave final 60524, 198 pedaços de F
+== exg2logs CoveringLean.K742Sat.S44.Final
+408 blocos em 3 segmentos
+'K742Sat.s44.unsatFor' depends on axioms: [propext, Classical.choice, Quot.sound]
+== exg2logs CoveringLean.K742Sat.S46.B0
+62400 passos a partir do bloco 0 (chave 19727)
+== exg2logs CoveringLean.K742Sat.S46.B1
+20523 passos a partir do bloco 624 (chave 82127)
+== exg2logs CoveringLean.K742Sat.S46.Data
+19726 cláusulas, chave final 102649, 198 pedaços de F
+== exg2logs CoveringLean.K742Sat.S46.Final
+830 blocos em 5 segmentos
+'K742Sat.s46.unsatFor' depends on axioms: [propext, Classical.choice, Quot.sound]
+== exg2logs CoveringLean.K742Sat.S48.B0
+30832 passos a partir do bloco 0 (chave 19727)
+== exg2logs CoveringLean.K742Sat.S48.Data
+19726 cláusulas, chave final 50558, 198 pedaços de F
+== exg2logs CoveringLean.K742Sat.S48.Final
+309 blocos em 2 segmentos
+'K742Sat.s48.unsatFor' depends on axioms: [propext, Classical.choice, Quot.sound]
+== exg2logs CoveringLean.K742Sat.S49.B0
+53937 passos a partir do bloco 0 (chave 19727)
+== exg2logs CoveringLean.K742Sat.S49.Data
+19726 cláusulas, chave final 73663, 198 pedaços de F
+== exg2logs CoveringLean.K742Sat.S49.Final
+540 blocos em 3 segmentos
+'K742Sat.s49.unsatFor' depends on axioms: [propext, Classical.choice, Quot.sound]
+== exg2logs CoveringLean.K742Sat.S5.B0
+37562 passos a partir do bloco 0 (chave 19727)
+== exg2logs CoveringLean.K742Sat.S5.Data
+19726 cláusulas, chave final 57288, 198 pedaços de F
+== exg2logs CoveringLean.K742Sat.S5.Final
+376 blocos em 2 segmentos
+'K742Sat.s5.unsatFor' depends on axioms: [propext, Classical.choice, Quot.sound]
+== exg2logs CoveringLean.K742Sat.S50.B0
+54900 passos a partir do bloco 0 (chave 19727)
+== exg2logs CoveringLean.K742Sat.S50.B1
+1912 passos a partir do bloco 549 (chave 74627)
+== exg2logs CoveringLean.K742Sat.S50.Data
+19726 cláusulas, chave final 76538, 198 pedaços de F
+== exg2logs CoveringLean.K742Sat.S50.Final
+569 blocos em 3 segmentos
+'K742Sat.s50.unsatFor' depends on axioms: [propext, Classical.choice, Quot.sound]
+== exg2logs CoveringLean.K742Sat.S51.B0
+37570 passos a partir do bloco 0 (chave 19727)
+== exg2logs CoveringLean.K742Sat.S51.Data
+19726 cláusulas, chave final 57296, 198 pedaços de F
+== exg2logs CoveringLean.K742Sat.S51.Final
+376 blocos em 2 segmentos
+'K742Sat.s51.unsatFor' depends on axioms: [propext, Classical.choice, Quot.sound]
+== exg2logs CoveringLean.K742Sat.S52.B0
+41117 passos a partir do bloco 0 (chave 19727)
+== exg2logs CoveringLean.K742Sat.S52.Data
+19726 cláusulas, chave final 60843, 198 pedaços de F
+== exg2logs CoveringLean.K742Sat.S52.Final
+412 blocos em 3 segmentos
+'K742Sat.s52.unsatFor' depends on axioms: [propext, Classical.choice, Quot.sound]
+== exg2logs CoveringLean.K742Sat.S53.B0
+49111 passos a partir do bloco 0 (chave 19727)
+== exg2logs CoveringLean.K742Sat.S53.Data
+19726 cláusulas, chave final 68837, 198 pedaços de F
+== exg2logs CoveringLean.K742Sat.S53.Final
+492 blocos em 3 segmentos
+'K742Sat.s53.unsatFor' depends on axioms: [propext, Classical.choice, Quot.sound]
+== exg2logs CoveringLean.K742Sat.S54.B0
+58400 passos a partir do bloco 0 (chave 19727)
+== exg2logs CoveringLean.K742Sat.S54.B1
+3985 passos a partir do bloco 584 (chave 78127)
+== exg2logs CoveringLean.K742Sat.S54.Data
+19726 cláusulas, chave final 82111, 198 pedaços de F
+== exg2logs CoveringLean.K742Sat.S54.Final
+624 blocos em 4 segmentos
+'K742Sat.s54.unsatFor' depends on axioms: [propext, Classical.choice, Quot.sound]
+== exg2logs CoveringLean.K742Sat.S56.B0
+30579 passos a partir do bloco 0 (chave 19727)
+== exg2logs CoveringLean.K742Sat.S56.Data
+19726 cláusulas, chave final 50305, 198 pedaços de F
+== exg2logs CoveringLean.K742Sat.S56.Final
+306 blocos em 2 segmentos
+'K742Sat.s56.unsatFor' depends on axioms: [propext, Classical.choice, Quot.sound]
+== exg2logs CoveringLean.K742Sat.S57.B0
+42269 passos a partir do bloco 0 (chave 19727)
+== exg2logs CoveringLean.K742Sat.S57.Data
+19726 cláusulas, chave final 61995, 198 pedaços de F
+== exg2logs CoveringLean.K742Sat.S57.Final
+423 blocos em 3 segmentos
+'K742Sat.s57.unsatFor' depends on axioms: [propext, Classical.choice, Quot.sound]
+== exg2logs CoveringLean.K742Sat.S58.B0
+46099 passos a partir do bloco 0 (chave 19727)
+== exg2logs CoveringLean.K742Sat.S58.Data
+19726 cláusulas, chave final 65825, 198 pedaços de F
+== exg2logs CoveringLean.K742Sat.S58.Final
+461 blocos em 3 segmentos
+'K742Sat.s58.unsatFor' depends on axioms: [propext, Classical.choice, Quot.sound]
+== exg2logs CoveringLean.K742Sat.S59.B0
+27423 passos a partir do bloco 0 (chave 19727)
+== exg2logs CoveringLean.K742Sat.S59.Data
+19726 cláusulas, chave final 47149, 198 pedaços de F
+== exg2logs CoveringLean.K742Sat.S59.Final
+275 blocos em 2 segmentos
+'K742Sat.s59.unsatFor' depends on axioms: [propext, Classical.choice, Quot.sound]
+== exg2logs CoveringLean.K742Sat.S6.B0
+53900 passos a partir do bloco 0 (chave 19727)
+== exg2logs CoveringLean.K742Sat.S6.B1
+6642 passos a partir do bloco 539 (chave 73627)
+== exg2logs CoveringLean.K742Sat.S6.Data
+19726 cláusulas, chave final 80268, 198 pedaços de F
+== exg2logs CoveringLean.K742Sat.S6.Final
+606 blocos em 4 segmentos
+'K742Sat.s6.unsatFor' depends on axioms: [propext, Classical.choice, Quot.sound]
+== exg2logs CoveringLean.K742Sat.S60.B0
+53443 passos a partir do bloco 0 (chave 19727)
+== exg2logs CoveringLean.K742Sat.S60.Data
+19726 cláusulas, chave final 73169, 198 pedaços de F
+== exg2logs CoveringLean.K742Sat.S60.Final
+535 blocos em 3 segmentos
+'K742Sat.s60.unsatFor' depends on axioms: [propext, Classical.choice, Quot.sound]
+== exg2logs CoveringLean.K742Sat.S61.B0
+53100 passos a partir do bloco 0 (chave 19727)
+== exg2logs CoveringLean.K742Sat.S61.B1
+4253 passos a partir do bloco 531 (chave 72827)
+== exg2logs CoveringLean.K742Sat.S61.Data
+19726 cláusulas, chave final 77079, 198 pedaços de F
+== exg2logs CoveringLean.K742Sat.S61.Final
+574 blocos em 3 segmentos
+'K742Sat.s61.unsatFor' depends on axioms: [propext, Classical.choice, Quot.sound]
+== exg2logs CoveringLean.K742Sat.S62.B0
+39907 passos a partir do bloco 0 (chave 19727)
+== exg2logs CoveringLean.K742Sat.S62.Data
+19726 cláusulas, chave final 59633, 198 pedaços de F
+== exg2logs CoveringLean.K742Sat.S62.Final
+400 blocos em 2 segmentos
+'K742Sat.s62.unsatFor' depends on axioms: [propext, Classical.choice, Quot.sound]
+== exg2logs CoveringLean.K742Sat.S63.B0
+39840 passos a partir do bloco 0 (chave 19727)
+== exg2logs CoveringLean.K742Sat.S63.Data
+19726 cláusulas, chave final 59566, 198 pedaços de F
+== exg2logs CoveringLean.K742Sat.S63.Final
+399 blocos em 2 segmentos
+'K742Sat.s63.unsatFor' depends on axioms: [propext, Classical.choice, Quot.sound]
+== exg2logs CoveringLean.K742Sat.S64.B0
+53800 passos a partir do bloco 0 (chave 19727)
+== exg2logs CoveringLean.K742Sat.S64.B1
+7144 passos a partir do bloco 538 (chave 73527)
+== exg2logs CoveringLean.K742Sat.S64.Data
+19726 cláusulas, chave final 80670, 198 pedaços de F
+== exg2logs CoveringLean.K742Sat.S64.Final
+610 blocos em 4 segmentos
+'K742Sat.s64.unsatFor' depends on axioms: [propext, Classical.choice, Quot.sound]
+== exg2logs CoveringLean.K742Sat.S65.B0
+19707 passos a partir do bloco 0 (chave 19727)
+== exg2logs CoveringLean.K742Sat.S65.Data
+19726 cláusulas, chave final 39433, 198 pedaços de F
+== exg2logs CoveringLean.K742Sat.S65.Final
+198 blocos em 1 segmentos
+'K742Sat.s65.unsatFor' depends on axioms: [propext, Classical.choice, Quot.sound]
+== exg2logs CoveringLean.K742Sat.S66.B0
+39364 passos a partir do bloco 0 (chave 19727)
+== exg2logs CoveringLean.K742Sat.S66.Data
+19726 cláusulas, chave final 59090, 198 pedaços de F
+== exg2logs CoveringLean.K742Sat.S66.Final
+394 blocos em 2 segmentos
+'K742Sat.s66.unsatFor' depends on axioms: [propext, Classical.choice, Quot.sound]
+== exg2logs CoveringLean.K742Sat.S67.B0
+54500 passos a partir do bloco 0 (chave 19727)
+== exg2logs CoveringLean.K742Sat.S67.B1
+10712 passos a partir do bloco 545 (chave 74227)
+== exg2logs CoveringLean.K742Sat.S67.Data
+19726 cláusulas, chave final 84938, 198 pedaços de F
+== exg2logs CoveringLean.K742Sat.S67.Final
+653 blocos em 4 segmentos
+'K742Sat.s67.unsatFor' depends on axioms: [propext, Classical.choice, Quot.sound]
+== exg2logs CoveringLean.K742Sat.S68.B0
+47582 passos a partir do bloco 0 (chave 19727)
+== exg2logs CoveringLean.K742Sat.S68.Data
+19726 cláusulas, chave final 67308, 198 pedaços de F
+== exg2logs CoveringLean.K742Sat.S68.Final
+476 blocos em 3 segmentos
+'K742Sat.s68.unsatFor' depends on axioms: [propext, Classical.choice, Quot.sound]
+== exg2logs CoveringLean.K742Sat.S69.B0
+51000 passos a partir do bloco 0 (chave 19727)
+== exg2logs CoveringLean.K742Sat.S69.B1
+1829 passos a partir do bloco 510 (chave 70727)
+== exg2logs CoveringLean.K742Sat.S69.Data
+19726 cláusulas, chave final 72555, 198 pedaços de F
+== exg2logs CoveringLean.K742Sat.S69.Final
+529 blocos em 3 segmentos
+'K742Sat.s69.unsatFor' depends on axioms: [propext, Classical.choice, Quot.sound]
+== exg2logs CoveringLean.K742Sat.S7.B0
+24838 passos a partir do bloco 0 (chave 19727)
+== exg2logs CoveringLean.K742Sat.S7.Data
+19726 cláusulas, chave final 44564, 198 pedaços de F
+== exg2logs CoveringLean.K742Sat.S7.Final
+249 blocos em 2 segmentos
+'K742Sat.s7.unsatFor' depends on axioms: [propext, Classical.choice, Quot.sound]
+== exg2logs CoveringLean.K742Sat.S8.B0
+31256 passos a partir do bloco 0 (chave 19727)
+== exg2logs CoveringLean.K742Sat.S8.Data
+19726 cláusulas, chave final 50982, 198 pedaços de F
+== exg2logs CoveringLean.K742Sat.S8.Final
+313 blocos em 2 segmentos
+'K742Sat.s8.unsatFor' depends on axioms: [propext, Classical.choice, Quot.sound]

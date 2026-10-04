@@ -1,0 +1,7 @@
+# Projeto mínimo para as VMs de lote: as refutações sem quebra só importam
+# CoveringLean.{LratK,LratKData,K742_Cnf}, que não usam Mathlib.
+name = "CoveringLean"
+defaultTargets = ["CoveringLean"]
+
+[[lean_lib]]
+name = "CoveringLean"
