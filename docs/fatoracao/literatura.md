@@ -128,12 +128,18 @@ diferente** se existisse estrutura nova, e a literatura acima não mostra que al
   recordes da Wikipedia fala em cerca de 4.900 dias de GPU (**resumo** automático da página; número não conferido).
 * **RSA-896** (270 dígitos, 896 bits): fatorado em **2026-09-19** por Stephen Weis, com um agente de IA portando o
   CADO-NFS para GPU: até 2048 GPUs, 10,07 dias, 177.929 horas de H100. Isso são ~20,3 anos de GPU; o post diz "cerca
-  de 30 GPU-anos". As duas cifras não batem e **não resolvi**. **Conferido por aritmética sobre o texto cru do post:**
+  de 30 GPU-anos". **As cifras são compatíveis** (corrigido): o post define as 177.929 h como "all allocated GPU time in the
+  sieving window" (cerca de 68% do agregado) e os ~30 GPU-anos como a computação inteira. **Conferido por aritmética sobre o texto cru do post:**
   `p` e `q` (135 dígitos, 448 bits) são primos e `p·q` é exatamente o `N` do RSA-896 na lista (Wikipedia, texto cru), que
   também traz a data 2026-09-19.
 * **Algoritmo:** o autor escreve que o trabalho "did not meaningfully improve the runtime of the General Number Field
   Sieve (GNFS) algorithm". Foi engenharia e orquestração, não expoente nem constante. O post publica o polinômio do
   recorde (grau 6, alpha −11,12, Murphy-E 5,293e-10, `Res(f,g) = −8N`), que é dado real para as fases 2 e 3.
+  **Reproduzido aqui** (PR do baseline): `Res(f,g) = −8N` exato, `alpha = −11,12` e Murphy-E `5,2931e-10` (0,00% de diferença)
+  com o CADO compilado, usando os limites que o CADO deriva dos parâmetros de crivo (`area = 2^A·qmin`, `Bf = 2^lpb1`,
+  `Bg = 2^lpb0`). Quadro de tempo do post: seleção de polinômio 14,9 h de 241,6 h de relógio (cerca de 6%), crivação
+  90,9 h, álgebra linear (Krylov, lingen, mksol) 106,4 h. **Teto da compressão da seleção:** mesmo com seleção grátis,
+  o ganho é da ordem de 6% do relógio; o que escala é o rendimento do polinômio na crivação.
 * **RSA-270** (895 bits) segue **aberto** na lista e custa algo da ordem do RSA-896 (um bit menor). O alvo é
   perecível: pode cair a qualquer momento. O valor deste programa, portanto, não é fatorar primeiro.
 * **Varredura no OpenAlex** (2023 a 2026; consulta `"number field sieve" factorization`, 71 obras). As que parecem
