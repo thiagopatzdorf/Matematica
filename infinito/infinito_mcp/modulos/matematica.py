@@ -8,6 +8,7 @@ então ledger e certificados que mudam no repo mudam aqui no próximo deploy.
 """
 from __future__ import annotations
 
+import hashlib
 import json
 import re
 import subprocess
@@ -61,11 +62,21 @@ def registrar(ctx) -> None:
         return {"ok": False, "erro": f"{alvo} não está no ledger (1145 células, q de 2 a 21)"}
 
     @tool
-    def alvos(limite: int = 20, max_espaco: float = 1e9, incluir_fechadas: bool = False) -> dict:
+    def alvos(limite: int = 20, max_espaco: float = 1e9, incluir_fechadas: bool = False, q: int | None = None,
+              n_max: int | None = None, R: int | None = None, sem_nosso: bool = False) -> dict:  # noqa: N803
         """Células ranqueadas por onde há mais chance de melhorar: ninguém atacou desde 2011 primeiro,
-        depois maior razão ub/lb, depois menor espaço (q^n). Cada linha traz a justificativa."""
+        depois maior razão ub/lb, depois menor espaço (q^n). Cada linha traz a justificativa e `nosso`
+        (lean, computacional ou null). Filtros: `q`, `R`, `n_max` (comprimento máximo), `max_espaco` (q^n máximo,
+        para caber na verificação local) e `sem_nosso` (só células em que ainda não temos código nem teorema).
+        O `rank` é o da lista completa; `total` conta o que sobrou depois dos filtros."""
         import targets  # ledger/targets.py do repo
-        r = targets.ranquear(_celulas(repo), max_espaco=max_espaco, incluir_fechadas=incluir_fechadas)
+        cels = {c["id"]: c for c in _celulas(repo)}
+        r = targets.ranquear(list(cels.values()), max_espaco=max_espaco, incluir_fechadas=incluir_fechadas)
+        for linha in r:
+            c = cels[linha["id"]]
+            linha["nosso"] = "lean" if c.get("ours_lean") else ("computacional" if c.get("ours_computational") else None)
+        r = [x for x in r if (q is None or x["q"] == q) and (R is None or x["R"] == R)
+             and (n_max is None or x["n"] <= n_max) and not (sem_nosso and x["nosso"])]
         return {"ok": True, "total": len(r), "alvos": r[: max(1, min(limite, 200))]}
 
     @tool
@@ -101,7 +112,13 @@ def registrar(ctx) -> None:
         except subprocess.TimeoutExpired:
             return {"ok": False, "erro": f"verificador passou de {tempo_limite_s}s"}
         veredito = {0: "cobre", 1: "NÃO cobre: há pontos descobertos", 2: "formato inválido"}.get(p.returncode, "erro")
+        canonico = re.search(r"sha256=([0-9a-f]{64})", p.stdout)
         return {"ok": p.returncode == 0, "veredito": veredito, "codigo_de_saida": p.returncode,
+                "sha256_canonico": canonico.group(1) if canonico else None,
+                "sha256_arquivo": hashlib.sha256(alvo.read_bytes()).hexdigest(),
+                "sobre_os_sha256": "o do ARQUIVO é o dos bytes como estão e é o que o ledger guarda em ours_*.sha256; "
+                                   "o CANÔNICO (palavras ordenadas, unidas por LF) é o que o verificador imprime e o que o "
+                                   "cabeçalho dos certificados Lean cita. São hashes diferentes do mesmo código, de propósito.",
                 "saida": (p.stdout + p.stderr).strip()[-2000:]}
 
     @tool
