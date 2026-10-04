@@ -174,6 +174,9 @@ def _valida_coord1(q, M, t0, t1, smin, pal):
         ws = list(B)
         if any(pal[w] > pal[w + 1] for w in ws[:-1]):
             return False
+    for b in range(q - 1):
+        if t0[b] == t0[b + 1] and t0[b] > 0 and [pal[w] for w in bl[b]] > [pal[w] for w in bl[b + 1]]:
+            return False
     cls = encode.classes(q, t1)
     primeiro_bloco = {}
     for b, B in enumerate(bl):
@@ -209,3 +212,21 @@ def test_forma_normal_cai_em_algum_cubo(k, semente):
         L = min(6, len(cod))
         cubos = fib_cubos.atribuicoes_coord1(4, len(cod), pref[0], pref[1], smin, L)
         assert tuple(w[1] for w in norm[:L]) in cubos
+
+
+def test_ordem_dos_blocos_h_precisa_do_guloso():
+    """Sem o guloso do Lema 4 a forma normal viola (h) em algum código: as cláusulas (h)
+    restringem de verdade, e é o guloso que as torna completas."""
+    rng = random.Random(61)
+    falhas = 0
+    for _ in range(8):
+        cod = embaralhar(codigo_guloso(4, 5, rng), 4, 5, rng)
+        M = len(cod)
+        smin = min(min(canonizar.tipo_da_coord(cod, i, 4)) for i in range(5))
+        idx, norm = canonizar.canonizar(cod, 4, 5, 5, smin, usar_h=False)
+        _, ins = encode.instancias(4, 5, M, 5, smin)
+        cnf, x, _, _ = encode.codificar(4, 5, M, ins[idx], smin)
+        val = canonizar.atribuicao(cnf, x, norm, 4, 5)
+        falhas += bool(canonizar.violadas(cnf, val))
+        checar(cod, 4, 5, 5)  # com o guloso, nada é violado
+    assert falhas >= 1

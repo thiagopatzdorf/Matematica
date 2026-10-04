@@ -186,7 +186,7 @@ def classes(q, t):
     return [0] * q if t is None else list(t)
 
 
-def codificar(q, n, M, prefixo, smin, quebra=True, lex=True):
+def codificar(q, n, M, prefixo, smin, quebra=True, lex=True, blocos_h=True):
     """CNF da instância. prefixo = tipos das coordenadas 0..k-1 (k >= 1); as outras são
     livres com fibras >= smin. Devolve (cnf, x, sim0, ts) com x[k][i][a] (i >= 1)."""
     k = len(prefixo)
@@ -257,6 +257,13 @@ def codificar(q, n, M, prefixo, smin, quebra=True, lex=True):
                 continue
             for w in range(M):
                 cnf.add([-x[w][i][a + 1]] + [x[ww][i][a] for ww in range(w)])
+    # (h) blocos consecutivos de mesmo tamanho: coordenada 1 do bloco b <=lex a do bloco b+1
+    # (Lema 4 do doc: o guloso de fib_canon sempre acha uma ordem dos blocos assim)
+    if blocos_h:
+        for b in range(q - 1):
+            if ts[0][b] == ts[0][b + 1] and ts[0][b] > 0:
+                A, B = list(bl[b]), list(bl[b + 1])
+                lex_leq_listas(cnf, [x[w][1] for w in A], [x[w][1] for w in B], q)
     # (g) colunas >= 2 de mesmo tipo (ou ambas livres), consecutivas: ordem lexicográfica
     # (a forma normal relabela cada coluna só pelo seu conteúdo, então permutá-las é livre)
     if lex:
@@ -267,21 +274,26 @@ def codificar(q, n, M, prefixo, smin, quebra=True, lex=True):
 
 
 def lex_leq(cnf, x, q, M, i, j):
-    """coluna i <=lex coluna j (sobre as palavras em ordem), e_w <-> prefixos iguais até w."""
+    """coluna i <=lex coluna j (sobre as palavras em ordem)."""
+    lex_leq_listas(cnf, [x[w][i] for w in range(M)], [x[w][j] for w in range(M)], q)
+
+
+def lex_leq_listas(cnf, U, V, q):
+    """U <=lex V, com U[r], V[r] listas one-hot de q literais; e_r <-> prefixos iguais até r."""
     ant = None
-    for w in range(M):
+    for r in range(len(U)):
         for a in range(q):
             for b in range(a):
-                cnf.add(([-ant] if ant else []) + [-x[w][i][a], -x[w][j][b]])
-        if w == M - 1:
+                cnf.add(([-ant] if ant else []) + [-U[r][a], -V[r][b]])
+        if r == len(U) - 1:
             break
         e = cnf.var()
         if ant:
             cnf.add([-e, ant])
         for a in range(q):
-            cnf.add([-e, -x[w][i][a], x[w][j][a]])
-            cnf.add([-e, x[w][i][a], -x[w][j][a]])
-            cnf.add(([-ant] if ant else []) + [-x[w][i][a], -x[w][j][a], e])
+            cnf.add([-e, -U[r][a], V[r][a]])
+            cnf.add([-e, U[r][a], -V[r][a]])
+            cnf.add(([-ant] if ant else []) + [-U[r][a], -V[r][a], e])
         ant = e
 
 

@@ -20,7 +20,7 @@ def tipo_da_coord(cod, i, q):
     return tuple(sorted((Counter(c[i] for c in cod).get(a, 0) for a in range(q)), reverse=True))
 
 
-def canonizar(cod, q, n, k, smin):
+def canonizar(cod, q, n, k, smin, usar_h=True):
     M = len(cod)
     tipos = [tipo_da_coord(cod, i, q) for i in range(n)]
     # (a) coordenadas em ordem de chave_tipo (estável); as k primeiras definem a instância
@@ -47,17 +47,41 @@ def canonizar(cod, q, n, k, smin):
             out.setdefault(ts[i][a] if ts[i] is not None else 0, []).append(a)
         return out
 
-    # (c)+(d)+(e): blocos pela coordenada 0; coordenada 1 renomeada por primeira aparição
-    # por bloco dentro da classe, e ordenada dentro do bloco
+    # (c)+(d)+(e)+(h): blocos pela coordenada 0; coordenada 1 renomeada por primeira aparição
+    # por bloco dentro da classe; blocos de mesmo tamanho reordenados pelo guloso do Lema 4
+    # (a cada passo, o bloco cujo vetor ordenado de rótulos da coordenada 1, com os rótulos
+    # que receberia se viesse agora, é o menor lexicograficamente).
     livres = livres_por_classe(1)
     ren1 = {}
-    for b in range(q):
+    t0 = ts[0]
+
+    def rotulos_se_agora(b):
+        prox = {c: list(v) for c, v in livres.items()}
+        pot = {}
         for a in sorted({c[1] for c in cod if c[0] == b and c[1] not in ren1}):
-            ren1[a] = livres[classe(1, a, None)].pop(0)
+            pot[a] = prox[classe(1, a, None)].pop(0)
+        return sorted((ren1[c[1]] if c[1] in ren1 else pot[c[1]]) for c in cod if c[0] == b), pot
+
+    ren0 = {}
+    pos = 0
+    while pos < q:
+        grupo = [b for b in range(q) if t0[b] == t0[pos]]
+        restantes = list(grupo)
+        while restantes:
+            b = min(restantes, key=lambda bb: (rotulos_se_agora(bb)[0] if usar_h else [], bb))
+            if not usar_h:
+                b = restantes[0]
+            _, pot = rotulos_se_agora(b)
+            for a, r in pot.items():
+                ren1[a] = r
+                livres[classe(1, a, None)].remove(r)
+            ren0[b] = pos
+            pos += 1
+            restantes.remove(b)
     for a in range(q):
         if a not in ren1:
             ren1[a] = livres[classe(1, a, None)].pop(0)
-    cod = [(c[0], ren1[c[1]]) + tuple(c[2:]) for c in cod]
+    cod = [(ren0[c[0]], ren1[c[1]]) + tuple(c[2:]) for c in cod]
     cod.sort(key=lambda c: (c[0], c[1]))
     # (f) coordenadas >= 2: primeira aparição na ordem das palavras, por classe
     for i in range(2, n):
