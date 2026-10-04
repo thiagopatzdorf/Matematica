@@ -1,0 +1,86 @@
+[
+ {
+  "q": 4,
+  "M": 6,
+  "perfil": 0,
+  "tipos": [
+   "2211",
+   "2211",
+   "2211",
+   "2211"
+  ],
+  "sha256.cnf": "c9b9238d9793ab6587d14af598342655ce44cb689dd761306d1c95e229d7c850",
+  "bytes.lrat": 32993,
+  "sha256.lrat": "d27362887641cdd60f7ef1970b58cd94a1192d79dcec0fd10217c79be1252e2d"
+ },
+ {
+  "q": 4,
+  "M": 6,
+  "perfil": 1,
+  "tipos": [
+   "2211",
+   "2211",
+   "2211",
+   "3111"
+  ],
+  "sha256.cnf": "0a081136440e7665a02deee925aed86461e56e0af4db5900411bc29423d98bc7",
+  "bytes.lrat": 20426,
+  "sha256.lrat": "10974f3cd286b8448884bdd78e78b8814af7a912efeff28232cbd24cfc082fff"
+ },
+ {
+  "q": 4,
+  "M": 6,
+  "perfil": 2,
+  "tipos": [
+   "2211",
+   "2211",
+   "3111",
+   "3111"
+  ],
+  "sha256.cnf": "eebced4cb72c592eedb3fc8b2c11473c0f25f3b16058ee9c3a26930cbf4ad971",
+  "bytes.lrat": 14974,
+  "sha256.lrat": "6e72cde7733fbb8f15310bcf840c72b8a7a3f33afb05dbc93a21bc1687207381"
+ },
+ {
+  "q": 4,
+  "M": 6,
+  "perfil": 3,
+  "tipos": [
+   "2211",
+   "3111",
+   "3111",
+   "3111"
+  ],
+  "sha256.cnf": "228f0ea665145751ef7a8231cd21e9fec972d173b19e8bc3e9cc985f22176653",
+  "bytes.lrat": 13966,
+  "sha256.lrat": "340634fca5948235c4dcb22fec6d0504d386b5b2eeb2acd4f31ab65f4392dcc0"
+ },
+ {
+  "q": 4,
+  "M": 6,
+  "perfil": 4,
+  "tipos": [
+   "3111",
+   "3111",
+   "3111",
+   "3111"
+  ],
+  "sha256.cnf": "e68100bdd6fd6b9f3fe690511efbfbc8444a30a061e3b6f97a679557cfdbb407",
+  "bytes.lrat": 17043,
+  "sha256.lrat": "40f15ef1b3d37b16274331361d8b1e88ec717e86d20840f8859ac78e470c2c75"
+ },
+ {
+  "q": 7,
+  "M": 18,
+  "perfil": 64,
+  "tipos": [
+   "3333222",
+   "6222222",
+   "6222222",
+   "6222222"
+  ],
+  "sha256.cnf": "cf7d1e4bb4185a2e9d8d24c8fc85a8334157b53d556c9f7fe2c19ff06d5a115d",
+  "bytes.lrat": 4757729,
+  "sha256.lrat": "c88bc546ad328129e9c998d4ce3f1d415005b4ada7125549714dcd71aea9426f"
+ }
+]

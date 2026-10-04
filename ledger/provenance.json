@@ -116,6 +116,17 @@
       "agente": "James.V1 (subagente Claude, branch feat/ataque-celulas-2011)",
       "lacuna": "Seed e comando exatos da cadeia de busca não foram registrados; a estrutura (16 classes laterais de um [10,3]_7 + 128 palavras) está em data/structured/q7_n10_R4_M5616.json.",
       "gap": "the exact seed and command of the search chain were not recorded; data/structured/q7_n10_R4_M5616.json has the structure (16 cosets of a [10,3]_7 + 128 words)."
+    },
+    "P-5607": {
+      "codigo": "data/codes/q7_n10_R4_M5607.txt",
+      "gerador": "tools/patch_setcover (feat/patch-setcover): base de P-5616 (16 classes laterais de [10,3]_7, 3 órfãs, 1029 pontos) + remendo por gulosos aleatorizados para set cover unicusto (rwls -G), instância T=7 com ~4,2 M candidatos",
+      "commit": "252bc4e",
+      "seed": null,
+      "comando": null,
+      "data": "2026-10-04",
+      "agente": "James.V1 (subagente Claude, branch feat/patch-setcover)",
+      "lacuna": "A seed exata do melhor dos ~300 gulosos aleatorizados não foi registrada; o código (16 classes laterais de um [10,3]_7 + 119 palavras) é reconstruído de data/structured/q7_n10_R4_M5607.json.",
+      "gap": "the exact seed of the best of ~300 randomized greedy runs was not recorded; data/structured/q7_n10_R4_M5607.json rebuilds the code (16 cosets of a [10,3]_7 + 119 words)."
     }
   }
 }
