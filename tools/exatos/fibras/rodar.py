@@ -57,22 +57,22 @@ def lrat_py(cnf, prova):
 
 
 def uma(args):
-    q, n, M, k, smin, idx, d, prova, solver, tempo, descartar, usar_py, L, ci = args
+    q, n, M, k, smin, idx, d, prova, solver, tempo, descartar, usar_py, L, ci, sem = args
     _, ins = enc.instancias(q, n, M, k, smin)
     pref = ins[idx]
-    cnf, x, sim0, ts = enc.codificar(q, n, M, pref, smin)
-    base = os.path.join(d, f"K{q}_{n}_{n-2}_M{M}_k{k}_i{idx:06d}")
-    rot = f"K_{q}({n},{n-2}) M={M} k={k} s_min={smin} inst {idx}: {pref}"
+    cnf, x, sim0, ts = enc.codificar(q, n, M, pref, smin, lex="g" not in sem, blocos_h="h" not in sem)
+    base = os.path.join(d, f"K{q}_{n}_{n-2}_M{M}_k{k}_i{idx:06d}" + (f"_sem{sem}" if sem else ""))
+    rot = f"K_{q}({n},{n-2}) M={M} k={k} s_min={smin} inst {idx}: {pref}" + (f" sem ({sem})" if sem else "")
     cubo = None
     if L:
-        cubo = fib_cubos.atribuicoes_coord1(q, M, ts[0], ts[1], smin, L)[ci]
+        cubo = fib_cubos.atribuicoes_coord1(q, M, ts[0], ts[1], smin, L, blocos_h="h" not in sem)[ci]
         for u in fib_cubos.unitarias(x, cubo):
             cnf.add(u)
         base += f"_L{L}_c{ci:06d}"
         rot += f" cubo L={L} #{ci}: {cubo}"
     with open(base + ".cnf", "w") as f:
         f.write(cnf.dimacs([rot]))
-    reg = {"q": q, "n": n, "M": M, "k": k, "smin": smin, "inst": idx,
+    reg = {"q": q, "n": n, "M": M, "k": k, "smin": smin, "inst": idx, "sem": sem,
            "tipos": ["".join(map(str, t)) for t in pref], "vars": cnf.nv, "clausulas": len(cnf.cl)}
     if L:
         reg.update(L=L, cubo_idx=ci, cubo="".join(map(str, cubo)))
@@ -145,6 +145,7 @@ def main():
     ap.add_argument("-j", type=int, default=os.cpu_count())
     ap.add_argument("--cubos", type=int, default=0,
                     help="divide cada instância em cubos pela coordenada 1 das L primeiras palavras")
+    ap.add_argument("--sem", default="", help="controle: omite quebras novas (g = lexicográfica, h = blocos)")
     ap.add_argument("--cubos-sel", default="", help="subconjunto dos cubos (ex.: 0-99)")
     a = ap.parse_args()
     k = a.k or a.n
@@ -152,7 +153,7 @@ def main():
     os.makedirs(a.dir, exist_ok=True)
     _, ins = enc.instancias(a.q, a.n, a.M, k, smin)
     idxs = intervalo(a.inst, len(ins))
-    suf = f"_L{a.cubos}" if a.cubos else ""
+    suf = (f"_L{a.cubos}" if a.cubos else "") + (f"_sem{a.sem}" if a.sem else "")
     log = os.path.join(a.dir, f"K{a.q}_{a.n}_{a.n-2}_M{a.M}_k{k}_s{smin}{suf}.jsonl")
     feitos = set()
     if os.path.exists(log):
@@ -164,12 +165,12 @@ def main():
     for i in idxs:
         if a.cubos:
             ts = list(ins[i]) + [None] * (a.n - k)
-            nc = len(fib_cubos.atribuicoes_coord1(a.q, a.M, ts[0], ts[1], smin, a.cubos))
+            nc = len(fib_cubos.atribuicoes_coord1(a.q, a.M, ts[0], ts[1], smin, a.cubos, blocos_h="h" not in a.sem))
             cis = intervalo(a.cubos_sel, nc)
         else:
             cis = [None]
         tarefas += [(a.q, a.n, a.M, k, smin, i, a.dir, a.prova, a.solver, a.tempo, a.descartar,
-                     a.lrat_py, a.cubos, c) for c in cis if (i, c) not in feitos]
+                     a.lrat_py, a.cubos, c, a.sem) for c in cis if (i, c) not in feitos]
     print(f"K_{a.q}({a.n},{a.n-2}) M={a.M} k={k} s_min={smin}: {len(ins)} instâncias, "
           f"{len(tarefas)} a rodar", flush=True)
     cont = {}
