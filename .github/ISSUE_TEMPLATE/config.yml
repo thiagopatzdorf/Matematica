@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Regras do registro de problemas
+    url: https://github.com/thiagopatzdorf/Matematica/blob/main/problems/SPEC.md
+    about: Ciclo de vida, quem pode cada transição e o que é evidência.
+  - name: Como propor, reivindicar e submeter
+    url: https://github.com/thiagopatzdorf/Matematica/blob/main/problems/README.md
+    about: Passo a passo com um exemplo que roda.
