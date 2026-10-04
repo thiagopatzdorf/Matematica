@@ -17,6 +17,9 @@ pasta traz o estado da arte de busca local para USCP, sem simetria nenhuma.
 | `patch_inst.c` | gera a instância: resíduo da base, cobertura de cada palavra, conjuntos com `>= T` pontos (formato binário PSC1) |
 | `rwls.c` | a busca (RWLS; CC por hiperaresta opcional) |
 | `psc_io.py` | lê/escreve PSC1, converte OR-Library (`scp*.txt`) para unicusto, ILP exato de referência (HiGHS, só para instância pequena) |
+| `make_base.py` | separa base e remendo de um código do repo (`data/structured/*.json`) |
+| `register.py` | grava `data/codes` + `data/attack` de um remendo novo (o JSON estruturado sai do `scripts/codes/build_structured.py`) |
+| `quotient.py` | instância quociente por uma translação (remendo invariante por uma reta, a família do `ilp_sym.py`) |
 | `../../tests/test_patch_setcover.py` | testes rápidos (ótimos conhecidos K_2(5,1)=7, K_3(3,1)=5; resíduo e conjuntos contra força bruta) |
 
     gcc -O3 -march=native -o patch_inst patch_inst.c
@@ -57,6 +60,11 @@ score(s) = +soma w dos descobertos de s (s fora) | -soma w dos que só s cobre (
   implementada.
 * `-b 1` (nosso): desempate pelo tamanho do conjunto antes da idade. Medido em K_7(9,4): pior
   que o desempate por idade (ver relatório); fica como opção, não como padrão.
+* `-G N` (nosso): N gulosos aleatorizados antes da busca (fila de baldes, desempate sorteado,
+  redundantes tirados em ordem aleatória). **Foi o que deu K_7(10,4) ≤ 5607.**
+* `-I d [-S s]` (nosso): guloso iterado no lugar do RWLS (tira d conjuntos, refaz guloso, aceita platô).
+* `-g γ -r ρ` e `-u cap` (nossos): suavização de pesos e recomeço por deriva. Medidos em
+  K_7(9,4): não ajudaram (relatório, seção 3).
 * `-T c`: sobe o corte de cobertura na leitura, sem regerar a instância.
 * Detalhe de implementação: o xor dos ids dos cobridores de cada ponto dá o cobridor único em
   O(1), que é o que o score precisa quando a contagem passa de 2 para 1.
