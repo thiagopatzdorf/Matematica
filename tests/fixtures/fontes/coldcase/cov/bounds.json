@@ -238,6 +238,18 @@
   },
   {
    "q": 7,
+   "n": 4,
+   "R": 2,
+   "lb": 17,
+   "ub": 19,
+   "lb_key": "b",
+   "ub_key": "n",
+   "n_optimal": null,
+   "src": "keri_6-21_tables.pdf",
+   "page": 1
+  },
+  {
+   "q": 7,
    "n": 8,
    "R": 3,
    "lb": 457,
@@ -271,6 +283,18 @@
    "n_optimal": null,
    "src": "keri_6-21_tables.pdf",
    "page": 1
+  },
+  {
+   "q": 8,
+   "n": 4,
+   "R": 2,
+   "lb": 22,
+   "ub": 23,
+   "lb_key": "b",
+   "ub_key": "n",
+   "n_optimal": null,
+   "src": "keri_6-21_tables.pdf",
+   "page": 2
   },
   {
    "q": 10,

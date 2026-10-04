@@ -72,7 +72,7 @@ def test_ledger_commitado_tem_1145_celulas_e_sha256_dos_nossos_codigos_confere()
     led = build.carregar(RAIZ / "ledger" / "cells.json")
     assert led["meta"]["n_cells"] == len(led["cells"]) == 1145
     nossos = [c for c in led["cells"] if c["status"] != "published"]
-    assert len(nossos) == 12
+    assert len(nossos) == 13
     for c in nossos:
         for lado in ("ours_computational", "ours_lean"):
             e = c[lado]
@@ -132,3 +132,106 @@ def test_n_optimal_truncado_pelo_coldcase_volta_ao_valor_da_tabela_do_keri():
 def test_n_optimal_com_truncamento_diferente_do_esperado_aborta_o_build():
     with pytest.raises(SystemExit):
         build.corrigir_n_optimal({"q": 4, "n": 4, "R": 3, "n_optimal": 5})
+
+
+# ------------------------------------------------------------ certificação (estado + proveniência)
+
+
+def test_k7_4_2_exata_19_com_inferior_so_witness_checked_porque_o_lean_e_condicional(ledger_recortado):
+    c = _celulas(ledger_recortado)[(7, 4, 2)]
+    cert = c["certification"]
+    assert cert["exact"] is True and cert["ub"]["value"] == cert["lb"]["value"] == 19
+    assert cert["ub"]["state"] == "FORMALIZED"
+    assert cert["ub"]["provenance"]["lean"]["declaration"] == "K742.K_7_4_2_le_19"
+    # A superior 19 é do Kéri–Östergård: o crédito da fonte original fica com a tabela.
+    assert cert["ub"]["provenance"]["fonte"]["source"] == "keri_2011"
+    lb = cert["lb"]
+    assert lb["state"] == "WITNESS_CHECKED", "inexistência por LRAT, não teorema incondicional"
+    assert lb["provenance"]["lean"]["condicional"], "o teorema K_7_4_2_eq_19_of depende de Ponte18 e Refut18"
+    assert c["published"]["exact"] is False and c["published"]["lb"]["value"] == 17
+
+
+def test_registro_que_chama_de_formalized_um_teorema_condicional_aborta_o_build():
+    sources = json.loads((RAIZ / "ledger" / "sources.json").read_text())
+    ours = json.loads((RAIZ / "ledger" / "ours.json").read_text())
+    ours["cells"]["7,4,2"]["lb"]["estado"] = "FORMALIZED"
+    with pytest.raises(SystemExit, match="condicional"):
+        build.construir(build.ler_fontes(FONTES, sources), ours, sources)
+
+
+def test_cota_inferior_nossa_acima_da_superior_aborta_o_build():
+    sources = json.loads((RAIZ / "ledger" / "sources.json").read_text())
+    ours = json.loads((RAIZ / "ledger" / "ours.json").read_text())
+    ours["cells"]["7,4,2"]["lb"]["value"] = 20
+    with pytest.raises(SystemExit, match="superior"):
+        build.construir(build.ler_fontes(FONTES, sources), ours, sources)
+
+
+def test_cota_so_publicada_fica_claimed_com_versao_da_tabela_congelada_no_meta(ledger_recortado):
+    led = build.carregar(ledger_recortado / "cells.json")
+    c = {x["id"]: x for x in led["cells"]}["K6(9,3)"]
+    ub = c["certification"]["ub"]
+    assert ub["state"] == "CLAIMED" and ub["provenance"]["lacuna"]
+    v = led["meta"]["versoes"][ub["provenance"]["versao"]]
+    assert v["commit"] and len(v["sha256"]) == 64 and v["arquivo"]
+
+
+def test_superior_com_codigo_em_data_codes_e_lean_chega_a_independently_reproduced(ledger_recortado):
+    ub = _celulas(ledger_recortado)[(7, 9, 4)]["certification"]["ub"]
+    assert ub["state"] == "INDEPENDENTLY_REPRODUCED"
+    assert ub["provenance"]["witness"] == "data/codes/q7_n9_R4_M1134.txt"
+    assert ub["provenance"]["fonte"]["source"] == "nosso"
+
+
+def test_prova_lean_do_florath_fica_registrada_mas_nao_sobe_o_estado(ledger_recortado):
+    lb = _celulas(ledger_recortado)[(8, 4, 2)]["certification"]["lb"]
+    assert lb["value"] == 23 and lb["state"] == "CLAIMED"
+    assert lb["provenance"]["formalizacao_externa"]["source"] == "florath_lean"
+
+
+def test_toda_cota_do_ledger_tem_estado_valido_e_os_seis_campos_de_proveniencia():
+    led = build.carregar(RAIZ / "ledger" / "cells.json")
+    assert led["meta"]["estados"] == list(build.ESTADOS)
+    for c in led["cells"]:
+        for lado in ("ub", "lb"):
+            b = c["certification"][lado]
+            assert b["state"] in build.ESTADOS, c["id"]
+            p = b["provenance"]
+            assert set(build.CAMPOS_PROVENIENCIA) <= set(p), c["id"]
+            if b["state"] == "CLAIMED":
+                assert p["fonte"] and p["versao"] in led["meta"]["versoes"], c["id"]
+            else:
+                assert p["lean"] or p["witness"], c["id"]
+
+
+def test_sha256_de_todo_witness_do_ledger_confere_com_o_arquivo():
+    led = build.carregar(RAIZ / "ledger" / "cells.json")
+    vistos = 0
+    for c in led["cells"]:
+        for lado in ("ub", "lb"):
+            p = c["certification"][lado]["provenance"]
+            if p["witness"] and p["sha256"]:
+                assert hashlib.sha256((RAIZ / p["witness"]).read_bytes()).hexdigest() == p["sha256"], p["witness"]
+                vistos += 1
+    assert vistos >= 13
+
+
+def test_cobertura_commitada_bate_com_a_gerada_do_ledger():
+    import cobertura
+
+    led = build.carregar(RAIZ / "ledger" / "cells.json")
+    assert (RAIZ / "ledger" / "COBERTURA.md").read_text(encoding="utf-8") == cobertura.relatorio(led)
+
+
+def test_cobertura_conta_k7_4_2_entre_as_exatas_e_usa_a_frase_aprovada():
+    import cobertura
+
+    texto = cobertura.relatorio(build.carregar(RAIZ / "ledger" / "cells.json"))
+    assert "A machine-checked ledger of covering-code upper bounds, with formally certified exact entries." in texto
+    assert "| K7(4,2) | 19 | FORMALIZED | 19 | WITNESS_CHECKED | sim |" in texto
+    assert "entire covering-code table has been formally verified" not in texto
+
+
+def test_celula_fechada_por_nos_sai_dos_alvos(ledger_recortado):
+    cells = build.carregar(ledger_recortado / "cells.json")["cells"]
+    assert "K7(4,2)" not in {t["id"] for t in targets.ranquear(cells)}
