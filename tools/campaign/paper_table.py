@@ -10,9 +10,11 @@ LIT = {"NO_PREDECESSOR_FOUND_IN_REVIEWED_SOURCES": "NPF", "AMBIGUOUS": "AMB", "P
 
 def lean(r):
     if r["size"] == 12:
-        return "12-word cover built; $=12$ heavy, not rebuilt"
+        return "12-word cover built; $=12$ heavy, VM-only"
     if r["lean_theorems_measured"]:
         return "PROVED (syndromes, built)" if any(".Syn." in "." + t or t.startswith("Syn.") for t in r["lean_theorems_measured"]) else "PROVED (built)"
+    if r.get("lean_theorems_external_vm"):
+        return "theorem; heavy build on author's VM only"
     if r["lean_theorems_declared_only"]:
         return "theorem; heavy build not rebuilt here"
     return "not formalized"
@@ -30,7 +32,7 @@ out += [r"\bottomrule", r"\end{tabular}",
         r"C, Rust, Go: verifiers counted as independent by author and implementation group (the Go one was written from the specification alone). "
         r"$^\dagger$Python: PASS, but written by the author of the claim, so not counted for independence. "
         r"All verifiers are programs written by agents of one model family: this is independence of implementation, not full cognitive independence. "
-        r"Lean: ``PROVED (built)'' = theorem whose build and \texttt{\#print axioms} were measured in the campaign; ``theorem; heavy build not rebuilt here'' = declared in the repository, build of \texttt{CoveringHeavy} (about $9.3$ CPU-hours) not reproduced there. "
+        r"Lean: ``PROVED (built)'' = theorem whose build and \texttt{\#print axioms} were measured in the campaign; ``theorem; heavy build on author's VM only'' = the build of \texttt{CoveringHeavy} (about $9.3$ CPU-hours; 9181 jobs, no failures, axioms only propext, Classical.choice, Quot.sound) was run once by the author on a VM and not repeated in a second environment or in the campaign container; ``theorem; heavy build not rebuilt here'' = declared only. "
         r"``Published'': best bound recorded in the sources we read (K\'eri 2009/2011, Marosi v3). "
         r"Lit.: PF = predecessor found; NPF = no predecessor found in the reviewed sources (not a claim that none exists); AMB = ambiguous (amalgamated direct sums or unread tables, see text). "
         r"No cell is marked as externally confirmed new.}", r"\label{tab:evidence}", r"\end{table}"]

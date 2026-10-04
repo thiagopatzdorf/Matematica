@@ -217,10 +217,37 @@ class CampaignCoherenceTest(unittest.TestCase):
         for fid, f in self.formal.items():
             if fid.startswith("f-heavy-") or fid == "f-k2-6-1-eq12":
                 with self.subTest(heavy=fid):
+                    # a guarda só vê o que a campanha mediu: medição externa (VM do autor) vive em measured_external e NUNCA preenche axioms/clean_build
                     self.assertIsNone(f["axioms"])
-                    self.assertTrue(f["axioms_status"].startswith("DECLARED_NOT_REPRODUCED"))
+                    self.assertTrue(f["axioms_status"].startswith(("DECLARED_NOT_REPRODUCED", "MEASURED_ON_EXTERNAL_VM")))
                     self.assertIs(f["clean_build"], False)
                     self.assertTrue(f["validation_problems"])
+                    if f["axioms_status"].startswith("MEASURED_ON_EXTERNAL_VM"):
+                        me = f["measured_external"]
+                        self.assertTrue(set(me["axioms"]) <= esperados)
+                        self.assertEqual(me["folhas_falhou"], 0)
+                        self.assertIn("não refeita em segundo ambiente", me["ressalva"])
+                        self.assertFalse(me["log_versionado"])
+
+    def test_the_external_vm_measurement_of_coveringheavy_is_recorded_on_every_heavy_record_and_matches_the_facts_file(self):
+        with open(os.path.join(CAMP, "_fatos", "medicao_heavy_vm.json"), encoding="utf-8") as fh:
+            vm = json.load(fh)
+        por_teorema = {t["teorema"]: t for t in vm["teoremas"]}
+        pesados = {fid: f for fid, f in self.formal.items() if fid.startswith("f-heavy-") or fid == "f-k2-6-1-eq12"}
+        self.assertEqual(len(pesados), 9)
+        for fid, f in pesados.items():
+            with self.subTest(formal=fid):
+                me = f["measured_external"]
+                self.assertEqual(me["axioms"], por_teorema[f["theorem"]]["axiomas"])
+                self.assertEqual(me["repo_commit"], vm["repo_commit"])
+                self.assertEqual((me["jobs"], me["folhas_ok"]), (vm["jobs_final"], vm["folhas_ok"]))
+                self.assertEqual(me["log_sha256_prefixo"], vm["sha256_prefixo_log_completo"])
+
+    def test_external_vm_measurement_never_promotes_a_claim_to_proved_through_the_heavy_record_alone(self):
+        for cid, cl in self.claims.items():
+            if any(fid.startswith("f-heavy-") or fid == "f-k2-6-1-eq12" for fid in cl["evidence"]["formal"]):
+                with self.subTest(claim=cid):
+                    self.assertNotIn(cl["status"], ("PROVED", "FORMALLY_VERIFIED", "EXTERNALLY_REPRODUCED"))
 
     def test_the_syn_theorems_that_exist_in_the_lean_library_are_measured_formal_records_of_their_code_claims(self):
         with open(os.path.join(ROOT, "lakefile.toml"), encoding="utf-8") as fh:
@@ -255,13 +282,14 @@ class CampaignCoherenceTest(unittest.TestCase):
 
     def test_the_previous_audit_chain_is_preserved_with_a_checksum_before_each_regeneration(self):
         import hashlib
-        base = os.path.join(CAMP, "_autopsia", "audit-pre-regeneracao-2")
-        with open(os.path.join(base, "SHA256SUMS"), encoding="utf-8") as fh:
-            linhas = [l.split() for l in fh if l.strip()]
-        self.assertEqual(sorted(l[1] for l in linhas), ["audit/anchors.jsonl", "audit/log.jsonl"])
-        for soma, rel in linhas:
-            with open(os.path.join(base, rel), "rb") as fh:
-                self.assertEqual(hashlib.sha256(fh.read()).hexdigest(), soma, rel)
+        for pasta in ("audit-pre-regeneracao-2", "audit-pre-regeneracao-3"):
+            base = os.path.join(CAMP, "_autopsia", pasta)
+            with open(os.path.join(base, "SHA256SUMS"), encoding="utf-8") as fh:
+                linhas = [l.split() for l in fh if l.strip()]
+            self.assertEqual(sorted(l[1] for l in linhas), ["audit/anchors.jsonl", "audit/log.jsonl"], pasta)
+            for soma, rel in linhas:
+                with open(os.path.join(base, rel), "rb") as fh:
+                    self.assertEqual(hashlib.sha256(fh.read()).hexdigest(), soma, f"{pasta}/{rel}")
 
     def test_every_code_in_data_codes_has_a_witness_a_claim_and_a_lean_theorem_record(self):
         codigos = sorted(re.search(r"(q\d+_n\d+_R\d+_M\d+)\.txt$", f).group(1) for f in os.listdir(os.path.join(ROOT, "data", "codes")) if f.endswith(".txt"))

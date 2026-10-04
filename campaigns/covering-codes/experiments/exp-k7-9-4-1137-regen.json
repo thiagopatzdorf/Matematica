@@ -5,7 +5,7 @@
     "data/search/p1137.json",
     "<saída>"
   ],
-  "created": "2026-10-03T21:36:11Z",
+  "created": "2026-10-04T06:24:59Z",
   "created_by": "agente-c",
   "description": "Regenera o código de 1137 palavras com o gerador versionado a partir de data/search/p1137.json e compara com o witness: byte a byte (identico_byte_a_byte) e como CONJUNTO de palavras (sha256 canônico; a ordem das linhas pode diferir). Isto reproduz a ESTRUTURA do código, não a busca que achou os parâmetros p<M>.json.",
   "experiment_id": "exp-k7-9-4-1137-regen",
@@ -15,7 +15,7 @@
   ],
   "kind": "search",
   "ranges": null,
-  "repo_commit": "986889eaaf52b9b79dffd3f3385775fd4eea4fb0",
+  "repo_commit": "893c5c7d354d8ad3945c2cd8abec6579b265cac2",
   "result": {
     "executado_neste_run": true,
     "identico_byte_a_byte": false,

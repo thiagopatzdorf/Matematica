@@ -1,6 +1,6 @@
 {
   "command": null,
-  "created": "2026-10-03T21:36:11Z",
+  "created": "2026-10-04T06:24:59Z",
   "created_by": "agente-c",
   "description": "Busca que produziu o código de 1141 palavras: enumeração exata das 6362 classes de [9,3]_7 + otimizador de remendo (112 palavras), no 'kit de busca' (branch feat/kit-de-busca, VM lean-build2). DECLARADO em data/structured/q7_n9_R4_M1141.json; NÃO reproduzível aqui: o kit não está neste repositório, não há data/search/p1141.json e nenhum comando/seed foi registrado. O que é reproduzível é a estrutura (build_structured --check) e a verificação.",
   "experiment_id": "exp-k7-9-4-1141-kit",
@@ -10,7 +10,7 @@
   ],
   "kind": "search",
   "ranges": null,
-  "repo_commit": "986889eaaf52b9b79dffd3f3385775fd4eea4fb0",
+  "repo_commit": "893c5c7d354d8ad3945c2cd8abec6579b265cac2",
   "result": {
     "declarado_em": "data/structured/q7_n9_R4_M1141.json; README.md (v0.5)",
     "executado_neste_run": false,

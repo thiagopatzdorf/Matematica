@@ -21,7 +21,9 @@ Decisões de honestidade (explicadas nos registros):
         o claim de cada um sobe a PROVED só se o registro formal é válido (sem sorry, build limpo, axiomas esperados) E há ≥2 componentes
         independentes de verificador (a guarda de PROVED exige as duas coisas quando o claim tem witness);
       - `CoveringKernel.K*_kernel` e `SC.K_2_6_1_eq12` (lib CoveringHeavy, ~9,3 h de CPU): NÃO compilados aqui; o registro formal guarda os
-        axiomas declarados em `declared_axioms`, com `axioms: null`, e NÃO sustenta promoção;
+        axiomas declarados em `declared_axioms`, com `axioms: null`, e NÃO sustenta promoção. Desde 2026-10-04 existe uma medição EXTERNA
+        (VM do autor, `_fatos/medicao_heavy_vm.json`): entra em `measured_external` e em `axioms_status = MEASURED_ON_EXTERNAL_VM`, mas
+        `axioms`/`clean_build` continuam os que a campanha mediu (nada), então a guarda segue negando PROVED;
   * FORMALLY_VERIFIED nunca é pedido de fato: exige `statement_review` de um revisor que não seja o autor e ninguém revisou os
     enunciados (README: "revisão humana"). Os motivos exatos da guarda ficam em `formal_verification_blockers` de cada claim.
 """
@@ -624,19 +626,53 @@ def main() -> int:
                                           [f"CoveringLean/C1_Data_{tag}.lean"])
            for (cel_h, m_h), (teo_h, arq_h, tag) in HEAVY.items()},
     }
+    # Medição EXTERNA do CoveringHeavy (VM do autor). Entra em `measured_external`, que as guardas NÃO leem: `axioms`, `clean_build` e `lean_version`
+    # seguem como a campanha os mediu (nada). Transcrever "clean_build: true" daqui faria a guarda aceitar um valor que a infraestrutura não mediu.
+    ext = {}
+    arq_ext = raiz_fatos / "medicao_heavy_vm.json"
+    if arq_ext.is_file():
+        ext = json.loads(arq_ext.read_text(encoding="utf-8"))
+    ext_por_teorema = {t["teorema"]: t for t in ext.get("teoremas", [])}
+
+    def medido_externo(teo):
+        t = ext_por_teorema.get(teo)
+        if not t:
+            return None
+        extras = [x for x in ext.get("teoremas", []) if x["teorema"] != teo and x["fonte"] == t["fonte"]]
+        return {
+            "status": "MEASURED_ON_EXTERNAL_VM", "fonte": "campaigns/covering-codes/_fatos/medicao_heavy_vm.json",
+            "axioms": t["axiomas"], "fonte_lean": t["fonte"], "lean_version": ext["lean"], "repo_commit": ext["repo_commit"],
+            "build_status": f"OK (relato do autor): lake build CoveringHeavy, {ext['jobs_final']} jobs, {ext['folhas_ok']} folhas ok, {ext['folhas_falhou']} falhas",
+            "jobs": ext["jobs_final"], "folhas_ok": ext["folhas_ok"], "folhas_falhou": ext["folhas_falhou"],
+            "sorry_no_log": ext["sorry_no_log"], "native_decide_ou_ofReduceBool_no_log": ext["native_decide_ou_ofReduceBool_no_log"],
+            "inicio_utc": ext["inicio_utc"], "fim_utc": ext["fim_utc"], "relogio_total": ext["relogio_total"],
+            "maquina": "VM GCP e2-highmem-8 (8 vCPU, 62 GB), clone limpo da branch da campanha",
+            "log_sha256_prefixo": ext["sha256_prefixo_log_completo"], "log_versionado": False,
+            "teoremas_adicionais_do_mesmo_arquivo": [{"teorema": x["teorema"], "axioms": x["axiomas"]} for x in extras],
+            "ressalva": "Medição do autor em VM; não refeita em segundo ambiente. O `reproduce` local (4 vCPU/15 GB) não consegue refazer. O log completo (1,5 MB) não está "
+                        "no repositório: só o prefixo do sha256 e as linhas `#print axioms`. A guarda de formal (model.validar_registro_formal) só aceita o que a campanha mediu, "
+                        "então este registro NÃO sustenta promoção (ver _fatos/PROPOSTA_INFRA_medicao_externa.md).",
+        }
+
     for fid, (teo, arq, mod, fontes) in pesados.items():
         achados = F.escanear_fontes(REPO, [arq, *fontes])
+        me = medido_externo(teo)
         gravar("formal", fid, {
             "formal_id": fid, "theorem": teo, "module": mod, "file": arq, "lean_root": ".", "lean_version": None,
             "lean_toolchain": ambiente.get("lean_toolchain") or (REPO / "lean-toolchain").read_text().strip(),
             "mathlib_commit": ambiente.get("mathlib_commit"), "manifest_sha256": sha256_arquivo(REPO / "lake-manifest.json"),
             "axioms": None, "declared_axioms": AXIOMAS_DECLARADOS,
-            "axioms_status": f"DECLARED_NOT_REPRODUCED: README.md ('Nenhum sorry, nenhum native_decide, e todo #print axioms mostra no máximo propext, Classical.choice, Quot.sound'); "
-                             f"o módulo é do alvo CoveringHeavy, custo {CUSTO_HEAVY}: não compilado nesta campanha",
+            "axioms_status": (f"MEASURED_ON_EXTERNAL_VM: #print axioms {me['axioms']} reportado pelo autor numa VM (commit {me['repo_commit'][:7]}, log sha256 {me['log_sha256_prefixo']}…); "
+                              f"NÃO medido por esta campanha nem refeito em segundo ambiente; a guarda não o aceita (axioms=null)") if me else
+                             (f"DECLARED_NOT_REPRODUCED: README.md ('Nenhum sorry, nenhum native_decide, e todo #print axioms mostra no máximo propext, Classical.choice, Quot.sound'); "
+                              f"o módulo é do alvo CoveringHeavy, custo {CUSTO_HEAVY}: não compilado nesta campanha"),
+            "measured_external": me,
             "sorry_free": not any(x["kind"] in F.TIPOS_SORRY for x in achados), "sorry_free_basis": f"varredura estática de {len(fontes) + 1} fontes (não é build)",
-            "clean_build": False, "build_status": f"NOT_RUN: lake build CoveringHeavy não executado neste ambiente ({CUSTO_HEAVY})",
+            "clean_build": False, "build_status": f"NOT_RUN: lake build CoveringHeavy não executado neste ambiente ({CUSTO_HEAVY})"
+            + ("; build completo medido só na VM do autor (ver measured_external)" if me else ""),
             "repo_commit": commit, "source_sha256": sha256_arquivo(REPO / arq), "scan_findings": achados, "measured": None,
-            "validation_problems": ["axiomas não medidos (declarados)", "clean_build não medido"]}, "FORMALIZER", PROMOTOR)
+            "validation_problems": ["axiomas não medidos por esta campanha (declarados" + ("; medidos só na VM externa" if me else "") + ")", "clean_build não medido por esta campanha"]},
+            "FORMALIZER", PROMOTOR)
 
     # ------------------------------------------------------------------ corridas de verificador
     if corridas:
@@ -845,7 +881,7 @@ def main() -> int:
             tb_lean += tb((f"{SYN[(cel, m)]} (lib CoveringSyn): axiomas MEDIDOS nesta campanha (f-syn-{m})", "que existe C com |C| = M e Covers R C, no kernel do Lean"),
                           (f"CoveringLean/SynData_K{m}.lean == witness (medido: exp-lean-syn-data-equals-witness-{m})", "elo entre o teorema e o arquivo"))
         if e_heavy:
-            tb_lean += tb((f"Lean kernel ({HEAVY[(cel, m)][0]}), DECLARADO, não reproduzido ({CUSTO_HEAVY})", "mesmo código, certificado por prefixos"))
+            tb_lean += tb((f"Lean kernel ({HEAVY[(cel, m)][0]}), medido só na VM do autor (MEASURED_ON_EXTERNAL_VM), não reproduzido aqui ({CUSTO_HEAVY})", "mesmo código, certificado por prefixos"))
         novo(cid, f"Existe código C em (Z_{q})^{n} com |C| = {m} que cobre com raio {r} (data/codes/{nome_codigo(cel, m)}.txt).{nota}",
              {"problem": f"K_{q}({n},{r}) <= {m}", "domain": f"q={q}, n={n}, R={r}", "assumptions": [], "parameters": {"q": q, "n": n, "R": r, "M": m}},
              kind="theorem", depends_on=deps, bound=bound_(cel, m, "upper"),
@@ -864,7 +900,7 @@ def main() -> int:
         if e_heavy:
             if e_syn:  # o Lean MEDIDO sustenta o claim; o pesado fica ao lado, declarado (o registro inválido dele travaria PROVED se estivesse em evidence.formal)
                 K.atualizar(c, cid, ator=AUTOR, papel="PROPOSER", complementary_formal=[fid_heavy(HEAVY[(cel, m)][2], m)],
-                            complementary_formal_note="teorema por prefixos (CoveringHeavy) DECLARADO, não reproduzido; fica fora de evidence.formal de propósito")
+                            complementary_formal_note="teorema por prefixos (CoveringHeavy) medido só na VM do autor (measured_external), não reproduzido aqui; fica fora de evidence.formal de propósito")
             else:
                 anexa(cid, "formal", fid_heavy(HEAVY[(cel, m)][2], m))
         if (cel, m) == ("k7-9-4", 1351):
@@ -922,9 +958,12 @@ def main() -> int:
                           if any(f_.startswith("f-heavy-") for f_ in cl["evidence"]["formal"] + cl.get("complementary_formal", []))})
     sem_medido = sorted(x for x in heavy_claims if c.ler("claims", x)["status"] not in ("PROVED", "FORMALLY_VERIFIED", "EXTERNALLY_REPRODUCED"))
     residuo("res-heavy-build-not-reproduced", kind="nao_reproduzido", claim_ids=heavy_claims, instances=celulas_de(heavy_claims),
-            reason=f"lake build CoveringHeavy ({CUSTO_HEAVY}) não foi executado; os axiomas desses {len(HEAVY) + 1} teoremas só DECLARADOS no README. Sem teorema Lean MEDIDO "
+            reason=f"lake build CoveringHeavy ({CUSTO_HEAVY}) não é executável neste container (4 vCPU/15 GB). Os {len(HEAVY) + 1} teoremas têm UMA medição externa do autor numa VM "
+                   f"(_fatos/medicao_heavy_vm.json: {ext.get('jobs_final')} jobs, {ext.get('folhas_ok')} folhas ok, {ext.get('folhas_falhou')} falhas, axiomas só propext/Classical.choice/Quot.sound, "
+                   f"commit {str(ext.get('repo_commit'))[:7]}, log sha256 {ext.get('sha256_prefixo_log_completo')}…, log não versionado), não refeita em segundo ambiente e não medida por esta campanha: "
+                   f"as guardas não a aceitam como registro Lean medido. Sem teorema Lean MEDIDO pela campanha "
                    f"(ficam abaixo de PROVED por isso): {sem_medido}. O 1351 de K_7(9,4) tem também o teorema por síndromes medido (Syn.K7_9_4_le_1351_syn).",
-            next_step="rodar numa máquina com RAM >= 9 GB por módulo (ou provar por síndromes: scripts/syndrome/gen_syn.py, que custa minutos) e registrar com formal.registrar_formal")
+            next_step="(a) tipo de registro 'external_measurement' na infraestrutura (campaigns/covering-codes/_fatos/PROPOSTA_INFRA_medicao_externa.md) ou (b) refazer o build pela própria campanha numa máquina com RAM >= 9 GB e registrar com formal.registrar_formal (ou provar por síndromes: scripts/syndrome/gen_syn.py, minutos)")
     residuo("res-ci-sem-coveringsyn", kind="garantia_continua", claim_ids=sorted(f"{cc}-ub-{mm}" for (cc, mm) in SYN), instances=sorted({cc for (cc, _) in SYN}),
             reason="VALIDATION.md (achado de processo): o CI do repositório só roda `lake build` do alvo padrão. MEDIDO em .github/workflows/verify-codes.yml: nenhum job constrói CoveringSyn, "
                    "então os cinco teoremas Syn_K* são medidos aqui (esta campanha) mas não recompilados a cada commit.",

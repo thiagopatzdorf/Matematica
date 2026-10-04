@@ -1,5 +1,5 @@
 {
-  "created": "2026-10-03T21:36:11Z",
+  "created": "2026-10-04T06:24:59Z",
   "created_by": "agente-c",
   "description": "Confere STATE_OF_ART.md (main v0.5, revisão de 2026-10-02) contra os registros de literatura desta campanha (fontes lidas por Lit-CC em 2026-10-03). O documento NÃO é fonte primária e não vira evidência por existir; afirmação sem registro correspondente fica SEM_REGISTRO. Não afirma novidade: STATE_OF_ART.md, VALIDATION.md e o paper dizem 'o menor que encontramos nas fontes revisadas', e o próprio documento lista o que não checou (Google Scholar, bases pagas, teses, periódico, páginas pessoais).",
   "experiment_id": "exp-state-of-art-crosscheck",
@@ -9,7 +9,7 @@
   ],
   "kind": "symbolic",
   "ranges": null,
-  "repo_commit": "986889eaaf52b9b79dffd3f3385775fd4eea4fb0",
+  "repo_commit": "893c5c7d354d8ad3945c2cd8abec6579b265cac2",
   "result": {
     "executado_neste_run": true,
     "itens": [
@@ -176,7 +176,7 @@
   "source_files": [
     {
       "path": "STATE_OF_ART.md",
-      "sha256": "d1188f6006cfc4a6e826cd5f27f4d237338f7a3abd60679779fdd19fe70db27f"
+      "sha256": "e80c4272ddd6f65a93f6685d3e36b6b7891f5115a3bfdb68d28928f4260223d2"
     }
   ]
 }

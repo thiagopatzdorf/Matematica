@@ -4,7 +4,7 @@
   "canonical_sha256": "bcb05960410d3f32ccd0de46720606a6df3d0402cb56c67e93766f12e41f5259",
   "canonical_sha256_declared_in_structured": "bcb05960410d3f32ccd0de46720606a6df3d0402cb56c67e93766f12e41f5259",
   "claim_ids": [],
-  "created": "2026-10-03T21:36:11Z",
+  "created": "2026-10-04T06:24:59Z",
   "created_by": "agente-c",
   "format": "covering-code/v1 (lista plana, uma palavra por linha)",
   "implementation": "kit de busca do agente E (scripts/search na branch feat/kit-de-busca): enumeração exata das 6362 classes de [9,3]_7 + otimizador de remendo",

@@ -14,7 +14,7 @@
     "result": "uncovered=0 nos verificadores",
     "status": "completed"
   },
-  "created": "2026-10-03T21:53:49Z",
+  "created": "2026-10-04T06:42:19Z",
   "created_by": "agente-c",
   "created_role": "PROPOSER",
   "depends_on": [
@@ -52,7 +52,7 @@
       "reason": "criado",
       "role": "PROPOSER",
       "to": "IDEA",
-      "ts": "2026-10-03T21:53:49Z"
+      "ts": "2026-10-04T06:42:19Z"
     },
     {
       "actor": "agente-c",
@@ -60,7 +60,7 @@
       "reason": "evidência anexada: witnesses=w-q5-n9-r4-m250",
       "role": "PROPOSER",
       "to": "IDEA",
-      "ts": "2026-10-03T21:53:49Z"
+      "ts": "2026-10-04T06:42:19Z"
     },
     {
       "actor": "agente-c",
@@ -68,7 +68,7 @@
       "reason": "evidência anexada: experiments=exp-prior-search-unrecorded",
       "role": "PROPOSER",
       "to": "IDEA",
-      "ts": "2026-10-03T21:53:49Z"
+      "ts": "2026-10-04T06:42:19Z"
     },
     {
       "actor": "agente-c",
@@ -76,7 +76,7 @@
       "reason": "evidência anexada: literature=lit-keri-k5-9-4-ub",
       "role": "PROPOSER",
       "to": "IDEA",
-      "ts": "2026-10-03T21:53:49Z"
+      "ts": "2026-10-04T06:42:19Z"
     },
     {
       "actor": "agente-c",
@@ -84,7 +84,7 @@
       "reason": "evidência anexada: formal=f-heavy-k5-9-4-250",
       "role": "PROPOSER",
       "to": "IDEA",
-      "ts": "2026-10-03T21:53:49Z"
+      "ts": "2026-10-04T06:42:19Z"
     },
     {
       "actor": "agente-c",
@@ -92,7 +92,7 @@
       "reason": "evidência anexada: experiments=exp-structure-regeneration",
       "role": "PROPOSER",
       "to": "IDEA",
-      "ts": "2026-10-03T21:53:49Z"
+      "ts": "2026-10-04T06:42:19Z"
     },
     {
       "actor": "migrate_covering.py",
@@ -100,7 +100,7 @@
       "reason": "verificadores de autores/grupos distintos, PASS válido e sem desacordo, neste run",
       "role": "INDEPENDENT_VERIFIER",
       "to": "INDEPENDENTLY_REPRODUCED",
-      "ts": "2026-10-03T21:53:49Z"
+      "ts": "2026-10-04T06:42:19Z"
     }
   ],
   "kind": "theorem",
@@ -156,7 +156,7 @@
       "trusted_for": "convenção de dígitos little-endian e do sha256 canônico"
     },
     {
-      "component": "Lean kernel (CoveringKernel.K5_9_4_le_250_kernel), DECLARADO, não reproduzido (~9,3 h de CPU (README.md: `lake build CoveringHeavy` 1 h 54 min de relógio, pico 9,4 GB por processo))",
+      "component": "Lean kernel (CoveringKernel.K5_9_4_le_250_kernel), medido só na VM do autor (MEASURED_ON_EXTERNAL_VM), não reproduzido aqui (~9,3 h de CPU (README.md: `lake build CoveringHeavy` 1 h 54 min de relógio, pico 9,4 GB por processo))",
       "trusted_for": "mesmo código, certificado por prefixos"
     },
     {

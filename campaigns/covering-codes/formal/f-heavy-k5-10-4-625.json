@@ -1,7 +1,7 @@
 {
   "axioms": null,
-  "axioms_status": "DECLARED_NOT_REPRODUCED: README.md ('Nenhum sorry, nenhum native_decide, e todo #print axioms mostra no máximo propext, Classical.choice, Quot.sound'); o módulo é do alvo CoveringHeavy, custo ~9,3 h de CPU (README.md: `lake build CoveringHeavy` 1 h 54 min de relógio, pico 9,4 GB por processo): não compilado nesta campanha",
-  "build_status": "NOT_RUN: lake build CoveringHeavy não executado neste ambiente (~9,3 h de CPU (README.md: `lake build CoveringHeavy` 1 h 54 min de relógio, pico 9,4 GB por processo))",
+  "axioms_status": "MEASURED_ON_EXTERNAL_VM: #print axioms ['propext', 'Classical.choice', 'Quot.sound'] reportado pelo autor numa VM (commit ddb16b7, log sha256 ca233f40f93e8eb1…); NÃO medido por esta campanha nem refeito em segundo ambiente; a guarda não o aceita (axioms=null)",
+  "build_status": "NOT_RUN: lake build CoveringHeavy não executado neste ambiente (~9,3 h de CPU (README.md: `lake build CoveringHeavy` 1 h 54 min de relógio, pico 9,4 GB por processo)); build completo medido só na VM do autor (ver measured_external)",
   "clean_build": false,
   "declared_axioms": [
     "propext",
@@ -16,15 +16,41 @@
   "manifest_sha256": "88d3b3c8b56dbff5d6c7f63ac444982ed9152f874d27a8174c91544dfa90ed82",
   "mathlib_commit": "d13f23b723b8a846827a245b89c10fc7d3f11612",
   "measured": null,
+  "measured_external": {
+    "axioms": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "build_status": "OK (relato do autor): lake build CoveringHeavy, 9181 jobs, 220 folhas ok, 0 falhas",
+    "fim_utc": "2026-10-04T06:17:38Z",
+    "folhas_falhou": 0,
+    "folhas_ok": 220,
+    "fonte": "campaigns/covering-codes/_fatos/medicao_heavy_vm.json",
+    "fonte_lean": "CoveringLean/K3_K5_10_4_Final.lean:20",
+    "inicio_utc": "2026-10-04T02:06:46Z",
+    "jobs": 9181,
+    "lean_version": "leanprover/lean4:v4.34.1",
+    "log_sha256_prefixo": "ca233f40f93e8eb1",
+    "log_versionado": false,
+    "maquina": "VM GCP e2-highmem-8 (8 vCPU, 62 GB), clone limpo da branch da campanha",
+    "native_decide_ou_ofReduceBool_no_log": 0,
+    "relogio_total": "4 h 11 min (inclui clone do Mathlib, cache get, compilação sequencial da 1ª folha de cada família e 220 folhas com 4 em paralelo)",
+    "repo_commit": "ddb16b7d0a8ee71cda8c18e007869bfc650ae39a",
+    "ressalva": "Medição do autor em VM; não refeita em segundo ambiente. O `reproduce` local (4 vCPU/15 GB) não consegue refazer. O log completo (1,5 MB) não está no repositório: só o prefixo do sha256 e as linhas `#print axioms`. A guarda de formal (model.validar_registro_formal) só aceita o que a campanha mediu, então este registro NÃO sustenta promoção (ver _fatos/PROPOSTA_INFRA_medicao_externa.md).",
+    "sorry_no_log": 0,
+    "status": "MEASURED_ON_EXTERNAL_VM",
+    "teoremas_adicionais_do_mesmo_arquivo": []
+  },
   "module": "CoveringLean.K3_K5_10_4_Final",
-  "repo_commit": "986889eaaf52b9b79dffd3f3385775fd4eea4fb0",
+  "repo_commit": "893c5c7d354d8ad3945c2cd8abec6579b265cac2",
   "scan_findings": [],
   "sorry_free": true,
   "sorry_free_basis": "varredura estática de 41 fontes (não é build)",
   "source_sha256": "30a15ba5054e9fed24210c803c626a37711863b47ae0eb1a8549f262c0e6f16f",
   "theorem": "CoveringKernel.K5_10_4_le_625_kernel",
   "validation_problems": [
-    "axiomas não medidos (declarados)",
-    "clean_build não medido"
+    "axiomas não medidos por esta campanha (declarados; medidos só na VM externa)",
+    "clean_build não medido por esta campanha"
   ]
 }
