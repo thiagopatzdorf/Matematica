@@ -1,6 +1,7 @@
 import Mathlib
 import CoveringLean.A2_Sphere
 import CoveringLean.C1_CoverCheck
+import CoveringLean.K2_Core
 import CoveringLean.K742_Upper
 
 /-!
@@ -71,6 +72,14 @@ theorem UB.weaken {q n n' R R' M M' : ℕ} (h : UB q n R M) (hn : n = n') (hR : 
 theorem UB.of_check {q n R M : ℕ} [NeZero q] {L : List ℕ} (h : CoveringCerts.check q n R L = true)
     (hM : L.length ≤ M) : UB q n R M :=
   (UB.of_exists (CoveringCerts.cert_of_check rfl h)).mono hM
+
+/-- Witness explícito pelo verificador por prefixos (`CoveringKernel.go`, `K2_Core.lean`): não
+exige lista ordenada nem sem repetição, e é o que o gerador em lote usa. -/
+theorem UB.of_go {q n R M : ℕ} [NeZero q] {L : List ℕ}
+    (h : CoveringKernel.go q n (CoveringKernel.wordItems R L) = true) (hM : L.length ≤ M) :
+    UB q n R M := by
+  obtain ⟨C, hc, hC⟩ := CoveringKernel.cover_simple q n R L h
+  exact ⟨C, hc.trans hM, hC⟩
 
 /-! ## Células base sem witness explícito -/
 
@@ -189,6 +198,7 @@ end CoveringUB
 #print axioms CoveringUB.K_le_card
 #print axioms CoveringUB.K_le_iff
 #print axioms CoveringUB.UB.of_check
+#print axioms CoveringUB.UB.of_go
 #print axioms CoveringUB.K_7_4_2_le_19
 #print axioms CoveringUB.UB.of_exists
 #print axioms CoveringUB.UB.univ
