@@ -1,0 +1,58 @@
+name: Submissão de candidato
+description: Submeter um candidato (código, construção, prova) para um problema aberto ou reivindicado.
+title: "[candidato] <id-do-problema>"
+labels: ["problema:candidato"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Vira a transição `candidato` do Cartão (`problems/SPEC.md`). O candidato só avança a `verificado`
+        com a saída do avaliador exato do problema, e a `certificado` com o kernel do Lean.
+  - type: input
+    id: id
+    attributes:
+      label: id do problema
+      description: "O `id` do cartão em problems/cartoes/. Ex.: cobertura-k7-9-4-ub"
+    validations: {required: true}
+  - type: input
+    id: nosso_valor
+    attributes:
+      label: nosso.valor
+      description: "O valor que o candidato alcança (número)."
+    validations: {required: true}
+  - type: input
+    id: artefato
+    attributes:
+      label: artefato
+      description: "Caminho no PR ou URL estável do candidato (ex.: data/codes/q7_n9_R4_M1134.txt)."
+    validations: {required: true}
+  - type: input
+    id: sha256
+    attributes:
+      label: sha256 do artefato
+      description: "64 hex. Ex.: sha256sum <arquivo>"
+    validations: {required: true}
+  - type: input
+    id: avaliador_como_rodar
+    attributes:
+      label: avaliador.como_rodar
+      description: "O comando que você rodou, igual ao do cartão."
+    validations: {required: true}
+  - type: textarea
+    id: avaliador_saida
+    attributes:
+      label: saída do avaliador
+      description: "Cole a saída inteira, sem editar. Não cole segredo."
+      render: text
+    validations: {required: true}
+  - type: input
+    id: quem
+    attributes:
+      label: quem
+      description: "Seu usuário, ou o do agente e o de quem responde por ele."
+    validations: {required: true}
+  - type: textarea
+    id: notas
+    attributes:
+      label: notas (opcional)
+      description: "Como achou, o que não funcionou. Entra no histórico."
