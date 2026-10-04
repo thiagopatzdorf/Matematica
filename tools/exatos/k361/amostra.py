@@ -48,6 +48,22 @@ def sequencias(v: int, M: int, p: int) -> list[list[int]]:
     return [list(map(int, ln.split())) for ln in out.splitlines() if ln and not ln.startswith("#")]
 
 
+def cota_sufixo(y: list[int], p: int, modo: str) -> int:
+    """Cota de fibra das coordenadas 2..v-1 no y-SIP.
+
+    "igual": a mesma p do sistema (como LMT, que usa p = 20 ou 22 vindas de computação).
+    "auto": max(menor linha, menor coluna). Vale sem computação nenhuma: escolha a coordenada
+    0 como a que tem a menor fibra do código e a 1 como a de menor fibra entre as outras cinco;
+    então toda fibra das coordenadas 2..v-1 tem pelo menos a menor fibra da coordenada 1, e o
+    grupo de ordem 72 só permuta/transpõe linhas e colunas (ver README).
+    """
+    if modo == "igual":
+        return p
+    linhas = [sum(y[3 * j:3 * j + 3]) for j in range(3)]
+    colunas = [y[k] + y[3 + k] + y[6 + k] for k in range(3)]
+    return max(p, max(min(linhas), min(colunas)))
+
+
 def resolver_cpsat(v: int, y: list[int], p: int, tempo: int) -> dict:
     st, seg = ysip.cpsat(v, y, p, tempo)
     return {"v": v, "y": y, "p": p, "status": "TEMPO" if st == "DESCONHECIDO" else st,
@@ -92,6 +108,7 @@ def main() -> None:
     ap.add_argument("--tempo", type=int, default=600)
     ap.add_argument("--semente", type=int, default=1)
     ap.add_argument("--lrat", action="store_true")
+    ap.add_argument("--sufixo", choices=["auto", "igual"], default="auto")
     ap.add_argument("--motor", choices=["cadical", "cpsat"], default="cadical")
     ap.add_argument("--procs", type=int, default=1)
     ap.add_argument("--saida", required=True)
@@ -102,9 +119,10 @@ def main() -> None:
     with tempfile.TemporaryDirectory() as pasta, open(a.saida, "a") as f, \
             ThreadPoolExecutor(a.procs) as ex:
         def um(y):
+            ps = cota_sufixo(y, a.p, a.sufixo)
             if a.motor == "cpsat":
-                return resolver_cpsat(a.v, y, a.p, a.tempo)
-            return resolver(a.v, y, a.p, a.tempo, a.lrat, pasta)
+                return resolver_cpsat(a.v, y, ps, a.tempo)
+            return resolver(a.v, y, ps, a.tempo, a.lrat, pasta)
         for reg in ex.map(um, alvo):
             reg["total_seqs"] = len(seqs)
             f.write(json.dumps(reg) + "\n")

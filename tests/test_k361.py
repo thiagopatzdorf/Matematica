@@ -153,3 +153,25 @@ def test_automorfismos_preservam_cobertura_blocos_e_fibras():
                     assert len(destino) == 1
                     (jj, kk), = destino
                     assert y[3 * jj + kk] == y[3 * j + k]
+
+
+def test_cota_auto_do_sufixo_vale_depois_de_escolher_as_coordenadas_de_menor_fibra():
+    import amostra
+
+    rng = random.Random(13)
+    W = ysip.palavras(6)
+    for _ in range(200):
+        cod = rng.sample(W, rng.randint(54, 80))
+
+        def menor_fibra(i):
+            return min(sum(1 for c in cod if c[i] == a) for a in range(3))
+        ordem = sorted(range(6), key=menor_fibra)  # coordenada 0: menor fibra; 1: a seguinte
+        cod2 = [tuple(c[i] for i in ordem) for c in cod]
+        y = _seq(cod2)
+        # o representante canônico é uma imagem de y pelo grupo de ordem 72
+        P = list(itertools.permutations(range(3)))
+        rep = list(min(_imagem(y, r, s, t) for r in P for s in P for t in (0, 1)))
+        cota = amostra.cota_sufixo(rep, 0, "auto")
+        for i in range(2, 6):
+            for a in range(3):
+                assert sum(1 for c in cod2 if c[i] == a) >= cota
