@@ -119,6 +119,7 @@ class _Ctx:
 
     def __init__(self, c, lit=None, env=None):
         self.creditos, self.literatura, self.env = c, lit or ArmazemMemoria(), env or {"INF_REPO": str(REPO)}
+        self.estado = ArmazemMemoria()
         self.tools = {}
         self.tool = self._tool
         self.quem = lambda: "a@x.com"
@@ -191,35 +192,105 @@ def test_guardar_paper_nao_pdf_ou_duplicado():
 
 
 # -------------------------------------------------------------------- pesado
-def test_pesado_sem_executor_cobra_e_finge_que_rodou():
+class VMFalsa:
+    """Executor de mentira com o contrato do real: um job por vez, status lido da 'VM'."""
+
+    def __init__(self):
+        self.st, self.ligada, self.liberada = {}, False, 0
+
+    def iniciar(self, tipo, parametros, horas, quem, job_id=""):
+        if self.ligada:
+            raise ErroCreditos("a VM está ocupada (RUNNING)")
+        self.ligada, self.job = True, job_id
+        return {"vm": "ligando"}
+
+    def status(self, job_id):
+        return dict(self.st)
+
+    def parar(self):
+        self.ligada = False
+
+    def liberar(self):
+        self.liberada += 1
+
+
+def _pesado(vm=None, relogio=None):
     c = creditos()
     ctx = _Ctx(c)
-    pesado.registrar(ctx)
+    pesado.registrar(ctx, vm, **({"agora": relogio} if relogio else {}))
+    return ctx, c
+
+
+def test_pesado_sem_executor_cobra_e_finge_que_rodou():
+    ctx, c = _pesado()
     seco = ctx.tools["pesado"]("lake_build", 1.0)
-    assert seco["seco"] and seco["custo_estimado_usd"] == 0.6 and seco["cabe"]
+    assert seco["seco"] and seco["custo_maximo_usd"] == 0.6 and seco["cabe"]
     r = ctx.tools["pesado"]("lake_build", 1.0, confirmar=True)
     assert r["ok"] is False and "nenhum executor" in r["erro"]
     assert c.saldo("a@x.com")["disponivel_usd"] == 20.0  # reserva desfeita
 
 
-def test_pesado_com_executor_deixa_a_reserva_aberta_e_respeita_o_teto():
-    class Ex:
-        def iniciar(self, tipo, parametros, horas, quem):
-            return {"id": "job1"}
+def test_pesado_aceita_comando_livre_horas_absurdas_ou_busca_sem_executor_de_resultado():
+    ctx, _ = _pesado(VMFalsa())
+    assert "busca" not in pesado.TIPOS                          # a VM não devolve arquivo: busca não é um tipo
+    for tipo, h in (("comando_livre", 1.0), ("lake_build", 99.0), ("lake_build", 0.0), ("lake_build", -1.0)):
+        assert ctx.tools["pesado"](tipo, h, confirmar=True)["ok"] is False
 
-    c = creditos()
-    ctx = _Ctx(c)
-    pesado.registrar(ctx, Ex())
-    assert ctx.tools["pesado"]("lake_build", 3.0, confirmar=True)["job"] == {"id": "job1"}
-    assert c.saldo("a@x.com")["reservado_usd"] == 1.8
-    assert ctx.tools["pesado"]("comando_livre", 1.0, confirmar=True)["ok"] is False
-    assert ctx.tools["pesado"]("lake_build", 99.0, confirmar=True)["ok"] is False
-    for _ in range(40):
-        try:
-            ctx.tools["pesado"]("lake_build", 3.0, confirmar=True)
-        except ErroCreditos:
-            break
-    assert c.saldo("a@x.com")["disponivel_usd"] >= 0
+
+def test_job_que_terminou_cobra_o_tempo_real_e_nao_a_reserva_inteira():
+    vm = VMFalsa()
+    ctx, c = _pesado(vm, relogio=lambda: 1000.0)
+    r = ctx.tools["pesado"]("lake_build", 3.0, confirmar=True)
+    assert r["ok"] and c.saldo("a@x.com")["reservado_usd"] == 1.8
+    vm.st = {"vm": "TERMINATED", "inicio_vm": 1000.0, "fim_vm": 1000.0 + 1800, "estado": "concluido", "codigo": 0,
+             "saida": "Build completed"}
+    j = ctx.tools["pesado_status"](r["job"])["jobs"][0]
+    assert (j["estado"], j["horas_reais"], j["custo_usd"], j["codigo"]) == ("liquidado", 0.5, 0.3, 0)
+    s = c.saldo("a@x.com")
+    assert (s["gasto_usd"], s["reservado_usd"]) == (0.3, 0.0) and vm.liberada == 1
+    assert ctx.tools["pesado_status"](r["job"])["jobs"][0]["custo_usd"] == 0.3     # liquidar de novo não cobra de novo
+    assert c.saldo("a@x.com")["gasto_usd"] == 0.3
+
+
+def test_job_que_estourou_o_prazo_continua_ligado_e_cobrando():
+    vm, t = VMFalsa(), [1000.0]
+    ctx, c = _pesado(vm, relogio=lambda: t[0])
+    r = ctx.tools["pesado"]("verificar_grande", 1.0, {"arquivo": "q4_n10_R4_M192.txt"}, confirmar=True)
+    vm.st = {"vm": "RUNNING", "inicio_vm": 1000.0, "estado": "rodando"}
+    assert ctx.tools["pesado_status"](r["job"])["jobs"][0]["estado"] == "rodando" and vm.ligada
+    t[0] += 3600 + 600
+    j = ctx.tools["pesado_status"](r["job"])["jobs"][0]
+    assert j["estado"] == "liquidado" and j["custo_usd"] == 0.6 and not vm.ligada
+    assert c.saldo("a@x.com")["gasto_usd"] == 0.6
+
+
+def test_job_que_nunca_ligou_cobra_pela_reserva():
+    vm = VMFalsa()
+    ctx, c = _pesado(vm, relogio=lambda: 5000.0)
+    r = ctx.tools["pesado"]("lake_build", 1.0, confirmar=True)
+    vm.st = {"vm": "TERMINATED", "inicio_vm": 10.0, "fim_vm": 20.0}      # a VM tem outra história, não a deste job
+    assert ctx.tools["pesado_status"](r["job"])["jobs"][0]["estado"] == "nao_rodou"
+    assert c.saldo("a@x.com")["disponivel_usd"] == 20.0
+
+
+def test_job_de_outra_pessoa_aparece_na_consulta_de_quem_nao_e_dono():
+    vm = VMFalsa()
+    ctx, c = _pesado(vm)
+    r = ctx.tools["pesado"]("lake_build", 1.0, confirmar=True)
+    ctx.quem = lambda: "b@x.com"
+    assert ctx.tools["pesado_status"](r["job"])["ok"] is False
+    assert ctx.tools["pesado_status"]()["jobs"] == []
+    ctx.quem = lambda: DONO
+    assert ctx.tools["pesado_status"](r["job"])["ok"] is True
+
+
+def test_vm_ocupada_recusa_e_devolve_a_reserva():
+    vm = VMFalsa()
+    ctx, c = _pesado(vm)
+    assert ctx.tools["pesado"]("lake_build", 1.0, confirmar=True)["ok"]
+    r = ctx.tools["pesado"]("lake_build", 1.0, confirmar=True)
+    assert r["ok"] is False and "ocupada" in r["erro"]
+    assert c.saldo("a@x.com")["reservado_usd"] == 0.6                # só o job que está rodando
 
 
 # ------------------------------------------------------------- HTTP + Access
@@ -264,7 +335,10 @@ def test_tools_do_servidor_e_colaborador_chamando_admin(capsys):
     est = ArmazemMemoria()
     with _cliente(est) as c:
         nomes = {t["name"] for t in _rpc(c, "tools/list", {}, _jwt()).json()["result"]["tools"]}
-        assert {"meus_creditos", "admin_creditos", "celula", "alvos", "papers_buscar", "pesado"} <= nomes
+        assert {"meus_creditos", "celula", "alvos", "papers_buscar", "pesado"} <= nomes
+        assert not any(n.startswith("admin_") for n in nomes)          # colaborador não vê botão de admin
+        admin = {t["name"] for t in _rpc(c, "tools/list", {}, _jwt(email=DONO)).json()["result"]["tools"]}
+        assert {"admin_usuarios", "admin_creditos"} <= admin
         assert _dado(_tool(c, "meus_creditos", {}, _jwt()))["disponivel_usd"] == 20.0
         negado = _dado(_tool(c, "admin_creditos", {"email": "a@x.com", "somar_usd": 500, "motivo": "x"}, _jwt()))
         assert negado["ok"] is False
@@ -372,7 +446,7 @@ def test_gemini_que_falha_ou_sem_chave_continua_cobrando():
     ctx, c = _gem(cai)
     assert ctx.tools["gemini"]("oi", confirmar=True)["ok"] is False
     ctx2, c2 = _gem(None, env={"INF_REPO": str(REPO)})
-    assert "GEMINI_API_KEY" in ctx2.tools["gemini"]("oi", confirmar=True)["erro"]
+    assert "nenhum backend" in ctx2.tools["gemini"]("oi", confirmar=True)["erro"]
     assert c.saldo("a@x.com")["disponivel_usd"] == 20.0 == c2.saldo("a@x.com")["disponivel_usd"]
 
 
@@ -405,3 +479,173 @@ def test_upload_privado_manda_acl_e_o_bucket_uniforme_recusa_com_400():
     assert "predefinedAcl" not in urls[0]
     a.por("x", b"{}", "application/json", publico=True)
     assert "predefinedAcl=publicRead" in urls[1]
+
+
+def test_admin_convidado_por_e_mail_come_uma_das_dez_vagas():
+    est = ArmazemMemoria()
+    env = {"INF_REPO": str(REPO), "INF_TOKEN_ADMIN": TOKEN_ADMIN, "INF_URL_BASE": "https://inf.exemplo.app",
+           "INF_ADMINS": DONO, "INF_MAX_USUARIOS": "1"}
+    asgi = server.app(None, estado=est, literatura=ArmazemMemoria(), env=env)
+    with TestClient(asgi, base_url="https://inf.exemplo.app") as c:
+        assert _dado(_tool_url(c, TOKEN_ADMIN, "admin_convidar", {"nome": "p", "email": "p@x.com"}))["ok"]
+        r = _dado(_tool_url(c, TOKEN_ADMIN, "admin_convidar", {"nome": "Dono", "email": DONO}))
+        assert r["ok"] and r["nova_vaga"] is False
+        tok = r["url"].split("/mcp/")[1].strip("/")
+        assert _dado(_tool_url(c, tok, "meus_creditos", {}))["admin"] is True
+        nomes = {t["name"] for t in _rpc_url(c, tok, "tools/list")["result"]["tools"]}
+        assert "admin_creditos" in nomes
+        assert _dado(_tool_url(c, tok, "admin_usuarios", {}))["vagas"] == 0     # o admin não ocupou vaga
+
+
+def _rpc_url(c, token, metodo):
+    cab = {"Accept": "application/json, text/event-stream", "Content-Type": "application/json"}
+    return c.post(f"/mcp/{token}/", headers=cab, json={"jsonrpc": "2.0", "id": 1, "method": metodo, "params": {}}).json()
+
+
+def test_vertex_chama_global_com_o_token_da_sa_e_cobra_pensamento_como_saida():
+    vistos = {}
+
+    def post(url, corpo, cab):
+        vistos.update(url=url, cab=cab, corpo=corpo)
+        return {"candidates": [{"content": {"parts": [{"text": "ok"}]}}],
+                "usageMetadata": {"promptTokenCount": 6, "thoughtsTokenCount": 17}}
+
+    chamar = gemini.chamar_vertex("proj-x", token=lambda: "TOK", post=post)
+    r = chamar("gemini-3.8-flash", "oi", 20)
+    assert vistos["url"] == ("https://aiplatform.googleapis.com/v1/projects/proj-x/locations/global/"
+                             "publishers/google/models/gemini-3.8-flash:generateContent")
+    assert vistos["cab"]["Authorization"] == "Bearer TOK" and "x-goog-api-key" not in vistos["cab"]
+    assert (r["texto"], r["entrada"], r["saida"]) == ("ok", 6, 17)       # o pensamento é cobrado como saída
+
+
+def test_backend_vertex_ligado_pelo_ambiente_substitui_a_chave_sem_credito():
+    ctx = _Ctx(creditos(), env={"INF_REPO": str(REPO), "INF_GEMINI_BACKEND": "vertex", "INF_GCP_PROJETO": "p",
+                                "GEMINI_API_KEY": "chave-sem-credito"})
+    gemini.registrar(ctx)
+    assert ctx.tools["gemini"]("oi")["seco"] is True           # registra sem exigir chave nem rede
+
+
+def test_resposta_cortada_pelo_pensamento_vem_com_fim_max_tokens():
+    def post(url, corpo, cab):
+        return {"candidates": [{"content": {"parts": [{"text": "Draft"}]}, "finishReason": "MAX_TOKENS"}],
+                "usageMetadata": {"promptTokenCount": 19, "thoughtsTokenCount": 190, "candidatesTokenCount": 6}}
+
+    ctx, c = _gem(gemini.chamar_vertex("p", token=lambda: "T", post=post))
+    r = ctx.tools["gemini"]("oi", confirmar=True)
+    assert r["fim"] == "MAX_TOKENS" and r["tokens_saida"] == 196
+
+
+def test_admin_ve_quem_usa_ordenado_e_o_proprio_admin_nao_polui_a_lista():
+    est = ArmazemMemoria()
+    with _cliente_token(est) as c:
+        a = _dado(_tool_url(c, TOKEN_ADMIN, "admin_convidar", {"nome": "Colaborador 01", "email": "c1@x.com"}))
+        b = _dado(_tool_url(c, TOKEN_ADMIN, "admin_convidar", {"nome": "Colaborador 02", "email": "c2@x.com"}))
+        ta, tb = (r["url"].split("/mcp/")[1].strip("/") for r in (a, b))
+        _tool_url(c, ta, "meus_creditos", {})
+        _tool_url(c, tb, "codigos", {})
+        _tool_url(c, tb, "codigos", {})
+        time.sleep(1.1)                                            # c1 passa a ser o mais recente
+        _tool_url(c, ta, "celula", {"id": "K7(9,4)"})
+        r = _dado(_tool_url(c, TOKEN_ADMIN, "admin_usuarios", {}))
+    assert [p["quem"] for p in r["pessoas"]] == ["c1@x.com", "c2@x.com"]
+    c1, c2 = r["pessoas"]
+    assert (c1["nome"], c1["chamadas"], c2["chamadas"]) == ("Colaborador 01", 2, 2)
+    assert c2["tools_mais_usadas"][0] == "codigos (2)" and c1["ultima_atividade"].endswith("Z")
+    assert r["usando"] == 2 and "servico:factory" not in json.dumps(r)
+
+
+def test_atividade_que_falha_ao_gravar_derruba_a_tool():
+    class Quebra(ArmazemMemoria):
+        def por(self, nome, dados, tipo, *, publico):
+            if nome.startswith("atividade/"):
+                raise OSError("bucket fora")
+            super().por(nome, dados, tipo, publico=publico)
+
+    est = Quebra()
+    with _cliente_token(est) as c:
+        tok = _dado(_tool_url(c, TOKEN_ADMIN, "admin_convidar", {"nome": "X", "email": "x@x.com"}))["url"].split("/mcp/")[1].strip("/")
+        assert _dado(_tool_url(c, tok, "meus_creditos", {}))["ok"] is True
+
+
+# --------------------------------------------------------------- executor da VM
+from infinito_mcp.executor_vm import ExecutorVM  # noqa: E402
+
+
+class ComputeFalso:
+    """Mini Compute Engine: guarda o estado da instância e responde como a API."""
+
+    def __init__(self, status="TERMINATED", sched_ok=True):
+        self.inst = {"status": status, "metadata": {"fingerprint": "f1", "items": [{"key": "ssh-keys", "value": "thiago:ssh-rsa AAA"}]},
+                     "lastStartTimestamp": "2026-10-03T10:00:00.000-07:00", "lastStopTimestamp": "2026-10-03T10:30:00.000-07:00"}
+        self.chamadas, self.sched_ok, self.guest = [], sched_ok, {}
+
+    def __call__(self, metodo, url, corpo):
+        caminho = url.split("/instances/lean-build2")[1]
+        self.chamadas.append((metodo, caminho))
+        if caminho == "" and metodo == "GET":
+            return 200, self.inst
+        if caminho == "/setMetadata":
+            self.inst["metadata"] = {"fingerprint": "f2", "items": corpo["items"]}
+            return 200, {}
+        if caminho == "/setScheduling":
+            self.ultimo_scheduling = corpo
+            return (200, {}) if self.sched_ok else (400, {"error": "x"})
+        if caminho == "/start":
+            self.inst["status"] = "RUNNING"
+            return 200, {}
+        if caminho == "/stop":
+            self.inst["status"] = "TERMINATED"
+            return 200, {}
+        if caminho.startswith("/getGuestAttributes"):
+            return 200, {"queryValue": {"items": [{"namespace": "infinito", "key": k, "value": v} for k, v in self.guest.items()]}}
+        return 404, {}
+
+
+def _vm(**kw):
+    api = ComputeFalso(**kw)
+    return ExecutorVM("proj", http=api, dormir=lambda s: None), api
+
+
+def test_ligar_a_vm_apaga_a_chave_ssh_do_dono_ou_deixa_o_job_para_sempre():
+    vm, api = _vm()
+    vm.iniciar("lake_build", {"alvo": "CoveringLean"}, 1.0, "a@x.com", "job1")
+    chaves = {i["key"]: i["value"] for i in api.inst["metadata"]["items"]}
+    assert chaves["ssh-keys"] == "thiago:ssh-rsa AAA"                       # o que já estava continua
+    assert json.loads(chaves["infinito-job"])["id"] == "job1" and chaves["enable-guest-attributes"] == "TRUE"
+    assert chaves["startup-script"].startswith("#!/bin/bash") and "shutdown -h now" in chaves["startup-script"]
+    assert [c for c in api.chamadas if c[0] == "POST"][-1] == ("POST", "/start")
+    vm.liberar()
+    assert [c for c in api.chamadas if c[1] == "/setScheduling"][-1] and api.ultimo_scheduling["maxRunDuration"] == {"seconds": 6 * 3600}   # limite permanente, não removível
+    assert "infinito-job" not in {i["key"] for i in api.inst["metadata"]["items"]}
+    assert {i["key"] for i in api.inst["metadata"]["items"]} >= {"ssh-keys", "startup-script"}
+
+
+def test_vm_ocupada_liga_por_cima_e_dobra_a_conta():
+    vm, api = _vm(status="RUNNING")
+    with pytest.raises(ErroCreditos, match="ocupada"):
+        vm.iniciar("lake_build", {}, 1.0, "a@x.com", "j")
+    assert not any(c[0] == "POST" for c in api.chamadas)                   # nem mexeu nos metadados
+
+
+def test_paraquedas_de_duracao_maxima_que_falha_impede_o_job():
+    vm, api = _vm(sched_ok=False)
+    info = vm.iniciar("lake_build", {}, 1.0, "a@x.com", "j")
+    assert info["paraquedas_maxrunduration"] is False and api.inst["status"] == "RUNNING"
+
+
+def test_status_de_job_alheio_vaza_o_resultado_do_job_anterior():
+    vm, api = _vm()
+    api.guest = {"id": "outro", "estado": "concluido", "codigo": "0", "saida": "log do outro"}
+    s = vm.status("meu")
+    assert (s["estado"], s["saida"], s["codigo"]) == (None, "", None)
+    api.guest["id"] = "meu"
+    s = vm.status("meu")
+    assert (s["estado"], s["codigo"], s["saida"]) == ("concluido", 0, "log do outro")
+    assert s["inicio_vm"] < s["fim_vm"]
+
+
+def test_script_da_vm_so_conhece_a_allowlist_e_desliga_a_maquina():
+    sh = (AQUI / "infinito_mcp" / "vm" / "job.sh").read_text()
+    assert "lake_build" in sh and "verificar_grande" in sh and "shutdown -h now" in sh
+    assert 'eval "$CMD"' in sh and "fullmatch" in sh                      # o comando sai de regex, não do pedido
+    assert "|| exit 0" in sh                                              # boot manual sem job não faz nada

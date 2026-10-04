@@ -31,6 +31,7 @@ from starlette.responses import JSONResponse
 
 from .armazem import Armazem, ArmazemGCS
 from .auth import CABECALHO, Config, Identidade, VerificadorAccess, configurar
+from .atividade import Atividade, iso
 from .creditos import Creditos, ErroCreditos
 from .tokens import Tokens
 
@@ -113,12 +114,13 @@ class Contexto:
     literatura: Armazem      # bucket de papers
     env: dict
     tokens: Tokens | None = None
+    atividade: Atividade | None = None
     tool: Callable[..., Any] = None  # type: ignore[assignment]  # preenchido por criar_mcp
 
     quem = staticmethod(quem)
 
 
-def _auditado(fn, creditos: Creditos):
+def _auditado(fn, creditos: Creditos, atividade: Atividade | None = None):
     assinatura = inspect.signature(fn)
 
     @functools.wraps(fn)
@@ -128,6 +130,8 @@ def _auditado(fn, creditos: Creditos):
         try:
             creditos.garantir(quem())          # a 11ª pessoa para aqui, antes de qualquer tool
             resultado = fn(*args, **kwargs)
+            if atividade and not creditos.e_admin(quem()):     # o que interessa é quem do time usa
+                atividade.registrar(quem(), fn.__name__)
         except ErroCreditos as e:
             resultado = {"ok": False, "erro": str(e)}
         except Exception as exc:  # noqa: BLE001
@@ -148,9 +152,23 @@ def _tools_do_nucleo(ctx: Contexto) -> None:
 
     @tool
     def admin_usuarios() -> dict:
-        """[admin] Todas as pessoas, com teto, gasto e disponível. Também mostra quantas vagas restam."""
+        """[admin] Quem está usando, numa consulta: cada pessoa com nome, chamadas, última atividade, tools mais
+        usadas, teto, gasto e disponível, de quem usou há menos tempo para quem nunca usou. Mostra as vagas que restam."""
         lista = creditos.listar(quem())
-        return {"ok": True, "pessoas": lista, "vagas": creditos.max_usuarios - sum(1 for p in lista if p["ativo"]), "maximo": creditos.max_usuarios}
+        nomes = {a["email"]: a["nome"] for a in ctx.tokens.listar()} if ctx.tokens else {}
+        uso = ctx.atividade.resumo() if ctx.atividade else {}
+        for p in lista:
+            u = uso.get(p["quem"], {})
+            top = sorted(u.get("tools", {}).items(), key=lambda kv: -kv[1])[:3]
+            p.update(nome=nomes.get(p["quem"]), chamadas=u.get("chamadas", 0), primeira_atividade=iso(u.get("primeira")),
+                     ultima_atividade=iso(u.get("ultima")), tools_mais_usadas=[f"{n} ({c})" for n, c in top],
+                     _ordem=u.get("ultima", 0))
+        lista.sort(key=lambda p: -p["_ordem"])
+        for p in lista:
+            p.pop("_ordem")
+        usando = sum(1 for p in lista if p["chamadas"])
+        return {"ok": True, "pessoas": lista, "usando": usando, "vagas": creditos.max_usuarios - sum(1 for p in lista if p["ativo"]),
+                "maximo": creditos.max_usuarios}
 
     @tool
     def admin_creditos(email: str, teto_usd: float | None = None, somar_usd: float | None = None,
@@ -173,10 +191,11 @@ def _tools_de_acesso(ctx: Contexto) -> None:
         O token só aparece nesta resposta; se perder, convide de novo e revogue o antigo."""
         creditos.exigir_admin(quem())
         antes = {p["quem"] for p in creditos.listar(quem())}
-        creditos.definir(quem(), email, teto_usd=teto_usd if teto_usd is not None else creditos.teto_padrao,
-                         motivo="convite")                       # recusa "lotado" ANTES de emitir token
+        if not creditos.e_admin(email):                          # administrador não tem teto nem ocupa vaga
+            creditos.definir(quem(), email, teto_usd=teto_usd if teto_usd is not None else creditos.teto_padrao,
+                             motivo="convite")                   # recusa "lotado" ANTES de emitir token
         token = tokens.emitir(nome, email)
-        return {"ok": True, "nome": nome, "email": email.lower(), "nova_vaga": email.lower() not in antes,
+        return {"ok": True, "nome": nome, "email": email.lower(), "nova_vaga": not creditos.e_admin(email) and email.lower() not in antes,
                 "url": f"{base}/mcp/{token}/" if base else f"<INF_URL_BASE>/mcp/{token}/"}
 
     @tool
@@ -194,6 +213,18 @@ def _tools_de_acesso(ctx: Contexto) -> None:
         return {"ok": True, "acessos": tokens.listar()}
 
 
+def _esconder_admin_de_quem_nao_e_admin(mcp: FastMCP, creditos: Creditos) -> None:
+    """`tools/list` sem `admin_*` para quem não é administrador. É só vitrine: quem manda continua sendo o
+    `exigir_admin` dentro de cada tool (chamar pelo nome, mesmo escondida, dá "só administrador")."""
+    original = mcp.list_tools
+
+    async def listar():
+        tools = await original()
+        return tools if creditos.e_admin(quem()) else [t for t in tools if not t.name.startswith("admin_")]
+
+    mcp._mcp_server.list_tools()(listar)       # troca o handler que o FastMCP registrou no construtor
+
+
 def criar_mcp(creditos: Creditos, estado: Armazem, literatura: Armazem, env: dict | None = None,
               modulos: list[str] | None = None, tokens: Tokens | None = None) -> FastMCP:
     env = dict(os.environ if env is None else env)
@@ -209,8 +240,10 @@ def criar_mcp(creditos: Creditos, estado: Armazem, literatura: Armazem, env: dic
         host="0.0.0.0", stateless_http=True, json_response=True,
     )
     ctx = Contexto(mcp=mcp, creditos=creditos, estado=estado, literatura=literatura, env=env, tokens=tokens)
-    ctx.tool = lambda fn: mcp.tool()(_auditado(fn, creditos))
+    ctx.atividade = Atividade(estado)
+    ctx.tool = lambda fn: mcp.tool()(_auditado(fn, creditos, ctx.atividade))
     _tools_do_nucleo(ctx)
+    _esconder_admin_de_quem_nao_e_admin(mcp, creditos)
     if tokens is not None:
         _tools_de_acesso(ctx)
     for nome in (modulos if modulos is not None else env.get("INF_MODULOS", MODULOS_PADRAO).split(",")):

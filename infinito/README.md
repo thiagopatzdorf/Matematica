@@ -41,12 +41,28 @@ Publicar (Zenodo, site) e fazer merge **não existem aqui**: continuam com o don
 * A URL é a senha: por canal privado, nunca em chat, issue ou PR. **Cuidado no Cloud Run:** o log de requisição
   registra o caminho, ou seja, o token. Exclua `run.googleapis.com/requests` do Logging (ou use `INF_AUTH=access`).
 
+## Quem está usando (consulta fácil)
+
+`admin_usuarios` (só admin) devolve, ordenado por quem usou há menos tempo: nome, e-mail, chamadas, primeira e última
+atividade, as 3 tools mais usadas, teto, gasto e disponível. As chamadas do próprio administrador não entram na conta.
+O resumo mora em `atividade/resumo.json` no bucket de estado; gravar atividade nunca derruba uma tool.
+
+## Computação pesada (a VM `lean-build2`)
+
+`pesado(tipo, horas, parametros, confirmar=true)` reserva `horas × tarifa`, liga a VM com **um** job de allowlist
+(`lake_build` ou `verificar_grande`), e `pesado_status` cobra o **tempo real** ao terminar. A VM se desliga sozinha
+(`timeout` + `shutdown` no script) e tem um limite permanente de 6 h ligada (`maxRunDuration`, que o Compute não deixa
+remover). Um job por vez; a VM não tem credencial, então só volta o código de saída e o fim do log (3 KB).
+Provado em produção em 2026-10-03: `verificar_grande` em `K_4(10,4) ≤ 192` → `uncovered=0`, 69 s, US$ 0,0115.
+`busca` não é um tipo: devolver um código achado exigiria uma credencial de armazenamento para a VM (decisão do dono).
+
 ## Estado honesto (2026-10-03)
 
-* **Pronto e testado** (`pytest infinito/tests`, 29 testes): porta do Access, ledger, matemática, papers, `pesado` em seco.
-* **Ainda não existe**: o executor de VM. `pesado(confirmar=true)` hoje reserva, descobre que não há executor,
-  desfaz a reserva e diz isso. Ligar `lean-build2` é gasto e decisão do Thiago.
-* **Não foi para o ar**: nada de Cloud Run, Access, bucket de estado, DNS. Comandos abaixo são para o Thiago.
+* **Pronto, testado (47 testes) e no ar**: porta por token, ledger, matemática, papers, Gemini (Vertex), `pesado` com VM
+  real, consulta de uso, rota própria `https://infinito.genesisinnovation.io/mcp/<token>/` (as URLs `run.app` antigas
+  continuam valendo).
+* **Cloudflare barra o User-Agent padrão do Python** (erro 1010). Clientes normais passam; scripts devem se identificar.
+* **Preços do Gemini no Vertex** não foram conferidos (a tabela é a do AI Studio): reconfira antes de aumentar crédito.
 
 ## Para levantar (risco alto: infra, só o Thiago)
 
