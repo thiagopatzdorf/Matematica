@@ -72,11 +72,14 @@ def semiprimo(digitos, rng):
             return p * q, min(p, q), max(p, q)
 
 
-def gerar(tamanhos, por_tamanho):
-    """Mesma entrada, mesmos números: a semente é o texto `gnfs-base-<dígitos>`."""
+def gerar(tamanhos, por_tamanho, prefixo="gnfs-base"):
+    """Mesma entrada, mesmos números: a semente é o texto `<prefixo>-<dígitos>`.
+
+    Prefixos diferentes dão conjuntos diferentes (`dev` para desenvolver, `teste` para avaliar, selado até o commit do método).
+    """
     saida = []
     for d in tamanhos:
-        rng = random.Random(f"gnfs-base-{d}")
+        rng = random.Random(f"{prefixo}-{d}")
         for i in range(por_tamanho):
             n, p, q = semiprimo(d, rng)
             saida.append({"digitos": d, "i": i, "n": str(n), "p": str(p), "q": str(q)})
@@ -215,6 +218,7 @@ def main(argv=None):
     g.add_argument("tamanhos", help="dígitos separados por vírgula, por exemplo 60,65,70")
     g.add_argument("por_tamanho", type=int)
     g.add_argument("saida")
+    g.add_argument("--prefixo", default="gnfs-base", help="prefixo da semente: dev, teste ou o padrão")
     m = sub.add_parser("medir")
     m.add_argument("conjunto")
     m.add_argument("registro")
@@ -225,7 +229,7 @@ def main(argv=None):
     e.add_argument("registro")
     a = ap.parse_args(argv)
     if a.cmd == "gerar":
-        dados = gerar([int(x) for x in a.tamanhos.split(",")], a.por_tamanho)
+        dados = gerar([int(x) for x in a.tamanhos.split(",")], a.por_tamanho, a.prefixo)
         Path(a.saida).write_text(json.dumps(dados, indent=1), encoding="utf-8")
         print(len(dados), "semiprimos ->", a.saida)
     elif a.cmd == "medir":

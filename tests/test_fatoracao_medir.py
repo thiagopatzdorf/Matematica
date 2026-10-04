@@ -84,6 +84,13 @@ def test_metricas_do_log_real_de_falha_nao_inventam_o_que_nao_rodou():
     assert m["bwc_cpu_s"] is None and m["sqrt_cpu_s"] is None
 
 
+def test_conjuntos_dev_e_teste_com_prefixos_diferentes_repetem_numeros():
+    dev, teste = mc.gerar([30], 3, prefixo="dev"), mc.gerar([30], 3, prefixo="teste")
+    assert dev == mc.gerar([30], 3, prefixo="dev")
+    assert not ({x["n"] for x in dev} & {x["n"] for x in teste})
+    assert mc.gerar([30], 3) == mc.gerar([30], 3, prefixo="gnfs-base")
+
+
 def linha(d, i, t, classe, real):
     return {"digitos": d, "i": i, "tentativa": t, "classe": classe, "real_s": real}
 
