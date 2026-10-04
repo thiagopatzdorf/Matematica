@@ -80,6 +80,21 @@ class KernelRunMigrationTest(unittest.TestCase):
         for t in kr["theorems"]:
             self.assertIsNone(t["print_axioms_output"], "a saída literal de #print axioms não foi guardada: não se reconstrói")
 
+    def test_the_historical_run_does_not_fabricate_host_or_toolchain_provenance(self):
+        """O id numérico real da lean-build2 nunca foi capturado (IP/tipo de máquina de um inventário não são id de instância): fica captured_by_tool=false e nulo."""
+        hp = self.kr["host"]["provenance"]
+        self.assertIs(hp["captured_by_tool"], False)
+        for k in ("provider", "project_id", "numeric_instance_id", "instance_name", "zone", "machine_type", "cpu_platform", "captured_at"):
+            self.assertIsNone(hp[k], k)
+        self.assertIsNone(hp["boot_image"]["source_image"])
+        self.assertIs(hp["registrado_de_outro_host"], True)
+        tp = self.kr["toolchain_provenance"]
+        self.assertIs(tp["captured_by_tool"], False)
+        for k in ("lean_version_literal", "lake_version_literal", "lean_toolchain_sha256", "lake_manifest_sha256", "commit_sha", "tree_clean"):
+            self.assertIsNone(tp[k], k)
+        # host.id continua sendo o texto declarado de sempre
+        self.assertEqual(self.kr["host"]["id"], "lean-build2")
+
     def test_no_level_or_boolean_summary_is_stored_in_the_run(self):
         for k in ("level", "nivel", "status", "kernel_verified", "proved", "verified", "independently_reproduced"):
             self.assertNotIn(k, self.kr)
@@ -131,7 +146,7 @@ class KernelRunMigrationTest(unittest.TestCase):
         self.assertGreaterEqual(len(pesados), 8)
         for r in pesados:
             self.assertIn("EXTERNAL_KERNEL_RUN", r["lean"])
-            self.assertIn("nível EXTERNAL_RUN_REPORTED", r["lean"])
+            self.assertIn("Kernel evidence: EXTERNAL_RUN_REPORTED", r["lean"])  # rótulo do eixo: o nível do kernel nunca aparece como se fosse estado do claim
             self.assertIn("NÃO é reprodução independente", r["lean"])
             self.assertNotIn("KERNEL_VERIFIED", r["lean"])
 
@@ -148,12 +163,23 @@ class KernelRunMigrationTest(unittest.TestCase):
         for cid in self.kr["claim_ids"]:
             n = KERNEL.nivel_do_claim(c, cid)
             self.assertEqual(n["nivel"], "EXTERNAL_RUN_REPORTED", (cid, n["execucoes"]))
+            self.assertEqual(KERNEL.camadas_do_claim(c, cid)["rotulo_dos_eixos"], f"Claim state: {self.claims[cid]['status']} / Kernel evidence: EXTERNAL_RUN_REPORTED")
             cam = KERNEL.camadas_do_claim(c, cid)
             self.assertFalse(cam["reproducao"]["kernel_em_segunda_execucao"])
             self.assertFalse(cam["enunciado"]["revisado"])
             self.assertFalse(cam["novidade"]["avaliada"])
         self.assertTrue(c.verificar_cadeia()["ok"])
         self.assertTrue(c.registro_confere_com_auditoria("kernel_runs", KR_ID)["ok"])
+        # N:1 sem inventar: 10 claims <- 9 registros formais <- 10 teoremas da execução (SC.K_2_6_1_ge12 está na execução e nenhum registro o cita)
+        res = KERNEL.tabela_claim_formal_execucao(c)["resumo_por_execucao"]
+        self.assertEqual([(x["claims"], x["registros_formais"], x["teoremas_verificados"]) for x in res if x["kernel_run"] == KR_ID], [(10, 9, 10)])
+        self.assertEqual(KERNEL.problemas_de_cobertura(c, self.kr), [])
+        linhas = KERNEL.tabela_claim_formal_execucao(c)["linhas"]
+        # a única linha não verificada na execução é o f-syn-1351 (Syn.*, medido LOCALMENTE, fora desta execução): a tabela diz isso em vez de esconder
+        self.assertEqual([x["formal_id"] for x in linhas if not x["verificado_na_execucao"]], ["f-syn-1351"])
+        self.assertTrue(all(x["fonte_confere"] for x in linhas if x["verificado_na_execucao"]))
+        # o claim não herda nada da proveniência: o par independente exige instância capturada (a histórica não tem)
+        self.assertTrue(any("host só declarado" in f for f in KERNEL.avaliar(self.kr)["faltam_para_kernel_verified"]))
 
     @unittest.skipIf(KERNEL is None, "infraestrutura factory_cauteloso fora do PYTHONPATH")
     def test_migration_is_idempotent_regenerating_twice_gives_the_same_kernel_run_and_claim_states(self):

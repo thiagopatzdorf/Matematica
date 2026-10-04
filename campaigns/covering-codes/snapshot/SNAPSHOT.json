@@ -1,5 +1,5 @@
 {
- "repo_commit": "971fc09117d21b31a702411570d99c7aeeea5214",
+ "repo_commit": "bc452a571a75010516b9b59cbd741b689dd7d10e",
  "rows": [
   {
    "R": 1,
@@ -12,8 +12,8 @@
    "claim_id": "k2-6-1-ub-12",
    "claim_status": "PROVED",
    "classification": "igual",
-   "containing_commit": "971fc09117d21b31a702411570d99c7aeeea5214",
-   "created": "2026-10-04T15:23:53Z",
+   "containing_commit": "bc452a571a75010516b9b59cbd741b689dd7d10e",
+   "created": "2026-10-04T16:29:01Z",
    "diff_abs": 0,
    "diff_pct": 0.0,
    "equality_claim_status": "EXHAUSTIVE_BOUNDED",
@@ -23,7 +23,7 @@
     "agente-verif-rust",
     "thiagopatzdorf"
    ],
-   "lean": "PROVED_MEASURED: CoveringA6.code12_covers (axiomas ['Classical.choice', 'Quot.sound', 'propext'], sorry_free, build limpo, Lean 4.34.1); CoveringA6.code12_card (axiomas ['Classical.choice', 'Quot.sound', 'propext'], sorry_free, build limpo, Lean 4.34.1) | igualdade K_2(6,1)=12: EXTERNAL_KERNEL_RUN (nível EXTERNAL_RUN_REPORTED; log bruto NÃO persistido; NÃO é reprodução independente): SC.K_2_6_1_eq12 (build do CoveringHeavy só na VM do autor, não refeito aqui); K_2(6,1) >= 11 PROVED_MEASURED separadamente (alvo padrão)",
+   "lean": "PROVED_MEASURED: CoveringA6.code12_covers (axiomas ['Classical.choice', 'Quot.sound', 'propext'], sorry_free, build limpo, Lean 4.34.1); CoveringA6.code12_card (axiomas ['Classical.choice', 'Quot.sound', 'propext'], sorry_free, build limpo, Lean 4.34.1) | igualdade K_2(6,1)=12: EXTERNAL_KERNEL_RUN (Kernel evidence: EXTERNAL_RUN_REPORTED; log bruto NÃO persistido; NÃO é reprodução independente): SC.K_2_6_1_eq12 (build do CoveringHeavy só na VM do autor, não refeito aqui); K_2(6,1) >= 11 PROVED_MEASURED separadamente (alvo padrão)",
    "lean_theorems_declared_only": [],
    "lean_theorems_external_vm": [
     "SC.K_2_6_1_eq12"
@@ -66,8 +66,8 @@
    "claim_id": "k4-10-4-ub-192",
    "claim_status": "INDEPENDENTLY_REPRODUCED",
    "classification": "apparent improvement over the currently recorded bound; novelty not yet established",
-   "containing_commit": "971fc09117d21b31a702411570d99c7aeeea5214",
-   "created": "2026-10-04T15:23:53Z",
+   "containing_commit": "bc452a571a75010516b9b59cbd741b689dd7d10e",
+   "created": "2026-10-04T16:29:01Z",
    "diff_abs": 16,
    "diff_pct": 7.69,
    "equality_claim_status": null,
@@ -77,7 +77,7 @@
     "agente-verif-rust",
     "thiagopatzdorf"
    ],
-   "lean": "EXTERNAL_KERNEL_RUN: CoveringKernel.K4_10_4_le_192_kernel (nível EXTERNAL_RUN_REPORTED; axiomas ['Classical.choice', 'Quot.sound', 'propext'] e build 9181 jobs/0 falhas, relato do autor em VM, commit ddb16b7, log sha256 ca233f40f93e8eb1…, log bruto NÃO persistido; NÃO é reprodução independente; NÃO medido pela campanha)",
+   "lean": "EXTERNAL_KERNEL_RUN: CoveringKernel.K4_10_4_le_192_kernel (Kernel evidence: EXTERNAL_RUN_REPORTED; axiomas ['Classical.choice', 'Quot.sound', 'propext'] e build 9181 jobs/0 falhas, relato do autor em VM, commit ddb16b7, log sha256 ca233f40f93e8eb1…, log bruto NÃO persistido, host só declarado (id da instância NÃO capturado); NÃO é reprodução independente; NÃO medido pela campanha)",
    "lean_theorems_declared_only": [],
    "lean_theorems_external_vm": [
     "CoveringKernel.K4_10_4_le_192_kernel"
@@ -117,8 +117,8 @@
    "claim_id": "k5-10-4-ub-625",
    "claim_status": "INDEPENDENTLY_REPRODUCED",
    "classification": "apparent improvement over the currently recorded bound; novelty not yet established",
-   "containing_commit": "971fc09117d21b31a702411570d99c7aeeea5214",
-   "created": "2026-10-04T15:23:53Z",
+   "containing_commit": "bc452a571a75010516b9b59cbd741b689dd7d10e",
+   "created": "2026-10-04T16:29:01Z",
    "diff_abs": 250,
    "diff_pct": 28.57,
    "equality_claim_status": null,
@@ -128,7 +128,7 @@
     "agente-verif-rust",
     "thiagopatzdorf"
    ],
-   "lean": "EXTERNAL_KERNEL_RUN: CoveringKernel.K5_10_4_le_625_kernel (nível EXTERNAL_RUN_REPORTED; axiomas ['Classical.choice', 'Quot.sound', 'propext'] e build 9181 jobs/0 falhas, relato do autor em VM, commit ddb16b7, log sha256 ca233f40f93e8eb1…, log bruto NÃO persistido; NÃO é reprodução independente; NÃO medido pela campanha)",
+   "lean": "EXTERNAL_KERNEL_RUN: CoveringKernel.K5_10_4_le_625_kernel (Kernel evidence: EXTERNAL_RUN_REPORTED; axiomas ['Classical.choice', 'Quot.sound', 'propext'] e build 9181 jobs/0 falhas, relato do autor em VM, commit ddb16b7, log sha256 ca233f40f93e8eb1…, log bruto NÃO persistido, host só declarado (id da instância NÃO capturado); NÃO é reprodução independente; NÃO medido pela campanha)",
    "lean_theorems_declared_only": [],
    "lean_theorems_external_vm": [
     "CoveringKernel.K5_10_4_le_625_kernel"
@@ -168,8 +168,8 @@
    "claim_id": "k5-7-2-ub-500",
    "claim_status": "INDEPENDENTLY_REPRODUCED",
    "classification": "apparent improvement over the currently recorded bound; novelty not yet established",
-   "containing_commit": "971fc09117d21b31a702411570d99c7aeeea5214",
-   "created": "2026-10-04T15:23:53Z",
+   "containing_commit": "bc452a571a75010516b9b59cbd741b689dd7d10e",
+   "created": "2026-10-04T16:29:01Z",
    "diff_abs": 25,
    "diff_pct": 4.76,
    "equality_claim_status": null,
@@ -179,7 +179,7 @@
     "agente-verif-rust",
     "thiagopatzdorf"
    ],
-   "lean": "EXTERNAL_KERNEL_RUN: CoveringKernel.K5_7_2_le_500_kernel (nível EXTERNAL_RUN_REPORTED; axiomas ['Classical.choice', 'Quot.sound', 'propext'] e build 9181 jobs/0 falhas, relato do autor em VM, commit ddb16b7, log sha256 ca233f40f93e8eb1…, log bruto NÃO persistido; NÃO é reprodução independente; NÃO medido pela campanha)",
+   "lean": "EXTERNAL_KERNEL_RUN: CoveringKernel.K5_7_2_le_500_kernel (Kernel evidence: EXTERNAL_RUN_REPORTED; axiomas ['Classical.choice', 'Quot.sound', 'propext'] e build 9181 jobs/0 falhas, relato do autor em VM, commit ddb16b7, log sha256 ca233f40f93e8eb1…, log bruto NÃO persistido, host só declarado (id da instância NÃO capturado); NÃO é reprodução independente; NÃO medido pela campanha)",
    "lean_theorems_declared_only": [],
    "lean_theorems_external_vm": [
     "CoveringKernel.K5_7_2_le_500_kernel"
@@ -219,8 +219,8 @@
    "claim_id": "k5-9-3-ub-1250",
    "claim_status": "INDEPENDENTLY_REPRODUCED",
    "classification": "apparent improvement over the currently recorded bound; novelty not yet established",
-   "containing_commit": "971fc09117d21b31a702411570d99c7aeeea5214",
-   "created": "2026-10-04T15:23:53Z",
+   "containing_commit": "bc452a571a75010516b9b59cbd741b689dd7d10e",
+   "created": "2026-10-04T16:29:01Z",
    "diff_abs": 25,
    "diff_pct": 1.96,
    "equality_claim_status": null,
@@ -230,7 +230,7 @@
     "agente-verif-rust",
     "thiagopatzdorf"
    ],
-   "lean": "EXTERNAL_KERNEL_RUN: CoveringKernel.K5_9_3_le_1250_kernel (nível EXTERNAL_RUN_REPORTED; axiomas ['Classical.choice', 'Quot.sound', 'propext'] e build 9181 jobs/0 falhas, relato do autor em VM, commit ddb16b7, log sha256 ca233f40f93e8eb1…, log bruto NÃO persistido; NÃO é reprodução independente; NÃO medido pela campanha)",
+   "lean": "EXTERNAL_KERNEL_RUN: CoveringKernel.K5_9_3_le_1250_kernel (Kernel evidence: EXTERNAL_RUN_REPORTED; axiomas ['Classical.choice', 'Quot.sound', 'propext'] e build 9181 jobs/0 falhas, relato do autor em VM, commit ddb16b7, log sha256 ca233f40f93e8eb1…, log bruto NÃO persistido, host só declarado (id da instância NÃO capturado); NÃO é reprodução independente; NÃO medido pela campanha)",
    "lean_theorems_declared_only": [],
    "lean_theorems_external_vm": [
     "CoveringKernel.K5_9_3_le_1250_kernel"
@@ -270,8 +270,8 @@
    "claim_id": "k5-9-4-ub-250",
    "claim_status": "INDEPENDENTLY_REPRODUCED",
    "classification": "apparent improvement over the currently recorded bound; novelty not yet established",
-   "containing_commit": "971fc09117d21b31a702411570d99c7aeeea5214",
-   "created": "2026-10-04T15:23:53Z",
+   "containing_commit": "bc452a571a75010516b9b59cbd741b689dd7d10e",
+   "created": "2026-10-04T16:29:01Z",
    "diff_abs": 5,
    "diff_pct": 1.96,
    "equality_claim_status": null,
@@ -281,7 +281,7 @@
     "agente-verif-rust",
     "thiagopatzdorf"
    ],
-   "lean": "EXTERNAL_KERNEL_RUN: CoveringKernel.K5_9_4_le_250_kernel (nível EXTERNAL_RUN_REPORTED; axiomas ['Classical.choice', 'Quot.sound', 'propext'] e build 9181 jobs/0 falhas, relato do autor em VM, commit ddb16b7, log sha256 ca233f40f93e8eb1…, log bruto NÃO persistido; NÃO é reprodução independente; NÃO medido pela campanha)",
+   "lean": "EXTERNAL_KERNEL_RUN: CoveringKernel.K5_9_4_le_250_kernel (Kernel evidence: EXTERNAL_RUN_REPORTED; axiomas ['Classical.choice', 'Quot.sound', 'propext'] e build 9181 jobs/0 falhas, relato do autor em VM, commit ddb16b7, log sha256 ca233f40f93e8eb1…, log bruto NÃO persistido, host só declarado (id da instância NÃO capturado); NÃO é reprodução independente; NÃO medido pela campanha)",
    "lean_theorems_declared_only": [],
    "lean_theorems_external_vm": [
     "CoveringKernel.K5_9_4_le_250_kernel"
@@ -321,8 +321,8 @@
    "claim_id": "k5-9-5-ub-50",
    "claim_status": "INDEPENDENTLY_REPRODUCED",
    "classification": "apparent improvement over the currently recorded bound; novelty not yet established",
-   "containing_commit": "971fc09117d21b31a702411570d99c7aeeea5214",
-   "created": "2026-10-04T15:23:53Z",
+   "containing_commit": "bc452a571a75010516b9b59cbd741b689dd7d10e",
+   "created": "2026-10-04T16:29:01Z",
    "diff_abs": 5,
    "diff_pct": 9.09,
    "equality_claim_status": null,
@@ -332,7 +332,7 @@
     "agente-verif-rust",
     "thiagopatzdorf"
    ],
-   "lean": "EXTERNAL_KERNEL_RUN: CoveringKernel.K5_9_5_le_50_kernel (nível EXTERNAL_RUN_REPORTED; axiomas ['Classical.choice', 'Quot.sound', 'propext'] e build 9181 jobs/0 falhas, relato do autor em VM, commit ddb16b7, log sha256 ca233f40f93e8eb1…, log bruto NÃO persistido; NÃO é reprodução independente; NÃO medido pela campanha)",
+   "lean": "EXTERNAL_KERNEL_RUN: CoveringKernel.K5_9_5_le_50_kernel (Kernel evidence: EXTERNAL_RUN_REPORTED; axiomas ['Classical.choice', 'Quot.sound', 'propext'] e build 9181 jobs/0 falhas, relato do autor em VM, commit ddb16b7, log sha256 ca233f40f93e8eb1…, log bruto NÃO persistido, host só declarado (id da instância NÃO capturado); NÃO é reprodução independente; NÃO medido pela campanha)",
    "lean_theorems_declared_only": [],
    "lean_theorems_external_vm": [
     "CoveringKernel.K5_9_5_le_50_kernel"
@@ -372,8 +372,8 @@
    "claim_id": "k7-8-3-ub-1887",
    "claim_status": "PROVED",
    "classification": "apparent improvement over the currently recorded bound; novelty not yet established",
-   "containing_commit": "971fc09117d21b31a702411570d99c7aeeea5214",
-   "created": "2026-10-04T15:23:53Z",
+   "containing_commit": "bc452a571a75010516b9b59cbd741b689dd7d10e",
+   "created": "2026-10-04T16:29:01Z",
    "diff_abs": 450,
    "diff_pct": 19.26,
    "equality_claim_status": null,
@@ -423,8 +423,8 @@
    "claim_id": "k7-8-3-ub-1893",
    "claim_status": "INDEPENDENTLY_REPRODUCED",
    "classification": "apparent improvement over the currently recorded bound; novelty not yet established",
-   "containing_commit": "971fc09117d21b31a702411570d99c7aeeea5214",
-   "created": "2026-10-04T15:23:53Z",
+   "containing_commit": "bc452a571a75010516b9b59cbd741b689dd7d10e",
+   "created": "2026-10-04T16:29:01Z",
    "diff_abs": 444,
    "diff_pct": 19.0,
    "equality_claim_status": null,
@@ -434,7 +434,7 @@
     "agente-verif-rust",
     "thiagopatzdorf"
    ],
-   "lean": "EXTERNAL_KERNEL_RUN: CoveringKernel.K7_8_3_le_1893_kernel (nível EXTERNAL_RUN_REPORTED; axiomas ['Classical.choice', 'Quot.sound', 'propext'] e build 9181 jobs/0 falhas, relato do autor em VM, commit ddb16b7, log sha256 ca233f40f93e8eb1…, log bruto NÃO persistido; NÃO é reprodução independente; NÃO medido pela campanha)",
+   "lean": "EXTERNAL_KERNEL_RUN: CoveringKernel.K7_8_3_le_1893_kernel (Kernel evidence: EXTERNAL_RUN_REPORTED; axiomas ['Classical.choice', 'Quot.sound', 'propext'] e build 9181 jobs/0 falhas, relato do autor em VM, commit ddb16b7, log sha256 ca233f40f93e8eb1…, log bruto NÃO persistido, host só declarado (id da instância NÃO capturado); NÃO é reprodução independente; NÃO medido pela campanha)",
    "lean_theorems_declared_only": [],
    "lean_theorems_external_vm": [
     "CoveringKernel.K7_8_3_le_1893_kernel"
@@ -475,8 +475,8 @@
    "claim_id": "k7-9-4-ub-1137",
    "claim_status": "PROVED",
    "classification": "apparent improvement over the currently recorded bound; novelty not yet established",
-   "containing_commit": "971fc09117d21b31a702411570d99c7aeeea5214",
-   "created": "2026-10-04T15:23:53Z",
+   "containing_commit": "bc452a571a75010516b9b59cbd741b689dd7d10e",
+   "created": "2026-10-04T16:29:01Z",
    "diff_abs": 338,
    "diff_pct": 22.92,
    "equality_claim_status": null,
@@ -533,8 +533,8 @@
    "claim_id": "k7-9-4-ub-1141",
    "claim_status": "PROVED",
    "classification": "apparent improvement over the currently recorded bound; novelty not yet established",
-   "containing_commit": "971fc09117d21b31a702411570d99c7aeeea5214",
-   "created": "2026-10-04T15:23:53Z",
+   "containing_commit": "bc452a571a75010516b9b59cbd741b689dd7d10e",
+   "created": "2026-10-04T16:29:01Z",
    "diff_abs": 334,
    "diff_pct": 22.64,
    "equality_claim_status": null,
@@ -591,8 +591,8 @@
    "claim_id": "k7-9-4-ub-1285",
    "claim_status": "PROVED",
    "classification": "apparent improvement over the currently recorded bound; novelty not yet established",
-   "containing_commit": "971fc09117d21b31a702411570d99c7aeeea5214",
-   "created": "2026-10-04T15:23:53Z",
+   "containing_commit": "bc452a571a75010516b9b59cbd741b689dd7d10e",
+   "created": "2026-10-04T16:29:01Z",
    "diff_abs": 190,
    "diff_pct": 12.88,
    "equality_claim_status": null,
@@ -649,8 +649,8 @@
    "claim_id": "k7-9-4-ub-1351",
    "claim_status": "PROVED",
    "classification": "apparent improvement over the currently recorded bound; novelty not yet established",
-   "containing_commit": "971fc09117d21b31a702411570d99c7aeeea5214",
-   "created": "2026-10-04T15:23:53Z",
+   "containing_commit": "bc452a571a75010516b9b59cbd741b689dd7d10e",
+   "created": "2026-10-04T16:29:01Z",
    "diff_abs": 124,
    "diff_pct": 8.41,
    "equality_claim_status": null,
@@ -660,7 +660,7 @@
     "agente-verif-rust",
     "thiagopatzdorf"
    ],
-   "lean": "PROVED_MEASURED: Syn.K7_9_4_le_1351_syn (axiomas ['Classical.choice', 'Quot.sound', 'propext'], sorry_free, build limpo, Lean 4.34.1) | EXTERNAL_KERNEL_RUN: CoveringKernel.K7_9_4_le_1351_kernel (nível EXTERNAL_RUN_REPORTED; axiomas ['Classical.choice', 'Quot.sound', 'propext'] e build 9181 jobs/0 falhas, relato do autor em VM, commit ddb16b7, log sha256 ca233f40f93e8eb1…, log bruto NÃO persistido; NÃO é reprodução independente; NÃO medido pela campanha)",
+   "lean": "PROVED_MEASURED: Syn.K7_9_4_le_1351_syn (axiomas ['Classical.choice', 'Quot.sound', 'propext'], sorry_free, build limpo, Lean 4.34.1) | EXTERNAL_KERNEL_RUN: CoveringKernel.K7_9_4_le_1351_kernel (Kernel evidence: EXTERNAL_RUN_REPORTED; axiomas ['Classical.choice', 'Quot.sound', 'propext'] e build 9181 jobs/0 falhas, relato do autor em VM, commit ddb16b7, log sha256 ca233f40f93e8eb1…, log bruto NÃO persistido, host só declarado (id da instância NÃO capturado); NÃO é reprodução independente; NÃO medido pela campanha)",
    "lean_theorems_declared_only": [],
    "lean_theorems_external_vm": [
     "CoveringKernel.K7_9_4_le_1351_kernel"

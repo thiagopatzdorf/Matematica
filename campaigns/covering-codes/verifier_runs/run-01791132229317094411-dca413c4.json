@@ -1,0 +1,25 @@
+{
+  "command": [
+    "{workdir}/verify_bfs",
+    "{witness}",
+    "{param:M}"
+  ],
+  "host": "vm (Linux x86_64)",
+  "output_sha256": "bfd7417f3e624b2d728422873cbddcc1aeaea58f3bbf781edaca7efedb666837",
+  "output_tail": "verificador C (BFS multifonte no grafo de Hamming, Rust)\nq = 7\nn = 9\nR = 4\n|C| = 1285\nN_0 = 1285\nN_1 = 69390\nN_2 = 1624185\nN_3 = 17938733\nN_4 = 20720014\ntotal = 40353607 (esperado 40353607)\ncovered = 40353607\nuncovered = 0\nmax_distance = 4\nfarthest_points = 20720014\nexample_farthest = 111100000\nexample_farthest = 211100000\nexample_farthest = 311100000\nruntime_internal_s = 9.1\nPASS\n",
+  "params_passed": {
+    "M": 1285,
+    "R": 4,
+    "n": 9,
+    "q": 7
+  },
+  "repo_commit": "bc452a571a75010516b9b59cbd741b689dd7d10e",
+  "result": "PASS",
+  "run_id": "run-01791132229317094411-dca413c4",
+  "runtime_s": 9.562,
+  "subject_id": "w-q7-n9-r4-m1285",
+  "subject_sha256": "89cbd6b290a10d8d708e9783a405b8a12ce5efd6a8ea2ee17568b3ee25c50f31",
+  "ts": "2026-10-04T16:43:49Z",
+  "verifier_id": "verify-val-bfs",
+  "verifier_sha256": "baa03223824b31ba5a142d96addf465aeca89f74116af1afcafe12f8dd5ba627"
+}

@@ -1,6 +1,6 @@
 {
   "command": null,
-  "created": "2026-10-04T15:23:53Z",
+  "created": "2026-10-04T16:29:01Z",
   "created_by": "agente-c",
   "description": "Buscas que produziram os códigos 192, 625, 500, 1250, 250, 50, 1893 (anteriores à v0.3: gerador, comando, seed e data não registrados em data/structured/*.json) e o 1887 (VM lean-build2, 'maestro', sem comando registrado).",
   "experiment_id": "exp-prior-search-unrecorded",
@@ -8,7 +8,7 @@
   "instances": [],
   "kind": "search",
   "ranges": null,
-  "repo_commit": "971fc09117d21b31a702411570d99c7aeeea5214",
+  "repo_commit": "bc452a571a75010516b9b59cbd741b689dd7d10e",
   "result": {
     "executado_neste_run": false,
     "reproduzivel_aqui": false

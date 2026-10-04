@@ -1,5 +1,5 @@
 {
-  "created": "2026-10-04T15:23:53Z",
+  "created": "2026-10-04T16:29:01Z",
   "created_by": "agente-c",
   "description": "Decodifica a lista de C1_Data_K7_9_4.lean (base 7 little-endian) e compara o sha256 canônico com o do witness data/codes/q7_n9_R4_M1351.txt.",
   "experiment_id": "exp-lean-data-equals-witness-1351",
@@ -9,7 +9,7 @@
   ],
   "kind": "symbolic",
   "ranges": null,
-  "repo_commit": "971fc09117d21b31a702411570d99c7aeeea5214",
+  "repo_commit": "bc452a571a75010516b9b59cbd741b689dd7d10e",
   "result": {
     "estritamente_crescente": true,
     "executado_neste_run": true,

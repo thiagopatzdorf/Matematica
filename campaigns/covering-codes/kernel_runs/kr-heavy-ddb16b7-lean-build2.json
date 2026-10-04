@@ -35,6 +35,34 @@
     "class": "gcp-e2-highmem-8",
     "id": "lean-build2",
     "note": "VM sob demanda, ligada só para este build",
+    "provenance": {
+      "boot_image": {
+        "digest": null,
+        "source_image": null
+      },
+      "campos_ausentes": [
+        "numeric_instance_id",
+        "project_id",
+        "instance_name",
+        "zone",
+        "machine_type",
+        "cpu_platform",
+        "boot_image"
+      ],
+      "captured_at": null,
+      "captured_by_tool": false,
+      "cpu_platform": null,
+      "instance_name": null,
+      "machine_type": null,
+      "nota": "O id numérico da instância lean-build2 NÃO foi capturado; host.id acima é só texto declarado pelo autor.",
+      "numeric_instance_id": null,
+      "project_id": null,
+      "provider": null,
+      "registrado_de_outro_host": true,
+      "schema": "genesis-math/host-provenance/v1",
+      "source": "none (execução histórica anterior ao coletor)",
+      "zone": null
+    },
     "provider": "GCP",
     "ram_gb": 62,
     "vcpu": 8
@@ -48,7 +76,7 @@
     "author": "autor da sessão de 2026-10-04 (o mesmo autor dos claims; sem identidade registrada além do commit)",
     "origin": "relato do autor da execução na VM, transcrito em _fatos/medicao_heavy_vm.json"
   },
-  "migracao": "conservadora: EXTERNAL_RUN_REPORTED por falta de log bruto persistido e de saída literal de #print axioms; não há segunda execução",
+  "migracao": "conservadora: EXTERNAL_RUN_REPORTED por falta de log bruto persistido, de saída literal de #print axioms e de proveniência capturada (host e toolchain); não há segunda execução",
   "native_decide_count": 0,
   "native_decide_policy": "forbidden",
   "raw_log": {
@@ -60,7 +88,7 @@
     "storage": "nenhum: ~/heavy.log na VM lean-build2 (18 619 linhas, ~1,5 MB) nunca foi copiado para fora da VM; não há hash de 64 hex",
     "uri": null
   },
-  "recorded_at": "2026-10-04T15:43:11Z",
+  "recorded_at": "2026-10-04T16:49:27Z",
   "recorded_by": "migrate_covering.py",
   "run_id": "kr-heavy-ddb16b7-lean-build2",
   "schema": "genesis-math/kernel-run/v1",
@@ -198,5 +226,27 @@
       "source_sha256_basis": "git show ddb16b7:CoveringLean/SearchK6ge12.lean",
       "theorem": "SC.K_2_6_1_ge12"
     }
-  ]
+  ],
+  "toolchain_provenance": {
+    "campos_ausentes": [
+      "lean_version_literal",
+      "lake_version_literal",
+      "lean_toolchain_sha256",
+      "lake_manifest_sha256",
+      "commit_sha",
+      "tree_sha",
+      "tree_clean"
+    ],
+    "captured_at": null,
+    "captured_by_tool": false,
+    "commit_sha": null,
+    "lake_manifest_sha256": null,
+    "lake_version_literal": null,
+    "lean_toolchain_sha256": null,
+    "lean_version_literal": null,
+    "nota": "O `lean --version` literal da VM e a limpeza da árvore não foram guardados; o commit e o lean-toolchain vêm do relato (lean_version_basis) e do git do commit verificado, não de medição na VM.",
+    "schema": "genesis-math/toolchain-provenance/v1",
+    "tree_clean": null,
+    "tree_sha": null
+  }
 }

@@ -966,7 +966,22 @@ def main() -> int:
             "lean_version_basis": "lean-toolchain do commit (o `lean --version` literal da VM não foi guardado)",
             "lean_toolchain": no_commit("lean-toolchain").decode().strip(), "mathlib_commit": mathlib_rev,
             "command": ["sh", "tools/heavy_build_limitado.sh", "4"], "target": "CoveringHeavy",
-            "host": {"class": "gcp-e2-highmem-8", "id": "lean-build2", "provider": "GCP", "vcpu": 8, "ram_gb": 62, "note": "VM sob demanda, ligada só para este build"},
+            # PROVENIÊNCIA DO HOST: NÃO capturada. Em 2026-10-04 a execução foi feita sem o coletor (que ainda não existia) e o `numeric_instance_id`
+            # real da lean-build2 nunca foi lido do servidor de metadados. IP, tipo de máquina ou nome vistos num inventário do GCP NÃO são o id da
+            # instância e não entram aqui: nada se fabrica. Por isso a execução continua EXTERNAL_RUN_REPORTED mesmo que o log fosse persistido.
+            "host": {"class": "gcp-e2-highmem-8", "id": "lean-build2", "provider": "GCP", "vcpu": 8, "ram_gb": 62, "note": "VM sob demanda, ligada só para este build",
+                     "provenance": {"schema": KR.SCHEMA_HOST_PROV, "captured_by_tool": False, "captured_at": None, "source": "none (execução histórica anterior ao coletor)",
+                                    "provider": None, "project_id": None, "numeric_instance_id": None, "instance_name": None, "zone": None, "machine_type": None,
+                                    "cpu_platform": None, "boot_image": {"source_image": None, "digest": None},
+                                    "campos_ausentes": ["numeric_instance_id", "project_id", "instance_name", "zone", "machine_type", "cpu_platform", "boot_image"],
+                                    "registrado_de_outro_host": True,
+                                    "nota": "O id numérico da instância lean-build2 NÃO foi capturado; host.id acima é só texto declarado pelo autor."}},
+            "toolchain_provenance": {"schema": KR.SCHEMA_TOOLCHAIN_PROV, "captured_by_tool": False, "captured_at": None, "lean_version_literal": None,
+                                     "lake_version_literal": None, "lean_toolchain_sha256": None, "lake_manifest_sha256": None, "commit_sha": None, "tree_sha": None,
+                                     "tree_clean": None, "campos_ausentes": ["lean_version_literal", "lake_version_literal", "lean_toolchain_sha256", "lake_manifest_sha256",
+                                                                            "commit_sha", "tree_sha", "tree_clean"],
+                                     "nota": "O `lean --version` literal da VM e a limpeza da árvore não foram guardados; o commit e o lean-toolchain vêm do relato "
+                                             "(lean_version_basis) e do git do commit verificado, não de medição na VM."},
             "started_at": ext["inicio_utc"], "finished_at": ext["fim_utc"], "duration_s": (t_fim - t_ini).total_seconds(),
             "build": {"status": "OK", "jobs": ext["jobs_final"], "leaves": ext["folhas_ok"], "failures": ext["folhas_falhou"]},
             "sorry_count": ext["sorry_no_log"], "native_decide_policy": "forbidden", "native_decide_count": ext["native_decide_ou_ofReduceBool_no_log"],
@@ -978,7 +993,7 @@ def main() -> int:
                         "storage": "nenhum: ~/heavy.log na VM lean-build2 (18 619 linhas, ~1,5 MB) nunca foi copiado para fora da VM; não há hash de 64 hex",
                         "local_sha256_calculado": None},
             "fonte": "campaigns/covering-codes/_fatos/medicao_heavy_vm.json",
-            "migracao": "conservadora: EXTERNAL_RUN_REPORTED por falta de log bruto persistido e de saída literal de #print axioms; não há segunda execução",
+            "migracao": "conservadora: EXTERNAL_RUN_REPORTED por falta de log bruto persistido, de saída literal de #print axioms e de proveniência capturada (host e toolchain); não há segunda execução",
         }, ator=PROMOTOR, papel="FORMALIZER")
 
     # ------------------------------------------------------------------ resíduos

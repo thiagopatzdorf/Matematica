@@ -68,7 +68,7 @@ fechados com teste diferencial e verificador independente.
 `K5(9,5) ≤ 50`, `K5(9,4) ≤ 250`, `K7(8,3) ≤ 1893`), todos abaixo das tabelas que conferimos e checados por três
 verificadores fora do Lean (independência de implementação, não de mente). Cada um tem teorema Lean por prefixos
 (`CoveringKernel.K*_kernel`, alvo `CoveringHeavy`, ~9,3 h de CPU): o build pesado é o relato do autor
-(`campaigns/covering-codes/kernel_runs/`, nível `EXTERNAL_RUN_REPORTED`: o log bruto não foi arquivado, só o prefixo do sha256) e não foi
+(`campaigns/covering-codes/kernel_runs/`, `Kernel evidence: EXTERNAL_RUN_REPORTED` (eixo do kernel, não o `Claim state`): o log bruto não foi arquivado, só o prefixo do sha256, e o id da instância da VM não foi capturado) e não foi
 reproduzido de forma independente. `K5(10,4) ≤ 625` é um código linear `[10,4]_5`; ainda não achamos a tabela de comprimento de
 Davydov–Marcugini–Pambianco que decidiria se já era conhecido (não alegamos novidade).
 

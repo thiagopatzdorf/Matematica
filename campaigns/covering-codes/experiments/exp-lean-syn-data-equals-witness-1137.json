@@ -1,5 +1,5 @@
 {
-  "created": "2026-10-04T15:23:53Z",
+  "created": "2026-10-04T16:29:01Z",
   "created_by": "agente-c",
   "description": "Decodifica a lista LK1137 (e o campo empacotado PN) de CoveringLean/SynData_K1137.lean (base 7 little-endian) e compara o sha256 canônico com o de data/codes/q7_n9_R4_M1137.txt: o elo entre o teorema Syn.K7_9_4_le_1137_syn e o arquivo verificado por programas.",
   "experiment_id": "exp-lean-syn-data-equals-witness-1137",
@@ -9,7 +9,7 @@
   ],
   "kind": "symbolic",
   "ranges": null,
-  "repo_commit": "971fc09117d21b31a702411570d99c7aeeea5214",
+  "repo_commit": "bc452a571a75010516b9b59cbd741b689dd7d10e",
   "result": {
     "cnt_declarado": 1137,
     "estritamente_crescente": true,
