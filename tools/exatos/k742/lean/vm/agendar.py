@@ -10,7 +10,8 @@ CPU, pico de RSS medido por `wait4`, código de saída) e a saída inteira em
 `logs/mod/<módulo>.log` (com os `#print axioms`). Retomável: módulo com `.olean` e registro
 `rc = 0` não roda de novo (preempção da VM spot).
 
-Pré-requisito: `lake build CoveringLean.LratKData CoveringLean.K742_Cnf` (feito aqui).
+Pré-requisito: `lake build CoveringLean.LratKData CoveringLean.LratKFinal CoveringLean.K742_Cnf`
+(feito aqui).
 """
 import argparse
 import json
@@ -44,7 +45,8 @@ def main():
     os.makedirs("logs/mod", exist_ok=True)
     env = dict(os.environ)
     env["PATH"] = os.path.expanduser("~/.elan/bin") + ":" + env.get("PATH", "")
-    r = subprocess.run(["lake", "build", "CoveringLean.LratKData", "CoveringLean.K742_Cnf"], env=env)
+    r = subprocess.run(["lake", "build", "CoveringLean.LratKData", "CoveringLean.LratKFinal",
+                        "CoveringLean.K742_Cnf"], env=env)
     if r.returncode != 0:
         sys.exit("falhou o build da base")
     env["LEAN_PATH"] = LIB

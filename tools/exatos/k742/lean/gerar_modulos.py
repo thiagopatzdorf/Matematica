@@ -8,7 +8,7 @@ Lê `tools/exatos/k742/lean/semquebra_M18.jsonl` (uma linha por perfil, a saída
 
 * `CoveringLean/K742Sat/S<p>/Data.lean`  (`lratk_data`),
 * `CoveringLean/K742Sat/S<p>/B<m>.lean`  (`lratk_steps`, um por arquivo `h<m>.txt`),
-* `CoveringLean/K742Sat/S<p>/Final.lean` (`lratk_final … for K742Cnf.cnfSemQuebra 7 18 t`),
+* `CoveringLean/K742Sat/S<p>/Final.lean` (`lratk_final_seg … for K742Cnf.cnfSemQuebra 7 18 t`),
 
 e `CoveringLean/K742Sat/Refut.lean`, que junta os 70 em `K742Sat.refut18 :
 K742.Refut18 (K742Cnf.cnfSemQuebra 7 18)`.
@@ -49,8 +49,8 @@ def modulos_perfil(e):
                  f"lratk_steps {ns} \"{dados}/h{m['modulo']}.txt\"\n\nend K742Sat\n")
     imps = "".join(f"import CoveringLean.K742Sat.S{p}.B{m['modulo']}\n" for m in e["modulos"])
     escrever(os.path.join(d, "Final.lean"),
-             f"{imps}import CoveringLean.K742_Cnf\n\n{cab}\nnamespace K742Sat\n\n"
-             f"lratk_final {ns} \"{dados}\"\n  for K742Cnf.cnfSemQuebra 7 18 {tipos_lean(e['tipos'])}\n\n"
+             f"{imps}import CoveringLean.LratKFinal\nimport CoveringLean.K742_Cnf\n\n{cab}\nnamespace K742Sat\n\n"
+             f"lratk_final_seg {ns} \"{dados}\"\n  for K742Cnf.cnfSemQuebra 7 18 {tipos_lean(e['tipos'])}\n\n"
              f"end K742Sat\n\n#print axioms K742Sat.{ns}.unsatFor\n")
 
 
