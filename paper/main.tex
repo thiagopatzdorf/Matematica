@@ -201,7 +201,7 @@ On 2 October 2026, on a virtual machine of type \texttt{e2-highmem-8}, Lean~4.34
 \texttt{lake build CoveringSyn} (the four syndrome certificates) finished: $8983$ jobs in $10$\,min\,$35$\,s on 8 cores ($37$ CPU-minutes for all four), peak $6.9$\,GB per process.
 The fifth syndrome certificate, \texttt{CoveringLean.\allowbreak Syn\_\allowbreak K1137} ($K_7(9,4)\le 1137$), built in $2$\,min\,$41$\,s on 8 cores ($331$ CPU-seconds), peak $6.7$\,GB.
 On 3 October 2026, in a container with 4 cores and 15\,GB, the four certificates of version~0.6 built from scratch (their own modules; Mathlib, \texttt{SynCheck} and \texttt{SynBridge} from cache): \texttt{Syn\_\allowbreak K1134} in $105$\,s, \texttt{Syn\_\allowbreak K162} in $101$\,s, \texttt{Syn\_\allowbreak K2875} in $364$\,s and \texttt{Syn\_\allowbreak K5616} in $654$\,s of wall-clock time.
-On 4 October 2026, in the same container, \texttt{Syn\_\allowbreak K5607} built in KSECS\,s of wall-clock time.
+On 4 October 2026, in the same container, \texttt{Syn\_\allowbreak K5607} built in 1261\,s of wall-clock time.
 For each of the four, three kinds of mutation were built and rejected by Lean: replacing one codeword, removing one codeword (both for the cardinality and for the coverage check), and corrupting one witness in the coverage table.
 \texttt{\#print axioms} on Theorems~\ref{thm:k794}, \ref{thm:ge11}, \ref{thm:eq12} and on every declaration of Table~\ref{tab:other} reports \texttt{propext}, \texttt{Classical.\allowbreak choice} and \texttt{Quot.\allowbreak sound} only.
 

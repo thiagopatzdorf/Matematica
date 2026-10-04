@@ -123,9 +123,9 @@ def test_pagina_genesis_mostra_as_doze_cotas_lean_e_nenhuma_so_computacional(led
     assert html.count('<span class="ok">Lean kernel</span>:') == 12
     assert html.count('<span class="cp">computer only</span> (not yet a Lean theorem)') == 0
     for decl in ("Syn.K7_9_4_le_1134_syn", "Syn.K7_8_3_le_1887_syn", "SC.K_2_6_1_eq12", "CoveringKernel.K5_9_5_le_50_kernel",
-                 "Syn.K5_10_5_le_162_syn", "Syn.K5_11_4_le_2875_syn", "Syn.K7_10_4_le_5616_syn"):
+                 "Syn.K5_10_5_le_162_syn", "Syn.K5_11_4_le_2875_syn", "Syn.K7_10_4_le_5607_syn"):
         assert decl in html
-    assert "<b>≤ 1134</b>" in html and "<b>≤ 1887</b>" in html and "<b>≤ 5616</b>" in html
+    assert "<b>≤ 1134</b>" in html and "<b>≤ 1887</b>" in html and "<b>≤ 5607</b>" in html
     assert 'name="citation_doi" content="10.5281/zenodo.23092580"' in html
     assert "1475 <span" in html  # a melhor superior publicada que batemos em K7(9,4)
     assert "the origin of the 322 greedily added words was not recorded" in html
