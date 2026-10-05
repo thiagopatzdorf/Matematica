@@ -5,3 +5,4 @@
 ==  M=-1
 ./run.sh: line 24: 11467 Segmentation fault      nice -n 10 ./sa $q $n $R $M 60 1 ../codes/q${q}_n${n}_R${R}_M${M}.txt 1 0.2 2>&1
 == K5(7,4) M=20
+q=5 n=7 R=4 M=20 seed=1 iters=193792 best_unc=234 final_unc=234 t=61s
