@@ -79,6 +79,26 @@ def test_certificado_adulterado_e_recusado():
     assert not verificar.folha_ok(3, 6, 15, s2, K2, t2, pts, bola, f)
 
 
+def test_verificador_exige_sha256_da_lista_e_recusa_lista_trocada(tmp_path):
+    """Sem --sha256, ou com a lista trocada, a conferência falha (ressalva L5 do red team)."""
+    import subprocess
+    lista = tmp_path / "i15.json"
+    lista.write_bytes(gzip.open(INST15).read())
+    base = [sys.executable, str(DIR / "verificar.py"), "--q", "3", "--n", "6", "--R", "2", "--M", "15",
+            "--instancias", str(lista), "--certificados", str(CERT15)]
+    assert subprocess.run(base, capture_output=True).returncode != 0
+    assert subprocess.run(base + ["--sha256", "0" * 64], capture_output=True).returncode != 0
+    ok = subprocess.run(base + ["--sha256", SHA15], capture_output=True, text=True)
+    assert ok.returncode == 0 and "TODAS INVIÁVEIS" in ok.stdout
+    trocada = tmp_path / "trocada.json"
+    ins = json.loads(lista.read_bytes())
+    ins[0], ins[1] = ins[1], ins[0]
+    trocada.write_text(json.dumps(ins))
+    r = subprocess.run(base[:-4] + ["--instancias", str(trocada), "--certificados", str(CERT15),
+                                    "--sha256", SHA15], capture_output=True)
+    assert r.returncode != 0
+
+
 def test_arvore_sem_um_dos_ramos_e_recusada():
     assert verificar.arvore_completa([[[5, 1]], [[5, 0], [7, 1]], [[5, 0], [7, 0]]])
     assert not verificar.arvore_completa([[[5, 1]], [[5, 0], [7, 1]]])
