@@ -1,0 +1,5 @@
+{"q": 4, "n": 4, "M": 7, "smin": 1, "semente": 7, "cobre": "q4n4M7.txt", "ordem": "min", "repo_falha": 0, "corr_falha": 0, "orbita_unsat": 0, "orbita_testadas": 60, "codigos": 400, "segundos": 0.8, "exemplos": []}
+{"q": 5, "n": 4, "M": 11, "smin": 1, "semente": 7, "cobre": "q5n4M11.txt", "ordem": "min", "repo_falha": 0, "corr_falha": 0, "orbita_unsat": 0, "orbita_testadas": 60, "codigos": 600, "segundos": 5.3, "exemplos": []}
+{"q": 6, "n": 5, "M": 12, "smin": 1, "semente": 7, "cobre": "q6n5M12.txt", "ordem": "min", "repo_falha": 0, "corr_falha": 0, "orbita_unsat": 0, "orbita_testadas": 60, "codigos": 200, "segundos": 54.3, "exemplos": []}
+{"q": 7, "n": 4, "M": 19, "smin": 1, "semente": 7, "cobre": "q7n4M19.txt", "ordem": "min", "repo_falha": 0, "corr_falha": 0, "orbita_unsat": 0, "orbita_testadas": 60, "codigos": 200, "segundos": 13.0, "exemplos": []}
+{"q": 7, "n": 6, "M": 14, "smin": 1, "semente": 7, "cobre": "q7n6M14.txt", "ordem": "min", "repo_falha": 0, "corr_falha": 0, "orbita_unsat": 0, "orbita_testadas": 60, "codigos": 60, "segundos": 47.7, "exemplos": []}
