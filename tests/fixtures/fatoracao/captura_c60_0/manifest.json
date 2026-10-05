@@ -1,0 +1,90 @@
+{
+ "bytes": 2488626,
+ "commit_cado": "692ecb7",
+ "formato": "relacoes-cado/v1",
+ "meta": {
+  "classe": "ok",
+  "commit_campanha": "54fcee16f15636e44a9194122716f486c274986c",
+  "conjunto": "dev",
+  "digitos": 60,
+  "i": 0,
+  "semente_bwc": 1,
+  "sha256_log": "75b7d2d290c61cedb75436cfa049231922dfe3ce515190235075668da1afb50b",
+  "sha256_poly": "2ccc6d36f6c77482770bca0aad40aae9271ec6b0ff614991b7ab0996039a70c8",
+  "tentativa": 1
+ },
+ "n_blocos": 13,
+ "n_brutas": 50961,
+ "n_livres": 923,
+ "n_purgadas": 22178,
+ "nome": "c60",
+ "parametros": {
+  "N": "690915918416752488661600006260762613347030371441227400759993",
+  "algo": "NFS",
+  "computation": "FACT",
+  "name": "c60",
+  "slaves.hostnames": "localhost",
+  "slaves.nrclients": "2",
+  "tasks.I": "10",
+  "tasks.filter.purge.keep": "160",
+  "tasks.filter.target_density": "170.0",
+  "tasks.lim0": "78682",
+  "tasks.lim1": "111342",
+  "tasks.linalg.bwc.interleaving": "0",
+  "tasks.linalg.bwc.seed": "1",
+  "tasks.linalg.characters.nchar": "50",
+  "tasks.linalg.m": "64",
+  "tasks.linalg.n": "64",
+  "tasks.lpb0": "18",
+  "tasks.lpb1": "19",
+  "tasks.polyselect.P": "420",
+  "tasks.polyselect.admax": "10000",
+  "tasks.polyselect.adrange": "5000",
+  "tasks.polyselect.degree": "4",
+  "tasks.polyselect.incr": "60",
+  "tasks.polyselect.nq": "64",
+  "tasks.polyselect.nrkeep": "10",
+  "tasks.polyselect.ropteffort": "0.1",
+  "tasks.polyselect.threads": "2",
+  "tasks.qmin": "61961",
+  "tasks.sieve.las.threads": "2",
+  "tasks.sieve.mfb0": "17",
+  "tasks.sieve.mfb1": "38",
+  "tasks.sieve.ncurves0": "2",
+  "tasks.sieve.ncurves1": "2",
+  "tasks.sieve.qrange": "2000",
+  "tasks.sieve.siqs.threads": "2",
+  "tasks.sqrt.threads": "1",
+  "tasks.threads": "3"
+ },
+ "purge": {
+  "apos_singletons": {
+   "excess": 2940,
+   "ncols": 29761,
+   "nrows": 32701
+  },
+  "etapas_de_cliques": 10,
+  "final": {
+   "excess": 160,
+   "ncols": 22018,
+   "nrows": 22178
+  },
+  "inicio": {
+   "excess": 1460,
+   "ncols": 46650,
+   "nrows": 48110
+  },
+  "tamanho_renumber": 66192
+ },
+ "sha256": {
+  "arquivos.json": "075f07a9ca6fd177c990730d0fd1aceca45d217561b5dcb42337244bdf07949c",
+  "badideais.txt": "6bcaa192f1c36fa0d7bd089df8cc13537afa3dba4da0447af5261eb795af656e",
+  "index.gz": "359c2562d400d894aafb92e54192827cc3483a53d47cf80516667bf5ea37dbc1",
+  "inercias.txt": "cd0b702cce82bb2471bb073e18e9896ecdb9cf337d4526785a4099611d4ef897",
+  "livres.tsv.gz": "4f5a55c1e293aead8b5ef8559a6521680d92f8353930a1695afb55b3e6c7323b",
+  "poly.txt": "2ccc6d36f6c77482770bca0aad40aae9271ec6b0ff614991b7ab0996039a70c8",
+  "purgadas.tsv.gz": "b68160541365cca439b0d3fddba531e316993ebe29ee08076a8e7e7e279206d7",
+  "purge.json": "2a23aff15556d3e28a7cb963d97e82857fc12133d30574df93a6f67b04538dbc",
+  "relacoes.tsv.gz": "9ddce529c0e4c5334f233dcd61066d93268ff755d49295a765c363806fae111c"
+ }
+}
