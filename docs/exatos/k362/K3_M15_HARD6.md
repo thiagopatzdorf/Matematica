@@ -13,6 +13,9 @@ Isso acontece quando o lema da fatia 0 vale **com pouca folga**. Não é simetri
 tem ordem 2 a 12. Também não é quase-viabilidade: o melhor código achado deixa 36 a 43 pontos
 descobertos.
 
+**Censo (seção própria):** os mesmos dois subconjuntos refutam, com VeriPB, **12 040 das 12 049**
+instâncias de M = 15 em 2 830 s de solver no total. Sobram 9, que precisam da fórmula inteira.
+
 Estados usados: **OBSERVED** (medido uma vez, sem conferência independente), **COMPUTATIONALLY_VERIFIED**
 (prova conferida por verificador independente: VeriPB), **REFUTED** (a hipótese foi testada e falhou).
 
@@ -198,7 +201,31 @@ coordenada `i ≠ j` e símbolo `b`, exatamente `5 − #{k ∈ K_{j,a} : k_i = b
 
 ## Censo: a reformulação sobre as 12 049 instâncias
 
-CENSO
+Rodado nas 12 049 instâncias de M = 15 (`registros/censo_K3_6_2_M15.jsonl.gz`, uma linha por
+instância com sha256 do OPB, veredito e tempo de cada subconjunto e o veredito do VeriPB). Teto de
+600 s para A e 120 s para B. Container compartilhado, 1 a 2 processos, cerca de 1h40 de parede.
+
+| s* | instâncias | caem em A | caem em B | sobram (A e B viáveis) |
+|---|---|---|---|---|
+| 2 | 5 | 5 | 0 | 0 |
+| 3 | 108 | 104 | 0 | 4 (13, 14, 15, 16) |
+| 4 | 936 | 926 | 8 | 2 (523, 524) |
+| 5 | 11 000 | 10 681 | 316 | 3 (2178, 7388, 11160) |
+| **total** | **12 049** | **11 716** | **324** | **9** |
+
+- **12 040 das 12 049 instâncias** estão refutadas por subconjuntos literais dos próprios OPBs, e as
+  12 040 provas foram conferidas pelo VeriPB (12 040/12 040 `VERIFIED`). COMPUTATIONALLY_VERIFIED, por
+  instância. Soma de 2 830 s de solver, máximo de 221 s. A rodada original estimava ~48 CPU-h para as
+  fáceis, mais ≥ 150 CPU-h e dezenas de GB de prova para as duras.
+- Nenhum subconjunto deu `UNKNOWN`. As 9 que sobram têm A e B **viáveis**: o lema da fatia 0, mesmo
+  com as fibras, não basta. Elas precisam da fórmula inteira (`registros/sobras.txt`): a 13 deu UNSAT com prova
+  VeriPB (46 s); 16, 523 e 524 deram UNSAT **sem** prova (33 a 141 s de CPU), OBSERVED; 14, 15, 2178,
+  7388 e 11160 ficaram **sem veredito** em 600 s de parede (186 a 466 s de CPU). Essas cinco são as
+  duras de verdade: o núcleo delas não está na fatia 0. Para as três de `s* = 5` (2178, 7388, 11160),
+  o próximo passo natural é o item 3 da sugestão, o lema aplicado às 18 fibras.
+- **Isto não fecha `K_3(6,2) ≥ 16`.** Faltam (i) as 9 sobras com certificado, (ii) a codificação
+  independente que o `GAPS2_RESULTADOS.md` exige para virar teorema, e (iii) revisão da redução. Nada
+  vai para o ledger.
 
 ## Sugestão concreta de reformulação
 
