@@ -30,3 +30,4 @@ q=2 n=23 R=5 M=639 seed=1 iters=19456 best_unc=74075 final_unc=74075 t=46s
 == K5(9,1) M=78124
 q=5 n=9 R=1 M=78124 seed=1 iters=24869376 best_unc=132922 final_unc=132922 t=46s
 == K5(10,1) M=390624
+q=5 n=10 R=1 M=390624 seed=1 iters=20639488 best_unc=622064 final_unc=622064 t=46s
