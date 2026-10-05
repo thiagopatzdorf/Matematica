@@ -3,3 +3,4 @@ q=7 n=5 R=3 M=16 seed=1 iters=1137152 best_unc=62 final_unc=62 t=191s
 == K2(11,2) M=43
 q=2 n=11 R=2 M=43 seed=1 iters=17451520 best_unc=24 final_unc=24 t=191s
 == K2(12,3) M=27
+q=2 n=12 R=3 M=27 seed=1 iters=4308992 best_unc=15 final_unc=21 t=191s
