@@ -68,7 +68,7 @@ def reduzido(E, M, s, K, t, ramos=(), marcados=()):
     marcados: [(c, v)] pontos da fatia 1 já decididos por um ramo; só refinam o agrupamento das
     colunas (o grupo encolhe para o estabilizador deles, e cada um vira órbita unitária). A
     decisão em si está em `ramos`, como linha Σ_{c} z_c >= 1 ou <= 0."""
-    n, R, N, bits, POP, idx = E.n, E.R, E.N, E.bits, E.POP, E.idx
+    n, R, bits, POP, idx = E.n, E.R, E.bits, E.POP, E.idx
     m = n - 1
     cols = [tuple(k[j] for k in K) + tuple(int(bits[c, j + 1]) for c, _ in marcados) for j in range(m)]
     tipos = {}
@@ -181,7 +181,7 @@ def inteirar(G, h, Eq, e, lb, ub, y, mu):
 
 def levantar(E, S, y, mu):
     """Certificado do sistema completo (formato de verificar.py) a partir do reduzido."""
-    n, N = E.n, E.N
+    N = E.N
     L = 1
     for i in np.nonzero(y)[0]:
         r = S["rot"][i]
@@ -282,7 +282,6 @@ def agregado(E, M, s, K, t, ramos=(), marcados=(), prof=0, prof_max=150, orc=Non
 def certificar(E, M, s, K, t, ramos=True, orc=4000):
     """(folhas, modo) com modo 'reduzido', 'completo' ou None (sem certificado)."""
     S = reduzido(E, M, s, K, t)
-    nv = len(S["vivas"])
     lb, ub = S["lb"], S["ub"]
     v, y, mu = dual_normalizado(S["G"].astype(float), S["h"].astype(float), S["eq"][None].astype(float),
                                 np.array([float(S["e"])]), lb.astype(float), ub.astype(float))
