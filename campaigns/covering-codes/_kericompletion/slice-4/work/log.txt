@@ -44,3 +44,6 @@ BEST 2536
 q=2 n=18 R=2 M=2944 best_unc=9934 iters=1939200 secs=16
 BEST 9934
 == K2(18,2) M=2943 secs=85
+q=2 n=18 R=2 M=2943 best_unc=9306 iters=10501120 secs=86
+BEST 9306
+== K2(19,3) M=1024 secs=15
