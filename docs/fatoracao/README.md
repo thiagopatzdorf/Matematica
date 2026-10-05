@@ -12,6 +12,11 @@ ele decide.
 | importador reproduzível: o número sai do texto da fonte por regra, nunca digitado à mão | `tools/fatoracao/importar_rsa.py` |
 | avaliador exato (`1 < d < N` e `N % d == 0`; recusa registro corrompido) | `tools/fatoracao/verificar.py` |
 | testes, com controle positivo (os fatores reais do RSA-260) e negativos | `tests/test_fatoracao.py` |
+| executor da linha de base do CADO-NFS: uma linha por tentativa, repetição determinística do `nlucky=0` (sementes 1, 2, 3), falha contada na estatística | `tools/fatoracao/medir_cado.py`, `tests/test_fatoracao_medir.py` |
+| baseline congelado: o polinômio do recorde RSA-896 (grau 6), conferido por aritmética (`p·q = N`, `Res(f,g) = −8N`) e reproduzido no CADO (alpha −11,12; Murphy-E 5,293e-10) | `tools/fatoracao/baseline/rsa896.json`, `tools/fatoracao/baseline_rsa896.py`, `tests/test_baseline_rsa896.py` |
+| contabilidade ponta a ponta (razão de compressão, Amdahl, degrau pelo limite inferior do IC) | `tools/fatoracao/contabilidade.py`, `tests/test_contabilidade_fatoracao.py` |
+| livro de afirmações (PROVADO, VERIFICADO, EVIDÊNCIA, HIPÓTESE) e dados congelados do lote | `tools/fatoracao/baseline/claims.jsonl`, `tools/fatoracao/baseline/cado_legado.jsonl`, `tests/test_claims_fatoracao.py` |
+| protocolo da campanha de compressão (escada, cegamento, experimentos E0 a E7, red team) | [`campanha-compressao.md`](campanha-compressao.md) |
 
 O problema em si (achar um fator do RSA-270, o menor número do desafio ainda aberto) entra pelo fluxo do repo: a
 issue **Proposta de problema**, que um mantenedor aceita; só então vira cartão em `problems/cartoes/`.
@@ -53,7 +58,7 @@ medida, não com esperança. Nada abaixo é alegação de novidade.
 
 | fase | o quê | avaliador |
 |---|---|---|
-| 0 | mapa da literatura: o que já foi tentado, para não repetir | busca com fonte citada |
+| 0 | mapa da literatura: o que já foi tentado, para não repetir ([`literatura.md`](literatura.md); com lacunas declaradas) | busca com fonte citada e grau de verificação por afirmação |
 | 1 | linha de base: CADO-NFS compilado e medido em tamanhos pequenos | tempo e contadores medidos, curva ajustada |
 | 2 | avaliadores independentes de hardware: rendimento medido do peneiramento, Murphy-E e a função de ranqueamento de David e Zimmermann (2020), porque o Murphy-E pode ranquear polinômios errado | exato e barato |
 | 3 | busca guiada por modelo sobre famílias de polinômios e regiões de peneiramento, sempre julgada pela fase 2 | o da fase 2 |

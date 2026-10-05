@@ -1,19 +1,19 @@
 {
   "campaign_id": "covering-codes",
-  "created": "2026-10-04T20:42:21Z",
+  "created": "2026-10-05T13:01:11Z",
   "data_root": "../..",
   "domain": "covering codes K_q(n,R)",
   "last_anchor": {
-    "hash": "72c2d482fd23f1e4f5468195a0852db83bd8501c234ba6642219888b05cef8e5",
+    "hash": "2169f11515cc6b4daa0bc53fc5bfac384e4d8de633c82225850a186f3e93dcc3",
     "hmac": null,
-    "seq": 641,
-    "ts": "2026-10-04T21:06:19Z"
+    "seq": 658,
+    "ts": "2026-10-05T13:36:42Z"
   },
   "lean_toolchain": "leanprover/lean4:v4.34.1",
   "schema": "genesis-math/campaign/v1",
   "title": "Covering codes: campanha piloto (cotas de esfera, K_2(6,1), K_7(9,4) e outros códigos)",
   "universe": {
-    "descricao": "Células (q,n,R) tratadas pela campanha: as 11 de data/codes (8 com teorema da cota de esfera no Lean) e K_2(6,1). 'Resolvida' = K_q(n,R) determinado (lb = ub). Só K_2(6,1). As demais têm faixa [lb, ub] aberta.",
+    "descricao": "Células (q,n,R) tratadas pela campanha: as 12 de data/codes (8 com teorema da cota de esfera no Lean) e K_2(6,1). 'Resolvida' = K_q(n,R) determinado (lb = ub). Só K_2(6,1). As demais têm faixa [lb, ub] aberta.",
     "estado_minimo_resolvido": "EXHAUSTIVE_BOUNDED",
     "instancias": [
       {
@@ -116,6 +116,17 @@
         "ub_verificado_melhor": 2875
       },
       {
+        "R": 4,
+        "id": "k7-6-4",
+        "lb_formal_esfera": null,
+        "lb_formal_melhor": null,
+        "n": 6,
+        "q": 7,
+        "size": 6,
+        "ub_formal_lean": null,
+        "ub_verificado_melhor": 14
+      },
+      {
         "R": 3,
         "id": "k7-8-3",
         "lb_formal_esfera": 439,
@@ -150,6 +161,6 @@
       }
     ],
     "tipo": "finito",
-    "total": 12
+    "total": 13
   }
 }

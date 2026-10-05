@@ -6,24 +6,26 @@ sem `ofReduceBool`/`implemented_by`; todo `#print axioms` dá no máximo
 resultado computacional), `tools/exatos/k742/README.md` (a prova escrita) e
 `docs/exatos/REDTEAM_K742.md`.
 
-## Resumo: o que é teorema e o que ainda é computação
+## Resumo: K_7(4,2) = 19 é teorema do Lean
 
 | afirmação | estado | declaração |
 |---|---|---|
+| **K_7(4,2) = 19** | **teorema** (lib `CoveringK742Sat`) | `K742.K_7_4_2_eq_19`, `K742.K_7_4_2_isK : CoveringA6.IsK 7 4 2 19` |
 | K_7(4,2) ≤ 19 | **teorema** | `K742.K_7_4_2_le_19` |
 | Lema 0 (caixas de comprimento 3), `K_6(3,1) ≥ 18` e `K_7(3,1) ≥ 21` na forma de caixa | **teorema** | `K742.box_fiber_bound`, `K742.box_card_ge_18`, `K742.box_card_ge_21` |
 | Lema 1: com M ≤ 18, toda fibra tem ≥ 2 palavras | **teorema** | `K742.fiber_card_ge_two` |
 | redução código → perfil (cada coordenada tem um dos 5 tipos; o multiconjunto é um dos 70 perfis) | **teorema** | `K742.fiberType_mem_types18`, `K742.profile_mem_profiles18`, `K742.profiles18_card`, `K742.perfis18_complete` |
-| a CNF de cada perfil, igual à de `encode.py` | **definição** no Lean (`K742Cnf.cnf`), conferida contra o DIMACS **pelo kernel** a cada refutação | `K742Cnf.cnf`, `K742Cnf.cnfSemQuebra` |
-| verificador LRAT executado pelo kernel, com prova de correção | **teorema** | `LratK.unsat_of_good`, `LratK.good_of_checkRange`, `LratK.rup_sound`; comando `lratk_refute` |
-| K_7(4,2) = 19 **a partir de** `Ponte18 G` e `Refut18 G` | **teorema** (condicional) | `K742.K_7_4_2_eq_19_of` |
-| `Refut18`: as 70 CNFs de M = 18 são insatisfatíveis | **1 de 70 no kernel** (perfil 64, o menor); os outros 69 têm prova LRAT conferida fora do Lean | `K742Sat.refut18_p64` (lib `CoveringK742Sat`, fora do alvo padrão) |
-| `Ponte18`: todo código de 18 palavras satisfaz a CNF de algum perfil | **não formalizado** (forma normal do `canonizar.py`; argumento no README, testado por máquina) | — |
+| a CNF de cada perfil, igual à de `encode.py` | **definição** no Lean (`K742Cnf.cnf`, `K742Cnf.cnfSemQuebra`), conferida contra o DIMACS **pelo kernel** a cada refutação | `K742Cnf.cnf`, `K742Cnf.cnfSemQuebra` |
+| verificador LRAT executado pelo kernel, com prova de correção | **teorema** | `LratK.unsat_of_good`, `LratK.good_of_checkRange`, `LratK.rup_sound`; comandos `lratk_refute`, `lratk_data`/`lratk_steps`/`lratk_final` |
+| **`Ponte18 cnfSemQuebra`**: todo código de 18 palavras satisfaz a CNF sem quebra de algum perfil | **teorema** (alvo padrão) | `K742Ponte.ponte18`, `K742Ponte.cnfSemQuebra_sat` |
+| **`Refut18 cnfSemQuebra`**: as 70 CNFs sem quebra de M = 18 são insatisfatíveis | **teorema** (lib `CoveringK742Sat`, 70 refutações no kernel) | `K742Sat.refut18`, `K742Sat.s<p>.unsatFor` (p = 0..69) |
+| K_7(4,2) = 19 **a partir de** `Ponte18 G` e `Refut18 G` | **teorema** (condicional, para qualquer família `G`) | `K742.K_7_4_2_eq_19_of` |
+| perfil 64 **com** a quebra (d)–(f) | teorema (registro histórico, não usado no final) | `K742Sat.refut18_p64` |
 | teste de ponta a ponta do verificador: as 5 CNFs de K_4(4,2), M = 6 | **teorema**, no alvo padrão | `LratK_K4.refut6` |
 
-Ou seja: K_7(4,2) = 19 **ainda não é teorema do Lean**. É teorema condicionado a duas
-proposições fechadas, cada uma enunciada no Lean sobre objetos do Lean; uma delas
-(`Refut18`) é pura computação, já com o caminho de execução pronto e medido.
+Todos os `#print axioms` dão `[propext, Classical.choice, Quot.sound]` (ou menos); nada de
+`sorry`, `native_decide`, `ofReduceBool` ou `implemented_by`. Ver a seção 4 para o que foi
+compilado, onde, quanto custou e como reproduzir.
 
 ## Arquivos
 
@@ -36,7 +38,19 @@ proposições fechadas, cada uma enunciada no Lean sobre objetos do Lean; uma de
 | `CoveringLean/LratK.lean` | o verificador LRAT e a prova de correção (só Lean core, sem Mathlib) | padrão |
 | `CoveringLean/LratKData.lean` | `lratk_refute`: lê CNF + LRAT, monta dados e teoremas por bloco | padrão |
 | `CoveringLean/LratK_K4.lean` + `LratK_K4/` | as 5 refutações de K_4(4,2), M = 6 (dados no git, 270 KB) | padrão |
-| `CoveringLean/K742Sat/P64.lean` | perfil 64 de K_7(4,2), M = 18 (dados fora do git) | `CoveringK742Sat` |
+| `CoveringLean/K742Sat/P64.lean` | perfil 64 de K_7(4,2), M = 18, **com** quebra (dados fora do git) | `CoveringK742Sat` |
+| `CoveringLean/LratKFinal.lean` | `lratk_final_seg`: fecho da refutação dividida, com a cadeia em segmentos | padrão |
+| `CoveringLean/K742_PonteCnf.lean` | metade CNF da ponte: palavras normalizadas satisfazem `cnfSemQuebra` (só Lean core) | padrão |
+| `CoveringLean/K742_Ponte.lean` | `K742Ponte.ponte18`: normalização por isometrias e enumeração por blocos | padrão |
+| `CoveringLean/K742Sat/S<p>/{Data,B<m>,Final}.lean` | as 70 refutações sem quebra, divididas em módulos (gerados) | `CoveringK742Sat` |
+| `CoveringLean/K742Sat/Refut.lean` | `K742Sat.refut18 : Refut18 (cnfSemQuebra 7 18)` (gerado) | `CoveringK742Sat` |
+| `CoveringLean/K742_Eq19.lean` | `K742.K_7_4_2_eq_19`, `K742.K_7_4_2_isK` | `CoveringK742Sat` |
+| `tools/exatos/k742/lean/preparar_semquebra.py` | CNF sem quebra + CaDiCaL + `lrat-trim` + renumeração e divisão em módulos | — |
+| `tools/exatos/k742/lean/gerar_modulos.py` | escreve os módulos `S<p>/` e `Refut.lean` a partir de `semquebra_M18.jsonl` | — |
+| `tools/exatos/k742/lean/semquebra_M18.jsonl` | por perfil: `n`, `K`, passos, dicas, módulos, sha256 da CNF, do LRAT aparado e de cada arquivo de dados | — |
+| `tools/exatos/k742/lean/vm/` | `rodar.sh` (VM de lote), `agendar.py` (compila os módulos com `lean`, com registro), `lakefile.toml` mínimo (sem Mathlib) | — |
+| `tools/exatos/k742/lean/execucao/` | registro da execução nas VMs: `modulos*.jsonl` (tempo, CPU, RSS, rc por módulo), `axiomas.txt`, `preparo*.jsonl` | — |
+| `tools/exatos/k742/lean/vigia.py` | roda um comando com teto de RSS (usado nos builds locais) | — |
 | `tools/exatos/k742/lean/gerar_dados.py` | gera CNF + LRAT aparado de um perfil e confere o sha256 com `manifesto.json` | — |
 | `tools/exatos/k742/lean/aparo_M18*.jsonl` | medições do aparo das 70 provas (com e sem (d)–(f)) | — |
 | `tests/test_lean_k742.py` | `perfis18`/`perfis6` do Lean = `encode.perfis`, sha256 dos dados, nada de atalho fora do kernel | pytest |
@@ -129,47 +143,152 @@ prova só cresce 11% em dicas. Isso decide o plano da ponte (abaixo).
 
 Tempos em container de 4 núcleos dividido com outros trabalhos: são ordem de grandeza.
 
-### 3.5 O que falta e quanto custa
+### 3.5 A ponte código → CNF sem quebra (`K742Ponte.ponte18`)
 
-**(a) `Refut18`, os outros 69 perfis — computação, sem matemática nova.** Pelo ritmo medido
-(1,1 ms por dica): 205 M dicas ≈ **63 h de CPU** (sem (d)–(f): 227 M ≈ 69 h). Paralelizável por
-perfil e, dentro do perfil, por bloco (módulos separados que importam o módulo de dados). A
-memória por processo deve crescer com o tamanho do banco do perfil (só medida no menor: 4,9 GB;
-é hipótese, não medida, para os grandes), então o alvo
-natural é uma `e2-highmem-8` spot (8 vCPU / 64 GB, US$ 0,133/h na tabela do `lote-gcp.py`):
-6–8 processos ≈ 8–11 h de parede, **≈ US$ 1,5** (com disco e folga, < US$ 3). O maior perfil
-(55: 22,9 M dicas) sozinho dá ~7 h num núcleo e tem o maior banco, então precisa ser dividido em
-módulos (dados num, blocos de passos em vários) para caber na mesma janela e na memória.
-Os `.olean` resultantes (vários GB) não vão para o git; o que vai é o `.lean` gerado e o registro da execução. Não
-rodei agora porque, sem a ponte, o resultado seria só uma lista de 70 teoremas `Unsat` que
-teria de ser recompilada de qualquer jeito quando a ponte existir (os `.olean` morrem com a VM).
+Feita para `cnfSemQuebra` (só (a)–(c)), como recomendado: a CNF com (d)–(f) exigiria formalizar a
+forma normal do `canonizar.py`, e o aparo mostrou que a prova sem quebra só tem 11% mais dicas.
+847 linhas em dois arquivos.
 
-**(b) `Ponte18` — formalização.** Recomendação: usar `cnfSemQuebra` (só +11% de dicas) e
-formalizar só (a)–(c), que são "sem perda de generalidade" simples:
+* **`K742_PonteCnf.lean` (só Lean core).** `Normal t w` diz que 18 palavras `w k : ℕ → ℕ` têm
+  símbolos `< 7`, cobrem (todo `x ∈ {0..6}^4` concorda com alguma palavra num dos 6 pares de
+  coordenadas), têm `tv t i a` ocorrências de `a` na coordenada `i = 1..3` e que a palavra `k` está
+  no bloco do seu símbolo da coordenada 0. `val t w` é a valoração: as variáveis do gerador formam
+  segmentos consecutivos (as `x`, os 21 contadores, os 6 pares) e `segVal` decodifica o número da
+  variável pelo segmento (`segVal_idx`, `counterBase_eq`, `projBase_eq`). `exatamente_sat` prova o
+  contador sequencial de uma vez (`r[i][j]` = "pelo menos `j+1` dos `b 0..b i`"); as outras três
+  famílias (`exactlyOne_sat`, `projections_sat`, `coverage_sat`) saem das fórmulas fechadas dos
+  índices (`val_x`, `val_c'`, `val_P0`, `val_P1`, `val_Y`). Resultado: `cnfSemQuebra_sat`.
+* **`K742_Ponte.lean`.** Dado `C`, `profile_mem_profiles18` + `perfis18_complete` dão `t`;
+  `exists_perm_of_map_eq` (duas funções de um tipo finito com o mesmo multiconjunto de valores
+  diferem por uma permutação) dá a permutação `π` das coordenadas e, em cada coordenada, a
+  permutação `σ i` dos símbolos que põe as fibras na ordem de `t[i]`; as palavras renomeadas são
+  `(σ i)⁻¹ (c (π i))`. A enumeração por blocos sai de `finSigmaFinEquiv`
+  (`Σ a, Fin (n a) ≃ Fin (∑ n)`, com o índice `n 0 + … + n (a−1) + j`), composto com as bijeções
+  de cada fibra (`exists_block_enum`). A cobertura usa `agree_two` (distância ≤ 2 em comprimento 4
+  ⇒ duas coordenadas de acordo). Fatos dos 70 perfis (comprimentos, soma 18, blocos dentro de
+  `0..17`) por `decide +kernel` (`perfis18_shape`).
 
-1. invariância de `Covers` e dos tamanhos de fibra por permutação de coordenadas e de símbolos
-   (isometrias de Hamming);
-2. existência de permutações que ordenam o vetor de fibras de cada coordenada e põem as
-   coordenadas na ordem do perfil (`perfis18_complete` + `profile_mem_profiles18` já dão o perfil);
-3. enumerar as 18 palavras ordenadas pela coordenada 0 (blocos de tamanhos `t[0]`);
-4. a valoração: `x[k][i][a] := (w_k i = a)`, contadores `r[i][j] := #{k ≤ i : …} ≥ j+1`,
-   projeções `P` e auxiliares `y`; provar cada família de cláusulas de `cnfSemQuebra`
-   (exatamente-um, contador sequencial, projeções, cobertura a partir de `Covers`).
+## 4. As 70 refutações sem quebra no kernel (`K742Sat.refut18`)
 
-Estimativa: 800–1500 linhas de Lean, a parte mais longa sendo o contador sequencial e a
-numeração das variáveis (o gerador usa fórmulas fechadas para os índices, o que ajuda). Com
-(d)–(f) seria preciso formalizar também os passos 4–5 do `canonizar.py` (forma normal por
-primeira aparição), mais do que dobrando o trabalho, para economizar 10% de CPU.
+### 4.1 Como foi dividido
+
+`lratk_refute` (um módulo por refutação) não serve para os perfis grandes: o perfil 55 sem
+quebra tem 853 545 passos e 39,0 M dicas (~5 h de CPU num módulo só). Os dados passam a vir
+renumerados e já cortados por `preparar_semquebra.py`, e cada perfil `p` vira:
+
+* `S<p>/Data.lean` — `lratk_data`: a árvore `db` (CNF nas chaves `1..n`, derivadas em `n+1..K`),
+  `F` em pedaços, `fGood`, `hK`, `hempty`;
+* `S<p>/B<m>.lean` — `lratk_steps`: blocos de 100 passos (`H<j>`, `ok<j>`), até ~2 M dicas por
+  módulo (o perfil 55 tem 20 módulos B); importam só o `Data` do perfil, então compilam em paralelo;
+* `S<p>/Final.lean` — `lratk_final_seg` (`LratKFinal.lean`): encadeia `fGood` e os `ok<j>` em
+  teoremas `seg<s>` de até 200 blocos, depois `unsat`, `eqF` (a fórmula lida é
+  `cnfSemQuebra 7 18 t`, no kernel) e `unsatFor`.
+
+Medido antes de rodar: blocos de 100 passos em vez de 400 baixam o pico de RSS de um módulo de
+~3,8 GB para ~2,8 GB (o kernel guarda os bits da atribuição parcial de cada bloco) sem custo de
+tempo; e um termo com 12 001 `good_of_checkRange` aninhados faz o kernel parar com "deep recursion
+detected" (o perfil 55 tem 8 536 blocos), daí os segmentos.
+
+### 4.2 Execução (2026-10-04, duas VMs spot em southamerica-east1-a)
+
+| | exg-1 (`t2d-standard-8`, 8 núcleos físicos, 32 GB) | exg-2 (`c2d-highmem-8`, 4 núcleos com SMT, 64 GB) |
+|---|---|---|
+| ligada | 17:58 → 21:37 UTC (3,65 h) | 19:38 → 21:58 UTC (2,3 h) |
+| perfis | os 8 maiores (55, 25, 9, 0, 2, 39, 47, 45) | os outros 62 |
+| módulos com rc 0 | 150 | 196 |
+| CPU | 23,0 h | 14,7 h |
+| paralelismo | 7 `lean` | 8 `lean` |
+
+* Preparo (CNF + CaDiCaL + `lrat-trim` + divisão): ~2 min para os 70 perfis em cada VM (CaDiCaL
+  `c607304` e `lrat-trim` `b30f400` compilados na VM). Os 62 perfis preparados nas duas VMs deram
+  JSON idênticos (sha256 de cada arquivo de dados), o que confere o determinismo em duas CPUs
+  diferentes.
+* Módulos: **284** (70 `Data`, 144 `B`, 70 `Final`), todos com rc 0. CPU total **37,8 h**, dos
+  quais 36,3 h nos blocos B: **0,58 ms de CPU por dica** (226,9 M dicas). Pico de RSS: 9,2 GB
+  (`S55.Data`, a árvore de 873 mil cláusulas), 4,2 GB num `B`, 5,2 GB num `Final`. Parede do
+  primeiro ao último módulo: 3,7 h.
+* Perfis mais caros (CPU): 55 = 6,8 h, 25 = 5,0 h, 9 = 3,1 h, 0 = 2,9 h, 2 = 2,4 h.
+* Depois das 70 refutações, na exg-2: `Refut.lean` (6,5 s) e `K742_Eq19.lean` (4,3 s), com
+  Mathlib do cache e os `.olean` da exg-1 copiados para lá; os `#print axioms` de
+  `K742Sat.refut18`, `K742.K_7_4_2_eq_19` e `K742.K_7_4_2_isK` dão
+  `[propext, Classical.choice, Quot.sound]`.
+* **Custo de nuvem: ≈ US$ 1,0** (exg-1 3,65 h × US$ 0,177 + exg-2 2,3 h × US$ 0,145 + disco
+  pd-standard de 60 GB por poucas horas). As duas VMs foram destruídas no fim.
+
+O registro está em `tools/exatos/k742/lean/execucao/`: `modulos_exg1.jsonl` e
+`modulos_exg2.jsonl` (uma linha por módulo: parede, CPU, pico de RSS por `wait4`, rc),
+`axiomas.txt` (os 73 `#print axioms`), `saida_modulos.txt` (a saída de cada `lean`),
+`final_exg2.{jsonl,log}` (caminhos absolutos das VMs trocados por `<raiz>`/`<home>`). `resumo_execucao.py` refaz os números acima. Os sha256 de todos os
+dados (CNF, LRAT aparado, `c.txt`, `h<m>.txt`, `meta.txt`) estão em `semquebra_M18.jsonl`; os
+dados em si não vão para o git (1,9 GB, regenerados em ~2 min).
+
+Notas honestas sobre o registro:
+
+* No meio da corrida (19:38 e 21:10) passei 51 e depois mais 11 perfis da exg-1 para a exg-2 (a
+  cota de T2D era 24 vCPUs, a 2ª VM é C2D). Na exg-1 isso foi feito tirando o diretório de dados
+  desses perfis, de modo que os módulos B correspondentes falharam na hora de ler o arquivo
+  (`rc = 1` em `modulos_exg1.jsonl`, 134 linhas, todas de perfis desviados) e foram compilados do
+  zero na exg-2. Os `Data` desses perfis compilaram nas duas VMs.
+* `lratk_final_seg` (e `LratKFinal.lean`) entrou depois que os `Data`/`B` da exg-1 já tinham
+  começado; os `Final` da exg-1 foram gerados de novo antes de compilar (nenhum `Final` usou a
+  versão sem segmentos). `LratK.lean`, `LratKData.lean` e `K742_Cnf.lean` são byte a byte os do
+  repositório nas duas VMs.
+* `Refut.lean` e `K742_Eq19.lean` foram compilados com `lean` direto (não `lake`): os `.olean` de
+  `K742_Final`, `K742_Ponte` etc. vieram de um `lake build` no checkout completo, ligados por
+  symlink no diretório dos `.olean` das refutações. Um `lake build CoveringK742Sat` do zero faz
+  o mesmo em uma passada (ver "Reproduzir").
 
 ## Reproduzir
 
-    lake build                         # alvo padrão: tudo menos o perfil 64
-    python3 tools/exatos/k742/lean/gerar_dados.py --q 7 --M 18 --perfil 64 \
-        --saida CoveringLean/K742Sat/dados      # precisa de CADICAL e LRAT_TRIM
-    lake build CoveringK742Sat         # ~11–14 min, ~5 GB de RAM
+    lake build                         # alvo padrão: inclui K742Ponte.ponte18 (a ponte)
     python3 -m pytest -q tests/test_lean_k742.py
 
-## Decisões tomadas sozinho
+    # as 70 refutações e o teorema final (~38 h de CPU, ~3–9 GB por processo)
+    export CADICAL=… LRAT_TRIM=…       # CaDiCaL c607304, lrat-trim b30f400
+    for p in $(seq 0 69); do
+      python3 tools/exatos/k742/lean/preparar_semquebra.py --perfil $p \
+          --saida CoveringLean/K742Sat/dados > /tmp/prep_$p.json   # sha256 = semquebra_M18.jsonl
+    done
+    lake build CoveringK742Sat         # ou, com paralelismo controlado e registro por módulo:
+    # python3 tools/exatos/k742/lean/vm/agendar.py --perfis 55,25,…,65 --jobs 7
+
+Numa VM de lote (sem Mathlib, só para as refutações): copie `lean-toolchain`,
+`tools/exatos/k742/lean/vm/lakefile.toml` (como `lakefile.toml`),
+`CoveringLean/{LratK,LratKData,LratKFinal,K742_Cnf}.lean` e `tools/exatos/k742/`, e rode
+`bash tools/exatos/k742/lean/vm/rodar.sh <perfis> <jobs>` (instala CaDiCaL e lrat-trim, prepara,
+gera os módulos e chama o `agendar.py`).
+
+O perfil 64 com a quebra (`K742Sat.P64`, também na lib) precisa dos dados de `gerar_dados.py`.
+
+## Decisões tomadas sozinho (esta etapa)
+
+* Ponte e refutações **sem** a quebra (d)–(f), como recomendado na etapa anterior: a forma normal
+  do `canonizar.py` não precisou ser formalizada.
+* Refutação dividida em `Data`/`B`/`Final` com dados pré-renumerados por Python (não precisa de
+  confiança: o kernel confere cada passo, a CNF e o encadeamento), blocos de 100 passos e ~2 M
+  dicas por módulo; cadeia final em segmentos de 200 blocos.
+* Compilei com um agendador próprio (`agendar.py`, `lean` direto) em vez de `lake build`, para
+  fixar o paralelismo pela memória e registrar tempo/RSS/rc de cada módulo.
+* Usei duas VMs de tipos diferentes (T2D e C2D) e redistribuí perfis no meio da corrida, quando a
+  2ª VM coube na cota; os dados dos perfis desviados foram tirados da 1ª VM (ver 4.2).
+* O teorema final fica na lib `CoveringK742Sat` (fora do alvo padrão e do CI): o CI compila a
+  ponte e o resto, não as 38 h de refutações.
+* Os dados (1,9 GB) não foram para o bucket: o registro + sha256 ficam no repositório e os dados
+  se regeneram em ~2 min, de forma determinística (conferido em duas CPUs).
+
+## Falhas (esta etapa)
+
+* O primeiro teste local da cadeia final com 12 001 blocos parou o kernel ("deep recursion
+  detected"); daí `lratk_final_seg`. Achado antes de rodar na nuvem.
+* O primeiro vigia de memória (`vigia.py`) só somava o RSS dos filhos da thread principal do
+  `lake`, e por isso marcou 0,8 GB para builds que usavam 4 GB; corrigido para somar a sessão
+  inteira.
+* Na montagem final, o `lean` não acha módulos de um mesmo pacote (`CoveringLean.*`) espalhados
+  em dois diretórios de `.olean`; resolvido com symlinks (ver 4.2).
+* A primeira tentativa de criar a 2ª VM como T2D falhou por cota (`T2D_CPUS` = 24 na região).
+
+## Decisões e falhas da etapa anterior (PR #34)
+
 
 * Escrevi um verificador LRAT próprio em vez de reaproveitar o `FromLRAT` do Florath: medido, o
   dele não cabe nem no menor perfil de K_7(4,2).
@@ -182,7 +301,7 @@ primeira aparição), mais do que dobrando o trabalho, para economizar 10% de CP
 * O verificador e o gerador não importam Mathlib (só Lean core), o que derrubou a memória de base
   de ~6,9 GB para ~0,5 GB.
 
-## Falhas
+### Falhas da etapa anterior
 
 * A primeira medição do `FromLRAT` no perfil 64 estourou a memória do container; o OOM killer
   matou também um processo de outro trabalho que rodava em paralelo

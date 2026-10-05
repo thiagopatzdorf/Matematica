@@ -4,7 +4,7 @@
   "canonical_sha256": "a48e3a42922616b3466a5fafbfaa0e4098a77f675841df3129ac96bbcb8b7b41",
   "canonical_sha256_declared_in_structured": "a48e3a42922616b3466a5fafbfaa0e4098a77f675841df3129ac96bbcb8b7b41",
   "claim_ids": [],
-  "created": "2026-10-04T20:42:21Z",
+  "created": "2026-10-05T13:01:11Z",
   "created_by": "agente-c",
   "format": "covering-code/v1 (lista plana, uma palavra por linha)",
   "implementation": "ILP com simetria imposta (invariância por translação pela reta 10 de C0), HiGHS, candidates/k7_9_4_1134/ilp_sym.py 18 line 10 600",

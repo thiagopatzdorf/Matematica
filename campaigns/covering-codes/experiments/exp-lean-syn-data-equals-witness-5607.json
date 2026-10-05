@@ -1,5 +1,5 @@
 {
-  "created": "2026-10-04T20:42:21Z",
+  "created": "2026-10-05T13:01:11Z",
   "created_by": "agente-c",
   "description": "Decodifica a lista LK5607 (e o campo empacotado PN) de CoveringLean/SynData_K5607.lean (base 7 little-endian) e compara o sha256 canônico com o de data/codes/q7_n10_R4_M5607.txt: o elo entre o teorema Syn.K7_10_4_le_5607_syn e o arquivo verificado por programas.",
   "experiment_id": "exp-lean-syn-data-equals-witness-5607",
@@ -9,7 +9,7 @@
   ],
   "kind": "symbolic",
   "ranges": null,
-  "repo_commit": "38a481ead0f7f03468ea9d7a5a7d0fae98335048",
+  "repo_commit": "248a748b9d5003f13f684b633208fa0632966ce9",
   "result": {
     "cnt_declarado": 5607,
     "estritamente_crescente": true,

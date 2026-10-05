@@ -1,0 +1,6 @@
+{"v": 6, "y": [6, 6, 7, 6, 7, 8, 8, 7, 7], "p": 20, "motor": "roundingsat", "status": "TEMPO", "seg": 1811.07, "conflitos": 175825, "total_seqs": 88}
+{"v": 6, "y": [6, 6, 8, 7, 7, 6, 7, 9, 6], "p": 20, "motor": "roundingsat", "status": "TEMPO", "seg": 1835.2, "conflitos": 475681, "total_seqs": 88}
+{"v": 6, "y": [6, 6, 7, 6, 7, 6, 8, 8, 8], "p": 20, "motor": "roundingsat", "status": "UNSAT", "seg": 74.21, "conflitos": 24365, "total_seqs": 88}
+{"v": 6, "y": [6, 6, 7, 6, 8, 7, 8, 7, 7], "p": 20, "motor": "roundingsat", "status": "UNSAT", "seg": 338.76, "conflitos": 145327, "total_seqs": 88}
+{"v": 6, "y": [6, 6, 7, 6, 7, 7, 9, 8, 6], "p": 20, "motor": "roundingsat", "status": "TEMPO", "seg": 1819.11, "conflitos": 674531, "total_seqs": 88}
+{"v": 6, "y": [6, 6, 8, 6, 8, 6, 8, 6, 8], "p": 20, "motor": "roundingsat", "status": "TEMPO", "seg": 1824.44, "conflitos": 500770, "total_seqs": 88}

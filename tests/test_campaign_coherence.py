@@ -22,6 +22,12 @@ def carregar(pasta):
     return out
 
 
+# Códigos que entraram no main sem teorema Lean. A razão fica escrita aqui; a campanha NÃO inventa registro formal para eles.
+SEM_TEOREMA_LEAN_DECLARADO = {
+    "q7_n6_R4_M14": "K_7(6,4) <= 14 entrou no main em #56 (lema das fibras); o certificado é SAT/LRAT em tools/exatos/fibras, sem teorema Lean",
+}
+
+
 class CampaignCoherenceTest(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
@@ -307,7 +313,11 @@ class CampaignCoherenceTest(unittest.TestCase):
             with self.subTest(code=nome):
                 self.assertEqual(len(cl), 1, "um claim de cota superior com o witness em evidence.witnesses")
                 formais = cl[0]["evidence"]["formal"] + cl[0].get("complementary_formal", [])
-                self.assertTrue(formais, "todo código do main tem um teorema Lean (medido ou declarado)")
+                if nome in SEM_TEOREMA_LEAN_DECLARADO:
+                    # exceção explícita e datada: some quando o código ganhar teorema Lean (este teste então falha e obriga a tirar a linha)
+                    self.assertFalse(formais, f"{nome} já tem teorema Lean: tire-o de SEM_TEOREMA_LEAN_DECLARADO")
+                else:
+                    self.assertTrue(formais, "todo código do main tem um teorema Lean (medido ou declarado)")
                 # o estado sai das guardas, não de texto: Lean por síndromes medido + 2 componentes independentes => PROVED; só prefixos (declarado/relatado) => IR
                 self.assertEqual(cl[0]["status"], estado_esperado_de_claim_de_cota(cl[0]["claim_id"]))
 

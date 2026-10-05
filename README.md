@@ -24,10 +24,11 @@ Números conferidos no repositório (`ledger/cells.json`, `data/codes/`, `tools/
 | o quê | valor |
 |---|---|
 | células `K_q(n,R)` no ledger (q de 2 a 21) | 1145, das quais 519 com valor exato e 626 abertas |
-| células em que temos teorema Lean | 12 (11 abaixo da melhor cota superior publicada que achamos; `K_2(6,1) = 12` é o clássico, agora com prova no kernel) |
-| códigos em `data/codes/` | 16, todos aprovados pelo verificador oficial em C |
-| destaques | `K_7(9,4) ≤ 1134` (publicado antes: 1475, Marosi, arXiv:2608.19872v3); `K_7(10,4) ≤ 5607` (antes: 6517, Kéri); `K_7(4,2) = 19` (antes: 17–19), com a cota superior e os lemas no kernel e a inexistência de 18 palavras por SAT com prova LRAT conferida (ver `docs/exatos/`) |
-| Lean e Mathlib | Lean 4.34.1, Mathlib v4.34.1; `lake build` passa e roda no CI a cada push |
+| células em que temos teorema Lean próprio | 13 (11 abaixo da melhor cota superior publicada que achamos; `K_2(6,1) = 12`, o clássico, e `K_7(4,2) = 19`, as duas inteiramente no kernel) |
+| ledger certificado | A machine-checked ledger of covering-code upper bounds, with formally certified exact entries. 486 das 1145 cotas superiores são teorema do Lean (`CoveringLedger.todas_as_cotas`, a partir de `K ≤ \|C\|` genérico, regras de construção e witnesses); as inferiores seguem herdadas da literatura, exceto `K_2(6,1)` e `K_7(4,2)` (ver `ledger/COBERTURA.md`) |
+| códigos em `data/codes/` | 17, todos aprovados pelo verificador oficial em C |
+| destaques | `K_7(9,4) ≤ 1134` (publicado antes: 1475, Marosi, arXiv:2608.19872v3); `K_7(10,4) ≤ 5607` (antes: 6517, Kéri); `K_7(4,2) = 19` (antes: 17–19), inteiramente no kernel: `K742.K_7_4_2_eq_19`, sem hipótese, com as 70 refutações LRAT reexecutadas no kernel (lib `CoveringK742Sat`, fora do CI: 284 módulos, 37,8 h de CPU; ver `docs/exatos/LEAN_K742.md`) |
+| Lean e Mathlib | Lean 4.34.1, Mathlib v4.34.1; `lake build` passa e roda no CI a cada push (`CoveringK742Sat` e `CoveringLedger` ficam fora do CI pelo custo) |
 | axiomas | todo `#print axioms` mostra no máximo `propext, Classical.choice, Quot.sound` |
 
 Novidade na literatura é afirmação nossa (busca bibliográfica descrita em `STATE_OF_ART.md`), não do Lean. Tabela
@@ -63,7 +64,7 @@ por célula, certificados e reprodução: [docs/resultados.md](docs/resultados.m
 | `ledger/` | o ledger de células, o estado nosso e a proveniência (ver `ledger/README.md`) |
 | `data/codes/`, `data/structured/` | os códigos (um por linha) e a descrição estruturada de cada um |
 | `tools/verify/` | verificador oficial em C e `check_all.sh` |
-| `tools/exatos/` | busca exata (SAT com prova LRAT, CP-SAT, busca exaustiva); `K_7(4,2) = 19` fechado assim |
+| `tools/exatos/` | busca exata (SAT com prova LRAT, CP-SAT, busca exaustiva); `K_7(4,2) = 19` fechado assim e depois levado ao kernel |
 | `tools/fatoracao/` | domínio de fatoração de inteiros: registro de números do desafio RSA, importador e avaliador exato (`p * q == N`); ver `docs/fatoracao/` |
 | `tools/literatura/` | varredura de literatura |
 | `scripts/` | geradores, loop de recordes (`scripts/loop/`), certificados por síndromes, publicação |
@@ -79,7 +80,7 @@ Lê-se melhor nesta ordem: [docs/GLOSSARIO.md](docs/GLOSSARIO.md), [docs/ARQUITE
 ## Como citar
 
 DOI conceitual: [10.5281/zenodo.23085769](https://doi.org/10.5281/zenodo.23085769) (aponta sempre para a versão
-mais nova). Tag `v0.7.0`. Os metadados completos estão em `CITATION.cff` e `.zenodo.json`; o GitHub oferece o botão
+mais nova). Tag `v0.8.0`. Os metadados completos estão em `CITATION.cff` e `.zenodo.json`; o GitHub oferece o botão
 "Cite this repository" a partir do primeiro. A nota está em [paper/main.pdf](paper/main.pdf).
 
 ## Licença e conduta

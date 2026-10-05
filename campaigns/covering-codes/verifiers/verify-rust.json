@@ -37,7 +37,7 @@
   "independence_group": "rust-layered-dilation",
   "language": "rust",
   "notes": "Escrito por outro agente (agente-verif-rust) sem ler os outros dois verificadores nem o gerador do formato; algoritmo de dilatação por camadas com um byte por ponto (OR ao longo de cada reta de coordenada), O(R·n·q^n). Declaração de independência e do que foi lido em tools/verify-rust/README.md. Independente em linguagem, código, algoritmo e autoria; NÃO em especificação do problema (a definição de código de cobertura é a mesma).",
-  "registered": "2026-10-04T20:42:21Z",
+  "registered": "2026-10-05T13:01:11Z",
   "source_files": [
     {
       "normalized_sha256": "58b16ce6fe31a15562c3771abe3f2d6b5ef2d6574cc8a5ff435742a692338ec9",

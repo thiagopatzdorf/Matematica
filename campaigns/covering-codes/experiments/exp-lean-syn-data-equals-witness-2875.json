@@ -1,5 +1,5 @@
 {
-  "created": "2026-10-04T20:42:21Z",
+  "created": "2026-10-05T13:01:11Z",
   "created_by": "agente-c",
   "description": "Decodifica a lista LK2875 (e o campo empacotado PN) de CoveringLean/SynData_K2875.lean (base 5 little-endian) e compara o sha256 canônico com o de data/codes/q5_n11_R4_M2875.txt: o elo entre o teorema Syn.K5_11_4_le_2875_syn e o arquivo verificado por programas.",
   "experiment_id": "exp-lean-syn-data-equals-witness-2875",
@@ -9,7 +9,7 @@
   ],
   "kind": "symbolic",
   "ranges": null,
-  "repo_commit": "38a481ead0f7f03468ea9d7a5a7d0fae98335048",
+  "repo_commit": "248a748b9d5003f13f684b633208fa0632966ce9",
   "result": {
     "cnt_declarado": 2875,
     "estritamente_crescente": true,

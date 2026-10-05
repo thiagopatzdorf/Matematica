@@ -248,6 +248,152 @@ def aplicar_nosso(cel: dict, nosso: dict | None) -> dict:
     return cel
 
 
+# ---------------------------------------------------------------- certificação
+
+# Escada de estado de uma cota (cumulativa: cada degrau supõe o anterior).
+#   CLAIMED                  publicada numa fonte de versão congelada; nada conferido aqui.
+#   WITNESS_CHECKED          o certificado (código explícito, ou prova LRAT de inexistência) foi
+#                            conferido por um verificador exato fora do Lean.
+#   FORMALIZED               há teorema do Lean, checado pelo kernel, com exatamente esta cota.
+#   INDEPENDENTLY_REPRODUCED formalizada E conferida por um segundo verificador independente,
+#                            executado (hoje: o código de data/codes/ passa no tools/verify em C).
+ESTADOS = ("CLAIMED", "WITNESS_CHECKED", "FORMALIZED", "INDEPENDENTLY_REPRODUCED")
+CAMPOS_PROVENIENCIA = ("fonte", "versao", "witness", "sha256", "verificador_independente", "lean")
+# fonte -> arquivo de sources.json (repo:nome) de onde a cota foi lida.
+VERSAO_FONTE = {"keri_2011": "coldcase:bounds", "gijswijt_polak_2025": "coldcase:bounds",
+                "marosi_2026": {"ub": "coldcase:marosi_ub", "lb": "coldcase:marosi_lb"},
+                "florath_lean": "florath:lean_table", "literatura_pos_keri": "florath:post_keri_table"}
+VERIFICADOR_PY = "avaliador Python de tools/certificar/buscar.py, rodado em tests/test_certificar.py"
+VERIFICADOR_C = "tools/verify/verify (C; tools/verify/check_all.sh confere todo data/codes/)"
+
+
+def _versao(fonte: str, lado: str) -> str:
+    v = VERSAO_FONTE[fonte]
+    return v[lado] if isinstance(v, dict) else v
+
+
+def _ref_fonte(cel: dict, fonte: str, lado: str):
+    """A referência dentro da fonte: chave do Kéri, arquivo do Marosi, regra do Florath..."""
+    s = cel["published"]["sources"].get(fonte) or {}
+    if fonte == "keri_2011":
+        return f"chave {s.get(lado + '_key')!r} da tabela do Kéri"
+    if fonte == "marosi_2026":
+        return s.get("code_file") if lado == "ub" else s.get("lb_certificate")
+    if fonte == "gijswijt_polak_2025":
+        return "arXiv:2504.01932"
+    return s.get(lado + "_ref")
+
+
+def _prov(fonte, versao, witness=None, sha256=None, verificador=None, lean=None, lacuna=None):
+    p = dict(zip(CAMPOS_PROVENIENCIA, (fonte, versao, witness, sha256, verificador, lean)))
+    if lacuna:
+        p["lacuna"] = lacuna
+    return p
+
+
+def _fonte_publicada(cel: dict, lado: str, valor: int):
+    """Fonte original e versão da tabela, se alguma fonte publicada traz exatamente `valor`."""
+    b = cel["published"][lado]
+    if b is None or b["value"] != valor:
+        return None, None
+    return {"source": b["source"], "ref": _ref_fonte(cel, b["source"], lado)}, _versao(b["source"], lado)
+
+
+def _externa(cel: dict, lado: str, valor: int):
+    """Prova Lean de terceiros (Florath) da mesma cota: registrada, mas não sobe o estado,
+    porque não foi reconstruída aqui."""
+    f = cel["published"]["sources"].get("florath_lean")
+    if f and f.get(lado) == valor:
+        return {"source": "florath_lean", "ref": f.get(lado + "_ref"), "versao": "florath:lean_table"}
+    return None
+
+
+def certificar_ub(cel: dict, formal: dict | None = None) -> dict:
+    v = cel["best"]["ub"]
+    lean, comp = cel["ours_lean"], cel["ours_computational"]
+    fonte, versao = _fonte_publicada(cel, "ub", v)
+    if lean and lean["M"] == v:
+        arq = lean.get("file") or lean.get("witness_lean")
+        if fonte is None:
+            fonte, versao = {"source": "nosso", "ref": lean.get("provenance")}, f"git tag {lean.get('tag')}"
+        estado = "INDEPENDENTLY_REPRODUCED" if lean.get("file") else "FORMALIZED"
+        prov = _prov(fonte, versao, arq, lean.get("sha256") or lean.get("witness_sha256"),
+                     VERIFICADOR_C if lean.get("file") else None,
+                     {"declaration": lean["declaration"], "tag": lean.get("tag")},
+                     None if arq else "o código está dentro da prova Lean; não há arquivo em data/codes/")
+    elif formal and formal["M"] == v:
+        # Certificado em lote (tools/certificar/gerar.py): célula base + regra, teorema gerado.
+        if fonte is None:
+            fonte, versao = {"source": "nosso", "ref": formal["construcao"]}, None
+        wit = formal.get("witness")
+        # Witness explícito: além do kernel, o avaliador Python (tools/certificar/buscar.py) reconfere
+        # o código em todo pytest (tests/test_certificar.py); regra pura não tem segundo verificador.
+        estado = "INDEPENDENTLY_REPRODUCED" if wit else "FORMALIZED"
+        prov = _prov(fonte, versao, wit or formal["arquivo"],
+                     formal.get("sha256") if wit else formal["sha256_arquivo"], VERIFICADOR_PY if wit else None,
+                     {"declaration": formal["declaration"], "lib": "CoveringLedger"})
+        prov["construcao"] = formal["construcao"]
+    elif comp and comp["M"] == v:
+        if fonte is None:
+            fonte, versao = {"source": "nosso", "ref": comp.get("provenance")}, None
+        estado = "WITNESS_CHECKED"
+        prov = _prov(fonte, versao, comp["file"], comp["sha256"], VERIFICADOR_C)
+    else:
+        estado = "CLAIMED"
+        prov = _prov(fonte, versao, lacuna="cota herdada da literatura; nenhum certificado conferido aqui")
+    ext = _externa(cel, "ub", v)
+    if ext:
+        prov["formalizacao_externa"] = ext
+    return {"value": v, "state": estado, "provenance": prov}
+
+
+def certificar_lb(cel: dict, registro: dict | None) -> dict | None:
+    pub = cel["published"]["lb"]
+    lean = cel["ours_lean"]
+    if lean and lean.get("exact"):
+        v = lean["M"]
+        fonte, versao = _fonte_publicada(cel, "lb", v)
+        estado = "FORMALIZED"
+        prov = _prov(fonte or {"source": "nosso", "ref": lean["declaration"]}, versao,
+                     lean.get("witness_lean"), None, None,
+                     {"declaration": lean["declaration"], "tag": lean.get("tag")},
+                     "inexistência provada no kernel; não há certificado fora do Lean")
+    elif registro:
+        v, estado = registro["value"], registro["estado"]
+        if estado not in ESTADOS[:2] and (registro.get("lean") or {}).get("condicional"):
+            raise SystemExit(f"{cel['id']}: teorema Lean condicional não é FORMALIZED")
+        fonte, versao = _fonte_publicada(cel, "lb", v)
+        prov = _prov(fonte or {"source": "nosso", "ref": registro.get("docs")}, versao or registro.get("data"),
+                     registro.get("witness"), registro.get("sha256"),
+                     registro.get("verificador_independente"), registro.get("lean"))
+        for k in ("formalizacao_parcial", "formalizacao_completa", "reproducao_independente"):
+            if registro.get(k):
+                prov[k] = registro[k]
+    elif pub is not None:
+        v, estado = pub["value"], "CLAIMED"
+        fonte, versao = _fonte_publicada(cel, "lb", v)
+        prov = _prov(fonte, versao, lacuna="cota herdada da literatura; nenhum certificado conferido aqui")
+    else:
+        return None
+    if estado not in ESTADOS:
+        raise SystemExit(f"{cel['id']}: estado desconhecido {estado!r}")
+    if pub is not None and v < pub["value"]:
+        raise SystemExit(f"{cel['id']}: cota inferior nossa {v} abaixo da publicada {pub['value']}")
+    if v > cel["best"]["ub"]:
+        raise SystemExit(f"{cel['id']}: cota inferior {v} > superior {cel['best']['ub']}")
+    ext = _externa(cel, "lb", v)
+    if ext:
+        prov["formalizacao_externa"] = ext
+    return {"value": v, "state": estado, "provenance": prov}
+
+
+def certificar(cel: dict, nosso: dict | None, formal: dict | None = None) -> dict:
+    ub = certificar_ub(cel, formal)
+    lb = certificar_lb(cel, (nosso or {}).get("lb"))
+    cel["certification"] = {"ub": ub, "lb": lb, "exact": lb is not None and lb["value"] == ub["value"]}
+    return cel
+
+
 # A transcrição do coldcase (bounds.json, commit 56a8cce) perde o expoente de "4^79" etc. nas
 # tabelas do Kéri: n_optimal chega truncado ao primeiro dígito (K4(4,3) vem 7, não 79). Valores da
 # tabela do Kéri, recontados por classificação exaustiva em tools/exatos/motor (--classificar).
@@ -266,7 +412,24 @@ def corrigir_n_optimal(e: dict) -> dict:
     return {**e, "n_optimal": alvo}
 
 
-def construir(fontes: dict, ours: dict, sources: dict) -> dict:
+def versoes(sources: dict, fontes: dict) -> dict:
+    out = {}
+    for repo, spec in sources.items():
+        if not isinstance(spec, dict) or "arquivos" not in spec:
+            continue
+        for nome_arq, caminho in spec["arquivos"].items():
+            out[f"{repo}:{nome_arq}"] = {"repo": spec["repo"], "commit": spec["commit"], "arquivo": caminho,
+                                         "lido_em": spec.get("lido_em"),
+                                         "sha256": fontes.get(nome_arq, (None, None))[1]}
+    return out
+
+
+def carregar_formal(caminho: Path = AQUI / "formal_ub.json") -> dict:
+    """Cotas superiores certificadas em lote (gerado por tools/certificar/gerar.py)."""
+    return json.loads(caminho.read_text(encoding="utf-8"))["cells"] if caminho.exists() else {}
+
+
+def construir(fontes: dict, ours: dict, sources: dict, formal: dict | None = None) -> dict:
     bounds = _json(fontes, "bounds", None)
     if bounds is None:
         raise SystemExit("bounds.json do coldcase não encontrado")
@@ -277,6 +440,7 @@ def construir(fontes: dict, ours: dict, sources: dict) -> dict:
     lit = tabela_florath(fontes, "post_keri_table")
     ev = evidencias_marosi(fontes)
     nossos = ours.get("cells", {})
+    formal = carregar_formal() if formal is None else formal
     cells = []
     vistos = set()
     for e in bounds["entries"]:
@@ -284,7 +448,7 @@ def construir(fontes: dict, ours: dict, sources: dict) -> dict:
         k = chave(e["q"], e["n"], e["R"])
         vistos.add(k)
         c = montar_celula(e, e.get("lb_updated"), mub.get(k), mlb.get(k), flo.get(k), ev.get(k), lit.get(k))
-        cells.append(aplicar_nosso(c, nossos.get(k)))
+        cells.append(certificar(aplicar_nosso(c, nossos.get(k)), nossos.get(k), formal.get(k)))
     faltando = sorted(set(nossos) - vistos)
     if faltando:
         raise SystemExit(f"células nossas fora da tabela do Kéri: {faltando}")
@@ -296,6 +460,9 @@ def construir(fontes: dict, ours: dict, sources: dict) -> dict:
             "fontes": {k: {"repo": v["repo"], "commit": v["commit"]}
                        for k, v in sources.items() if isinstance(v, dict) and "repo" in v},
             "sha256_fontes": {nome_arq: sha for nome_arq, (_, sha, _) in sorted(fontes.items())},
+            # Versão congelada de cada tabela, citada em certification.*.provenance.versao.
+            "versoes": versoes(sources, fontes),
+            "estados": list(ESTADOS),
             "ours_atualizado": ours.get("atualizado"),
             "n_cells": len(cells),
         },

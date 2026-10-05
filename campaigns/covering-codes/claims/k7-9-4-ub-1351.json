@@ -18,7 +18,7 @@
     "result": "uncovered=0 nos verificadores",
     "status": "completed"
   },
-  "created": "2026-10-04T21:06:18Z",
+  "created": "2026-10-05T13:36:41Z",
   "created_by": "agente-c",
   "created_role": "PROPOSER",
   "depends_on": [
@@ -60,7 +60,7 @@
       "reason": "criado",
       "role": "PROPOSER",
       "to": "IDEA",
-      "ts": "2026-10-04T21:06:18Z"
+      "ts": "2026-10-05T13:36:41Z"
     },
     {
       "actor": "agente-c",
@@ -68,7 +68,7 @@
       "reason": "evidência anexada: witnesses=w-q7-n9-r4-m1351",
       "role": "PROPOSER",
       "to": "IDEA",
-      "ts": "2026-10-04T21:06:18Z"
+      "ts": "2026-10-05T13:36:41Z"
     },
     {
       "actor": "agente-c",
@@ -76,7 +76,7 @@
       "reason": "evidência anexada: experiments=exp-k7-9-4-1351-lincov",
       "role": "PROPOSER",
       "to": "IDEA",
-      "ts": "2026-10-04T21:06:18Z"
+      "ts": "2026-10-05T13:36:41Z"
     },
     {
       "actor": "agente-c",
@@ -84,7 +84,7 @@
       "reason": "evidência anexada: literature=lit-keri-k7-9-4-ub",
       "role": "PROPOSER",
       "to": "IDEA",
-      "ts": "2026-10-04T21:06:18Z"
+      "ts": "2026-10-05T13:36:41Z"
     },
     {
       "actor": "agente-c",
@@ -92,7 +92,7 @@
       "reason": "evidência anexada: literature=lit-marosi-2608-19872-v1",
       "role": "PROPOSER",
       "to": "IDEA",
-      "ts": "2026-10-04T21:06:18Z"
+      "ts": "2026-10-05T13:36:41Z"
     },
     {
       "actor": "agente-c",
@@ -100,7 +100,7 @@
       "reason": "evidência anexada: literature=lit-marosi-2608-19872-v2",
       "role": "PROPOSER",
       "to": "IDEA",
-      "ts": "2026-10-04T21:06:18Z"
+      "ts": "2026-10-05T13:36:41Z"
     },
     {
       "actor": "agente-c",
@@ -108,7 +108,7 @@
       "reason": "evidência anexada: literature=lit-marosi-2608-19872-v3",
       "role": "PROPOSER",
       "to": "IDEA",
-      "ts": "2026-10-04T21:06:18Z"
+      "ts": "2026-10-05T13:36:41Z"
     },
     {
       "actor": "agente-c",
@@ -116,7 +116,7 @@
       "reason": "evidência anexada: experiments=exp-state-of-art-crosscheck",
       "role": "PROPOSER",
       "to": "IDEA",
-      "ts": "2026-10-04T21:06:18Z"
+      "ts": "2026-10-05T13:36:41Z"
     },
     {
       "actor": "agente-c",
@@ -124,7 +124,7 @@
       "reason": "evidência anexada: experiments=exp-lean-syn-data-equals-witness-1351",
       "role": "PROPOSER",
       "to": "IDEA",
-      "ts": "2026-10-04T21:06:18Z"
+      "ts": "2026-10-05T13:36:41Z"
     },
     {
       "actor": "agente-c",
@@ -132,7 +132,7 @@
       "reason": "evidência anexada: formal=f-syn-1351",
       "role": "PROPOSER",
       "to": "IDEA",
-      "ts": "2026-10-04T21:06:18Z"
+      "ts": "2026-10-05T13:36:41Z"
     },
     {
       "actor": "agente-c",
@@ -140,7 +140,7 @@
       "reason": "evidência anexada: experiments=exp-lean-data-equals-witness-1351",
       "role": "PROPOSER",
       "to": "IDEA",
-      "ts": "2026-10-04T21:06:18Z"
+      "ts": "2026-10-05T13:36:41Z"
     },
     {
       "actor": "agente-c",
@@ -148,7 +148,7 @@
       "reason": "evidência anexada: experiments=exp-structure-regeneration",
       "role": "PROPOSER",
       "to": "IDEA",
-      "ts": "2026-10-04T21:06:18Z"
+      "ts": "2026-10-05T13:36:41Z"
     },
     {
       "actor": "migrate_covering.py",
@@ -156,7 +156,7 @@
       "reason": "verificadores de autores/grupos distintos, PASS válido e sem desacordo, neste run",
       "role": "INDEPENDENT_VERIFIER",
       "to": "INDEPENDENTLY_REPRODUCED",
-      "ts": "2026-10-04T21:06:18Z"
+      "ts": "2026-10-05T13:36:41Z"
     },
     {
       "actor": "migrate_covering.py",
@@ -164,7 +164,7 @@
       "reason": "Syn.K7_9_4_le_1351_syn medido no kernel (axiomas só os esperados) + verificadores independentes (a guarda de PROVED exige os dois)",
       "role": "FORMALIZER",
       "to": "PROVED",
-      "ts": "2026-10-04T21:06:18Z"
+      "ts": "2026-10-05T13:36:41Z"
     }
   ],
   "kind": "theorem",

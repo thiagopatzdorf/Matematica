@@ -21,6 +21,10 @@ import CoveringLean.K742_Upper
 import CoveringLean.K742_Fibras
 import CoveringLean.K742_Cnf
 import CoveringLean.K742_Final
+import CoveringLean.K742_PonteCnf
+import CoveringLean.K742_Ponte
 import CoveringLean.LratK
 import CoveringLean.LratKData
+import CoveringLean.LratKFinal
 import CoveringLean.LratK_K4
+import CoveringLean.Regras

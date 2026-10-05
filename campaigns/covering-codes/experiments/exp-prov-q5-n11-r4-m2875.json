@@ -1,6 +1,6 @@
 {
   "command": null,
-  "created": "2026-10-04T20:42:21Z",
+  "created": "2026-10-05T13:01:11Z",
   "created_by": "agente-c",
   "description": "Busca que produziu o código de 2875 palavras de k5-11-4, como DECLARADA em ledger/provenance.json (P-2875): gerador = scripts/attack (feat/ataque-celulas-2011): hsearch -> coset_sa t=4 em [11,4]_5 -> lift para [11,3]_5 -> coset_sa t=22 -> coset_wsa (w=21). Comando: None; seed: None; commit do gerador: 3c9a90b; data 2026-10-03; agente James.V1 (subagente Claude, branch feat/ataque-celulas-2011). Lacuna declarada no ledger: Seed e comando exatos da cadeia hsearch -> coset_sa -> coset_wsa não foram registrados; o código (23 classes laterais de um [11,3]_5, sem remendo) é reconstruído byte a byte de data/structured/q5_n11_R4_M2875.json. NÃO reexecutado por esta campanha (busca longa; o que se reproduz aqui é a estrutura, por build_structured --check, e a verificação).",
   "experiment_id": "exp-prov-q5-n11-r4-m2875",
@@ -10,7 +10,7 @@
   ],
   "kind": "search",
   "ranges": null,
-  "repo_commit": "38a481ead0f7f03468ea9d7a5a7d0fae98335048",
+  "repo_commit": "248a748b9d5003f13f684b633208fa0632966ce9",
   "result": {
     "declarado_em": "ledger/provenance.json P-2875",
     "executado_neste_run": false,

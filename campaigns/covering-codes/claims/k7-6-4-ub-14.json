@@ -1,0 +1,143 @@
+{
+  "bound": {
+    "direction": "upper",
+    "parameters": {
+      "R": 4,
+      "n": 6,
+      "q": 7
+    },
+    "value": 14
+  },
+  "claim_id": "k7-6-4-ub-14",
+  "counterexample_search": {
+    "method": "claim de existência: o witness é o certificado; verificadores independentes procuram ponto descoberto (uncovered=0)",
+    "result": "uncovered=0 nos verificadores",
+    "status": "completed"
+  },
+  "created": "2026-10-05T13:36:41Z",
+  "created_by": "agente-c",
+  "created_role": "PROPOSER",
+  "depends_on": [],
+  "evidence": {
+    "counterexamples": [],
+    "experiments": [
+      "exp-prior-search-unrecorded",
+      "exp-structure-regeneration"
+    ],
+    "external_reproductions": [],
+    "formal": [],
+    "literature": [
+      "lit-keri-k7-6-4-ub"
+    ],
+    "proofs": [],
+    "verifier_runs": [],
+    "witnesses": [
+      "w-q7-n6-r4-m14"
+    ]
+  },
+  "history": [
+    {
+      "actor": "agente-c",
+      "from": null,
+      "reason": "criado",
+      "role": "PROPOSER",
+      "to": "IDEA",
+      "ts": "2026-10-05T13:36:41Z"
+    },
+    {
+      "actor": "agente-c",
+      "from": "IDEA",
+      "reason": "evidência anexada: witnesses=w-q7-n6-r4-m14",
+      "role": "PROPOSER",
+      "to": "IDEA",
+      "ts": "2026-10-05T13:36:41Z"
+    },
+    {
+      "actor": "agente-c",
+      "from": "IDEA",
+      "reason": "evidência anexada: experiments=exp-prior-search-unrecorded",
+      "role": "PROPOSER",
+      "to": "IDEA",
+      "ts": "2026-10-05T13:36:41Z"
+    },
+    {
+      "actor": "agente-c",
+      "from": "IDEA",
+      "reason": "evidência anexada: literature=lit-keri-k7-6-4-ub",
+      "role": "PROPOSER",
+      "to": "IDEA",
+      "ts": "2026-10-05T13:36:41Z"
+    },
+    {
+      "actor": "agente-c",
+      "from": "IDEA",
+      "reason": "evidência anexada: experiments=exp-structure-regeneration",
+      "role": "PROPOSER",
+      "to": "IDEA",
+      "ts": "2026-10-05T13:36:41Z"
+    },
+    {
+      "actor": "migrate_covering.py",
+      "from": "IDEA",
+      "reason": "verificadores de autores/grupos distintos, PASS válido e sem desacordo, neste run",
+      "role": "INDEPENDENT_VERIFIER",
+      "to": "INDEPENDENTLY_REPRODUCED",
+      "ts": "2026-10-05T13:36:41Z"
+    }
+  ],
+  "kind": "theorem",
+  "literature_comparison": {
+    "classificacao": "MELHORA_APARENTE_A_CONFIRMAR",
+    "melhor_registrada": 15,
+    "melhor_registrada_fonte": [
+      "lit-keri-k7-6-4-ub (PDF 6-21_tables.pdf, Last-Modified 2009-10-15 (diretório e index.htm atualizados até 2011-11-25), 2009-10-15)"
+    ],
+    "nosso": 14,
+    "nota": "melhora aparente, a confirmar por revisão externa (não é afirmação de novidade: livros/artigos não lidos podem ter predecessor)",
+    "veredito": "melhor_que_a_registrada"
+  },
+  "reviewed_by": [],
+  "scope": {
+    "assumptions": [],
+    "domain": "q=7, n=6, R=4",
+    "parameters": {
+      "M": 14,
+      "R": 4,
+      "n": 6,
+      "q": 7
+    },
+    "problem": "K_7(6,4) <= 14"
+  },
+  "sealed_evidence": {
+    "experiments": [
+      "exp-prior-search-unrecorded",
+      "exp-structure-regeneration"
+    ],
+    "formal": [],
+    "proofs": [],
+    "witnesses": [
+      "w-q7-n6-r4-m14"
+    ]
+  },
+  "sealed_sha256": "db001251488b6a9c2e5dada64cc7cec743d15dad1e31e43d8ad5734147641ce9",
+  "statement": "Existe código C em (Z_7)^6 com |C| = 14 que cobre com raio 4 (data/codes/q7_n6_R4_M14.txt). NÃO consta no README/paper: está em data/codes e docs/code-format.md; novidade não conferida na literatura.",
+  "status": "INDEPENDENTLY_REPRODUCED",
+  "trust_boundary": [
+    {
+      "component": "tools/verify/verify.c compilado com gcc 13.3 (-Werror)",
+      "trusted_for": "que a marcação de bolas e a contagem de descobertos estão certas"
+    },
+    {
+      "component": "tools/campaign/verify_cover_dilation.py + numpy 2.4.6",
+      "trusted_for": "que a dilatação do grid está certa (2º verificador, independente em código)"
+    },
+    {
+      "component": "formato covering-code/v1 (docs/code-format.md)",
+      "trusted_for": "convenção de dígitos little-endian e do sha256 canônico"
+    },
+    {
+      "component": "literatura registrada (Kéri/Marosi), declarada",
+      "trusted_for": "só para a afirmação de que o valor é menor que o anterior, que o Lean não checa"
+    }
+  ]
+}
