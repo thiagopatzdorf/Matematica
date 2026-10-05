@@ -62,3 +62,9 @@ BEST 41636
 q=2 n=20 R=5 M=128 best_unc=16573 iters=16640 secs=16
 BEST 16573
 == K2(20,5) M=127 secs=85
+q=2 n=20 R=5 M=127 best_unc=15527 iters=88064 secs=86
+BEST 15527
+== K5(9,2) M=6375 secs=15
+q=5 n=9 R=2 M=6375 best_unc=114136 iters=819456 secs=16
+BEST 114136
+== K5(9,2) M=6374 secs=85
