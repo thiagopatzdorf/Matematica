@@ -17,8 +17,13 @@ from collections import Counter
 from pathlib import Path
 
 AQUI = Path(__file__).resolve().parent
-ESTADOS = ("CLAIMED", "WITNESS_CHECKED", "FORMALIZED", "INDEPENDENTLY_REPRODUCED")
-CURTO = {"CLAIMED": "C", "WITNESS_CHECKED": "W", "FORMALIZED": "F", "INDEPENDENTLY_REPRODUCED": "I"}
+sys.path.insert(0, str(AQUI))
+# A escada vem do build.py: duas cópias da lista divergem (uma delas já ficou sem o degrau novo).
+from build import ESTADOS  # noqa: E402
+
+CURTO = {"CLAIMED": "C", "WITNESS_CHECKED": "W", "CERTIFICATE_VERIFIED": "V", "FORMALIZED": "F",
+         "INDEPENDENTLY_REPRODUCED": "I"}
+FORMAL = ESTADOS.index("FORMALIZED")
 
 
 def contar(cells: list[dict]) -> dict:
@@ -33,8 +38,10 @@ def contar(cells: list[dict]) -> dict:
             k["lb:" + cert["lb"]["state"]] += 1
         if cert["exact"]:
             k["exatas"] += 1
-            if all(ESTADOS.index(cert[s]["state"]) >= 2 for s in ("ub", "lb")):
+            if all(ESTADOS.index(cert[s]["state"]) >= FORMAL for s in ("ub", "lb")):
                 k["exatas_formais"] += 1
+            if all(ESTADOS.index(cert[s]["state"]) >= 1 for s in ("ub", "lb")):
+                k["exatas_certificadas"] += 1
         if "formalizacao_externa" in cert["ub"]["provenance"]:
             k["ub_lean_externo"] += 1
     return por_q
@@ -50,10 +57,11 @@ def relatorio(ledger: dict) -> str:
         "",
         "Gerado por `ledger/cobertura.py` a partir de `ledger/cells.json`; não edite à mão.",
         "Estados (cumulativos, ver `ledger/README.md`): **C** = CLAIMED, **W** = WITNESS_CHECKED,",
-        "**F** = FORMALIZED, **I** = INDEPENDENTLY_REPRODUCED. As cotas inferiores são, quase todas,",
-        "herdadas da literatura (CLAIMED).",
+        "**V** = CERTIFICATE_VERIFIED (só inferior), **F** = FORMALIZED, **I** = INDEPENDENTLY_REPRODUCED.",
+        "As cotas inferiores são, quase todas, herdadas da literatura (CLAIMED).",
         "",
         f"Total: {total['celulas']} células; exatas (inferior = superior): {total['exatas']}; "
+        f"exatas com as duas cotas certificadas aqui (W ou acima): {total['exatas_certificadas']}; "
         f"exatas com as duas cotas no Lean daqui: {total['exatas_formais']}.",
         "",
         "| lado | " + " | ".join(ESTADOS) + " |",
@@ -68,8 +76,9 @@ def relatorio(ledger: dict) -> str:
         "",
         "## Por q",
         "",
-        "| q | células | ub C | ub W | ub F | ub I | lb C | lb W | lb F | lb I | exatas | ub Lean externo |",
-        "|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|",
+        "| q | células | " + " | ".join(f"{lado} {CURTO[e]}" for lado in ("ub", "lb") for e in ESTADOS)
+        + " | exatas | ub Lean externo |",
+        "|---:|---:|" + "---:|" * (2 * len(ESTADOS)) + "---:|---:|",
     ]
     for q in sorted(por_q):
         k = por_q[q]

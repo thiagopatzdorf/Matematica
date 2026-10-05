@@ -254,10 +254,19 @@ def aplicar_nosso(cel: dict, nosso: dict | None) -> dict:
 #   CLAIMED                  publicada numa fonte de versão congelada; nada conferido aqui.
 #   WITNESS_CHECKED          o certificado (código explícito, ou prova LRAT de inexistência) foi
 #                            conferido por um verificador exato fora do Lean.
+#   CERTIFICATE_VERIFIED     só cota INFERIOR: a inexistência inteira está coberta por certificados
+#                            (LRAT, VeriPB ou Farkas) fixados por sha256, conferidos por verificador
+#                            que não é o gerador, e a prova sobreviveu a um red team em PR próprio.
+#                            Não há Lean. (A superior pula o degrau: o código explícito já é o
+#                            certificado inteiro, e WITNESS_CHECKED o confere sem redução nenhuma.)
 #   FORMALIZED               há teorema do Lean, checado pelo kernel, com exatamente esta cota.
 #   INDEPENDENTLY_REPRODUCED formalizada E conferida por um segundo verificador independente,
 #                            executado (hoje: o código de data/codes/ passa no tools/verify em C).
-ESTADOS = ("CLAIMED", "WITNESS_CHECKED", "FORMALIZED", "INDEPENDENTLY_REPRODUCED")
+ESTADOS = ("CLAIMED", "WITNESS_CHECKED", "CERTIFICATE_VERIFIED", "FORMALIZED", "INDEPENDENTLY_REPRODUCED")
+# Sistemas de prova aceitos em CERTIFICATE_VERIFIED: resolução (LRAT), planos de corte (VeriPB) e
+# inviabilidade de LP com multiplicadores inteiros (Farkas). Outro tipo exige decidir antes se o
+# verificador dele é exato; por isso a lista é fechada e o build aborta fora dela.
+TIPOS_CERTIFICADO = ("LRAT", "VeriPB", "Farkas")
 CAMPOS_PROVENIENCIA = ("fonte", "versao", "witness", "sha256", "verificador_independente", "lean")
 # fonte -> arquivo de sources.json (repo:nome) de onde a cota foi lida.
 VERSAO_FONTE = {"keri_2011": "coldcase:bounds", "gijswijt_polak_2025": "coldcase:bounds",
@@ -347,6 +356,32 @@ def certificar_ub(cel: dict, formal: dict | None = None) -> dict:
     return {"value": v, "state": estado, "provenance": prov}
 
 
+def validar_certificado(cid: str, registro: dict) -> None:
+    """Aborta o build se um registro CERTIFICATE_VERIFIED não traz a proveniência que o degrau exige.
+
+    Sem isto, o estado viraria rótulo: qualquer registro poderia se dizer verificado sem apontar
+    qual certificado, qual verificador e qual red team sustentam a cota."""
+    c = registro.get("certificado") or {}
+    erros = []
+    tipos = c.get("tipo") or []
+    if not tipos or any(t not in TIPOS_CERTIFICADO for t in tipos):
+        erros.append(f"certificado.tipo deve ser lista não vazia de {TIPOS_CERTIFICADO}, veio {tipos!r}")
+    arqs = c.get("arquivos") or {}
+    if not arqs or any(not isinstance(h, str) or len(h) != 64 for h in arqs.values()):
+        erros.append("certificado.arquivos deve mapear cada certificado (ou manifesto) ao seu sha256")
+    if not c.get("verificadores"):
+        erros.append("certificado.verificadores vazio")
+    if not c.get("pr"):
+        erros.append("certificado.pr vazio")
+    rt = c.get("red_team") or {}
+    if not (rt.get("pr") and rt.get("doc")):
+        erros.append("certificado.red_team precisa de pr e doc")
+    if registro.get("lean"):
+        erros.append("com teorema Lean a cota é FORMALIZED, não CERTIFICATE_VERIFIED")
+    if erros:
+        raise SystemExit(f"{cid}: CERTIFICATE_VERIFIED sem proveniência completa: " + "; ".join(erros))
+
+
 def certificar_lb(cel: dict, registro: dict | None) -> dict | None:
     pub = cel["published"]["lb"]
     lean = cel["ours_lean"]
@@ -360,13 +395,17 @@ def certificar_lb(cel: dict, registro: dict | None) -> dict | None:
                      "inexistência provada no kernel; não há certificado fora do Lean")
     elif registro:
         v, estado = registro["value"], registro["estado"]
-        if estado not in ESTADOS[:2] and (registro.get("lean") or {}).get("condicional"):
+        if estado in ESTADOS and ESTADOS.index(estado) >= ESTADOS.index("FORMALIZED") \
+                and (registro.get("lean") or {}).get("condicional"):
             raise SystemExit(f"{cel['id']}: teorema Lean condicional não é FORMALIZED")
+        if estado == "CERTIFICATE_VERIFIED":
+            validar_certificado(cel["id"], registro)
         fonte, versao = _fonte_publicada(cel, "lb", v)
         prov = _prov(fonte or {"source": "nosso", "ref": registro.get("docs")}, versao or registro.get("data"),
                      registro.get("witness"), registro.get("sha256"),
                      registro.get("verificador_independente"), registro.get("lean"))
-        for k in ("formalizacao_parcial", "formalizacao_completa", "reproducao_independente"):
+        for k in ("formalizacao_parcial", "formalizacao_completa", "reproducao_independente",
+                  "certificado", "dependencias"):
             if registro.get(k):
                 prov[k] = registro[k]
     elif pub is not None:

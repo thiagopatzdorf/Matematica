@@ -4,42 +4,42 @@ A machine-checked ledger of covering-code upper bounds, with formally certified 
 
 Gerado por `ledger/cobertura.py` a partir de `ledger/cells.json`; não edite à mão.
 Estados (cumulativos, ver `ledger/README.md`): **C** = CLAIMED, **W** = WITNESS_CHECKED,
-**F** = FORMALIZED, **I** = INDEPENDENTLY_REPRODUCED. As cotas inferiores são, quase todas,
-herdadas da literatura (CLAIMED).
+**V** = CERTIFICATE_VERIFIED (só inferior), **F** = FORMALIZED, **I** = INDEPENDENTLY_REPRODUCED.
+As cotas inferiores são, quase todas, herdadas da literatura (CLAIMED).
 
-Total: 1145 células; exatas (inferior = superior): 520; exatas com as duas cotas no Lean daqui: 2.
+Total: 1145 células; exatas (inferior = superior): 523; exatas com as duas cotas certificadas aqui (W ou acima): 4; exatas com as duas cotas no Lean daqui: 2.
 
-| lado | CLAIMED | WITNESS_CHECKED | FORMALIZED | INDEPENDENTLY_REPRODUCED |
-|---|---:|---:|---:|---:|
-| ub | 659 | 0 | 435 | 51 |
-| lb | 1143 | 0 | 2 | 0 |
+| lado | CLAIMED | WITNESS_CHECKED | CERTIFICATE_VERIFIED | FORMALIZED | INDEPENDENTLY_REPRODUCED |
+|---|---:|---:|---:|---:|---:|
+| ub | 658 | 1 | 0 | 435 | 51 |
+| lb | 1140 | 0 | 3 | 2 | 0 |
 
 Cotas superiores com prova Lean externa da mesma cota (Florath, commit fixado, não reconstruída aqui, por isso não sobe o estado): 527.
 
 ## Por q
 
-| q | células | ub C | ub W | ub F | ub I | lb C | lb W | lb F | lb I | exatas | ub Lean externo |
-|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|
-| 2 | 285 | 189 | 0 | 85 | 11 | 284 | 0 | 1 | 0 | 107 | 116 |
-| 3 | 84 | 39 | 0 | 40 | 5 | 84 | 0 | 0 | 0 | 44 | 50 |
-| 4 | 60 | 30 | 0 | 26 | 4 | 60 | 0 | 0 | 0 | 31 | 33 |
-| 5 | 60 | 29 | 0 | 22 | 9 | 60 | 0 | 0 | 0 | 27 | 28 |
-| 6 | 52 | 30 | 0 | 20 | 2 | 52 | 0 | 0 | 0 | 25 | 24 |
-| 7 | 52 | 28 | 0 | 20 | 4 | 51 | 0 | 1 | 0 | 23 | 25 |
-| 8 | 52 | 32 | 0 | 18 | 2 | 52 | 0 | 0 | 0 | 23 | 25 |
-| 9 | 52 | 31 | 0 | 19 | 2 | 52 | 0 | 0 | 0 | 22 | 22 |
-| 10 | 52 | 33 | 0 | 17 | 2 | 52 | 0 | 0 | 0 | 20 | 21 |
-| 11 | 36 | 18 | 0 | 16 | 2 | 36 | 0 | 0 | 0 | 17 | 16 |
-| 12 | 36 | 17 | 0 | 17 | 2 | 36 | 0 | 0 | 0 | 19 | 18 |
-| 13 | 36 | 20 | 0 | 15 | 1 | 36 | 0 | 0 | 0 | 17 | 17 |
-| 14 | 36 | 20 | 0 | 15 | 1 | 36 | 0 | 0 | 0 | 18 | 17 |
-| 15 | 36 | 20 | 0 | 15 | 1 | 36 | 0 | 0 | 0 | 19 | 17 |
-| 16 | 36 | 20 | 0 | 15 | 1 | 36 | 0 | 0 | 0 | 18 | 18 |
-| 17 | 36 | 20 | 0 | 15 | 1 | 36 | 0 | 0 | 0 | 17 | 16 |
-| 18 | 36 | 20 | 0 | 15 | 1 | 36 | 0 | 0 | 0 | 18 | 16 |
-| 19 | 36 | 21 | 0 | 15 | 0 | 36 | 0 | 0 | 0 | 17 | 16 |
-| 20 | 36 | 21 | 0 | 15 | 0 | 36 | 0 | 0 | 0 | 19 | 16 |
-| 21 | 36 | 21 | 0 | 15 | 0 | 36 | 0 | 0 | 0 | 19 | 16 |
+| q | células | ub C | ub W | ub V | ub F | ub I | lb C | lb W | lb V | lb F | lb I | exatas | ub Lean externo |
+|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|
+| 2 | 285 | 189 | 0 | 0 | 85 | 11 | 284 | 0 | 0 | 1 | 0 | 107 | 116 |
+| 3 | 84 | 39 | 0 | 0 | 40 | 5 | 83 | 0 | 1 | 0 | 0 | 45 | 50 |
+| 4 | 60 | 30 | 0 | 0 | 26 | 4 | 60 | 0 | 0 | 0 | 0 | 31 | 33 |
+| 5 | 60 | 29 | 0 | 0 | 22 | 9 | 60 | 0 | 0 | 0 | 0 | 27 | 28 |
+| 6 | 52 | 30 | 0 | 0 | 20 | 2 | 52 | 0 | 0 | 0 | 0 | 25 | 24 |
+| 7 | 52 | 27 | 1 | 0 | 20 | 4 | 49 | 0 | 2 | 1 | 0 | 25 | 25 |
+| 8 | 52 | 32 | 0 | 0 | 18 | 2 | 52 | 0 | 0 | 0 | 0 | 23 | 25 |
+| 9 | 52 | 31 | 0 | 0 | 19 | 2 | 52 | 0 | 0 | 0 | 0 | 22 | 22 |
+| 10 | 52 | 33 | 0 | 0 | 17 | 2 | 52 | 0 | 0 | 0 | 0 | 20 | 21 |
+| 11 | 36 | 18 | 0 | 0 | 16 | 2 | 36 | 0 | 0 | 0 | 0 | 17 | 16 |
+| 12 | 36 | 17 | 0 | 0 | 17 | 2 | 36 | 0 | 0 | 0 | 0 | 19 | 18 |
+| 13 | 36 | 20 | 0 | 0 | 15 | 1 | 36 | 0 | 0 | 0 | 0 | 17 | 17 |
+| 14 | 36 | 20 | 0 | 0 | 15 | 1 | 36 | 0 | 0 | 0 | 0 | 18 | 17 |
+| 15 | 36 | 20 | 0 | 0 | 15 | 1 | 36 | 0 | 0 | 0 | 0 | 19 | 17 |
+| 16 | 36 | 20 | 0 | 0 | 15 | 1 | 36 | 0 | 0 | 0 | 0 | 18 | 18 |
+| 17 | 36 | 20 | 0 | 0 | 15 | 1 | 36 | 0 | 0 | 0 | 0 | 17 | 16 |
+| 18 | 36 | 20 | 0 | 0 | 15 | 1 | 36 | 0 | 0 | 0 | 0 | 18 | 16 |
+| 19 | 36 | 21 | 0 | 0 | 15 | 0 | 36 | 0 | 0 | 0 | 0 | 17 | 16 |
+| 20 | 36 | 21 | 0 | 0 | 15 | 0 | 36 | 0 | 0 | 0 | 0 | 19 | 16 |
+| 21 | 36 | 21 | 0 | 0 | 15 | 0 | 36 | 0 | 0 | 0 | 0 | 19 | 16 |
 
 ## Células acima de CLAIMED
 
@@ -156,7 +156,7 @@ Cotas superiores com prova Lean externa da mesma cota (Florath, commit fixado, n
 | K3(5,3) | 3 | FORMALIZED | 3 | CLAIMED | sim |
 | K3(5,4) | 3 | FORMALIZED | 3 | CLAIMED | sim |
 | K3(5,5) | 1 | FORMALIZED | 1 | CLAIMED | sim |
-| K3(6,2) | 17 | INDEPENDENTLY_REPRODUCED | 15 | CLAIMED | não |
+| K3(6,2) | 17 | INDEPENDENTLY_REPRODUCED | 17 | CERTIFICATE_VERIFIED | sim |
 | K3(6,3) | 6 | INDEPENDENTLY_REPRODUCED | 6 | CLAIMED | sim |
 | K3(6,4) | 3 | FORMALIZED | 3 | CLAIMED | sim |
 | K3(6,5) | 3 | FORMALIZED | 3 | CLAIMED | sim |
@@ -278,8 +278,10 @@ Cotas superiores com prova Lean externa da mesma cota (Florath, commit fixado, n
 | K7(4,2) | 19 | FORMALIZED | 19 | FORMALIZED | sim |
 | K7(4,3) | 7 | FORMALIZED | 7 | CLAIMED | sim |
 | K7(4,4) | 1 | FORMALIZED | 1 | CLAIMED | sim |
+| K7(5,3) | 17 | CLAIMED | 17 | CERTIFICATE_VERIFIED | sim |
 | K7(5,4) | 7 | FORMALIZED | 7 | CLAIMED | sim |
 | K7(5,5) | 1 | FORMALIZED | 1 | CLAIMED | sim |
+| K7(6,4) | 14 | WITNESS_CHECKED | 14 | CERTIFICATE_VERIFIED | sim |
 | K7(6,5) | 7 | FORMALIZED | 7 | CLAIMED | sim |
 | K7(6,6) | 1 | FORMALIZED | 1 | CLAIMED | sim |
 | K7(7,6) | 7 | FORMALIZED | 7 | CLAIMED | sim |

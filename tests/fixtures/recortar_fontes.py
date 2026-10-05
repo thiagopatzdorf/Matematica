@@ -21,6 +21,7 @@ CELULAS = {
     (5, 10, 5), (5, 11, 4),   # v0.6 (7,10,4 já está na linha de baixo)
     # alvo pequeno do loop, Wu–Chen (pós-Kéri), intocada, recorde/cerco/varredura/ataque/SDP do Marosi
     (7, 4, 2), (8, 4, 2),   # K7(4,2) = 19 (v0.7) e K8(4,2) = 23 (Florath, Lean)
+    (3, 6, 2), (7, 6, 4), (7, 5, 3),   # exatas por certificado (CERTIFICATE_VERIFIED), v0.9
     (2, 4, 1), (2, 12, 1), (7, 10, 4), (6, 10, 4), (5, 11, 5), (10, 9, 5), (10, 8, 4), (6, 7, 3), (6, 9, 3), (3, 6, 1),
 }
 

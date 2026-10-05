@@ -74,6 +74,7 @@ Cada célula ganha `certification = {"ub": {...}, "lb": {...}, "exact": bool}`, 
 |---|---|
 | `CLAIMED` | a cota está numa fonte publicada de versão congelada; nada foi conferido aqui |
 | `WITNESS_CHECKED` | o certificado foi conferido por um verificador exato fora do Lean: código explícito no `tools/verify`, ou refutação LRAT de inexistência |
+| `CERTIFICATE_VERIFIED` | **só cota inferior**: a inexistência inteira está coberta por certificados LRAT, VeriPB ou Farkas fixados por sha256 (o arquivo ou um manifesto), conferidos por verificador que não é o gerador, e a prova sobreviveu a um red team em PR próprio; não há Lean |
 | `FORMALIZED` | há teorema do Lean, checado pelo kernel, com exatamente esta cota e sem hipótese pendente |
 | `INDEPENDENTLY_REPRODUCED` | formalizada **e** conferida por um segundo verificador independente, executado (hoje: o código de `data/codes/` passa no `tools/verify` em C, além do kernel) |
 
@@ -83,6 +84,32 @@ data de leitura e sha256 da tabela; ou tag/data, para resultado nosso), `witness
 `verificador_independente` e `lean` (declaração e tag). Campo vazio leva `lacuna`. Uma prova Lean de
 terceiros com o mesmo valor (Florath) vai em `formalizacao_externa`, mas **não sobe o estado**: não
 foi reconstruída aqui.
+
+**Por que `CERTIFICATE_VERIFIED` fica entre `WITNESS_CHECKED` e `FORMALIZED`.** Uma cota inferior
+não tem witness curto: ela depende de uma redução (lemas escritos à mão) e de milhares de
+certificados. `WITNESS_CHECKED` diz só que um verificador exato aceitou o certificado. O degrau
+novo exige mais: o certificado cobre a afirmação inteira, está fixado por sha256, foi conferido por
+verificador independente do gerador e a redução passou por red team. Fica abaixo de `FORMALIZED`
+porque a redução continua fora do kernel do Lean. A superior pula o degrau: o código explícito já é o
+certificado inteiro, sem redução, e o `tools/verify` o confere direto (`WITNESS_CHECKED`).
+
+O registro `CERTIFICATE_VERIFIED` em `ours.json` leva, além dos seis campos, `certificado = {tipo
+(lista de LRAT/VeriPB/Farkas), afirmacao, arquivos ({caminho: sha256}, certificados ou manifesto),
+verificadores, pr, red_team {pr, doc, veredito}, reproducao_independente (opcional) {pr, doc, tipo,
+verificadores, arquivos}}` e, se houver, `dependencias` (cotas da literatura que a redução usa). O
+build aborta (`validar_certificado`) se faltar tipo, arquivos com sha256, verificadores, PR ou red
+team, se o tipo estiver fora da lista, ou se houver teorema Lean (aí o estado é `FORMALIZED`).
+
+**Exatas por certificado (v0.9, 2026-10-05):**
+
+| célula | antes | inferior (`CERTIFICATE_VERIFIED`) | superior |
+|---|---|---|---|
+| K3(6,2) = 17 | 15–17 | Farkas, 13 099 certificados em 12 674 instâncias (PR #60); red team #61; reprodução independente #66 (VeriPB + Farkas) | 17, Hämäläinen–Rankinen 1991, `INDEPENDENTLY_REPRODUCED` (witness do lote) |
+| K7(6,4) = 14 | 13–15 | LRAT, 8 008 perfis (PR #56); red team #62 | 14, `data/codes/q7_n6_R4_M14.txt`, `WITNESS_CHECKED` (sem Lean ainda) |
+| K7(5,3) = 17 | 15–17 | LRAT, 201 376 perfis, 2 por cubos (PR #56); red team #67 | 17, Rivas Soriano 2006, `CLAIMED` |
+
+As provas LRAT das duas células q = 7 não estão versionadas (dezenas de MB cada): o que o sha256 fixa
+é o registro por perfil, com o sha256 de cada CNF e de cada prova, que o codificador auditado regenera.
 
 Cota inferior nossa entra em `ours.json` como `"lb": {value, estado, witness, sha256,
 verificador_independente, lean, ...}`. O build aborta se o registro chamar de `FORMALIZED` um
