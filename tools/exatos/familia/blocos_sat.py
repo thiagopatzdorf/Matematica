@@ -147,7 +147,7 @@ def gerar(q, n, blocos, quebra=True, fixas=None, familia_t=0):
 
 
 def decodificar(mapa, modelo):
-    q, n = mapa["q"], mapa["n"]
+    n = mapa["n"]
     pos = {abs(l) for l in modelo if l > 0}
     pal = {}
     for j, w, i, v, var in mapa["x"]:
