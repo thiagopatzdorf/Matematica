@@ -170,3 +170,20 @@ def test_cadeia_nao_reproduz_k352_igual_a_8(formato, tmp_path):
     regs = [json.loads(ln) for ln in open(tmp_path / "b")]
     sats = [r for r in regs if r["veredito"] == "SAT"]
     assert sats and all(r["codigo_confere"] for r in sats)
+
+
+def test_registro_de_m15_tem_instancia_faltando_ou_sem_prova_conferida():
+    """O registro versionado cobre exatamente a lista de instâncias, e cada uma tem prova VeriPB aceita."""
+    import gzip
+    import json
+    import repro_rodar as rodar
+    reg = os.path.join(RAIZ, "tools", "exatos", "k362_repro", "registros", "K3_6_2_M15_opb.jsonl.gz")
+    linhas = [json.loads(ln) for ln in gzip.open(reg, "rt")]
+    assert all((r[3] or r[2])[1:3] == ["UNSAT", "VERIFIED"] for r in linhas)
+    lista = {(s, ",".join("".join(map(str, k)) for k in K)) for s, K in rodar.instancias(3, 6, 2, 15)}
+    assert {(r[0], r[1]) for r in linhas} == lista and len(linhas) == len(lista) == 11496
+    # a fórmula é determinística: o sha256 regenerado bate com o registrado
+    for r in random.Random(1).sample(linhas, 15):
+        K = [tuple(map(int, k)) for k in r[1].split(",")]
+        texto = sat.opb(*sat.restricoes(3, 6, 2, 15, K, False))
+        assert __import__("hashlib").sha256(texto.encode()).hexdigest() == r[2][0]

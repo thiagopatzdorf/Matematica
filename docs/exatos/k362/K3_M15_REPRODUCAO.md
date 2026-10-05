@@ -9,7 +9,17 @@ Estados: OBSERVED (medido, sem garantia), COMPUTATIONALLY_VERIFIED (conferido po
 INDEPENDENTLY_REPRODUCED (concorda com uma implementação sem código comum), PROVED (prova escrita
 aqui). **Nenhuma cota muda com este documento; o ledger não foi tocado.**
 
-RESULTADO
+## Resultado
+
+* **M = 15: as 11 496 instâncias são inviáveis, cada uma com prova VeriPB conferida** (cadeia OPB);
+  11 171 delas também com prova LRAT conferida (cadeia CNF, outro sistema de prova). Logo não
+  existe código de 15 palavras e **K₃(6,2) ≥ 16** — INDEPENDENTLY_REPRODUCED em relação ao PR #57.
+* **M = 16 (segunda via do PR #60): 11 582 de 11 592 instâncias refutadas com prova; 10 em aberto**
+  (prova acima do teto de 3 GB). Esta cadeia **não** fecha K₃(6,2) ≥ 17.
+* Nenhum código de 15 ou 16 palavras apareceu (nenhuma formulação completa satisfazível).
+* Custo: uma VM spot t2d-standard-8 por ~4 h 25 min (≈ US$ 0,80 a US$ 0,177/h), destruída no fim.
+  Registros compactos (sem provas) em `tools/exatos/k362_repro/registros/` (1,7 MB).
+
 
 ## 1. A redução (PROVED)
 
@@ -154,7 +164,13 @@ Réplica parcial no container (outro binário do RoundingSat, máquina compartil
 formulação completa que estouraram 60 s ali (na VM, as mesmas fecham em menos de 3 s) — OBSERVED,
 diferença de binário e de carga, não de fórmula (sha256 idênticos).
 
-**Cadeia CNF (CaDiCaL + LRAT), VM:** CNFRESUMO
+**Cadeia CNF (CaDiCaL + LRAT), VM:** a relaxação da fatia é refutada com prova LRAT aceita pelo
+`lrat-check` em **11 171 de 11 496** instâncias — exatamente as mesmas 11 171 em que o RoundingSat
+refutou a fatia; nas outras 325 o CaDiCaL também acha a fatia satisfazível (os dois solvers concordam
+instância a instância). Na formulação completa dessas 325, o CaDiCaL não fecha em 30 s (num teste
+com 900 s, 7 de 8 seguiam abertas aos 8 min e as provas encheram 20 GB de disco); essas 325 ficam
+cobertas só pela cadeia OPB. CPU total da CNF: 114 415 s (~32 h de núcleo, 4 h de parede em 8
+núcleos); maior prova LRAT: 396 MB.
 
 Comparação com o PR #57 (LP/Farkas sobre as 12 049 instâncias do PR #51): lá, das 11 000 configurações
 de `s = 5`, 10 591 morrem pelo LP de cobertura só da fatia; aqui, 10 681 morrem pela versão **inteira**
@@ -193,7 +209,7 @@ palavras apareceu, nenhum modelo satisfazível), mas deixa 10 instâncias sem ce
 |---|---|
 | a redução (§1) é completa | PROVED (texto acima) |
 | a lista tem uma classe de `K` por órbita, 11 496 para M = 15 | COMPUTATIONALLY_VERIFIED (Burnside) e INDEPENDENTLY_REPRODUCED (contagens de `GAPS2_K362.md`/PR #57; nauty com grafo próprio) |
-| as 11 496 instâncias de M = 15 são inviáveis | COMPUTATIONALLY_VERIFIED: 11 496 provas VeriPB conferidas; CNFESTADO |
+| as 11 496 instâncias de M = 15 são inviáveis | COMPUTATIONALLY_VERIFIED: 11 496 provas VeriPB conferidas; 11 171 delas também por prova LRAT conferida (as 325 restantes só pela cadeia OPB) |
 | K₃(6,2) ≥ 16 | **INDEPENDENTLY_REPRODUCED** em relação ao PR #57: outra redução (sem blocos, relaxação projetada), outra enumeração e canonização (colunas + Burnside + nauty com grafo de triângulos), outro sistema de prova (planos de corte checados pelo VeriPB, e resolução checada pelo `lrat-check`), nenhum código em comum |
 | K₃(6,2) ≥ 17 (M = 16) | OBSERVED apenas: 11 582 / 11 592 com prova; 10 em aberto |
 
