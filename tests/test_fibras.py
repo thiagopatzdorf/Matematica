@@ -260,8 +260,8 @@ def test_codigo_da_particao_q7_embaralhado_satisfaz_a_cnf(n, blocos, M):
             checar(embaralhar(cod, 7, n, rng), 7, n, k, ordem=ordem)
 
 
-def test_cobertura_exige_todos_os_perfis_e_todos_os_cubos(tmp_path):
-    """cobertura.py: perfil fechado = UNSAT conferido inteiro ou em TODOS os cubos."""
+def test_fecha_perfis_exige_todos_os_perfis_e_todos_os_cubos(tmp_path):
+    """fecha_perfis.py: perfil fechado = UNSAT conferido inteiro ou em TODOS os cubos."""
     import json
     import subprocess
     q, n, M = 5, 5, 8
@@ -275,7 +275,7 @@ def test_cobertura_exige_todos_os_perfis_e_todos_os_cubos(tmp_path):
         r.update(kw)
         return json.dumps(r)
 
-    script = RAIZ / "tools" / "exatos" / "fibras" / "cobertura.py"
+    script = RAIZ / "tools" / "exatos" / "fibras" / "fecha_perfis.py"
 
     def roda(linhas):
         f = tmp_path / "x.jsonl"
@@ -300,7 +300,7 @@ def test_cobertura_exige_todos_os_perfis_e_todos_os_cubos(tmp_path):
 
 
 def test_codigo_k7_6_4_com_14_palavras_nao_deixa_ponto_descoberto():
-    # K_7(6,4) <= 14 (a sonda achou no perfil 2222222^6); com o ∄ 13 por perfis, K_7(6,4) = 14
+    # K_7(6,4) <= 14 (achado no perfil 2222222^6); o ∄ 13 por perfis ainda passa por red team
     cod = [tuple(map(int, ln)) for ln in (RAIZ / "data" / "codes" / "q7_n6_R4_M14.txt").read_text().split()]
     assert len(set(cod)) == 14
     falta = [x for x in itertools.product(range(7), repeat=6) if not any(cobre_ponto(x, c, 4) for c in cod)]

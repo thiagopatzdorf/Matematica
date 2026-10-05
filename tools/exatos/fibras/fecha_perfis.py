@@ -8,7 +8,7 @@ hoje, numa amostra (`--amostra-sha N`), e lista o que falta. Sai com código 1 s
 ou se houver SAT / INDEFINIDO sem fechamento.
 
 Uso:
-  python3 tools/exatos/fibras/cobertura.py --q 7 --n 5 --M 16 arquivos.jsonl...
+  python3 tools/exatos/fibras/fecha_perfis.py --q 7 --n 5 --M 16 arquivos.jsonl...
 """
 import argparse
 import hashlib

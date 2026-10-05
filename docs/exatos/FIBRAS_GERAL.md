@@ -6,19 +6,21 @@ medimos, célula por célula da triagem, se ela cabe no orçamento.
 
 ## Resultado
 
-**Resumo (2026-10-05):** K_7(6,4) = 14 (∄ 13 por 8008 perfis com LRAT, e um código de 14
-achado pela própria varredura de M = 14). K_7(5,3) sobe para 16–17; a prova de ∄ 16 (201 376
+**Resumo (2026-10-05):** K_7(6,4) ≤ 14 por um código verificado (bate a cota publicada, 15). Com o
+∄ 13 por 8008 perfis com LRAT daria K_7(6,4) = 14, mas essa inexistência depende do Lema 1 geral e
+das quebras (g)/(h), que ainda passam por red team: até lá, **não afirme 14 como valor exato**. K_7(5,3) sobe para 16–17; a prova de ∄ 16 (201 376
 perfis) está em andamento, ver a linha de M = 16. K_q(4,2), q = 16…20: o método não alcança
 (seção "Medições"); sondas de existência também não acharam código.
 
 | célula | antes | depois | afirmação provada | instâncias | verificação |
 |---|---|---|---|---|---|
 | **K_7(5,3)** | 15–17 | **16–17** | ∄ código com 15 palavras | 1 perfil | CaDiCaL UNSAT (221 s), `lrat-check` VERIFIED, `lrat.py` VERIFICADO (prova de 1,56 GB, sha256 `9cc887c5…`), kissat UNSAT (11 min) |
-| **K_7(6,4)** | 13–15 | **= 14** | ∄ código com 13 palavras; código com 14 | 8008 perfis + 1 SAT | 8008/8008 UNSAT, 8008/8008 `lrat-check` VERIFIED, amostra de 12 com `lrat.py` VERIFICADO; o código de 14 (`data/codes/q7_n6_R4_M14.txt`) passa no `tools/verify/verify` (0 de 117 649 pontos descobertos) |
+| **K_7(6,4)** | 13–15 | **14 (pendente de red team) — ub 14 já verificado** | ∄ código com 13 palavras; código com 14 | 8008 perfis + 1 SAT | 8008/8008 UNSAT, 8008/8008 `lrat-check` VERIFIED, amostra de 12 com `lrat.py` VERIFICADO; o código de 14 (`data/codes/q7_n6_R4_M14.txt`) passa no `tools/verify/verify` (0 de 117 649 pontos descobertos) |
 <!-- LINHA_M16 -->
 | K_7(5,3), M = 16 | 16–17 | (em andamento) | ∄ código com 16 palavras | 201 376 perfis | 201 375 UNSAT com `lrat-check` VERIFIED; falta 1 perfil (3322222^5), em 4953 cubos |
 
-Status honesto, igual ao do k742: resultado **computacional com certificado** (LRAT conferido por
+A contagem dos perfis fechados é do `tools/exatos/fibras/fecha_perfis.py` (era `cobertura.py`;
+renomeado porque sombreava `ledger/cobertura.py` na suíte inteira). Status honesto, igual ao do k742: resultado **computacional com certificado** (LRAT conferido por
 dois verificadores, um deles em amostra), mais os lemas abaixo, escritos à mão e testados por
 máquina. Não está no Lean e não mexi no ledger.
 
@@ -175,9 +177,10 @@ Validação na mesma família (valores conhecidos):
 | controles sem (g) e (h) em K_5(5,3), M = 8 | o mesmo UNSAT | 21/21 UNSAT com prova |
 | K_q(4,2) do k742 (q = 7, M = 17, 18; q = 8, M = 22; q = 5, M = 10) | mesmo s_min e mesmos perfis | `test_lema_geral_reproduz_o_k742_em_k_q_4_2` |
 
-## K_7(6,4) = 14: o código
+## K_7(6,4) ≤ 14: o código
 
-Achado pela varredura de M = 14 (`rodar.py --q 7 --n 6 --M 14 --ordem max`, instância 0, perfil
+Achado pela varredura de M = 14 (`data/structured/q7_n6_R4_M14.json` gerado pelo
+`scripts/codes/build_structured.py`, com a proveniência lá) (`rodar.py --q 7 --n 6 --M 14 --ordem max`, instância 0, perfil
 2222222^6, CaDiCaL 18,6 s) e conferido três vezes: `cobre` do `rodar.py`, força bruta à parte em
 Python e o verificador oficial (`tools/verify/verify -q 7 -n 6 -r 4 -m 14`, sha256 canônico
 `9f2c5351…`). Fica em `data/codes/q7_n6_R4_M14.txt`; o teste
