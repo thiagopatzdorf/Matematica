@@ -1,2 +1,4 @@
 q=3 n=6 R=1 M=72 seed=1 secs=90 T0=0.5 T1=0.12 res(final best)=2 2 wall=209
 q=3 n=6 R=1 M=72 seed=2 secs=90 T0=0.5 T1=0.12 res(final best)=2 2 wall=222
+q=7 n=4 R=1 M=122 seed=1 secs(wall)=150 T0=0.5 T1=0.12 res(final best)=15 15 wall=150
+q=2 n=13 R=3 M=41 seed=1 secs(wall)=150 T0=0.5 T1=0.12 res(final best)=136 136 wall=150

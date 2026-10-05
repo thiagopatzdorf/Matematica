@@ -5,3 +5,15 @@ NO best=6
 q=3 n=7 R=3 M=11 seed=1 iters=4573952 best_unc=33 final_unc=33 secs=60.0
 NO best=33
 == K3(8,2) M=80 secs=60 seed=1 cmd: ./sa 3 8 2 80 60 1 0.5 0.12
+q=3 n=8 R=2 M=80 seed=1 iters=10891264 best_unc=315 final_unc=315 secs=60.0
+NO best=315
+== K7(6,4) M=14 secs=90 seed=1 cmd: ./sa 7 6 4 14 90 1 0.5 0.12
+q=7 n=6 R=4 M=14 seed=1 iters=249856 best_unc=171 final_unc=171 secs=90.0
+NO best=171
+== K2(14,3) M=63 secs=60 seed=1 cmd: ./sa 2 14 3 63 60 1 0.5 0.12
+q=2 n=14 R=3 M=63 seed=1 iters=2999552 best_unc=633 final_unc=633 secs=60.0
+NO best=633
+== K2(15,3) M=111 secs=60 seed=1 cmd: ./sa 2 15 3 111 60 1 0.5 0.12
+q=2 n=15 R=3 M=111 seed=1 iters=2580992 best_unc=1054 final_unc=1054 secs=60.0
+NO best=1054
+== K2(16,4) M=63 secs=60 seed=1 cmd: ./sa 2 16 4 63 60 1 0.5 0.12
