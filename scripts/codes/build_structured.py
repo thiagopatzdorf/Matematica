@@ -48,6 +48,19 @@ PROVENANCE = {
                  "(15 órbitas de 7). Verificado por 3 verificadores independentes (candidates/k7_9_4_1134).",
         "dims": [3],
     },
+    "q7_n6_R4_M14": {
+        "generator": "tools/exatos/fibras/rodar.py (perfis de fibras + CaDiCaL 3.0.1 c607304): instância 0 da "
+                     "ordem max de K_7(6,4) M=14, perfil 2222222^6, SAT em 18,6 s",
+        "commit": "c75be90",
+        "seed": None,
+        "command": "python3 tools/exatos/fibras/rodar.py --q 7 --n 6 --M 14 --ordem max --dificeis-primeiro "
+                   "--fatia 0/3 --prova --descartar --dir out/k764_14",
+        "date": "2026-10-04",
+        "agent": "James.V1",
+        "repo_commit": None,
+        "notes": "decodificado do modelo SAT e conferido pelo cobre() do rodar.py, por força bruta à parte e por "
+                 "tools/verify/verify.c (0 de 117 649 pontos descobertos). Ver docs/exatos/FIBRAS_GERAL.md.",
+    },
     "q7_n9_R4_M1351": {
         "generator": "lincov (Mapika/coldcase) para os 3 cosets de [9,3]_7; remendo de 322 palavras sem registro",
         "commit": "56a8cce",

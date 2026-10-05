@@ -1,0 +1,8 @@
+{"mutante": "controle", "q": 7, "n": 5, "M": 15, "codigos": 50, "orbita_unsat": 0, "forma_normal_viola": 0}
+{"mutante": "h_entre_tamanhos", "q": 7, "n": 5, "M": 15, "codigos": 50, "orbita_unsat": 0, "forma_normal_viola": 28}
+{"mutante": "h_nos_dois_sentidos", "q": 7, "n": 5, "M": 15, "codigos": 50, "orbita_unsat": 50, "forma_normal_viola": 50}
+{"mutante": "h_na_coordenada_2", "q": 7, "n": 5, "M": 15, "codigos": 50, "orbita_unsat": 0, "forma_normal_viola": 50}
+{"mutante": "g_tipos_diferentes", "q": 7, "n": 5, "M": 15, "codigos": 50, "orbita_unsat": 0, "forma_normal_viola": 0}
+{"mutante": "g_inclui_coluna_1", "q": 7, "n": 5, "M": 15, "codigos": 50, "orbita_unsat": 0, "forma_normal_viola": 23}
+{"mutante": "e_ignora_classe", "q": 7, "n": 5, "M": 15, "codigos": 50, "orbita_unsat": 0, "forma_normal_viola": 26}
+{"mutante": "f_ignora_classe", "q": 7, "n": 5, "M": 15, "codigos": 50, "orbita_unsat": 47, "forma_normal_viola": 50}

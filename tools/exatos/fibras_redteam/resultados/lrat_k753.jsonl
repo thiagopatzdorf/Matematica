@@ -1,0 +1,1 @@
+{"inst": 0, "tipos": ["3222222", "3222222", "3222222", "3222222", "3222222"], "sha_cnf_ok": true, "cadical_rc": 20, "cadical_s": 250.2, "sha_lrat_igual": true, "lrat_check": "VERIFIED", "lrat_check_s": 27.8, "cake_lpr": "s VERIFIED UNSAT", "cake_lpr_s": 91.3}
