@@ -15,6 +15,8 @@ corrija este arquivo no mesmo PR.
 * Os testes do MCP (`infinito/tests`) pedem também as dependências de `infinito/requirements.txt`.
 * Lean: `elan` (a versão vem de `lean-toolchain`), depois `lake exe cache get` e `lake build`. Não existe `lake`
   em todo ambiente; se faltar, **diga que não rodou** em vez de supor que passa.
+* Vários worktrees na mesma máquina: não copie nem aponte symlink para o `.lake` de outro; use o cache por hardlink
+  (`tools/infra/lake_cache.sh ligar`, ver [docs/infra/LAKE_CACHE.md](docs/infra/LAKE_CACHE.md)).
 * Trabalhe em um worktree ou branch seu. Não reescreva histórico enviado, não faça `git stash` em checkout compartilhado.
 
 ## Como validar
