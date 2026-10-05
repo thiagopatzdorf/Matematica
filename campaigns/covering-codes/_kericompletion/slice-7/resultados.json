@@ -1,0 +1,199 @@
+[
+ {
+  "id": "K2(11,3)",
+  "ub_publicada": 16,
+  "fonte": "keri_2011",
+  "melhor_nosso_verificado_ou_null": null,
+  "M": null,
+  "sha256": null,
+  "verificadores_PASS": [],
+  "tentativas": [
+   {
+    "cmd": "sa M=16 60s seed1 T=0.4 (calibragem na cota da tabela)",
+    "resultado": "best_unc=22"
+   },
+   {
+    "cmd": "sa M=15 130s seed1 T=0.4",
+    "resultado": "best_unc=30"
+   }
+  ],
+  "estado": "SEM_MELHORA_NESTA_BUSCA"
+ },
+ {
+  "id": "K2(12,1)",
+  "ub_publicada": 380,
+  "fonte": "keri_2011",
+  "melhor_nosso_verificado_ou_null": null,
+  "M": null,
+  "sha256": null,
+  "verificadores_PASS": [],
+  "tentativas": [
+   {
+    "cmd": "sa M=380 60s",
+    "resultado": "best_unc=3"
+   },
+   {
+    "cmd": "sa M=379 130s",
+    "resultado": "best_unc=17"
+   }
+  ],
+  "estado": "SEM_MELHORA_NESTA_BUSCA"
+ },
+ {
+  "id": "K5(6,3)",
+  "ub_publicada": 25,
+  "fonte": "keri_2011",
+  "melhor_nosso_verificado_ou_null": null,
+  "M": null,
+  "sha256": null,
+  "verificadores_PASS": [],
+  "tentativas": [
+   {
+    "cmd": "sa M=25 60s",
+    "resultado": "best_unc=37"
+   },
+   {
+    "cmd": "sa M=24 130s",
+    "resultado": "best_unc=72"
+   }
+  ],
+  "estado": "SEM_MELHORA_NESTA_BUSCA"
+ },
+ {
+  "id": "K3(9,2)",
+  "ub_publicada": 219,
+  "fonte": "keri_2011",
+  "melhor_nosso_verificado_ou_null": null,
+  "M": null,
+  "sha256": null,
+  "verificadores_PASS": [],
+  "tentativas": [
+   {
+    "cmd": "sa M=219 60s",
+    "resultado": "best_unc=618 (calibragem; M=218 nao rodou)"
+   }
+  ],
+  "estado": "SEM_MELHORA_NESTA_BUSCA"
+ },
+ {
+  "id": "K3(10,5)",
+  "ub_publicada": 12,
+  "fonte": "keri_2011",
+  "melhor_nosso_verificado_ou_null": null,
+  "M": null,
+  "sha256": null,
+  "verificadores_PASS": [],
+  "tentativas": [],
+  "estado": "NAO_TENTADA"
+ },
+ {
+  "id": "K7(6,3)",
+  "ub_publicada": 77,
+  "fonte": "keri_2011",
+  "melhor_nosso_verificado_ou_null": null,
+  "M": null,
+  "sha256": null,
+  "verificadores_PASS": [],
+  "tentativas": [],
+  "estado": "NAO_TENTADA"
+ },
+ {
+  "id": "K3(11,4)",
+  "ub_publicada": 81,
+  "fonte": "keri_2011",
+  "melhor_nosso_verificado_ou_null": null,
+  "M": null,
+  "sha256": null,
+  "verificadores_PASS": [],
+  "tentativas": [],
+  "estado": "NAO_TENTADA"
+ },
+ {
+  "id": "K2(18,1)",
+  "ub_publicada": 16384,
+  "fonte": "keri_2011",
+  "melhor_nosso_verificado_ou_null": null,
+  "M": null,
+  "sha256": null,
+  "verificadores_PASS": [],
+  "tentativas": [],
+  "estado": "NAO_TENTADA"
+ },
+ {
+  "id": "K2(19,7)",
+  "ub_publicada": 16,
+  "fonte": "keri_2011",
+  "melhor_nosso_verificado_ou_null": null,
+  "M": null,
+  "sha256": null,
+  "verificadores_PASS": [],
+  "tentativas": [],
+  "estado": "NAO_TENTADA"
+ },
+ {
+  "id": "K7(7,2)",
+  "ub_publicada": 2401,
+  "fonte": "keri_2011",
+  "melhor_nosso_verificado_ou_null": null,
+  "M": null,
+  "sha256": null,
+  "verificadores_PASS": [],
+  "tentativas": [],
+  "estado": "NAO_TENTADA"
+ },
+ {
+  "id": "K2(20,1)",
+  "ub_publicada": 63488,
+  "fonte": "keri_2011",
+  "melhor_nosso_verificado_ou_null": null,
+  "M": null,
+  "sha256": null,
+  "verificadores_PASS": [],
+  "tentativas": [],
+  "estado": "NAO_TENTADA"
+ },
+ {
+  "id": "K2(21,5)",
+  "ub_publicada": 256,
+  "fonte": "keri_2011",
+  "melhor_nosso_verificado_ou_null": null,
+  "M": null,
+  "sha256": null,
+  "verificadores_PASS": [],
+  "tentativas": [],
+  "estado": "NAO_TENTADA"
+ },
+ {
+  "id": "K2(22,4)",
+  "ub_publicada": 1536,
+  "fonte": "keri_2011",
+  "melhor_nosso_verificado_ou_null": null,
+  "M": null,
+  "sha256": null,
+  "verificadores_PASS": [],
+  "tentativas": [],
+  "estado": "NAO_TENTADA"
+ },
+ {
+  "id": "K3(14,7)",
+  "ub_publicada": 27,
+  "fonte": "keri_2011",
+  "melhor_nosso_verificado_ou_null": null,
+  "M": null,
+  "sha256": null,
+  "verificadores_PASS": [],
+  "tentativas": [],
+  "estado": "NAO_TENTADA"
+ },
+ {
+  "id": "K2(23,4)",
+  "ub_publicada": 2048,
+  "fonte": "keri_2011",
+  "melhor_nosso_verificado_ou_null": null,
+  "M": null,
+  "sha256": null,
+  "verificadores_PASS": [],
+  "tentativas": [],
+  "estado": "NAO_TENTADA"
+ }
+]

@@ -1,0 +1,359 @@
+[
+ {
+  "id": "K5(4,1)",
+  "ub_publicada": 51,
+  "lb_publicada": 46,
+  "fonte": "keri_2011",
+  "melhor_nosso_verificado_ou_null": null,
+  "M": null,
+  "sha256": null,
+  "verificadores_PASS": [],
+  "tentativas": [
+   {
+    "metodo": "SA generico (work/sa.c), M fixo, minimiza descobertos",
+    "M_alvo": 50,
+    "cmd": "./sa 5 4 1 50 60 1 0.5 0.12",
+    "semente": 1,
+    "segundos_cpu": 60,
+    "saida": "q=5 n=4 R=1 M=50 seed=1 iters=125934336 best_unc=6 final_unc=6 secs=60.0",
+    "resultado": "NO best=6"
+   }
+  ],
+  "estado": "SEM_MELHORA_NESTA_BUSCA"
+ },
+ {
+  "id": "K3(7,3)",
+  "ub_publicada": 12,
+  "lb_publicada": 11,
+  "fonte": "keri_2011",
+  "melhor_nosso_verificado_ou_null": null,
+  "M": null,
+  "sha256": null,
+  "verificadores_PASS": [],
+  "tentativas": [
+   {
+    "metodo": "SA generico (work/sa.c), M fixo, minimiza descobertos",
+    "M_alvo": 11,
+    "cmd": "./sa 3 7 3 11 60 1 0.5 0.12",
+    "semente": 1,
+    "segundos_cpu": 60,
+    "saida": "q=3 n=7 R=3 M=11 seed=1 iters=4573952 best_unc=33 final_unc=33 secs=60.0",
+    "resultado": "NO best=33"
+   },
+   {
+    "metodo": "ILP exato HiGHS via scipy (work/ilp.py), restricao M<=11",
+    "cmd": "python3 ilp.py 3 7 3 240 11",
+    "resultado": "limite de tempo 240s sem solucao viavel e sem cota dual: nada provado"
+   }
+  ],
+  "estado": "SEM_MELHORA_NESTA_BUSCA"
+ },
+ {
+  "id": "K3(8,2)",
+  "ub_publicada": 81,
+  "lb_publicada": 58,
+  "fonte": "keri_2011",
+  "melhor_nosso_verificado_ou_null": null,
+  "M": null,
+  "sha256": null,
+  "verificadores_PASS": [],
+  "tentativas": [
+   {
+    "metodo": "SA generico (work/sa.c), M fixo, minimiza descobertos",
+    "M_alvo": 80,
+    "cmd": "./sa 3 8 2 80 60 1 0.5 0.12",
+    "semente": 1,
+    "segundos_cpu": 60,
+    "saida": "q=3 n=8 R=2 M=80 seed=1 iters=10891264 best_unc=315 final_unc=315 secs=60.0",
+    "resultado": "NO best=315"
+   }
+  ],
+  "estado": "SEM_MELHORA_NESTA_BUSCA"
+ },
+ {
+  "id": "K2(14,3)",
+  "ub_publicada": 64,
+  "lb_publicada": 44,
+  "fonte": "keri_2011",
+  "melhor_nosso_verificado_ou_null": null,
+  "M": null,
+  "sha256": null,
+  "verificadores_PASS": [],
+  "tentativas": [
+   {
+    "metodo": "SA generico (work/sa.c), M fixo, minimiza descobertos",
+    "M_alvo": 63,
+    "cmd": "./sa 2 14 3 63 60 1 0.5 0.12",
+    "semente": 1,
+    "segundos_cpu": 60,
+    "saida": "q=2 n=14 R=3 M=63 seed=1 iters=2999552 best_unc=633 final_unc=633 secs=60.0",
+    "resultado": "NO best=633"
+   }
+  ],
+  "estado": "SEM_MELHORA_NESTA_BUSCA"
+ },
+ {
+  "id": "K2(15,3)",
+  "ub_publicada": 112,
+  "lb_publicada": 70,
+  "fonte": "keri_2011",
+  "melhor_nosso_verificado_ou_null": null,
+  "M": null,
+  "sha256": null,
+  "verificadores_PASS": [],
+  "tentativas": [
+   {
+    "metodo": "SA generico (work/sa.c), M fixo, minimiza descobertos",
+    "M_alvo": 111,
+    "cmd": "./sa 2 15 3 111 60 1 0.5 0.12",
+    "semente": 1,
+    "segundos_cpu": 60,
+    "saida": "q=2 n=15 R=3 M=111 seed=1 iters=2580992 best_unc=1054 final_unc=1054 secs=60.0",
+    "resultado": "NO best=1054"
+   }
+  ],
+  "estado": "SEM_MELHORA_NESTA_BUSCA"
+ },
+ {
+  "id": "K2(16,4)",
+  "ub_publicada": 64,
+  "lb_publicada": 34,
+  "fonte": "keri_2011",
+  "melhor_nosso_verificado_ou_null": null,
+  "M": null,
+  "sha256": null,
+  "verificadores_PASS": [],
+  "tentativas": [
+   {
+    "metodo": "SA generico (work/sa.c), M fixo, minimiza descobertos",
+    "M_alvo": 63,
+    "cmd": "./sa 2 16 4 63 60 1 0.5 0.12",
+    "semente": 1,
+    "segundos_cpu": 60,
+    "saida": "q=2 n=16 R=4 M=63 seed=1 iters=774656 best_unc=759 final_unc=759 secs=60.0",
+    "resultado": "NO best=759"
+   }
+  ],
+  "estado": "SEM_MELHORA_NESTA_BUSCA"
+ },
+ {
+  "id": "K7(6,4)",
+  "ub_publicada": 15,
+  "lb_publicada": 13,
+  "fonte": "keri_2011",
+  "melhor_nosso_verificado_ou_null": null,
+  "M": null,
+  "sha256": null,
+  "verificadores_PASS": [],
+  "tentativas": [
+   {
+    "metodo": "SA generico (work/sa.c), M fixo, minimiza descobertos",
+    "M_alvo": 14,
+    "cmd": "./sa 7 6 4 14 90 1 0.5 0.12",
+    "semente": 1,
+    "segundos_cpu": 90,
+    "saida": "q=7 n=6 R=4 M=14 seed=1 iters=249856 best_unc=171 final_unc=171 secs=90.0",
+    "resultado": "NO best=171"
+   }
+  ],
+  "estado": "SEM_MELHORA_NESTA_BUSCA"
+ },
+ {
+  "id": "K3(11,1)",
+  "ub_publicada": 9477,
+  "lb_publicada": 7832,
+  "fonte": "keri_2011",
+  "melhor_nosso_verificado_ou_null": null,
+  "M": null,
+  "sha256": null,
+  "verificadores_PASS": [],
+  "tentativas": [
+   {
+    "metodo": "SA generico (work/sa.c), M fixo, minimiza descobertos",
+    "M_alvo": 9476,
+    "cmd": "./sa 3 11 1 9476 120 1 0.5 0.12",
+    "semente": 1,
+    "segundos_cpu": 120,
+    "saida": "q=3 n=11 R=1 M=9476 seed=1 iters=101040640 best_unc=15327 final_unc=15327 secs=120.0",
+    "resultado": "NO best=15327"
+   }
+  ],
+  "estado": "SEM_MELHORA_NESTA_BUSCA"
+ },
+ {
+  "id": "K5(8,2)",
+  "ub_publicada": 1625,
+  "lb_publicada": 861,
+  "fonte": "keri_2011",
+  "melhor_nosso_verificado_ou_null": null,
+  "M": null,
+  "sha256": null,
+  "verificadores_PASS": [],
+  "tentativas": [
+   {
+    "metodo": "SA generico (work/sa.c), M fixo, minimiza descobertos",
+    "M_alvo": 1624,
+    "cmd": "./sa 5 8 2 1624 120 1 0.5 0.12",
+    "semente": 1,
+    "segundos_cpu": 120,
+    "saida": "q=5 n=8 R=2 M=1624 seed=1 iters=7610880 best_unc=19496 final_unc=19496 secs=120.0",
+    "resultado": "NO best=19496"
+   }
+  ],
+  "estado": "SEM_MELHORA_NESTA_BUSCA"
+ },
+ {
+  "id": "K3(12,4)",
+  "ub_publicada": 175,
+  "lb_publicada": 65,
+  "fonte": "keri_2011",
+  "melhor_nosso_verificado_ou_null": null,
+  "M": null,
+  "sha256": null,
+  "verificadores_PASS": [],
+  "tentativas": [
+   {
+    "metodo": "SA generico (work/sa.c), M fixo, minimiza descobertos",
+    "M_alvo": 174,
+    "cmd": "./sa 3 12 4 174 90 1 0.5 0.12",
+    "semente": 1,
+    "segundos_cpu": 90,
+    "saida": "q=3 n=12 R=4 M=174 seed=1 iters=433152 best_unc=3089 final_unc=3089 secs=90.0",
+    "resultado": "NO best=3089"
+   }
+  ],
+  "estado": "SEM_MELHORA_NESTA_BUSCA"
+ },
+ {
+  "id": "K2(20,6)",
+  "ub_publicada": 64,
+  "lb_publicada": 24,
+  "fonte": "keri_2011",
+  "melhor_nosso_verificado_ou_null": null,
+  "M": null,
+  "sha256": null,
+  "verificadores_PASS": [],
+  "tentativas": [
+   {
+    "metodo": "SA generico (work/sa.c), M fixo, minimiza descobertos",
+    "M_alvo": 63,
+    "cmd": "./sa 2 20 6 63 90 1 0.5 0.12",
+    "semente": 1,
+    "segundos_cpu": 90,
+    "saida": "q=2 n=20 R=6 M=63 seed=1 iters=60416 best_unc=1819 final_unc=1819 secs=90.2",
+    "resultado": "NO best=1819"
+   }
+  ],
+  "estado": "SEM_MELHORA_NESTA_BUSCA"
+ },
+ {
+  "id": "K3(13,6)",
+  "ub_publicada": 36,
+  "lb_publicada": 14,
+  "fonte": "keri_2011",
+  "melhor_nosso_verificado_ou_null": null,
+  "M": null,
+  "sha256": null,
+  "verificadores_PASS": [],
+  "tentativas": [
+   {
+    "metodo": "SA generico (work/sa.c), M fixo, minimiza descobertos",
+    "M_alvo": 35,
+    "cmd": "./sa 3 13 6 35 90 1 0.5 0.12",
+    "semente": 1,
+    "segundos_cpu": 90,
+    "saida": "q=3 n=13 R=6 M=35 seed=1 iters=26624 best_unc=2814 final_unc=2814 secs=90.8",
+    "resultado": "NO best=2814"
+   }
+  ],
+  "estado": "SEM_MELHORA_NESTA_BUSCA"
+ },
+ {
+  "id": "K2(21,3)",
+  "ub_publicada": 3072,
+  "lb_publicada": 1475,
+  "fonte": "keri_2011",
+  "melhor_nosso_verificado_ou_null": null,
+  "M": null,
+  "sha256": null,
+  "verificadores_PASS": [],
+  "tentativas": [
+   {
+    "metodo": "SA generico (work/sa.c), M fixo, minimiza descobertos",
+    "M_alvo": 3071,
+    "cmd": "./sa 2 21 3 3071 120 1 0.5 0.12",
+    "semente": 1,
+    "segundos_cpu": 120,
+    "saida": "q=2 n=21 R=3 M=3071 seed=1 iters=1769216 best_unc=74538 final_unc=74538 secs=120.0",
+    "resultado": "NO best=74538"
+   }
+  ],
+  "estado": "SEM_MELHORA_NESTA_BUSCA"
+ },
+ {
+  "id": "K2(22,3)",
+  "ub_publicada": 4096,
+  "lb_publicada": 2544,
+  "fonte": "keri_2011",
+  "melhor_nosso_verificado_ou_null": null,
+  "M": null,
+  "sha256": null,
+  "verificadores_PASS": [],
+  "tentativas": [
+   {
+    "metodo": "SA generico (work/sa.c), M fixo, minimiza descobertos",
+    "M_alvo": 4095,
+    "cmd": "./sa 2 22 3 4095 120 1 0.5 0.12",
+    "semente": 1,
+    "segundos_cpu": 120,
+    "saida": "q=2 n=22 R=3 M=4095 seed=1 iters=1134336 best_unc=401928 final_unc=401928 secs=120.0",
+    "resultado": "NO best=401928"
+   }
+  ],
+  "estado": "SEM_MELHORA_NESTA_BUSCA"
+ },
+ {
+  "id": "K3(14,1)",
+  "ub_publicada": 177147,
+  "lb_publicada": 166610,
+  "fonte": "keri_2011",
+  "melhor_nosso_verificado_ou_null": null,
+  "M": null,
+  "sha256": null,
+  "verificadores_PASS": [],
+  "tentativas": [
+   {
+    "metodo": "SA generico (work/sa.c), M fixo, minimiza descobertos",
+    "M_alvo": 177146,
+    "cmd": "./sa 3 14 1 177146 120 1 0.5 0.12",
+    "semente": 1,
+    "segundos_cpu": 120,
+    "saida": "q=3 n=14 R=1 M=177146 seed=1 iters=45952256 best_unc=850387 final_unc=850387 secs=120.0",
+    "resultado": "NO best=850387"
+   }
+  ],
+  "estado": "SEM_MELHORA_NESTA_BUSCA"
+ },
+ {
+  "id": "K2(23,1)",
+  "ub_publicada": 393216,
+  "lb_publicada": 352827,
+  "fonte": "keri_2011",
+  "melhor_nosso_verificado_ou_null": null,
+  "M": null,
+  "sha256": null,
+  "verificadores_PASS": [],
+  "tentativas": [
+   {
+    "metodo": "SA generico (work/sa.c), M fixo, minimiza descobertos",
+    "M_alvo": 393215,
+    "cmd": "./sa 2 23 1 393215 120 1 0.5 0.12",
+    "semente": 1,
+    "segundos_cpu": 120,
+    "saida": "q=2 n=23 R=1 M=393215 seed=1 iters=43956224 best_unc=1302936 final_unc=1302936 secs=120.0",
+    "resultado": "NO best=1302936"
+   }
+  ],
+  "estado": "SEM_MELHORA_NESTA_BUSCA"
+ }
+]

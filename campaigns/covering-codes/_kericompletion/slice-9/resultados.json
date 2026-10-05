@@ -1,0 +1,299 @@
+[
+ {
+  "id": "K3(7,1)",
+  "ub_publicada": 186,
+  "fonte": "keri_2011",
+  "melhor_nosso_verificado_ou_null": null,
+  "M": null,
+  "sha256": null,
+  "verificadores_PASS": [],
+  "tentativas": [
+   {
+    "metodo": "sa.c SA direto",
+    "M": 185,
+    "segundos": 150,
+    "semente": 1,
+    "T0": 0.5,
+    "T1": 0.25,
+    "melhor_descobertos": 23,
+    "parou": "tempo; nao zerou"
+   }
+  ],
+  "estado": "SEM_MELHORA_NESTA_BUSCA"
+ },
+ {
+  "id": "K3(8,3)",
+  "ub_publicada": 27,
+  "fonte": "keri_2011",
+  "melhor_nosso_verificado_ou_null": null,
+  "M": null,
+  "sha256": null,
+  "verificadores_PASS": [],
+  "tentativas": [
+   {
+    "metodo": "sa.c SA direto",
+    "M": 26,
+    "segundos": 200,
+    "semente": 1,
+    "T0": 0.5,
+    "T1": 0.25,
+    "melhor_descobertos": 36,
+    "parou": "tempo; nao zerou"
+   }
+  ],
+  "estado": "SEM_MELHORA_NESTA_BUSCA"
+ },
+ {
+  "id": "K2(14,2)",
+  "ub_publicada": 248,
+  "fonte": "keri_2011",
+  "melhor_nosso_verificado_ou_null": null,
+  "M": null,
+  "sha256": null,
+  "verificadores_PASS": [],
+  "tentativas": [
+   {
+    "metodo": "sa.c SA direto",
+    "M": 247,
+    "segundos": 240,
+    "semente": 1,
+    "T0": 0.5,
+    "T1": 0.25,
+    "melhor_descobertos": 747,
+    "parou": "tempo; nao zerou"
+   }
+  ],
+  "estado": "SEM_MELHORA_NESTA_BUSCA"
+ },
+ {
+  "id": "K3(9,1)",
+  "ub_publicada": 1269,
+  "fonte": "keri_2011",
+  "melhor_nosso_verificado_ou_null": null,
+  "M": null,
+  "sha256": null,
+  "verificadores_PASS": [],
+  "tentativas": [
+   {
+    "metodo": "sa.c SA direto",
+    "M": 1268,
+    "segundos": 240,
+    "semente": 1,
+    "T0": 0.5,
+    "T1": 0.25,
+    "melhor_descobertos": 1241,
+    "parou": "tempo; nao zerou"
+   }
+  ],
+  "estado": "SEM_MELHORA_NESTA_BUSCA"
+ },
+ {
+  "id": "K2(16,5)",
+  "ub_publicada": 28,
+  "fonte": "keri_2011",
+  "melhor_nosso_verificado_ou_null": null,
+  "M": null,
+  "sha256": null,
+  "verificadores_PASS": [],
+  "tentativas": [
+   {
+    "metodo": "sa.c SA direto",
+    "M": 27,
+    "segundos": 240,
+    "semente": 1,
+    "T0": 0.5,
+    "T1": 0.25,
+    "melhor_descobertos": 144,
+    "parou": "tempo; nao zerou"
+   }
+  ],
+  "estado": "SEM_MELHORA_NESTA_BUSCA"
+ },
+ {
+  "id": "K7(6,1)",
+  "ub_publicada": 4435,
+  "fonte": "keri_2011",
+  "melhor_nosso_verificado_ou_null": null,
+  "M": null,
+  "sha256": null,
+  "verificadores_PASS": [],
+  "tentativas": [
+   {
+    "metodo": "sa.c SA direto",
+    "M": 4434,
+    "segundos": 240,
+    "semente": 1,
+    "T0": 0.5,
+    "T1": 0.25,
+    "melhor_descobertos": 7980,
+    "parou": "tempo; nao zerou"
+   }
+  ],
+  "estado": "SEM_MELHORA_NESTA_BUSCA"
+ },
+ {
+  "id": "K3(11,3)",
+  "ub_publicada": 243,
+  "fonte": "keri_2011",
+  "melhor_nosso_verificado_ou_null": null,
+  "M": null,
+  "sha256": null,
+  "verificadores_PASS": [],
+  "tentativas": [
+   {
+    "metodo": "sa.c SA direto",
+    "M": 242,
+    "segundos": 240,
+    "semente": 1,
+    "T0": 0.5,
+    "T1": 0.25,
+    "melhor_descobertos": 5875,
+    "parou": "tempo; nao zerou"
+   }
+  ],
+  "estado": "SEM_MELHORA_NESTA_BUSCA"
+ },
+ {
+  "id": "K5(8,4)",
+  "ub_publicada": 65,
+  "fonte": "keri_2011",
+  "melhor_nosso_verificado_ou_null": null,
+  "M": null,
+  "sha256": null,
+  "verificadores_PASS": [],
+  "tentativas": [
+   {
+    "metodo": "sa.c SA direto",
+    "M": 64,
+    "segundos": 240,
+    "semente": 1,
+    "T0": 0.5,
+    "T1": 0.25,
+    "melhor_descobertos": 282,
+    "parou": "tempo; nao zerou"
+   }
+  ],
+  "estado": "SEM_MELHORA_NESTA_BUSCA"
+ },
+ {
+  "id": "K2(19,1)",
+  "ub_publicada": 31744,
+  "fonte": "keri_2011",
+  "melhor_nosso_verificado_ou_null": null,
+  "M": null,
+  "sha256": null,
+  "verificadores_PASS": [],
+  "tentativas": [
+   {
+    "metodo": "sa.c SA direto",
+    "M": 31743,
+    "segundos": 200,
+    "semente": 1,
+    "T0": 0.5,
+    "T1": 0.25,
+    "melhor_descobertos": 43293,
+    "parou": "tempo; nao zerou"
+   }
+  ],
+  "estado": "SEM_MELHORA_NESTA_BUSCA"
+ },
+ {
+  "id": "K7(7,1)",
+  "ub_publicada": 31045,
+  "fonte": "keri_2011",
+  "melhor_nosso_verificado_ou_null": null,
+  "M": null,
+  "sha256": null,
+  "verificadores_PASS": [],
+  "tentativas": [
+   {
+    "metodo": "sa.c SA direto",
+    "M": 31044,
+    "segundos": 200,
+    "semente": 1,
+    "T0": 0.5,
+    "T1": 0.25,
+    "melhor_descobertos": 30091,
+    "parou": "tempo; nao zerou"
+   }
+  ],
+  "estado": "SEM_MELHORA_NESTA_BUSCA"
+ },
+ {
+  "id": "K3(13,4)",
+  "ub_publicada": 335,
+  "fonte": "keri_2011",
+  "melhor_nosso_verificado_ou_null": null,
+  "M": null,
+  "sha256": null,
+  "verificadores_PASS": [],
+  "tentativas": [
+   {
+    "metodo": "sa.c SA direto",
+    "M": 334,
+    "segundos": 200,
+    "semente": 1,
+    "T0": 0.5,
+    "T1": 0.25,
+    "melhor_descobertos": 16250,
+    "parou": "tempo; nao zerou"
+   }
+  ],
+  "estado": "SEM_MELHORA_NESTA_BUSCA"
+ },
+ {
+  "id": "K2(21,7)",
+  "ub_publicada": 32,
+  "fonte": "keri_2011",
+  "melhor_nosso_verificado_ou_null": null,
+  "M": null,
+  "sha256": null,
+  "verificadores_PASS": [],
+  "tentativas": [],
+  "estado": "NAO_TENTADA"
+ },
+ {
+  "id": "K2(22,8)",
+  "ub_publicada": 28,
+  "fonte": "keri_2011",
+  "melhor_nosso_verificado_ou_null": null,
+  "M": null,
+  "sha256": null,
+  "verificadores_PASS": [],
+  "tentativas": [],
+  "estado": "NAO_TENTADA"
+ },
+ {
+  "id": "K3(14,3)",
+  "ub_publicada": 2187,
+  "fonte": "keri_2011",
+  "melhor_nosso_verificado_ou_null": null,
+  "M": null,
+  "sha256": null,
+  "verificadores_PASS": [],
+  "tentativas": [
+   {
+    "metodo": "sa.c SA direto",
+    "M": 2186,
+    "segundos": 200,
+    "semente": 1,
+    "T0": 0.5,
+    "T1": 0.25,
+    "melhor_descobertos": 659895,
+    "parou": "tempo; nao zerou"
+   }
+  ],
+  "estado": "SEM_MELHORA_NESTA_BUSCA"
+ },
+ {
+  "id": "K2(23,9)",
+  "ub_publicada": 16,
+  "fonte": "keri_2011",
+  "melhor_nosso_verificado_ou_null": null,
+  "M": null,
+  "sha256": null,
+  "verificadores_PASS": [],
+  "tentativas": [],
+  "estado": "NAO_TENTADA"
+ }
+]

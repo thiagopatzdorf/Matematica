@@ -1,0 +1,210 @@
+[
+ {
+  "id": "K3(6,2)",
+  "ub_publicada": 17,
+  "fonte": "Kéri 2011 (tabelas, http://old.sztaki.hu/~keri/codes/)",
+  "melhor_nosso_verificado_ou_null": null,
+  "M": null,
+  "sha256": null,
+  "verificadores_PASS": [],
+  "tentativas": [
+   "slice-1/sa_generico.c (SA em C, mover 1 palavra p/ bola de ponto descoberto), M=16, semente 1, 240s, 1 nucleo nice, best_uncovered=9; nao achou cobertura com M=16"
+  ],
+  "estado": "SEM_MELHORA_NESTA_BUSCA"
+ },
+ {
+  "id": "K7(4,2)",
+  "ub_publicada": 19,
+  "fonte": "Kéri 2011 (tabelas, http://old.sztaki.hu/~keri/codes/)",
+  "melhor_nosso_verificado_ou_null": null,
+  "M": null,
+  "sha256": null,
+  "verificadores_PASS": [],
+  "tentativas": [
+   "slice-1/sa_generico.c (SA em C, mover 1 palavra p/ bola de ponto descoberto), M=18, semente 1, 240s, 1 nucleo nice, best_uncovered=24; nao achou cobertura com M=18"
+  ],
+  "estado": "SEM_MELHORA_NESTA_BUSCA"
+ },
+ {
+  "id": "K3(8,1)",
+  "ub_publicada": 486,
+  "fonte": "Kéri 2011 (tabelas, http://old.sztaki.hu/~keri/codes/)",
+  "melhor_nosso_verificado_ou_null": null,
+  "M": null,
+  "sha256": null,
+  "verificadores_PASS": [],
+  "tentativas": [
+   "processo de busca interrompido (reset de sessao) antes de chegar aqui"
+  ],
+  "estado": "NAO_TENTADA"
+ },
+ {
+  "id": "K2(14,5)",
+  "ub_publicada": 12,
+  "fonte": "Kéri 2011 (tabelas, http://old.sztaki.hu/~keri/codes/)",
+  "melhor_nosso_verificado_ou_null": null,
+  "M": null,
+  "sha256": null,
+  "verificadores_PASS": [],
+  "tentativas": [
+   "processo de busca interrompido (reset de sessao) antes de chegar aqui"
+  ],
+  "estado": "NAO_TENTADA"
+ },
+ {
+  "id": "K2(15,4)",
+  "ub_publicada": 32,
+  "fonte": "Kéri 2011 (tabelas, http://old.sztaki.hu/~keri/codes/)",
+  "melhor_nosso_verificado_ou_null": null,
+  "M": null,
+  "sha256": null,
+  "verificadores_PASS": [],
+  "tentativas": [
+   "processo de busca interrompido (reset de sessao) antes de chegar aqui"
+  ],
+  "estado": "NAO_TENTADA"
+ },
+ {
+  "id": "K2(16,3)",
+  "ub_publicada": 192,
+  "fonte": "Kéri 2011 (tabelas, http://old.sztaki.hu/~keri/codes/)",
+  "melhor_nosso_verificado_ou_null": null,
+  "M": null,
+  "sha256": null,
+  "verificadores_PASS": [],
+  "tentativas": [
+   "processo de busca interrompido (reset de sessao) antes de chegar aqui"
+  ],
+  "estado": "NAO_TENTADA"
+ },
+ {
+  "id": "K2(17,4)",
+  "ub_publicada": 112,
+  "fonte": "Kéri 2011 (tabelas, http://old.sztaki.hu/~keri/codes/)",
+  "melhor_nosso_verificado_ou_null": null,
+  "M": null,
+  "sha256": null,
+  "verificadores_PASS": [],
+  "tentativas": [
+   "processo de busca interrompido (reset de sessao) antes de chegar aqui"
+  ],
+  "estado": "NAO_TENTADA"
+ },
+ {
+  "id": "K2(18,4)",
+  "ub_publicada": 192,
+  "fonte": "Kéri 2011 (tabelas, http://old.sztaki.hu/~keri/codes/)",
+  "melhor_nosso_verificado_ou_null": null,
+  "M": null,
+  "sha256": null,
+  "verificadores_PASS": [],
+  "tentativas": [
+   "processo de busca interrompido (reset de sessao) antes de chegar aqui"
+  ],
+  "estado": "NAO_TENTADA"
+ },
+ {
+  "id": "K5(8,5)",
+  "ub_publicada": 15,
+  "fonte": "Kéri 2011 (tabelas, http://old.sztaki.hu/~keri/codes/)",
+  "melhor_nosso_verificado_ou_null": null,
+  "M": null,
+  "sha256": null,
+  "verificadores_PASS": [],
+  "tentativas": [
+   "slice-1/sa_generico.c (SA em C, mover 1 palavra p/ bola de ponto descoberto), M=14, semente 1, 180s, 1 nucleo nice, best_uncovered=1688 (so 18688 movimentos; bola enorme, SA lento); nao achou cobertura com M=14"
+  ],
+  "estado": "SEM_MELHORA_NESTA_BUSCA"
+ },
+ {
+  "id": "K3(12,5)",
+  "ub_publicada": 54,
+  "fonte": "Kéri 2011 (tabelas, http://old.sztaki.hu/~keri/codes/)",
+  "melhor_nosso_verificado_ou_null": null,
+  "M": null,
+  "sha256": null,
+  "verificadores_PASS": [],
+  "tentativas": [
+   "processo de busca interrompido (reset de sessao) antes de chegar aqui"
+  ],
+  "estado": "NAO_TENTADA"
+ },
+ {
+  "id": "K2(20,4)",
+  "ub_publicada": 512,
+  "fonte": "Kéri 2011 (tabelas, http://old.sztaki.hu/~keri/codes/)",
+  "melhor_nosso_verificado_ou_null": null,
+  "M": null,
+  "sha256": null,
+  "verificadores_PASS": [],
+  "tentativas": [
+   "processo de busca interrompido (reset de sessao) antes de chegar aqui"
+  ],
+  "estado": "NAO_TENTADA"
+ },
+ {
+  "id": "K3(13,3)",
+  "ub_publicada": 1215,
+  "fonte": "Kéri 2011 (tabelas, http://old.sztaki.hu/~keri/codes/)",
+  "melhor_nosso_verificado_ou_null": null,
+  "M": null,
+  "sha256": null,
+  "verificadores_PASS": [],
+  "tentativas": [
+   "processo de busca interrompido (reset de sessao) antes de chegar aqui"
+  ],
+  "estado": "NAO_TENTADA"
+ },
+ {
+  "id": "K2(21,6)",
+  "ub_publicada": 64,
+  "fonte": "Kéri 2011 (tabelas, http://old.sztaki.hu/~keri/codes/)",
+  "melhor_nosso_verificado_ou_null": null,
+  "M": null,
+  "sha256": null,
+  "verificadores_PASS": [],
+  "tentativas": [
+   "processo de busca interrompido (reset de sessao) antes de chegar aqui"
+  ],
+  "estado": "NAO_TENTADA"
+ },
+ {
+  "id": "K2(22,2)",
+  "ub_publicada": 24576,
+  "fonte": "Kéri 2011 (tabelas, http://old.sztaki.hu/~keri/codes/)",
+  "melhor_nosso_verificado_ou_null": null,
+  "M": null,
+  "sha256": null,
+  "verificadores_PASS": [],
+  "tentativas": [
+   "processo de busca interrompido (reset de sessao) antes de chegar aqui"
+  ],
+  "estado": "NAO_TENTADA"
+ },
+ {
+  "id": "K13(6,1)",
+  "ub_publicada": 92535,
+  "fonte": "Kéri 2011 (tabelas, http://old.sztaki.hu/~keri/codes/)",
+  "melhor_nosso_verificado_ou_null": null,
+  "M": null,
+  "sha256": null,
+  "verificadores_PASS": [],
+  "tentativas": [
+   "processo de busca interrompido (reset de sessao) antes de chegar aqui"
+  ],
+  "estado": "NAO_TENTADA"
+ },
+ {
+  "id": "K2(23,2)",
+  "ub_publicada": 32768,
+  "fonte": "Kéri 2011 (tabelas, http://old.sztaki.hu/~keri/codes/)",
+  "melhor_nosso_verificado_ou_null": null,
+  "M": null,
+  "sha256": null,
+  "verificadores_PASS": [],
+  "tentativas": [
+   "processo de busca interrompido (reset de sessao) antes de chegar aqui"
+  ],
+  "estado": "NAO_TENTADA"
+ }
+]
