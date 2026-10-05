@@ -67,6 +67,7 @@ def test_predicado_h_pega_guloso_sem_multiplicidade():
 
 
 def test_codificacao_independente_reproduz_k4_4_2_igual_a_7():
+    pytest.importorskip("pysat")
     import indep_perfil
     from pysat.solvers import Solver
 
@@ -90,6 +91,7 @@ FIBRAS = RAIZ / "tools" / "exatos" / "fibras"
 
 @pytest.mark.skipif(not (FIBRAS / "fib_encode.py").exists(), reason="codificador do PR #56 ausente")
 def test_orbita_do_contraexemplo_satisfaz_a_cnf_do_repo_e_mutante_de_h_e_pego():
+    pytest.importorskip("pysat")
     import orbita_fibras
     enc = orbita_fibras.carregar_encode(str(FIBRAS))
     assert orbita_fibras.orbita_sat(enc, contraexemplo_h.C, 4, 3, cobertura=False)

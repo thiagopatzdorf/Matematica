@@ -14,7 +14,6 @@ import time
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import indep_perfil  # noqa: E402
 import perfis_indep  # noqa: E402
-from pysat.solvers import Solver  # noqa: E402
 
 
 def cobre(C, q, n, R):
@@ -22,6 +21,8 @@ def cobre(C, q, n, R):
 
 
 def achar(q, n, M, smin, quantos, por_perfil, semente, segundos=600):
+    from pysat.solvers import Solver  # import tardio (CI sem pysat)
+
     rng = random.Random(semente)
     perfis = sorted(perfis_indep.perfis(q, n, M, smin))
     rng.shuffle(perfis)

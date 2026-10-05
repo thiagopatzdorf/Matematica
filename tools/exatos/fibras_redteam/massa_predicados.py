@@ -15,7 +15,7 @@ AQUI = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, AQUI)
 import canon_corrigido  # noqa: E402
 import predicados  # noqa: E402
-from completude import codigo_aleatorio, embaralhar, ler_codigo  # noqa: E402
+from completude import codigo_aleatorio, embaralhar  # noqa: E402
 
 
 def main():

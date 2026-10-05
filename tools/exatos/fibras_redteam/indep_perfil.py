@@ -18,7 +18,6 @@ import hashlib
 import itertools
 import sys
 
-from pysat.card import CardEnc, EncType
 
 
 class F:
@@ -36,6 +35,8 @@ class F:
 
 def codificar(q, n, M, perfil):
     """perfil: lista de n tipos (tuplas decrescentes de q fibras somando M)."""
+    from pysat.card import CardEnc, EncType  # import tardio (CI sem pysat)
+
     assert len(perfil) == n and all(len(t) == q and sum(t) == M for t in perfil)
     f = F()
     X = [[[f.var() for _ in range(q)] for _ in range(n)] for _ in range(M)]

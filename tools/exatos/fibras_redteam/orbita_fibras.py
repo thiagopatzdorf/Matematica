@@ -9,10 +9,8 @@ apontar para o commit auditado e para mutantes.
 import importlib.util
 import itertools
 import os
-import sys
 from collections import Counter
 
-from pysat.solvers import Solver
 
 
 def carregar_encode(diretorio, fonte=None, nome="fib_encode_auditado"):
@@ -89,5 +87,7 @@ def orbita_sat(enc, C, q, n, k=None, cobertura=True, ordem="min", smin=None, sol
                 for i in range(1, n):
                     for b in range(q):
                         extra.append([-pi[w][u], -Q[i][j], -sg[j][C[u][j]][b], x[w][i][b]])
+    from pysat.solvers import Solver  # import tardio: o CI sem pysat ainda coleta os testes
+
     with Solver(name=solver, bootstrap_with=cl + extra) as s:
         return s.solve()
