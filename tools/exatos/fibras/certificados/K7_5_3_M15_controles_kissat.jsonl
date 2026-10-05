@@ -1,0 +1,2 @@
+{"q": 7, "n": 5, "M": 15, "k": 5, "smin": 2, "inst": 0, "sem": "h", "ordem": "min", "tipos": ["3222222", "3222222", "3222222", "3222222", "3222222"], "vars": 6668, "clausulas": 43097, "tempo_solver_s": 10365.112, "rc": 20, "resultado": "UNSAT"}
+{"q": 7, "n": 5, "M": 15, "k": 5, "smin": 2, "inst": 0, "sem": "gh", "ordem": "min", "tipos": ["3222222", "3222222", "3222222", "3222222", "3222222"], "vars": 6640, "clausulas": 41853, "tempo_solver_s": 10800.011, "rc": 0, "resultado": "INDEFINIDO"}

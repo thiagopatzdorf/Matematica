@@ -1,0 +1,36 @@
+{
+ "format": "covering-code/v1",
+ "q": 7,
+ "n": 6,
+ "R": 4,
+ "M": 14,
+ "digit_convention": "word text s[0]..s[n-1]; integer w = sum_k s[k]*q^k; digit k = (w // q^k) % q",
+ "subcode_cosets": [],
+ "patch_words": [
+  "000000",
+  "011111",
+  "100011",
+  "122200",
+  "212222",
+  "221122",
+  "333333",
+  "343444",
+  "434455",
+  "444366",
+  "555534",
+  "565643",
+  "656665",
+  "666556"
+ ],
+ "provenance": {
+  "generator": "tools/exatos/fibras/rodar.py (perfis de fibras + CaDiCaL 3.0.1 c607304): instância 0 da ordem max de K_7(6,4) M=14, perfil 2222222^6, SAT em 18,6 s",
+  "commit": "c75be90",
+  "seed": null,
+  "command": "python3 tools/exatos/fibras/rodar.py --q 7 --n 6 --M 14 --ordem max --dificeis-primeiro --fatia 0/3 --prova --descartar --dir out/k764_14",
+  "date": "2026-10-04",
+  "agent": "James.V1",
+  "repo_commit": null,
+  "notes": "decodificado do modelo SAT e conferido pelo cobre() do rodar.py, por força bruta à parte e por tools/verify/verify.c (0 de 117 649 pontos descobertos). Ver docs/exatos/FIBRAS_GERAL.md."
+ },
+ "canonical_sha256": "9f2c53518162b5d3451f4d9ebf7849fefad101b1658ee0aba63ee0228d5d6a62"
+}
