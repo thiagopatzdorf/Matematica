@@ -79,10 +79,11 @@ def main():
         ap.add_argument("--" + k, type=int, required=True)
     ap.add_argument("--instancias", required=True)
     ap.add_argument("--certificados", required=True)
-    ap.add_argument("--sha256", help="sha256 esperado do JSON de instâncias")
+    ap.add_argument("--sha256", required=True,
+                    help="sha256 esperado do JSON de instâncias (obrigatório: a lista é parte da prova)")
     a = ap.parse_args()
     bruto = open(a.instancias, "rb").read()
-    if a.sha256 and hashlib.sha256(bruto).hexdigest() != a.sha256:
+    if hashlib.sha256(bruto).hexdigest() != a.sha256.strip().lower():
         sys.exit("sha256 da lista de instâncias não confere")
     ins = json.loads(bruto)
     pts, bola = bolas(a.q, a.n, a.R)

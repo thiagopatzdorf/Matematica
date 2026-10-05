@@ -7,17 +7,27 @@ INDEPENDENTLY_REPRODUCED, PROVED, FORMALIZED.
 
 ## Resumo
 
+### O que o certificado verificado usa (a prova)
+
 | resultado | estado |
 |---|---|
-| **As 12 049 instâncias da fatia mínima com M = 15 são inviáveis já na relaxação linear** (12 047 na raiz, 2 com ramificação: 5 e 2 folhas). São 12 054 certificados de Farkas inteiros, conferidos por um verificador exato só com biblioteca padrão. Com a completude da redução (`GAPS2_K362.md`), isso dá **K_3(6,2) ≥ 16** | COMPUTATIONALLY_VERIFIED. Falta red team externo e reprodução independente. **Não vai para o ledger** |
-| O perfil 5+5+5 (s* = 5, 11 000 instâncias) morre por um lema de fatia de uma linha: 10 591 configurações já pelo LP de cobertura da fatia, mais 406 pelo mesmo LP com as colunas equilibradas, e as 3 restantes pelo LP do espaço inteiro | COMPUTATIONALLY_VERIFIED (dentro dos 12 054 acima) |
-| Lema do perfil equilibrado: todas as fibras com 5 palavras ⇔ `Σ_c d(x,c) = 60` para todo x ⇔ `B_1 = 0` no dual de MacWilliams | PROVED (abaixo) |
-| Lema da fatia: `τ*(U(K)) ≤ M − s` para toda fibra de tamanho s | PROVED (abaixo) |
-| LPs agregados (vetor local + Delsarte + pares): o melhor dá **12**. O 5+5+5 com ILP agregado continua viável | COMPUTATIONALLY_VERIFIED (solver em ponto flutuante, inviabilidade só nos casos citados) |
-| Ramos de Raval com a barra de M = 15: **9 de 38 morrem, 29 ficam abertos**. Com qualquer ordem das órbitas, o primeiro ramo tem LP ≤ 9,51 < 12, e fixar um 4º centro não passa de 9,36 < 11 | OBSERVED (LP em ponto flutuante; os 9 duais foram conferidos em inteiros pelo gerador, sem verificador independente) |
+| **As 12 049 instâncias da fatia mínima com M = 15 são inviáveis já na relaxação linear.** 12 047 caem na raiz e 2 ramificam, com 5 e 2 folhas. São 12 054 certificados de Farkas inteiros, conferidos por um verificador exato que usa só a biblioteca padrão. Com a completude da redução (`GAPS2_K362.md`), isso dá **K_3(6,2) ≥ 16** | COMPUTATIONALLY_VERIFIED. Sobreviveu ao red team (PR #59, `K3_M15_REDTEAM.md`, com verificador de Farkas escrito do zero). Falta reprodução independente da enumeração. **Não vai para o ledger** |
+
+Cada certificado usa **só** as cinco famílias de restrições do OPB do GAPS2 (cobertura, fibras ≥ s*, tamanho, blocos e fatia 0 fixada), sobre o sistema 0-1 **inteiro** de cada instância (729 variáveis). A cadeia da prova tem dois elos: a completude da lista (`GAPS2_K362.md`, com o passo das colunas RGS e a conferência por Burnside) e os 12 054 certificados. **Nenhum lema desta página entra nela.** Nem o lema da fatia na forma LP, nem as colunas equilibradas, nem o lema do perfil equilibrado, nem os LPs agregados, nem os ramos de Raval.
+
+### Diagnóstico, fora da prova
+
+| resultado | estado |
+|---|---|
+| Por que o 5+5+5 fica fácil para o LP: das 11 000 configurações com s* = 5, 10 591 já morrem pelo LP de cobertura **só da fatia** (lema da fatia), mais 406 pelo mesmo LP com as colunas equilibradas, e as 3 restantes (1129, 6339, 10111) só pelo LP do espaço inteiro. Os certificados versionados **não** são desses LPs da fatia; o red team não conferiu esses números | OBSERVED (HiGHS em ponto flutuante, sem certificado guardado) |
+| Lema do perfil equilibrado: todas as fibras com 5 palavras ⇔ `Σ_c d(x,c) = 60` para todo x ⇔ `B_1 = 0` no dual de MacWilliams | PROVED (abaixo); não usado na prova |
+| Lema da fatia: `τ*(U(K)) ≤ M − s` para toda fibra de tamanho s | PROVED (abaixo); não usado na prova |
+| LPs agregados (vetor local + Delsarte + pares): o melhor dá **12**. O 5+5+5 com ILP agregado continua viável | OBSERVED (solver em ponto flutuante) |
+| Ramos de Raval com a barra de M = 15: **9 de 38 morrem, 29 ficam abertos**. Com qualquer ordem das órbitas, o primeiro ramo tem LP ≤ 9,51 < 12, e fixar um 4º centro não passa de 9,36 < 11 | OBSERVED (LP em ponto flutuante; os 9 duais foram conferidos em inteiros só pelo gerador, sem verificador independente) |
 
 As 6 instâncias que custaram de 3,5 a mais de 30 minutos ao RoundingSat no GAPS2 (7955, 9118,
-10603, 11739, 11804 e 11927, todas com s* = 5) estão entre as que o LP da fatia já mata.
+10603, 11739, 11804 e 11927, todas com s* = 5) estão entre as que o LP da fatia já mata
+(diagnóstico). O certificado delas, como o de todas as outras, é do sistema inteiro.
 
 ## 1. Contagem dupla
 
@@ -65,7 +75,8 @@ ponto `(a, y)` com `y ∈ U(K)` não é coberto por F. Então é coberto por uma
 já difere em j, logo `d(y, c') ≤ 1`. Assim, as `M − s` palavras de fora cobrem U(K) com raio 1, e
 o número de cobertura fracionário `τ*_1(U(K))` é no máximo `M − s`. A versão de contagem pura,
 `|U| ≤ (M − s)·11`, é o filtro do GAPS2. A versão LP é muito mais forte: para s = 5, das 11 000
-configurações que passam no filtro, 10 591 têm `τ* > 10`.
+configurações que passam no filtro, 10 591 têm `τ* > 10` (OBSERVED, diagnóstico; os certificados
+versionados não usam este lema).
 
 Validação do lema: `K_3(4,1)`, M = 8, fica sem configuração viável em todo s*. `K_3(5,2)`, M = 7,
 deixa 1 configuração. É o esperado, porque o lema sozinho não precisa matar tudo.
@@ -87,7 +98,8 @@ média nas palavras e Delsarte. Menor M viável:
 
 Com o perfil 5+5+5 (`Σ i v_i = 60` em todo vetor, `B_1 = 0`), M = 15 continua viável, e
 **também como ILP em N(v)** (584 vetores locais admissíveis). Resultado negativo: nenhuma
-desigualdade agregada desta família mata o 5+5+5. O que mata é quebrar a simetria (seção 4).
+desigualdade agregada desta família mata o 5+5+5. O que fecha é o LP do sistema inteiro de cada
+instância da fatia, depois de a redução quebrar a simetria (seção 4).
 SDP/Terwilliger (tarefa 3): não foi feito. O LP já fica abaixo do SDP conhecido, e a seção 4 tornou
 o SDP desnecessário para M = 15.
 
@@ -129,8 +141,9 @@ Conferência: **7 s**. Dados: `dados/K3_6_2_M15_instancias.json.gz` (lista; o sh
 
 **Por que vale como prova, com a ressalva do estado:** (1) todo código de 15 palavras cai numa
 instância da lista, e todas as restrições dela valem para ele. Isso é a completude da redução, com
-prova escrita em `GAPS2_K362.md` e testada em `tests/test_gaps2.py`. (2) Cada instância não tem
-nem solução fracionária, o que o certificado mostra em aritmética inteira. Logo não existe código
+prova escrita em `GAPS2_K362.md` (inclusive o passo das colunas RGS) e conferida por Burnside no
+red team. (2) Cada instância não tem nem solução fracionária, o que o certificado mostra em
+aritmética inteira, usando só as cinco famílias de restrições do OPB. Logo não existe código
 de 15 palavras, e `K_3(6,2) ≥ 16`.
 
 **Red team já feito:**
@@ -150,9 +163,14 @@ de 15 palavras, e `K_3(6,2) ≥ 16`.
 - Mutações recusadas: y negativo, linhas de cobertura removidas, certificado aplicado a outra
   instância e árvore sem um ramo.
 
-**O que falta antes de qualquer afirmação pública:** reprodução independente (outro corpo, outro
-solver, outro verificador escrito do zero), revisão da prova de completude do GAPS2 por quem não a
-escreveu e, idealmente, conferência dos certificados no Lean. Por regra, nada disso entra no ledger
+**Red team externo (PR #59, `K3_M15_REDTEAM.md`):** sobrevive com ressalvas de exposição e de
+independência; nenhuma é de gravidade alta. Um verificador de Farkas em `Fraction`, escrito do zero,
+aceitou as 12 054 folhas. As ressalvas L1, L4 e L5 foram tratadas neste PR: o passo das colunas RGS
+está em `GAPS2_K362.md`, este resumo separa prova de diagnóstico, e o `--sha256` é obrigatório.
+
+**O que falta antes de qualquer afirmação pública:** uma enumeração independente da lista (outro
+canonicalizador, por exemplo nauty, com comparação de sha256 ou do conjunto de formas) e,
+idealmente, conferência dos certificados no Lean. Por regra, nada disso entra no ledger
 por este PR.
 
 ## Reprodução
