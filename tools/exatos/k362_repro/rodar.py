@@ -2,6 +2,8 @@
 
     python3 rodar.py 3 6 2 15 --formato opb --bin DIR --saida registros.jsonl [--proc 2]
 
+    python3 rodar.py --compactar registros.jsonl registros.jsonl.gz
+
 DIR contém roundingsat e veripb (opb) ou cadical e lrat-check (cnf). Uma linha JSON por instância:
 s, K, |U|, sha256 da fórmula, veredito, tempos, resultado do verificador. Se a relaxação da fatia for
 satisfazível, tenta a formulação completa; se esta também for, o modelo é guardado (candidato a código).
@@ -48,8 +50,25 @@ def uma(args):
     return reg
 
 
+def compactar(entrada, saida):
+    """Registro versionável: uma linha JSON por instância, sem prova e sem modelo.
+    [s, K, [sha256, veredito, verificador, t_solver, t_verif] da fatia, idem da completa ou null]."""
+    import gzip
+
+    def f(r):
+        return r and [r["sha256"], r["veredito"], r.get("verificador"), r["t_solver"], r.get("t_verif")]
+    regs = [json.loads(ln) for ln in open(entrada)]
+    regs.sort(key=lambda r: (r["s"], r["K"]))
+    with gzip.open(saida, "wt") as g:
+        for r in regs:
+            K = ",".join("".join(map(str, k)) for k in r["K"])
+            g.write(json.dumps([r["s"], K, f(r["fatia"]), f(r.get("completa"))]) + "\n")
+
+
 def main(argv=None):
     ap = argparse.ArgumentParser()
+    if argv is None and len(sys.argv) > 1 and sys.argv[1] == "--compactar":
+        return compactar(sys.argv[2], sys.argv[3])
     ap.add_argument("q", type=int)
     ap.add_argument("n", type=int)
     ap.add_argument("R", type=int)
