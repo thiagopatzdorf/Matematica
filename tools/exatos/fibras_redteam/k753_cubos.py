@@ -143,7 +143,7 @@ def main():
                 exemplos.append(("cubo", ci))
                 continue
             unit = "".join(f"{x[w][1][a]} 0\n" for w, a in enumerate(cubo))
-            txt = (f"c {rot} cubo L={M} #{ci}: {list(cubo)}\np cnf {cnf.nv} {len(cnf.cl) + M}\n" + corpo + unit)
+            txt = (f"c {rot} cubo L={M} #{ci}: {tuple(cubo)}\np cnf {cnf.nv} {len(cnf.cl) + M}\n" + corpo + unit)
             if hashlib.sha256(txt.encode()).hexdigest() == r["sha256.cnf"]:
                 sha_ok += 1
             else:
