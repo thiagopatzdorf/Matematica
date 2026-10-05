@@ -2,6 +2,7 @@
 import itertools
 import os
 import subprocess
+import tempfile
 
 import numpy as np
 
@@ -10,7 +11,7 @@ AQUI = os.path.dirname(os.path.abspath(__file__))
 
 def binario(destino=None):
     """Compila canon.c (precisa de libnauty-dev) e devolve o caminho do executável."""
-    destino = destino or os.path.join(os.environ.get("TMPDIR", "/tmp"), "k362_repro_canon")
+    destino = destino or os.path.join(tempfile.gettempdir(), "k362_repro_canon")
     fonte = os.path.join(AQUI, "canon.c")
     if not os.path.exists(destino) or os.path.getmtime(destino) < os.path.getmtime(fonte):
         subprocess.run(["gcc", "-O2", "-DWORDSIZE=64", "-DMAXN=WORDSIZE", "-o", destino, fonte,
@@ -64,8 +65,8 @@ def classificar_por_reducao(q, n, R, M, exe=None):
     deduplicados pela forma do nauty. Todo código é isométrico a um normalizado cujo K é o
     representante listado, então aparece como modelo de alguma instância."""
     from pysat.solvers import Solver
-    import rodar
-    import sat
+    import repro_rodar as rodar
+    import repro_sat as sat
     codigos = []
     for s, K in rodar.instancias(q, n, R, M):
         cob, nv, teto, fib = sat.restricoes(q, n, R, M, K, completa=True)

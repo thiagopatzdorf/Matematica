@@ -1,8 +1,8 @@
 """Roda todas as instâncias (s, K) de "existe código de K_q(n,R) com M palavras?".
 
-    python3 rodar.py 3 6 2 15 --formato opb --bin DIR --saida registros.jsonl [--proc 2]
+    python3 repro_rodar.py 3 6 2 15 --formato opb --bin DIR --saida registros.jsonl [--proc 2]
 
-    python3 rodar.py --compactar registros.jsonl registros.jsonl.gz
+    python3 repro_rodar.py --compactar registros.jsonl registros.jsonl.gz
 
 DIR contém roundingsat e veripb (opb) ou cadical e lrat-check (cnf). Uma linha JSON por instância:
 s, K, |U|, sha256 da fórmula, veredito, tempos, resultado do verificador. Se a relaxação da fatia for
@@ -15,8 +15,8 @@ import os
 import sys
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-import enumera  # noqa: E402
-import sat  # noqa: E402
+import repro_enumera as enumera  # noqa: E402
+import repro_sat as sat  # noqa: E402
 
 
 def instancias(q, n, R, M):

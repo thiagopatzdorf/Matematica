@@ -11,13 +11,13 @@ import pytest
 
 RAIZ = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, os.path.join(RAIZ, "tools", "exatos", "k362_repro"))
-import enumera  # noqa: E402
-import sat  # noqa: E402
+import repro_enumera as enumera  # noqa: E402
+import repro_sat as sat  # noqa: E402
 
 
 def _nauty():
     try:
-        import canon
+        import repro_canon as canon
         return canon, canon.binario()
     except (subprocess.CalledProcessError, FileNotFoundError):
         pytest.skip("libnauty-dev/gcc ausente")
@@ -102,10 +102,22 @@ def test_estabilizador_do_nauty_difere_da_forca_bruta_em_z3_3():
         assert canon.formas([[_num(p, 3) for p in c]], 3, 3, exe)[0][1] == bruto
 
 
-@pytest.mark.parametrize("q,n,R,M,esperado", [(3, 4, 1, 9, 1), (3, 5, 2, 8, 1)])
-def test_classificacao_conhecida_nao_reproduzida(q, n, R, M, esperado):
+def test_classificacao_de_k341_igual_a_9_nao_da_codigo_unico_pelos_dois_metodos():
     canon, exe = _nauty()
-    assert len(canon.classificar(q, n, R, M, exe)) == esperado
+    assert len(canon.classificar(3, 4, 1, 9, exe)) == 1
+    pytest.importorskip("pysat")
+    assert len(canon.classificar_por_reducao(3, 4, 1, 9, exe)) == 1
+
+
+# Lentos (100 s e 170 s neste container): ligue com K362_REPRO_LENTO=1. Resultados em K3_M15_REPRODUCAO.md.
+@pytest.mark.skipif(not os.environ.get("K362_REPRO_LENTO"), reason="lento; K362_REPRO_LENTO=1")
+@pytest.mark.parametrize("metodo,q,n,R,M,esperado", [("classificar_por_reducao", 3, 5, 2, 8, 1),
+                                                      ("classificar", 3, 6, 3, 6, 28)])
+def test_classificacao_publicada_nao_reproduzida(metodo, q, n, R, M, esperado):
+    canon, exe = _nauty()
+    if metodo == "classificar_por_reducao":
+        pytest.importorskip("pysat")
+    assert len(getattr(canon, metodo)(q, n, R, M, exe)) == esperado
 
 
 def _normalizar(C, q, n):
@@ -148,7 +160,7 @@ def test_restricao_que_viola_codigo_verdadeiro_tornaria_a_reducao_falsa(q, n, R,
 
 @pytest.mark.parametrize("formato", ["opb", "cnf"])
 def test_cadeia_nao_reproduz_k352_igual_a_8(formato, tmp_path):
-    import rodar
+    import repro_rodar as rodar
     b = _binarios(formato)
     d = os.path.dirname(next(iter(b.values())))
     assert rodar.main(["3", "5", "2", "7", "--formato", formato, "--bin", d, "--saida", str(tmp_path / "a")]) \
