@@ -77,7 +77,7 @@ def test_publicar_faz_newversion_apaga_herdado_sobe_pdf_metadados_e_publica_ness
     metodos = [(m, u.rsplit("/", 2)[-2:]) for m, u, _ in falso.chamadas]
     assert [m for m, _ in metodos] == ["POST", "GET", "DELETE", "PUT", "PUT", "POST"]
     assert falso.chamadas[0][1].endswith("/23085770/actions/newversion")
-    assert falso.chamadas[3][1].endswith("/covering-codes-lean-kernel-v0.8.0.pdf")
+    assert falso.chamadas[3][1].endswith("/covering-codes-lean-kernel-v0.9.0.pdf")
     assert all(auth == f"Bearer {TOKEN}" for _, _, auth in falso.chamadas)
     out = capsys.readouterr()
     assert "PUBLICADO 10.5281/zenodo.1" in out.out

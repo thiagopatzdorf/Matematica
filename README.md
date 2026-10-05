@@ -17,16 +17,17 @@ qualquer problema em que **verificar é bem mais barato que achar**. Código de 
 * Colaboradores convidados recebem crédito de infra (US$ 20 por pessoa, até 10 pessoas) pelo MCP Infinito, com teto
   aplicado em código.
 
-## Estado atual (2026-10-04)
+## Estado atual (2026-10-05, v0.9.0)
 
 Números conferidos no repositório (`ledger/cells.json`, `data/codes/`, `tools/verify/check_all.sh`).
 
 | o quê | valor |
 |---|---|
-| células `K_q(n,R)` no ledger (q de 2 a 21) | 1145, das quais 519 com valor exato e 626 abertas |
+| células `K_q(n,R)` no ledger (q de 2 a 21) | 1145, das quais 520 com valor exato e 625 abertas |
 | células em que temos teorema Lean próprio | 13 (11 abaixo da melhor cota superior publicada que achamos; `K_2(6,1) = 12`, o clássico, e `K_7(4,2) = 19`, as duas inteiramente no kernel) |
 | ledger certificado | A machine-checked ledger of covering-code upper bounds, with formally certified exact entries. 486 das 1145 cotas superiores são teorema do Lean (`CoveringLedger.todas_as_cotas`, a partir de `K ≤ \|C\|` genérico, regras de construção e witnesses); as inferiores seguem herdadas da literatura, exceto `K_2(6,1)` e `K_7(4,2)` (ver `ledger/COBERTURA.md`) |
-| códigos em `data/codes/` | 17, todos aprovados pelo verificador oficial em C |
+| exatos novos da v0.9 (fora do kernel) | `K_3(6,2) = 17`, `K_7(6,4) = 14` e `K_7(5,3) = 17`, potencialmente novos (não achados na literatura que buscamos, ver `docs/exatos/NOVIDADE_V09.md`). As cotas inferiores são **certificado computacional verificado** (Farkas inteiro, VeriPB, LRAT), não teorema do Lean; `K_3(6,2)` tem reprodução independente, as duas de `K_7` passaram por red team com amostra reconferida. A cota superior de `K_7(6,4) ≤ 14` é código novo, formalizada no Lean; a de `K_7(5,3) ≤ 17` é só a anunciada na literatura. Ver `docs/exatos/` e a seção 12 do paper |
+| códigos em `data/codes/` | 18, todos aprovados pelo verificador oficial em C (`tools/verify/check_all.sh`) |
 | destaques | `K_7(9,4) ≤ 1134` (publicado antes: 1475, Marosi, arXiv:2608.19872v3); `K_7(10,4) ≤ 5607` (antes: 6517, Kéri); `K_7(4,2) = 19` (antes: 17–19), inteiramente no kernel: `K742.K_7_4_2_eq_19`, sem hipótese, com as 70 refutações LRAT reexecutadas no kernel (lib `CoveringK742Sat`, fora do CI: 284 módulos, 37,8 h de CPU; ver `docs/exatos/LEAN_K742.md`) |
 | Lean e Mathlib | Lean 4.34.1, Mathlib v4.34.1; `lake build` passa e roda no CI a cada push (`CoveringK742Sat` e `CoveringLedger` ficam fora do CI pelo custo) |
 | axiomas | todo `#print axioms` mostra no máximo `propext, Classical.choice, Quot.sound` |
@@ -80,7 +81,7 @@ Lê-se melhor nesta ordem: [docs/GLOSSARIO.md](docs/GLOSSARIO.md), [docs/ARQUITE
 ## Como citar
 
 DOI conceitual: [10.5281/zenodo.23085769](https://doi.org/10.5281/zenodo.23085769) (aponta sempre para a versão
-mais nova). Tag `v0.8.0`. Os metadados completos estão em `CITATION.cff` e `.zenodo.json`; o GitHub oferece o botão
+mais nova). Tag `v0.9.0`. Os metadados completos estão em `CITATION.cff` e `.zenodo.json`; o GitHub oferece o botão
 "Cite this repository" a partir do primeiro. A nota está em [paper/main.pdf](paper/main.pdf).
 
 ## Licença e conduta
