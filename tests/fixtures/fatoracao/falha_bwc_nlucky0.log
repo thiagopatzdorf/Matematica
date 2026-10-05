@@ -1,0 +1,11 @@
+Error:Linear Algebra: Program run on server failed with exit code 2
+Error:Linear Algebra: Command line was: <CADO>/build/vm/linalg/bwc/bwc.pl :complete -v 'thr=4' 'm=64' 'n=64' 'nullspace=left' 'interval=100' 'matrix=<TRABALHO>/w90_0/c90.sparse.bin' 'wdir=<TRABALHO>/w90_0/c90.bwc' 'interleaving=0' 'cpubinding=<CADO>/parameters/misc/cpubinding.conf' 2> <TRABALHO>/w90_0/c90.bwc.stderr.1
+Error:Linear Algebra: Stderr output (last 10 lines only) follows (stored in file <TRABALHO>/w90_0/c90.bwc.stderr.1):
+Error:Linear Algebra: 	# When using lingen, you must either supply --random-input-with-length, or provide a rhs, or possibly provide rhs=none
+Error:Linear Algebra: 	Could not find the required set of solutions (nlucky=0)
+Error:Linear Algebra: 	Listing files in <TRABALHO>/w90_0/c90.bwc via readdir
+Error:Linear Algebra: 	## Check for mksol: Lingen output files missing
+Error:Linear Algebra: 	## Check for mksol: 	can't find any F file, cannot infer the mksol max iteration at <CADO>/build/vm/linalg/bwc/bwc.pl line 1546.
+Error:Linear Algebra: 	## Check for mksol: 	Please run lingen first.
+Error:Linear Algebra:
+Exception: Program failed

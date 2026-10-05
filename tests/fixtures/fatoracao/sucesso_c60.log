@@ -1,0 +1,19 @@
+Info:Polynomial Selection (size optimized): Total time: 0.47
+Info:Polynomial Selection (root optimized): Total time: 3.11
+Info:Lattice Sieving: Total number of relations: 51191
+Info:Lattice Sieving: Total time: 16.02s
+Info:Filtering - Duplicate Removal, removal pass: 23772 unique relations remain on slice 0
+Info:Filtering - Duplicate Removal, removal pass: 23622 unique relations remain on slice 1
+Info:Filtering - Duplicate Removal, removal pass: 47394 unique relations remain in total
+Info:Filtering - Singleton removal: After purge, 22683 relations with 22523 primes remain with weight 451421 and excess 160
+Info:Filtering - Merging: Merged matrix has 6310 rows and total weight 891201 (141.2 entries per row on average)
+Info:Filtering - Merging: Total cpu/real time for merge: 1.57/0.584932
+Info:Linear Algebra: Total cpu/real time for bwc: 0.94/1.5
+Info:Square Root: Total cpu/real time for sqrt: 0.46/0.224857
+Info:Lattice Sieving: Total number of relations: 51191
+Info:Lattice Sieving: Total time: 16.02s
+Info:Square Root: Total cpu/real time for sqrt: 0.46/0.224857
+Info:Polynomial Selection (root optimized): Total time: 3.11
+Info:Filtering - Merging: Total cpu/real time for merge: 1.57/0.584932
+Info:Polynomial Selection (size optimized): Total time: 0.47
+Info:Linear Algebra: Total cpu/real time for bwc: 0.94/1.5
