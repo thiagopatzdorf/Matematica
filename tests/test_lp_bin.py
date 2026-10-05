@@ -169,15 +169,50 @@ def test_blocos_retomados_depois_de_interrupcao_juntam_num_arquivo_que_o_verific
                     "--saida", "c.jsonl.gz")
     assert r.returncode == 0, r.stderr
     sha = hashlib.sha256(lista.read_bytes()).hexdigest()
-    v = subprocess_verificar(tmp_path, lista, sha)
-    assert v.returncode == 0 and "TODAS INVIÁVEIS" in v.stdout, v.stdout + v.stderr
+    for j in ("1", "3"):
+        v = subprocess_verificar(tmp_path, lista, sha, "c.jsonl.gz", j)
+        assert v.returncode == 0 and "TODAS INVIÁVEIS" in v.stdout, v.stdout + v.stderr
 
 
-def subprocess_verificar(tmp_path, lista, sha):
+def subprocess_verificar(tmp_path, lista, sha, cert, j="1"):
     import subprocess
     return subprocess.run([sys.executable, str(RAIZ / "tools/exatos/lp_bin/verificar_bin.py"), "--n", "7",
                            "--R", "2", "--M", "6", "--instancias", str(lista), "--certificados",
-                           str(tmp_path / "c.jsonl.gz"), "--sha256", sha], capture_output=True, text=True)
+                           str(tmp_path / cert), "--sha256", sha, "-j", j], capture_output=True, text=True)
+
+
+def test_verificador_paralelo_recusa_certificado_adulterado_e_fora_de_ordem(tmp_path):
+    """-j só distribui as folhas: adulterar um y ou trocar a ordem continua reprovando."""
+    import gzip
+    import hashlib
+    import json
+    fb = _bin()
+    cert = _cert()
+    ins = fb.instancias(7, 2, 6)
+    lista = tmp_path / "i.json"
+    json.dump([[s, [list(k) for k in K], list(t)] for s, K, t in ins], open(lista, "w"))
+    E = cert.Espaco(7, 2)
+    regs = []
+    for i, (s, K, t) in enumerate(json.load(open(lista))):
+        folhas, modo = cert.certificar(E, 6, s, [tuple(k) for k in K], t, orc=2000)
+        regs.append({"inst": i, "s": s, "K": K, "t": t, "modo": modo, "folhas": folhas})
+    sha = hashlib.sha256(lista.read_bytes()).hexdigest()
+
+    def grava(nome, rr):
+        with gzip.open(tmp_path / nome, "wt") as f:
+            for r in rr:
+                f.write(json.dumps(r) + "\n")
+
+    grava("bom.gz", regs)
+    assert subprocess_verificar(tmp_path, lista, sha, "bom.gz", "3").returncode == 0
+    ruim = json.loads(json.dumps(regs))
+    f0 = ruim[5]["folhas"][0]
+    f0["y"] = {k: 0 for k in f0["y"]}  # zera a combinação: a folga deixa de ser positiva
+    grava("ruim.gz", ruim)
+    v = subprocess_verificar(tmp_path, lista, sha, "ruim.gz", "3")
+    assert v.returncode == 1 and "recusadas 1 [5]" in v.stdout, v.stdout
+    grava("ordem.gz", [regs[1], regs[0]] + regs[2:])
+    assert subprocess_verificar(tmp_path, lista, sha, "ordem.gz", "3").returncode == 1
 
 
 def test_juntar_recusa_quando_falta_bloco(tmp_path):

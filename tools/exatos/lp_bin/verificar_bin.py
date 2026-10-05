@@ -132,6 +132,27 @@ def folha_ok(n, R, M, s, K, t, f):
     return lhs > rhs
 
 
+def _registro_ok(args):
+    """(ok, folhas) de um registro; função de módulo para rodar em processos (-j)."""
+    n, R, M, inst, reg = args
+    s, K, t = inst
+    fs = reg["folhas"]
+    ok = bool(fs) and [reg["s"], reg["K"], reg["t"]] == [s, K, t] \
+        and arvore([no_da_folha(f) for f in fs]) and all(folha_ok(n, R, M, s, K, t, f) for f in fs)
+    return ok, len(fs or [])
+
+
+def _lotes(caminho, tam):
+    lote = []
+    for linha in gzip.open(caminho, "rt"):
+        lote.append(json.loads(linha))
+        if len(lote) == tam:
+            yield lote
+            lote = []
+    if lote:
+        yield lote
+
+
 def main():
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     for k in ("n", "R", "M"):
@@ -139,23 +160,36 @@ def main():
     ap.add_argument("--instancias", required=True)
     ap.add_argument("--certificados", required=True)
     ap.add_argument("--sha256", required=True, help="sha256 esperado da lista (a lista é parte da prova)")
+    ap.add_argument("-j", type=int, default=1, help="processos para conferir as folhas (a ordem e a "
+                    "contagem continuam conferidas aqui, no processo principal)")
     a = ap.parse_args()
     bruto = open(a.instancias, "rb").read()
     if hashlib.sha256(bruto).hexdigest() != a.sha256.strip().lower():
         sys.exit("sha256 da lista de instâncias não confere")
     ins = json.loads(bruto)
     vistos, ruins, folhas = 0, [], 0
-    for linha in gzip.open(a.certificados, "rt"):
-        reg = json.loads(linha)
-        i = reg["inst"]
-        s, K, t = ins[i]
-        fs = reg["folhas"]
-        if (i != vistos or [reg["s"], reg["K"], reg["t"]] != [s, K, t] or not fs
-                or not arvore([no_da_folha(f) for f in fs])
-                or not all(folha_ok(a.n, a.R, a.M, s, K, t, f) for f in fs)):
-            ruins.append(i)
-        vistos += 1
-        folhas += len(fs or [])
+    pool = None
+    if a.j > 1:
+        import multiprocessing
+        pool = multiprocessing.Pool(a.j)
+    # lotes limitados: Pool.imap leria o arquivo inteiro para a memória de uma vez
+    for lote in _lotes(a.certificados, 4000 if pool else 1):
+        tarefas, idx = [], []
+        for reg in lote:
+            i = reg["inst"]
+            if i != vistos or not 0 <= i < len(ins):
+                ruins.append(i)
+            else:
+                tarefas.append((a.n, a.R, a.M, ins[i], reg))
+                idx.append(i)
+            vistos += 1
+        res = pool.map(_registro_ok, tarefas, chunksize=8) if pool else map(_registro_ok, tarefas)
+        for i, (ok, nf) in zip(idx, res):
+            folhas += nf
+            if not ok:
+                ruins.append(i)
+    if pool:
+        pool.close()
     ok = not ruins and vistos == len(ins)
     print(f"K_2({a.n},{a.R}) M={a.M}: {vistos} de {len(ins)} instâncias, {folhas} folhas, "
           f"recusadas {len(ruins)} {ruins[:20]} -> {'TODAS INVIÁVEIS' if ok else 'FALHOU'}")
