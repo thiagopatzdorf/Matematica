@@ -160,11 +160,24 @@ def main():
     if modo == "cobertura":
         tmp = sys.argv[9]
         cnf, x, sim0, ts = enc.codificar(q, n, M, pref, smin)
-        x2 = {v for w in range(M) for i in range(2, n) for v in x[w][i]}
-        viz = set(x2)
-        for c in cnf.cl:
-            if any(abs(l) in x2 for l in c):
-                viz.update(abs(l) for l in c)
+        # fecho transitivo a partir das variáveis das coordenadas >= 2 pela co-ocorrência em
+        # cláusulas, sem nunca entrar nas da coordenada 1: pega P, y, contadores e (g) delas.
+        # Qualquer subconjunto de cláusulas é relaxação; este guarda one-hot, fibra, (d), (e), (h).
+        x1 = {v for w in range(M) for v in x[w][1]}
+        viz = {v for w in range(M) for i in range(2, n) for v in x[w][i]}
+        por_var = {}
+        for ci, c in enumerate(cnf.cl):
+            for l in c:
+                por_var.setdefault(abs(l), []).append(ci)
+        pilha = list(viz)
+        while pilha:
+            v = pilha.pop()
+            for ci in por_var.get(v, ()):
+                for l in cnf.cl[ci]:
+                    u = abs(l)
+                    if u not in viz and u not in x1:
+                        viz.add(u)
+                        pilha.append(u)
         rel = [c for c in cnf.cl if not any(abs(l) in viz for l in c)]
         bloq = [[-x[w][1][a] for w, a in enumerate(cubo)] for cubo in meus]
         base = os.path.join(tmp, f"cob_{q}{n}{M}_{ordem}_{inst}")
@@ -176,7 +189,7 @@ def main():
         out = {"inst": inst, "ordem": ordem, "tipos": tipos, "cubos": len(meus), "clausulas_cnf": len(cnf.cl),
                "clausulas_relaxadas": len(rel), "vars_excluidas": len(viz)}
         t = time.time()
-        c = subprocess.run([os.environ["CADICAL"], "-q", base + ".cnf", "--lrat", "--binary=false", base + ".lrat"],
+        c = subprocess.run([os.environ["CADICAL"], base + ".cnf", "--lrat", "--binary=false", base + ".lrat"],
                            capture_output=True, text=True)
         out["cadical_rc"] = c.returncode
         out["cadical_s"] = round(time.time() - t, 1)
@@ -191,10 +204,23 @@ def main():
         elif c.returncode == 10:
             # um modelo da relaxação fora de todos os cubos: mostra a coordenada 1
             v = {int(t) for ln in c.stdout.splitlines() if ln.startswith("v ") for t in ln[2:].split()}
-            out["fora_dos_cubos"] = "".join(str(next(a for a in range(q) if x[w][1][a] in v)) for w in range(M))
+            out["fora_dos_cubos"] = "".join(str(next((a for a in range(q) if x[w][1][a] in v), "?")) for w in range(M))
         for ext in (".cnf", ".lrat"):
             if os.path.exists(base + ext):
                 os.remove(base + ext)
+        # controle de poder: sem o bloqueio de um cubo sorteado, a relaxação tem de ser SAT e o
+        # modelo tem de cair exatamente nesse cubo (os bloqueios não são vazios por engano)
+        import random
+        k = random.Random(inst).randrange(len(meus))
+        with open(base + "_ctl.cnf", "w") as f:
+            f.write(f"p cnf {cnf.nv} {len(rel) + len(bloq) - 1}\n")
+            for c in rel + bloq[:k] + bloq[k + 1:]:
+                f.write(" ".join(map(str, c)) + " 0\n")
+        c = subprocess.run([os.environ["CADICAL"], base + "_ctl.cnf"], capture_output=True, text=True)
+        os.remove(base + "_ctl.cnf")
+        v = {int(t) for ln in c.stdout.splitlines() if ln.startswith("v ") for t in ln[2:].split()}
+        achado = "".join(str(next((a for a in range(q) if x[w][1][a] in v), "?")) for w in range(M))
+        out["controle"] = {"cubo_liberado": k, "rc": c.returncode, "modelo_no_cubo": achado == "".join(map(str, meus[k]))}
         print(json.dumps(out, ensure_ascii=False))
 
 
