@@ -1,0 +1,10 @@
+# RoundingSat (CPU s, conflitos) acrescentando linhas ao subconjunto A; teto 150 s; lex = fórmula inteira + lex-leader truncado (3 geradores do nauty), teto 300 s
+11927 A 489 ('UNSATISFIABLE', '0.046035', '290')
+11927 A+cob1 732 ('UNSATISFIABLE', '17.1044', '35304')
+11927 A+cob12 975 ('UNSATISFIABLE', '79.7871', '109214')
+11927 A+fib+cob1 747 ('UNSATISFIABLE', '1.32403', '5381')
+11927 completo+lex 12 3 ('UNSATISFIABLE', '143.272', '23884')
+10603 A 489 ('UNSATISFIABLE', '0.123431', '1012')
+10603 A+cob1 732 ('UNSATISFIABLE', '22.348', '47480')
+10603 A+cob12 975 ('UNSATISFIABLE', '88.2638', '121244')
+10603 A+fib+cob1 747 ('TIMELIMIT', '150.005', '196908')

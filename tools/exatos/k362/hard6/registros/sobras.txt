@@ -1,0 +1,10 @@
+# sobras do censo (A e B viáveis): RoundingSat na fórmula inteira, teto 600 s de parede, container com load 7-8
+13 UNSATISFIABLE com prova, VeriPB VERIFIED, 46 s (rodar_pb.py)
+15 c cpu time 185.851 s s UNKNOWN 
+523 c cpu time 141.002 s s UNSATISFIABLE 
+2178 c cpu time 251.5 s s UNKNOWN 
+11160 c cpu time 465.563 s s UNKNOWN 
+16 c cpu time 132.324 s s UNSATISFIABLE 
+524 c cpu time 33.2411 s s UNSATISFIABLE 
+7388 c cpu time 226.943 s s UNKNOWN 
+14 c cpu time 274.538 s s UNKNOWN 
