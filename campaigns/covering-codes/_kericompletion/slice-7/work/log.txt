@@ -11,3 +11,4 @@ RESULT q=5 n=6 R=3 M=25 best_unc=37 iters=1114112 secs=61 seed=1 T=0.4
 CMD nice -n 10 ./sa 5 6 3 24 130 1 0.4 ../codes/q5_n6_R3_M24.txt
 RESULT q=5 n=6 R=3 M=24 best_unc=72 iters=2188032 secs=131 seed=1 T=0.4
 CMD nice -n 10 ./sa 3 9 2 219 60 1 0.4 ../codes/q3_n9_R2_M219.txt
+RESULT q=3 n=9 R=2 M=219 best_unc=618 iters=6166272 secs=61 seed=1 T=0.4

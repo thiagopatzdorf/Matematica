@@ -1,0 +1,1 @@
+q=5 n=6 R=2 M=124 best_unc=244 final_unc=244 iters=15927296 secs=111
