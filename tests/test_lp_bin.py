@@ -139,3 +139,51 @@ def test_cobertura_por_walsh_hadamard_bate_com_a_soma_linha_por_linha():
         y = [rng.choice([0, 0, 1, 5, 12]) for _ in range(1 << n)]
         ingenuo = [sum(v for x, v in enumerate(y) if bin(x ^ c).count("1") <= R) for c in range(1 << n)]
         assert vbin.cobertura(n, R, y) == ingenuo
+
+
+def _blocos_cli(tmp_path, *args):
+    import subprocess
+    r = subprocess.run([sys.executable, str(RAIZ / "tools/exatos/lp_bin/blocos_bin.py"), *args],
+                       capture_output=True, text=True, cwd=tmp_path)
+    return r
+
+
+def test_blocos_retomados_depois_de_interrupcao_juntam_num_arquivo_que_o_verificador_aceita(tmp_path):
+    """Preempção no meio: blocos já gravados são pulados, e o juntado passa em verificar_bin."""
+    import hashlib
+    import json
+    fb = _bin()
+    _cert()
+    ins = fb.instancias(7, 2, 6)
+    lista = tmp_path / "i.json"
+    json.dump([[s, [list(k) for k in K], list(t)] for s, K, t in ins], open(lista, "w"))
+    base = ["--n", "7", "--R", "2", "--M", "6", "--instancias", str(lista), "--bloco", "5"]
+    # 1ª rodada só da raiz e só dos dois primeiros blocos (simula a VM caindo depois do bloco 1)
+    assert _blocos_cli(tmp_path, "rodar", *base, "--dir", "raiz", "--sem-ramos", "--ate", "2").returncode == 0
+    marca = (tmp_path / "raiz" / "bloco_00000.jsonl.gz").stat().st_mtime_ns
+    assert _blocos_cli(tmp_path, "rodar", *base, "--dir", "raiz", "--sem-ramos").returncode == 0
+    assert (tmp_path / "raiz" / "bloco_00000.jsonl.gz").stat().st_mtime_ns == marca  # não refeito
+    assert _blocos_cli(tmp_path, "rodar", *base, "--dir", "ramos", "--refazer-dir", "raiz",
+                       "--orcamento", "2000").returncode == 0
+    r = _blocos_cli(tmp_path, "juntar", "--dir", "ramos", "--total", str(len(ins)), "--bloco", "5",
+                    "--saida", "c.jsonl.gz")
+    assert r.returncode == 0, r.stderr
+    sha = hashlib.sha256(lista.read_bytes()).hexdigest()
+    v = subprocess_verificar(tmp_path, lista, sha)
+    assert v.returncode == 0 and "TODAS INVIÁVEIS" in v.stdout, v.stdout + v.stderr
+
+
+def subprocess_verificar(tmp_path, lista, sha):
+    import subprocess
+    return subprocess.run([sys.executable, str(RAIZ / "tools/exatos/lp_bin/verificar_bin.py"), "--n", "7",
+                           "--R", "2", "--M", "6", "--instancias", str(lista), "--certificados",
+                           str(tmp_path / "c.jsonl.gz"), "--sha256", sha], capture_output=True, text=True)
+
+
+def test_juntar_recusa_quando_falta_bloco(tmp_path):
+    (tmp_path / "d").mkdir()
+    import gzip
+    with gzip.open(tmp_path / "d" / "bloco_00000.jsonl.gz", "wt") as f:
+        f.write("{}\n")
+    r = _blocos_cli(tmp_path, "juntar", "--dir", "d", "--total", "10", "--bloco", "5", "--saida", "x.gz")
+    assert r.returncode != 0 and "faltam 1 blocos" in r.stderr and not (tmp_path / "x.gz").exists()
