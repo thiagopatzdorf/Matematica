@@ -1,0 +1,16 @@
+== K2(10,1) M=120 secs=30
+q=2 n=10 R=1 M=120 best_unc=23 iters=22256896 secs=31
+BEST 23
+== K2(10,1) M=119 secs=190
+q=2 n=10 R=1 M=119 best_unc=5 iters=148299520 secs=191
+BEST 5
+== K5(5,1) M=184 secs=30
+q=5 n=5 R=1 M=184 best_unc=21 iters=28033536 secs=31
+BEST 21
+== K5(5,1) M=183 secs=190
+q=5 n=5 R=1 M=183 best_unc=48 iters=142648064 secs=191
+BEST 48
+== K2(13,2) M=128 secs=30
+q=2 n=13 R=2 M=128 best_unc=602 iters=2216960 secs=31
+BEST 602
+== K2(13,2) M=127 secs=190
