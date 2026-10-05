@@ -52,6 +52,33 @@ def arvore(caminhos):
     return all(arvore(lados[v]) for v in (0, 1))
 
 
+def wht(v):
+    """Transformada de Walsh–Hadamard em inteiros (in place, devolve a lista)."""
+    h, N = 1, len(v)
+    while h < N:
+        for i in range(0, N, 2 * h):
+            for j in range(i, i + h):
+                a, b = v[j], v[j + h]
+                v[j], v[j + h] = a + b, a - b
+        h *= 2
+    return v
+
+
+_BOLA = {}
+
+
+def cobertura(n, R, yc):
+    """g_c = Σ_x yc_x [d(x, c) <= R], como convolução XOR exata: WHT⁻¹(WHT(yc)·WHT(1_bola))/2^n.
+    Mesmo resultado que somar linha por linha, em O(n 2^n) em vez de O(2^n · |suporte|)."""
+    N = 1 << n
+    if (n, R) not in _BOLA:
+        _BOLA[n, R] = wht([1 if bin(c).count("1") <= R else 0 for c in range(N)])
+    F = wht(list(yc))
+    g = wht([a * b for a, b in zip(F, _BOLA[n, R])])
+    assert all(x % N == 0 for x in g)
+    return [x // N for x in g]
+
+
 def folha_ok(n, R, M, s, K, t, f):
     N = 1 << n
     lb, ub = [0] * N, [1] * N
@@ -77,16 +104,16 @@ def folha_ok(n, R, M, s, K, t, f):
         return False
     if s == 0 and any(k >= N for k in y):
         return False
-    g = [mu[0] + (mu[1] if c >> (n - 1) else 0) for c in range(N)]
-    lhs = mu[0] * M + mu[1] * t[0]
+    yc = [0] * N
     for k, v in y.items():
-        if not v:
-            continue
         if k < N:
-            lhs += v
-            for c in range(N):
-                if bin(c ^ k).count("1") <= R:
-                    g[c] += v
+            yc[k] = v
+    gc = cobertura(n, R, yc)
+    g = [mu[0] + (mu[1] if c >> (n - 1) else 0) + gc[c] for c in range(N)]
+    lhs = mu[0] * M + mu[1] * t[0] + sum(yc)
+    for k, v in y.items():
+        if not v or k < N:
+            continue
         else:
             j, a = divmod(k - N, 2)
             lhs += v * s

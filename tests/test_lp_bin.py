@@ -130,3 +130,12 @@ def test_codigo_que_cobre_sob_isometrias_cai_numa_instancia_da_lista(arq, n, R):
         c2 = [tuple(w[perm[j]] ^ flip[j] for j in range(n)) for w in cod]
         (s, K, t), _ = canon_fatia.normalizar(c2, 2, n)
         assert (s, fatia.forma(list(K)) if s else (), tuple(t)) in lista
+
+
+def test_cobertura_por_walsh_hadamard_bate_com_a_soma_linha_por_linha():
+    import random
+    rng = random.Random(1)
+    for n, R in [(5, 1), (6, 2), (7, 3)]:
+        y = [rng.choice([0, 0, 1, 5, 12]) for _ in range(1 << n)]
+        ingenuo = [sum(v for x, v in enumerate(y) if bin(x ^ c).count("1") <= R) for c in range(1 << n)]
+        assert vbin.cobertura(n, R, y) == ingenuo
