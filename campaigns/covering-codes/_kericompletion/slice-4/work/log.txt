@@ -80,3 +80,9 @@ BEST 184693
 q=3 n=14 R=5 M=243 best_unc=7818 iters=6144 secs=16
 BEST 7818
 == K3(14,5) M=242 secs=85
+q=3 n=14 R=5 M=242 best_unc=4845 iters=31744 secs=86
+BEST 4845
+== K2(23,6) M=224 secs=15
+q=2 n=23 R=6 M=224 best_unc=42803 iters=2048 secs=18
+BEST 42803
+== K2(23,6) M=223 secs=85
