@@ -1,6 +1,7 @@
 """Reprodução independente de K_3(6,2) >= 16 (tools/exatos/k362_repro): enumeração por colunas,
 canonização por nauty com grafo próprio, e cadeia SAT/PB com prova conferida."""
 import itertools
+from fractions import Fraction
 import os
 import random
 import shutil
@@ -187,3 +188,43 @@ def test_registro_de_m15_tem_instancia_faltando_ou_sem_prova_conferida():
         K = [tuple(map(int, k)) for k in r[1].split(",")]
         texto = sat.opb(*sat.restricoes(3, 6, 2, 15, K, False))
         assert __import__("hashlib").sha256(texto.encode()).hexdigest() == r[2][0]
+
+
+def test_ramo_da_divisao_por_fibras_exclui_o_proprio_codigo():
+    """O código de 17 palavras, normalizado (f_1 >= f_2 na coordenada 0), satisfaz todas as linhas do ramo
+    que a divisão lhe atribui; e os ramos de cada coordenada cobrem a sua distribuição real."""
+    import repro_divisao as div
+    rng = random.Random(9)
+    for _ in range(5):
+        g = _isometria(3, 6, rng)
+        s, K, D = _normalizar([g(c) for c in C17], 3, 6)
+        if sum(c[0] == 1 for c in D) < sum(c[0] == 2 for c in D):
+            D = [((3 - c[0]) % 3,) + c[1:] for c in D]
+        dist = [tuple(sum(c[j] == a for c in D) for a in range(3)) for j in range(6)]
+        assert all(dist[j] in div.opcoes(j, 17, s) for j in range(6))
+        inst = div.Instancia(3, 6, 2, 17, K)
+        livres = [c for c in itertools.product(range(3), repeat=6) if c[0] != 0]
+        x = {livres.index(c) + 1 for c in D if c[0] != 0}
+        for idx, a, r in inst.linhas([(j, dist[j]) for j in range(3)]):
+            assert a * len(x & set(idx)) >= r
+
+
+def test_verificador_de_farkas_aceita_certificado_adulterado():
+    import repro_farkas as fk
+    L = [([1], 1, 1), ([1], -1, 0)]  # x1 >= 1 e x1 <= 0
+    assert fk.confere(L, 1, [Fraction(1), Fraction(1)]) > 0
+    assert fk.confere(L, 1, [Fraction(1), Fraction(0)]) <= 0  # sem o segundo multiplicador não prova
+    assert fk.confere(L, 1, [Fraction(1), Fraction(-1)]) < 0  # multiplicador negativo é recusado
+
+
+def test_farkas_nao_fecha_o_ramo_8_4_da_instancia_s4_de_m16():
+    pytest.importorskip("scipy")
+    import repro_divisao as div
+    import repro_farkas as fk
+    K = [tuple(map(int, w)) for w in "00000,00111,00222,11012".split(",")]
+    inst = div.Instancia(3, 6, 2, 16, K)
+    L = inst.linhas([(0, (4, 8, 4))])
+    y = fk.racionalizar(fk.gerar(L, inst.nv))
+    assert fk.confere(L, inst.nv, y) > 0
+    y[max(range(len(y)), key=lambda i: y[i])] = Fraction(0)  # tirar o maior multiplicador quebra a prova
+    assert fk.confere(L, inst.nv, y) <= 0
