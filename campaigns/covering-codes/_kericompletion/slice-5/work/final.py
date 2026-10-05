@@ -26,5 +26,5 @@ for x in res:
     t=x['tentativas']
     if t: b=min(t,key=lambda a:a['melhor_descobertos']); L.append(f"| {x['id']} | {x['ub_publicada']} ({x['fonte']}) | {x['lb_publicada']} | {b['M_alvo']} | {b['melhor_descobertos']} | {b['segundos']} | {x['estado']} |")
     else: L.append(f"| {x['id']} | {x['ub_publicada']} ({x['fonte']}) | {x['lb_publicada']} | - | - | - | NAO_TENTADA |")
-L+=["","Tempo: 190 s por célula nas três primeiras (K7(5,3), K2(11,2), K2(12,3)), 60 s nas demais, após a sessão ser interrompida. Verificadores (C oficial e verify.py) não foram usados porque nenhum código foi achado. Nada fora de slice-5/ foi alterado.",""]
+L+=["","Tempo: 190 s por célula nas três primeiras (K7(5,3), K2(11,2), K2(12,3)), 45 a 61 s nas demais (sessão interrompida no meio; tempos curtos, 1 semente). Verificadores (C oficial e verify.py) não foram usados porque nenhum código foi achado. Nada fora de slice-5/ foi alterado.",""]
 open('RELATORIO.md','w').write("\n".join(L))

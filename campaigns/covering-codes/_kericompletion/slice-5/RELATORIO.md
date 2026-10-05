@@ -23,4 +23,4 @@ Nenhum código menor que a cota da tabela consultada foi encontrado; nenhuma cé
 | K2(23,5) | 640 (keri_2011) | 235 | 639 | 74075 | 46 | SEM_MELHORA_NESTA_BUSCA |
 | K5(10,1) | 390625 (keri_2011) | 241122 | 390624 | 622064 | 46 | SEM_MELHORA_NESTA_BUSCA |
 
-Tempo: 190 s por célula nas três primeiras (K7(5,3), K2(11,2), K2(12,3)), 60 s nas demais, após a sessão ser interrompida. Verificadores (C oficial e verify.py) não foram usados porque nenhum código foi achado. Nada fora de slice-5/ foi alterado.
+Tempo: 190 s por célula nas três primeiras (K7(5,3), K2(11,2), K2(12,3)), 45 a 61 s nas demais (sessão interrompida no meio; tempos curtos, 1 semente). Verificadores (C oficial e verify.py) não foram usados porque nenhum código foi achado. Nada fora de slice-5/ foi alterado.
