@@ -60,12 +60,16 @@ def main(argv=None):
     ap.add_argument("--proc", type=int, default=2)
     ap.add_argument("--tempo", type=float, nargs=2, default=[3600, 3600], metavar=("FATIA", "COMPLETA"),
                     help="segundos por fórmula; estourado vira veredito TEMPO (instância em aberto)")
+    ap.add_argument("--lista", help="JSON com uma lista de K: roda só essas instâncias")
     ap.add_argument("--parte", default="0/1", help="i/k: roda só as instâncias de índice = i mod k")
     a = ap.parse_args(argv)
     nomes = ["roundingsat", "veripb"] if a.formato == "opb" else ["cadical", "lrat-check"]
     binarios = {b: os.path.join(a.bin, b) for b in nomes}
     i, k = map(int, a.parte.split("/"))
     todas = instancias(a.q, a.n, a.R, a.M)
+    if a.lista:
+        pedidas = {json.dumps(K) for K in json.load(open(a.lista))}
+        todas = [(s, K) for s, K in todas if json.dumps([list(x) for x in K]) in pedidas]
     feitas = set()
     if os.path.exists(a.saida):
         feitas = {json.dumps(json.loads(ln)["K"]) for ln in open(a.saida)}
