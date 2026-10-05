@@ -1,0 +1,10 @@
+==  M=-1
+q=0 n=1 R=-1 M=-1 seed=0 iters=1 best_unc=0 final_unc=0 t=0s
+./run.sh: line 23: 12952 Segmentation fault      nice -n 10 ./sa $q $n $R $M 45 1 ../codes/q${q}_n${n}_R${R}_M${M}.txt 1 0.2 2>&1
+==  M=-1
+q=0 n=1 R=-1 M=-1 seed=0 iters=1 best_unc=0 final_unc=0 t=0s
+./run.sh: line 23: 12953 Segmentation fault      nice -n 10 ./sa $q $n $R $M 45 1 ../codes/q${q}_n${n}_R${R}_M${M}.txt 1 0.2 2>&1
+==  M=-1
+q=0 n=1 R=-1 M=-1 seed=0 iters=1 best_unc=0 final_unc=0 t=0s
+./run.sh: line 23: 12954 Segmentation fault      nice -n 10 ./sa $q $n $R $M 45 1 ../codes/q${q}_n${n}_R${R}_M${M}.txt 1 0.2 2>&1
+== K2(17,6) M=15
