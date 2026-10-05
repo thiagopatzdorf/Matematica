@@ -1,0 +1,370 @@
+[
+ {
+  "id": "K2(11,2)",
+  "ub_publicada": 44,
+  "fonte": "keri_2011",
+  "lb_publicada": 37,
+  "melhor_nosso_verificado_ou_null": null,
+  "M": null,
+  "sha256": null,
+  "verificadores_PASS": [],
+  "tentativas": [
+   {
+    "comando": "work/sa 2 11 2 43 <tempo> 1 <saida> 1 0.2",
+    "M_alvo": 43,
+    "semente": 1,
+    "iteracoes": 17451520,
+    "melhor_descobertos": 24,
+    "finais": 24,
+    "segundos": 191,
+    "achou": false
+   }
+  ],
+  "estado": "SEM_MELHORA_NESTA_BUSCA"
+ },
+ {
+  "id": "K2(12,3)",
+  "ub_publicada": 28,
+  "fonte": "keri_2011",
+  "lb_publicada": 19,
+  "melhor_nosso_verificado_ou_null": null,
+  "M": null,
+  "sha256": null,
+  "verificadores_PASS": [],
+  "tentativas": [
+   {
+    "comando": "work/sa 2 12 3 27 <tempo> 1 <saida> 1 0.2",
+    "M_alvo": 27,
+    "semente": 1,
+    "iteracoes": 4308992,
+    "melhor_descobertos": 15,
+    "finais": 21,
+    "segundos": 191,
+    "achou": false
+   }
+  ],
+  "estado": "SEM_MELHORA_NESTA_BUSCA"
+ },
+ {
+  "id": "K2(13,1)",
+  "ub_publicada": 704,
+  "fonte": "keri_2011",
+  "lb_publicada": 607,
+  "melhor_nosso_verificado_ou_null": null,
+  "M": null,
+  "sha256": null,
+  "verificadores_PASS": [],
+  "tentativas": [
+   {
+    "comando": "work/sa 2 13 1 703 <tempo> 1 <saida> 1 0.2",
+    "M_alvo": 703,
+    "semente": 1,
+    "iteracoes": 45684224,
+    "melhor_descobertos": 456,
+    "finais": 457,
+    "segundos": 46,
+    "achou": false
+   }
+  ],
+  "estado": "SEM_MELHORA_NESTA_BUSCA"
+ },
+ {
+  "id": "K7(5,3)",
+  "ub_publicada": 17,
+  "fonte": "keri_2011",
+  "lb_publicada": 15,
+  "melhor_nosso_verificado_ou_null": null,
+  "M": null,
+  "sha256": null,
+  "verificadores_PASS": [],
+  "tentativas": [
+   {
+    "comando": "work/sa 7 5 3 16 <tempo> 1 <saida> 1 0.2",
+    "M_alvo": 16,
+    "semente": 1,
+    "iteracoes": 1137152,
+    "melhor_descobertos": 62,
+    "finais": 62,
+    "segundos": 191,
+    "achou": false
+   }
+  ],
+  "estado": "SEM_MELHORA_NESTA_BUSCA"
+ },
+ {
+  "id": "K3(10,3)",
+  "ub_publicada": 105,
+  "fonte": "keri_2011",
+  "lb_publicada": 61,
+  "melhor_nosso_verificado_ou_null": null,
+  "M": null,
+  "sha256": null,
+  "verificadores_PASS": [],
+  "tentativas": [
+   {
+    "comando": "work/sa 3 10 3 104 <tempo> 1 <saida> 1 0.2",
+    "M_alvo": 104,
+    "semente": 1,
+    "iteracoes": 907264,
+    "melhor_descobertos": 1807,
+    "finais": 1807,
+    "segundos": 46,
+    "achou": false
+   }
+  ],
+  "estado": "SEM_MELHORA_NESTA_BUSCA"
+ },
+ {
+  "id": "K5(7,4)",
+  "ub_publicada": 21,
+  "fonte": "keri_2011",
+  "lb_publicada": 12,
+  "melhor_nosso_verificado_ou_null": null,
+  "M": null,
+  "sha256": null,
+  "verificadores_PASS": [],
+  "tentativas": [
+   {
+    "comando": "work/sa 5 7 4 20 <tempo> 1 <saida> 1 0.2",
+    "M_alvo": 20,
+    "semente": 1,
+    "iteracoes": 193792,
+    "melhor_descobertos": 234,
+    "finais": 234,
+    "segundos": 61,
+    "achou": false
+   }
+  ],
+  "estado": "SEM_MELHORA_NESTA_BUSCA"
+ },
+ {
+  "id": "K2(17,6)",
+  "ub_publicada": 16,
+  "fonte": "keri_2011",
+  "lb_publicada": 11,
+  "melhor_nosso_verificado_ou_null": null,
+  "M": null,
+  "sha256": null,
+  "verificadores_PASS": [],
+  "tentativas": [
+   {
+    "comando": "work/sa 2 17 6 15 <tempo> 1 <saida> 1 0.2",
+    "M_alvo": 15,
+    "semente": 1,
+    "iteracoes": 37120,
+    "melhor_descobertos": 1110,
+    "finais": 1110,
+    "segundos": 46,
+    "achou": false
+   }
+  ],
+  "estado": "SEM_MELHORA_NESTA_BUSCA"
+ },
+ {
+  "id": "K2(18,3)",
+  "ub_publicada": 512,
+  "fonte": "keri_2011",
+  "lb_publicada": 316,
+  "melhor_nosso_verificado_ou_null": null,
+  "M": null,
+  "sha256": null,
+  "verificadores_PASS": [],
+  "tentativas": [
+   {
+    "comando": "work/sa 2 18 3 511 <tempo> 1 <saida> 1 0.2",
+    "M_alvo": 511,
+    "semente": 1,
+    "iteracoes": 756992,
+    "melhor_descobertos": 13434,
+    "finais": 13434,
+    "segundos": 46,
+    "achou": false
+   }
+  ],
+  "estado": "SEM_MELHORA_NESTA_BUSCA"
+ },
+ {
+  "id": "K2(19,6)",
+  "ub_publicada": 32,
+  "fonte": "keri_2011",
+  "lb_publicada": 17,
+  "melhor_nosso_verificado_ou_null": null,
+  "M": null,
+  "sha256": null,
+  "verificadores_PASS": [],
+  "tentativas": [
+   {
+    "comando": "work/sa 2 19 6 31 <tempo> 1 <saida> 1 0.2",
+    "M_alvo": 31,
+    "semente": 1,
+    "iteracoes": 19200,
+    "melhor_descobertos": 3871,
+    "finais": 3871,
+    "segundos": 46,
+    "achou": false
+   }
+  ],
+  "estado": "SEM_MELHORA_NESTA_BUSCA"
+ },
+ {
+  "id": "K3(12,2)",
+  "ub_publicada": 2187,
+  "fonte": "keri_2011",
+  "lb_publicada": 1919,
+  "melhor_nosso_verificado_ou_null": null,
+  "M": null,
+  "sha256": null,
+  "verificadores_PASS": [],
+  "tentativas": [
+   {
+    "comando": "work/sa 3 12 2 2186 <tempo> 1 <saida> 1 0.2",
+    "M_alvo": 2186,
+    "semente": 1,
+    "iteracoes": 2327552,
+    "melhor_descobertos": 102158,
+    "finais": 102158,
+    "segundos": 46,
+    "achou": false
+   }
+  ],
+  "estado": "SEM_MELHORA_NESTA_BUSCA"
+ },
+ {
+  "id": "K2(20,2)",
+  "ub_publicada": 8192,
+  "fonte": "keri_2011",
+  "lb_publicada": 5330,
+  "melhor_nosso_verificado_ou_null": null,
+  "M": null,
+  "sha256": null,
+  "verificadores_PASS": [],
+  "tentativas": [
+   {
+    "comando": "work/sa 2 20 2 8191 <tempo> 1 <saida> 1 0.2",
+    "M_alvo": 8191,
+    "semente": 1,
+    "iteracoes": 3211008,
+    "melhor_descobertos": 86446,
+    "finais": 86446,
+    "segundos": 46,
+    "achou": false
+   }
+  ],
+  "estado": "SEM_MELHORA_NESTA_BUSCA"
+ },
+ {
+  "id": "K5(9,1)",
+  "ub_publicada": 78125,
+  "fonte": "keri_2011",
+  "lb_publicada": 53896,
+  "melhor_nosso_verificado_ou_null": null,
+  "M": null,
+  "sha256": null,
+  "verificadores_PASS": [],
+  "tentativas": [
+   {
+    "comando": "work/sa 5 9 1 78124 <tempo> 1 <saida> 1 0.2",
+    "M_alvo": 78124,
+    "semente": 1,
+    "iteracoes": 24869376,
+    "melhor_descobertos": 132922,
+    "finais": 132922,
+    "segundos": 46,
+    "achou": false
+   }
+  ],
+  "estado": "SEM_MELHORA_NESTA_BUSCA"
+ },
+ {
+  "id": "K2(22,5)",
+  "ub_publicada": 512,
+  "fonte": "keri_2011",
+  "lb_publicada": 150,
+  "melhor_nosso_verificado_ou_null": null,
+  "M": null,
+  "sha256": null,
+  "verificadores_PASS": [],
+  "tentativas": [
+   {
+    "comando": "work/sa 2 22 5 511 <tempo> 1 <saida> 1 0.2",
+    "M_alvo": 511,
+    "semente": 1,
+    "iteracoes": 26112,
+    "melhor_descobertos": 5470,
+    "finais": 5470,
+    "segundos": 46,
+    "achou": false
+   }
+  ],
+  "estado": "SEM_MELHORA_NESTA_BUSCA"
+ },
+ {
+  "id": "K3(14,6)",
+  "ub_publicada": 81,
+  "fonte": "keri_2011",
+  "lb_publicada": 24,
+  "melhor_nosso_verificado_ou_null": null,
+  "M": null,
+  "sha256": null,
+  "verificadores_PASS": [],
+  "tentativas": [
+   {
+    "comando": "work/sa 3 14 6 80 <tempo> 1 <saida> 1 0.2",
+    "M_alvo": 80,
+    "semente": 1,
+    "iteracoes": 5120,
+    "melhor_descobertos": 1242,
+    "finais": 1242,
+    "segundos": 48,
+    "achou": false
+   }
+  ],
+  "estado": "SEM_MELHORA_NESTA_BUSCA"
+ },
+ {
+  "id": "K2(23,5)",
+  "ub_publicada": 640,
+  "fonte": "keri_2011",
+  "lb_publicada": 235,
+  "melhor_nosso_verificado_ou_null": null,
+  "M": null,
+  "sha256": null,
+  "verificadores_PASS": [],
+  "tentativas": [
+   {
+    "comando": "work/sa 2 23 5 639 <tempo> 1 <saida> 1 0.2",
+    "M_alvo": 639,
+    "semente": 1,
+    "iteracoes": 19456,
+    "melhor_descobertos": 74075,
+    "finais": 74075,
+    "segundos": 46,
+    "achou": false
+   }
+  ],
+  "estado": "SEM_MELHORA_NESTA_BUSCA"
+ },
+ {
+  "id": "K5(10,1)",
+  "ub_publicada": 390625,
+  "fonte": "keri_2011",
+  "lb_publicada": 241122,
+  "melhor_nosso_verificado_ou_null": null,
+  "M": null,
+  "sha256": null,
+  "verificadores_PASS": [],
+  "tentativas": [
+   {
+    "comando": "work/sa 5 10 1 390624 <tempo> 1 <saida> 1 0.2",
+    "M_alvo": 390624,
+    "semente": 1,
+    "iteracoes": 20639488,
+    "melhor_descobertos": 622064,
+    "finais": 622064,
+    "segundos": 46,
+    "achou": false
+   }
+  ],
+  "estado": "SEM_MELHORA_NESTA_BUSCA"
+ }
+]

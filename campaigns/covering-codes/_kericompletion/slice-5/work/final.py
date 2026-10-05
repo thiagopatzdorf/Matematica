@@ -3,7 +3,7 @@ cells=json.load(open('/home/user/Matematica/ledger/cells.json'))['cells']
 d={x['id']:x for x in cells}
 fat=json.load(open('../fatias.json'))['fatias'][5]
 runs={}
-for f in ['work/run.log','work/run2.log']:
+for f in ['work/run.log','work/run2.log','work/run3.log']:
     if not os.path.exists(f): continue
     cur=None
     for l in open(f):

@@ -50,3 +50,9 @@ BEST 9306
 q=2 n=19 R=3 M=1024 best_unc=16263 iters=305152 secs=16
 BEST 16263
 == K2(19,3) M=1023 secs=85
+q=2 n=19 R=3 M=1023 best_unc=15703 iters=1633280 secs=86
+BEST 15703
+== K3(12,1) M=27702 secs=15
+q=3 n=12 R=1 M=27702 best_unc=46305 iters=12302848 secs=16
+BEST 46305
+== K3(12,1) M=27701 secs=85
