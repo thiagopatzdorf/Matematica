@@ -16,3 +16,4 @@ BEST 602
 == K2(13,2) M=127 secs=190
 q=2 n=13 R=2 M=127 best_unc=598 iters=14849280 secs=191
 BEST 598
+== K7(5,1) M=769 secs=15

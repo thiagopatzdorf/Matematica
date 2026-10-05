@@ -1,0 +1,2 @@
+q=7 n=7 R=3 M=342 best_unc=2308 final_unc=2308 iters=891904 secs=51
+cmd: sa 7 7 3 342 110 seed=11 cycles=3 T=0.35 0.15
