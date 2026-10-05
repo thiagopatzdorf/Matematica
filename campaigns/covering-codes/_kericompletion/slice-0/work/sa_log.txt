@@ -17,3 +17,33 @@ NO best=633
 q=2 n=15 R=3 M=111 seed=1 iters=2580992 best_unc=1054 final_unc=1054 secs=60.0
 NO best=1054
 == K2(16,4) M=63 secs=60 seed=1 cmd: ./sa 2 16 4 63 60 1 0.5 0.12
+q=2 n=16 R=4 M=63 seed=1 iters=774656 best_unc=759 final_unc=759 secs=60.0
+NO best=759
+== K3(11,1) M=9476 secs=120 seed=1 cmd: ./sa 3 11 1 9476 120 1 0.5 0.12
+q=3 n=11 R=1 M=9476 seed=1 iters=101040640 best_unc=15327 final_unc=15327 secs=120.0
+NO best=15327
+== K5(8,2) M=1624 secs=120 seed=1 cmd: ./sa 5 8 2 1624 120 1 0.5 0.12
+q=5 n=8 R=2 M=1624 seed=1 iters=7610880 best_unc=19496 final_unc=19496 secs=120.0
+NO best=19496
+== K3(12,4) M=174 secs=90 seed=1 cmd: ./sa 3 12 4 174 90 1 0.5 0.12
+q=3 n=12 R=4 M=174 seed=1 iters=433152 best_unc=3089 final_unc=3089 secs=90.0
+NO best=3089
+== K2(20,6) M=63 secs=90 seed=1 cmd: ./sa 2 20 6 63 90 1 0.5 0.12
+q=2 n=20 R=6 M=63 seed=1 iters=60416 best_unc=1819 final_unc=1819 secs=90.2
+NO best=1819
+== K3(13,6) M=35 secs=90 seed=1 cmd: ./sa 3 13 6 35 90 1 0.5 0.12
+q=3 n=13 R=6 M=35 seed=1 iters=26624 best_unc=2814 final_unc=2814 secs=90.8
+NO best=2814
+== K2(21,3) M=3071 secs=120 seed=1 cmd: ./sa 2 21 3 3071 120 1 0.5 0.12
+q=2 n=21 R=3 M=3071 seed=1 iters=1769216 best_unc=74538 final_unc=74538 secs=120.0
+NO best=74538
+== K2(22,3) M=4095 secs=120 seed=1 cmd: ./sa 2 22 3 4095 120 1 0.5 0.12
+q=2 n=22 R=3 M=4095 seed=1 iters=1134336 best_unc=401928 final_unc=401928 secs=120.0
+NO best=401928
+== K3(14,1) M=177146 secs=120 seed=1 cmd: ./sa 3 14 1 177146 120 1 0.5 0.12
+q=3 n=14 R=1 M=177146 seed=1 iters=45952256 best_unc=850387 final_unc=850387 secs=120.0
+NO best=850387
+== K2(23,1) M=393215 secs=120 seed=1 cmd: ./sa 2 23 1 393215 120 1 0.5 0.12
+q=2 n=23 R=1 M=393215 seed=1 iters=43956224 best_unc=1302936 final_unc=1302936 secs=120.0
+NO best=1302936
+DONE

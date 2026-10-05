@@ -2,3 +2,17 @@ q=3 n=6 R=1 M=72 seed=1 secs=90 T0=0.5 T1=0.12 res(final best)=2 2 wall=209
 q=3 n=6 R=1 M=72 seed=2 secs=90 T0=0.5 T1=0.12 res(final best)=2 2 wall=222
 q=7 n=4 R=1 M=122 seed=1 secs(wall)=150 T0=0.5 T1=0.12 res(final best)=15 15 wall=150
 q=2 n=13 R=3 M=41 seed=1 secs(wall)=150 T0=0.5 T1=0.12 res(final best)=136 136 wall=150
+q=2 n=14 R=1 M=1407 seed=1 secs(wall)=150 T0=0.5 T1=0.12 res(final best)=532 531 wall=150
+q=2 n=15 R=5 M=15 seed=1 secs(wall)=150 T0=0.5 T1=0.12 res(final best)=312 312 wall=150
+q=2 n=16 R=2 M=767 seed=1 secs(wall)=150 T0=0.5 T1=0.12 res(final best)=4132 4132 wall=150
+q=2 n=17 R=2 M=1535 seed=1 secs(wall)=200 T0=0.5 T1=0.12 res(final best)=5372 5372 wall=200
+q=2 n=18 R=5 M=63 seed=1 secs(wall)=200 T0=0.5 T1=0.12 res(final best)=1060 1060 wall=200
+q=5 n=8 R=1 M=15624 seed=1 secs(wall)=200 T0=0.5 T1=0.12 res(final best)=33563 33563 wall=200
+q=3 n=12 R=3 M=656 seed=1 secs(wall)=200 T0=0.5 T1=0.12 res(final best)=11686 11686 wall=200
+q=2 n=20 R=7 M=27 seed=1 secs(wall)=200 T0=0.5 T1=0.12 res(final best)=860 860 wall=200
+q=3 n=13 R=7 M=11 seed=1 secs(wall)=200 T0=0.5 T1=0.12 res(final best)=9621 9621 wall=201
+q=2 n=21 R=8 M=15 seed=1 secs(wall)=200 T0=0.5 T1=0.12 res(final best)=9781 9781 wall=206
+q=2 n=22 R=9 M=11 seed=1 secs(wall)=200 T0=0.5 T1=0.12 res(final best)=13210 13210 wall=232
+q=7 n=8 R=2 M=15128 seed=1 secs(wall)=240 T0=0.5 T1=0.12 res(final best)=101826 101826 wall=241
+q=5 n=10 R=6 M=44 seed=1 secs(wall)=200 T0=0.5 T1=0.12 res(final best)=573 573 wall=224
+DONE

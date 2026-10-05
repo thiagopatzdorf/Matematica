@@ -1,0 +1,7 @@
+==  M=-1
+./run.sh: line 24: 11465 Segmentation fault      nice -n 10 ./sa $q $n $R $M 60 1 ../codes/q${q}_n${n}_R${R}_M${M}.txt 1 0.2 2>&1
+==  M=-1
+./run.sh: line 24: 11466 Segmentation fault      nice -n 10 ./sa $q $n $R $M 60 1 ../codes/q${q}_n${n}_R${R}_M${M}.txt 1 0.2 2>&1
+==  M=-1
+./run.sh: line 24: 11467 Segmentation fault      nice -n 10 ./sa $q $n $R $M 60 1 ../codes/q${q}_n${n}_R${R}_M${M}.txt 1 0.2 2>&1
+== K5(7,4) M=20

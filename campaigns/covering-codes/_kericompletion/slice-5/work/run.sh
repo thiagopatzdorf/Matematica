@@ -3,11 +3,11 @@
 while read id q n R ub; do
   M=$((ub-1))
   echo "== $id M=$M" 
-  nice -n 10 ./sa $q $n $R $M 190 1 ../codes/q${q}_n${n}_R${R}_M${M}.txt 1 0.2 2>&1
+  nice -n 10 ./sa $q $n $R $M 60 1 ../codes/q${q}_n${n}_R${R}_M${M}.txt 1 0.2 2>&1
 done <<'L'
-K7(5,3) 7 5 3 17
-K2(11,2) 2 11 2 44
-K2(12,3) 2 12 3 28
+
+
+
 K5(7,4) 5 7 4 21
 K2(17,6) 2 17 6 16
 K3(10,3) 3 10 3 105

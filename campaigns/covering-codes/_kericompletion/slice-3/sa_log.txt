@@ -1,0 +1,63 @@
+== K2(10,2) M=29 secs=300 T0=0.7 seed=11
+q2 n10 R2 M29 it=71848960 best_unc=3 final_unc=3
+== K5(5,2) M=34 secs=100 T0=0.7 seed=11
+q5 n5 R2 M34 it=12862464 best_unc=14 final_unc=14
+
+real	2m8.071s
+user	1m39.986s
+sys	0m0.020s
+== K7(5,2) M=96 secs=100 T0=0.7 seed=11
+q7 n5 R2 M96 it=7088128 best_unc=164 final_unc=167
+
+real	2m3.456s
+user	1m39.990s
+sys	0m0.024s
+== K2(13,4) M=15 secs=100 T0=0.7 seed=11
+q2 n13 R4 M15 it=1794048 best_unc=97 final_unc=97
+
+real	1m58.445s
+user	1m39.998s
+sys	0m0.032s
+== K3(12,6) M=17 secs=100 T0=0.7 seed=11
+q3 n12 R6 M17 it=33792 best_unc=1586 final_unc=1586
+
+real	1m41.332s
+user	1m40.692s
+sys	0m0.012s
+== K2(16,6) M=11 secs=100 T0=0.7 seed=11
+q2 n16 R6 M11 it=173056 best_unc=348 final_unc=348
+
+real	1m40.896s
+user	1m40.072s
+sys	0m0.008s
+== K2(15,2) M=383 secs=100 T0=0.7 seed=11
+q2 n15 R2 M383 it=8458240 best_unc=3045 final_unc=3046
+
+real	1m40.798s
+user	1m39.980s
+sys	0m0.032s
+== K2(17,3) M=319 secs=90 T0=0.7 seed=11
+q2 n17 R3 M319 it=1571840 best_unc=5247 final_unc=5247
+
+real	1m30.951s
+user	1m30.004s
+sys	0m0.032s
+== K2(18,6) M=27 secs=90 T0=0.7 seed=11
+q2 n18 R6 M27 it=74752 best_unc=339 final_unc=339
+
+real	1m31.228s
+user	1m30.850s
+sys	0m0.004s
+== K2(19,4) M=255 secs=90 T0=0.7 seed=11
+q2 n19 R4 M255 it=302080 best_unc=10871 final_unc=10871
+
+real	1m31.414s
+user	1m30.214s
+sys	0m0.036s
+== K7(8,5) M=48 secs=90 T0=0.7 seed=11
+q7 n8 R5 M48 it=5120 best_unc=1376 final_unc=1376
+
+real	1m48.197s
+user	1m46.718s
+sys	0m0.128s
+DONE
