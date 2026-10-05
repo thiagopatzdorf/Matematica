@@ -12,6 +12,8 @@ sum_{c_j = a} z_c >= s - #{k em K : k_j = a} para j >= 1 (s é a menor fibra).
 import hashlib
 import itertools
 import os
+import resource
+import signal
 import subprocess
 import tempfile
 import time
@@ -83,10 +85,22 @@ def cnf(cob, nv, teto, fib=()):
     return "p cnf %d %d\n" % (top[0], len(cls)) + "".join(" ".join(map(str, c)) + " 0\n" for c in cls)
 
 
+# Teto do arquivo de prova: uma prova VeriPB de M = 16 passou de 10 GB em 20 min e encheria o disco.
+# Acima dele o solver morre por SIGXFSZ e a instância fica em aberto (veredito "PROVA_GRANDE").
+MAX_PROVA = int(os.environ.get("K362_REPRO_MAX_PROVA_GB", "4")) << 30
+
+
+GRANDE = (-signal.SIGXFSZ, 128 + signal.SIGXFSZ)
+
+
+def _teto_arquivo():
+    resource.setrlimit(resource.RLIMIT_FSIZE, (MAX_PROVA, MAX_PROVA))
+
+
 def _roda(cmd, tempo):
     t = time.time()
     try:
-        r = subprocess.run(cmd, capture_output=True, text=True, timeout=tempo)
+        r = subprocess.run(cmd, capture_output=True, text=True, timeout=tempo, preexec_fn=_teto_arquivo)
     except subprocess.TimeoutExpired:
         r = subprocess.CompletedProcess(cmd, -9, "", "")
     return r, round(time.time() - t, 3)
@@ -103,9 +117,12 @@ def resolver(texto, formato, binarios, nv, tempo=3600):
             r, out["t_solver"] = _roda([binarios["roundingsat"], f, "--print-sol=1", "--proof-log=" + p], tempo)
             st = [ln[2:].strip() for ln in r.stdout.splitlines() if ln.startswith("s ")]
             out["veredito"] = {"UNSATISFIABLE": "UNSAT", "SATISFIABLE": "SAT"}.get(st[-1] if st else "", "TEMPO")
+            if r.returncode in GRANDE:
+                out["veredito"] = "PROVA_GRANDE"
         else:
             r, out["t_solver"] = _roda([binarios["cadical"], "-q", "--lrat=true", "--binary=false", f, p], tempo)
-            out["veredito"] = {20: "UNSAT", 10: "SAT"}.get(r.returncode, "TEMPO")
+            out["veredito"] = {20: "UNSAT", 10: "SAT"}.get(r.returncode, "PROVA_GRANDE" if r.returncode in GRANDE
+                                                                   else "TEMPO")
         if out["veredito"] == "SAT":
             out["modelo"] = [int(x[1:] if x.startswith("x") else x) for ln in r.stdout.splitlines()
                              if ln.startswith("v ") for x in ln.split()[1:] if not x.startswith("-")]
