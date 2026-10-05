@@ -21,6 +21,8 @@ import time
 AQUI = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, AQUI)
 import canon_corrigido  # noqa: E402
+import orbita_fibras  # noqa: E402
+from checar_cnf import Checador  # noqa: E402
 
 
 def codigo_aleatorio(q, n, M, smin, rng):
@@ -76,10 +78,6 @@ def ler_codigo(caminho):
 
 
 def main():
-    # pysat só aqui: as funções puras acima são importadas pelos testes sem pysat instalado
-    import orbita_fibras
-    from checar_cnf import Checador
-
     ap = argparse.ArgumentParser()
     ap.add_argument("dir")
     ap.add_argument("q", type=int)

@@ -29,6 +29,31 @@ das coordenadas. Por fim, o mínimo sobre as ordens dos pontos é a forma canôn
 Um conjunto e a sua forma canônica são isométricos por construção. Logo a lista tem pelo menos um
 representante por classe, e a deduplicação pela forma deixa exatamente um.
 
+**Passo que a frase acima pressupõe: todo conjunto aparece antes da forma** (acrescentado em
+2026-10-05 a partir do red team, PR #59, ressalva L1). `configuracoes` não parte de conjuntos. Ela
+percorre multiconjuntos de colunas RGS (`combinations_with_replacement(pats, m)`) e só depois
+calcula a forma. Por isso é preciso mostrar que toda classe tem um representante entre esses
+multiconjuntos. *Prova.* Seja `S` um conjunto de `s` pontos distintos de `Z_q^m`. Fixe uma ordem
+qualquer dos pontos e leia `S` como uma matriz `s × m`. Em cada coluna, renomeie os símbolos pela
+ordem da primeira aparição. Isso é uma permutação de símbolos daquela coordenada, portanto uma
+isometria, e a coluna vira uma cadeia de crescimento restrito, isto é, um elemento de `pats`.
+Ordene as `m` colunas. Isso é uma permutação de coordenadas, outra isometria, e o resultado é
+exatamente um dos multiconjuntos `combo` percorridos. As isometrias preservam a distinção dos
+pontos, então o `combo` passa no teste `len(set(pts)) == s`. Logo o conjunto `de_colunas(combo)`
+é isométrico a `S` e é visitado. O filtro `|U| ≤ cap` é aplicado ao `combo` **antes** da forma.
+Isso não perde nada, porque `|U|` é invariante por isometria: o `combo` passa se e só se `S`
+passa. A forma do `combo` é a forma de `S`, porque `fatia.forma` é invariante por isometria (o
+mínimo sobre as ordens dos pontos absorve a ordem, as colunas RGS absorvem os símbolos e a
+ordenação das colunas absorve as coordenadas). Então cada classe que passa no filtro entra na
+lista exatamente uma vez. ∎
+
+*Conferência independente da contagem* (red team, `tools/exatos/k362/redteam/burnside.py` e
+`lista_completa.py` no PR #59). O lema de Burnside conta as órbitas de `s`-subconjuntos de
+`Z_3^5` sob `S_3 ≀ S_5` e dá **1, 1, 5, 35, 490 e 11 075 órbitas para s* = 0, 1, 2, 3, 4 e 5**.
+Isso bate com o tamanho de `configuracoes(3, 5, s)` sem filtro, com as formas duas a duas
+distintas. Com `|U|` recalculado por força bruta, passam no filtro de M = 15 0, 0, 1, 27, 468 e
+11 000. Nenhuma falta na lista e nenhuma sobra.
+
 **Filtro de contagem (lema da fatia).** Seja `U` o conjunto dos pontos `y ∈ Z_q^{n−1}` a
 distância `> R` de todo ponto de `K`. Um ponto `x = (0, y)` com `y ∈ U` não é coberto por
 nenhuma palavra de `F(0,0)`. Então é coberto por uma palavra `c` com `c_0 ≠ 0`, que já gasta uma

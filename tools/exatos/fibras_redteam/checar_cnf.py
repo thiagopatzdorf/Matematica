@@ -2,7 +2,6 @@
 do seu perfil: fixa as variáveis x pelas palavras (assunções) e pede SAT. Sem cobertura, as
 cláusulas de cobertura são retiradas (códigos aleatórios que não cobrem)."""
 
-from pysat.solvers import Solver
 
 
 class Checador:
@@ -24,6 +23,8 @@ class Checador:
                 n0 = len(self.enc.codificar(self.q, self.n, self.M, prefixo, self.smin, quebra=False)[0].cl)
                 ini = n0 - self.q ** self.n
                 cl = cl[:ini] + cl[n0:]
+            from pysat.solvers import Solver  # import tardio (CI sem pysat)
+
             s = Solver(name="cadical195", bootstrap_with=cl)
             self._cache[chave] = (s, x, sim0)
         return self._cache[chave]
