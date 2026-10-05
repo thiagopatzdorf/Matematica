@@ -6,7 +6,8 @@ target-version = "py311"
 line-length = 120
 # _literatura/*/scripts: scripts de pesquisa exploratória da campanha de covering codes, rodados em sessão (dependem de nomes
 # definidos pelo chamador, p. ex. `good`, `words`); o que vale como evidência são os logs e os relatórios ao lado, não o módulo.
-extend-exclude = ["data", "paper", "audit", "candidates", ".lake", "campaigns/covering-codes/_literatura/*/scripts"]
+# _kericompletion/*/work: scripts descartáveis dos agentes da busca (escritos durante a rodada); vale o código verificado em slice-N/codes e o RELATORIO.md.
+extend-exclude = ["data", "paper", "audit", "candidates", ".lake", "campaigns/covering-codes/_literatura/*/scripts", "campaigns/covering-codes/_kericompletion/*/work"]
 
 [tool.ruff.lint]
 # Conjunto pequeno e seguro: erros de sintaxe/nomes indefinidos (E9, F63, F7, F82),
