@@ -2,3 +2,6 @@
 q=5 n=4 R=1 M=50 seed=1 iters=125934336 best_unc=6 final_unc=6 secs=60.0
 NO best=6
 == K3(7,3) M=11 secs=60 seed=1 cmd: ./sa 3 7 3 11 60 1 0.5 0.12
+q=3 n=7 R=3 M=11 seed=1 iters=4573952 best_unc=33 final_unc=33 secs=60.0
+NO best=33
+== K3(8,2) M=80 secs=60 seed=1 cmd: ./sa 3 8 2 80 60 1 0.5 0.12

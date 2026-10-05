@@ -14,3 +14,5 @@ BEST 48
 q=2 n=13 R=2 M=128 best_unc=602 iters=2216960 secs=31
 BEST 602
 == K2(13,2) M=127 secs=190
+q=2 n=13 R=2 M=127 best_unc=598 iters=14849280 secs=191
+BEST 598

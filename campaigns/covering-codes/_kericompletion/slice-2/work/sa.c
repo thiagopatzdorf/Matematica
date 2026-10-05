@@ -37,9 +37,9 @@ int main(int ac,char**av){
   long *w=malloc(M*8);
   for(int i=0;i<M;i++){ if(nu>0) w[i]=ulist[rnd()%nu]; else w[i]=rnd()%N; ball(w[i],1);}
   long best=nu;fprintf(stderr,"init unc=%ld\n",nu);
-  clock_t t0=clock();long it=0;double T=T0;long bestsnap_ok=0;
+  struct timespec ts0;clock_gettime(CLOCK_MONOTONIC,&ts0);long it=0;double T=T0;long bestsnap_ok=0;
   while(1){
-    if((it&1023)==0){double el=(double)(clock()-t0)/CLOCKS_PER_SEC;if(el>secs)break;double f=el/secs;T=T0*pow(T1/T0,f);}
+    if((it&1023)==0){struct timespec ts;clock_gettime(CLOCK_MONOTONIC,&ts);double el=(ts.tv_sec-ts0.tv_sec)+(ts.tv_nsec-ts0.tv_nsec)*1e-9;if(el>secs)break;double f=el/secs;T=T0*pow(T1/T0,f);}
     it++;
     if(nu==0)break;
     long u=ulist[rnd()%nu];int k=rnd()%M;long old=w[k];
