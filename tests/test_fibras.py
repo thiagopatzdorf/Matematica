@@ -321,3 +321,19 @@ def test_sonda_sem_achar_k6_5_3_com_12_quebrou_a_cnf(tmp_path):
     import sonda
     r = sonda.sondar(6, 5, 12, [sonda.equilibrado(6, 12)] * 5, str(tmp_path), tempo=120)
     assert r["resultado"] == "SAT" and r["cobre"] is True
+
+
+def test_guloso_h_que_rotula_pelo_indice_viola_h_no_contraexemplo_do_red_team():
+    # REDTEAM_K764.md, seção 1.1: Z_4^3, coordenada 0 do tipo 3322 e coordenada 1 do tipo 3331.
+    # Rotulando os símbolos novos pelo índice, o bloco 0 vira (0,1,1) e o bloco 1 (0,0,2): (h)
+    # falsa. Com o símbolo mais frequente primeiro, a forma normal satisfaz a CNF inteira.
+    cod = [(0, 1, 0), (0, 2, 0), (0, 2, 0), (1, 0, 1), (1, 1, 1), (1, 1, 1), (2, 0, 2), (2, 2, 2), (3, 0, 2), (3, 3, 3)]
+    q, n, k, smin = 4, 3, 3, 1
+    idx, norm = canonizar.canonizar(cod, q, n, k, smin)
+    assert norm != [(0, 0, 0), (0, 1, 0), (0, 1, 0), (1, 0, 1), (1, 0, 1), (1, 2, 1),
+                    (2, 1, 2), (2, 2, 2), (3, 2, 2), (3, 3, 3)]
+    _, ins = encode.instancias(q, n, len(cod), k, smin)
+    cnf, x, _, _ = encode.codificar(q, n, len(cod), ins[idx], smin)
+    val = canonizar.atribuicao(cnf, x, norm, q, n)
+    ruins = [c for c in canonizar.violadas(cnf, val) if len(c) != n * (n - 1) // 2]
+    assert ruins == []

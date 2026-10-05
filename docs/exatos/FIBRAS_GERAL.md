@@ -7,15 +7,17 @@ medimos, célula por célula da triagem, se ela cabe no orçamento.
 ## Resultado
 
 **Resumo (2026-10-05):** K_7(6,4) ≤ 14 por um código verificado (bate a cota publicada, 15). Com o
-∄ 13 por 8008 perfis com LRAT daria K_7(6,4) = 14, mas essa inexistência depende do Lema 1 geral e
-das quebras (g)/(h), que ainda passam por red team: até lá, **não afirme 14 como valor exato**. K_7(5,3) sobe para 16–17; a prova de ∄ 16 (201 376
+∄ 13 por 8008 perfis com LRAT dá K_7(6,4) = 14. O red team (`REDTEAM_K764.md`, PR #62) concluiu
+"sobrevive com ressalva": a prova escrita do Lema 4 estava errada e o canonizador violava (h), o
+enunciado vale e a CNF codifica o enunciado; prova e canonizador corrigidos neste PR. O valor
+exato fica para o dono registrar depois de revisar a correção. K_7(5,3) sobe para 16–17; a prova de ∄ 16 (201 376
 perfis) está em andamento, ver a linha de M = 16. K_q(4,2), q = 16…20: o método não alcança
 (seção "Medições"); sondas de existência também não acharam código.
 
 | célula | antes | depois | afirmação provada | instâncias | verificação |
 |---|---|---|---|---|---|
 | **K_7(5,3)** | 15–17 | **16–17** | ∄ código com 15 palavras | 1 perfil | CaDiCaL UNSAT (221 s), `lrat-check` VERIFIED, `lrat.py` VERIFICADO (prova de 1,56 GB, sha256 `9cc887c5…`), kissat UNSAT (11 min) |
-| **K_7(6,4)** | 13–15 | **14 (pendente de red team) — ub 14 já verificado** | ∄ código com 13 palavras; código com 14 | 8008 perfis + 1 SAT | 8008/8008 UNSAT, 8008/8008 `lrat-check` VERIFIED, amostra de 12 com `lrat.py` VERIFICADO; o código de 14 (`data/codes/q7_n6_R4_M14.txt`) passa no `tools/verify/verify` (0 de 117 649 pontos descobertos) |
+| **K_7(6,4)** | 13–15 | **14** (red team #62: sobrevive com ressalva, corrigida aqui) | ∄ código com 13 palavras; código com 14 | 8008 perfis + 1 SAT | 8008/8008 UNSAT, 8008/8008 `lrat-check` VERIFIED, amostra de 12 com `lrat.py` VERIFICADO; o código de 14 (`data/codes/q7_n6_R4_M14.txt`) passa no `tools/verify/verify` (0 de 117 649 pontos descobertos) |
 <!-- LINHA_M16 -->
 | K_7(5,3), M = 16 | 16–17 | (em andamento) | ∄ código com 16 palavras | 201 376 perfis | 201 375 UNSAT com `lrat-check` VERIFIED; falta 1 perfil (3322222^5), em 4953 cubos |
 
@@ -109,24 +111,40 @@ de simetria (precedência entre classes diferentes; lexicográfica nos dois sent
 b, b + 1 da coordenada 0 **de mesmo tamanho**, a sequência da coordenada 1 do bloco b (já não
 decrescente por (d)) é ≤_lex a do bloco b + 1.
 
-**Prova.** Símbolos da coordenada 0 com a mesma fibra podem ser permutados (isometria), o que
-permuta os blocos de um mesmo grupo de tamanho e muda a relabelagem (e) da coordenada 1.
-Construa a ordem por um guloso dentro de cada grupo: a cada passo, para cada bloco restante,
-calcule o vetor ordenado dos rótulos que a coordenada 1 teria se ele viesse agora (rótulos já
-dados ficam; símbolos novos recebem os próximos rótulos livres da sua classe) e escolha o menor
-lexicograficamente. Seja v_t o vetor escolhido no passo t e Y o bloco escolhido no passo t + 1.
-No passo t, o vetor de Y era u ≥_lex v_t (escolha gulosa). Depois do passo t, cada rótulo de Y só
-pode crescer: rótulos já dados não mudam, e um símbolo novo de Y numa classe c recebe, no passo t
-ou depois, um rótulo ≥ ao próximo livre de c no passo t; como os rótulos de uma classe são
-distintos, o vetor ordenado de Y domina, componente a componente, o vetor u. Logo
-v_{t+1} ≥_lex u ≥_lex v_t. Os rótulos que o guloso atribui são exatamente os de (e) na ordem
-final; depois disso (d), (f), (g) se refazem sem mexer nas coordenadas 0 e 1. ∎
+**Prova** (corrigida pelo red team, `REDTEAM_K764.md`, seção 1.2; a versão anterior deste
+parágrafo comparava com uma rotulação fixa e falha quando os símbolos novos do bloco têm
+multiplicidades diferentes, contraexemplo em Z_4^3 na seção 1.1 de lá). Símbolos da coordenada 0
+com a mesma fibra podem ser permutados (isometria), o que permuta os blocos de um mesmo grupo de
+tamanho e muda a relabelagem (e) da coordenada 1. Construa a ordem por um guloso dentro de cada
+grupo: a cada passo, escolha o par (bloco, rotulação admissível por (e)) de **menor** vetor
+ordenado de rótulos da coordenada 1. As rotulações admissíveis no passo t são as bijeções entre os
+símbolos novos de cada classe c e os m_c primeiros rótulos livres F_t ∩ c; a menor dá o menor
+rótulo ao símbolo mais frequente no bloco. Seja min_t(Y) o menor vetor de Y no passo t e v_t o
+mínimo sobre os blocos restantes.
+
+*Monotonia.* Seja Y escolhido no passo t + 1 com a rotulação L'. Os símbolos de Y que eram novos
+no passo t receberam (no passo t ou no t + 1) rótulos distintos de F_t ∩ c. Ordene-os por L' e dê a
+eles, nessa ordem, os m_c primeiros de F_t ∩ c: é uma rotulação L admissível no passo t com
+L(s) ≤ L'(s) símbolo a símbolo (o i-ésimo menor de m elementos distintos de F_t ∩ c é ≥ o i-ésimo
+elemento de F_t ∩ c). Desigualdade ponto a ponto passa para o vetor ordenado com multiplicidades,
+componente a componente. Logo v_{t+1} = vet(Y, L') ≥ vet(Y, L) ≥ min_t(Y) ≥ v_t. Os rótulos
+dados são os de (e), (d) é ordenar dentro do bloco, e (f), (g) se refazem sem mexer nas
+coordenadas 0 e 1. ∎
+
+A CNF codifica o **enunciado** de (h) direto (`fib_encode.codificar`, bloco "(h)": coordenada 1
+do bloco b ≤_lex a do bloco b + 1, para blocos consecutivos de mesmo tamanho), sem passar pelo
+canonizador; por isso os certificados não dependiam da prova errada, só da verdade do enunciado.
+`fib_canon.canonizar` agora implementa o guloso corrigido (o anterior rotulava os símbolos novos
+pela ordem do índice e violava (h) em 10⁻⁵ a 10⁻³ dos códigos, medido pelo red team);
+`test_guloso_h_que_rotula_pelo_indice_viola_h_no_contraexemplo_do_red_team` reproduz o
+contraexemplo e falha com o canonizador antigo.
 
 Em K_7(5,3) com M = 15 (coordenada 0 do tipo 3222222, um grupo de seis blocos de tamanho 2) os
-padrões válidos da coordenada 1 caem de 118 710 para 380 com (h), e a instância, que o kissat não
-resolvia em 20 min de CPU sem (h), sai em 221 s de CaDiCaL com prova.
+padrões válidos da coordenada 1 caem de 118 710 para 380 com (h), e a instância sai em 221 s de CaDiCaL com prova. Controles com kissat 4.0.4, sem prova
+(`certificados/K7_5_3_M15_controles_kissat.jsonl`): sem (h), UNSAT em 10 365 s; sem (g) nem (h),
+INDEFINIDO no limite de 3 h.
 
-`fib_canon.canonizar` implementa o guloso; `test_ordem_dos_blocos_h_precisa_do_guloso` mostra
+`test_ordem_dos_blocos_h_precisa_do_guloso` mostra
 que, sem o guloso, a forma normal viola (h) em algum código (as cláusulas restringem de verdade),
 e os testes de completude passam com ele.
 

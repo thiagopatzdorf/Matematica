@@ -49,16 +49,20 @@ def canonizar(cod, q, n, k, smin, usar_h=True, ordem="min"):
 
     # (c)+(d)+(e)+(h): blocos pela coordenada 0; coordenada 1 renomeada por primeira aparição
     # por bloco dentro da classe; blocos de mesmo tamanho reordenados pelo guloso do Lema 4
-    # (a cada passo, o bloco cujo vetor ordenado de rótulos da coordenada 1, com os rótulos
-    # que receberia se viesse agora, é o menor lexicograficamente).
+    # (a cada passo, o par bloco/rotulação admissível de menor vetor ordenado de rótulos da
+    # coordenada 1; prova corrigida em REDTEAM_K764.md, seção 1.2).
     livres = livres_por_classe(1)
     ren1 = {}
     t0 = ts[0]
 
     def rotulos_se_agora(b):
+        # menor vetor sobre as rotulações admissíveis por (e): dentro da classe, o símbolo novo
+        # mais frequente no bloco leva o menor rótulo livre. Rotular na ordem do índice (como
+        # era até o red team REDTEAM_K764.md, seção 1.1) viola (h) em ~1e-4 dos códigos.
         prox = {c: list(v) for c, v in livres.items()}
         pot = {}
-        for a in sorted({c[1] for c in cod if c[0] == b and c[1] not in ren1}):
+        mult = Counter(c[1] for c in cod if c[0] == b)
+        for a in sorted({c[1] for c in cod if c[0] == b and c[1] not in ren1}, key=lambda s: (-mult[s], s)):
             pot[a] = prox[classe(1, a, None)].pop(0)
         return sorted((ren1[c[1]] if c[1] in ren1 else pot[c[1]]) for c in cod if c[0] == b), pot
 
