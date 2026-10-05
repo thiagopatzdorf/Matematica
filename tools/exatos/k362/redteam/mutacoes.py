@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Red team K_3(6,2), M = 15: mutações dos certificados do PR #57 contra os dois verificadores.
+"""Red team K_3(6,2), M = 15 e 16: mutações dos certificados dos PRs #57 e #60 contra os dois verificadores.
 
 Cada mutação produz um certificado que NÃO deveria provar a instância (ou deveria provar uma coisa
 diferente). Conta quantas mutações cada verificador aceita: `farkas_min` (deste red team) e, se
@@ -9,11 +9,11 @@ diferente). Conta quantas mutações cada verificador aceita: `farkas_min` (dest
   sem_fib  o sistema perde as linhas de fibra (certificados que as usam têm de cair)
   troca    certificado da instância i conferido contra a instância i+1 do mesmo s*
   maior_y  some a entrada de y de maior peso
-  M16      o mesmo certificado conferido com M = 16 e t_1 + 1 (a instância de M = 16 pode ser
+  M+1      o mesmo certificado conferido com M + 1 e t_1 + 1 (a instância de M + 1 pode ser
            inviável de verdade, então aceitar não é defeito; conta-se só a concordância)
   folha    as instâncias com ramificação perdem uma folha (árvore incompleta)
 
-Aceitar uma mutação de "troca", "maior_y" ou "M16" não é defeito por si (o certificado pode ter
+Aceitar uma mutação de "troca", "maior_y" ou "M+1" não é defeito por si (o certificado pode ter
 folga para isso); o relatório mostra a contagem e confere que os dois verificadores concordam.
 "neg", "sem_fib" (nas folhas que usam fibra) e "folha" têm de ser recusadas sempre.
 """
@@ -54,8 +54,9 @@ def main():
     ap.add_argument("--verificar-pr")
     ap.add_argument("--amostra", type=int, default=400)
     ap.add_argument("--semente", type=int, default=7)
+    ap.add_argument("--M", type=int, default=15)
     a = ap.parse_args()
-    q, n, R, M = 3, 6, 2, 15
+    q, n, R, M = 3, 6, 2, a.M
     rng = random.Random(a.semente)
     ins = json.load(open(a.instancias))
     regs = [json.loads(ln) for ln in gzip.open(a.certificados, "rt")]
@@ -106,9 +107,9 @@ def main():
             k = max(m["y"], key=lambda k: m["y"][k])
             del m["y"][k]
             conta("maior_y", aceita_min(farkas_min.Sistema, q, n, R, M, inst, m), aceita_pr(M, inst, m))
-            # M16: mesmo s* e K, bloco 1 com uma palavra a mais (sistema coerente com M = 16)
+            # M+1: mesmo s* e K, bloco 1 com uma palavra a mais (sistema coerente com M + 1)
             i16 = [inst[0], inst[1], [inst[2][0] + 1] + list(inst[2][1:])]
-            conta("M16", aceita_min(farkas_min.Sistema, q, n, R, 16, i16, fo), aceita_pr(16, i16, fo))
+            conta("M+1", aceita_min(farkas_min.Sistema, q, n, R, M + 1, i16, fo), aceita_pr(M + 1, i16, fo))
     # folha: instâncias com ramificação
     for reg in regs:
         if len(reg["folhas"]) > 1:

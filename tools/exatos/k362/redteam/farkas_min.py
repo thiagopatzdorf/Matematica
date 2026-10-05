@@ -107,15 +107,35 @@ def folga(sis, folha):
 
 
 def arvore_cobre(fixos_por_folha):
-    """Toda atribuição 0/1 das variáveis ramificadas satisfaz as fixações de alguma folha."""
-    vs = sorted({k for f in fixos_por_folha for k, _ in f})
-    if len(vs) > 20:
-        raise ValueError("árvore grande demais para enumerar")
-    for bits in itertools.product((0, 1), repeat=len(vs)):
-        at = dict(zip(vs, bits))
-        if not any(all(at[k] == v for k, v in f) for f in fixos_por_folha):
+    """Toda atribuição 0/1 das variáveis ramificadas satisfaz as fixações de alguma folha.
+
+    Conferência semântica, sem supor estrutura de árvore: as folhas são cubos (atribuições
+    parciais) e a pergunta é se a união deles é {0,1}^vars. Divide-se por uma variável que aparece
+    em algum cubo e se recursa nos dois lados com os cubos compatíveis; um cubo sem fixações cobre
+    tudo, e nenhum cubo não cobre nada. É exato (equivale a enumerar as atribuições), mas não
+    explode com árvores de 30+ variáveis distintas, como as de M = 16.
+    """
+    cubos = []
+    for f in fixos_por_folha:
+        c = {}
+        for k, v in f:
+            if c.get(k, v) != v:
+                c = None  # folha contraditória: cubo vazio, não cobre nada
+                break
+            c[k] = v
+        if c is not None:
+            cubos.append(c)
+
+    def cobre(cs):
+        if any(not c for c in cs):
+            return True
+        if not cs:
             return False
-    return True
+        var = next(iter(cs[0]))
+        return all(cobre([{k: w for k, w in c.items() if k != var} for c in cs if c.get(var, b) == b])
+                   for b in (0, 1))
+
+    return cobre(cubos)
 
 
 def conferir_registro(q, n, R, M, inst, reg):

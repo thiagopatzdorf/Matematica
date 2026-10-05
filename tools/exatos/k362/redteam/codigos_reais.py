@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Red team K_3(6,2), M = 15: a cadeia (normalização -> instância -> restrições -> LP) nunca recusa
+"""Red team K_3(6,2), M = 15 e 16: a cadeia (normalização -> instância -> restrições -> LP) nunca recusa
 um código que existe.
 
 Para cada código real de K_3(6,2) (17 palavras; nenhum de 16 é conhecido) e várias isometrias
@@ -15,8 +15,10 @@ aleatórias de cada um:
   * os lemas citados no PR (#55 soma de |U|, lema da fatia tau* <= M - s, identidade do perfil,
     lema de projeção em duas coordenadas) valem com o M do código.
 
-E, com 15 palavras tiradas de códigos reais e de conjuntos aleatórios (que não cobrem): se a
-instância normalizada passa no filtro de M = 15, ela TEM de estar na lista de 12 049.
+E, com T = --tamanho palavras (subcódigos de T = |C| - 1 palavras de cada código real, todos;
+subconjuntos de códigos reais, conjuntos aleatórios e conjuntos com fibras equilibradas, que não
+cobrem): se a instância normalizada passa no filtro de M = T, ela TEM de estar na lista de M = T e
+só pode violar linhas de cobertura.
 """
 import argparse
 import gzip
@@ -145,16 +147,16 @@ def main():
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("codigos", nargs="+")
     ap.add_argument("--isometrias", type=int, default=10)
-    ap.add_argument("--instancias", required=True, help="lista de M = 15")
-    ap.add_argument("--certificados", required=True, help="certificados de M = 15 (PR #57)")
+    ap.add_argument("--instancias", required=True, help="lista de M = --tamanho")
+    ap.add_argument("--certificados", required=True, help="certificados de M = --tamanho (PR #57 ou #60)")
     ap.add_argument("--transplantes", type=int, default=300, help="certificados testados por código")
     ap.add_argument("--aleatorios", type=int, default=2000)
     ap.add_argument("--semente", type=int, default=1)
+    ap.add_argument("--tamanho", type=int, default=15, help="M da lista (15 ou 16)")
     ap.add_argument("--certificar-lp", help="certificar_lp.py do PR #57: roda o gerador na instância do código")
     a = ap.parse_args()
     rng = random.Random(a.semente)
     lista = json.load(open(a.instancias))
-    na_lista = {(s, tuple(map(tuple, K))) for s, K, t in lista}
     certs = [json.loads(ln) for ln in gzip.open(a.certificados, "rt")]
     cods = [ler(f) for f in a.codigos]
     falhas = []
@@ -208,37 +210,52 @@ def main():
                         falhas.append((f, "certificado aceito numa instância viável", reg["inst"]))
     print(f"{n_iso} isometrias normalizadas, {n_trans} certificados transplantados recusados, "
           f"{len(inst_lp)} instâncias distintas passadas ao gerador LP (nenhuma deve ser certificada)")
-    # 15 palavras: subconjuntos de códigos reais e conjuntos aleatórios
+    # T palavras (T = --tamanho): subcódigos exaustivos (se T = |C| - 1), subconjuntos de códigos
+    # reais, conjuntos aleatórios e conjuntos com fibras tão equilibradas quanto T permite
+    T = a.tamanho
+    lista_set = {json.dumps([s, [list(p) for p in K], list(t)]) for s, K, t in lista}
     testados = dentro = 0
     por_s = {}
+    sub = {"total": 0, "na_lista": 0, "fora_do_filtro": 0}
+    fibras = [T // Q + (1 if i < T % Q else 0) for i in range(Q)]
+    amostras = []
+    for cod in cods:
+        if len(cod) == T + 1:
+            for i in range(len(cod)):
+                amostras.append(("sub", cod[:i] + cod[i + 1:]))
     for k in range(a.aleatorios):
         if k % 3 == 0:
-            base = rng.choice(cods)
-            pal = rng.sample(base, 15)
+            amostras.append(("real", rng.sample(rng.choice(cods), T)))
         elif k % 3 == 1:
-            pal = rng.sample(PTS, 15)
+            amostras.append(("aleatorio", rng.sample(PTS, T)))
         else:
-            # equilibrado (todas as 18 fibras com 5): cada coluna é uma permutação de 0^5 1^5 2^5.
-            # Os códigos reais conhecidos têm s* = 3 ou 4; isto exercita o ramo s* = 5.
-            cols = [rng.sample([0] * 5 + [1] * 5 + [2] * 5, 15) for _ in range(N)]
-            pal = list({tuple(c[i] for c in cols) for i in range(15)})
-            if len(pal) < 15:
-                continue
+            simb = [v for v in range(Q) for _ in range(fibras[v])]
+            cols = [rng.sample(simb, T) for _ in range(N)]
+            pal = list({tuple(c[i] for c in cols) for i in range(T)})
+            if len(pal) == T:
+                amostras.append(("equilibrado", pal))
+    for tipo, pal in amostras:
         pal = isometria_aleatoria(pal, rng)
         (s, K, t), norm = canon_fatia.normalizar(pal, Q, N)
-        if s == 0 or len(fatia.descobertos(Q, N - 1, R, K)) > cap(15, s):
+        if tipo == "sub":
+            sub["total"] += 1
+        if s == 0 or len(fatia.descobertos(Q, N - 1, R, K)) > cap(T, s):
+            if tipo == "sub":
+                sub["fora_do_filtro"] += 1
             continue
         testados += 1
         por_s[s] = por_s.get(s, 0) + 1
-        if (s, tuple(map(tuple, K))) in na_lista and [s, [list(p) for p in K], list(t)] in lista:
+        if json.dumps([s, [list(p) for p in K], list(t)]) in lista_set:
             dentro += 1
-            sis = farkas_min.Sistema(Q, N, R, 15, s, K, t)
+            sub["na_lista"] += tipo == "sub"
+            sis = farkas_min.Sistema(Q, N, R, T, s, K, t)
             v = [x for x in viola(sis, norm) if x[0] != "ge" or x[1] >= len(PTS)]
             if v:
-                falhas.append(("15 palavras", "restrição não-cobertura violada", v[:3]))
+                falhas.append((f"{T} palavras", tipo, "restrição não-cobertura violada", v[:3]))
         else:
-            falhas.append(("15 palavras", "instância fora da lista", s, K, t))
-    print(f"15 palavras: {testados} passaram no filtro, {dentro} achadas na lista; por s*: {sorted(por_s.items())}")
+            falhas.append((f"{T} palavras", tipo, "instância fora da lista", s, K, t))
+    print(f"{T} palavras: {testados} passaram no filtro, {dentro} achadas na lista; por s*: {sorted(por_s.items())}")
+    print(f"subcódigos de {T} palavras: {sub}")
     print("falhas:", falhas[:10])
     print("RESULTADO:", "OK" if not falhas else "FALHOU")
     sys.exit(0 if not falhas else 1)

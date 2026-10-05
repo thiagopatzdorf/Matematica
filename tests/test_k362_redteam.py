@@ -156,3 +156,19 @@ def test_lista_sem_uma_instancia_passa_como_completa():
     assert lista
     rel, n = lista_completa.conferir(3, 5, 2, 8, lista[1:])
     assert any(r["faltam"] or r["blocos_ruins"] for r in rel.values())
+
+
+def test_arvore_cobre_diverge_da_enumeracao_de_atribuicoes():
+    rng = random.Random(1)
+    for _ in range(2000):
+        fs = [[[v, rng.randrange(2)] for v in rng.sample(range(5), rng.randrange(0, 4))]
+              for _ in range(rng.randrange(0, 7))]
+        bruto = all(any(all(at[k] == v for k, v in f) for f in fs)
+                    for at in itertools.product((0, 1), repeat=5))
+        assert farkas_min.arvore_cobre(fs) == bruto
+
+
+def test_arvore_escada_de_30_variaveis_estoura_ou_falha():
+    escada = [[[k, 0] for k in range(i)] + [[i, 1]] for i in range(30)] + [[[k, 0] for k in range(30)]]
+    assert farkas_min.arvore_cobre(escada)
+    assert not farkas_min.arvore_cobre(escada[:-1])
