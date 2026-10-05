@@ -56,3 +56,9 @@ BEST 15703
 q=3 n=12 R=1 M=27702 best_unc=46305 iters=12302848 secs=16
 BEST 46305
 == K3(12,1) M=27701 secs=85
+q=3 n=12 R=1 M=27701 best_unc=41636 iters=66963200 secs=86
+BEST 41636
+== K2(20,5) M=128 secs=15
+q=2 n=20 R=5 M=128 best_unc=16573 iters=16640 secs=16
+BEST 16573
+== K2(20,5) M=127 secs=85
