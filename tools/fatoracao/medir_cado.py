@@ -26,6 +26,9 @@ import sys
 import time
 from pathlib import Path
 
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+import captura_relacoes  # noqa: E402
+
 SEMENTES_BWC = (1, 2, 3)
 MARCA_NLUCKY0 = "Could not find the required set of solutions"
 PRIMOS_PEQUENOS = (2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37)
@@ -82,7 +85,7 @@ def gerar(tamanhos, por_tamanho, prefixo="gnfs-base"):
         rng = random.Random(f"{prefixo}-{d}")
         for i in range(por_tamanho):
             n, p, q = semiprimo(d, rng)
-            saida.append({"digitos": d, "i": i, "n": str(n), "p": str(p), "q": str(q)})
+            saida.append({"digitos": d, "i": i, "n": str(n), "p": str(p), "q": str(q), "conjunto": prefixo})
     return saida
 
 
@@ -141,8 +144,17 @@ def sha256_texto(texto):
     return hashlib.sha256(texto.encode("utf-8")).hexdigest()
 
 
-def rodar_tentativa(cado_py, item, tentativa, trabalho, threads=4):
-    """Uma execução completa do CADO com a semente da tentativa. Devolve a linha do registro."""
+def commit_da_campanha():
+    r = subprocess.run(["git", "-C", str(Path(__file__).resolve().parent), "rev-parse", "HEAD"], capture_output=True, text=True)
+    return r.stdout.strip() or None
+
+
+def rodar_tentativa(cado_py, item, tentativa, trabalho, threads=4, guardar=None):
+    """Uma execução completa do CADO com a semente da tentativa. Devolve a linha do registro.
+
+    Com `guardar` (uma pasta), a captura das relações é gravada em `<guardar>/c<dígitos>_<i>_t<tentativa>` antes de a pasta
+    de trabalho ser apagada; falha de captura vira campo `captura_erro`, nunca derruba a medição.
+    """
     d, i = item["digitos"], item["i"]
     pasta = Path(trabalho) / f"c{d}_{i}_t{tentativa}"
     shutil.rmtree(pasta, ignore_errors=True)
@@ -161,6 +173,16 @@ def rodar_tentativa(cado_py, item, tentativa, trabalho, threads=4):
              "sha256_log": sha256_arquivo(log), "sha256_poly": sha256_arquivo(pasta / f"c{d}.poly"),
              "sha256_saida": sha256_texto(r.stdout), "pasta": None if classe == "ok" else pasta.name,
              **metricas(r.stderr)}
+    if guardar is not None:
+        destino = Path(guardar) / f"c{d}_{i}_t{tentativa}"
+        try:
+            man = captura_relacoes.empacotar(pasta, f"c{d}", destino, meta={
+                "digitos": d, "i": i, "tentativa": tentativa, "semente_bwc": semente(tentativa), "classe": classe,
+                "conjunto": item.get("conjunto"), "sha256_poly": linha["sha256_poly"], "sha256_log": linha["sha256_log"],
+                "commit_campanha": commit_da_campanha()})
+            linha["captura"], linha["captura_bytes"] = destino.name, man["bytes"]
+        except (OSError, ValueError, IndexError, KeyError) as erro:
+            linha["captura"], linha["captura_erro"] = None, f"{type(erro).__name__}: {erro}"
     if classe == "ok":
         shutil.rmtree(pasta, ignore_errors=True)
     return linha
@@ -179,14 +201,15 @@ def ler_registro(caminho):
     return [json.loads(x) for x in caminho.read_text(encoding="utf-8").splitlines()] if caminho.exists() else []
 
 
-def medir(conjunto, registro, cado_py, trabalho, threads=4, rodar=rodar_tentativa):
+def medir(conjunto, registro, cado_py, trabalho, threads=4, rodar=rodar_tentativa, guardar=None):
     for item in conjunto:
         while True:
             feitas = [x for x in ler_registro(registro) if (x["digitos"], x["i"]) == (item["digitos"], item["i"])]
             if not pendente(feitas):
                 break
             tentativa = max([x["tentativa"] for x in feitas] or [0]) + 1
-            linha = rodar(cado_py, item, tentativa, trabalho, threads)
+            linha = rodar(cado_py, item, tentativa, trabalho, threads) if guardar is None else \
+                rodar(cado_py, item, tentativa, trabalho, threads, guardar=guardar)
             with open(registro, "a", encoding="utf-8") as f:
                 f.write(json.dumps(linha) + "\n")
             print(linha["digitos"], linha["i"], f"t{tentativa}", linha["real_s"], linha["classe"], flush=True)
@@ -225,6 +248,7 @@ def main(argv=None):
     m.add_argument("--cado", required=True, help="pasta do cado-nfs (onde está cado-nfs.py)")
     m.add_argument("--trabalho", required=True)
     m.add_argument("--threads", type=int, default=4)
+    m.add_argument("--guardar-relacoes", help="pasta onde gravar a captura das relações de cada tentativa")
     e = sub.add_parser("estatistica")
     e.add_argument("registro")
     a = ap.parse_args(argv)
@@ -234,7 +258,7 @@ def main(argv=None):
         print(len(dados), "semiprimos ->", a.saida)
     elif a.cmd == "medir":
         medir(json.loads(Path(a.conjunto).read_text(encoding="utf-8")), a.registro,
-              Path(a.cado) / "cado-nfs.py", a.trabalho, a.threads)
+              Path(a.cado) / "cado-nfs.py", a.trabalho, a.threads, guardar=a.guardar_relacoes)
     else:
         print(json.dumps(estatistica(ler_registro(a.registro)), indent=1))
     return 0
