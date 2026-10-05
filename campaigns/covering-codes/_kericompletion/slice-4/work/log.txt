@@ -74,3 +74,9 @@ BEST 106599
 q=2 n=21 R=1 M=122880 best_unc=236762 iters=5865984 secs=16
 BEST 236762
 == K2(21,1) M=122879 secs=85
+q=2 n=21 R=1 M=122879 best_unc=184693 iters=47177216 secs=86
+BEST 184693
+== K3(14,5) M=243 secs=15
+q=3 n=14 R=5 M=243 best_unc=7818 iters=6144 secs=16
+BEST 7818
+== K3(14,5) M=242 secs=85
