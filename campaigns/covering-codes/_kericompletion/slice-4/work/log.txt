@@ -86,3 +86,5 @@ BEST 4845
 q=2 n=23 R=6 M=224 best_unc=42803 iters=2048 secs=18
 BEST 42803
 == K2(23,6) M=223 secs=85
+q=2 n=23 R=6 M=223 best_unc=24582 iters=8704 secs=86
+BEST 24582
