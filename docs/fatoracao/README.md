@@ -17,6 +17,7 @@ ele decide.
 | contabilidade ponta a ponta (razão de compressão, Amdahl, degrau pelo limite inferior do IC) | `tools/fatoracao/contabilidade.py`, `tests/test_contabilidade_fatoracao.py` |
 | livro de afirmações (PROVADO, VERIFICADO, EVIDÊNCIA, HIPÓTESE) e dados congelados do lote | `tools/fatoracao/baseline/claims.jsonl`, `tools/fatoracao/baseline/cado_legado.jsonl`, `tests/test_claims_fatoracao.py` |
 | protocolo da campanha de compressão (escada, cegamento, experimentos E0 a E7, red team) | [`campanha-compressao.md`](campanha-compressao.md) |
+| linha de base de informação das relações: captura que reproduz o `purge` do CADO, pipeline congelado, previsões registradas antes do teste, resultados em c60 a c90 | [`RELATION_INFORMATION_BASELINE.md`](RELATION_INFORMATION_BASELINE.md), [`predicoes-informacao.md`](predicoes-informacao.md), `tools/fatoracao/{captura_relacoes,relacoes,informacao_relacoes,baseline_informacao}.py` |
 
 O problema em si (achar um fator do RSA-270, o menor número do desafio ainda aberto) entra pelo fluxo do repo: a
 issue **Proposta de problema**, que um mantenedor aceita; só então vira cartão em `problems/cartoes/`.

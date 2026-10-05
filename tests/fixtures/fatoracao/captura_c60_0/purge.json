@@ -1,0 +1,19 @@
+{
+ "inicio": {
+  "nrows": 48110,
+  "ncols": 46650,
+  "excess": 1460
+ },
+ "apos_singletons": {
+  "nrows": 32701,
+  "ncols": 29761,
+  "excess": 2940
+ },
+ "final": {
+  "nrows": 22178,
+  "ncols": 22018,
+  "excess": 160
+ },
+ "tamanho_renumber": 66192,
+ "etapas_de_cliques": 10
+}

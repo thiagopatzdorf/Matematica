@@ -1,0 +1,53 @@
+{
+ "instancia": "c60_0 (dev)",
+ "metodo": "cado-nfs.py com o mesmo polinômio (tasks.polyselect.import) e tasks.sieve.rels_wanted reduzido; sementes bwc 1; 1 thread",
+ "previsao_do_pipeline": {
+  "t_min_brutas": 46015,
+  "n_brutas_original": 50961
+ },
+ "execucoes": [
+  {
+   "rels_wanted": 46100,
+   "linhas_do_log": [
+    "Lattice Sieving: We want 46100 relation(s)",
+    "Filtering - Singleton removal: Reading 43860 unique and 923 free relations, total 44783",
+    "Filtering - Singleton removal: After purge, 25251 relations with 25091 primes remain with weight 475279 and excess 160",
+    "Filtering - Singleton removal: Have enough relations"
+   ]
+  },
+  {
+   "rels_wanted": 43000,
+   "linhas_do_log": [
+    "Lattice Sieving: We want 43000 relation(s)",
+    "Filtering - Singleton removal: Reading 40640 unique and 923 free relations, total 41563",
+    "Filtering - Singleton removal: After purge, 24125 relations with 25301 primes remain with excess -1176",
+    "Filtering - Singleton removal: Not enough relations",
+    "Filtering - Singleton removal: Requesting 10000 additional relations",
+    "Lattice Sieving: We want 54064 relation(s)",
+    "Filtering - Singleton removal: Reading 50892 unique and 923 free relations, total 51815",
+    "Filtering - Singleton removal: After purge, 20385 relations with 20225 primes remain with weight 417730 and excess 160",
+    "Filtering - Singleton removal: Have enough relations"
+   ]
+  },
+  {
+   "rels_wanted": 40769,
+   "linhas_do_log": [
+    "Lattice Sieving: We want 40769 relation(s)",
+    "Filtering - Singleton removal: Reading 40640 unique and 923 free relations, total 41563",
+    "Filtering - Singleton removal: After purge, 24125 relations with 25301 primes remain with excess -1176",
+    "Filtering - Singleton removal: Not enough relations",
+    "Filtering - Singleton removal: Requesting 10000 additional relations",
+    "Lattice Sieving: We want 54064 relation(s)",
+    "Filtering - Singleton removal: Reading 50892 unique and 923 free relations, total 51815",
+    "Filtering - Singleton removal: After purge, 20385 relations with 20225 primes remain with weight 417730 and excess 160",
+    "Filtering - Singleton removal: Have enough relations"
+   ]
+  }
+ ],
+ "resultado": {
+  "46100": "fechou na 1ª rodada (excesso 160); fatores impressos = p e q gerados; 47087 relações brutas na pasta de upload (a granularidade do workunit passa do pedido)",
+  "43000": "1ª rodada com excesso -1176 (faltou); o CADO pediu +10000 e fechou com 55242 brutas",
+  "40769": "idem 43000"
+ },
+ "fatores_iguais_aos_gerados_com_rels_wanted_46100": true
+}
