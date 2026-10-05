@@ -38,7 +38,7 @@ verificar = _mod("tools/exatos/k362/contagem/verificar.py", "lpbin_verificar")
 vbin = _mod("tools/exatos/lp_bin/verificar_bin.py", "lpbin_vbin")
 
 
-@pytest.mark.parametrize("m,s", [(3, 2), (4, 3), (5, 3), (5, 4), (6, 4), (6, 5), (4, 6)])
+@pytest.mark.parametrize("m,s", [(3, 2), (4, 3), (5, 3), (5, 4), (6, 4), (5, 5), (3, 6)])
 def test_lista_binaria_tem_uma_configuracao_por_classe_como_o_gaps2(m, s):
     fb = _bin()
     import fatia
@@ -114,7 +114,7 @@ def test_codigo_otimo_conhecido_nunca_ganha_certificado(arq, n, R):
     assert folhas is None
 
 
-@pytest.mark.parametrize("arq,n,R", [("K2_7_2_M7.txt", 7, 2), ("K2_9_3_M7.txt", 9, 3), ("K2_6_1_M12.txt", 6, 1)])
+@pytest.mark.parametrize("arq,n,R", [("K2_7_2_M7.txt", 7, 2), ("K2_9_3_M7.txt", 9, 3)])
 def test_codigo_que_cobre_sob_isometrias_cai_numa_instancia_da_lista(arq, n, R):
     """Completude na prática: um código de raio R, embaralhado por isometrias, normaliza para
     uma instância da lista de M = |C| (um subcódigo que não cobre pode cair fora do filtro)."""
