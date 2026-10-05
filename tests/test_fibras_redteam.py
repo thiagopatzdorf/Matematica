@@ -66,7 +66,22 @@ def test_predicado_h_pega_guloso_sem_multiplicidade():
     assert predicados.viola(sorted(C), 4) != []  # o código cru não está em forma normal
 
 
+def test_lista_de_perfis_de_k7_5_3_com_16_nao_perde_nem_inventa_perfil():
+    # 201 376 é o total que o repo afirma ter fechado (registros inteiros + 2 perfis por cubos)
+    assert len(perfis_indep.tipos_forca_bruta(7, 16, 1)) == 28
+    assert len(perfis_indep.perfis(7, 5, 16, 1)) == 201376
+
+
+def test_tipo_gravado_sem_separador_com_parte_de_dois_digitos_e_lido_sem_ambiguidade():
+    from k753_perfis import ler_tipo
+    assert ler_tipo("10111111", 7, 16, 1) == (10, 1, 1, 1, 1, 1, 1)
+    assert ler_tipo("3322222", 7, 16, 1) == (3, 3, 2, 2, 2, 2, 2)
+    with pytest.raises(ValueError):
+        ler_tipo("3322222", 7, 15, 1)  # soma errada: nenhuma leitura
+
+
 def test_codificacao_independente_reproduz_k4_4_2_igual_a_7():
+    pytest.importorskip("pysat")
     import indep_perfil
     from pysat.solvers import Solver
 
@@ -90,6 +105,7 @@ FIBRAS = RAIZ / "tools" / "exatos" / "fibras"
 
 @pytest.mark.skipif(not (FIBRAS / "fib_encode.py").exists(), reason="codificador do PR #56 ausente")
 def test_orbita_do_contraexemplo_satisfaz_a_cnf_do_repo_e_mutante_de_h_e_pego():
+    pytest.importorskip("pysat")
     import orbita_fibras
     enc = orbita_fibras.carregar_encode(str(FIBRAS))
     assert orbita_fibras.orbita_sat(enc, contraexemplo_h.C, 4, 3, cobertura=False)

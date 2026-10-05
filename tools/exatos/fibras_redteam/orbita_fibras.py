@@ -9,7 +9,6 @@ apontar para o commit auditado e para mutantes.
 import importlib.util
 import itertools
 import os
-import sys
 from collections import Counter
 
 from pysat.solvers import Solver

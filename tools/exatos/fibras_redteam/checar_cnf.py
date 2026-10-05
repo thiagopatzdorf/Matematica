@@ -1,7 +1,6 @@
 """Confere, com um solver, se um código JÁ na forma normal satisfaz a CNF (fib_encode.codificar)
 do seu perfil: fixa as variáveis x pelas palavras (assunções) e pede SAT. Sem cobertura, as
 cláusulas de cobertura são retiradas (códigos aleatórios que não cobrem)."""
-from functools import lru_cache
 
 from pysat.solvers import Solver
 
