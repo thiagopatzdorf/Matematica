@@ -14,10 +14,13 @@ aqui). **Nenhuma cota muda com este documento; o ledger não foi tocado.**
 * **M = 15: as 11 496 instâncias são inviáveis, cada uma com prova VeriPB conferida** (cadeia OPB);
   11 171 delas também com prova LRAT conferida (cadeia CNF, outro sistema de prova). Logo não
   existe código de 15 palavras e **K₃(6,2) ≥ 16** — INDEPENDENTLY_REPRODUCED em relação ao PR #57.
-* **M = 16 (segunda via do PR #60): 11 582 de 11 592 instâncias refutadas com prova; 10 em aberto**
-  (prova acima do teto de 3 GB). Esta cadeia **não** fecha K₃(6,2) ≥ 17.
+* **M = 16 (segunda via do PR #60): as 11 592 instâncias são inviáveis.** 11 582 caem com prova VeriPB
+  inteira. As outras 10, divididas por tamanhos exatos de fibra, dão 106 folhas: 101 com prova VeriPB e
+  5 com certificado de Farkas conferido em `Fraction`. Logo **K₃(6,2) ≥ 17**, e com o código de 17
+  palavras **K₃(6,2) = 17**.
 * Nenhum código de 15 ou 16 palavras apareceu (nenhuma formulação completa satisfazível).
-* Custo: uma VM spot t2d-standard-8 por ~4 h 25 min (≈ US$ 0,80 a US$ 0,177/h), destruída no fim.
+* Custo: uma VM spot t2d-standard-8 por ~4 h 25 min (≈ US$ 0,80 a US$ 0,177/h), destruída no fim; a
+  divisão de M = 16 rodou no container (sem custo de nuvem).
   Registros compactos (sem provas) em `tools/exatos/k362_repro/registros/` (1,7 MB).
 
 
@@ -183,7 +186,7 @@ filtro (0/0/1/27/468/11 000) coincidem com as do PR #57. **Nenhuma divergência 
 Mesma cadeia OPB, `repro_rodar.py 3 6 2 16`, teto de prova de 3 GB por instância
 (`K362_REPRO_MAX_PROVA_GB`). Lista: 11 592 instâncias (3 + 31 + 487 + 11 071).
 
-| s | instâncias | fatia UNSAT | completa UNSAT | em aberto (prova > 3 GB) |
+| s | instâncias | fatia UNSAT | completa UNSAT | prova > 3 GB na 1ª passada (fechadas pela divisão) |
 |---|---|---|---|---|
 | 2 | 3 | 3 | 0 | 0 |
 | 3 | 31 | 30 | 1 | 0 |
@@ -191,16 +194,56 @@ Mesma cadeia OPB, `repro_rodar.py 3 6 2 16`, teto de prova de 3 GB por instânci
 | 5 | 11 071 | 9 498 | 1 564 | 9 |
 | **total** | **11 592** | **9 992** | **1 590** | **10** |
 
-**11 582 de 11 592 instâncias refutadas com prova VeriPB conferida; 10 em aberto.** Nas 10, a prova
-passou de 3 GB depois de 213 a 465 s de solver (duas, antes do teto, chegaram a 5,7 e 9,8 GB em 20 min
-e foram mortas para não encher o disco). Medi sem prova, com 600–900 s por fórmula: a completa
-pura não fecha a primeira delas em 600 s; acrescentando os blocos `Σ_{c₀=b} z ≥ s` fecha em 543 s;
-dividindo pelos blocos exatos `(t₁, t₂)` (válido: trocar os símbolos 1 e 2 da coordenada 0 fixa `K`,
-então `t₁ ≥ t₂`), o caso (8,4) fecha em 0,2 s mas o (7,5) não fecha em 900 s. Parei aí: fechar as 10
-com prova pediria horas de solver por instância e provas de dezenas de GB, além do teto de disco da VM.
-**Esta cadeia não reproduz K₃(6,2) ≥ 17**; ela é compatível com o PR #60 (nenhum código de 16
-palavras apareceu, nenhum modelo satisfazível), mas deixa 10 instâncias sem certificado. As 10, com o
-`K` de cada uma, estão no registro (`veredito: PROVA_GRANDE`).
+Na primeira passada, 11 582 instâncias foram refutadas com prova VeriPB conferida e 10 ficaram com a
+prova acima de 3 GB (213 a 465 s de solver; duas, antes do teto, chegaram a 5,7 e 9,8 GB). As 10 foram
+fechadas pela divisão abaixo, **todas**, rodando no container (a cota de vCPU do projeto estava cheia
+com outras VMs, então não subi outra spot).
+
+#### Divisão por tamanhos exatos de fibra (PROVED)
+
+Num código de 16 palavras normalizado com fibra mínima `F(0,0)` de tamanho `s`, cada coordenada `j`
+tem fibras `(f₀, f₁, f₂)` com `f_a ≥ s` (minimalidade) e `f₀ + f₁ + f₂ = 16`. Na coordenada 0,
+`f₀ = s`; trocar os símbolos 1 e 2 da coordenada 0 é uma isometria que fixa `{0} × K` e preserva todas
+as restrições, então pode-se supor `f₁ ≥ f₂` (para `s = 5` sobra só `(5,6,5)`; para `s = 4`,
+`(4,8,4)`, `(4,7,5)`, `(4,6,6)`). Um ramo fixa `(f₀, f₁, f₂)` para as coordenadas `0..d−1` com as
+igualdades `Σ_{c₀≠0, c_j=a} z_c = f_a − #{k ∈ K : k_j = a}` (na coordenada 0, `= f_a` para `a = 1, 2`).
+Os ramos de uma coordenada esgotam todas as distribuições possíveis, logo **as folhas de uma árvore
+completa cobrem todo código da instância**. O teste
+`test_ramo_da_divisao_por_fibras_exclui_o_proprio_codigo` confere isso no código de 17 palavras.
+
+Cada folha vai primeiro ao RoundingSat com prova VeriPB (teto de 1 GB, 1 500 s). Se resiste, a segunda
+técnica é um **certificado de Farkas** para o LP da folha (`repro_farkas.py`): o gerador é o HiGHS
+(scipy), e o verificador, escrito do zero, usa só `Fraction`. Ele aceita se, para multiplicadores
+`y ≥ 0`, vale `y·b > Σ_j max(0, (Aᵀy)_j)` (com `0 ≤ x ≤ 1`, isso impede até solução fracionária). **É
+o mesmo tipo de certificado do PR #60, mas código, enumeração, divisão e verificador são
+independentes.** Se a Farkas também falha, divide-se de novo.
+
+| instância (s; K) | folhas | VeriPB | Farkas | profundidade |
+|---|---|---|---|---|
+| 4; 00000,00111,00222,11012 | 45 | 41 | 4 | 2 |
+| 5; 00000,00111,00222,01012,02021 | 5 | 5 | 0 | 3 |
+| 5; 00000,00111,00222,01012,10120 | 3 | 3 | 0 | 2 |
+| 5; 00000,00111,00222,11001,12120 | 7 | 7 | 0 | 3 |
+| 5; 00000,00111,00222,11012,11120 | 9 | 9 | 0 | 3 |
+| 5; 00000,00111,00222,11012,12021 | 7 | 7 | 0 | 3 |
+| 5; 00000,00111,00222,11012,12120 | 7 | 6 | 1 | 3 |
+| 5; 00000,00111,00222,11012,22120 | 9 | 9 | 0 | 3 |
+| 5; 00000,00111,01012,10120,11201 | 5 | 5 | 0 | 3 |
+| 5; 00000,00111,11012,11120,22201 | 9 | 9 | 0 | 3 |
+| **total** | **106** | **101** | **5** | |
+
+Tempo das folhas PB: 6 202 s de solver + verificador (2 processos, cerca de 3 h de parede no container
+compartilhado). Maior prova: 1,03 GB. Os 5 certificados de Farkas (79 a 154 multiplicadores não nulos)
+estão no registro `registros/K3_6_2_M16_divisao.jsonl.gz`, junto com o sha256 de cada fórmula PB.
+`test_divisao_de_m16_deixa_ramo_sem_folha_ou_certificado_de_farkas_falso` reconfere três coisas: que a
+árvore de cada instância é completa, que toda folha PB tem VeriPB VERIFIED e, do zero, que cada
+certificado de Farkas vale.
+
+Não houve ramo satisfazível, nem código de 16 palavras.
+
+**Com isso, as 11 592 instâncias de M = 16 são inviáveis: 11 582 com prova VeriPB inteira e 10 por
+divisão (101 folhas VeriPB + 5 Farkas). K₃(6,2) ≥ 17 e, com o código de 17 palavras, K₃(6,2) = 17 —
+reproduzido de forma independente do PR #60.**
 
 
 ## 5. O que muda e o que não muda
@@ -211,7 +254,8 @@ palavras apareceu, nenhum modelo satisfazível), mas deixa 10 instâncias sem ce
 | a lista tem uma classe de `K` por órbita, 11 496 para M = 15 | COMPUTATIONALLY_VERIFIED (Burnside) e INDEPENDENTLY_REPRODUCED (contagens de `GAPS2_K362.md`/PR #57; nauty com grafo próprio) |
 | as 11 496 instâncias de M = 15 são inviáveis | COMPUTATIONALLY_VERIFIED: 11 496 provas VeriPB conferidas; 11 171 delas também por prova LRAT conferida (as 325 restantes só pela cadeia OPB) |
 | K₃(6,2) ≥ 16 | **INDEPENDENTLY_REPRODUCED** em relação ao PR #57: outra redução (sem blocos, relaxação projetada), outra enumeração e canonização (colunas + Burnside + nauty com grafo de triângulos), outro sistema de prova (planos de corte checados pelo VeriPB, e resolução checada pelo `lrat-check`), nenhum código em comum |
-| K₃(6,2) ≥ 17 (M = 16) | OBSERVED apenas: 11 582 / 11 592 com prova; 10 em aberto |
+| as 11 592 instâncias de M = 16 são inviáveis | COMPUTATIONALLY_VERIFIED: 11 582 com VeriPB; 10 por divisão PROVED, com 101 folhas VeriPB e 5 Farkas conferidos em `Fraction` |
+| K₃(6,2) ≥ 17 (logo = 17) | **INDEPENDENTLY_REPRODUCED** em relação ao PR #60: o certificado das 5 folhas Farkas é do mesmo tipo do #60, mas o código, a enumeração, a divisão e o verificador são outros, e o resto é VeriPB |
 
 O que este documento **não** faz: não muda o ledger, não formaliza em Lean, não confere as provas com
 um verificador formalmente verificado (o `cake_lpr` aceitaria as provas LRAT; não rodei).

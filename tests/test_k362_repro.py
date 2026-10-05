@@ -228,3 +228,35 @@ def test_farkas_nao_fecha_o_ramo_8_4_da_instancia_s4_de_m16():
     assert fk.confere(L, inst.nv, y) > 0
     y[max(range(len(y)), key=lambda i: y[i])] = Fraction(0)  # tirar o maior multiplicador quebra a prova
     assert fk.confere(L, inst.nv, y) <= 0
+
+
+def test_divisao_de_m16_deixa_ramo_sem_folha_ou_certificado_de_farkas_falso():
+    """Registro da divisão das 10 instâncias de M = 16: as folhas de cada instância cobrem todos os ramos
+    (árvore completa sobre `opcoes`), toda folha PB tem VeriPB VERIFIED, e cada certificado de Farkas
+    guardado é reconferido aqui em Fraction a partir da instância regenerada."""
+    import gzip
+    import json
+    import repro_divisao as div
+    import repro_farkas as fk
+    reg = os.path.join(RAIZ, "tools", "exatos", "k362_repro", "registros", "K3_6_2_M16_divisao.jsonl.gz")
+    regs = [json.loads(ln) for ln in gzip.open(reg, "rt")]
+    assert len(regs) == 10 and all(r["fechou"] for r in regs)
+    for r in regs:
+        K = [tuple(map(int, w)) for w in r["K"].split(",")]
+        folhas = {json.dumps(f["divisao"]): f for f in r["folhas"]}
+
+        def coberto(d):
+            if json.dumps(d) in folhas:
+                return True
+            return len(d) < 6 and all(coberto(d + [[len(d), list(f)]]) for f in div.opcoes(len(d), 16, len(K)))
+        assert coberto([])
+        inst = div.Instancia(3, 6, 2, 16, K)
+        for f in r["folhas"]:
+            if f["metodo"] == "pb":
+                assert f["veredito"] == "UNSAT" and f["verificador"] == "VERIFIED"
+            else:
+                L = inst.linhas([(j, tuple(v)) for j, v in f["divisao"]])
+                y = [Fraction(0)] * len(L)
+                for i, v in f["y"]:
+                    y[i] = Fraction(v)
+                assert fk.confere(L, inst.nv, y) > 0
