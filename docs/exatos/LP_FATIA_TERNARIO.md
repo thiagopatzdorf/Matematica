@@ -23,7 +23,7 @@ Validação em valores conhecidos:
 | K_3(5,2) = 8, M = 7 | 7 | 7 de 7 mortas na raiz; `verificar.py` aceita | COMPUTATIONALLY_VERIFIED |
 | K_3(4,1) = 9, M = 8 | **0** | o filtro de contagem sozinho já elimina tudo | COMPUTATIONALLY_VERIFIED |
 | K_3(5,1) = 27, M = 26 | **343** (lista nova por aumento canônico, ver abaixo; s* = 7: 3, s* = 8: 340) | 343 de 343 mortas na raiz, 17 s em 1 processo; `verificar.py`: `TODAS INVIÁVEIS` | COMPUTATIONALLY_VERIFIED |
-| K_3(5,1), M = 27 (existe código) | ver seção 4 | o código `H × Z_3` (Hamming [4,2] vezes um símbolo livre), normalizado por `canon_fatia`, cai numa instância que o LP **não** certifica, como deve | COMPUTATIONALLY_VERIFIED |
+| K_3(5,1), M = 27 (existe código) | lista não terminou (`aumento.py` passou de 60 min com s* = 9 e foi interrompido) | o código `H × Z_3` (Hamming [4,2] vezes um símbolo livre), normalizado por `canon_fatia`, cai numa instância que o LP **não** certifica, como deve | COMPUTATIONALLY_VERIFIED |
 | K_3(6,3) = 6, M = 5 | 5 | **0 de 5** certificadas pelo LP (ramificação até 12). Fecha por outro caminho: as 3 com s* = 0 morrem pelo lema da fibra vazia (abaixo, com K_3(5,2) ≥ 8); as 2 com s* = 1, RoundingSat UNSAT em 17 s e 69 s (sem VeriPB aqui) | OBSERVED (a parte s* = 1 não tem prova conferida) |
 
 Nenhuma cota do ledger muda. Nenhum código novo.
