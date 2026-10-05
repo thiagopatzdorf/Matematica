@@ -11,7 +11,7 @@ confere, para cada folha da árvore:
 
 A caixa é [0,1] por variável, com a fatia 0 fixada pela instância e as fixações do ramo. Caixa
 vazia = folha vazia (nada a provar). A completude da árvore é conferida SEMANTICAMENTE: toda
-atribuição 0/1 das variáveis ramificadas cai em pelo menos uma folha (enumeração explícita).
+atribuição 0/1 das variáveis ramificadas cai em pelo menos uma folha (divisão recursiva exata, equivalente a enumerar).
 
 Convenção de índices do certificado (do formato do PR #57): linha k < q^n é a cobertura do ponto de
 índice k na ordem de itertools.product; linha q^n + (j-1)·q + a é a fibra (j, a), j >= 1; mu =

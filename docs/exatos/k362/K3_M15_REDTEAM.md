@@ -195,7 +195,7 @@ maior, não existe nem solução fracionária. O `verificar.py`:
 
 `farkas_min.py` não importa nada do gerador, do `verificar.py` nem do `gaps2`. Monta cada restrição
 como dicionário explícito, soma em `Fraction` e confere a completude da árvore **semanticamente**:
-enumera todas as atribuições 0/1 das variáveis ramificadas e exige que cada uma caia em alguma folha.
+exige que toda atribuição 0/1 das variáveis ramificadas caia em alguma folha (divisão recursiva exata sobre os cubos das folhas; a primeira versão enumerava 2^v e foi trocada porque M = 16 tem árvore com 23 variáveis).
 
     python3 tools/exatos/k362/redteam/farkas_min.py --instancias i15_regen.json \
         --certificados K3_6_2_M15_certificados.jsonl.gz --sha256 5a07459e…217e6
