@@ -39,6 +39,7 @@ def test_reducao_descarta_um_codigo_que_o_opb_original_recusaria():
 
 
 def test_cnf_do_totalizador_aceita_exatamente_o_que_a_cardinalidade_aceita():
+    pytest.importorskip("pysat")
     from pysat.solvers import Cadical153
     livres, cons = au.reduzir(INST)
     nv, cls = au.cnf(livres, cons)
@@ -52,6 +53,7 @@ def test_cnf_do_totalizador_aceita_exatamente_o_que_a_cardinalidade_aceita():
 
 
 def test_estabilizador_de_um_ponto_e_o_grupo_inteiro_que_fixa_a_origem():
+    pytest.importorskip("numpy")
     # S_2 wr S_5 = 2^5 * 5! = 3840 elementos fixam 00000
     assert len(au.estabilizador(((0, 0, 0, 0, 0),))) == 3840
 
@@ -68,6 +70,7 @@ def test_opb_do_cache_e_identico_ao_de_fatia_pb():
 
 
 def test_empacotamento_nunca_passa_do_lp_nem_o_lp_da_cobertura_inteira():
+    pytest.importorskip("scipy")
     K = INST[1]
     assert au.nu(K) <= au.tau(K) + 1e-9 <= au.gama(K) + 1e-9
 
