@@ -28,3 +28,4 @@ import CoveringLean.LratKData
 import CoveringLean.LratKFinal
 import CoveringLean.LratK_K4
 import CoveringLean.Regras
+import CoveringLean.K764_Upper
