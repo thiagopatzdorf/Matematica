@@ -114,7 +114,8 @@ def main():
     meus = enumerar(q, M, pref[0], pref[1])
     if modo == "conferir":
         import fib_cubos
-        repo = fib_cubos.atribuicoes_coord1(q, M, pref[0], pref[1], smin, M)
+        # o enumerador do repo é lento (enumera sem (h) e filtra); SEM_REPO=1 pula a comparação
+        repo = None if os.environ.get("SEM_REPO") else fib_cubos.atribuicoes_coord1(q, M, pref[0], pref[1], smin, M)
         regs = {}
         ruins = 0
         for arq in sys.argv[9:]:
@@ -150,7 +151,7 @@ def main():
                 exemplos.append(("sha", ci))
         faltam = [i for i in range(len(meus)) if i not in regs]
         print(json.dumps({"inst": inst, "ordem": ordem, "tipos": tipos, "cubos_meus": len(meus),
-                          "cubos_repo": len(repo), "listas_iguais": meus == repo,
+                          "cubos_repo": None if repo is None else len(repo), "listas_iguais": None if repo is None else meus == repo,
                           "indices_fechados": len(regs), "faltam": len(faltam), "faltam_ex": faltam[:20],
                           "fora_do_intervalo": sum(1 for i in regs if i >= len(meus)),
                           "cubo_gravado_diverge": cubo_ruim, "sha_cnf_igual": sha_ok, "sha_cnf_diverge": sha_ruim,
