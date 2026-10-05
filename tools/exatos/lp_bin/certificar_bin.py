@@ -40,7 +40,7 @@ from scipy.sparse import csr_matrix, hstack, identity, vstack
 
 REGRA = ['fracionaria']  # escolha da órbita para ramificar
 MOTIVO = []  # por que a última ramificação desistiu (diagnóstico)
-ESCALAS = (1, 2, 3, 4, 6, 8, 12, 24, 60, 120, 1000, 10**4, 10**5, 10**6, 10**8)
+ESCALAS = (1, 2, 3, 4, 6, 8, 12, 24, 60, 120, 1000, 10**4, 10**5, 10**6, 10**8, 10**10, 10**12, 10**14)
 
 
 def _popcount(n):
@@ -134,6 +134,15 @@ def dual(G, h, Eq, e, lb, ub):
     return -r.fun, r.x[:ng], r.x[ng:ng + ne]
 
 
+def dual_normalizado(G, h, Eq, e, lb, ub):
+    """dual() com cada linha dividida pelo maior coeficiente: as órbitas grandes dão linhas com
+    coeficientes de milhares, e sem isso o y do HiGHS não sobrevive ao arredondamento (medido em
+    K_2(16,6): LP inviável e nenhuma escala inteira válida). Devolve y nas linhas originais."""
+    d = np.maximum(np.abs(G).max(1), 1).astype(float)
+    v, y, mu = dual(G / d[:, None], h / d, Eq, e, lb, ub)
+    return v, (None if y is None else y / d), mu
+
+
 def folga(G, h, Eq, e, lb, ub, y, mu):
     """Folga exata em inteiros Python (> 0 = inviável). lb/ub inteiros 0/1."""
     y = [int(v) for v in y]
@@ -162,8 +171,9 @@ def folga(G, h, Eq, e, lb, ub, y, mu):
 
 def inteirar(G, h, Eq, e, lb, ub, y, mu):
     for esc in ESCALAS:
-        yi = np.maximum(np.floor(y * esc + 1e-9), 0).astype(np.int64)
-        mi = np.round(np.atleast_1d(mu) * esc).astype(np.int64)
+        # inteiros Python: com escala 10^14 o int64 pode estourar no mu
+        yi = np.array([max(int(np.floor(v * esc + 1e-9)), 0) for v in y], dtype=object)
+        mi = np.array([int(round(v * esc)) for v in np.atleast_1d(mu)], dtype=object)
         if folga(G, h, Eq, e, lb, ub, yi, mi) > 0:
             return yi, mi
     return None
@@ -209,8 +219,8 @@ def _raiz_reduzida(E, M, s, K, t, ramos, marcados):
     S = reduzido(E, M, s, K, t, ramos, marcados)
     nv = len(S["vivas"])
     lb, ub = S["lb"], S["ub"]
-    v, y, mu = dual(S["G"].astype(float), S["h"].astype(float), S["eq"][None].astype(float),
-                    np.array([float(S["e"])]), lb.astype(float), ub.astype(float))
+    v, y, mu = dual_normalizado(S["G"].astype(float), S["h"].astype(float), S["eq"][None].astype(float),
+                                np.array([float(S["e"])]), lb.astype(float), ub.astype(float))
     if v > 1e-9:
         r = inteirar(S["G"], S["h"], S["eq"][None], np.array([S["e"]]), lb, ub, y, mu)
         if r:
@@ -274,8 +284,8 @@ def certificar(E, M, s, K, t, ramos=True, orc=4000):
     S = reduzido(E, M, s, K, t)
     nv = len(S["vivas"])
     lb, ub = S["lb"], S["ub"]
-    v, y, mu = dual(S["G"].astype(float), S["h"].astype(float), S["eq"][None].astype(float),
-                    np.array([float(S["e"])]), lb.astype(float), ub.astype(float))
+    v, y, mu = dual_normalizado(S["G"].astype(float), S["h"].astype(float), S["eq"][None].astype(float),
+                                np.array([float(S["e"])]), lb.astype(float), ub.astype(float))
     if v > 1e-9:
         r = inteirar(S["G"], S["h"], S["eq"][None], np.array([S["e"]]), lb, ub, y, mu)
         if r:
