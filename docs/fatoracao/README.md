@@ -58,7 +58,7 @@ medida, não com esperança. Nada abaixo é alegação de novidade.
 
 | fase | o quê | avaliador |
 |---|---|---|
-| 0 | mapa da literatura: o que já foi tentado, para não repetir | busca com fonte citada |
+| 0 | mapa da literatura: o que já foi tentado, para não repetir ([`literatura.md`](literatura.md); com lacunas declaradas) | busca com fonte citada e grau de verificação por afirmação |
 | 1 | linha de base: CADO-NFS compilado e medido em tamanhos pequenos | tempo e contadores medidos, curva ajustada |
 | 2 | avaliadores independentes de hardware: rendimento medido do peneiramento, Murphy-E e a função de ranqueamento de David e Zimmermann (2020), porque o Murphy-E pode ranquear polinômios errado | exato e barato |
 | 3 | busca guiada por modelo sobre famílias de polinômios e regiões de peneiramento, sempre julgada pela fase 2 | o da fase 2 |
