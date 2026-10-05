@@ -10,16 +10,18 @@ medimos, célula por célula da triagem, se ela cabe no orçamento.
 ∄ 13 por 8008 perfis com LRAT dá K_7(6,4) = 14. O red team (`REDTEAM_K764.md`, PR #62) concluiu
 "sobrevive com ressalva": a prova escrita do Lema 4 estava errada e o canonizador violava (h), o
 enunciado vale e a CNF codifica o enunciado; prova e canonizador corrigidos neste PR. O valor
-exato fica para o dono registrar depois de revisar a correção. K_7(5,3) sobe para 16–17; a prova de ∄ 16 (201 376
-perfis) está em andamento, ver a linha de M = 16. K_q(4,2), q = 16…20: o método não alcança
+exato fica para o dono registrar depois de revisar a correção. K_7(5,3) = 17: ∄ 15 (1 perfil) e ∄ 16 (201 376
+perfis, todos com LRAT conferido), com a cota superior publicada 17. Os dois valores dependem
+do Lema 1 geral e das quebras (a)–(h) (red team de K_7(6,4) no PR #62; K_7(5,3), M = 16, não foi
+auditado à parte). K_q(4,2), q = 16…20: o método não alcança
 (seção "Medições"); sondas de existência também não acharam código.
 
 | célula | antes | depois | afirmação provada | instâncias | verificação |
 |---|---|---|---|---|---|
-| **K_7(5,3)** | 15–17 | **16–17** | ∄ código com 15 palavras | 1 perfil | CaDiCaL UNSAT (221 s), `lrat-check` VERIFIED, `lrat.py` VERIFICADO (prova de 1,56 GB, sha256 `9cc887c5…`), kissat UNSAT (11 min) |
+| **K_7(5,3)** | 15–17 | **16–17** (ver M = 16) | ∄ código com 15 palavras | 1 perfil | CaDiCaL UNSAT (221 s), `lrat-check` VERIFIED, `lrat.py` VERIFICADO (prova de 1,56 GB, sha256 `9cc887c5…`), kissat UNSAT (11 min) |
 | **K_7(6,4)** | 13–15 | **14** (red team #62: sobrevive com ressalva, corrigida aqui) | ∄ código com 13 palavras; código com 14 | 8008 perfis + 1 SAT | 8008/8008 UNSAT, 8008/8008 `lrat-check` VERIFIED, amostra de 12 com `lrat.py` VERIFICADO; o código de 14 (`data/codes/q7_n6_R4_M14.txt`) passa no `tools/verify/verify` (0 de 117 649 pontos descobertos) |
 <!-- LINHA_M16 -->
-| K_7(5,3), M = 16 | 16–17 | (em andamento) | ∄ código com 16 palavras | 201 376 perfis | 201 375 UNSAT com `lrat-check` VERIFIED; falta 1 perfil (3322222^5), em 4953 cubos |
+| **K_7(5,3)**, M = 16 | 16–17 | **= 17** | ∄ código com 16 palavras | 201 376 perfis (2 em cubos) | 201 374 perfis inteiros + 1812 cubos (perfil 3322222^4·4222222) + 4953 cubos (perfil 3322222^5), todos UNSAT com `lrat-check` VERIFIED; 24 perfis aleatórios também com `lrat.py` VERIFICADO; `fecha_perfis.py` 201 376/201 376, 30/30 CNFs regeneradas batem o sha256; registro em `certificados/K7_5_3_M16.jsonl.xz` |
 
 A contagem dos perfis fechados é do `tools/exatos/fibras/fecha_perfis.py` (era `cobertura.py`;
 renomeado porque sombreava `ledger/cobertura.py` na suíte inteira). Status honesto, igual ao do k742: resultado **computacional com certificado** (LRAT conferido por
@@ -256,3 +258,18 @@ drat-trim `2e3b2dc`, kissat 4.0.4 `8af8e56`).
   Fora.
 - **K_5(9,6).** R = n − 3: a cobertura não se escreve com pares (seção do Lema 2). Fora do escopo
   desta ferramenta.
+
+## K_7(5,3), M = 16: como a prova foi rodada
+
+`rodar.py --q 7 --n 5 --M 16 --ordem max --prova --descartar` em três VMs spot (2 × t2d-standard-8,
+1 × e2-highcpu-8), em fatias, com `--pular` casando perfis pelo multiconjunto de tipos (uma
+parte saiu na ordem min, que vale igual: seção do Lema 4). Soma: 722 699 s de solver, 116 197 s
+de `lrat-check`, 4,7 TB de LRAT conferidos e descartados (fica o sha256). Três perfis da ordem max
+não saíram rápido: o 55 (4222222^3·3322222^2) saiu inteiro em 5200 s, prova de 20,6 GB conferida
+em 533 s; o 7714 (4222222·3322222^4) e o 58870 (3322222^5) passaram de 4 h inteiros e foram
+fechados em cubos L = 16 (`fib_cubos.py`: 1812 e 4953 cubos, ~50–85 s cada). Duas preempções
+das VMs no meio: os JSONL ganharam lixo no fim (NULs), a linha truncada foi descartada e os
+cubos refeitos; as corridas inteiras de 7714 e 58870 em andamento se perderam.
+
+Para conferir: `xz -dk tools/exatos/fibras/certificados/K7_5_3_M16.jsonl.xz` e
+`python3 tools/exatos/fibras/fecha_perfis.py --q 7 --n 5 --M 16 --amostra-sha 30 K7_5_3_M16.jsonl`.
