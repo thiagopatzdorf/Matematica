@@ -7,12 +7,13 @@ ordem) aparecem assim. Também confere que o sha256 de cada CNF bate com o que o
 hoje, numa amostra (`--amostra-sha N`), e lista o que falta. Sai com código 1 se faltar perfil
 ou se houver SAT / INDEFINIDO sem fechamento.
 
-Uso:
-  python3 tools/exatos/fibras/fecha_perfis.py --q 7 --n 5 --M 16 arquivos.jsonl...
+Uso (aceita .jsonl e .jsonl.xz):
+  python3 tools/exatos/fibras/fecha_perfis.py --q 7 --n 5 --M 16 tools/exatos/fibras/certificados/K7_5_3_M16.parte-*.jsonl.xz
 """
 import argparse
 import hashlib
 import json
+import lzma
 import os
 import random
 import sys
@@ -60,7 +61,8 @@ def main():
     regs = []
     tempo = tempo_check = bytes_lrat = 0.0
     for arq in a.arquivos:
-        for ln in open(arq):
+        # .xz lido direto: o registro de K_7(5,3) M=16 vai em partes comprimidas < 5 MB
+        for ln in (lzma.open(arq, "rt") if arq.endswith(".xz") else open(arq)):
             r = json.loads(ln)
             if (r["q"], r["n"], r["M"]) != (a.q, a.n, a.M) or r.get("sem"):
                 continue

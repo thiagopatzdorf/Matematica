@@ -337,3 +337,44 @@ def test_guloso_h_que_rotula_pelo_indice_viola_h_no_contraexemplo_do_red_team():
     val = canonizar.atribuicao(cnf, x, norm, q, n)
     ruins = [c for c in canonizar.violadas(cnf, val) if len(c) != n * (n - 1) // 2]
     assert ruins == []
+
+
+def test_fecha_perfis_le_partes_xz_como_se_fossem_um_arquivo(tmp_path):
+    import json
+    import lzma
+    import subprocess
+    q, n, M = 5, 5, 8
+    _, ins = encode.instancias(q, n, M, n, 1)
+    linhas = [json.dumps({"q": q, "n": n, "M": M, "inst": i, "ordem": "min", "resultado": "UNSAT",
+                          "lrat_check": "VERIFIED", "tempo_solver_s": 0.1,
+                          "tipos": ["".join(map(str, t)) for t in p]}) for i, p in enumerate(ins)]
+    partes = []
+    for k, fatia in enumerate((linhas[:10], linhas[10:])):
+        f = tmp_path / f"p{k}.jsonl.xz"
+        with lzma.open(f, "wt") as fo:
+            fo.write("\n".join(fatia) + "\n")
+        partes.append(str(f))
+    script = RAIZ / "tools" / "exatos" / "fibras" / "fecha_perfis.py"
+    roda = lambda arqs: subprocess.run([sys.executable, str(script), "--q", "5", "--n", "5", "--M", "8", *arqs],  # noqa: E731
+                                       capture_output=True, text=True).returncode
+    assert roda(partes) == 0
+    assert roda(partes[1:]) == 1
+
+
+def test_partes_do_registro_k7_5_3_m16_batem_o_manifesto():
+    import hashlib
+    import lzma
+    d = RAIZ / "tools" / "exatos" / "fibras" / "certificados"
+    man = {}
+    for ln in (d / "K7_5_3_M16.sha256").read_text().splitlines():
+        if ln and not ln.startswith("#"):
+            h, nome = ln.split()
+            man[nome] = h
+    partes = sorted(p for p in man if p.endswith(".xz"))
+    assert len(partes) >= 2
+    tudo = hashlib.sha256()
+    for p in partes:
+        assert hashlib.sha256((d / p).read_bytes()).hexdigest() == man[p]
+        assert (d / p).stat().st_size < 5_000_000
+        tudo.update(lzma.decompress((d / p).read_bytes()))
+    assert tudo.hexdigest() == man["K7_5_3_M16.jsonl"]

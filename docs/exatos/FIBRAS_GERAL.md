@@ -21,7 +21,7 @@ auditado à parte). K_q(4,2), q = 16…20: o método não alcança
 | **K_7(5,3)** | 15–17 | **16–17** (ver M = 16) | ∄ código com 15 palavras | 1 perfil | CaDiCaL UNSAT (221 s), `lrat-check` VERIFIED, `lrat.py` VERIFICADO (prova de 1,56 GB, sha256 `9cc887c5…`), kissat UNSAT (11 min) |
 | **K_7(6,4)** | 13–15 | **14** (red team #62: sobrevive com ressalva, corrigida aqui) | ∄ código com 13 palavras; código com 14 | 8008 perfis + 1 SAT | 8008/8008 UNSAT, 8008/8008 `lrat-check` VERIFIED, amostra de 12 com `lrat.py` VERIFICADO; o código de 14 (`data/codes/q7_n6_R4_M14.txt`) passa no `tools/verify/verify` (0 de 117 649 pontos descobertos) |
 <!-- LINHA_M16 -->
-| **K_7(5,3)**, M = 16 | 16–17 | **= 17** | ∄ código com 16 palavras | 201 376 perfis (2 em cubos) | 201 374 perfis inteiros + 1812 cubos (perfil 3322222^4·4222222) + 4953 cubos (perfil 3322222^5), todos UNSAT com `lrat-check` VERIFIED; 24 perfis aleatórios também com `lrat.py` VERIFICADO; `fecha_perfis.py` 201 376/201 376, 30/30 CNFs regeneradas batem o sha256; registro em `certificados/K7_5_3_M16.jsonl.xz` |
+| **K_7(5,3)**, M = 16 | 16–17 | **= 17** | ∄ código com 16 palavras | 201 376 perfis (2 em cubos) | 201 374 perfis inteiros + 1812 cubos (perfil 3322222^4·4222222) + 4953 cubos (perfil 3322222^5), todos UNSAT com `lrat-check` VERIFIED; 24 perfis aleatórios também com `lrat.py` VERIFICADO; `fecha_perfis.py` 201 376/201 376, 30/30 CNFs regeneradas batem o sha256; registro em `certificados/K7_5_3_M16.parte-00{0..4}.jsonl.xz` (manifesto `K7_5_3_M16.sha256`) |
 
 A contagem dos perfis fechados é do `tools/exatos/fibras/fecha_perfis.py` (era `cobertura.py`;
 renomeado porque sombreava `ledger/cobertura.py` na suíte inteira). Status honesto, igual ao do k742: resultado **computacional com certificado** (LRAT conferido por
@@ -271,5 +271,7 @@ fechados em cubos L = 16 (`fib_cubos.py`: 1812 e 4953 cubos, ~50–85 s cada). D
 das VMs no meio: os JSONL ganharam lixo no fim (NULs), a linha truncada foi descartada e os
 cubos refeitos; as corridas inteiras de 7714 e 58870 em andamento se perderam.
 
-Para conferir: `xz -dk tools/exatos/fibras/certificados/K7_5_3_M16.jsonl.xz` e
-`python3 tools/exatos/fibras/fecha_perfis.py --q 7 --n 5 --M 16 --amostra-sha 30 K7_5_3_M16.jsonl`.
+O registro vai em cinco partes xz de ~3,6 MB (o repo não aceita arquivo > 5 MB), com os sha256
+de cada parte e do conteúdo concatenado em `K7_5_3_M16.sha256`. Para conferir:
+`python3 tools/exatos/fibras/fecha_perfis.py --q 7 --n 5 --M 16 --amostra-sha 30
+tools/exatos/fibras/certificados/K7_5_3_M16.parte-*.jsonl.xz` (o script lê .xz direto).
