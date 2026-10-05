@@ -228,7 +228,14 @@
         "sha256": "9f2c53518162b5d3451f4d9ebf7849fefad101b1658ee0aba63ee0228d5d6a62",
         "provenance": "P-764-14"
       },
-      "ours_lean": null,
+      "ours_lean": {
+        "M": 14,
+        "declaration": "CoveringK764.K_7_6_4_le_14",
+        "tag": "v0.9.0",
+        "file": "data/codes/q7_n6_R4_M14.txt",
+        "sha256": "9f2c53518162b5d3451f4d9ebf7849fefad101b1658ee0aba63ee0228d5d6a62",
+        "provenance": "P-764-14"
+      },
       "lb": {
         "value": 14,
         "estado": "CERTIFICATE_VERIFIED",

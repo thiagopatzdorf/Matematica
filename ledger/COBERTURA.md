@@ -11,7 +11,7 @@ Total: 1145 células; exatas (inferior = superior): 523; exatas com as duas cota
 
 | lado | CLAIMED | WITNESS_CHECKED | CERTIFICATE_VERIFIED | FORMALIZED | INDEPENDENTLY_REPRODUCED |
 |---|---:|---:|---:|---:|---:|
-| ub | 658 | 1 | 0 | 435 | 51 |
+| ub | 658 | 0 | 0 | 435 | 52 |
 | lb | 1140 | 0 | 3 | 2 | 0 |
 
 Cotas superiores com prova Lean externa da mesma cota (Florath, commit fixado, não reconstruída aqui, por isso não sobe o estado): 527.
@@ -25,7 +25,7 @@ Cotas superiores com prova Lean externa da mesma cota (Florath, commit fixado, n
 | 4 | 60 | 30 | 0 | 0 | 26 | 4 | 60 | 0 | 0 | 0 | 0 | 31 | 33 |
 | 5 | 60 | 29 | 0 | 0 | 22 | 9 | 60 | 0 | 0 | 0 | 0 | 27 | 28 |
 | 6 | 52 | 30 | 0 | 0 | 20 | 2 | 52 | 0 | 0 | 0 | 0 | 25 | 24 |
-| 7 | 52 | 27 | 1 | 0 | 20 | 4 | 49 | 0 | 2 | 1 | 0 | 25 | 25 |
+| 7 | 52 | 27 | 0 | 0 | 20 | 5 | 49 | 0 | 2 | 1 | 0 | 25 | 25 |
 | 8 | 52 | 32 | 0 | 0 | 18 | 2 | 52 | 0 | 0 | 0 | 0 | 23 | 25 |
 | 9 | 52 | 31 | 0 | 0 | 19 | 2 | 52 | 0 | 0 | 0 | 0 | 22 | 22 |
 | 10 | 52 | 33 | 0 | 0 | 17 | 2 | 52 | 0 | 0 | 0 | 0 | 20 | 21 |
@@ -281,7 +281,7 @@ Cotas superiores com prova Lean externa da mesma cota (Florath, commit fixado, n
 | K7(5,3) | 17 | CLAIMED | 17 | CERTIFICATE_VERIFIED | sim |
 | K7(5,4) | 7 | FORMALIZED | 7 | CLAIMED | sim |
 | K7(5,5) | 1 | FORMALIZED | 1 | CLAIMED | sim |
-| K7(6,4) | 14 | WITNESS_CHECKED | 14 | CERTIFICATE_VERIFIED | sim |
+| K7(6,4) | 14 | INDEPENDENTLY_REPRODUCED | 14 | CERTIFICATE_VERIFIED | sim |
 | K7(6,5) | 7 | FORMALIZED | 7 | CLAIMED | sim |
 | K7(6,6) | 1 | FORMALIZED | 1 | CLAIMED | sim |
 | K7(7,6) | 7 | FORMALIZED | 7 | CLAIMED | sim |

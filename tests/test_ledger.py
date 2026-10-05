@@ -72,7 +72,7 @@ def test_ledger_commitado_tem_1145_celulas_e_sha256_dos_nossos_codigos_confere()
     led = build.carregar(RAIZ / "ledger" / "cells.json")
     assert led["meta"]["n_cells"] == len(led["cells"]) == 1145
     nossos = [c for c in led["cells"] if c["status"] != "published"]
-    assert len(nossos) == 14  # 13 no Lean + K7(6,4) <= 14 (data/codes, sem Lean ainda)
+    assert len(nossos) == 14  # 14 no Lean (K7(6,4) <= 14 entrou no kernel na v0.9, PR #76)
     for c in nossos:
         for lado in ("ours_computational", "ours_lean"):
             e = c[lado]
@@ -246,7 +246,7 @@ def test_celula_fechada_por_nos_sai_dos_alvos(ledger_recortado):
 EXATAS_POR_CERTIFICADO = {
     # célula: (valor, tipo de certificado, PR do certificado, PR do red team, estado da superior)
     (3, 6, 2): (17, ["Farkas"], [60], 61, "INDEPENDENTLY_REPRODUCED"),
-    (7, 6, 4): (14, ["LRAT"], [56], 62, "WITNESS_CHECKED"),
+    (7, 6, 4): (14, ["LRAT"], [56], 62, "INDEPENDENTLY_REPRODUCED"),
     (7, 5, 3): (17, ["LRAT"], [56], 67, "CLAIMED"),
 }
 
@@ -321,10 +321,11 @@ def test_k3_6_2_registra_a_reproducao_independente_do_pr_66():
     assert rep["pr"] == 66 and set(rep["tipo"]) == {"VeriPB", "Farkas"}
 
 
-def test_k7_6_4_superior_14_vem_do_codigo_de_data_codes_e_bate_a_publicada_15(ledger_recortado):
+def test_k7_6_4_superior_14_e_teorema_lean_com_o_codigo_de_data_codes_e_bate_a_publicada_15(ledger_recortado):
     c = _celulas(ledger_recortado)[(7, 6, 4)]
     assert c["published"]["ub"]["value"] == 15 and c["best"] == {
-        "ub": 14, "holder": "ours_computational", "beats_published": True}
+        "ub": 14, "holder": "ours_lean", "beats_published": True}
+    assert c["ours_lean"]["declaration"] == "CoveringK764.K_7_6_4_le_14"
     assert c["certification"]["ub"]["provenance"]["witness"] == "data/codes/q7_n6_R4_M14.txt"
 
 
@@ -334,4 +335,4 @@ def test_cobertura_lista_as_tres_exatas_por_certificado():
     texto = cobertura.relatorio(build.carregar(RAIZ / "ledger" / "cells.json"))
     assert "| K3(6,2) | 17 | INDEPENDENTLY_REPRODUCED | 17 | CERTIFICATE_VERIFIED | sim |" in texto
     assert "| K7(5,3) | 17 | CLAIMED | 17 | CERTIFICATE_VERIFIED | sim |" in texto
-    assert "| K7(6,4) | 14 | WITNESS_CHECKED | 14 | CERTIFICATE_VERIFIED | sim |" in texto
+    assert "| K7(6,4) | 14 | INDEPENDENTLY_REPRODUCED | 14 | CERTIFICATE_VERIFIED | sim |" in texto
