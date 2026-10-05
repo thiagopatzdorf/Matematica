@@ -1,2 +1,4 @@
 q=3 n=14 R=4 M=728 best_unc=67174 final_unc=67174 iters=202752 secs=51
 cmd: sa 3 14 4 728 110 seed=11 cycles=3 T=0.35 0.15
+q=3 n=14 R=4 M=728 best_unc=67775 final_unc=67775 iters=196608 secs=51
+cmd: sa 3 14 4 728 110 seed=12 cycles=3 T=0.25 0.1
