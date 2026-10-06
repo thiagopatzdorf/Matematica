@@ -40,12 +40,12 @@ um conjunto explícito de 1137 palavras em (Z/7)^9 com raio de cobertura ≤ 4? 
 | B: união das bolas | PASS | `verification/outputs/verifier_B_balls.txt` |
 | C: terceira implementação (BFS) | PASS | `verification/outputs/verifier_C_bfs.txt` |
 | distribuições idênticas em A, B e C | PASS | tabela abaixo |
-| Lean: build limpo | PASS (exit 0, 318 s) | `LEAN_REVIEW.md`, `verification/lean/build_summary.txt` |
-| Lean: red team | PASS (0 crítico/alto/médio) | `LEAN_RED_TEAM.md` |
+| Lean: build limpo | PASS (exit 0, 318 s) | `docs/validacao/LEAN_REVIEW.md`, `verification/lean/build_summary.txt` |
+| Lean: red team | PASS (0 crítico/alto/médio) | `docs/validacao/LEAN_RED_TEAM.md` |
 | palavras no Lean = witness | PASS (mesmo sha256) | `verification/lean/decode_synData.py` |
 | redundância individual | PASS (nenhuma palavra sobra) | `verification/outputs/redundancy_check.txt` |
 | mutações destrutivas | PASS (8/8 rejeitadas) | `verification/outputs/mutations.md` |
-| revisão bibliográfica | PASS (nenhum resultado ≤ 1137) | `STATE_OF_ART.md` |
+| revisão bibliográfica | PASS (nenhum resultado ≤ 1137) | `docs/literatura/STATE_OF_ART.md` |
 
 Os critérios de parada do item 18 foram todos checados, e nenhum disparou.
 
@@ -95,7 +95,7 @@ ela cobre; o mínimo está em `164224152`. No total, 383 492 pontos são coberto
 
 Detalhes em `verification/outputs/mutations.md`.
 
-## O que o Lean certifica (resumo de LEAN_REVIEW.md e LEAN_RED_TEAM.md)
+## O que o Lean certifica (resumo de docs/validacao/LEAN_REVIEW.md e docs/validacao/LEAN_RED_TEAM.md)
 
 - **Definição de cobertura:** `Covers R C := ∀ x, ∃ c ∈ C, hammingDist x c ≤ R`, com o `hammingDist`
   do Mathlib. O alfabeto é `ZMod 7`, a dimensão `Fin 9`, o raio 4.
@@ -157,7 +157,7 @@ exata.
 - **H. Menor upper bound anterior?** 1475 (Marosi, arXiv:2608.19872, v2 de 2026-08-23 e v3 de
   2026-09-02). A v1 trazia 1743, e as tabelas de Kéri, 1843.
 - **I. Existe resultado anterior ≤ 1137?** Não nas fontes revisadas. Lacunas: Google Scholar e bases
-  pagas não foram consultados (ver `STATE_OF_ART.md`).
+  pagas não foram consultados (ver `docs/literatura/STATE_OF_ART.md`).
 - **J. Que afirmação pública é defensável?**
   > "We construct a 7-ary covering code of length 9, covering radius 4, and cardinality 1137,
   > establishing K_7(9,4) ≤ 1137. This improves the smallest upper bound we found in the reviewed
@@ -168,5 +168,5 @@ exata.
 
 ## Reprodução
 
-Os passos estão em `REPRODUCE_1137.md`. `verification/run_all.sh` refaz tudo menos o Lean em cerca de
-12 minutos. Os números da rodada estão em `K7_9_4_1137_CERTIFICATE.json`.
+Os passos estão em `docs/validacao/REPRODUCE_1137.md`. `verification/run_all.sh` refaz tudo menos o Lean em cerca de
+12 minutos. Os números da rodada estão em `docs/certificados/K7_9_4_1137_CERTIFICATE.json`.

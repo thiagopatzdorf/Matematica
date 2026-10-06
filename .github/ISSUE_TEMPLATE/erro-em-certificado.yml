@@ -1,0 +1,57 @@
+name: Erro em certificado ou no ledger
+description: Algo que o repositório afirma e não se sustenta - certificado Lean, prova SAT/LRAT, código, número ou estado no ledger.
+title: "[erro] <onde>: <o que não fecha>"
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Obrigado: um erro achado vale mais que um acerto, porque vira regra. Descreva o defeito, não a pessoa.
+        Se o achado for de **segurança** (token, crédito do Infinito, CI), não abra issue pública:
+        siga o `SECURITY.md`.
+  - type: dropdown
+    id: onde
+    attributes:
+      label: Onde está o erro
+      options:
+        - certificado Lean (CoveringLean/, enunciado ou definição)
+        - prova SAT/LRAT ou cota inferior
+        - código de cobertura (data/codes/, data/structured/)
+        - número ou estado no ledger (ledger/, README, paper)
+        - afirmação de novidade ou de literatura
+        - outro
+    validations: {required: true}
+  - type: input
+    id: alvo
+    attributes:
+      label: Célula, teorema ou arquivo
+      description: "Ex.: K7(9,4), Syn.K7_9_4_le_1134_syn, ledger/cells.json"
+    validations: {required: true}
+  - type: input
+    id: estado
+    attributes:
+      label: Estado que o repositório declara
+      description: "FORMALIZED, INDEPENDENTLY_REPRODUCED, CERTIFICATE_VERIFIED, WITNESS_CHECKED ou CLAIMED (veja ledger/COBERTURA.md)."
+  - type: textarea
+    id: defeito
+    attributes:
+      label: O que não fecha
+      description: "O que o repositório afirma e por que isso não se sustenta."
+    validations: {required: true}
+  - type: textarea
+    id: reproducao
+    attributes:
+      label: Como reproduzir
+      description: "Comando, commit (`git rev-parse HEAD`) e saída inteira. Sem segredo."
+      render: text
+    validations: {required: true}
+  - type: dropdown
+    id: gravidade
+    attributes:
+      label: Gravidade, na sua leitura
+      options:
+        - invalida um resultado (cota ou teorema errado)
+        - estado acima da evidência (ex.: CLAIMED apresentado como FORMALIZED)
+        - documentação ou número desatualizado
+        - não sei
+    validations: {required: true}
