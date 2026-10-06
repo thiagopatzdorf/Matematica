@@ -67,4 +67,4 @@ def test_proposicao_de_cotas_formalizadas_atrasada_em_relacao_ao_ledger():
     colunas = re.search(r"^\| ub \| (\d+) \| (\d+) \| (\d+) \| (\d+) \| (\d+) \|", cobertura, re.M).groups()
     formalizadas = int(colunas[3]) + int(colunas[4])
     for lingua in PAGINAS:
-        assert re.search(rf"\*\*{formalizadas} \S+ \S+ 1145 ", ler(lingua)), lingua
+        assert re.search(rf"\*\*{formalizadas} [^*\n]*?1145 ", ler(lingua)), lingua
