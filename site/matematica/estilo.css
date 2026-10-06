@@ -224,7 +224,7 @@ math.formula{font-size:clamp(1.05rem,4.2vw,1.618rem);color:var(--ink);margin:0 a
 .destaques{list-style:none;margin:var(--s3) 0 var(--s1);padding:0}
 .destaque{display:grid;grid-template-columns:6.5em minmax(8.5em,auto) 1fr;align-items:baseline;gap:var(--s-1) var(--s1);padding:var(--s0) 0;border-top:1px solid var(--line)}
 .destaque:last-child{border-bottom:1px solid var(--line)}
-@media (max-width:620px){.destaque{grid-template-columns:auto 1fr}.destaque .selos{grid-column:1/-1}}
+@media (max-width:620px){.destaque{grid-template-columns:minmax(0,1fr)}.destaque>*{min-width:0}.antes-agora{flex-wrap:wrap;white-space:normal}.selos,.destaque .fonte{overflow-wrap:anywhere}}
 .destaque .celula{font:300 1.75rem/1 var(--serif);color:var(--ink)}
 .antes-agora{display:flex;align-items:baseline;gap:.5em;font-variant-numeric:lining-nums tabular-nums;white-space:nowrap}
 .antes-agora .antes{font:300 1.15rem/1 var(--serif);color:var(--ink-3);text-decoration:line-through;text-decoration-thickness:1px;text-decoration-color:var(--line-2)}
@@ -290,7 +290,7 @@ math.formula{font-size:clamp(1.05rem,4.2vw,1.618rem);color:var(--ink);margin:0 a
 .degrau p{grid-column:1;margin:.2em 0 0;font-size:.84rem;color:var(--ink-3);line-height:1.5}
 .degrau .q{grid-row:1/span 2;grid-column:2;text-align:right;font:300 2.4rem/1 var(--serif);color:var(--ink);font-variant-numeric:oldstyle-nums}
 .degrau .q small{display:block;font:400 .6rem/1.4 var(--sans);letter-spacing:.16em;text-transform:uppercase;color:var(--ink-3)}
-@media (max-width:520px){.degrau{margin-left:calc(var(--i) * 3%)}}
+@media (max-width:520px){.degrau{margin-left:calc(var(--i) * 3%);grid-template-columns:minmax(0,1fr) auto}.degrau code{overflow-wrap:anywhere}.degrau .q{font-size:1.9rem}.transformacoes li{font-size:1.15rem;flex-wrap:wrap}.transformacoes b{min-width:6.5em}}
 .passos{list-style:none;margin:0;padding:0;counter-reset:s}
 .passos li{counter-increment:s;display:grid;grid-template-columns:2.4em 1fr;gap:0 var(--s0);padding:var(--s-1) 0}
 .passos li::before{content:counter(s,upper-roman);grid-row:span 2;font:italic 300 1.2rem/1.4 var(--serif);color:var(--gold-ink)}
