@@ -42,13 +42,17 @@ What does not point anywhere is conviction, and is written as such.
 **1. Cell.** A number `K_q(n,R)`: the smallest code of length `n` over `q` symbols that leaves every
 word within Hamming distance `R` of some codeword ([paper, Introduction](../paper/main.tex)).
 
-$$K_q(n,R) \;=\; \min\bigl\{\,|C| \;:\; C \subseteq \mathbb{Z}_q^n,\ \ \forall x \in \mathbb{Z}_q^n\ \ \exists c \in C,\ \ d_H(x,c) \le R \,\bigr\}$$
+```math
+K_q(n,R) \;=\; \min\bigl\lbrace\,|C| \;:\; C \subseteq \mathbb{Z}_q^n,\ \ \forall x \in \mathbb{Z}_q^n\ \ \exists c \in C,\ \ d_H(x,c) \le R \,\bigr\rbrace
+```
 
 Kéri's tables hold 1145 cells, with `q` from 2 to 21 ([ledger](../ledger/README.md)).
 
 **2. Bound.** An interval.
 
-$$\text{lower} \;\le\; K_q(n,R) \;\le\; \text{upper}$$
+```math
+\text{lower} \;\le\; K_q(n,R) \;\le\; \text{upper}
+```
 
 The upper bound is proved by showing a code.
 The lower bound, by proving that no smaller code exists.
@@ -166,7 +170,9 @@ philosophy behind this work
 In a queue of $N$ tasks, $D$ of them distinct, starting from an empty base: exactly $D$ searches and
 $N$ verifications.
 
-$$\text{cost} \;=\; D \cdot \text{search} \;+\; N \cdot \text{verification}$$
+```math
+\text{cost} \;=\; D \cdot \text{search} \;+\; N \cdot \text{verification}
+```
 
 ([Conhecimento.lean](https://github.com/thiagopatzdorf/james-theorems/blob/12616cf56ed737a2cdfb9034753d5679c8091b49/JamesTheorems/Conhecimento.lean)).
 That the cost per task tends to the cost of checking when $D$ grows more slowly than $N$ is the
