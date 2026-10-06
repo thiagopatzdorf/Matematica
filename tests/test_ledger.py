@@ -72,7 +72,7 @@ def test_ledger_commitado_tem_1145_celulas_e_sha256_dos_nossos_codigos_confere()
     led = build.carregar(RAIZ / "ledger" / "cells.json")
     assert led["meta"]["n_cells"] == len(led["cells"]) == 1145
     nossos = [c for c in led["cells"] if c["status"] != "published"]
-    assert len(nossos) == 13
+    assert len(nossos) == 14  # 14 no Lean (K7(6,4) <= 14 entrou no kernel na v0.9, PR #76)
     for c in nossos:
         for lado in ("ours_computational", "ours_lean"):
             e = c[lado]
@@ -239,3 +239,100 @@ def test_cobertura_conta_k7_4_2_entre_as_exatas_e_usa_a_frase_aprovada():
 def test_celula_fechada_por_nos_sai_dos_alvos(ledger_recortado):
     cells = build.carregar(ledger_recortado / "cells.json")["cells"]
     assert "K7(4,2)" not in {t["id"] for t in targets.ranquear(cells)}
+
+
+# ---------------------------------------------------------------- CERTIFICATE_VERIFIED (v0.9)
+
+EXATAS_POR_CERTIFICADO = {
+    # célula: (valor, tipo de certificado, PR do certificado, PR do red team, estado da superior)
+    (3, 6, 2): (17, ["Farkas"], [60], 61, "INDEPENDENTLY_REPRODUCED"),
+    (7, 6, 4): (14, ["LRAT"], [56], 62, "INDEPENDENTLY_REPRODUCED"),
+    (7, 5, 3): (17, ["LRAT"], [56], 67, "CLAIMED"),
+}
+
+
+def _ours_e_sources():
+    return (json.loads((RAIZ / "ledger" / "ours.json").read_text()),
+            json.loads((RAIZ / "ledger" / "sources.json").read_text()))
+
+
+def test_escada_sem_certificate_verified_entre_witness_checked_e_formalized_falha():
+    e = build.ESTADOS
+    assert "CERTIFICATE_VERIFIED" in e
+    assert e.index("WITNESS_CHECKED") < e.index("CERTIFICATE_VERIFIED") < e.index("FORMALIZED")
+    assert set(build.TIPOS_CERTIFICADO) == {"LRAT", "VeriPB", "Farkas"}
+
+
+def test_cobertura_com_lista_de_estados_propria_divergiria_do_build():
+    import cobertura
+
+    assert cobertura.ESTADOS == build.ESTADOS and set(cobertura.CURTO) == set(build.ESTADOS)
+
+
+@pytest.mark.parametrize("campo", ["red_team", "verificadores", "arquivos", "pr", "tipo"])
+def test_certificate_verified_sem_campo_de_proveniencia_aborta_o_build(campo):
+    ours, sources = _ours_e_sources()
+    del ours["cells"]["7,5,3"]["lb"]["certificado"][campo]
+    with pytest.raises(SystemExit, match="CERTIFICATE_VERIFIED sem proveniência completa"):
+        build.construir(build.ler_fontes(FONTES, sources), ours, sources)
+
+
+def test_certificate_verified_com_tipo_de_certificado_fora_da_lista_aborta_o_build():
+    ours, sources = _ours_e_sources()
+    ours["cells"]["3,6,2"]["lb"]["certificado"]["tipo"] = ["DRAT"]
+    with pytest.raises(SystemExit, match="certificado.tipo"):
+        build.construir(build.ler_fontes(FONTES, sources), ours, sources)
+
+
+def test_certificate_verified_com_teorema_lean_aborta_porque_seria_formalized():
+    ours, sources = _ours_e_sources()
+    ours["cells"]["7,6,4"]["lb"]["lean"] = {"declaration": "K764.K_7_6_4_ge_14", "tag": None}
+    with pytest.raises(SystemExit, match="FORMALIZED"):
+        build.construir(build.ler_fontes(FONTES, sources), ours, sources)
+
+
+@pytest.mark.parametrize("q,n,R", sorted(EXATAS_POR_CERTIFICADO))
+def test_celula_exata_por_certificado_perde_lb_igual_ub_ou_proveniencia(ledger_recortado, q, n, R):
+    valor, tipo, prs, red_team, estado_ub = EXATAS_POR_CERTIFICADO[(q, n, R)]
+    c = _celulas(ledger_recortado)[(q, n, R)]
+    cert = c["certification"]
+    assert cert["exact"] is True and cert["lb"]["value"] == cert["ub"]["value"] == valor
+    assert c["published"]["exact"] is False, "antes destas provas a célula estava aberta"
+    assert cert["ub"]["state"] == estado_ub
+    lb = cert["lb"]
+    assert lb["state"] == "CERTIFICATE_VERIFIED" and lb["provenance"]["lean"] is None
+    p = lb["provenance"]
+    assert set(build.CAMPOS_PROVENIENCIA) <= set(p)
+    assert p["witness"] and p["verificador_independente"] and p["fonte"]["source"] == "nosso"
+    assert hashlib.sha256((RAIZ / p["witness"]).read_bytes()).hexdigest() == p["sha256"]
+    k = p["certificado"]
+    assert k["tipo"] == tipo and k["pr"] == prs and k["red_team"]["pr"] == red_team
+    assert (RAIZ / k["red_team"]["doc"]).exists() and k["verificadores"]
+    arquivos = dict(k["arquivos"])
+    arquivos.update((k.get("reproducao_independente") or {}).get("arquivos", {}))
+    assert p["witness"] in k["arquivos"]
+    for arq, sha in arquivos.items():
+        assert hashlib.sha256((RAIZ / arq).read_bytes()).hexdigest() == sha, arq
+
+
+def test_k3_6_2_registra_a_reproducao_independente_do_pr_66():
+    ours, _ = _ours_e_sources()
+    rep = ours["cells"]["3,6,2"]["lb"]["certificado"]["reproducao_independente"]
+    assert rep["pr"] == 66 and set(rep["tipo"]) == {"VeriPB", "Farkas"}
+
+
+def test_k7_6_4_superior_14_e_teorema_lean_com_o_codigo_de_data_codes_e_bate_a_publicada_15(ledger_recortado):
+    c = _celulas(ledger_recortado)[(7, 6, 4)]
+    assert c["published"]["ub"]["value"] == 15 and c["best"] == {
+        "ub": 14, "holder": "ours_lean", "beats_published": True}
+    assert c["ours_lean"]["declaration"] == "CoveringK764.K_7_6_4_le_14"
+    assert c["certification"]["ub"]["provenance"]["witness"] == "data/codes/q7_n6_R4_M14.txt"
+
+
+def test_cobertura_lista_as_tres_exatas_por_certificado():
+    import cobertura
+
+    texto = cobertura.relatorio(build.carregar(RAIZ / "ledger" / "cells.json"))
+    assert "| K3(6,2) | 17 | INDEPENDENTLY_REPRODUCED | 17 | CERTIFICATE_VERIFIED | sim |" in texto
+    assert "| K7(5,3) | 17 | CLAIMED | 17 | CERTIFICATE_VERIFIED | sim |" in texto
+    assert "| K7(6,4) | 14 | INDEPENDENTLY_REPRODUCED | 14 | CERTIFICATE_VERIFIED | sim |" in texto

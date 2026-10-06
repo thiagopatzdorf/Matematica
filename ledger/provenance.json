@@ -127,6 +127,17 @@
       "agente": "James.V1 (subagente Claude, branch feat/patch-setcover)",
       "lacuna": "A seed exata do melhor dos ~300 gulosos aleatorizados não foi registrada; o código (16 classes laterais de um [10,3]_7 + 119 palavras) é reconstruído de data/structured/q7_n10_R4_M5607.json.",
       "gap": "the exact seed of the best of ~300 randomized greedy runs was not recorded; data/structured/q7_n10_R4_M5607.json rebuilds the code (16 cosets of a [10,3]_7 + 119 words)."
+    },
+    "P-764-14": {
+      "codigo": "data/codes/q7_n6_R4_M14.txt",
+      "gerador": "tools/exatos/fibras/rodar.py (perfis de fibras + CaDiCaL 3.0.1 c607304): instância 0 da ordem max de K_7(6,4) M=14, perfil 2222222^6, SAT em 18,6 s; modelo decodificado",
+      "commit": "c75be90",
+      "seed": null,
+      "comando": "python3 tools/exatos/fibras/rodar.py --q 7 --n 6 --M 14 --ordem max --dificeis-primeiro --fatia 0/3 --prova --descartar --dir out/k764_14",
+      "data": "2026-10-04",
+      "agente": "James.V1",
+      "lacuna": "Sem seed: a busca é SAT determinística (CaDiCaL) sobre a instância 0; a proveniência completa está em data/structured/q7_n6_R4_M14.json.",
+      "gap": "no seed: the search is a deterministic SAT call (CaDiCaL) on instance 0; full provenance in data/structured/q7_n6_R4_M14.json."
     }
   }
 }

@@ -29,7 +29,7 @@ Branch na hora desta nota: `main` já está na **v0.9** do paper (K7(6,4) <= 14 
 
 ## 4. Decisões que tomei sozinho (para não virarem folclore)
 1. Tirei o passo redundante de `numpy` do `verify-codes.yml`; o diff de risco alto ficou só nos gatilhos `campaigns/**`. **Aprovação continua sendo do Thiago.**
-2. Excluí `campaigns/.../_literatura/*/scripts` e `_kericompletion/*/work` do `ruff` (artefatos de ppesquisa, não importáveis).
+2. Excluí `campaigns/.../_literatura/*/scripts` e `_kericompletion/*/work` do `ruff` (artefatos de pesquisa, não importáveis).
 3. Para o código `q7_n6_R4_M14` (entrou na main em #56 sem teorema Lean) criei a exceção explícita `SEM_TEOREMA_LEAN_DECLARADO` em `tests/test_campaign_coherence.py`; o teste falha sozinho quando o código ganha teorema. **Hoje ela está obsoleta** (a main já tem o teorema): tirar na próxima regeneração.
 4. Reaproveitei a VM `kr-teste-a` (parada) em vez de criar máquina nova; gasto da fase 2 ~US$0,3 de US$5. Não toquei nas VMs `lote-*` (não são minhas).
 5. Mantive o claim novo de K7(6,4)=14 abaixo de `PROVED` (só `INDEPENDENTLY_REPRODUCED`) enquanto não havia Lean.

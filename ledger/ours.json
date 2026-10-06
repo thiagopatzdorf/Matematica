@@ -1,6 +1,6 @@
 {
   "descricao": "Estado NOSSO por célula K_q(n,R). Fonte de verdade escrita à mão (ou pelo scripts/loop/record_loop.py); build.py mescla isto com as cotas publicadas e gera cells.json. Ver README.md.",
-  "atualizado": "2026-10-04",
+  "atualizado": "2026-10-05",
   "cells": {
     "7,9,4": {
       "ours_computational": null,
@@ -161,6 +161,166 @@
         },
         "formalizacao_completa": "docs/exatos/LEAN_K742.md: K742.K_7_4_2_eq_19 e K742.K_7_4_2_isK incondicionais no kernel (lib CoveringK742Sat, fora do CI: 284 módulos, 37,8 h de CPU); axiomas [propext, Classical.choice, Quot.sound] em tools/exatos/k742/lean/execucao/axiomas.txt",
         "reproducao_independente": "codificação independente (tools/exatos/k742/redteam/indep.py): 70/70 perfis UNSAT, sem LRAT (segunda opinião, não certificado)"
+      }
+    },
+    "3,6,2": {
+      "ours_computational": null,
+      "ours_lean": null,
+      "lb": {
+        "value": 17,
+        "estado": "CERTIFICATE_VERIFIED",
+        "data": "2026-10-05",
+        "docs": "docs/exatos/k362/K3_M16.md",
+        "witness": "tools/exatos/k362/contagem/dados/K3_6_2_M16_certificados.jsonl.gz",
+        "sha256": "efc05cd44e6c8af19b1b5ee18aa352a7cd2f5f7ab97b4df861cc70900d877d45",
+        "verificador_independente": "farkas_min.py do red team (PR #61, escrito do zero em Fraction, sem importar gerador nem verificador do autor): 12 674 de 12 674 instâncias, 13 099 certificados, nenhum recusado; reprodução independente no PR #66 (VeriPB + Farkas em Fraction)",
+        "lean": null,
+        "certificado": {
+          "tipo": [
+            "Farkas"
+          ],
+          "afirmacao": "∄ C ⊂ Z_3^6 com 16 palavras e raio 2 (logo nenhum com ≤ 16): as 12 674 instâncias da fatia mínima de M = 16 são inviáveis no LP (12 593 na raiz, 81 com ramificação 0/1 de 2 a 33 folhas); a completude da redução é a de docs/exatos/GAPS2_K362.md, que não depende de M",
+          "arquivos": {
+            "tools/exatos/k362/contagem/dados/K3_6_2_M16_certificados.jsonl.gz": "efc05cd44e6c8af19b1b5ee18aa352a7cd2f5f7ab97b4df861cc70900d877d45",
+            "tools/exatos/k362/contagem/dados/K3_6_2_M16_instancias.json.gz": "4fef6e08805e12ddbacbba8265d81272b0f7b02973b0af1d386b9b14a81f54ee"
+          },
+          "contagem": {
+            "instancias": 12674,
+            "certificados": 13099
+          },
+          "verificadores": [
+            "tools/exatos/k362/contagem/verificar.py (inteiros, biblioteca padrão; reconstrói o sistema do zero; --sha256 3cb5b5cc47cd2b418daeaf6643ee9dd0f03c87f221f57d2f4e9cc5bb0b4f9ae7 da lista)",
+            "tools/exatos/k362/redteam/farkas_min.py (red team, Fraction, escrito do zero)"
+          ],
+          "pr": [
+            60
+          ],
+          "red_team": {
+            "pr": 61,
+            "doc": "docs/exatos/k362/K3_M16_REDTEAM.md",
+            "veredito": "sobrevive; lacunas de redação e de ferramenta, nenhuma de gravidade alta"
+          },
+          "reproducao_independente": {
+            "pr": 66,
+            "doc": "docs/exatos/k362/K3_M15_REPRODUCAO.md",
+            "tipo": [
+              "VeriPB",
+              "Farkas"
+            ],
+            "resumo": "outra redução (sem blocos, relaxação projetada), outra enumeração e canonização, nenhum código em comum: 11 592 instâncias de M = 16 inviáveis, 11 582 com prova VeriPB (RoundingSat d4edbf7 + VeriPB 3.0.2) e 10 por divisão em 106 folhas (101 VeriPB + 5 Farkas conferidos em Fraction). A cadeia CNF/LRAT (CaDiCaL + lrat-check) do PR #66 cobre só M = 15",
+            "verificadores": [
+              "VeriPB 3.0.2 (Rust, commit 3e00f69)",
+              "tools/exatos/k362_repro/repro_farkas.py (Fraction)"
+            ],
+            "arquivos": {
+              "tools/exatos/k362_repro/registros/K3_6_2_M16_opb.jsonl.gz": "f5e1a6539d21a6a56310dea52ad4b5639479da8fdba15e16df076f9865730498",
+              "tools/exatos/k362_repro/registros/K3_6_2_M16_divisao.jsonl.gz": "f4f23a16bec9d401091ca73038321a3e0d1ef17ce89ed27997bdb9fcf472f6f2"
+            },
+            "nota": "registros compactos, sem as provas VeriPB (não versionadas)"
+          }
+        }
+      }
+    },
+    "7,6,4": {
+      "ours_computational": {
+        "M": 14,
+        "file": "data/codes/q7_n6_R4_M14.txt",
+        "sha256": "9f2c53518162b5d3451f4d9ebf7849fefad101b1658ee0aba63ee0228d5d6a62",
+        "provenance": "P-764-14"
+      },
+      "ours_lean": {
+        "M": 14,
+        "declaration": "CoveringK764.K_7_6_4_le_14",
+        "tag": "v0.9.0",
+        "file": "data/codes/q7_n6_R4_M14.txt",
+        "sha256": "9f2c53518162b5d3451f4d9ebf7849fefad101b1658ee0aba63ee0228d5d6a62",
+        "provenance": "P-764-14"
+      },
+      "lb": {
+        "value": 14,
+        "estado": "CERTIFICATE_VERIFIED",
+        "data": "2026-10-05",
+        "docs": "docs/exatos/FIBRAS_GERAL.md",
+        "witness": "tools/exatos/fibras/certificados/K7_6_4_M13.jsonl",
+        "sha256": "ab8fafcbf9f944b1aaf0b3fe1fe00db37e91e94b12fe52699768fea12dd6f35c",
+        "verificador_independente": "8008/8008 provas LRAT conferidas por lrat-check (drat-trim 2e3b2dc); red team (PR #62): 27 perfis regenerados bit a bit iguais e conferidos por lrat-check e cake_lpr (CakeML); 16 perfis reproduzidos por codificação e solver independentes",
+        "lean": null,
+        "certificado": {
+          "tipo": [
+            "LRAT"
+          ],
+          "afirmacao": "∄ C ⊂ Z_7^6 com 13 palavras e raio 4 (multiconjuntos inclusos, logo nenhum com ≤ 13): os 8008 perfis de fibras do Lema 1 geral (s_min = 1) são UNSAT",
+          "arquivos": {
+            "tools/exatos/fibras/certificados/K7_6_4_M13.jsonl": "ab8fafcbf9f944b1aaf0b3fe1fe00db37e91e94b12fe52699768fea12dd6f35c"
+          },
+          "contagem": {
+            "perfis": 8008
+          },
+          "nota": "o arquivo é o registro por perfil (sha256 da CNF e da prova LRAT, resultado do lrat-check); as provas LRAT (~60 MB cada) não estão versionadas e são regeneradas pelo codificador auditado (tools/exatos/fibras/)",
+          "verificadores": [
+            "lrat-check (drat-trim 2e3b2dc) em 8008/8008",
+            "tools/exatos/k742/lrat.py em amostra de 12 (certificados/K7_6_4_M13_amostra_lratpy.jsonl)",
+            "cake_lpr (CakeML, verificado formalmente) em 27 regeneradas pelo red team"
+          ],
+          "pr": [
+            56
+          ],
+          "red_team": {
+            "pr": 62,
+            "doc": "docs/exatos/REDTEAM_K764.md",
+            "veredito": "sobrevive com ressalva: a prova escrita do Lema 4 (quebra (h)) e o canonizador estavam errados, o enunciado vale e a CNF o codifica; prova e canonizador corrigidos no PR #56"
+          }
+        },
+        "dependencias": "Lema 1 usa K_7(5,3) ≥ 14 (HSPQ 2009 dá 15; aqui provamos 17) e K_6(5,3) ≥ 12 (o próprio Lema 1)"
+      }
+    },
+    "7,5,3": {
+      "ours_computational": null,
+      "ours_lean": null,
+      "lb": {
+        "value": 17,
+        "estado": "CERTIFICATE_VERIFIED",
+        "data": "2026-10-05",
+        "docs": "docs/exatos/FIBRAS_GERAL.md",
+        "witness": "tools/exatos/fibras/certificados/K7_5_3_M16.sha256",
+        "sha256": "3393a197df42bca16f80848a4049674188cdcad0079046fddbdf9ff6b8c1a6de",
+        "verificador_independente": "201 374 perfis inteiros + 1812 + 4953 cubos com LRAT conferido por lrat-check (drat-trim 2e3b2dc); red team (PR #67): 51 registros regenerados bit a bit iguais (CNF e prova) e conferidos por lrat-check e cake_lpr; cobertura dos cubos provada por SAT; codificação independente UNSAT em 8 de 8 perfis",
+        "lean": null,
+        "certificado": {
+          "tipo": [
+            "LRAT"
+          ],
+          "afirmacao": "∄ C ⊂ Z_7^5 com 16 palavras e raio 3 (multiconjuntos inclusos, logo nenhum com ≤ 16): os 201 376 perfis de fibras (s_min = 2) são UNSAT, 2 deles fechados por cubos (3322222^4·4222222 em 1812, 3322222^5 em 4953)",
+          "arquivos": {
+            "tools/exatos/fibras/certificados/K7_5_3_M16.sha256": "3393a197df42bca16f80848a4049674188cdcad0079046fddbdf9ff6b8c1a6de",
+            "tools/exatos/fibras/certificados/K7_5_3_M16.parte-000.jsonl.xz": "78d7eca1a08179a5f6c23f34d7435ab333b5e1e82bb0c483e7a52f3416b4f7fd",
+            "tools/exatos/fibras/certificados/K7_5_3_M16.parte-001.jsonl.xz": "8f8c854d425fa1c1f01e68e8f04fcb1ab024017007e03071530f4a89ca62923a",
+            "tools/exatos/fibras/certificados/K7_5_3_M16.parte-002.jsonl.xz": "5ffd673868e1b34564c9fdc7e1db354b7c2eede96dabf75a974c3f94f79c473e",
+            "tools/exatos/fibras/certificados/K7_5_3_M16.parte-003.jsonl.xz": "b0e07b84e2299138a2e5b4982d08d1ae513c77065eaa8d8cf3c1aab720309a80",
+            "tools/exatos/fibras/certificados/K7_5_3_M16.parte-004.jsonl.xz": "d3bf95f966f60e8272146941771c56b929b748d1e8c4bdbdc35b99b2a02d1da5"
+          },
+          "contagem": {
+            "perfis": 201376,
+            "perfis_inteiros": 201374,
+            "cubos": 6765,
+            "linhas_registro": 208139
+          },
+          "nota": "registro por perfil/cubo (sha256 da CNF e da prova LRAT, resultado do lrat-check), manifesto K7_5_3_M16.sha256; as provas LRAT não estão versionadas e são regeneradas pelo codificador auditado",
+          "verificadores": [
+            "lrat-check (drat-trim 2e3b2dc) em todos",
+            "tools/exatos/k742/lrat.py em 24 perfis aleatórios (certificados/K7_5_3_M16_amostra_lratpy.jsonl)",
+            "cake_lpr (CakeML, verificado formalmente) em 51 regenerados pelo red team"
+          ],
+          "pr": [
+            56
+          ],
+          "red_team": {
+            "pr": 67,
+            "doc": "docs/exatos/REDTEAM_K753.md",
+            "veredito": "não achei erro; ressalvas: 9 provas grandes não reconferidas e dependência de K_6(4,2) = 15 da literatura"
+          }
+        },
+        "dependencias": "Lema 1 usa K_6(4,2) = 15 (Kéri 2011; ∄ 14 também reprovado por 8855 perfis LRAT no k742) e K_7(4,2) ≥ 17 (Rodemich; aqui = 19 no Lean)"
       }
     }
   }

@@ -83,6 +83,18 @@
    "page": 1
   },
   {
+   "q": 3,
+   "n": 6,
+   "R": 2,
+   "lb": 15,
+   "ub": 17,
+   "lb_key": "i",
+   "ub_key": "u",
+   "n_optimal": null,
+   "src": "keri_3_tables.pdf",
+   "page": 1
+  },
+  {
    "q": 4,
    "n": 10,
    "R": 4,
@@ -250,12 +262,36 @@
   },
   {
    "q": 7,
+   "n": 5,
+   "R": 3,
+   "lb": 15,
+   "ub": 17,
+   "lb_key": "k",
+   "ub_key": "q",
+   "n_optimal": null,
+   "src": "keri_6-21_tables.pdf",
+   "page": 1
+  },
+  {
+   "q": 7,
    "n": 8,
    "R": 3,
    "lb": 457,
    "ub": 2337,
    "lb_key": "y",
    "ub_key": "f",
+   "n_optimal": null,
+   "src": "keri_6-21_tables.pdf",
+   "page": 1
+  },
+  {
+   "q": 7,
+   "n": 6,
+   "R": 4,
+   "lb": 13,
+   "ub": 15,
+   "lb_key": "k",
+   "ub_key": "n",
    "n_optimal": null,
    "src": "keri_6-21_tables.pdf",
    "page": 1

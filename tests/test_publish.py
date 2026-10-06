@@ -77,7 +77,7 @@ def test_publicar_faz_newversion_apaga_herdado_sobe_pdf_metadados_e_publica_ness
     metodos = [(m, u.rsplit("/", 2)[-2:]) for m, u, _ in falso.chamadas]
     assert [m for m, _ in metodos] == ["POST", "GET", "DELETE", "PUT", "PUT", "POST"]
     assert falso.chamadas[0][1].endswith("/23085770/actions/newversion")
-    assert falso.chamadas[3][1].endswith("/covering-codes-lean-kernel-v0.8.0.pdf")
+    assert falso.chamadas[3][1].endswith("/covering-codes-lean-kernel-v0.9.0.pdf")
     assert all(auth == f"Bearer {TOKEN}" for _, _, auth in falso.chamadas)
     out = capsys.readouterr()
     assert "PUBLICADO 10.5281/zenodo.1" in out.out
@@ -115,16 +115,18 @@ def test_nenhum_segredo_no_codigo_de_publicacao():
     assert 'environ.get("ZENODO_TOKEN"' in fonte or "ZENODO_TOKEN" in fonte
 
 
-def test_pagina_genesis_mostra_as_treze_cotas_lean_e_nenhuma_so_computacional(ledger_recortado, tmp_path):
+def test_pagina_genesis_mostra_as_quatorze_cotas_lean_e_nenhuma_so_computacional(ledger_recortado, tmp_path):
     saida = tmp_path / "p.html"
     genesis_page.main(["--ledger", str(ledger_recortado / "cells.json"), "--doi", "10.5281/zenodo.23092580",
                        "--tag", "v0.8.0", "--data", "2026-10-04", "--saida", str(saida)])
     html = saida.read_text()
-    assert html.count('<span class="ok">Lean kernel</span>:') == 13  # K7(4,2) é uma linha só: ≤ 19 (v0.7) e = 19 (v0.8)
+    assert html.count('<span class="ok">Lean kernel</span>:') == 14  # K7(4,2) é uma linha só: ≤ 19 (v0.7) e = 19 (v0.8)
+    # K7(6,4) <= 14 virou teorema do kernel (v0.9, PR #76): não pode mais aparecer como só computacional.
     assert html.count('<span class="cp">computer only</span> (not yet a Lean theorem)') == 0
+    assert "q7_n6_R4_M14.txt" in html
     for decl in ("Syn.K7_9_4_le_1134_syn", "Syn.K7_8_3_le_1887_syn", "SC.K_2_6_1_eq12", "CoveringKernel.K5_9_5_le_50_kernel",
                  "Syn.K5_10_5_le_162_syn", "Syn.K5_11_4_le_2875_syn", "Syn.K7_10_4_le_5607_syn", "K742.K_7_4_2_le_19",
-                 "K742.K_7_4_2_eq_19"):
+                 "K742.K_7_4_2_eq_19", "CoveringK764.K_7_6_4_le_14"):
         assert decl in html
     assert "<b>≤ 1134</b>" in html and "<b>≤ 1887</b>" in html and "<b>≤ 5607</b>" in html
     assert "<b>= 19</b>" in html and "<b>≤ 19</b>" not in html  # K_7(4,2) = 19 inteiro no kernel (v0.8)
