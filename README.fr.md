@@ -89,13 +89,13 @@ Le bloc ci-dessous est généré à partir de `ledger/cells.json` et ne se modif
 | cellules `K_q(n,R)` dans le registre (q de 2 à 21) | **1145** |
 | exactes (borne inférieure = borne supérieure) | **523** |
 | ouvertes | **622** |
-| bornes supérieures qui sont des théorèmes du noyau de Lean (FORMALIZED + INDEPENDENTLY_REPRODUCED) | **487** sur 1145 (435 + 52) |
+| bornes supérieures qui sont des théorèmes du noyau de Lean (FORMALIZED + INDEPENDENTLY_REPRODUCED) | **488** sur 1145 (435 + 53) |
 | bornes inférieures par état (presque toutes héritées de la littérature) | CLAIMED 1140 · CERTIFICATE_VERIFIED 3 · FORMALIZED 2 |
 | valeurs exactes établies ici (l'intervalle publié était ouvert) | **4** (1 avec les deux bornes dans le noyau ; 3 avec la borne inférieure par certificat vérifié hors de Lean) |
-| cellules avec un théorème Lean à nous | **14** (12 sous la meilleure borne supérieure publiée que nous avons trouvée) |
-| codes explicites dans `data/codes/` | **18** (tous passent le vérificateur C officiel, `tools/verify/check_all.sh`, en CI) ; 12 sont le témoin actuel d'une borne du registre, sha256 vérifié |
+| cellules avec un théorème Lean à nous | **15** (12 sous la meilleure borne supérieure publiée que nous avons trouvée) |
+| codes explicites dans `data/codes/` | **19** (tous passent le vérificateur C officiel, `tools/verify/check_all.sh`, en CI) ; 13 sont le témoin actuel d'une borne du registre, sha256 vérifié |
 
-Version 0.9.0 · DOI [10.5281/zenodo.23085769](https://doi.org/10.5281/zenodo.23085769) · registre mis à jour le 2026-10-05. Les bornes inférieures ne sont **pas**, en général, dans Lean : seules 2 d'entre elles sont des théorèmes du noyau.
+Version 0.9.0 · DOI [10.5281/zenodo.23085769](https://doi.org/10.5281/zenodo.23085769) · registre mis à jour le 2026-10-06. Les bornes inférieures ne sont **pas**, en général, dans Lean : seules 2 d'entre elles sont des théorèmes du noyau.
 
 ### Faits marquants
 
@@ -105,7 +105,7 @@ Cellules avec un résultat à nous : théorème Lean ou borne inférieure par ce
 |---|---:|---:|---|---|---|
 | `K_7(6,4)` | 13–15 | **= 14** | CERTIFICATE_VERIFIED | INDEPENDENTLY_REPRODUCED | [FIBRAS_GERAL](docs/exatos/FIBRAS_GERAL.md) · `CoveringK764.K_7_6_4_le_14` · [code](data/codes/q7_n6_R4_M14.txt) |
 | `K_3(6,2)` | 15–17 | **= 17** | CERTIFICATE_VERIFIED | INDEPENDENTLY_REPRODUCED | [K3_M16](docs/exatos/k362/K3_M16.md) · `CoveringLedger.K3_6_2_le_17` |
-| `K_7(5,3)` | 15–17 | **= 17** | CERTIFICATE_VERIFIED | CLAIMED | [FIBRAS_GERAL](docs/exatos/FIBRAS_GERAL.md) |
+| `K_7(5,3)` | 15–17 | **= 17** | CERTIFICATE_VERIFIED | INDEPENDENTLY_REPRODUCED | [FIBRAS_GERAL](docs/exatos/FIBRAS_GERAL.md) · `CoveringK753.K_7_5_3_le_17` · [code](data/codes/q7_n5_R3_M17.txt) |
 | `K_7(4,2)` | 17–19 | **= 19** | FORMALIZED | FORMALIZED | [FASE1_B_K742](docs/exatos/FASE1_B_K742.md) · `K742.K_7_4_2_le_19` · `K742.K_7_4_2_eq_19` |
 | `K_5(10,4)` | 177–875 | 177–**625** (−28,6 %) | CLAIMED | INDEPENDENTLY_REPRODUCED | `CoveringKernel.K5_10_4_le_625_kernel` · [code](data/codes/q5_n10_R4_M625.txt) |
 | `K_7(9,4)` | 264–1475 | 264–**1134** (−23,1 %) | CLAIMED | INDEPENDENTLY_REPRODUCED | `Syn.K7_9_4_le_1134_syn` · [code](data/codes/q7_n9_R4_M1134.txt) |
@@ -122,7 +122,7 @@ Cellules avec un résultat à nous : théorème Lean ou borne inférieure par ce
 
 Potentiellement nouvelles (introuvables dans la littérature consultée, voir [NOVIDADE_V09](docs/exatos/NOVIDADE_V09.md)) : `K_7(6,4)`, `K_3(6,2)`, `K_7(5,3)`.
 
-Lacunes déclarées : la borne inférieure de `K_7(6,4)`, `K_3(6,2)`, `K_7(5,3)` est un certificat calculatoire vérifié, pas un théorème Lean ; la borne supérieure de `K_7(5,3)` est seulement celle annoncée dans la littérature (CLAIMED), non vérifiée ici.
+Lacunes déclarées : la borne inférieure de `K_7(6,4)`, `K_3(6,2)`, `K_7(5,3)` est un certificat calculatoire vérifié, pas un théorème Lean.
 <!-- RESULTADOS:FIM -->
 
 ## IV. Démonstration

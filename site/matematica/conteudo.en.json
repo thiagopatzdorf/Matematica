@@ -130,7 +130,7 @@
   "lacunas": [
     "The whole table has not been formally verified. The lower bounds are, almost all of them, inherited from the literature (CLAIMED).",
     "The lower bounds of K₃(6,2) = 17, K₇(6,4) = 14 and K₇(5,3) = 17 are CERTIFICATE_VERIFIED, not in Lean: they rest on a reduction proved on paper and on certificates checked outside the kernel.",
-    "The upper bound K₇(5,3) ≤ 17 is only announced in Kéri's tables and remains CLAIMED.",
+    "The upper bound K₇(5,3) ≤ 17 now has our own 17-word code, checked by two verifiers and proved in Lean; the lower bound is still a computational certificate, not a Lean theorem.",
     "“Potentially new” means: not found in the literature we searched. Closed-access texts from 2004 to 2009 could not be read.",
     "Literature after 2011 outside the ledger's sources has not been audited.",
     "The theorems of james-theorems hold for models, not for the production system."

@@ -213,7 +213,7 @@ formally verified.
   not kernel theorems.
 - `K₇(6,4)` and `K₇(5,3)` have not been independently reproduced in full: the independent encoding
   covered 16 of the 8 008 profiles and 8 cheap profiles, respectively ([paper](../paper/main.tex)).
-- `K₇(5,3) ≤ 17` is only announced in Kéri's tables and remains `CLAIMED`.
+- `K₇(5,3) ≤ 17` now has our own 17-word code and a Lean theorem (`CoveringK753.K_7_5_3_le_17`).
 - Where the same methods stop: `K₃(7,3)` (11–12) and larger binary cells, recorded in the section
   "Where the same methods stop" of the [paper](../paper/main.tex). And the 6-match pool, `K₃(6,1)`,
   remains at 71–73.

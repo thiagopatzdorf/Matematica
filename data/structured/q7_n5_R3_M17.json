@@ -1,0 +1,39 @@
+{
+ "format": "covering-code/v1",
+ "q": 7,
+ "n": 5,
+ "R": 3,
+ "M": 17,
+ "digit_convention": "word text s[0]..s[n-1]; integer w = sum_k s[k]*q^k; digit k = (w // q^k) % q",
+ "subcode_cosets": [],
+ "patch_words": [
+  "00534",
+  "01114",
+  "02654",
+  "13005",
+  "16302",
+  "25243",
+  "25426",
+  "30611",
+  "31551",
+  "32131",
+  "43365",
+  "46062",
+  "54226",
+  "54443",
+  "60150",
+  "61630",
+  "62510"
+ ],
+ "provenance": {
+  "generator": "tools/exatos/busca_local/sa.c (recozimento simulado, custo = pontos descobertos, lance = trocar um símbolo); gcc -O3, seed 12, T0 1.5; saída ordenada com sort",
+  "commit": null,
+  "seed": 12,
+  "command": "cc -O3 -o sa tools/exatos/busca_local/sa.c -lm && ./sa 17 12 1.5 | sort",
+  "date": "2026-10-06",
+  "agent": "James.V1",
+  "repo_commit": null,
+  "notes": "fecha a superior de K_7(5,3) = 17 (antes só anunciada nas tabelas do Kéri / Rivas Soriano). Perfil de fibras 3332222 nas 5 coordenadas (o equilibrado; o CaDiCaL via sonda.py ficou INDEFINIDO em 600 s nesse perfil). Conferido por tools/verify/verify.c (0 de 16 807 pontos descobertos) e por força bruta em Python (tests/test_fibras.py)."
+ },
+ "canonical_sha256": "d4b4c2acda99bd2143572a0c2c73f9b9db07606090d0660fa3c43b838c7fe242"
+}

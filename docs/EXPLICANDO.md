@@ -214,7 +214,7 @@ verificada formalmente.
   são teoremas do kernel.
 - `K₇(6,4)` e `K₇(5,3)` não foram reproduzidas por inteiro de forma independente: a codificação
   independente cobriu 16 dos 8 008 perfis e 8 perfis baratos, respectivamente ([paper](../paper/main.tex)).
-- `K₇(5,3) ≤ 17` é só anunciada nas tabelas de Kéri e segue `CLAIMED`.
+- `K₇(5,3) ≤ 17` ganhou código próprio de 17 palavras e teorema Lean (`CoveringK753.K_7_5_3_le_17`).
 - Onde os mesmos métodos param: `K₃(7,3)` (11–12) e células binárias maiores, registrados na seção
   "Where the same methods stop" do [paper](../paper/main.tex). E o bolão de 6 jogos, `K₃(6,1)`, segue em
   71–73.
