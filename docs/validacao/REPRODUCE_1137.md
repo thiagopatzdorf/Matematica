@@ -75,4 +75,4 @@ Para conferir que a lista de palavras dentro do Lean é o witness:
 python3 verification/lean/decode_synData.py .   # sha256 df3e8d52…a102, idêntico a code_1137.txt
 ```
 
-Detalhes, tempos e logs estão em `LEAN_REVIEW.md`. Os ataques ao Lean estão em `LEAN_RED_TEAM.md`.
+Detalhes, tempos e logs estão em `docs/validacao/LEAN_REVIEW.md`. Os ataques ao Lean estão em `docs/validacao/LEAN_RED_TEAM.md`.

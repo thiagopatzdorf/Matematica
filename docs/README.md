@@ -11,4 +11,4 @@
 | [fatoracao/README.md](fatoracao/README.md) | o domínio de fatoração de inteiros: registro, avaliador, cartão e o critério de vitória do programa "bater o GNFS" |
 
 Na raiz: [README.md](../README.md), [CONTRIBUTING.md](../CONTRIBUTING.md), [AGENTS.md](../AGENTS.md),
-[SECURITY.md](../SECURITY.md), [CODE_OF_CONDUCT.md](../CODE_OF_CONDUCT.md) e `STATE_OF_ART.md`.
+[SECURITY.md](../SECURITY.md), [CODE_OF_CONDUCT.md](../CODE_OF_CONDUCT.md) e [STATE_OF_ART.md](literatura/STATE_OF_ART.md).

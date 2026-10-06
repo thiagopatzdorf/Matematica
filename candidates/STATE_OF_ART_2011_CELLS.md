@@ -1,7 +1,7 @@
 # Estado da arte: K_5(10,5), K_5(11,4), K_7(10,4)
 
 Revisão bibliográfica feita em 2026-10-03, com o mesmo método usado para K_7(9,4)
-(`STATE_OF_ART.md`). Nada foi publicado e nada foi gasto. Os candidatos abaixo
+(`docs/literatura/STATE_OF_ART.md`). Nada foi publicado e nada foi gasto. Os candidatos abaixo
 foram **verificados por força bruta e não foram publicados**:
 
 | célula | nosso candidato | Kéri (tabelas, ≤ 2011) |

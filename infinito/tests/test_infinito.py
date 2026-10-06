@@ -153,6 +153,13 @@ def test_documento_fora_da_lista_le_arquivo_qualquer():
     assert ctx.tools["documento"]("estado_da_arte")["texto"].startswith("# Estado da arte")
 
 
+def test_documento_da_allowlist_aponta_para_arquivo_movido_ou_apagado():
+    # Mover um doc da raiz (ex.: para docs/validacao/) sem atualizar DOCS faria a tool responder
+    # "não existe neste deploy" em silêncio. Cada nome da allowlist tem de existir no repo.
+    faltando = {nome: arq for nome, arq in matematica.DOCS.items() if not (REPO / arq).is_file()}
+    assert not faltando, f"DOCS aponta para arquivo que não existe: {faltando}"
+
+
 # -------------------------------------------------------------------- papers
 def test_mesma_busca_de_outra_pessoa_bate_de_novo_na_fonte():
     chamadas = []
