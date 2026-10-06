@@ -53,6 +53,9 @@ API = "https://storage.googleapis.com/storage/v1/b"
 UPLOAD = "https://storage.googleapis.com/upload/storage/v1/b"
 # 60 s: sem cacheControl o GCS aplica 1 h de cache público (medido na casa).
 CACHE = "public, max-age=60"
+# A Cloudflare da zona responde 403 ao User-Agent padrão "Python-urllib" (medido em
+# 2026-10-06); a conferência se identifica com um nome honesto, não finge navegador.
+UA = "matematica-publicador/1 (+https://github.com/thiagopatzdorf/Matematica)"
 TIPOS = {
     ".html": "text/html; charset=utf-8", ".css": "text/css; charset=utf-8",
     ".js": "application/javascript; charset=utf-8", ".mjs": "application/javascript; charset=utf-8",
@@ -191,7 +194,7 @@ def conferir_no_ar(itens: list[tuple[str, str, bytes]]) -> list[str]:
     for nome, _, dados in itens:
         url = "https://genesisinnovation.io/" + nome[len("genesis/"):]
         try:
-            with urllib.request.urlopen(urllib.request.Request(url, headers={"Cache-Control": "no-cache"}),
+            with urllib.request.urlopen(urllib.request.Request(url, headers={"Cache-Control": "no-cache", "User-Agent": UA}),
                                         timeout=60) as r:
                 if r.status != 200 or r.read() != dados:
                     erros.append(f"{url}: conteúdo no ar difere do enviado")

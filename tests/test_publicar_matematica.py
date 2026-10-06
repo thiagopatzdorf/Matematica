@@ -51,3 +51,27 @@ def test_pasta_sem_index_publica_um_site_sem_pagina(tmp_path):
 def test_publicador_escreve_fora_do_prefixo_da_pagina(tmp_path):
     for nome, _, _ in p.plano(_pasta(tmp_path)):
         assert nome == p.PREFIXO or nome.startswith(p.PREFIXO + "/")
+
+
+def test_conferencia_no_ar_usa_user_agent_python_urllib_que_a_cloudflare_barra(monkeypatch):
+    vistos = []
+
+    class Resp:
+        status = 200
+
+        def __enter__(self):
+            return self
+
+        def __exit__(self, *a):
+            return False
+
+        def read(self):
+            return b"x"
+
+    def falso_urlopen(req, timeout=None):
+        vistos.append(req.get_header("User-agent"))
+        return Resp()
+
+    monkeypatch.setattr(p.urllib.request, "urlopen", falso_urlopen)
+    assert p.conferir_no_ar([("genesis/matematica", "text/html", b"x")]) == []
+    assert vistos and not vistos[0].lower().startswith("python-urllib")
