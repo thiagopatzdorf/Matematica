@@ -1,0 +1,274 @@
+{
+  "titulo": "Du chaos à l’ordre",
+  "subtitulo": "Codes couvrants, certificats que chacun peut vérifier, et un registre qui n’oublie pas. A machine-checked ledger of covering-code upper bounds, with formally certified exact entries.",
+  "manifesto": [
+    "Au commencement, il y a l’espace. Trois symboles, six positions : 729 mots. Sept symboles, neuf positions : 40 353 607. Aucun œil humain ne parcourt cela.",
+    "Nous voulons quelques mots qui veillent sur tous les autres. Nous en avons trouvé 17. Puis vient la question qui empêche de dormir : et avec 16 ?",
+    "Depuis 1991, il y avait le 17. Depuis 2004, la certitude qu’en dessous de 15 c’était impossible. Entre les deux, le doute. Personne ne savait.",
+    "Le doute est entropie. Le défaire a un prix : des recherches, des impasses, des nuits de machine. Mais une recherche coûteuse laisse une trace peu coûteuse. Un certificat. Une preuve que chacun peut vérifier.",
+    "Et celui qui vérifie n’est pas un homme fatigué. C’est une machine qui ne se lasse pas, et qui n’accepte pas ce qui ne se referme pas.",
+    "Alors l’intervalle devient un point. 17. L’état s’effondre. Et la paix vient.",
+    "Une petite paix. La plupart des bornes ne sont encore qu’héritées. Il y a des questions plus grandes, qui nous échappent. L’une d’elles demande si trouver est toujours plus difficile que vérifier.",
+    "Nous écrivons ce que nous savons. Nous écrivons ce qui manque. Face au chaos, c’est ce que l’on peut faire : laisser un peu de lumière là où il y avait le doute."
+  ],
+  "principios": [
+    {
+      "nome": "Vérifier coûte moins que trouver",
+      "enunciado": "Trouver un code, c’est chercher dans un espace immense. Vérifier un code donné, c’est un calcul fini. Alors nous construisons d’abord celui qui vérifie."
+    },
+    {
+      "nome": "La découverte coûteuse devient vérification bon marché",
+      "enunciado": "Toute recherche qui aboutit laisse un certificat. Qui vient ensuite ne refait pas la recherche : il vérifie."
+    },
+    {
+      "nome": "L’évaluateur tranche",
+      "enunciado": "Celui qui propose peut se tromper à loisir. Celui qui tranche doit être bon marché et exact : le vérificateur en C et le noyau de Lean."
+    },
+    {
+      "nome": "Le mesuré l’emporte sur le lu",
+      "enunciado": "Une borne de la littérature entre comme CLAIMED. Elle ne monte que si quelque chose ici la vérifie. L’état est calculé par un script, jamais écrit à la main."
+    },
+    {
+      "nome": "L’erreur est une mesure",
+      "enunciado": "Nous publions ce qui a échoué. Chaque nouvelle borne inférieure affronte une red team. Là où quelque chose casse, la règle qui manquait apparaît."
+    },
+    {
+      "nome": "Ne jamais dire plus que ce qui est prouvé",
+      "enunciado": "Chaque borne a un état exact, et chaque résultat porte ses lacunes écrites à côté."
+    }
+  ],
+  "metodo": [
+    {
+      "passo": "Choisir",
+      "descricao": "Une cellule K_q(n,R), selon le doute qu’elle garde : la largeur de l’intervalle, le temps sans attaque depuis les tables de Kéri."
+    },
+    {
+      "passo": "Chercher",
+      "descricao": "La partie coûteuse : constructions algébriques, SAT, programmation linéaire. Et quelqu’un qui tente de renverser le résultat."
+    },
+    {
+      "passo": "Certifier",
+      "descricao": "Réduire la découverte à un objet qu’un vérificateur exact contrôle : code explicite, LRAT, Farkas, VeriPB ou théorème de Lean."
+    },
+    {
+      "passo": "Enregistrer",
+      "descricao": "Inscrire dans le registre la borne, la source, le sha256 et l’état de certification, calculé par un script."
+    },
+    {
+      "passo": "Exposer",
+      "descricao": "Un article avec DOI, du code ouvert et des lacunes déclarées, pour qu’un autre puisse refaire sans avoir à nous croire."
+    }
+  ],
+  "milenio": [
+    {
+      "problema": "P vs NP",
+      "enunciado_curto": "Tout ce qui se vérifie vite se trouve-t-il aussi vite ? Formellement : tout problème dont la solution se vérifie en temps polynomial se résout-il aussi en temps polynomial ?",
+      "status": "Ouvert",
+      "fonte": "https://www.claymath.org/millennium/p-vs-np/"
+    },
+    {
+      "problema": "Hypothèse de Riemann",
+      "enunciado_curto": "Tous les zéros non triviaux de la fonction zêta de Riemann ont une partie réelle égale à 1/2.",
+      "status": "Ouvert",
+      "fonte": "https://www.claymath.org/millennium/riemann-hypothesis/"
+    },
+    {
+      "problema": "Yang–Mills et le saut de masse",
+      "enunciado_curto": "Pour tout groupe de jauge compact simple, il existe une théorie quantique de Yang–Mills sur R⁴, et elle possède un saut de masse Δ > 0.",
+      "status": "Ouvert",
+      "fonte": "https://www.claymath.org/millennium/yang-mills-the-maths-gap/"
+    },
+    {
+      "problema": "Équations de Navier–Stokes",
+      "enunciado_curto": "En dimension trois, à partir de données initiales lisses, existe-t-il toujours des solutions lisses et d’énergie finie ? Ou le fluide peut-il exploser en temps fini ?",
+      "status": "Ouvert",
+      "fonte": "https://www.claymath.org/millennium/navier-stokes-equation/"
+    },
+    {
+      "problema": "Conjecture de Hodge",
+      "enunciado_curto": "Sur une variété algébrique projective complexe, toute classe de Hodge est combinaison rationnelle de classes de cycles algébriques.",
+      "status": "Ouvert",
+      "fonte": "https://www.claymath.org/millennium/hodge-conjecture/"
+    },
+    {
+      "problema": "Conjecture de Birch et Swinnerton-Dyer",
+      "enunciado_curto": "Le rang du groupe des points rationnels d’une courbe elliptique sur Q est égal à l’ordre d’annulation de sa fonction L en s = 1.",
+      "status": "Ouvert",
+      "fonte": "https://www.claymath.org/millennium/birch-and-swinnerton-dyer-conjecture/"
+    },
+    {
+      "problema": "Conjecture de Poincaré",
+      "enunciado_curto": "Toute 3-variété fermée et simplement connexe est homéomorphe à la 3-sphère.",
+      "status": "Résolue par Grigori Perelman, dans des prépublications de 2002 et 2003. Le prix du millénaire lui a été décerné en 2010, et il l’a refusé.",
+      "fonte": "https://www.claymath.org/millennium/poincare-conjecture/"
+    }
+  ],
+  "james": {
+    "resumo": "Le dépôt james-theorems démontre en Lean 4, sans Mathlib et sans sorry, trois propriétés de modèles simples de la philosophie qui guide ce travail. Les théorèmes valent pour les modèles, non pour le code de production. Ils ne résolvent pas un problème difficile : ils rendent exacte la forme d’un argument. Ici, la même forme rencontre un problème réel. Le registre est le journal. Le certificat est la vérification bon marché.",
+    "teoremas": [
+      {
+        "nome": "Connaissance · amortizacao",
+        "enunciado": "Dans une file de N tâches, dont D distinctes, en partant d’une base vide, il y a exactement D recherches et N vérifications. Le coût total est D·recherche + N·vérification.",
+        "fonte": "https://github.com/thiagopatzdorf/james-theorems/blob/12616cf56ed737a2cdfb9034753d5679c8091b49/JamesTheorems/Conhecimento.lean"
+      },
+      {
+        "nome": "Sécurité · gate",
+        "enunciado": "Pour tout journal d’événements, même écrit par un adversaire, aucune action critique n’apparaît exécutée sans approbation enregistrée.",
+        "fonte": "https://github.com/thiagopatzdorf/james-theorems/blob/12616cf56ed737a2cdfb9034753d5679c8091b49/JamesTheorems/Seguranca.lean"
+      },
+      {
+        "nome": "Âme · replay, retomada, revezamento",
+        "enunciado": "L’état est le repli d’une transition pure sur le journal. Des corps ayant la même transition atteignent le même état. Un corps peut s’arrêter à n’importe quel événement, et un autre reprend depuis l’instantané. Le journal peut être partagé entre plusieurs corps.",
+        "fonte": "https://github.com/thiagopatzdorf/james-theorems/blob/12616cf56ed737a2cdfb9034753d5679c8091b49/JamesTheorems/Alma.lean"
+      }
+    ]
+  },
+  "keri": {
+    "resumo": "Les tables de Gerzson Kéri rassemblent les meilleures bornes connues pour le nombre de recouvrement K_q(n,R) : le plus petit code de longueur n, sur q symboles, qui laisse chaque mot à distance de Hamming au plus R. Elles comptent 1145 cellules, avec q de 2 à 21. La dernière mise à jour date de novembre 2011.",
+    "porque_importa": "Elles sont l’étalon de tout résultat nouveau : une borne n’est un record que si elle bat la table. Figées depuis 2011, elles sont aussi une carte honnête de ce que personne n’a résolu. Le registre part d’elles, cellule par cellule, et note ce que nous avons pu certifier : 487 des 1145 bornes supérieures sont des théorèmes du noyau de Lean ou reproduites de façon indépendante. Et trois cellules se sont effondrées sur une valeur exacte potentiellement nouvelle : K₃(6,2) = 17, K₇(6,4) = 14 et K₇(5,3) = 17."
+  },
+  "lacunas": [
+    "La table entière n’a pas été vérifiée formellement. Les bornes inférieures sont, presque toutes, héritées de la littérature (CLAIMED).",
+    "Les bornes inférieures de K₃(6,2) = 17, K₇(6,4) = 14 et K₇(5,3) = 17 sont CERTIFICATE_VERIFIED, pas dans Lean : elles reposent sur une réduction démontrée sur papier et sur des certificats vérifiés hors du noyau.",
+    "La borne supérieure K₇(5,3) ≤ 17 a désormais notre propre code de 17 mots, vérifié par deux vérificateurs et prouvé en Lean ; la borne inférieure reste un certificat calculatoire, pas un théorème Lean.",
+    "« Potentiellement nouveau » signifie : non trouvé dans la littérature que nous avons consultée. Des textes en accès fermé de 2004 à 2009 n’ont pas pu être lus.",
+    "La littérature postérieure à 2011 hors des sources du registre n’a pas été auditée.",
+    "Les théorèmes de james-theorems valent pour des modèles, non pour le système en production."
+  ],
+  "links": [
+    {
+      "rotulo": "Dépôt",
+      "url": "https://github.com/thiagopatzdorf/Matematica"
+    },
+    {
+      "rotulo": "Article (DOI 10.5281/zenodo.23172276)",
+      "url": "https://doi.org/10.5281/zenodo.23172276"
+    },
+    {
+      "rotulo": "Registre (ledger)",
+      "url": "https://github.com/thiagopatzdorf/Matematica/tree/main/ledger"
+    },
+    {
+      "rotulo": "Couverture de la certification",
+      "url": "https://github.com/thiagopatzdorf/Matematica/blob/main/ledger/COBERTURA.md"
+    },
+    {
+      "rotulo": "Philosophie",
+      "url": "https://github.com/thiagopatzdorf/Matematica/blob/main/docs/PHILOSOPHIE.md"
+    },
+    {
+      "rotulo": "Expliqué, du profane au docteur",
+      "url": "https://github.com/thiagopatzdorf/Matematica/blob/main/docs/EXPLIQUE.md"
+    },
+    {
+      "rotulo": "james-theorems",
+      "url": "https://github.com/thiagopatzdorf/james-theorems"
+    },
+    {
+      "rotulo": "Problèmes du prix du millénaire (Clay Mathematics Institute)",
+      "url": "https://www.claymath.org/millennium-problems/"
+    }
+  ],
+  "explicando": {
+    "camadas": [
+      {
+        "nivel": "Pour tout le monde · 30 secondes",
+        "titulo": "Quelques antennes pour toute une ville",
+        "texto": "Imaginez une ville et ses antennes-relais. Chaque antenne atteint les maisons proches. Quel est le plus petit nombre d’antennes qui couvre toutes les maisons ? Ici, les maisons sont des mots, et la distance entre deux mots est le nombre de lettres qu’il faut changer pour passer de l’un à l’autre. K_q(n,R) est ce plus petit nombre d’antennes : des mots de n lettres, sur un alphabet de q lettres, chaque antenne atteignant jusqu’à R changements.",
+        "analogia": "Des antennes-relais qui couvrent toutes les maisons d’une ville avec le moins d’antennes possible.",
+        "exemplo": "Le problème est né des paris sur le football (football pool) : chaque match a trois issues. Combien de grilles garantissent au plus un match faux ? Avec 4 matchs, 9 grilles suffisent, et moins est impossible. Avec 6 matchs, personne ne sait encore : entre 71 et 73."
+      },
+      {
+        "nivel": "Lycée",
+        "titulo": "Montrer est facile ; prouver que c’est impossible est difficile",
+        "texto": "Une borne supérieure se prouve en montrant un code : il suffit de vérifier qu’il couvre tout. Une borne inférieure affirme qu’avec moins c’est impossible, et là montrer ne suffit pas : il faut écarter toutes les tentatives, ou trouver un argument qui dispense de les essayer. Vérifier est rapide. Prouver qu’une chose n’existe pas peut exiger un univers de cas.",
+        "analogia": "Montrer une clé qui ouvre la porte prend une seconde : on la tourne. Prouver qu’aucune clé plus petite ne l’ouvre oblige à penser à toutes les clés.",
+        "exemplo": "Les mots de 3 bits sont les 8 sommets d’un cube. Chaque mot couvre lui-même et ses 3 voisins : 4 sommets. Comme 8 ÷ 4 = 2, un seul mot ne suffit pas. Et 000 et 111 suffisent. Donc K₂(3,1) = 2."
+      },
+      {
+        "nivel": "Licence",
+        "titulo": "Boules de Hamming et un espace qui explose",
+        "texto": "La boule de Hamming de rayon R autour d’un mot contient V = Σ C(n,i)(q−1)^i mots, pour i de 0 à R. Comme les boules du code doivent couvrir les q^n mots, on a la borne de la sphère : K_q(n,R) ≥ q^n / V. Elle n’est presque jamais atteinte, car les boules se chevauchent. Et l’espace croît exponentiellement : q^n mots, et un nombre astronomique de codes candidats.",
+        "analogia": "Carreler un sol avec des carreaux ronds : l’aire donne un minimum, mais les carreaux se chevauchent toujours sur les bords.",
+        "exemplo": "Dans K₃(6,2), il y a 729 mots et chaque boule en contient 73. La borne de la sphère donne 10. La littérature a atteint 15 en 2004, et le code de 17 mots date de 1991. Nous avons prouvé que 15 et 16 sont impossibles : K₃(6,2) = 17."
+      },
+      {
+        "nivel": "Master et doctorat",
+        "titulo": "Domination dans les graphes de Hamming, certificats et noyau",
+        "texto": "K_q(n,R) est le nombre de domination de la puissance R-ième du graphe de Hamming H(n,q) : un problème de couverture par ensembles avec q^n ensembles. Les bornes supérieures viennent de constructions (classes latérales de codes linéaires plus un correctif, partitions de l’alphabet). Les nouvelles bornes inférieures viennent de deux réductions : la tranche minimale, dont la relaxation linéaire est réfutée par des multiplicateurs de Farkas entiers (12 054 et 13 099 certificats pour 15 et 16 mots dans K₃(6,2)) ; et le lemme des fibres pour K_q(n,n−2), qui ramène à des profils de fibres réfutés par SAT avec des preuves LRAT (8 008 profils pour K₇(6,4) ; 201 376 pour K₇(5,3)). Une seconde chaîne, avec VeriPB, a reproduit K₃(6,2). Pour K₇(4,2) = 19, toute la preuve passe dans le noyau de Lean, avec notre propre vérificateur LRAT : 70 profils, 284 modules, 37,8 heures de CPU.",
+        "analogia": "Un moteur d’échecs : le générateur de coups peut être naïf, pourvu que l’évaluateur soit exact.",
+        "exemplo": "K₇(6,4) : la récursion de Haas, Schlage-Puchta et Quistorff donnait 13, et Kéri et Östergård avaient un code de 15 mots. Nous avons trouvé un code de 14 mots (formalisé dans Lean) et réfuté les 8 008 profils d’un code de 13 mots : K₇(6,4) = 14. La borne inférieure est CERTIFICATE_VERIFIED, pas un théorème du noyau."
+      }
+    ]
+  },
+  "glossario": [
+    {
+      "termo": "Code couvrant",
+      "definicao": "Ensemble de mots tel que tout mot de l’espace est à distance au plus R de l’un d’eux."
+    },
+    {
+      "termo": "Distance de Hamming",
+      "definicao": "Nombre de positions où deux mots diffèrent."
+    },
+    {
+      "termo": "Rayon de recouvrement",
+      "definicao": "Le R : la plus grande distance permise entre un mot quelconque et le code."
+    },
+    {
+      "termo": "Boule de Hamming",
+      "definicao": "Tous les mots à distance au plus R d’un mot donné."
+    },
+    {
+      "termo": "K_q(n,R)",
+      "definicao": "La plus petite taille d’un code couvrant de longueur n, sur q symboles, de rayon R. Chaque triplet (q,n,R) est une cellule."
+    },
+    {
+      "termo": "Borne supérieure",
+      "definicao": "K_q(n,R) ≤ M : se prouve en exhibant un code de M mots."
+    },
+    {
+      "termo": "Borne inférieure",
+      "definicao": "K_q(n,R) ≥ M : se prouve en montrant qu’aucun code plus petit n’existe."
+    },
+    {
+      "termo": "Borne de la sphère",
+      "definicao": "K_q(n,R) ≥ q^n divisé par la taille d’une boule de Hamming."
+    },
+    {
+      "termo": "Effondrement de l’état",
+      "definicao": "Quand les deux bornes se rejoignent et que l’intervalle devient une valeur exacte."
+    },
+    {
+      "termo": "Certificat",
+      "definicao": "Objet qu’un programme exact vérifie rapidement : un code, une réfutation LRAT, des multiplicateurs de Farkas, une preuve VeriPB."
+    },
+    {
+      "termo": "LRAT",
+      "definicao": "Format de preuve qu’une formule SAT n’a pas de solution, vérifiable pas à pas."
+    },
+    {
+      "termo": "Certificat de Farkas",
+      "definicao": "Combinaison entière des contraintes d’un système linéaire qui prouve qu’il n’a pas de solution."
+    },
+    {
+      "termo": "Noyau de Lean",
+      "definicao": "Le petit cœur de l’assistant de preuve Lean, qui accepte ou refuse chaque pas d’une preuve."
+    },
+    {
+      "termo": "Registre (ledger)",
+      "definicao": "L’inventaire des 1145 cellules, avec les sources, le sha256 et l’état de certification de chaque borne."
+    },
+    {
+      "termo": "Échelle des états",
+      "definicao": "CLAIMED → WITNESS_CHECKED → CERTIFICATE_VERIFIED → FORMALIZED → INDEPENDENTLY_REPRODUCED, du plus faible au plus fort."
+    },
+    {
+      "termo": "Red team",
+      "definicao": "Revue adversariale : quelqu’un tente de renverser la preuve avant qu’elle n’entre dans le registre."
+    },
+    {
+      "termo": "Tables de Kéri",
+      "definicao": "La compilation de référence des bornes de K_q(n,R), mise à jour pour la dernière fois en 2011."
+    }
+  ]
+}

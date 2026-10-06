@@ -186,6 +186,13 @@ blocos com 16 palavras (q = 7, n = 5; mesma notação; local = container compart
 Estado: OBSERVED (UNSAT sem prova conferida). Nenhum código de 16 palavras de K_7(5,3) foi
 achado; as formas que ficaram indefinidas são as de bloco grande (5 ou 6 símbolos).
 
+Depois (PR #56/#67) o ∄ 16 foi certificado por LRAT. A superior 17 deixou de ser só anunciada em
+2026-10-06: o código de 17 palavras `data/codes/q7_n5_R3_M17.txt` saiu do recozimento simulado
+`tools/exatos/busca_local/sa.c` (seed 12, ~14 s), tem perfil de fibras 3332222 nas cinco
+coordenadas e é o teorema `CoveringK753.K_7_5_3_le_17`. No mesmo perfil, a sonda SAT
+(`sonda.py`, CaDiCaL) ficou INDEFINIDA em 600 s com 1 coordenada fixada: aqui a busca local foi
+mais barata que o SAT.
+
 ## 5. K_q(4,2), q = 16…20: a construção reduz tudo a g(b,4,3)
 
 Com n = 4 o Teorema 1 dá uma classificação completa das construções por blocos:

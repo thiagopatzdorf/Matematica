@@ -1,90 +1,178 @@
-# Matemática: hub de descoberta com prova verificável
+<div align="center">
 
-Um lugar onde **pessoas e agentes propõem problemas matemáticos e os resolvem por pipelines definidos**, e onde
-só conta o que uma máquina confere de forma exata: um avaliador determinístico ou o kernel do Lean. Opinião de
-modelo (ou de gente) não é prova aqui.
+**English** · [Português](README.pt-BR.md) · [Français](README.fr.md)
 
-O primeiro domínio são os **códigos de cobertura**: o menor número `K_q(n,R)` de palavras de um código de
-comprimento `n` sobre `q` símbolos tal que toda palavra do espaço fique a distância de Hamming ≤ `R` de alguma
-delas. O modelo (candidato achado por busca, conferido por avaliador exato, certificado no Lean, publicado) vale para
-qualquer problema em que **verificar é bem mais barato que achar**. Código de cobertura é o primeiro exemplo, não o último.
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="docs/assets/banner-escuro.png">
+  <source media="(prefers-color-scheme: light)" srcset="docs/assets/banner-claro.png">
+  <img alt="Matemática: from chaos to structure, where only what the machine checks counts" src="docs/assets/banner-claro.png" width="100%">
+</picture>
 
-## Por que importa
+# Matemática
 
-* Cotas de `K_q(n,R)` aparecem em teoria da informação, testes combinatórios e apostas (o "football pool").
-  Elas só mudam quando alguém acha um código menor, e isso é fácil de conferir e difícil de achar.
-* O Lean vira o juiz final: as nossas cotas são teoremas, sem `sorry` e sem `native_decide`.
-* Colaboradores convidados recebem crédito de infra (US$ 20 por pessoa, até 10 pessoas) pelo MCP Infinito, com teto
-  aplicado em código.
+**Expensive discovery, cheap verification: covering-code bounds checked by an exact evaluator and by the Lean kernel.**
 
-## Estado atual (2026-10-05, v0.9.0)
+[![ci](https://github.com/thiagopatzdorf/Matematica/actions/workflows/ci.yml/badge.svg)](https://github.com/thiagopatzdorf/Matematica/actions/workflows/ci.yml)
+[![verify-codes](https://github.com/thiagopatzdorf/Matematica/actions/workflows/verify-codes.yml/badge.svg)](https://github.com/thiagopatzdorf/Matematica/actions/workflows/verify-codes.yml)
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.23085769.svg)](https://doi.org/10.5281/zenodo.23085769)
+[![Lean 4](https://img.shields.io/badge/Lean-4-0f6db4?logo=lean&logoColor=white)](https://lean-lang.org)
+[![License: CC BY 4.0](https://img.shields.io/badge/license-CC%20BY%204.0-lightgrey.svg)](LICENSE)
 
-Números conferidos no repositório (`ledger/cells.json`, `data/codes/`, `tools/verify/check_all.sh`).
+[Website](https://genesisinnovation.io/matematica) ·
+[Results](docs/resultados.md) ·
+[Philosophy](docs/PHILOSOPHY.md) ·
+[Documentation](docs/README.md) ·
+[Note](paper/main.pdf)
 
-| o quê | valor |
+</div>
+
+---
+
+## The problem in one picture
+
+Picture a town where every house has an address of `n` letters, and the distance between two houses is how many
+letters you must change to get from one address to the other. A tower reaches every house within `R` changes.
+**What is the smallest number of towers that covers the whole town?** That number is `K_q(n,R)`.
+
+In the smallest interesting case, the addresses are the 8 words of 3 bits and each tower reaches one change. Two
+towers, at `000` and `111`, are enough: every other word is one bit away from one of them. A single tower covers
+only 4 houses, so `K_2(3,1) = 2`.
+
+```mermaid
+graph LR
+  T0(("000")):::tower === A["001"] & B["010"] & C["100"]
+  T1(("111")):::tower === F["011"] & E["101"] & D["110"]
+  A -.- F & E
+  B -.- F & D
+  C -.- E & D
+  classDef tower fill:#0f6db4,color:#fff,stroke:#0f6db4
+```
+
+Every answer has two sides. An **upper bound** shows towers that suffice: finding them is hard, but checking is just
+counting. A **lower bound** proves that fewer towers is impossible, and that is the hard side, because every
+alternative must be ruled out. Explained in four layers (30 seconds, high school, undergraduate, research) in
+[docs/EXPLAINED.md](docs/EXPLAINED.md); why the method works, in [docs/PHILOSOPHY.md](docs/PHILOSOPHY.md).
+
+## I. Definition
+
+A **covering code** is a set of words of length `n` over `q` symbols such that every word of the space lies within
+Hamming distance `R` of one of them. `K_q(n,R)` is the size of the smallest such code:
+
+$$K_q(n,R) \;=\; \min\bigl\{\,|C| \;:\; C \subseteq \mathbb{Z}_q^n,\ \ \forall x \in \mathbb{Z}_q^n\ \ \exists c \in C,\ \ d_H(x,c) \le R \,\bigr\}$$
+
+An upper bound is an explicit code: finding it is hard, checking it is counting. The reference is
+[Kéri's tables](https://old.sztaki.hu/~keri/codes/); the full vocabulary is in the [glossary](docs/GLOSSARIO.md) (Portuguese).
+
+## II. Principles
+
+1. **Only what the machine checks counts.** A proof is a deterministic evaluator or the Lean kernel. A model's opinion, or a person's, is not a proof.
+2. **Cheap verification beats expensive discovery.** Search may be costly and fallible; what stays in the repository is the certificate that checks in seconds.
+3. **Every error becomes a rule.** A defect found becomes a failing test, not a reminder.
+4. **Everything is reversible.** Every state can be rebuilt from the repository: codes, certificates, ledger and proofs.
+
+The reasoning behind each one is in [docs/PHILOSOPHY.md](docs/PHILOSOPHY.md).
+
+## III. Propositions
+
+A machine-checked ledger of covering-code upper bounds, with formally certified exact entries.
+The block below is generated from `ledger/cells.json` and is not edited by hand.
+
+<!-- RESULTADOS:INICIO -->
+<!-- Generated by tools/site/gerar_resultados.py from ledger/cells.json; do not edit by hand. -->
+
+> A machine-checked ledger of covering-code upper bounds, with formally certified exact entries.
+
+| what | value |
+|---|---:|
+| `K_q(n,R)` cells in the ledger (q from 2 to 21) | **1145** |
+| exact (lower bound = upper bound) | **523** |
+| open | **622** |
+| upper bounds that are Lean kernel theorems (FORMALIZED + INDEPENDENTLY_REPRODUCED) | **488** of 1145 (435 + 53) |
+| lower bounds by state (almost all inherited from the literature) | CLAIMED 1140 · CERTIFICATE_VERIFIED 3 · FORMALIZED 2 |
+| exact values closed here (the published interval was open) | **4** (1 with both bounds in the kernel; 3 with the lower bound by a verified certificate outside Lean) |
+| cells with our own Lean theorem | **15** (12 below the best published upper bound we found) |
+| explicit codes in `data/codes/` | **19** (all pass the official C verifier, `tools/verify/check_all.sh`, in CI); 13 are the current witness of a ledger bound, sha256 checked |
+
+Version 0.9.0 · DOI [10.5281/zenodo.23085769](https://doi.org/10.5281/zenodo.23085769) · ledger updated on 2026-10-06. Lower bounds are, in general, **not** in Lean: only 2 of them are kernel theorems.
+
+### Highlights
+
+Cells with a result of our own: our Lean theorem or a lower bound by verified certificate. New exact values first; then largest relative gain in the upper bound.
+
+| cell | before (published) | now | lower-bound state | upper-bound state | proof |
+|---|---:|---:|---|---|---|
+| `K_7(6,4)` | 13–15 | **= 14** | CERTIFICATE_VERIFIED | INDEPENDENTLY_REPRODUCED | [FIBRAS_GERAL](docs/exatos/FIBRAS_GERAL.md) · `CoveringK764.K_7_6_4_le_14` · [code](data/codes/q7_n6_R4_M14.txt) |
+| `K_3(6,2)` | 15–17 | **= 17** | CERTIFICATE_VERIFIED | INDEPENDENTLY_REPRODUCED | [K3_M16](docs/exatos/k362/K3_M16.md) · `CoveringLedger.K3_6_2_le_17` |
+| `K_7(5,3)` | 15–17 | **= 17** | CERTIFICATE_VERIFIED | INDEPENDENTLY_REPRODUCED | [FIBRAS_GERAL](docs/exatos/FIBRAS_GERAL.md) · `CoveringK753.K_7_5_3_le_17` · [code](data/codes/q7_n5_R3_M17.txt) |
+| `K_7(4,2)` | 17–19 | **= 19** | FORMALIZED | FORMALIZED | [FASE1_B_K742](docs/exatos/FASE1_B_K742.md) · `K742.K_7_4_2_le_19` · `K742.K_7_4_2_eq_19` |
+| `K_5(10,4)` | 177–875 | 177–**625** (−28.6%) | CLAIMED | INDEPENDENTLY_REPRODUCED | `CoveringKernel.K5_10_4_le_625_kernel` · [code](data/codes/q5_n10_R4_M625.txt) |
+| `K_7(9,4)` | 264–1475 | 264–**1134** (−23.1%) | CLAIMED | INDEPENDENTLY_REPRODUCED | `Syn.K7_9_4_le_1134_syn` · [code](data/codes/q7_n9_R4_M1134.txt) |
+| `K_7(8,3)` | 471–2337 | 471–**1887** (−19.3%) | CLAIMED | INDEPENDENTLY_REPRODUCED | `Syn.K7_8_3_le_1887_syn` · [code](data/codes/q7_n8_R3_M1887.txt) |
+| `K_7(10,4)` | 1007–6517 | 1007–**5607** (−14.0%) | CLAIMED | INDEPENDENTLY_REPRODUCED | `Syn.K7_10_4_le_5607_syn` · [code](data/codes/q7_n10_R4_M5607.txt) |
+| `K_5(9,5)` | 19–55 | 19–**50** (−9.1%) | CLAIMED | INDEPENDENTLY_REPRODUCED | `CoveringKernel.K5_9_5_le_50_kernel` · [code](data/codes/q5_n9_R5_M50.txt) |
+| `K_5(11,4)` | 546–3125 | 546–**2875** (−8.0%) | CLAIMED | INDEPENDENTLY_REPRODUCED | `Syn.K5_11_4_le_2875_syn` · [code](data/codes/q5_n11_R4_M2875.txt) |
+| `K_4(10,4)` | 62–208 | 62–**192** (−7.7%) | CLAIMED | INDEPENDENTLY_REPRODUCED | `CoveringKernel.K4_10_4_le_192_kernel` · [code](data/codes/q4_n10_R4_M192.txt) |
+| `K_5(10,5)` | 41–175 | 41–**162** (−7.4%) | CLAIMED | INDEPENDENTLY_REPRODUCED | `Syn.K5_10_5_le_162_syn` · [code](data/codes/q5_n10_R5_M162.txt) |
+| `K_5(7,2)` | 236–525 | 236–**500** (−4.8%) | CLAIMED | INDEPENDENTLY_REPRODUCED | `CoveringKernel.K5_7_2_le_500_kernel` · [code](data/codes/q5_n7_R2_M500.txt) |
+| `K_5(9,3)` | 354–1275 | 354–**1250** (−2.0%) | CLAIMED | INDEPENDENTLY_REPRODUCED | `CoveringKernel.K5_9_3_le_1250_kernel` · [code](data/codes/q5_n9_R3_M1250.txt) |
+| `K_5(9,4)` | 64–255 | 64–**250** (−2.0%) | CLAIMED | INDEPENDENTLY_REPRODUCED | `CoveringKernel.K5_9_4_le_250_kernel` · [code](data/codes/q5_n9_R4_M250.txt) |
+| `K_2(6,1)` | = 12 | **= 12** | FORMALIZED | FORMALIZED | `SC.K_2_6_1_eq12` |
+
+Potentially new (not found in the literature we searched, see [NOVIDADE_V09](docs/exatos/NOVIDADE_V09.md)): `K_7(6,4)`, `K_3(6,2)`, `K_7(5,3)`.
+
+Declared gaps: the lower bound of `K_7(6,4)`, `K_3(6,2)`, `K_7(5,3)` is a verified computational certificate, not a Lean theorem.
+<!-- RESULTADOS:FIM -->
+
+## IV. Demonstration
+
+Every bound climbs a ladder of states, and each rung demands a stronger check than the one before:
+
+<p align="center">
+  <img alt="Ladder of states: CLAIMED, WITNESS_CHECKED, CERTIFICATE_VERIFIED, FORMALIZED, INDEPENDENTLY_REPRODUCED" src="docs/assets/escada-de-estados.svg" width="90%">
+</p>
+
+| state | what was checked |
 |---|---|
-| células `K_q(n,R)` no ledger (q de 2 a 21) | 1145, das quais 520 com valor exato e 625 abertas |
-| células em que temos teorema Lean próprio | 13 (11 abaixo da melhor cota superior publicada que achamos; `K_2(6,1) = 12`, o clássico, e `K_7(4,2) = 19`, as duas inteiramente no kernel) |
-| ledger certificado | A machine-checked ledger of covering-code upper bounds, with formally certified exact entries. 487 das 1145 cotas superiores são teorema do Lean (`CoveringLedger.todas_as_cotas`, a partir de `K ≤ \|C\|` genérico, regras de construção e witnesses); as inferiores seguem herdadas da literatura, exceto `K_2(6,1)` e `K_7(4,2)` (ver `ledger/COBERTURA.md`) |
-| exatos novos da v0.9 (fora do kernel) | `K_3(6,2) = 17`, `K_7(6,4) = 14` e `K_7(5,3) = 17`, potencialmente novos (não achados na literatura que buscamos, ver `docs/exatos/NOVIDADE_V09.md`). As cotas inferiores são **certificado computacional verificado** (Farkas inteiro, VeriPB, LRAT), não teorema do Lean; `K_3(6,2)` tem reprodução independente, as duas de `K_7` passaram por red team com amostra reconferida. A cota superior de `K_7(6,4) ≤ 14` é código novo, formalizada no Lean; a de `K_7(5,3) ≤ 17` é só a anunciada na literatura. Ver `docs/exatos/` e a seção 12 do paper |
-| códigos em `data/codes/` | 18, todos aprovados pelo verificador oficial em C (`tools/verify/check_all.sh`) |
-| destaques | `K_7(9,4) ≤ 1134` (publicado antes: 1475, Marosi, arXiv:2608.19872v3); `K_7(10,4) ≤ 5607` (antes: 6517, Kéri); `K_7(4,2) = 19` (antes: 17–19), inteiramente no kernel: `K742.K_7_4_2_eq_19`, sem hipótese, com as 70 refutações LRAT reexecutadas no kernel (lib `CoveringK742Sat`, fora do CI: 284 módulos, 37,8 h de CPU; ver `docs/exatos/LEAN_K742.md`) |
-| Lean e Mathlib | Lean 4.34.1, Mathlib v4.34.1; `lake build` passa e roda no CI a cada push (`CoveringK742Sat` e `CoveringLedger` ficam fora do CI pelo custo) |
-| axiomas | todo `#print axioms` mostra no máximo `propext, Classical.choice, Quot.sound` |
+| `CLAIMED` | it appears in a published source; nothing was checked here |
+| `WITNESS_CHECKED` | an exact verifier, outside Lean, accepted the certificate |
+| `CERTIFICATE_VERIFIED` | lower bounds only: LRAT, VeriPB or Farkas certificates pinned by sha256, checked by a verifier independent of the generator, with a red team |
+| `FORMALIZED` | there is a Lean theorem, checked by the kernel, with no pending hypothesis |
+| `INDEPENDENTLY_REPRODUCED` | formalized **and** checked by a second verifier, actually run |
 
-Novidade na literatura é afirmação nossa (busca bibliográfica descrita em `STATE_OF_ART.md`), não do Lean. Tabela
-por célula, certificados e reprodução: [docs/resultados.md](docs/resultados.md).
+The full definition of each rung is in [ledger/README.md](ledger/README.md); the count per state, in
+[ledger/COBERTURA.md](ledger/COBERTURA.md). Reproducing takes three commands (needs `cc`, Python 3 and
+[elan](https://lean-lang.org/install/)):
 
-## Contribua em 5 minutos
+```bash
+git clone https://github.com/thiagopatzdorf/Matematica && cd Matematica
+tools/verify/check_all.sh          # every code in data/codes/ through the official C verifier
+lake exe cache get && lake build   # the proofs in the Lean kernel
+```
 
-**Pessoa**
+## V. Method
 
-1. Clone e rode o verificador oficial em todos os códigos (precisa de `cc` e Python 3):
+<p align="center">
+  <img alt="Collapse: from the chaos of search to the structure of a verified certificate" src="docs/assets/colapso.svg" width="90%">
+</p>
 
-        git clone https://github.com/thiagopatzdorf/Matematica && cd Matematica
-        tools/verify/check_all.sh
+The method is a collapse: many candidates (search, SAT, algebraic constructions, agents) go in, an exact evaluator
+decides, and what remains is checkable structure. The real pipeline, file by file, is in
+[docs/ARQUITETURA.md](docs/ARQUITETURA.md) (Portuguese); the visual version, at
+[genesisinnovation.io/matematica](https://genesisinnovation.io/matematica).
 
-2. Veja onde há chance de melhorar e leia a célula escolhida:
+## VI. Horizon
 
-        python3 ledger/targets.py --top 10
+The same principle underlies [James's theorem](https://github.com/thiagopatzdorf/james-theorems), where discovering
+is expensive and verifying is cheap. The [Millennium Prize Problems](https://www.claymath.org/millennium-problems/)
+are the long-term inspiration for the method, not something this repository solves or attacks.
 
-3. Abra uma issue dizendo qual célula ou problema você ataca (isso é a reivindicação) e siga o
-   [CONTRIBUTING.md](CONTRIBUTING.md).
+## VII. Contribute · Cite · License
 
-**Agente**
+**Contribute.** Pick a cell with `python3 ledger/targets.py --top 10`, open an issue saying which one you are working
+on and follow [CONTRIBUTING.md](CONTRIBUTING.md). Agents start with [AGENTS.md](AGENTS.md) and the
+[Infinito MCP](infinito/README.md).
 
-1. Leia o [AGENTS.md](AGENTS.md) (setup, comandos, o que nunca fazer).
-2. Use o MCP Infinito (cota de infra por pessoa) para consultar o ledger e verificar códigos sem custo:
-   [infinito/README.md](infinito/README.md).
-3. Todo candidato passa pelo verificador exato antes de qualquer afirmação.
+**Cite.** Concept DOI [10.5281/zenodo.23085769](https://doi.org/10.5281/zenodo.23085769), which always resolves to
+the latest version. Metadata is in `CITATION.cff`, and GitHub offers the "Cite this repository" button.
 
-## Mapa do repositório
-
-| caminho | o que é |
-|---|---|
-| `ledger/` | o ledger de células, o estado nosso e a proveniência (ver `ledger/README.md`) |
-| `data/codes/`, `data/structured/` | os códigos (um por linha) e a descrição estruturada de cada um |
-| `tools/verify/` | verificador oficial em C e `check_all.sh` |
-| `tools/exatos/` | busca exata (SAT com prova LRAT, CP-SAT, busca exaustiva); `K_7(4,2) = 19` fechado assim e depois levado ao kernel |
-| `tools/fatoracao/` | domínio de fatoração de inteiros: registro de números do desafio RSA, importador e avaliador exato (`p * q == N`); ver `docs/fatoracao/` |
-| `tools/literatura/` | varredura de literatura |
-| `scripts/` | geradores, loop de recordes (`scripts/loop/`), certificados por síndromes, publicação |
-| `CoveringLean/` | as provas em Lean 4 (biblioteca e certificados) |
-| `infinito/` | o MCP Infinito: ferramentas para colaboradores, com teto de crédito por pessoa |
-| `paper/` | a nota (`main.tex`, `main.pdf`) |
-| `docs/` | glossário, arquitetura, resultados, formato de código, triagens |
-| `tests/` | a suíte de testes (`python3 -m pytest -q tests`) |
-
-Lê-se melhor nesta ordem: [docs/GLOSSARIO.md](docs/GLOSSARIO.md), [docs/ARQUITETURA.md](docs/ARQUITETURA.md),
-[docs/README.md](docs/README.md).
-
-## Como citar
-
-DOI conceitual: [10.5281/zenodo.23085769](https://doi.org/10.5281/zenodo.23085769) (aponta sempre para a versão
-mais nova). Tag `v0.9.0`. Os metadados completos estão em `CITATION.cff` e `.zenodo.json`; o GitHub oferece o botão
-"Cite this repository" a partir do primeiro. A nota está em [paper/main.pdf](paper/main.pdf).
-
-## Licença e conduta
-
-Licença conforme `LICENSE` e `CITATION.cff` (CC-BY-4.0). Participar implica seguir o
-[CODE_OF_CONDUCT.md](CODE_OF_CONDUCT.md). Problema de segurança: [SECURITY.md](SECURITY.md).
+**License.** [CC BY 4.0](LICENSE). Conduct: [CODE_OF_CONDUCT.md](CODE_OF_CONDUCT.md). Security: [SECURITY.md](SECURITY.md).

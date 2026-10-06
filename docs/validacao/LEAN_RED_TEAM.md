@@ -57,7 +57,7 @@ Os achados abaixo são de **processo e de base de confiança**, não furos na pr
 # v0.6: red team de `Syn.K7_9_4_le_1134_syn`, `Syn.K5_10_5_le_162_syn`, `Syn.K5_11_4_le_2875_syn` e `Syn.K7_10_4_le_5616_syn`
 
 - Branch `feat/v0.6` (worktree próprio), 2026-10-03. Lean 4.34.1, Mathlib `v4.34.1`.
-- Números completos (build, verificadores, sha256, mutações) em `VALIDATION_v0.6.md` e `verification/outputs/v0.6/`.
+- Números completos (build, verificadores, sha256, mutações) em `docs/validacao/VALIDATION_v0.6.md` e `verification/outputs/v0.6/`.
 
 ## Veredito
 
@@ -82,7 +82,7 @@ verificadores independentes dão 0 pontos descobertos em todo o espaço. Os acha
 | 10 | O arranjo de mutação mente? | **ACHOU PROBLEMA (no meu harness, corrigido)** | Na 1ª versão, `lake: command not found` contava como "rejeitada". Na 2ª, o `LEAN_PATH` resolvia `CoveringLean.*` só na pasta à parte. Os dois casos foram pegos e corrigidos: só conta erro do Lean com posição no arquivo, e um controle positivo (folha original renomeada) tem de compilar antes. Os 4 controles compilam. |
 | 11 | Certificado do K2875 sem órfãs (`orphs = []`) é vácuo? | FALHOU EM INVALIDAR | Com 0 órfãs, `hO` é `absurd` sobre `orphs.length = 0` (por `rfl`). A cobertura fica toda nas 120 folhas `T`/`B`, e a M3 (testemunha falsa em `T`) é rejeitada. Os 23 × 125 pontos-base são checados por `chkB`. |
 | 12 | Verdade fora do Lean | FALHOU EM INVALIDAR | `tools/verify/verify`, `verify_cover.py`, `scripts/search/verify.py`, `scripts/attack/verify_bfs.c`, `verify_bfs/main.rs` (constantes trocadas em cópia) e a força bruta por bolas do `decode_synData.py`: 0 descobertos. Distribuições de distância idênticas nos dois BFS. |
-| 13 | CI recompila os certificados? | **ACHOU PROBLEMA (processo, baixo; herdado da v0.5)** | `CoveringSyn` continua fora do alvo padrão e do job `lean`. Os quatro teoremas novos dependem de build manual, que somam ~20 min em 4 núcleos (ver `VALIDATION_v0.6.md`). |
+| 13 | CI recompila os certificados? | **ACHOU PROBLEMA (processo, baixo; herdado da v0.5)** | `CoveringSyn` continua fora do alvo padrão e do job `lean`. Os quatro teoremas novos dependem de build manual, que somam ~20 min em 4 núcleos (ver `docs/validacao/VALIDATION_v0.6.md`). |
 | 14 | `build_structured.py --check` no 1134 | **ACHOU PROBLEMA (dado, corrigido)** | O JSON do 1134 (branch `feat/k794-1134`) não era regenerável: remendo fora de ordem e sem registro. Corrigido sem mudar palavras nem sha. O certificado regenerado é idêntico. |
 
 ## Como reproduzir

@@ -1,0 +1,156 @@
+{
+  "gerado_em": "2026-10-06T01:51:55+00:00",
+  "commit": "a37643168cbf1cbbebc55da0c8f7f227745ec9aa",
+  "versao": "0.9.0",
+  "doi": "10.5281/zenodo.23172276",
+  "doi_conceito": "10.5281/zenodo.23085769",
+  "frase_ledger": "A machine-checked ledger of covering-code upper bounds, with formally certified exact entries.",
+  "celulas_total": 1145,
+  "exatas": 523,
+  "abertas": 622,
+  "superiores_por_estado": {
+    "CLAIMED": 657,
+    "WITNESS_CHECKED": 0,
+    "CERTIFICATE_VERIFIED": 0,
+    "FORMALIZED": 435,
+    "INDEPENDENTLY_REPRODUCED": 53
+  },
+  "inferiores_por_estado": {
+    "CLAIMED": 1140,
+    "WITNESS_CHECKED": 0,
+    "CERTIFICATE_VERIFIED": 3,
+    "FORMALIZED": 2,
+    "INDEPENDENTLY_REPRODUCED": 0
+  },
+  "destaques": [
+    {
+      "celula": "K2(6,1)",
+      "antes": "K = 12",
+      "agora": "K = 12",
+      "estado_lb": "FORMALIZED",
+      "estado_ub": "FORMALIZED",
+      "fonte": "Lean: SC.K_2_6_1_eq12"
+    },
+    {
+      "celula": "K3(6,2)",
+      "antes": "15 ≤ K ≤ 17",
+      "agora": "K = 17",
+      "estado_lb": "CERTIFICATE_VERIFIED",
+      "estado_ub": "INDEPENDENTLY_REPRODUCED",
+      "fonte": "docs/exatos/k362/K3_M16_REDTEAM.md"
+    },
+    {
+      "celula": "K4(10,4)",
+      "antes": "62 ≤ K ≤ 208",
+      "agora": "62 ≤ K ≤ 192",
+      "estado_lb": "CLAIMED",
+      "estado_ub": "INDEPENDENTLY_REPRODUCED",
+      "fonte": "Lean: CoveringKernel.K4_10_4_le_192_kernel"
+    },
+    {
+      "celula": "K5(7,2)",
+      "antes": "236 ≤ K ≤ 525",
+      "agora": "236 ≤ K ≤ 500",
+      "estado_lb": "CLAIMED",
+      "estado_ub": "INDEPENDENTLY_REPRODUCED",
+      "fonte": "Lean: CoveringKernel.K5_7_2_le_500_kernel"
+    },
+    {
+      "celula": "K5(9,3)",
+      "antes": "354 ≤ K ≤ 1275",
+      "agora": "354 ≤ K ≤ 1250",
+      "estado_lb": "CLAIMED",
+      "estado_ub": "INDEPENDENTLY_REPRODUCED",
+      "fonte": "Lean: CoveringKernel.K5_9_3_le_1250_kernel"
+    },
+    {
+      "celula": "K5(9,4)",
+      "antes": "64 ≤ K ≤ 255",
+      "agora": "64 ≤ K ≤ 250",
+      "estado_lb": "CLAIMED",
+      "estado_ub": "INDEPENDENTLY_REPRODUCED",
+      "fonte": "Lean: CoveringKernel.K5_9_4_le_250_kernel"
+    },
+    {
+      "celula": "K5(9,5)",
+      "antes": "19 ≤ K ≤ 55",
+      "agora": "19 ≤ K ≤ 50",
+      "estado_lb": "CLAIMED",
+      "estado_ub": "INDEPENDENTLY_REPRODUCED",
+      "fonte": "Lean: CoveringKernel.K5_9_5_le_50_kernel"
+    },
+    {
+      "celula": "K5(10,4)",
+      "antes": "177 ≤ K ≤ 875",
+      "agora": "177 ≤ K ≤ 625",
+      "estado_lb": "CLAIMED",
+      "estado_ub": "INDEPENDENTLY_REPRODUCED",
+      "fonte": "Lean: CoveringKernel.K5_10_4_le_625_kernel"
+    },
+    {
+      "celula": "K5(10,5)",
+      "antes": "41 ≤ K ≤ 175",
+      "agora": "41 ≤ K ≤ 162",
+      "estado_lb": "CLAIMED",
+      "estado_ub": "INDEPENDENTLY_REPRODUCED",
+      "fonte": "Lean: Syn.K5_10_5_le_162_syn"
+    },
+    {
+      "celula": "K5(11,4)",
+      "antes": "546 ≤ K ≤ 3125",
+      "agora": "546 ≤ K ≤ 2875",
+      "estado_lb": "CLAIMED",
+      "estado_ub": "INDEPENDENTLY_REPRODUCED",
+      "fonte": "Lean: Syn.K5_11_4_le_2875_syn"
+    },
+    {
+      "celula": "K7(4,2)",
+      "antes": "17 ≤ K ≤ 19",
+      "agora": "K = 19",
+      "estado_lb": "FORMALIZED",
+      "estado_ub": "FORMALIZED",
+      "fonte": "Lean: K742.K_7_4_2_le_19"
+    },
+    {
+      "celula": "K7(5,3)",
+      "antes": "15 ≤ K ≤ 17",
+      "agora": "K = 17",
+      "estado_lb": "CERTIFICATE_VERIFIED",
+      "estado_ub": "INDEPENDENTLY_REPRODUCED",
+      "fonte": "Lean: CoveringK753.K_7_5_3_le_17"
+    },
+    {
+      "celula": "K7(6,4)",
+      "antes": "13 ≤ K ≤ 15",
+      "agora": "K = 14",
+      "estado_lb": "CERTIFICATE_VERIFIED",
+      "estado_ub": "INDEPENDENTLY_REPRODUCED",
+      "fonte": "Lean: CoveringK764.K_7_6_4_le_14"
+    },
+    {
+      "celula": "K7(8,3)",
+      "antes": "471 ≤ K ≤ 2337",
+      "agora": "471 ≤ K ≤ 1887",
+      "estado_lb": "CLAIMED",
+      "estado_ub": "INDEPENDENTLY_REPRODUCED",
+      "fonte": "Lean: Syn.K7_8_3_le_1887_syn"
+    },
+    {
+      "celula": "K7(9,4)",
+      "antes": "264 ≤ K ≤ 1475",
+      "agora": "264 ≤ K ≤ 1134",
+      "estado_lb": "CLAIMED",
+      "estado_ub": "INDEPENDENTLY_REPRODUCED",
+      "fonte": "Lean: Syn.K7_9_4_le_1134_syn"
+    },
+    {
+      "celula": "K7(10,4)",
+      "antes": "1007 ≤ K ≤ 6517",
+      "agora": "1007 ≤ K ≤ 5607",
+      "estado_lb": "CLAIMED",
+      "estado_ub": "INDEPENDENTLY_REPRODUCED",
+      "fonte": "Lean: Syn.K7_10_4_le_5607_syn"
+    }
+  ],
+  "codigos_verificados": 19
+}

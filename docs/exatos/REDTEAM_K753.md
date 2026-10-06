@@ -141,6 +141,10 @@ mutante que mexe em (f) ou em (h) nos dois sentidos é pego.
    Para fechar: `k753_lrat.py` com a amostra filtrada nesses 9, numa máquina com disco.
 2. **Literatura.** O Lema 1 (fibras) em K_7(5,3) usa K_6(4,2) = 15 (Kéri 2011). A cota superior
    K_7(5,3) ≤ 17 é de Rivas Soriano. Nenhuma das duas foi refeita aqui.
+   *Atualização 2026-10-06:* a superior foi refeita. `data/codes/q7_n5_R3_M17.txt` (17 palavras,
+   achado por `tools/exatos/busca_local/sa.c`, seed 12) passa no `tools/verify/verify` e na força
+   bruta de `tests/test_fibras.py`, e vira `CoveringK753.K_7_5_3_le_17` no kernel
+   (`CoveringLean/K753_Upper.lean`). Fica só a dependência de K_6(4,2) = 15.
 3. A codificação independente cobriu só 8 perfis baratos. Nenhum perfil caro e nenhum cubo foi
    reproduzido por ela.
 
