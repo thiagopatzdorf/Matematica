@@ -14,7 +14,7 @@
     "result": "ver exp-k2-6-1-search-mirror",
     "status": "completed"
   },
-  "created": "2026-10-05T13:36:40Z",
+  "created": "2026-10-06T01:40:48Z",
   "created_by": "agente-c",
   "created_role": "PROPOSER",
   "depends_on": [
@@ -47,7 +47,7 @@
       "reason": "criado",
       "role": "PROPOSER",
       "to": "IDEA",
-      "ts": "2026-10-05T13:36:40Z"
+      "ts": "2026-10-06T01:40:48Z"
     },
     {
       "actor": "agente-c",
@@ -55,7 +55,7 @@
       "reason": "evidência anexada: experiments=exp-k2-6-1-search-mirror",
       "role": "PROPOSER",
       "to": "IDEA",
-      "ts": "2026-10-05T13:36:40Z"
+      "ts": "2026-10-06T01:40:49Z"
     },
     {
       "actor": "agente-c",
@@ -63,7 +63,7 @@
       "reason": "evidência anexada: formal=f-k2-6-1-eq12",
       "role": "PROPOSER",
       "to": "IDEA",
-      "ts": "2026-10-05T13:36:40Z"
+      "ts": "2026-10-06T01:40:49Z"
     },
     {
       "actor": "migrate_covering.py",
@@ -71,7 +71,7 @@
       "reason": "busca exaustiva (espaço finito) reproduzida em Python; certificado Lean só declarado",
       "role": "EXHAUSTIVE_SEARCHER",
       "to": "EXHAUSTIVE_BOUNDED",
-      "ts": "2026-10-05T13:36:40Z"
+      "ts": "2026-10-06T01:40:49Z"
     }
   ],
   "kind": "theorem",

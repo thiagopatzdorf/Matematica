@@ -4,7 +4,7 @@
   "canonical_sha256": "74176af64936119ce0d199e487127dff999888f93c7bde0b8386ba03ece12ce5",
   "canonical_sha256_declared_in_structured": "74176af64936119ce0d199e487127dff999888f93c7bde0b8386ba03ece12ce5",
   "claim_ids": [],
-  "created": "2026-10-05T13:01:11Z",
+  "created": "2026-10-06T01:06:35Z",
   "created_by": "agente-c",
   "format": "covering-code/v1 (lista plana, uma palavra por linha)",
   "implementation": "scripts/attack (feat/ataque-celulas-2011): hsearch t=1 em [10,3]_5 (8 síndromes órfãs) -> patch_opt",

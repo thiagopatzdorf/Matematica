@@ -1,6 +1,6 @@
 {
   "command": null,
-  "created": "2026-10-05T13:01:11Z",
+  "created": "2026-10-06T01:06:35Z",
   "created_by": "agente-c",
   "description": "Busca que produziu o código de 5616 palavras de k7-10-4, como DECLARADA em ledger/provenance.json (P-5616): gerador = scripts/attack (feat/ataque-celulas-2011): hsearch -> base_search eval t=2 em [10,4]_7 -> lift para [10,3]_7 -> coset_sa t=16 -> patch_opt (lift por x_6). Comando: None; seed: None; commit do gerador: 0c2e49e; data 2026-10-03; agente James.V1 (subagente Claude, branch feat/ataque-celulas-2011). Lacuna declarada no ledger: Seed e comando exatos da cadeia de busca não foram registrados; a estrutura (16 classes laterais de um [10,3]_7 + 128 palavras) está em data/structured/q7_n10_R4_M5616.json. NÃO reexecutado por esta campanha (busca longa; o que se reproduz aqui é a estrutura, por build_structured --check, e a verificação).",
   "experiment_id": "exp-prov-q7-n10-r4-m5616",
@@ -10,7 +10,7 @@
   ],
   "kind": "search",
   "ranges": null,
-  "repo_commit": "248a748b9d5003f13f684b633208fa0632966ce9",
+  "repo_commit": "38fb526ff78269beb6b264188f297853028fe569",
   "result": {
     "declarado_em": "ledger/provenance.json P-5616",
     "executado_neste_run": false,

@@ -3,7 +3,7 @@
   "R": 1,
   "canonical_sha256": "6efb8a9e04c7724b07b8a00e66688a6f743a832048055ff517fcaf86606fa1c7",
   "claim_ids": [],
-  "created": "2026-10-05T13:01:11Z",
+  "created": "2026-10-06T01:06:35Z",
   "created_by": "agente-c",
   "format": "covering-code/v1 (lista plana)",
   "implementation": "derivado de CoveringLean/A6c_Search.lean `def code12` (inteiros [0, 1, 2, 15, 28, 23, 57, 58, 59, 39, 44, 52], bit i = (k // 2^i) % 2)",

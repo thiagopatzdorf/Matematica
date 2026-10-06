@@ -1,0 +1,32 @@
+{
+  "command": [
+    "{workdir}/verify",
+    "--q",
+    "{param:q}",
+    "--n",
+    "{param:n}",
+    "--R",
+    "{param:R}",
+    "--M",
+    "{param:M}",
+    "{witness}"
+  ],
+  "host": "vm (Linux x86_64)",
+  "output_sha256": "651fa1c4ba71edc5246c9e1158bf53351dcde81e21c91043dd8830ea8d9aed6d",
+  "output_tail": "q=7 n=6 R=4 M=14 points=117649 uncovered=0 sha256=9f2c53518162b5d3451f4d9ebf7849fefad101b1658ee0aba63ee0228d5d6a62 params=explicit\n",
+  "params_passed": {
+    "M": 14,
+    "R": 4,
+    "n": 6,
+    "q": 7
+  },
+  "repo_commit": "9ec7d59f3bf265b74524da39de53d28be385f730",
+  "result": "PASS",
+  "run_id": "run-01791249856791971924-7ceac2ea",
+  "runtime_s": 0.182,
+  "subject_id": "w-q7-n6-r4-m14",
+  "subject_sha256": "9f2c53518162b5d3451f4d9ebf7849fefad101b1658ee0aba63ee0228d5d6a62",
+  "ts": "2026-10-06T01:24:16Z",
+  "verifier_id": "verify-c",
+  "verifier_sha256": "eb5453ea5f0c024d50e5b39a7c87cee927563286db6c9cd0d508b3cd75534ba5"
+}

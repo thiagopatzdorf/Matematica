@@ -1,5 +1,5 @@
 {
-  "created": "2026-10-05T13:01:11Z",
+  "created": "2026-10-06T01:06:35Z",
   "created_by": "agente-c",
   "description": "Busca exaustiva com poda do argumento K_2(6,1) >= 12 (WLOG a palavra 63 no código): espelho Python do SearchCore.chkN do Lean. `6 10`: nenhuma cobertura com 11 palavras; `6 10 2`: 38 estados na fronteira (= os 38 G610_Chunk); controle positivo `6 11` acha cobertura de 12.",
   "experiment_id": "exp-k2-6-1-search-mirror",
@@ -17,7 +17,7 @@
     "profundidade_fronteira": 2,
     "q": 2
   },
-  "repo_commit": "248a748b9d5003f13f684b633208fa0632966ce9",
+  "repo_commit": "38fb526ff78269beb6b264188f297853028fe569",
   "result": {
     "executado_neste_run": true,
     "runs": [
@@ -33,7 +33,7 @@
         "ok": true,
         "output_sha256": "3a14bc64a4695d36ebee470073d22a76862b397478960eeb7bc7be4ce9951e86",
         "rc": 0,
-        "runtime_s": 0.744
+        "runtime_s": 0.669
       },
       {
         "command": [
@@ -62,7 +62,7 @@
         "ok": false,
         "output_sha256": "362a9bfe245d51e5f1c96ec407d1f5e4e121f481b3b0dd86f692c175cf611525",
         "rc": 0,
-        "runtime_s": 0.097
+        "runtime_s": 0.089
       }
     ]
   },
