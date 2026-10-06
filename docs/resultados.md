@@ -12,7 +12,7 @@ Estado (2026-10-03), Lean 4.34.1 + Mathlib v4.34.1, VM e2-highmem-8:
 * `lake build CoveringHeavy` (`K_2(6,1) = 12` e as oito cotas superiores): **passa**, 9181 jobs, 1 h 54 min de relógio (~9,3 h de CPU), pico 9,4 GB por processo.
 * `lake build CoveringSyn` (os quatro certificados por síndromes da v0.4): **passa**, 8983 jobs, 10 min 35 s de relógio (~37 min de CPU para os quatro), pico 6,9 GB por processo.
 * `lake build CoveringLean.Syn_K1137` (v0.5, `K_7(9,4) ≤ 1137`): **passa**, 2 min 41 s em 8 núcleos (331 s de CPU), pico 6,7 GB; `#print axioms` só `propext, Classical.choice, Quot.sound`.
-* v0.6 (2026-10-03, contêiner de 4 núcleos, módulos próprios do zero): `Syn_K1134` 105 s, `Syn_K162` 101 s, `Syn_K2875` 364 s, `Syn_K5616` 654 s, todos exit 0, axiomas só `propext, Classical.choice, Quot.sound`; mutações rejeitadas pelo Lean em `LEAN_RED_TEAM.md` (seção v0.6) e `VALIDATION_v0.6.md`.
+* v0.6 (2026-10-03, contêiner de 4 núcleos, módulos próprios do zero): `Syn_K1134` 105 s, `Syn_K162` 101 s, `Syn_K2875` 364 s, `Syn_K5616` 654 s, todos exit 0, axiomas só `propext, Classical.choice, Quot.sound`; mutações rejeitadas pelo Lean em `docs/validacao/LEAN_RED_TEAM.md` (seção v0.6) e `docs/validacao/VALIDATION_v0.6.md`.
 
 Nenhum `sorry`, nenhum `native_decide`, e todo `#print axioms` mostra no máximo `propext, Classical.choice, Quot.sound`.
 

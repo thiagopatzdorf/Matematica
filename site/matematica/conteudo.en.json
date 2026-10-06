@@ -1,0 +1,274 @@
+{
+  "titulo": "From chaos to order",
+  "subtitulo": "Covering codes, certificates anyone can check, and a ledger that does not forget. A machine-checked ledger of covering-code upper bounds, with formally certified exact entries.",
+  "manifesto": [
+    "In the beginning there is the space. Three symbols, six positions: 729 words. Seven symbols, nine positions: 40 353 607. No human eye can walk through that.",
+    "We want a few words that keep watch over all the others. We found 17. Then comes the question that will not let you sleep: what about 16?",
+    "Since 1991 there was the 17. Since 2004, the certainty that fewer than 15 was impossible. Between the two, doubt. No one knew.",
+    "Doubt is entropy. Undoing it has a price: searches, dead ends, nights of machine time. But an expensive search leaves a cheap trace. A certificate. A proof anyone can check.",
+    "And the one who checks is not a tired man. It is a machine that does not tire, and does not accept what does not close.",
+    "Then the interval becomes a point. 17. The state collapses. And there is peace.",
+    "A small peace. Most bounds are still only inherited. There are larger questions, and they still escape us. One of them asks whether finding is always harder than checking.",
+    "We write down what we know. We write down what is missing. Before chaos, that is what one can do: leave a little light where there was doubt."
+  ],
+  "principios": [
+    {
+      "nome": "Checking is cheaper than finding",
+      "enunciado": "Finding a code is a search in an immense space. Checking a given code is a finite computation. So we build the checker first."
+    },
+    {
+      "nome": "Expensive discovery becomes cheap verification",
+      "enunciado": "Every search that succeeds leaves a certificate. Whoever comes next does not repeat the search: they check."
+    },
+    {
+      "nome": "The evaluator decides",
+      "enunciado": "Whoever proposes may be wrong at will. Whoever decides must be cheap and exact: the C checker and the Lean kernel."
+    },
+    {
+      "nome": "What is measured beats what is read",
+      "enunciado": "A bound from the literature enters as CLAIMED. It climbs only when something here checks it. The state is computed by a script, never written by hand."
+    },
+    {
+      "nome": "Error is a measurement",
+      "enunciado": "We publish what failed. Every new lower bound faces a red team. Where something breaks, the missing rule shows itself."
+    },
+    {
+      "nome": "Never claim more than was proved",
+      "enunciado": "Every bound has an exact state, and every result has its gaps written beside it."
+    }
+  ],
+  "metodo": [
+    {
+      "passo": "Choose",
+      "descricao": "A cell K_q(n,R), by the doubt it holds: the width of the interval, the time without attack since Kéri's tables."
+    },
+    {
+      "passo": "Search",
+      "descricao": "The expensive part: algebraic constructions, SAT, linear programming. And someone trying to break the result."
+    },
+    {
+      "passo": "Certify",
+      "descricao": "Reduce the discovery to an object an exact checker can verify: an explicit code, LRAT, Farkas, VeriPB, or a Lean theorem."
+    },
+    {
+      "passo": "Record",
+      "descricao": "Write the bound into the ledger with its source, its sha256 and its certification state, computed by a script."
+    },
+    {
+      "passo": "Expose",
+      "descricao": "A paper with a DOI, open code and declared gaps, so that someone else can redo it without having to trust us."
+    }
+  ],
+  "milenio": [
+    {
+      "problema": "P vs NP",
+      "enunciado_curto": "Is everything that can be checked quickly also found quickly? Formally: can every problem whose solution is verifiable in polynomial time also be solved in polynomial time?",
+      "status": "Open",
+      "fonte": "https://www.claymath.org/millennium/p-vs-np/"
+    },
+    {
+      "problema": "Riemann Hypothesis",
+      "enunciado_curto": "All non-trivial zeros of the Riemann zeta function have real part equal to 1/2.",
+      "status": "Open",
+      "fonte": "https://www.claymath.org/millennium/riemann-hypothesis/"
+    },
+    {
+      "problema": "Yang–Mills and the Mass Gap",
+      "enunciado_curto": "For every compact simple gauge group, a quantum Yang–Mills theory exists on R⁴ and has a mass gap Δ > 0.",
+      "status": "Open",
+      "fonte": "https://www.claymath.org/millennium/yang-mills-the-maths-gap/"
+    },
+    {
+      "problema": "Navier–Stokes Equations",
+      "enunciado_curto": "In three dimensions, from smooth initial data, do smooth finite-energy solutions always exist? Or can the fluid blow up in finite time?",
+      "status": "Open",
+      "fonte": "https://www.claymath.org/millennium/navier-stokes-equation/"
+    },
+    {
+      "problema": "Hodge Conjecture",
+      "enunciado_curto": "On a complex projective algebraic variety, every Hodge class is a rational combination of classes of algebraic cycles.",
+      "status": "Open",
+      "fonte": "https://www.claymath.org/millennium/hodge-conjecture/"
+    },
+    {
+      "problema": "Birch and Swinnerton-Dyer Conjecture",
+      "enunciado_curto": "The rank of the group of rational points of an elliptic curve over Q equals the order of vanishing of its L-function at s = 1.",
+      "status": "Open",
+      "fonte": "https://www.claymath.org/millennium/birch-and-swinnerton-dyer-conjecture/"
+    },
+    {
+      "problema": "Poincaré Conjecture",
+      "enunciado_curto": "Every closed, simply connected 3-manifold is homeomorphic to the 3-sphere.",
+      "status": "Solved by Grigori Perelman, in preprints of 2002 and 2003. The Millennium Prize was awarded in 2010, and Perelman declined it.",
+      "fonte": "https://www.claymath.org/millennium/poincare-conjecture/"
+    }
+  ],
+  "james": {
+    "resumo": "The james-theorems repository proves in Lean 4, without Mathlib and without sorry, three properties of simple models of the philosophy behind this work. The theorems hold for the models, not for production code. They do not solve a hard problem: they make the shape of an argument exact. Here, the same shape meets a real problem. The ledger is the log. The certificate is the cheap verification.",
+    "teoremas": [
+      {
+        "nome": "Knowledge · amortizacao",
+        "enunciado": "In a queue of N tasks, D of them distinct, starting from an empty base, there are exactly D searches and N verifications. The total cost is D·search + N·verification.",
+        "fonte": "https://github.com/thiagopatzdorf/james-theorems/blob/12616cf56ed737a2cdfb9034753d5679c8091b49/JamesTheorems/Conhecimento.lean"
+      },
+      {
+        "nome": "Safety · gate",
+        "enunciado": "For any event log, even one written by an adversary, no critical action appears as executed without a recorded approval.",
+        "fonte": "https://github.com/thiagopatzdorf/james-theorems/blob/12616cf56ed737a2cdfb9034753d5679c8091b49/JamesTheorems/Seguranca.lean"
+      },
+      {
+        "nome": "Soul · replay, retomada, revezamento",
+        "enunciado": "The state is the fold of a pure transition over the log. Bodies with the same transition reach the same state. A body may stop at any event, and another resumes from the snapshot. The log may be split among bodies.",
+        "fonte": "https://github.com/thiagopatzdorf/james-theorems/blob/12616cf56ed737a2cdfb9034753d5679c8091b49/JamesTheorems/Alma.lean"
+      }
+    ]
+  },
+  "keri": {
+    "resumo": "Gerzson Kéri's tables collect the best known bounds on the covering number K_q(n,R): the smallest code of length n over q symbols that leaves every word within Hamming distance R. There are 1145 cells, with q from 2 to 21. The last update is from November 2011.",
+    "porque_importa": "They are the yardstick for every new result: a bound is a record only if it beats the table. Unchanged since 2011, they are also an honest map of what no one has solved. The ledger starts from them, cell by cell, and records what we could certify: 487 of the 1145 upper bounds are theorems of the Lean kernel or independently reproduced. And three cells collapsed to an exact value that is potentially new: K₃(6,2) = 17, K₇(6,4) = 14 and K₇(5,3) = 17."
+  },
+  "lacunas": [
+    "The whole table has not been formally verified. The lower bounds are, almost all of them, inherited from the literature (CLAIMED).",
+    "The lower bounds of K₃(6,2) = 17, K₇(6,4) = 14 and K₇(5,3) = 17 are CERTIFICATE_VERIFIED, not in Lean: they rest on a reduction proved on paper and on certificates checked outside the kernel.",
+    "The upper bound K₇(5,3) ≤ 17 is only announced in Kéri's tables and remains CLAIMED.",
+    "“Potentially new” means: not found in the literature we searched. Closed-access texts from 2004 to 2009 could not be read.",
+    "Literature after 2011 outside the ledger's sources has not been audited.",
+    "The theorems of james-theorems hold for models, not for the production system."
+  ],
+  "links": [
+    {
+      "rotulo": "Repository",
+      "url": "https://github.com/thiagopatzdorf/Matematica"
+    },
+    {
+      "rotulo": "Paper (DOI 10.5281/zenodo.23172276)",
+      "url": "https://doi.org/10.5281/zenodo.23172276"
+    },
+    {
+      "rotulo": "Ledger",
+      "url": "https://github.com/thiagopatzdorf/Matematica/tree/main/ledger"
+    },
+    {
+      "rotulo": "Certification coverage",
+      "url": "https://github.com/thiagopatzdorf/Matematica/blob/main/ledger/COBERTURA.md"
+    },
+    {
+      "rotulo": "Philosophy",
+      "url": "https://github.com/thiagopatzdorf/Matematica/blob/main/docs/PHILOSOPHY.md"
+    },
+    {
+      "rotulo": "Explained, from laypeople to PhDs",
+      "url": "https://github.com/thiagopatzdorf/Matematica/blob/main/docs/EXPLAINED.md"
+    },
+    {
+      "rotulo": "james-theorems",
+      "url": "https://github.com/thiagopatzdorf/james-theorems"
+    },
+    {
+      "rotulo": "Millennium Prize Problems (Clay Mathematics Institute)",
+      "url": "https://www.claymath.org/millennium-problems/"
+    }
+  ],
+  "explicando": {
+    "camadas": [
+      {
+        "nivel": "For anyone · 30 seconds",
+        "titulo": "A few towers for a whole city",
+        "texto": "Picture a city and its cell towers. Each tower reaches the houses near it. What is the smallest number of towers that covers every house? Here the houses are words, and the distance between two words is how many letters you must change to turn one into the other. K_q(n,R) is that smallest number of towers: words of n letters, over an alphabet of q letters, each tower reaching up to R changes.",
+        "analogia": "Cell towers covering every house in a city with as few towers as possible.",
+        "exemplo": "The problem was born in the football pools: each match has three outcomes. How many coupons guarantee at most one wrong match? With 4 matches, 9 coupons suffice, and fewer is impossible. With 6 matches, no one knows yet: between 71 and 73."
+      },
+      {
+        "nivel": "High school",
+        "titulo": "Showing is easy; proving it cannot be done is hard",
+        "texto": "An upper bound is proved by showing a code: you only have to check that it covers everything. A lower bound says that fewer is impossible, and then showing is not enough: you must rule out every attempt, or find an argument that spares you from testing them. Checking is fast. Proving that something does not exist can take a universe of cases.",
+        "analogia": "Showing a key that opens the door takes a second: turn it. Proving that no smaller key opens it means thinking about every key.",
+        "exemplo": "Words of 3 bits are the 8 corners of a cube. Each word covers itself and its 3 neighbours: 4 corners. Since 8 ÷ 4 = 2, one word is not enough. And 000 and 111 are enough. So K₂(3,1) = 2."
+      },
+      {
+        "nivel": "Undergraduate",
+        "titulo": "Hamming balls and a space that explodes",
+        "texto": "The Hamming ball of radius R around a word has V = Σ C(n,i)(q−1)^i words, for i from 0 to R. Since the balls of the code must cover all q^n words, the sphere-covering bound holds: K_q(n,R) ≥ q^n / V. It is almost never tight, because the balls overlap. And the space grows exponentially: q^n words, and an astronomical number of candidate codes.",
+        "analogia": "Tiling a floor with round tiles: the area gives a minimum, but the tiles always overlap at the edges.",
+        "exemplo": "In K₃(6,2) there are 729 words and each ball has 73. The sphere-covering bound gives 10. The literature reached 15 in 2004, and the 17-word code dates from 1991. We proved that 15 and 16 are impossible: K₃(6,2) = 17."
+      },
+      {
+        "nivel": "Graduate · PhD",
+        "titulo": "Domination in Hamming graphs, certificates and the kernel",
+        "texto": "K_q(n,R) is the domination number of the R-th power of the Hamming graph H(n,q): a set cover with q^n sets. Upper bounds come from constructions (cosets of linear codes plus a patch, alphabet partitions). The new lower bounds come from two reductions: the minimal slice, whose linear relaxation is refuted by integer Farkas multipliers (12 054 and 13 099 certificates for 15 and 16 words in K₃(6,2)); and the fibre lemma for K_q(n,n−2), which reduces to fibre profiles refuted by SAT with LRAT proofs (8 008 profiles for K₇(6,4); 201 376 for K₇(5,3)). A second pipeline, with VeriPB, reproduced K₃(6,2). For K₇(4,2) = 19 the whole proof runs in the Lean kernel, with a verified LRAT checker of our own: 70 profiles, 284 modules, 37.8 CPU-hours.",
+        "analogia": "A chess engine: the move generator may be naive, as long as the evaluator is exact.",
+        "exemplo": "K₇(6,4): the recursion of Haas, Schlage-Puchta and Quistorff gave 13, and Kéri and Östergård had a 15-word code. We found a 14-word code (formalized in Lean) and refuted the 8 008 profiles of a 13-word code: K₇(6,4) = 14. The lower bound is CERTIFICATE_VERIFIED, not a theorem of the kernel."
+      }
+    ]
+  },
+  "glossario": [
+    {
+      "termo": "Covering code",
+      "definicao": "A set of words such that every word of the space lies within distance R of one of them."
+    },
+    {
+      "termo": "Hamming distance",
+      "definicao": "The number of positions in which two words differ."
+    },
+    {
+      "termo": "Covering radius",
+      "definicao": "The R: the largest distance allowed between any word and the code."
+    },
+    {
+      "termo": "Hamming ball",
+      "definicao": "All words within distance R of a given word."
+    },
+    {
+      "termo": "K_q(n,R)",
+      "definicao": "The smallest size of a covering code of length n, over q symbols, with radius R. Each triple (q,n,R) is a cell."
+    },
+    {
+      "termo": "Upper bound",
+      "definicao": "K_q(n,R) ≤ M: proved by exhibiting a code with M words."
+    },
+    {
+      "termo": "Lower bound",
+      "definicao": "K_q(n,R) ≥ M: proved by showing that no smaller code exists."
+    },
+    {
+      "termo": "Sphere-covering bound",
+      "definicao": "K_q(n,R) ≥ q^n divided by the size of a Hamming ball."
+    },
+    {
+      "termo": "State collapse",
+      "definicao": "When the two bounds meet and the interval becomes an exact value."
+    },
+    {
+      "termo": "Certificate",
+      "definicao": "An object an exact program checks quickly: a code, an LRAT refutation, Farkas multipliers, a VeriPB proof."
+    },
+    {
+      "termo": "LRAT",
+      "definicao": "A proof format showing that a SAT formula has no solution, checkable step by step."
+    },
+    {
+      "termo": "Farkas certificate",
+      "definicao": "An integer combination of the constraints of a linear system that proves it has no solution."
+    },
+    {
+      "termo": "Lean kernel",
+      "definicao": "The small core of the Lean proof assistant, which accepts or rejects every step of a proof."
+    },
+    {
+      "termo": "Ledger",
+      "definicao": "The record of all 1145 cells, with the sources, sha256 and certification state of every bound."
+    },
+    {
+      "termo": "Ladder of states",
+      "definicao": "CLAIMED → WITNESS_CHECKED → CERTIFICATE_VERIFIED → FORMALIZED → INDEPENDENTLY_REPRODUCED, from weakest to strongest."
+    },
+    {
+      "termo": "Red team",
+      "definicao": "Adversarial review: someone tries to break the proof before it enters the ledger."
+    },
+    {
+      "termo": "Kéri's tables",
+      "definicao": "The reference compilation of bounds on K_q(n,R), last updated in 2011."
+    }
+  ]
+}

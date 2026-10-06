@@ -1,0 +1,72 @@
+name: Nova cota ou código
+description: Um código de cobertura que melhora (ou iguala) uma célula K_q(n,R) do ledger, ou uma cota inferior nova.
+title: "[cota] K<q>(<n>,<R>) <= <M>"
+labels: ["enhancement"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Uma cota só entra no ledger com prova que qualquer pessoa refaz. Cota superior: o verificador
+        exato em C (`tools/verify/verify`) aprova o código. Cota inferior: prova no Lean ou SAT/LRAT
+        verificada de forma independente. Um `INFEASIBLE` de script de busca não é prova
+        (veja `CONTRIBUTING.md`, seção "O que conta como prova").
+
+        A célula começa em `CLAIMED` e sobe a escada só com evidência:
+        `WITNESS_CHECKED` → `CERTIFICATE_VERIFIED` → `INDEPENDENTLY_REPRODUCED` → `FORMALIZED`.
+        Se a célula já tem Cartão de Problema em `problems/cartoes/`, use o formulário "Submissão de candidato".
+  - type: input
+    id: celula
+    attributes:
+      label: Célula
+      description: "Ex.: K7(9,4)"
+    validations: {required: true}
+  - type: dropdown
+    id: tipo
+    attributes:
+      label: Tipo de cota
+      options: [cota superior (código), cota inferior, valor exato]
+    validations: {required: true}
+  - type: input
+    id: valor
+    attributes:
+      label: Valor
+      description: "M do código (cota superior) ou o limite provado (cota inferior)."
+    validations: {required: true}
+  - type: input
+    id: antes
+    attributes:
+      label: Melhor valor conhecido antes, com fonte
+      description: "Ex.: 1475, Marosi, arXiv:2608.19872v3. Use `ledger/cells.json` para conferir."
+    validations: {required: true}
+  - type: input
+    id: artefato
+    attributes:
+      label: Artefato
+      description: "Caminho no PR ou URL estável. Formato: data/codes/q<q>_n<n>_R<R>_M<M>.txt (docs/code-format.md)."
+    validations: {required: true}
+  - type: input
+    id: sha256
+    attributes:
+      label: sha256 canônico do código
+      description: "64 hex, o que `tools/verify/verify` imprime (palavras ordenadas, unidas por LF)."
+  - type: textarea
+    id: prova
+    attributes:
+      label: Comando e saída do avaliador
+      description: "O comando que você rodou e a saída inteira, sem editar. Não cole segredo."
+      render: text
+    validations: {required: true}
+  - type: textarea
+    id: metodo
+    attributes:
+      label: Método (opcional)
+      description: "Como achou: busca, construção, solver. O que não funcionou também ajuda."
+  - type: checkboxes
+    id: confirmacoes
+    attributes:
+      label: Antes de enviar
+      options:
+        - label: Conferi o valor atual da célula no ledger (`ledger/cells.json`) e nas issues abertas.
+          required: true
+        - label: Não chamei de "novo na literatura" o que só não encontrei; se for o caso, descrevi a busca.
+          required: true
