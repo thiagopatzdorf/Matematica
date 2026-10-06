@@ -32,7 +32,7 @@ Números conferidos no repositório (`ledger/cells.json`, `data/codes/`, `tools/
 | Lean e Mathlib | Lean 4.34.1, Mathlib v4.34.1; `lake build` passa e roda no CI a cada push (`CoveringK742Sat` e `CoveringLedger` ficam fora do CI pelo custo) |
 | axiomas | todo `#print axioms` mostra no máximo `propext, Classical.choice, Quot.sound` |
 
-Novidade na literatura é afirmação nossa (busca bibliográfica descrita em `STATE_OF_ART.md`), não do Lean. Tabela
+Novidade na literatura é afirmação nossa (busca bibliográfica descrita em `docs/literatura/STATE_OF_ART.md`), não do Lean. Tabela
 por célula, certificados e reprodução: [docs/resultados.md](docs/resultados.md).
 
 ## Contribua em 5 minutos
