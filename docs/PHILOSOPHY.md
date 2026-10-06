@@ -114,7 +114,7 @@ The lower bounds are, almost all of them, inherited from the literature
 
 | proposition | evidence |
 |---|---|
-| **487 of the 1145 upper bounds** are `FORMALIZED` or `INDEPENDENTLY_REPRODUCED`. Among the lower bounds, 3 are `CERTIFICATE_VERIFIED` and 2 are `FORMALIZED`. | [`ledger/COBERTURA.md`](../ledger/COBERTURA.md) |
+| **488 of the 1145 upper bounds** are `FORMALIZED` or `INDEPENDENTLY_REPRODUCED`. Among the lower bounds, 3 are `CERTIFICATE_VERIFIED` and 2 are `FORMALIZED`. | [`ledger/COBERTURA.md`](../ledger/COBERTURA.md) |
 | **Two exact cells with both bounds in the kernel:** `K₂(6,1) = 12` and `K₇(4,2) = 19`. | [paper, "A certified ledger"](../paper/main.tex) · [LEAN_K742](exatos/LEAN_K742.md) |
 | **Three collapses that are potentially new**, not found in the literature we searched: `K₃(6,2) = 17`, `K₇(6,4) = 14`, `K₇(5,3) = 17`. All three lower bounds are `CERTIFICATE_VERIFIED`, not kernel theorems. | [NOVIDADE_V09](exatos/NOVIDADE_V09.md) · [ledger](../ledger/README.md) |
 

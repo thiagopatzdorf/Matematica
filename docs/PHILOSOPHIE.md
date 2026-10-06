@@ -115,7 +115,7 @@ Les bornes inférieures sont, presque toutes, héritées de la littérature
 
 | proposition | preuve |
 |---|---|
-| **487 des 1145 bornes supérieures** sont `FORMALIZED` ou `INDEPENDENTLY_REPRODUCED`. Parmi les inférieures, 3 sont `CERTIFICATE_VERIFIED` et 2 `FORMALIZED`. | [`ledger/COBERTURA.md`](../ledger/COBERTURA.md) |
+| **488 des 1145 bornes supérieures** sont `FORMALIZED` ou `INDEPENDENTLY_REPRODUCED`. Parmi les inférieures, 3 sont `CERTIFICATE_VERIFIED` et 2 `FORMALIZED`. | [`ledger/COBERTURA.md`](../ledger/COBERTURA.md) |
 | **Deux cellules exactes avec les deux bornes dans le noyau :** `K₂(6,1) = 12` et `K₇(4,2) = 19`. | [article, « A certified ledger »](../paper/main.tex) · [LEAN_K742](exatos/LEAN_K742.md) |
 | **Trois effondrements potentiellement nouveaux**, non trouvés dans la littérature consultée : `K₃(6,2) = 17`, `K₇(6,4) = 14`, `K₇(5,3) = 17`. Les trois bornes inférieures sont `CERTIFICATE_VERIFIED`, pas des théorèmes du noyau. | [NOVIDADE_V09](exatos/NOVIDADE_V09.md) · [registre](../ledger/README.md) |
 

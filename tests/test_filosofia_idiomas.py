@@ -59,3 +59,12 @@ def test_secao_ou_imagem_faltando_numa_lingua(lingua):
 @pytest.mark.parametrize("lingua", ("en", "fr"))
 def test_numero_diferente_entre_linguas(lingua):
     assert numeros(ler(lingua)) == numeros(ler("pt"))
+
+
+def test_proposicao_de_cotas_formalizadas_atrasada_em_relacao_ao_ledger():
+    """O #87 subiu o ledger de 487 para 488 e as três páginas ficaram para trás: o número sai de COBERTURA.md."""
+    cobertura = (DOCS.parent / "ledger" / "COBERTURA.md").read_text(encoding="utf-8")
+    colunas = re.search(r"^\| ub \| (\d+) \| (\d+) \| (\d+) \| (\d+) \| (\d+) \|", cobertura, re.M).groups()
+    formalizadas = int(colunas[3]) + int(colunas[4])
+    for lingua in PAGINAS:
+        assert re.search(rf"\*\*{formalizadas} \S+ \S+ 1145 ", ler(lingua)), lingua
