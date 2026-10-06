@@ -14,7 +14,7 @@
     "result": "uncovered=0 nos verificadores",
     "status": "completed"
   },
-  "created": "2026-10-06T01:40:49Z",
+  "created": "2026-10-06T03:03:51Z",
   "created_by": "agente-c",
   "created_role": "PROPOSER",
   "depends_on": [
@@ -50,7 +50,7 @@
       "reason": "criado",
       "role": "PROPOSER",
       "to": "IDEA",
-      "ts": "2026-10-06T01:40:49Z"
+      "ts": "2026-10-06T03:03:51Z"
     },
     {
       "actor": "agente-c",
@@ -58,7 +58,7 @@
       "reason": "evidência anexada: witnesses=w-q7-n8-r3-m1887",
       "role": "PROPOSER",
       "to": "IDEA",
-      "ts": "2026-10-06T01:40:49Z"
+      "ts": "2026-10-06T03:03:51Z"
     },
     {
       "actor": "agente-c",
@@ -66,7 +66,7 @@
       "reason": "evidência anexada: experiments=exp-prior-search-unrecorded",
       "role": "PROPOSER",
       "to": "IDEA",
-      "ts": "2026-10-06T01:40:49Z"
+      "ts": "2026-10-06T03:03:51Z"
     },
     {
       "actor": "agente-c",
@@ -74,7 +74,7 @@
       "reason": "evidência anexada: literature=lit-keri-k7-8-3-ub",
       "role": "PROPOSER",
       "to": "IDEA",
-      "ts": "2026-10-06T01:40:49Z"
+      "ts": "2026-10-06T03:03:51Z"
     },
     {
       "actor": "agente-c",
@@ -82,7 +82,7 @@
       "reason": "evidência anexada: experiments=exp-lean-syn-data-equals-witness-1887",
       "role": "PROPOSER",
       "to": "IDEA",
-      "ts": "2026-10-06T01:40:49Z"
+      "ts": "2026-10-06T03:03:51Z"
     },
     {
       "actor": "agente-c",
@@ -90,7 +90,7 @@
       "reason": "evidência anexada: formal=f-syn-1887",
       "role": "PROPOSER",
       "to": "IDEA",
-      "ts": "2026-10-06T01:40:49Z"
+      "ts": "2026-10-06T03:03:51Z"
     },
     {
       "actor": "agente-c",
@@ -98,7 +98,7 @@
       "reason": "evidência anexada: experiments=exp-structure-regeneration",
       "role": "PROPOSER",
       "to": "IDEA",
-      "ts": "2026-10-06T01:40:49Z"
+      "ts": "2026-10-06T03:03:51Z"
     },
     {
       "actor": "migrate_covering.py",
@@ -106,7 +106,7 @@
       "reason": "verificadores de autores/grupos distintos, PASS válido e sem desacordo, neste run",
       "role": "INDEPENDENT_VERIFIER",
       "to": "INDEPENDENTLY_REPRODUCED",
-      "ts": "2026-10-06T01:40:49Z"
+      "ts": "2026-10-06T03:03:51Z"
     },
     {
       "actor": "migrate_covering.py",
@@ -114,7 +114,7 @@
       "reason": "Syn.K7_8_3_le_1887_syn medido no kernel (axiomas só os esperados) + verificadores independentes (a guarda de PROVED exige os dois)",
       "role": "FORMALIZER",
       "to": "PROVED",
-      "ts": "2026-10-06T01:40:49Z"
+      "ts": "2026-10-06T03:03:51Z"
     }
   ],
   "kind": "theorem",

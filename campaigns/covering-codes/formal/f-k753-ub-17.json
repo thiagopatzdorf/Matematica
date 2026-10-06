@@ -1,0 +1,32 @@
+{
+  "axioms": null,
+  "axioms_status": "DECLARED_NOT_REPRODUCED: o próprio módulo termina em `#print axioms` e o docstring diz que só entram os três padrão; esta campanha não compilou o módulo (sem lake aqui)",
+  "build_status": "NOT_RUN: lake build CoveringLean.K753_Upper não executado por esta campanha (o alvo padrão do CI o compila a cada commit)",
+  "clean_build": false,
+  "declared_axioms": [
+    "propext",
+    "Classical.choice",
+    "Quot.sound"
+  ],
+  "file": "CoveringLean/K753_Upper.lean",
+  "formal_id": "f-k753-ub-17",
+  "kernel_run": null,
+  "lean_root": ".",
+  "lean_toolchain": "leanprover/lean4:v4.34.1",
+  "lean_version": null,
+  "manifest_sha256": "88d3b3c8b56dbff5d6c7f63ac444982ed9152f874d27a8174c91544dfa90ed82",
+  "mathlib_commit": "d13f23b723b8a846827a245b89c10fc7d3f11612",
+  "measured": null,
+  "measured_external": null,
+  "module": "CoveringLean.K753_Upper",
+  "repo_commit": "0bb66b85a2f98ba1242d7fb0d4d543c8915ad7d0",
+  "scan_findings": [],
+  "sorry_free": true,
+  "sorry_free_basis": "varredura estática de 1 fonte (não é build)",
+  "source_sha256": "a3442cc02eaa57d36474fec2e52f46fbef81b057e9bdcc196c4f5b62f28ce47f",
+  "theorem": "CoveringK753.K_7_5_3_le_17",
+  "validation_problems": [
+    "axiomas não medidos por esta campanha (declarados)",
+    "clean_build não medido por esta campanha"
+  ]
+}

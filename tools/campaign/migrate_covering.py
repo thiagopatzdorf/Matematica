@@ -635,7 +635,7 @@ def main() -> int:
 
     # --- STATE_OF_ART.md (main v0.5, revisão de 2026-10-02 sobre K_7(9,4)): NÃO é fonte primária. Cada afirmação dele é conferida contra os registros acima
     # (que vêm das fontes lidas em 2026-10-03) e o que não tem registro fica "SEM_REGISTRO": o texto não vira evidência por existir.
-    soa = (REPO / "STATE_OF_ART.md").read_text(encoding="utf-8")
+    soa = (REPO / "docs" / "literatura" / "STATE_OF_ART.md").read_text(encoding="utf-8")
     lit_ = lambda i: c.ler("literature", i)  # noqa: E731
     itens_soa = []
 
@@ -674,7 +674,7 @@ def main() -> int:
                        "primária e não vira evidência por existir; afirmação sem registro correspondente fica SEM_REGISTRO. Não afirma novidade: STATE_OF_ART.md, VALIDATION.md e o paper dizem 'o menor "
                        "que encontramos nas fontes revisadas', e o próprio documento lista o que não checou (Google Scholar, bases pagas, teses, periódico, páginas pessoais).",
         "ranges": None, "implementation": "regex + comparação com literature/ em tools/campaign/migrate_covering.py",
-        "source_files": [{"path": "STATE_OF_ART.md", "sha256": sha256_arquivo(REPO / "STATE_OF_ART.md")}], "instances": ["k7-9-4"],
+        "source_files": [{"path": "docs/literatura/STATE_OF_ART.md", "sha256": sha256_arquivo(REPO / "docs" / "literatura" / "STATE_OF_ART.md")}], "instances": ["k7-9-4"],
         "result": {"itens": itens_soa, "resumo": soa_resumo, "executado_neste_run": True}, "repo_commit": commit, "created_by": AUTOR, "created": c.meta()["created"]}, "STRUCTURAL_ANALYST")
 
     # ------------------------------------------------------------------ registros formais

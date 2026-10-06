@@ -32,7 +32,7 @@
   "independence_group": "c-openmp-bruteforce-verification",
   "language": "c",
   "notes": "Verificador A de VALIDATION.md: para todo x calcula d(x,C) = min sobre as palavras (força bruta, C + OpenMP). Veio no main v0.5 (verification/, VALIDATION.md). git log: um commit (\"validate(k794): validação independente de K_7(9,4) ≤ 1137 (#10)\"), autor thiagopatzdorf, o MESMO de tools/verify/verify.c: a guarda de independência os junta com verify-c num componente só. VALIDATION.md diz que A, B e C têm parser e noção de cobertura próprios e nenhum código compartilhado (independência de método, não de autoria). q=7 e n=9 estão cravados no código (aplica-se só a K_7(9,4)); recebe M e R por {param:NOME}; as corridas só rodam nos witnesses de K_7(9,4). Um witness de outra instância seria recusado no parser (comprimento/dígitos), nunca aceito em silêncio.",
-  "registered": "2026-10-06T01:06:35Z",
+  "registered": "2026-10-06T02:39:44Z",
   "source_files": [
     {
       "normalized_sha256": "abdae952c9e7e927d0314c11ff37ffcf0a3a999c0f442cbfbf68446a16e2d8d4",

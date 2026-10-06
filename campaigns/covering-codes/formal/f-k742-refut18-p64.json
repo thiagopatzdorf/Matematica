@@ -19,7 +19,7 @@
   "measured": null,
   "measured_external": null,
   "module": "CoveringLean.K742Sat.P64",
-  "repo_commit": "38fb526ff78269beb6b264188f297853028fe569",
+  "repo_commit": "0bb66b85a2f98ba1242d7fb0d4d543c8915ad7d0",
   "scan_findings": [],
   "sorry_free": true,
   "sorry_free_basis": "varredura estática de 1 fonte (não é build)",

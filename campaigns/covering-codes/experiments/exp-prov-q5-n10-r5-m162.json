@@ -2,7 +2,7 @@
   "command": [
     "patch_opt base.json --L 0 --W 38 --tauw 30 --secs 1800 --seed 12 --T0 1.5 --T1 0.3"
   ],
-  "created": "2026-10-06T01:06:35Z",
+  "created": "2026-10-06T02:39:44Z",
   "created_by": "agente-c",
   "description": "Busca que produziu o código de 162 palavras de k5-10-5, como DECLARADA em ledger/provenance.json (P-162): gerador = scripts/attack (feat/ataque-celulas-2011): hsearch t=1 em [10,3]_5 (8 síndromes órfãs) -> patch_opt. Comando: patch_opt base.json --L 0 --W 38 --tauw 30 --secs 1800 --seed 12 --T0 1.5 --T1 0.3; seed: 12; commit do gerador: 201143d; data 2026-10-03; agente James.V1 (subagente Claude, branch feat/ataque-celulas-2011). Lacuna declarada no ledger: (nenhuma) NÃO reexecutado por esta campanha (busca longa; o que se reproduz aqui é a estrutura, por build_structured --check, e a verificação).",
   "experiment_id": "exp-prov-q5-n10-r5-m162",
@@ -12,7 +12,7 @@
   ],
   "kind": "search",
   "ranges": null,
-  "repo_commit": "38fb526ff78269beb6b264188f297853028fe569",
+  "repo_commit": "0bb66b85a2f98ba1242d7fb0d4d543c8915ad7d0",
   "result": {
     "declarado_em": "ledger/provenance.json P-162",
     "executado_neste_run": false,

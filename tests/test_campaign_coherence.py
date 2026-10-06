@@ -146,9 +146,13 @@ class CampaignCoherenceTest(unittest.TestCase):
 
     def test_every_upper_bound_claim_carries_its_literature_comparison_without_claiming_novelty(self):
         melhoras = 0
+        claims_de_codigo = set()
         for cid, cl in self.claims.items():
             if cl.get("bound", {}) and cl["bound"]["direction"] == "upper" and "-ub-" in cid:
                 cmp_ = cl["literature_comparison"]
+                m_id = re.fullmatch(r"k(\d+)-(\d+)-(\d+)-ub-(\d+)", cid)
+                if m_id:
+                    claims_de_codigo.add("q%s_n%s_R%s_M%s.txt" % m_id.groups())
                 self.assertIn(cmp_["classificacao"], ("MELHORA_APARENTE_A_CONFIRMAR", "PREDECESSOR_ENCONTRADO"), cid)
                 self.assertNotIn("novidade confirmada", cmp_["nota"].lower())
                 # a classe sai da comparação numérica dos registros, não de texto
@@ -157,7 +161,10 @@ class CampaignCoherenceTest(unittest.TestCase):
                     melhoras += 1
                     self.assertIn("a confirmar por revisão externa", cmp_["nota"], cid)
         codigos = [f for f in os.listdir(os.path.join(ROOT, "data", "codes")) if re.search(r"q\d+_n\d+_R\d+_M\d+\.txt$", f)]
-        self.assertEqual(melhoras, len(codigos), "um claim de cota superior com comparação por código de data/codes (nenhum fixado à mão)")
+        # Nem todo código melhora a tabela: K_7(5,3) <= 17 iguala o valor tabelado (PREDECESSOR_ENCONTRADO). A regra é um claim comparado por código, não "todo código melhora".
+        # Há claims de cota superior sem arquivo em data/codes (K_2(6,1) = 12 é só Lean); o que vale é cada arquivo de data/codes ter o seu claim comparado.
+        self.assertEqual(sorted(set(codigos) - claims_de_codigo), [], "código de data/codes sem claim de cota superior com comparação (nenhum fixado à mão)")
+        self.assertLessEqual(melhoras, len(codigos))
 
     def test_no_campaign_record_attributes_external_novelty_confirmation(self):
         # NOVELTY_EXTERNALLY_CONFIRMED não se autoatribui
