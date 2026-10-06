@@ -1,6 +1,7 @@
 """Publicação: Zenodo (sem rede, com HTTP falso) e página da Genesis."""
 import io
 import json
+import re
 import urllib.error
 
 import pytest
@@ -77,7 +78,7 @@ def test_publicar_faz_newversion_apaga_herdado_sobe_pdf_metadados_e_publica_ness
     metodos = [(m, u.rsplit("/", 2)[-2:]) for m, u, _ in falso.chamadas]
     assert [m for m, _ in metodos] == ["POST", "GET", "DELETE", "PUT", "PUT", "POST"]
     assert falso.chamadas[0][1].endswith("/23085770/actions/newversion")
-    assert falso.chamadas[3][1].endswith("/covering-codes-lean-kernel-v0.9.0.pdf")
+    assert falso.chamadas[3][1].endswith("/covering-codes-lean-kernel-v0.9.1.pdf")
     assert all(auth == f"Bearer {TOKEN}" for _, _, auth in falso.chamadas)
     out = capsys.readouterr()
     assert "PUBLICADO 10.5281/zenodo.1" in out.out
@@ -142,3 +143,42 @@ def test_pagina_genesis_escapa_texto_vindo_do_zenodo_json():
     zen = {"title": "<script>x</script>", "description": "a & b", "creators": [{"name": "N"}], "version": "1"}
     html = genesis_page.gerar(led, zen, {"registros": {}}, "10.1/x", None, "v1", "2026-10-02")
     assert "<script>x</script>" not in html and "&lt;script&gt;" in html
+
+
+def _paper_sem_quebras():
+    """main.tex com \\allowbreak removido, para casar nomes de declaração do Lean."""
+    return (RAIZ / "paper" / "main.tex").read_text(encoding="utf-8").replace(r"\allowbreak ", "")
+
+
+def test_contagem_do_paper_e_do_zenodo_diverge_do_ledger():
+    # Na v0.9.0 o paper dizia "the other 659 upper bounds are only claimed" com 658 CLAIMED no
+    # ledger: a contagem escrita à mão tem de bater com cells.json, no paper e no .zenodo.json.
+    from collections import Counter
+    cells = json.loads((RAIZ / "ledger" / "cells.json").read_text(encoding="utf-8"))["cells"]
+    ub = Counter(c["certification"]["ub"]["state"] for c in cells)
+    kernel = ub["FORMALIZED"] + ub["INDEPENDENTLY_REPRODUCED"]
+    tex = _paper_sem_quebras()
+    total = len(cells)
+    assert tex.count(f"${kernel}$ of the ${total}$ upper bounds") == 2  # resumo e seção do ledger
+    assert f"The other ${ub['CLAIMED']}$ upper bounds are only claimed" in tex
+    assert kernel + ub["CLAIMED"] == total
+    z = json.loads((RAIZ / ".zenodo.json").read_text(encoding="utf-8"))
+    assert f"{kernel} of the {total} upper bounds are theorems of the Lean kernel" in z["description"]
+
+
+def test_paper_com_versao_diferente_do_zenodo_ou_sem_a_frase_do_ledger():
+    tex = _paper_sem_quebras()
+    versao = json.loads((RAIZ / ".zenodo.json").read_text(encoding="utf-8"))["version"]
+    assert f"(version~{versao})}}" in tex
+    assert "tag \\texttt{v" + versao + "}" in tex
+    assert "A machine-checked ledger of covering-code upper bounds, with formally certified exact entries." in tex
+    assert not re.search(r"whole table (is|was|has been) (formally )?verified", tex)
+
+
+def test_cota_superior_nossa_no_lean_some_do_paper():
+    # As cotas superiores nossas da seção da fibra, K7(6,4) <= 14 e K7(5,3) <= 17, têm de estar no paper
+    # como teorema do kernel (seção da fibra e lista do #print axioms), não mais como cota só citada.
+    tex = _paper_sem_quebras()
+    for decl in ("CoveringK764.K\\_7\\_6\\_4\\_le\\_14", "CoveringK753.K\\_7\\_5\\_3\\_le\\_17"):
+        assert tex.count(decl) >= 2, decl  # na seção da fibra e na lista do #print axioms
+    assert "is the announced bound of~\\cite{keri}" not in tex

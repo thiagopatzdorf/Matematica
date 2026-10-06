@@ -125,7 +125,7 @@
   },
   "keri": {
     "resumo": "Les tables de Gerzson Kéri rassemblent les meilleures bornes connues pour le nombre de recouvrement K_q(n,R) : le plus petit code de longueur n, sur q symboles, qui laisse chaque mot à distance de Hamming au plus R. Elles comptent 1145 cellules, avec q de 2 à 21. La dernière mise à jour date de novembre 2011.",
-    "porque_importa": "Elles sont l’étalon de tout résultat nouveau : une borne n’est un record que si elle bat la table. Figées depuis 2011, elles sont aussi une carte honnête de ce que personne n’a résolu. Le registre part d’elles, cellule par cellule, et note ce que nous avons pu certifier : 487 des 1145 bornes supérieures sont des théorèmes du noyau de Lean ou reproduites de façon indépendante. Et trois cellules se sont effondrées sur une valeur exacte potentiellement nouvelle : K₃(6,2) = 17, K₇(6,4) = 14 et K₇(5,3) = 17."
+    "porque_importa": "Elles sont l’étalon de tout résultat nouveau : une borne n’est un record que si elle bat la table. Figées depuis 2011, elles sont aussi une carte honnête de ce que personne n’a résolu. Le registre part d’elles, cellule par cellule, et note ce que nous avons pu certifier : 488 des 1145 bornes supérieures sont des théorèmes du noyau de Lean ou reproduites de façon indépendante. Et trois cellules se sont effondrées sur une valeur exacte potentiellement nouvelle : K₃(6,2) = 17, K₇(6,4) = 14 et K₇(5,3) = 17."
   },
   "lacunas": [
     "La table entière n’a pas été vérifiée formellement. Les bornes inférieures sont, presque toutes, héritées de la littérature (CLAIMED).",
