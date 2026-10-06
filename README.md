@@ -23,8 +23,8 @@ Números conferidos no repositório (`ledger/cells.json`, `data/codes/`, `tools/
 
 | o quê | valor |
 |---|---|
-| células `K_q(n,R)` no ledger (q de 2 a 21) | 1145, das quais 520 com valor exato e 625 abertas |
-| células em que temos teorema Lean próprio | 13 (11 abaixo da melhor cota superior publicada que achamos; `K_2(6,1) = 12`, o clássico, e `K_7(4,2) = 19`, as duas inteiramente no kernel) |
+| células `K_q(n,R)` no ledger (q de 2 a 21) | 1145, das quais 523 com valor exato e 622 abertas |
+| células em que temos teorema Lean próprio | 14 (12 abaixo da melhor cota superior publicada que achamos; `K_2(6,1) = 12`, o clássico, e `K_7(4,2) = 19`, as duas inteiramente no kernel) |
 | ledger certificado | A machine-checked ledger of covering-code upper bounds, with formally certified exact entries. 487 das 1145 cotas superiores são teorema do Lean (`CoveringLedger.todas_as_cotas`, a partir de `K ≤ \|C\|` genérico, regras de construção e witnesses); as inferiores seguem herdadas da literatura, exceto `K_2(6,1)` e `K_7(4,2)` (ver `ledger/COBERTURA.md`) |
 | exatos novos da v0.9 (fora do kernel) | `K_3(6,2) = 17`, `K_7(6,4) = 14` e `K_7(5,3) = 17`, potencialmente novos (não achados na literatura que buscamos, ver `docs/exatos/NOVIDADE_V09.md`). As cotas inferiores são **certificado computacional verificado** (Farkas inteiro, VeriPB, LRAT), não teorema do Lean; `K_3(6,2)` tem reprodução independente, as duas de `K_7` passaram por red team com amostra reconferida. A cota superior de `K_7(6,4) ≤ 14` é código novo, formalizada no Lean; a de `K_7(5,3) ≤ 17` é só a anunciada na literatura. Ver `docs/exatos/` e a seção 12 do paper |
 | códigos em `data/codes/` | 18, todos aprovados pelo verificador oficial em C (`tools/verify/check_all.sh`) |
