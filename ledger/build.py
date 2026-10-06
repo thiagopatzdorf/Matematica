@@ -398,7 +398,8 @@ def certificar_ub(cel: dict, formal: dict | None = None) -> dict:
         # o código em todo pytest (tests/test_certificar.py); regra pura não tem segundo verificador.
         estado = "INDEPENDENTLY_REPRODUCED" if wit else "FORMALIZED"
         prov = _prov(fonte, versao, wit or formal["arquivo"],
-                     formal.get("sha256") if wit else formal["sha256_arquivo"], VERIFICADOR_PY if wit else None,
+                     formal.get("sha256") if wit else formal["sha256_arquivo"],
+                     formal.get("verificador", VERIFICADOR_PY) if wit else None,
                      {"declaration": formal["declaration"], "lib": "CoveringLedger"})
         prov["construcao"] = formal["construcao"]
     elif comp and comp["M"] == v:
