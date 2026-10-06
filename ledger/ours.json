@@ -284,7 +284,7 @@
       "ours_lean": {
         "M": 17,
         "declaration": "CoveringK753.K_7_5_3_le_17",
-        "tag": null,
+        "tag": "v0.9.1",
         "file": "data/codes/q7_n5_R3_M17.txt",
         "sha256": "d4b4c2acda99bd2143572a0c2c73f9b9db07606090d0660fa3c43b838c7fe242",
         "provenance": "P-753-17"
@@ -333,6 +333,1061 @@
           }
         },
         "dependencias": "Lema 1 usa K_6(4,2) = 15 (Kéri 2011; ∄ 14 também reprovado por 8855 perfis LRAT no k742) e K_7(4,2) ≥ 17 (Rodemich; aqui = 19 no Lean)"
+      }
+    },
+    "2,18,2": {
+      "ours_computational": {
+        "M": 2944,
+        "file": "data/codes/q2_n18_R2_M2944.txt",
+        "sha256": "bde9af6646dba5afe06ae1f2374b9423589bff6963a43433e20ccfa2dc3055ff",
+        "provenance": "P-lit-2-18-2-2944"
+      },
+      "ours_lean": {
+        "M": 2944,
+        "declaration": "Syn.K2_18_2_le_2944_syn",
+        "lib": "CoveringSyn",
+        "tag": null,
+        "file": "data/codes/q2_n18_R2_M2944.txt",
+        "sha256": "bde9af6646dba5afe06ae1f2374b9423589bff6963a43433e20ccfa2dc3055ff",
+        "provenance": "P-lit-2-18-2-2944"
+      }
+    },
+    "2,17,3": {
+      "ours_computational": {
+        "M": 320,
+        "file": "data/codes/q2_n17_R3_M320.txt",
+        "sha256": "400fef9e67d92cdfeef54940e246c049c323810cf57d79512844393b053656d5",
+        "provenance": "P-lit-2-17-3-320"
+      },
+      "ours_lean": {
+        "M": 320,
+        "declaration": "Syn.K2_17_3_le_320_syn",
+        "lib": "CoveringSyn",
+        "tag": null,
+        "file": "data/codes/q2_n17_R3_M320.txt",
+        "sha256": "400fef9e67d92cdfeef54940e246c049c323810cf57d79512844393b053656d5",
+        "provenance": "P-lit-2-17-3-320"
+      }
+    },
+    "2,18,3": {
+      "ours_computational": {
+        "M": 512,
+        "file": "data/codes/q2_n18_R3_M512.txt",
+        "sha256": "604e3f670290cf2c7f3fa02a1321374554c5df163ccde15021eca2ac6bb093c5",
+        "provenance": "P-lit-2-18-3-512"
+      },
+      "ours_lean": {
+        "M": 512,
+        "declaration": "Syn.K2_18_3_le_512_syn",
+        "lib": "CoveringSyn",
+        "tag": null,
+        "file": "data/codes/q2_n18_R3_M512.txt",
+        "sha256": "604e3f670290cf2c7f3fa02a1321374554c5df163ccde15021eca2ac6bb093c5",
+        "provenance": "P-lit-2-18-3-512"
+      }
+    },
+    "2,19,4": {
+      "ours_computational": {
+        "M": 256,
+        "file": "data/codes/q2_n19_R4_M256.txt",
+        "sha256": "4c8464f205928c4b63f4bb494939f4324820c92e96bfea992caf91f574c39cc8",
+        "provenance": "P-lit-2-19-4-256"
+      },
+      "ours_lean": {
+        "M": 256,
+        "declaration": "Syn.K2_19_4_le_256_syn",
+        "lib": "CoveringSyn",
+        "tag": null,
+        "file": "data/codes/q2_n19_R4_M256.txt",
+        "sha256": "4c8464f205928c4b63f4bb494939f4324820c92e96bfea992caf91f574c39cc8",
+        "provenance": "P-lit-2-19-4-256"
+      }
+    },
+    "2,15,4": {
+      "ours_computational": {
+        "M": 32,
+        "file": "data/codes/q2_n15_R4_M32.txt",
+        "sha256": "fcfb2b52dc7ed008a8c3fecf8e37172bc6f2350e1c141e68725f0c1cd8ef8501",
+        "provenance": "P-lit-2-15-4-32"
+      },
+      "ours_lean": {
+        "M": 32,
+        "declaration": "CoveringLit.K2_15_4_le_32",
+        "lib": "CoveringLiteratura",
+        "tag": null,
+        "file": "data/codes/q2_n15_R4_M32.txt",
+        "sha256": "fcfb2b52dc7ed008a8c3fecf8e37172bc6f2350e1c141e68725f0c1cd8ef8501",
+        "provenance": "P-lit-2-15-4-32"
+      }
+    },
+    "2,12,3": {
+      "ours_computational": {
+        "M": 28,
+        "file": "data/codes/q2_n12_R3_M28.txt",
+        "sha256": "7233c5729cd861a4287af186462f85a41cb7c21d2daf9b44f7d16f5c3b6047e5",
+        "provenance": "P-lit-2-12-3-28"
+      },
+      "ours_lean": {
+        "M": 28,
+        "declaration": "CoveringLit.K2_12_3_le_28",
+        "lib": "CoveringLiteratura",
+        "tag": null,
+        "file": "data/codes/q2_n12_R3_M28.txt",
+        "sha256": "7233c5729cd861a4287af186462f85a41cb7c21d2daf9b44f7d16f5c3b6047e5",
+        "provenance": "P-lit-2-12-3-28"
+      }
+    },
+    "2,15,2": {
+      "ours_computational": {
+        "M": 384,
+        "file": "data/codes/q2_n15_R2_M384.txt",
+        "sha256": "57c2d0bc2c6d52fee4d6f3adf3de604a4827627d257cb666559d35cb695d0fc0",
+        "provenance": "P-lit-2-15-2-384"
+      },
+      "ours_lean": {
+        "M": 384,
+        "declaration": "Syn.K2_15_2_le_384_syn",
+        "lib": "CoveringSyn",
+        "tag": null,
+        "file": "data/codes/q2_n15_R2_M384.txt",
+        "sha256": "57c2d0bc2c6d52fee4d6f3adf3de604a4827627d257cb666559d35cb695d0fc0",
+        "provenance": "P-lit-2-15-2-384"
+      }
+    },
+    "2,17,5": {
+      "ours_computational": {
+        "M": 32,
+        "file": "data/codes/q2_n17_R5_M32.txt",
+        "sha256": "3846acf19c6f319254936c157743657d4d83e828cbc1e5ee0c278a29f58ad4c3",
+        "provenance": "P-lit-2-17-5-32"
+      },
+      "ours_lean": {
+        "M": 32,
+        "declaration": "Syn.K2_17_5_le_32_syn",
+        "lib": "CoveringSyn",
+        "tag": null,
+        "file": "data/codes/q2_n17_R5_M32.txt",
+        "sha256": "3846acf19c6f319254936c157743657d4d83e828cbc1e5ee0c278a29f58ad4c3",
+        "provenance": "P-lit-2-17-5-32"
+      }
+    },
+    "2,19,6": {
+      "ours_computational": {
+        "M": 32,
+        "file": "data/codes/q2_n19_R6_M32.txt",
+        "sha256": "d466fc9751eb37cba1240b575fec2a4f1dc2af1fe02cd9f656214158cee249e1",
+        "provenance": "P-lit-2-19-6-32"
+      },
+      "ours_lean": {
+        "M": 32,
+        "declaration": "Syn.K2_19_6_le_32_syn",
+        "lib": "CoveringSyn",
+        "tag": null,
+        "file": "data/codes/q2_n19_R6_M32.txt",
+        "sha256": "d466fc9751eb37cba1240b575fec2a4f1dc2af1fe02cd9f656214158cee249e1",
+        "provenance": "P-lit-2-19-6-32"
+      }
+    },
+    "2,14,4": {
+      "ours_computational": {
+        "M": 28,
+        "file": "data/codes/q2_n14_R4_M28.txt",
+        "sha256": "255964dc35b485cfd9b70c389cb24921ec3321e933a1e6ca53d5cf7c912aadfd",
+        "provenance": "P-lit-2-14-4-28"
+      },
+      "ours_lean": {
+        "M": 28,
+        "declaration": "CoveringLit.K2_14_4_le_28",
+        "lib": "CoveringLiteratura",
+        "tag": null,
+        "file": "data/codes/q2_n14_R4_M28.txt",
+        "sha256": "255964dc35b485cfd9b70c389cb24921ec3321e933a1e6ca53d5cf7c912aadfd",
+        "provenance": "P-lit-2-14-4-28"
+      }
+    },
+    "2,13,1": {
+      "ours_computational": {
+        "M": 704,
+        "file": "data/codes/q2_n13_R1_M704.txt",
+        "sha256": "1d6621ac0cc2474e193664786a7bec35c49541a48b883c0ef13c08594e256f2c",
+        "provenance": "P-lit-2-13-1-704"
+      },
+      "ours_lean": {
+        "M": 704,
+        "declaration": "Syn.K2_13_1_le_704_syn",
+        "lib": "CoveringSyn",
+        "tag": null,
+        "file": "data/codes/q2_n13_R1_M704.txt",
+        "sha256": "1d6621ac0cc2474e193664786a7bec35c49541a48b883c0ef13c08594e256f2c",
+        "provenance": "P-lit-2-13-1-704"
+      }
+    },
+    "2,13,3": {
+      "ours_computational": {
+        "M": 42,
+        "file": "data/codes/q2_n13_R3_M42.txt",
+        "sha256": "ad172331a14a884b8bafd6af1c71bb9ef77e71441138636e4612c2155553914a",
+        "provenance": "P-lit-2-13-3-42"
+      },
+      "ours_lean": {
+        "M": 42,
+        "declaration": "CoveringLit.K2_13_3_le_42",
+        "lib": "CoveringLiteratura",
+        "tag": null,
+        "file": "data/codes/q2_n13_R3_M42.txt",
+        "sha256": "ad172331a14a884b8bafd6af1c71bb9ef77e71441138636e4612c2155553914a",
+        "provenance": "P-lit-2-13-3-42"
+      }
+    },
+    "6,5,2": {
+      "ours_computational": {
+        "M": 66,
+        "file": "data/codes/q6_n5_R2_M66.txt",
+        "sha256": "5656c848ca76db62313b109c4bfa9692adc81fbe7f273b76f44eeb2db1629cc9",
+        "provenance": "P-lit-6-5-2-66"
+      },
+      "ours_lean": {
+        "M": 66,
+        "declaration": "CoveringLit.K6_5_2_le_66",
+        "lib": "CoveringLiteratura",
+        "tag": null,
+        "file": "data/codes/q6_n5_R2_M66.txt",
+        "sha256": "5656c848ca76db62313b109c4bfa9692adc81fbe7f273b76f44eeb2db1629cc9",
+        "provenance": "P-lit-6-5-2-66"
+      }
+    },
+    "6,6,4": {
+      "ours_computational": {
+        "M": 10,
+        "file": "data/codes/q6_n6_R4_M10.txt",
+        "sha256": "7792bc4af64712d93659e134acef0b889b2d0f2fedb5d78161987ea587da7b78",
+        "provenance": "P-lit-6-6-4-10"
+      },
+      "ours_lean": {
+        "M": 10,
+        "declaration": "CoveringLit.K6_6_4_le_10",
+        "lib": "CoveringLiteratura",
+        "tag": null,
+        "file": "data/codes/q6_n6_R4_M10.txt",
+        "sha256": "7792bc4af64712d93659e134acef0b889b2d0f2fedb5d78161987ea587da7b78",
+        "provenance": "P-lit-6-6-4-10"
+      }
+    },
+    "6,7,4": {
+      "ours_computational": {
+        "M": 36,
+        "file": "data/codes/q6_n7_R4_M36.txt",
+        "sha256": "6413635f6c92e7533e1aa97afc361d3aed8c585c5b9c08f6087e031c943c41f0",
+        "provenance": "P-lit-6-7-4-36"
+      },
+      "ours_lean": {
+        "M": 36,
+        "declaration": "CoveringLit.K6_7_4_le_36",
+        "lib": "CoveringLiteratura",
+        "tag": null,
+        "file": "data/codes/q6_n7_R4_M36.txt",
+        "sha256": "6413635f6c92e7533e1aa97afc361d3aed8c585c5b9c08f6087e031c943c41f0",
+        "provenance": "P-lit-6-7-4-36"
+      }
+    },
+    "7,5,2": {
+      "ours_computational": {
+        "M": 97,
+        "file": "data/codes/q7_n5_R2_M97.txt",
+        "sha256": "ba0f81fea71ff307cc694f0be9508961cf00c2a9c852609ad6ef4b3a0a35c7a3",
+        "provenance": "P-lit-7-5-2-97"
+      },
+      "ours_lean": {
+        "M": 97,
+        "declaration": "CoveringLit.K7_5_2_le_97",
+        "lib": "CoveringLiteratura",
+        "tag": null,
+        "file": "data/codes/q7_n5_R2_M97.txt",
+        "sha256": "ba0f81fea71ff307cc694f0be9508961cf00c2a9c852609ad6ef4b3a0a35c7a3",
+        "provenance": "P-lit-7-5-2-97"
+      }
+    },
+    "7,7,5": {
+      "ours_computational": {
+        "M": 11,
+        "file": "data/codes/q7_n7_R5_M11.txt",
+        "sha256": "793c333c809e6baefca01753205e5859428949ef987af2e232372d31fab9bb4b",
+        "provenance": "P-lit-7-7-5-11"
+      },
+      "ours_lean": {
+        "M": 11,
+        "declaration": "CoveringLit.K7_7_5_le_11",
+        "lib": "CoveringLiteratura",
+        "tag": null,
+        "file": "data/codes/q7_n7_R5_M11.txt",
+        "sha256": "793c333c809e6baefca01753205e5859428949ef987af2e232372d31fab9bb4b",
+        "provenance": "P-lit-7-7-5-11"
+      }
+    },
+    "8,5,2": {
+      "ours_computational": {
+        "M": 128,
+        "file": "data/codes/q8_n5_R2_M128.txt",
+        "sha256": "4ff72bbcbd53e2c73794c45c178521cc35698f31a3ad0c82d1371509259f2b07",
+        "provenance": "P-lit-8-5-2-128"
+      },
+      "ours_lean": {
+        "M": 128,
+        "declaration": "CoveringLit.K8_5_2_le_128",
+        "lib": "CoveringLiteratura",
+        "tag": null,
+        "file": "data/codes/q8_n5_R2_M128.txt",
+        "sha256": "4ff72bbcbd53e2c73794c45c178521cc35698f31a3ad0c82d1371509259f2b07",
+        "provenance": "P-lit-8-5-2-128"
+      }
+    },
+    "8,7,4": {
+      "ours_computational": {
+        "M": 92,
+        "file": "data/codes/q8_n7_R4_M92.txt",
+        "sha256": "b6648c2db60b2711dbbf29b4502f165a18d5734fcbd56f36ab0aaac734ac6f53",
+        "provenance": "P-lit-8-7-4-92"
+      },
+      "ours_lean": {
+        "M": 92,
+        "declaration": "CoveringLit.K8_7_4_le_92",
+        "lib": "CoveringLiteratura",
+        "tag": null,
+        "file": "data/codes/q8_n7_R4_M92.txt",
+        "sha256": "b6648c2db60b2711dbbf29b4502f165a18d5734fcbd56f36ab0aaac734ac6f53",
+        "provenance": "P-lit-8-7-4-92"
+      }
+    },
+    "8,7,5": {
+      "ours_computational": {
+        "M": 16,
+        "file": "data/codes/q8_n7_R5_M16.txt",
+        "sha256": "6bced1b6d12d0dc756860f5e05b00cdaca77726246a5f5213ae4df9d64bad81b",
+        "provenance": "P-lit-8-7-5-16"
+      },
+      "ours_lean": {
+        "M": 16,
+        "declaration": "CoveringLit.K8_7_5_le_16",
+        "lib": "CoveringLiteratura",
+        "tag": null,
+        "file": "data/codes/q8_n7_R5_M16.txt",
+        "sha256": "6bced1b6d12d0dc756860f5e05b00cdaca77726246a5f5213ae4df9d64bad81b",
+        "provenance": "P-lit-8-7-5-16"
+      }
+    },
+    "9,5,2": {
+      "ours_computational": {
+        "M": 189,
+        "file": "data/codes/q9_n5_R2_M189.txt",
+        "sha256": "1cc8876917199586bbb44c55a117dab61b6b2bdcbc8b25071dc2917782504076",
+        "provenance": "P-lit-9-5-2-189"
+      },
+      "ours_lean": {
+        "M": 189,
+        "declaration": "CoveringLit.K9_5_2_le_189",
+        "lib": "CoveringLiteratura",
+        "tag": null,
+        "file": "data/codes/q9_n5_R2_M189.txt",
+        "sha256": "1cc8876917199586bbb44c55a117dab61b6b2bdcbc8b25071dc2917782504076",
+        "provenance": "P-lit-9-5-2-189"
+      }
+    },
+    "9,7,4": {
+      "ours_computational": {
+        "M": 120,
+        "file": "data/codes/q9_n7_R4_M120.txt",
+        "sha256": "de8b462d72384dded68027d1855564b9b82a455f5aeaf9d52f1bc1960e3e38d9",
+        "provenance": "P-lit-9-7-4-120"
+      },
+      "ours_lean": {
+        "M": 120,
+        "declaration": "CoveringLit.K9_7_4_le_120",
+        "lib": "CoveringLiteratura",
+        "tag": null,
+        "file": "data/codes/q9_n7_R4_M120.txt",
+        "sha256": "de8b462d72384dded68027d1855564b9b82a455f5aeaf9d52f1bc1960e3e38d9",
+        "provenance": "P-lit-9-7-4-120"
+      }
+    },
+    "9,7,5": {
+      "ours_computational": {
+        "M": 21,
+        "file": "data/codes/q9_n7_R5_M21.txt",
+        "sha256": "515e8308aa55e919d8350a296a7402d76f412434d03707de874698522f4565ef",
+        "provenance": "P-lit-9-7-5-21"
+      },
+      "ours_lean": {
+        "M": 21,
+        "declaration": "CoveringLit.K9_7_5_le_21",
+        "lib": "CoveringLiteratura",
+        "tag": null,
+        "file": "data/codes/q9_n7_R5_M21.txt",
+        "sha256": "515e8308aa55e919d8350a296a7402d76f412434d03707de874698522f4565ef",
+        "provenance": "P-lit-9-7-5-21"
+      }
+    },
+    "10,5,2": {
+      "ours_computational": {
+        "M": 250,
+        "file": "data/codes/q10_n5_R2_M250.txt",
+        "sha256": "86c2d525c09247343d0e487a1945f3193002e12b09d67c85ec571f7d24e954e1",
+        "provenance": "P-lit-10-5-2-250"
+      },
+      "ours_lean": {
+        "M": 250,
+        "declaration": "CoveringLit.K10_5_2_le_250",
+        "lib": "CoveringLiteratura",
+        "tag": null,
+        "file": "data/codes/q10_n5_R2_M250.txt",
+        "sha256": "86c2d525c09247343d0e487a1945f3193002e12b09d67c85ec571f7d24e954e1",
+        "provenance": "P-lit-10-5-2-250"
+      }
+    },
+    "10,7,5": {
+      "ours_computational": {
+        "M": 26,
+        "file": "data/codes/q10_n7_R5_M26.txt",
+        "sha256": "5a7c5d0b770057e7cb5fe11f07d975fff3fcd65a2290f465da6d5856d57d832e",
+        "provenance": "P-lit-10-7-5-26"
+      },
+      "ours_lean": {
+        "M": 26,
+        "declaration": "CoveringLit.K10_7_5_le_26",
+        "lib": "CoveringLiteratura",
+        "tag": null,
+        "file": "data/codes/q10_n7_R5_M26.txt",
+        "sha256": "5a7c5d0b770057e7cb5fe11f07d975fff3fcd65a2290f465da6d5856d57d832e",
+        "provenance": "P-lit-10-7-5-26"
+      }
+    },
+    "6,10,6": {
+      "ours_computational": null,
+      "ours_lean": {
+        "M": 72,
+        "declaration": "CoveringLit.K6_10_6_le_72",
+        "lib": "CoveringLiteratura",
+        "tag": null
+      }
+    },
+    "7,9,6": {
+      "ours_computational": null,
+      "ours_lean": {
+        "M": 37,
+        "declaration": "CoveringLit.K7_9_6_le_37",
+        "lib": "CoveringLiteratura",
+        "tag": null
+      }
+    },
+    "8,8,6": {
+      "ours_computational": null,
+      "ours_lean": {
+        "M": 12,
+        "declaration": "CoveringLit.K8_8_6_le_12",
+        "lib": "CoveringLiteratura",
+        "tag": null
+      }
+    },
+    "8,9,6": {
+      "ours_computational": null,
+      "ours_lean": {
+        "M": 48,
+        "declaration": "CoveringLit.K8_9_6_le_48",
+        "lib": "CoveringLiteratura",
+        "tag": null
+      }
+    },
+    "9,8,6": {
+      "ours_computational": null,
+      "ours_lean": {
+        "M": 17,
+        "declaration": "CoveringLit.K9_8_6_le_17",
+        "lib": "CoveringLiteratura",
+        "tag": null
+      }
+    },
+    "9,9,7": {
+      "ours_computational": null,
+      "ours_lean": {
+        "M": 13,
+        "declaration": "CoveringLit.K9_9_7_le_13",
+        "lib": "CoveringLiteratura",
+        "tag": null
+      }
+    },
+    "10,8,6": {
+      "ours_computational": null,
+      "ours_lean": {
+        "M": 22,
+        "declaration": "CoveringLit.K10_8_6_le_22",
+        "lib": "CoveringLiteratura",
+        "tag": null
+      }
+    },
+    "10,9,7": {
+      "ours_computational": null,
+      "ours_lean": {
+        "M": 18,
+        "declaration": "CoveringLit.K10_9_7_le_18",
+        "lib": "CoveringLiteratura",
+        "tag": null
+      }
+    },
+    "10,10,8": {
+      "ours_computational": null,
+      "ours_lean": {
+        "M": 14,
+        "declaration": "CoveringLit.K10_10_8_le_14",
+        "lib": "CoveringLiteratura",
+        "tag": null
+      }
+    },
+    "11,7,5": {
+      "ours_computational": null,
+      "ours_lean": {
+        "M": 31,
+        "declaration": "CoveringLit.K11_7_5_le_31",
+        "lib": "CoveringLiteratura",
+        "tag": null
+      }
+    },
+    "11,8,6": {
+      "ours_computational": null,
+      "ours_lean": {
+        "M": 27,
+        "declaration": "CoveringLit.K11_8_6_le_27",
+        "lib": "CoveringLiteratura",
+        "tag": null
+      }
+    },
+    "12,5,2": {
+      "ours_computational": null,
+      "ours_lean": {
+        "M": 468,
+        "declaration": "CoveringLit.K12_5_2_le_468",
+        "lib": "CoveringLiteratura",
+        "tag": null
+      }
+    },
+    "12,7,5": {
+      "ours_computational": null,
+      "ours_lean": {
+        "M": 36,
+        "declaration": "CoveringLit.K12_7_5_le_36",
+        "lib": "CoveringLiteratura",
+        "tag": null
+      }
+    },
+    "12,8,6": {
+      "ours_computational": null,
+      "ours_lean": {
+        "M": 32,
+        "declaration": "CoveringLit.K12_8_6_le_32",
+        "lib": "CoveringLiteratura",
+        "tag": null
+      }
+    },
+    "13,4,2": {
+      "ours_computational": null,
+      "ours_lean": {
+        "M": 57,
+        "declaration": "CoveringLit.K13_4_2_le_57",
+        "lib": "CoveringLiteratura",
+        "tag": null
+      }
+    },
+    "13,7,5": {
+      "ours_computational": null,
+      "ours_lean": {
+        "M": 42,
+        "declaration": "CoveringLit.K13_7_5_le_42",
+        "lib": "CoveringLiteratura",
+        "tag": null
+      }
+    },
+    "13,8,6": {
+      "ours_computational": null,
+      "ours_lean": {
+        "M": 37,
+        "declaration": "CoveringLit.K13_8_6_le_37",
+        "lib": "CoveringLiteratura",
+        "tag": null
+      }
+    },
+    "14,4,2": {
+      "ours_computational": null,
+      "ours_lean": {
+        "M": 66,
+        "declaration": "CoveringLit.K14_4_2_le_66",
+        "lib": "CoveringLiteratura",
+        "tag": null
+      }
+    },
+    "14,5,2": {
+      "ours_computational": null,
+      "ours_lean": {
+        "M": 686,
+        "declaration": "CoveringLit.K14_5_2_le_686",
+        "lib": "CoveringLiteratura",
+        "tag": null
+      }
+    },
+    "14,5,3": {
+      "ours_computational": null,
+      "ours_lean": {
+        "M": 54,
+        "declaration": "CoveringLit.K14_5_3_le_54",
+        "lib": "CoveringLiteratura",
+        "tag": null
+      }
+    },
+    "14,7,3": {
+      "ours_computational": null,
+      "ours_lean": {
+        "M": 4802,
+        "declaration": "CoveringLit.K14_7_3_le_4802",
+        "lib": "CoveringLiteratura",
+        "tag": null
+      }
+    },
+    "14,7,5": {
+      "ours_computational": null,
+      "ours_lean": {
+        "M": 48,
+        "declaration": "CoveringLit.K14_7_5_le_48",
+        "lib": "CoveringLiteratura",
+        "tag": null
+      }
+    },
+    "14,8,6": {
+      "ours_computational": null,
+      "ours_lean": {
+        "M": 42,
+        "declaration": "CoveringLit.K14_8_6_le_42",
+        "lib": "CoveringLiteratura",
+        "tag": null
+      }
+    },
+    "15,4,2": {
+      "ours_computational": null,
+      "ours_lean": {
+        "M": 75,
+        "declaration": "CoveringLit.K15_4_2_le_75",
+        "lib": "CoveringLiteratura",
+        "tag": null
+      }
+    },
+    "15,5,2": {
+      "ours_computational": null,
+      "ours_lean": {
+        "M": 855,
+        "declaration": "CoveringLit.K15_5_2_le_855",
+        "lib": "CoveringLiteratura",
+        "tag": null
+      }
+    },
+    "15,5,3": {
+      "ours_computational": null,
+      "ours_lean": {
+        "M": 59,
+        "declaration": "CoveringLit.K15_5_3_le_59",
+        "lib": "CoveringLiteratura",
+        "tag": null
+      }
+    },
+    "15,7,3": {
+      "ours_computational": null,
+      "ours_lean": {
+        "M": 6497,
+        "declaration": "CoveringLit.K15_7_3_le_6497",
+        "lib": "CoveringLiteratura",
+        "tag": null
+      }
+    },
+    "15,7,5": {
+      "ours_computational": null,
+      "ours_lean": {
+        "M": 54,
+        "declaration": "CoveringLit.K15_7_5_le_54",
+        "lib": "CoveringLiteratura",
+        "tag": null
+      }
+    },
+    "15,8,6": {
+      "ours_computational": null,
+      "ours_lean": {
+        "M": 49,
+        "declaration": "CoveringLit.K15_8_6_le_49",
+        "lib": "CoveringLiteratura",
+        "tag": null
+      }
+    },
+    "16,4,2": {
+      "ours_computational": null,
+      "ours_lean": {
+        "M": 87,
+        "declaration": "CoveringLit.K16_4_2_le_87",
+        "lib": "CoveringLiteratura",
+        "tag": null
+      }
+    },
+    "16,5,2": {
+      "ours_computational": null,
+      "ours_lean": {
+        "M": 1024,
+        "declaration": "CoveringLit.K16_5_2_le_1024",
+        "lib": "CoveringLiteratura",
+        "tag": null
+      }
+    },
+    "16,5,3": {
+      "ours_computational": null,
+      "ours_lean": {
+        "M": 64,
+        "declaration": "CoveringLit.K16_5_3_le_64",
+        "lib": "CoveringLiteratura",
+        "tag": null
+      }
+    },
+    "16,7,3": {
+      "ours_computational": null,
+      "ours_lean": {
+        "M": 8192,
+        "declaration": "CoveringLit.K16_7_3_le_8192",
+        "lib": "CoveringLiteratura",
+        "tag": null
+      }
+    },
+    "16,7,5": {
+      "ours_computational": null,
+      "ours_lean": {
+        "M": 60,
+        "declaration": "CoveringLit.K16_7_5_le_60",
+        "lib": "CoveringLiteratura",
+        "tag": null
+      }
+    },
+    "16,8,6": {
+      "ours_computational": null,
+      "ours_lean": {
+        "M": 56,
+        "declaration": "CoveringLit.K16_8_6_le_56",
+        "lib": "CoveringLiteratura",
+        "tag": null
+      }
+    },
+    "17,4,2": {
+      "ours_computational": null,
+      "ours_lean": {
+        "M": 99,
+        "declaration": "CoveringLit.K17_4_2_le_99",
+        "lib": "CoveringLiteratura",
+        "tag": null
+      }
+    },
+    "17,5,2": {
+      "ours_computational": null,
+      "ours_lean": {
+        "M": 1241,
+        "declaration": "CoveringLit.K17_5_2_le_1241",
+        "lib": "CoveringLiteratura",
+        "tag": null
+      }
+    },
+    "17,5,3": {
+      "ours_computational": null,
+      "ours_lean": {
+        "M": 73,
+        "declaration": "CoveringLit.K17_5_3_le_73",
+        "lib": "CoveringLiteratura",
+        "tag": null
+      }
+    },
+    "17,7,3": {
+      "ours_computational": null,
+      "ours_lean": {
+        "M": 10657,
+        "declaration": "CoveringLit.K17_7_3_le_10657",
+        "lib": "CoveringLiteratura",
+        "tag": null
+      }
+    },
+    "17,7,5": {
+      "ours_computational": null,
+      "ours_lean": {
+        "M": 66,
+        "declaration": "CoveringLit.K17_7_5_le_66",
+        "lib": "CoveringLiteratura",
+        "tag": null
+      }
+    },
+    "17,8,6": {
+      "ours_computational": null,
+      "ours_lean": {
+        "M": 63,
+        "declaration": "CoveringLit.K17_8_6_le_63",
+        "lib": "CoveringLiteratura",
+        "tag": null
+      }
+    },
+    "18,4,2": {
+      "ours_computational": null,
+      "ours_lean": {
+        "M": 111,
+        "declaration": "CoveringLit.K18_4_2_le_111",
+        "lib": "CoveringLiteratura",
+        "tag": null
+      }
+    },
+    "18,5,2": {
+      "ours_computational": null,
+      "ours_lean": {
+        "M": 1458,
+        "declaration": "CoveringLit.K18_5_2_le_1458",
+        "lib": "CoveringLiteratura",
+        "tag": null
+      }
+    },
+    "18,5,3": {
+      "ours_computational": null,
+      "ours_lean": {
+        "M": 82,
+        "declaration": "CoveringLit.K18_5_3_le_82",
+        "lib": "CoveringLiteratura",
+        "tag": null
+      }
+    },
+    "18,6,4": {
+      "ours_computational": null,
+      "ours_lean": {
+        "M": 80,
+        "declaration": "CoveringLit.K18_6_4_le_80",
+        "lib": "CoveringLiteratura",
+        "tag": null
+      }
+    },
+    "18,7,3": {
+      "ours_computational": null,
+      "ours_lean": {
+        "M": 13122,
+        "declaration": "CoveringLit.K18_7_3_le_13122",
+        "lib": "CoveringLiteratura",
+        "tag": null
+      }
+    },
+    "18,7,5": {
+      "ours_computational": null,
+      "ours_lean": {
+        "M": 72,
+        "declaration": "CoveringLit.K18_7_5_le_72",
+        "lib": "CoveringLiteratura",
+        "tag": null
+      }
+    },
+    "18,8,6": {
+      "ours_computational": null,
+      "ours_lean": {
+        "M": 70,
+        "declaration": "CoveringLit.K18_8_6_le_70",
+        "lib": "CoveringLiteratura",
+        "tag": null
+      }
+    },
+    "19,4,2": {
+      "ours_computational": null,
+      "ours_lean": {
+        "M": 123,
+        "declaration": "CoveringLit.K19_4_2_le_123",
+        "lib": "CoveringLiteratura",
+        "tag": null
+      }
+    },
+    "19,5,3": {
+      "ours_computational": null,
+      "ours_lean": {
+        "M": 91,
+        "declaration": "CoveringLit.K19_5_3_le_91",
+        "lib": "CoveringLiteratura",
+        "tag": null
+      }
+    },
+    "19,6,4": {
+      "ours_computational": null,
+      "ours_lean": {
+        "M": 86,
+        "declaration": "CoveringLit.K19_6_4_le_86",
+        "lib": "CoveringLiteratura",
+        "tag": null
+      }
+    },
+    "19,7,3": {
+      "ours_computational": null,
+      "ours_lean": {
+        "M": 18737,
+        "declaration": "CoveringLit.K19_7_3_le_18737",
+        "lib": "CoveringLiteratura",
+        "tag": null
+      }
+    },
+    "19,7,5": {
+      "ours_computational": null,
+      "ours_lean": {
+        "M": 81,
+        "declaration": "CoveringLit.K19_7_5_le_81",
+        "lib": "CoveringLiteratura",
+        "tag": null
+      }
+    },
+    "19,8,6": {
+      "ours_computational": null,
+      "ours_lean": {
+        "M": 77,
+        "declaration": "CoveringLit.K19_8_6_le_77",
+        "lib": "CoveringLiteratura",
+        "tag": null
+      }
+    },
+    "20,4,2": {
+      "ours_computational": null,
+      "ours_lean": {
+        "M": 135,
+        "declaration": "CoveringLit.K20_4_2_le_135",
+        "lib": "CoveringLiteratura",
+        "tag": null
+      }
+    },
+    "20,5,3": {
+      "ours_computational": null,
+      "ours_lean": {
+        "M": 100,
+        "declaration": "CoveringLit.K20_5_3_le_100",
+        "lib": "CoveringLiteratura",
+        "tag": null
+      }
+    },
+    "20,6,4": {
+      "ours_computational": null,
+      "ours_lean": {
+        "M": 93,
+        "declaration": "CoveringLit.K20_6_4_le_93",
+        "lib": "CoveringLiteratura",
+        "tag": null
+      }
+    },
+    "20,7,3": {
+      "ours_computational": null,
+      "ours_lean": {
+        "M": 21202,
+        "declaration": "CoveringLit.K20_7_3_le_21202",
+        "lib": "CoveringLiteratura",
+        "tag": null
+      }
+    },
+    "20,7,5": {
+      "ours_computational": null,
+      "ours_lean": {
+        "M": 89,
+        "declaration": "CoveringLit.K20_7_5_le_89",
+        "lib": "CoveringLiteratura",
+        "tag": null
+      }
+    },
+    "20,8,6": {
+      "ours_computational": null,
+      "ours_lean": {
+        "M": 84,
+        "declaration": "CoveringLit.K20_8_6_le_84",
+        "lib": "CoveringLiteratura",
+        "tag": null
+      }
+    },
+    "21,4,2": {
+      "ours_computational": null,
+      "ours_lean": {
+        "M": 147,
+        "declaration": "CoveringLit.K21_4_2_le_147",
+        "lib": "CoveringLiteratura",
+        "tag": null
+      }
+    },
+    "21,5,3": {
+      "ours_computational": null,
+      "ours_lean": {
+        "M": 114,
+        "declaration": "CoveringLit.K21_5_3_le_114",
+        "lib": "CoveringLiteratura",
+        "tag": null
+      }
+    },
+    "21,6,4": {
+      "ours_computational": null,
+      "ours_lean": {
+        "M": 99,
+        "declaration": "CoveringLit.K21_6_4_le_99",
+        "lib": "CoveringLiteratura",
+        "tag": null
+      }
+    },
+    "21,7,4": {
+      "ours_computational": null,
+      "ours_lean": {
+        "M": 1029,
+        "declaration": "CoveringLit.K21_7_4_le_1029",
+        "lib": "CoveringLiteratura",
+        "tag": null
+      }
+    },
+    "21,7,5": {
+      "ours_computational": null,
+      "ours_lean": {
+        "M": 98,
+        "declaration": "CoveringLit.K21_7_5_le_98",
+        "lib": "CoveringLiteratura",
+        "tag": null
+      }
+    },
+    "21,8,6": {
+      "ours_computational": null,
+      "ours_lean": {
+        "M": 91,
+        "declaration": "CoveringLit.K21_8_6_le_91",
+        "lib": "CoveringLiteratura",
+        "tag": null
+      }
+    },
+    "2,23,4": {
+      "ours_computational": null,
+      "ours_lean": {
+        "M": 2048,
+        "declaration": "Syn.K2_23_4_le_2048_syn",
+        "lib": "CoveringSyn",
+        "tag": null
+      }
+    },
+    "2,24,5": {
+      "ours_computational": null,
+      "ours_lean": {
+        "M": 1024,
+        "declaration": "Syn.K2_24_5_le_1024_syn",
+        "lib": "CoveringSyn",
+        "tag": null
+      }
+    },
+    "2,21,3": {
+      "ours_computational": null,
+      "ours_lean": {
+        "M": 3072,
+        "declaration": "Syn.K2_21_3_le_3072_syn",
+        "lib": "CoveringSyn",
+        "tag": null
+      }
+    },
+    "2,14,1": {
+      "ours_computational": null,
+      "ours_lean": {
+        "M": 1408,
+        "declaration": "CoveringLit.K2_14_1_le_1408",
+        "lib": "CoveringLiteratura",
+        "tag": null
       }
     }
   }

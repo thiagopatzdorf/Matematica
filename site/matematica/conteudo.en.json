@@ -125,7 +125,7 @@
   },
   "keri": {
     "resumo": "Gerzson Kéri's tables collect the best known bounds on the covering number K_q(n,R): the smallest code of length n over q symbols that leaves every word within Hamming distance R. There are 1145 cells, with q from 2 to 21. The last update is from November 2011.",
-    "porque_importa": "They are the yardstick for every new result: a bound is a record only if it beats the table. Unchanged since 2011, they are also an honest map of what no one has solved. The ledger starts from them, cell by cell, and records what we could certify: 487 of the 1145 upper bounds are theorems of the Lean kernel or independently reproduced. And three cells collapsed to an exact value that is potentially new: K₃(6,2) = 17, K₇(6,4) = 14 and K₇(5,3) = 17."
+    "porque_importa": "They are the yardstick for every new result: a bound is a record only if it beats the table. Unchanged since 2011, they are also an honest map of what no one has solved. The ledger starts from them, cell by cell, and records what we could certify: 488 of the 1145 upper bounds are theorems of the Lean kernel or independently reproduced. And three cells collapsed to an exact value that is potentially new: K₃(6,2) = 17, K₇(6,4) = 14 and K₇(5,3) = 17."
   },
   "lacunas": [
     "The whole table has not been formally verified. The lower bounds are, almost all of them, inherited from the literature (CLAIMED).",
@@ -141,8 +141,8 @@
       "url": "https://github.com/thiagopatzdorf/Matematica"
     },
     {
-      "rotulo": "Paper (DOI 10.5281/zenodo.23172276)",
-      "url": "https://doi.org/10.5281/zenodo.23172276"
+      "rotulo": "Paper (DOI 10.5281/zenodo.23085769)",
+      "url": "https://doi.org/10.5281/zenodo.23085769"
     },
     {
       "rotulo": "Ledger",

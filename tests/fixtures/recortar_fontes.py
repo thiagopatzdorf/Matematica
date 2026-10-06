@@ -24,6 +24,10 @@ CELULAS = {
     (3, 6, 2), (7, 6, 4), (7, 5, 3),   # exatas por certificado (CERTIFICATE_VERIFIED), v0.9
     (2, 4, 1), (2, 12, 1), (7, 10, 4), (6, 10, 4), (5, 11, 5), (10, 9, 5), (10, 8, 4), (6, 7, 3), (6, 9, 3), (3, 6, 1),
 }
+# Toda célula de ledger/ours.json entra sozinha: sem ela o build do recorte aborta ("células nossas fora
+# da tabela do Kéri") e a lista acima teria de crescer à mão a cada célula nova (a dos artigos trouxe dezenas).
+CELULAS |= {tuple(int(x) for x in k.split(","))
+            for k in json.loads((AQUI.parents[1] / "ledger" / "ours.json").read_text())["cells"]}
 
 
 def main(origem: Path) -> None:
@@ -50,7 +54,8 @@ def main(origem: Path) -> None:
             dentro = lambda e: (e["q"], e["n"], e["R"]) in CELULAS  # noqa: E731
             if nome == "bounds":
                 d["entries"] = [e for e in d["entries"] if dentro(e)]
-                d["keys"] = []
+                # As chaves (legenda das tabelas) ficam: o build cita o autor de cada chave na proveniência
+                # e, sem elas, o recorte diverge do ledger inteiro (test_ledger_commitado_bate_com_o_recortado).
                 d["lower_bound_updates_2025"] = []
             elif nome == "sweep_state":
                 d = {k: v for k, v in d.items() if tuple(int(x) for x in k.split(",")) in CELULAS}

@@ -40,7 +40,7 @@ Tudo roda no `pytest` (`python3 -m pytest -q tests/test_motor_exatos.py`: 66 tes
 | verificação | o que confere | resultado |
 |---|---|---|
 | classificação × Kéri | nº de códigos ótimos inequivalentes = expoente da tabela (17 células no teste, mais K4(5,4), K4(6,5) e K5(4,3) rodadas à mão) | 20/20 batem (ex.: K2(8,3) 6, K3(6,4) 7, K4(4,3) 79, K5(3,2) 54, K4(5,4) 269, K4(6,5) 839, K5(4,3) 471) |
-| órbitas × contagem rotulada | `Σ_C |G|/|Aut(C)|` (formas canônicas + estabilizador do nauty) = nº de códigos rotulados achados pela DFS sem simetria | 10/10 (K2(4,1) 40, K2(5,1) 320, K2(6,1) 2 240, K2(6,2) 1 456, K2(7,1) 240, K2(7,2) 71 680, K3(3,1) 54, K3(4,1) 72, K4(3,1) 432, K4(4,3) 58 247 680) |
+| órbitas × contagem rotulada | `Σ_C \|G\|/\|Aut(C)\|` (formas canônicas + estabilizador do nauty) = nº de códigos rotulados achados pela DFS sem simetria | 10/10 (K2(4,1) 40, K2(5,1) 320, K2(6,1) 2 240, K2(6,2) 1 456, K2(7,1) 240, K2(7,2) 71 680, K3(3,1) 54, K3(4,1) 72, K4(3,1) 432, K4(4,3) 58 247 680) |
 | existência/inexistência | M = K existe e M = K − 1 não, em 8 células, com 4 variantes (D = 2; D = 3 com corte; ordem invertida no topo; sem a poda dual) | 64/64 |
 | diferencial | mesma resposta do `dfs_cover.c` (implementação independente, sem nauty) | 5/5 |
 | métodos de ganho | Walsh–Hadamard, acumulação e popcount geram a mesma árvore (mesmo nº de nós) | 2/2 |

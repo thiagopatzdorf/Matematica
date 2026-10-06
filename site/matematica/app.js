@@ -15,11 +15,11 @@
   var HTML_LANG = { pt: "pt-BR", en: "en", fr: "fr" };
   var reduzir = window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-  // Números embutidos (ledger/COBERTURA.md e ledger/cells.json, v0.9.0). Valem só quando dados.json falta;
+  // Números embutidos (ledger/COBERTURA.md e ledger/cells.json, v0.9.1). Valem só quando dados.json falta;
   // a página diz isso no carimbo da seção de números.
   var DADOS_EMBUTIDOS = {
-    versao: "0.9.0", doi: "10.5281/zenodo.23085769", celulas_total: 1145, exatas: 523, abertas: 622,
-    superiores_por_estado: { CLAIMED: 657, WITNESS_CHECKED: 0, CERTIFICATE_VERIFIED: 0, FORMALIZED: 435, INDEPENDENTLY_REPRODUCED: 53 },
+    versao: "0.9.1", doi: "10.5281/zenodo.23085769", celulas_total: 1145, exatas: 523, abertas: 622,
+    superiores_por_estado: { CLAIMED: 503, WITNESS_CHECKED: 0, CERTIFICATE_VERIFIED: 0, FORMALIZED: 551, INDEPENDENTLY_REPRODUCED: 91 },
     inferiores_por_estado: { CLAIMED: 1140, WITNESS_CHECKED: 0, CERTIFICATE_VERIFIED: 3, FORMALIZED: 2, INDEPENDENTLY_REPRODUCED: 0 },
     destaques: [
       { celula: "K3(6,2)", antes: "15–17", agora: "= 17", estado_lb: "CERTIFICATE_VERIFIED", estado_ub: "INDEPENDENTLY_REPRODUCED", fonte: "docs/exatos/NOVIDADE_V09.md" },

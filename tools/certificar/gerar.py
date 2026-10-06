@@ -8,6 +8,8 @@ superior conhecida (`best.ub`):
   palavras constantes (`UB.constant_symbol`);
 * witness explícito pequeno de tools/certificar/witnesses/ (conferido pelo kernel com
   `CoveringKernel.go`, via `UB.of_go`), ou um teorema já existente (K_7(4,2) ≤ 19);
+* código linear sistemático de tools/certificar/lineares/ (Hamming, Golay, "linear code" do Kéri),
+  conferido pelo kernel pelas síndromes, sem lista de palavras (`Syn.lin_cert`, lineares.py);
 * regra a partir de outras células: soma direta, alongamento livre, coordenada muda, punção,
   monotonia do raio, projeção de alfabeto (CoveringLean/Regras.lean).
 
@@ -18,6 +20,7 @@ cota bate com `best.ub` vão para o Lean.
 
 Saídas (regeneradas por inteiro; não edite à mão):
 * CoveringLean/Ledger/W<k>.lean: as listas de índices dos witnesses;
+* CoveringLean/Ledger/Lin_K<q>_<n>_<R>.lean: os códigos lineares e as testemunhas do transversal;
 * CoveringLean/Ledger/Cotas.lean: um teorema `CoveringLedger.K<q>_<n>_<R>_le_<M> : K q n R ≤ M`
   por célula certificada;
 * ledger/formal_ub.json: o que o ledger/build.py lê para marcar a cota FORMALIZED.
@@ -34,6 +37,8 @@ import sys
 from pathlib import Path
 
 RAIZ = Path(__file__).resolve().parents[2]
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+import lineares  # noqa: E402
 WIT = RAIZ / "tools" / "certificar" / "witnesses"
 SAIDA_LEAN = RAIZ / "CoveringLean" / "Ledger"
 SAIDA_JSON = RAIZ / "ledger" / "formal_ub.json"
@@ -62,8 +67,11 @@ def ler_witnesses() -> dict:
     return out
 
 
-def fechar(cells: list[dict], wits: dict):
-    """Relaxação até ponto fixo. Devolve (valor por estado, nó atual por estado, nós)."""
+def fechar(cells: list[dict], wits: dict, lins: dict | None = None):
+    """Relaxação até ponto fixo. Devolve (valor por estado, nó atual por estado, nós).
+
+    `lins` ({(q,n,R): (M, caminho, G, construcao)}, de lineares.ler_lineares) entra como base,
+    como os witnesses."""
     nmax: dict[int, int] = {}
     for c in cells:
         nmax[c["q"]] = max(nmax.get(c["q"], 0), c["n"])
@@ -86,6 +94,9 @@ def fechar(cells: list[dict], wits: dict):
     for s, (M, _p, _i) in wits.items():
         if s in V and M < V[s]:
             novo(s, M, "wit")
+    for s, (M, _p, _G, construcao) in (lins or {}).items():
+        if s in V and M < V[s]:
+            novo(s, M, "lin", construcao)
     for s, (M, _d, _m) in EXISTENTES.items():
         if M < V[s]:
             novo(s, M, "existente")
@@ -143,12 +154,18 @@ def descrever(nos, k) -> str:
              "const": "palavras constantes (pombal)", "wit": "witness explícito", "existente": "teorema existente"}
     if regra in fixas:
         return fixas[regra]
+    if regra == "lin":
+        return args[0]
     if regra == "sum":
         return f"soma direta de {cel(args[0])} e {cel(args[1])}"
     nome = {"free": "alongamento livre", "dummy": "coordenada muda", "punct": "punção",
             "radius": "monotonia do raio", "proj": "projeção de alfabeto"}[regra]
     t = f" (t = {args[1]})" if len(args) > 1 else ""
     return f"{nome}{t} de {cel(args[0])}"
+
+
+def _ident(s) -> str:
+    return f"K{s[0]}_{s[1]}_{s[2]}"
 
 
 def prova(nos, k, wits, wmod) -> str:
@@ -164,6 +181,8 @@ def prova(nos, k, wits, wmod) -> str:
         return wmod[(q, n, R)]
     if regra == "existente":
         return EXISTENTES[(q, n, R)][1]
+    if regra == "lin":
+        return f"Lin.l_{_ident((q, n, R))}"
     u = [f"u{j}" for j in deps(nos[k])]
     if regra == "free":
         return f"(UB.lengthen_free {args[1]} {u[0]}).weaken {w}"
@@ -182,7 +201,8 @@ def prova(nos, k, wits, wmod) -> str:
 
 def gerar(cells: list[dict], escrever: bool = True, custo_max: int = CUSTO_MAX) -> dict:
     wits = {s: w for s, w in ler_witnesses().items() if s[0] ** s[1] * w[0] <= custo_max}
-    V, atual, nos = fechar(cells, wits)
+    lins = lineares.ler_lineares()
+    V, atual, nos = fechar(cells, wits, lins)
     alvo = {(c["q"], c["n"], c["R"]): c["best"]["ub"] for c in cells}
     menor = [s for s, b in alvo.items() if V[s] < b]
     if menor:
@@ -225,6 +245,10 @@ def gerar(cells: list[dict], escrever: bool = True, custo_max: int = CUSTO_MAX) 
             linhas.append("")
         linhas.append("end CoveringLedger.Data")
         arquivos_w.append((nome, "\n".join(linhas) + "\n"))
+    lin_usados = sorted({nos[k][0] for k in usados if nos[k][2] == "lin"})
+    for s in lin_usados:
+        _M, _p, G, _c = lins[s]
+        arquivos_w.append(lineares.lean(_ident(s), s[0], s[1], s[2], G))
     imports = ["import CoveringLean.Regras"] + [f"import {m}" for m in sorted({e[2] for e in EXISTENTES.values()})]
     imports += [f"import CoveringLean.Ledger.{nome}" for nome, _ in arquivos_w]
     corpo = imports + ["", "/-!", "# Cotas superiores do ledger, célula base + regra (GERADO)", "",
@@ -244,6 +268,11 @@ def gerar(cells: list[dict], escrever: bool = True, custo_max: int = CUSTO_MAX) 
         formal[f"{s[0]},{s[1]},{s[2]}"] = {
             "M": V[s], "declaration": f"CoveringLedger.{nm}", "construcao": descrever(nos, k),
             "witness": str(wits[s][1].relative_to(RAIZ)) if nos[k][2] == "wit" else None}
+        if nos[k][2] == "lin":
+            # O código linear também tem segundo verificador: as síndromes em Python
+            # (lineares.cobre_por_sindromes), rodadas em tests/test_certificar.py.
+            formal[f"{s[0]},{s[1]},{s[2]}"]["witness"] = str(lins[s][1].relative_to(RAIZ))
+            formal[f"{s[0]},{s[1]},{s[2]}"]["verificador"] = lineares.VERIFICADOR
     # Uma conjunção de todas: um único `#print axioms` cobre o lote inteiro.
     conj = " ∧\n    ".join(f"K {s[0]} {s[1]} {s[2]} ≤ {V[s]}" for s in certos)
     corpo += ["", "set_option maxRecDepth 100000 in", f"theorem todas_as_cotas :\n    {conj} :=", "  ⟨" + ",\n   ".join(
@@ -268,6 +297,7 @@ def gerar(cells: list[dict], escrever: bool = True, custo_max: int = CUSTO_MAX) 
                "cells": formal}
         SAIDA_JSON.write_text(json.dumps(doc, ensure_ascii=False, indent=1, sort_keys=True) + "\n")
     return {"certificadas": len(certos), "teoremas": len(usados), "witnesses": len(wit_usados),
+            "lineares": len(lin_usados),
             "por_regra": _contar(nos, [atual[s] for s in certos])}
 
 

@@ -133,8 +133,16 @@ certificado mais barato que atinge `best.ub` e gera o Lean.
   `UB.of_go`): achado por recozimento (`buscar.py`), importado do banco do Florath
   (`importar_florath.py`, BSD-3, aviso em `witnesses/LICENSE-florath`) ou da construção por
   partição (`tools/exatos/particao_q42.py --gravar DIR` e `buscar.py --importar DIR`).
+* **Código linear sistemático** (`tools/certificar/lineares/`, `lineares.py`): as cotas que o Kéri
+  marca como código de Hamming, código perfeito (Golay) ou código linear (chaves `h` e `p`).
+  `Syn.lin_cert` (`CoveringLean/SynLinear.lean`) confere `q^(n-k)` pontos do transversal, sem a
+  lista de `q^k` palavras; o segundo verificador é o avaliador de síndromes em Python
+  (`INDEPENDENTLY_REPRODUCED`). Hoje: treze códigos, de `K2(19,5) ≤ 64` a `K2(31,1) ≤ 2^26`.
 * **Regra** a partir de outras células (`CoveringLean/Regras.lean`): soma direta, alongamento
-  livre, coordenada muda, punção, monotonia do raio, projeção de alfabeto.
+  livre, coordenada muda, punção, monotonia do raio, projeção de alfabeto. São as regras das
+  chaves `c`, `e` e `f` do Kéri para q ≥ 6 e das entradas sem chave ("trivial"). A projeção só vai
+  do alfabeto maior para o menor (`K_a(n,R) ≤ K_q(n,R)` com `a ≤ q`); o sentido contrário é falso
+  em geral.
 
 Saídas geradas: `CoveringLean/Ledger/W*.lean` (witnesses), `CoveringLean/Ledger/Cotas.lean` (um
 `CoveringLedger.K<q>_<n>_<R>_le_<M> : K q n R ≤ M` por célula) e `ledger/formal_ub.json`, que o
@@ -208,7 +216,11 @@ Trocar o commit fixado em `sources.json`: rode `build.py`, depois
 
 ## Publicação (`scripts/publish/`)
 
-* `zenodo_newversion.py --record ID --pdf PDF --zenodo-json .zenodo.json`: nova versão no Zenodo.
+* `zenodo_newversion.py --record ID --pdf PDF --zenodo-json .zenodo.json`: nova versão no Zenodo. Com
+  `--publicar --release-github`, cria também a release do GitHub (tag `v<versão>`, marcada como Latest, PDF
+  anexado) com as notas tiradas do trecho "New in version <versão>:" do `.zenodo.json` e o DOI recém-cunhado.
+* `github_release.py --zenodo-json .zenodo.json --doi DOI [--criar]`: o mesmo passo isolado, para uma versão já
+  publicada no Zenodo (seco por padrão).
   Seco por padrão (sem rede); `--publicar` publica. Token só de `ZENODO_TOKEN`, nunca impresso.
 * `genesis_page.py --doi DOI --tag TAG`: gera `build/provas/cobertura.html` a partir do ledger, no
   molde da página da v0.3. Só gera o arquivo; não sobe nada.

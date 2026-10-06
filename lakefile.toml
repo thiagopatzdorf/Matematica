@@ -26,11 +26,12 @@ roots = ["CoveringLean.SearchK6ge12", "CoveringLean.K3_K7_9_4_Final", "CoveringL
 
 # Certificados por síndromes (CoveringLean/Syn*.lean, gerados por scripts/syndrome/gen_syn.py):
 # K_7(9,4) ≤ 1351, ≤ 1285, ≤ 1141, ≤ 1137, ≤ 1134, K_7(8,3) ≤ 1887,
-# K_5(10,5) ≤ 162, K_5(11,4) ≤ 2875, K_7(10,4) ≤ 5616 e ≤ 5607. Fora do alvo padrão; `lake build CoveringSyn`.
+# K_5(10,5) ≤ 162, K_5(11,4) ≤ 2875, K_7(10,4) ≤ 5616 e ≤ 5607; e os binários dos artigos
+# (Syn_K2_*, specs em data/literatura/syn/, tools/literatura/gerar_lean.py). Fora do alvo padrão; `lake build CoveringSyn`.
 [[lean_lib]]
 name = "CoveringSyn"
 srcDir = "."
-roots = ["CoveringLean.Syn_K1351", "CoveringLean.Syn_K1285", "CoveringLean.Syn_K1141", "CoveringLean.Syn_K1137", "CoveringLean.Syn_K1134", "CoveringLean.Syn_K1887", "CoveringLean.Syn_K162", "CoveringLean.Syn_K2875", "CoveringLean.Syn_K5616", "CoveringLean.Syn_K5607"]
+roots = ["CoveringLean.Syn_K1351", "CoveringLean.Syn_K1285", "CoveringLean.Syn_K1141", "CoveringLean.Syn_K1137", "CoveringLean.Syn_K1134", "CoveringLean.Syn_K1887", "CoveringLean.Syn_K162", "CoveringLean.Syn_K2875", "CoveringLean.Syn_K5616", "CoveringLean.Syn_K5607", "CoveringLean.Syn_K2_13_1_704", "CoveringLean.Syn_K2_15_2_384", "CoveringLean.Syn_K2_17_3_320", "CoveringLean.Syn_K2_17_5_32", "CoveringLean.Syn_K2_18_2_2944", "CoveringLean.Syn_K2_18_3_512", "CoveringLean.Syn_K2_19_4_256", "CoveringLean.Syn_K2_19_6_32", "CoveringLean.Syn_K2_21_3_3072", "CoveringLean.Syn_K2_23_4_2048", "CoveringLean.Syn_K2_24_5_1024"]
 
 # K_7(4,2) = 19 incondicional: as 70 refutações LRAT sem quebra (CoveringLean/K742Sat/S*/,
 # geradas por tools/exatos/k742/lean/gerar_modulos.py) conferidas pelo kernel com `LratK`, e o
@@ -50,3 +51,12 @@ roots = ["CoveringLean.K742_Eq19", "CoveringLean.K742Sat.P64"]
 name = "CoveringLedger"
 srcDir = "."
 roots = ["CoveringLean.Ledger.Cotas"]
+
+# Cotas dos artigos transcritos em data/literatura/ (GERADAS por tools/literatura/gerar_lean.py):
+# Corolário 3 de Kéri–Östergård 2005 (chave n, CoveringLean/Surjetivo.lean + Literatura/KO05.lean),
+# binários pequenos por witness (Literatura/Binarios.lean) e K_2(14,1) ≤ 1408. Fora do alvo padrão
+# (~30 min de CPU nos ingredientes grandes); `lake build CoveringLiteratura`.
+[[lean_lib]]
+name = "CoveringLiteratura"
+srcDir = "."
+roots = ["CoveringLean.Literatura.KO05", "CoveringLean.Literatura.Binarios", "CoveringLean.Literatura.K2_14_1"]

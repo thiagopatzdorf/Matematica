@@ -29,9 +29,9 @@ flowchart LR
 | geradores | propõem códigos: base linear mais remendo, recozimento, ILP, busca exaustiva, SAT | `scripts/search/gen.py`, `scripts/search/patch_lns.py`, `scripts/attack/`, `scripts/loop/gen_greedy.py`, `tools/exatos/sa_cover.c`, `tools/exatos/dfs_cover.c`, `tools/exatos/cpsat_cover.py`, `tools/exatos/k742/rodar.py` |
 | avaliadores | decidem de forma exata se o candidato cobre; conferem formato e sha256 | `tools/verify/verify.c`, `tools/verify/check_all.sh`, `scripts/loop/verify_cover.py`, `scripts/codes/expand.py`, `verification/` |
 | registro | grava o código, a descrição estruturada, a proveniência e atualiza o ledger | `scripts/loop/record_loop.py`, `data/codes/`, `data/structured/`, `scripts/codes/build_structured.py` |
-| certificado Lean | transforma o código em teorema `∃ C, C.card = M ∧ Covers R C` | `scripts/syndrome/gen_syn.py`, `scripts/k794/gen.py`, `CoveringLean/SynCheck.lean`, `CoveringLean/SynBridge.lean`, `CoveringLean/Syn_K1137.lean`, `CoveringLean/C1_Data_K7_9_4.lean`, `CoveringLean/Regras.lean` (K ≤ |C| genérico e regras de construção), `lakefile.toml` |
+| certificado Lean | transforma o código em teorema `∃ C, C.card = M ∧ Covers R C` | `scripts/syndrome/gen_syn.py`, `scripts/k794/gen.py`, `CoveringLean/SynCheck.lean`, `CoveringLean/SynBridge.lean`, `CoveringLean/Syn_K1137.lean`, `CoveringLean/C1_Data_K7_9_4.lean`, `CoveringLean/Regras.lean` (K ≤ \|C\| genérico e regras de construção), `lakefile.toml` |
 | CI | confere códigos e testes, e roda `lake build` e os axiomas dos certificados | `.github/workflows/verify-codes.yml`, `.github/workflows/lean-syn.yml` |
-| publicação | nota, nova versão no Zenodo e página pública, a partir do ledger; só o dono publica | `paper/main.tex`, `scripts/publish/zenodo_newversion.py`, `scripts/publish/genesis_page.py`, `.zenodo.json`, `CITATION.cff` |
+| publicação | nota, nova versão no Zenodo e página pública, a partir do ledger; só o dono publica | `paper/main.tex`, `scripts/publish/zenodo_newversion.py`, `scripts/publish/github_release.py`, `scripts/publish/genesis_page.py`, `.zenodo.json`, `CITATION.cff` |
 | acesso de colaboradores | ferramentas MCP com crédito por pessoa em volta das etapas acima | `infinito/infinito_mcp/server.py`, `infinito/infinito_mcp/modulos/matematica.py` |
 
 ## Regras que seguram o desenho

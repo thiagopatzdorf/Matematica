@@ -17,6 +17,7 @@ import CoveringLean.K2_Loop
 import CoveringLean.K3_Bridge
 import CoveringLean.SynCheck
 import CoveringLean.SynBridge
+import CoveringLean.SynLinear
 import CoveringLean.K742_Upper
 import CoveringLean.K742_Fibras
 import CoveringLean.K742_Cnf
@@ -30,3 +31,4 @@ import CoveringLean.LratK_K4
 import CoveringLean.Regras
 import CoveringLean.K764_Upper
 import CoveringLean.K753_Upper
+import CoveringLean.Surjetivo

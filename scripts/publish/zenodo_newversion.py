@@ -4,6 +4,8 @@
 Generaliza o script que publicou a v0.3.0 (registro 23085770, DOI conceitual
 10.5281/zenodo.23085769). Passos com --publicar:
 
+  0.  confere que o paper (.tex ao lado do PDF) e o .zenodo.json dizem a contagem de cotas no
+      kernel do ledger (ledger/cells.json); se diverge, recusa antes de abrir rede
   1. POST  /deposit/depositions/<record>/actions/newversion
   2. GET   rascunho (links.latest_draft); apaga os arquivos herdados
   3. PUT   o PDF no bucket do rascunho
@@ -20,6 +22,7 @@ Uso:
     python3 scripts/publish/zenodo_newversion.py --record 23085770 \\
         --pdf paper/main.pdf --zenodo-json .zenodo.json            # seco
     ZENODO_TOKEN=... python3 scripts/publish/zenodo_newversion.py ... --publicar
+    ZENODO_TOKEN=... python3 scripts/publish/zenodo_newversion.py ... --publicar --release-github
 """
 from __future__ import annotations
 
@@ -28,10 +31,14 @@ import datetime as dt
 import hashlib
 import json
 import os
+import subprocess
 import sys
 import urllib.error
 import urllib.request
 from pathlib import Path
+
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+import github_release  # noqa: E402
 
 API = {"zenodo": "https://zenodo.org/api/deposit/depositions",
        "sandbox": "https://sandbox.zenodo.org/api/deposit/depositions"}
@@ -40,6 +47,37 @@ CAMPOS_OBRIGATORIOS = ("title", "description", "creators", "version", "keywords"
 
 class ErroZenodo(RuntimeError):
     pass
+
+
+RAIZ = Path(__file__).resolve().parents[2]
+
+
+def contagem_do_kernel(cells_json: Path) -> tuple[int, int, int]:
+    """(cotas superiores no kernel, CLAIMED, total) do ledger: FORMALIZED + INDEPENDENTLY_REPRODUCED."""
+    cells = json.loads(cells_json.read_text(encoding="utf-8"))["cells"]
+    est = [c["certification"]["ub"]["state"] for c in cells]
+    return (est.count("FORMALIZED") + est.count("INDEPENDENTLY_REPRODUCED"), est.count("CLAIMED"), len(cells))
+
+
+def conferir_contagem(tex: str, z: dict, cells_json: Path) -> None:
+    """Na hora de publicar, o paper e o .zenodo.json dizem exatamente o que o ledger tem.
+
+    Entre lançamentos o paper pode ficar atrás do ledger da main (tests/test_publish.py aceita);
+    a igualdade é exigida aqui, no único passo que publica (v0.9.0 saiu dizendo 659 com 658)."""
+    import re
+    kernel, claimed, total = contagem_do_kernel(cells_json)
+    tex = tex.replace(r"\allowbreak ", "")
+    erros = []
+    if tex.count(f"${kernel}$ of the ${total}$ upper bounds") != 2:
+        erros.append(f"paper não diz ${kernel}$ of the ${total}$ upper bounds (resumo e seção do ledger)")
+    if f"The other ${claimed}$ upper bounds are only claimed" not in tex:
+        erros.append(f"paper não diz The other ${claimed}$ upper bounds are only claimed")
+    if f"{kernel} of the {total} upper bounds are theorems of the Lean kernel" not in z.get("description", ""):
+        erros.append(f".zenodo.json não diz {kernel} of the {total} upper bounds")
+    ditos = re.findall(r"\$(\d+)\$ of the \$(\d+)\$ upper bounds", tex)
+    if erros:
+        raise ErroZenodo(f"contagem diverge do ledger ({kernel} no kernel, {claimed} CLAIMED, {total} células; "
+                         f"o paper diz {ditos}): " + "; ".join(erros))
 
 
 def redigir(texto: str, token: str | None) -> str:
@@ -118,7 +156,7 @@ def publicar(cli: Cliente, record: str, pdf: Path, nome_arquivo: str, meta: dict
     return pub
 
 
-def main(argv=None, abrir=None, ambiente=None) -> int:
+def main(argv=None, abrir=None, ambiente=None, rodar=subprocess.run) -> int:
     ap = argparse.ArgumentParser(description=__doc__.splitlines()[0],
                                  formatter_class=argparse.RawDescriptionHelpFormatter, epilog=__doc__)
     ap.add_argument("--record", required=True, help="id de qualquer versão do registro (ex.: 23085770)")
@@ -129,6 +167,12 @@ def main(argv=None, abrir=None, ambiente=None) -> int:
     ap.add_argument("--sandbox", action="store_true", help="usa sandbox.zenodo.org")
     ap.add_argument("--conferir", action="store_true", help="seco, mas faz o GET do registro atual")
     ap.add_argument("--publicar", action="store_true", help="publica de verdade (padrão: seco)")
+    ap.add_argument("--release-github", action="store_true",
+                    help="depois de publicar, cria a release do GitHub com o DOI cunhado (github_release.py)")
+    ap.add_argument("--titulo-release", help="título da release do GitHub (padrão: v<versão>)")
+    ap.add_argument("--tex", type=Path, help="fonte do paper (padrão: o .tex ao lado do --pdf)")
+    ap.add_argument("--ledger", type=Path, default=RAIZ / "ledger" / "cells.json",
+                    help="ledger cuja contagem o paper e o .zenodo.json têm de repetir ao publicar")
     a = ap.parse_args(argv)
     env = os.environ if ambiente is None else ambiente
     token = env.get("ZENODO_TOKEN", "").strip() or None
@@ -157,8 +201,18 @@ def main(argv=None, abrir=None, ambiente=None) -> int:
             return 0
         if not token:
             raise ErroZenodo("ZENODO_TOKEN ausente no ambiente")
-        publicar(Cliente(token, base, abrir), a.record, a.pdf, nome, meta)
+        tex = (a.tex or a.pdf.with_suffix(".tex")).read_text(encoding="utf-8")
+        conferir_contagem(tex, z, a.ledger)
+        pub = publicar(Cliente(token, base, abrir), a.record, a.pdf, nome, meta)
+        if a.release_github:
+            # A release do GitHub nasce no mesmo passo que o DOI: v0.8.0 e v0.9.0 ficaram
+            # dois dias sem página de release porque esse passo dependia de lembrar.
+            tag, titulo, notas = github_release.montar(z, pub.get("doi", ""), a.titulo_release)
+            github_release.criar(tag, titulo, notas, a.pdf, rodar)
         return 0
+    except github_release.ErroRelease as e:
+        print("ERRO (Zenodo já publicado; release do GitHub não criada): " + redigir(e, token), file=sys.stderr)
+        return 3
     except ErroZenodo as e:
         print("ERRO: " + redigir(e, token), file=sys.stderr)
         return 2

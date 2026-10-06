@@ -1,0 +1,169 @@
+{
+ "chave": "hamalainen_honkala_kaikkonen_litsyn_1993",
+ "citacao": {
+  "autores": [
+   "Heikki O. Hämäläinen",
+   "Iiro S. Honkala",
+   "Markku K. Kaikkonen",
+   "Simon N. Litsyn"
+  ],
+  "titulo": "Bounds for binary multiple covering codes",
+  "veiculo": "Designs, Codes and Cryptography",
+  "volume": 3,
+  "ano": 1993,
+  "paginas": "251-275",
+  "doi": "10.1007/BF01388486"
+ },
+ "aviso": "Transcrição dos dados explícitos (fatos matemáticos) do artigo; o PDF não é versionado. Convenção binária: a palavra 'c1 c2 ... cn' do artigo é o inteiro sum c_j 2^(j-1); hexadecimal de coluna/síndrome com o bit i na linha i (convenção consistente; qualquer uma dá código equivalente). Só as linhas com mu = 1 da Tabela 1 (coberturas comuns); as coberturas múltiplas (mu > 1) não são cotas de K_2(n,R) e ficam fora. Na tabela do artigo N é o comprimento e n o número de linhas de A = (I ; D).",
+ "itens": [
+  {
+   "id": "HHKL93-T1-15-480",
+   "local": "Tabela 1 (mu = 1), pp. 264-265",
+   "tipo": "matriz",
+   "q": 2,
+   "n": 15,
+   "R": 2,
+   "M": 480,
+   "k": 10,
+   "colunas_M": [
+    "383",
+    "32A",
+    "209",
+    "278",
+    "327"
+   ],
+   "S": [
+    "0",
+    "26C",
+    "385",
+    "11F",
+    "253",
+    "3DA",
+    "1CD",
+    "351",
+    "172",
+    "1A4",
+    "BB",
+    "2BE",
+    "3E8",
+    "D9",
+    "96"
+   ]
+  },
+  {
+   "id": "HHKL93-T1-16-896",
+   "local": "Tabela 1 (mu = 1), pp. 264-265",
+   "tipo": "matriz",
+   "q": 2,
+   "n": 16,
+   "R": 2,
+   "M": 896,
+   "k": 9,
+   "colunas_M": [
+    "70",
+    "D6",
+    "1B2",
+    "37",
+    "168",
+    "13B",
+    "05B"
+   ],
+   "S": [
+    "0",
+    "157",
+    "DC",
+    "65",
+    "31",
+    "1E2",
+    "1DF"
+   ]
+  },
+  {
+   "id": "HHKL93-T1-12-28",
+   "local": "Tabela 1 (mu = 1), pp. 264-265",
+   "tipo": "matriz",
+   "q": 2,
+   "n": 12,
+   "R": 3,
+   "M": 28,
+   "k": 11,
+   "colunas_M": [
+    "7FF"
+   ],
+   "S": [
+    "0",
+    "7F",
+    "5B4",
+    "523",
+    "55E",
+    "2F2",
+    "63D",
+    "387",
+    "4C5",
+    "751",
+    "68A",
+    "5E9",
+    "199",
+    "36C"
+   ]
+  },
+  {
+   "id": "HHKL93-T1-13-42",
+   "local": "Tabela 1 (mu = 1), pp. 264-265",
+   "tipo": "matriz",
+   "q": 2,
+   "n": 13,
+   "R": 3,
+   "M": 42,
+   "k": 12,
+   "colunas_M": [
+    "FC0"
+   ],
+   "S": [
+    "0",
+    "E1C",
+    "386",
+    "9E8",
+    "3B9",
+    "EB4",
+    "D11",
+    "4C0",
+    "A46",
+    "75A",
+    "E23",
+    "E8B",
+    "7F2",
+    "D2E",
+    "7CD",
+    "4EE",
+    "3F",
+    "4D7",
+    "A79",
+    "765",
+    "9D7"
+   ]
+  },
+  {
+   "id": "HHKL93-T1-15-40",
+   "local": "Tabela 1 (mu = 1), pp. 264-265",
+   "tipo": "matriz",
+   "q": 2,
+   "n": 15,
+   "R": 4,
+   "M": 40,
+   "k": 12,
+   "colunas_M": [
+    "E91",
+    "35",
+    "15B"
+   ],
+   "S": [
+    "0",
+    "2E9",
+    "61B",
+    "D9C",
+    "B76"
+   ]
+  }
+ ]
+}

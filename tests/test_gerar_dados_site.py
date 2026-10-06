@@ -61,8 +61,24 @@ def test_contagem_de_codigos_ignora_ou_inventa_arquivo_de_data_codes(dados):
 
 
 def test_doi_da_versao_ou_de_conceito_trocado(dados):
-    assert dados["doi"] == "10.5281/zenodo.23172276"
+    # 0.9.1 cunhada no Zenodo em 2026-10-06: a página mostra o DOI da própria versão.
+    assert dados["versao"] == "0.9.1"
+    assert dados["doi"] == "10.5281/zenodo.23178159"
+    assert dados["doi_da_versao"] == "0.9.1"
     assert dados["doi_conceito"] == "10.5281/zenodo.23085769"
+
+
+def test_versao_sem_doi_cunhado_nem_pendente_declarado_cai_em_silencio_no_doi_antigo(tmp_path):
+    raiz = _copia_minima(tmp_path)
+    zen = raiz / ".zenodo.json"
+    d = json.loads(zen.read_text(encoding="utf-8"))
+    d["version"] = "9.9.9"
+    zen.write_text(json.dumps(d), encoding="utf-8")
+    cff = raiz / "CITATION.cff"
+    cff.write_text(re.sub(r"^version: .*$", "version: 9.9.9", cff.read_text(encoding="utf-8"), flags=re.M),
+                   encoding="utf-8")
+    with pytest.raises(g.Divergencia, match="9.9.9"):
+        g.gerar(raiz, **FIXO)
 
 
 def _copia_minima(tmp_path):

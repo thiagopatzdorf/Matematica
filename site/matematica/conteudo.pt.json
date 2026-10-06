@@ -125,7 +125,7 @@
   },
   "keri": {
     "resumo": "As tabelas de Gerzson Kéri reúnem as melhores cotas conhecidas para o número de cobertura K_q(n,R): o menor código de comprimento n, sobre q símbolos, que deixa toda palavra a distância de Hamming no máximo R. São 1145 células, com q de 2 a 21. A última atualização é de novembro de 2011.",
-    "porque_importa": "São a régua de todo resultado novo: uma cota só é recorde se bate a tabela. Paradas desde 2011, são também um mapa honesto do que ninguém resolveu. O ledger parte delas, célula por célula, e registra o que conseguimos certificar: 487 das 1145 cotas superiores são teoremas do kernel do Lean ou reproduzidas de forma independente. E três células colapsaram num valor exato potencialmente novo: K₃(6,2) = 17, K₇(6,4) = 14 e K₇(5,3) = 17."
+    "porque_importa": "São a régua de todo resultado novo: uma cota só é recorde se bate a tabela. Paradas desde 2011, são também um mapa honesto do que ninguém resolveu. O ledger parte delas, célula por célula, e registra o que conseguimos certificar: 488 das 1145 cotas superiores são teoremas do kernel do Lean ou reproduzidas de forma independente. E três células colapsaram num valor exato potencialmente novo: K₃(6,2) = 17, K₇(6,4) = 14 e K₇(5,3) = 17."
   },
   "lacunas": [
     "A tabela inteira não foi verificada formalmente. As cotas inferiores são, quase todas, herdadas da literatura (CLAIMED).",
@@ -141,8 +141,8 @@
       "url": "https://github.com/thiagopatzdorf/Matematica"
     },
     {
-      "rotulo": "Paper (DOI 10.5281/zenodo.23172276)",
-      "url": "https://doi.org/10.5281/zenodo.23172276"
+      "rotulo": "Paper (DOI 10.5281/zenodo.23085769)",
+      "url": "https://doi.org/10.5281/zenodo.23085769"
     },
     {
       "rotulo": "Ledger",

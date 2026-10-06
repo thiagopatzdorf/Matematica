@@ -88,14 +88,14 @@ elementos e a tabela não cabe) e não medi a contagem.
 
 **LP.** Amostras por busca local (`amostra_lp.py`), blocos sorteados:
 
-| M | s* | amostras | mortas na raiz | |U| | folga do dual |
+| M | s* | amostras | mortas na raiz | \|U\| | folga do dual |
 |---|---|---|---|---|---|
 | 72 | 24 | 22 | 22 | 30–48 | 0,10–0,26 |
 | 72 | 22 | 6 | 6 | 38–49 | 0,14–0,21 |
 | 72 | 21 | 4 | 4 | 50–51 | 0,19–0,23 |
 | 72 | 24 = `H × Z_3` menos 3 palavras | 4 | 4 | 24 | 0,107 |
 | 71 | 23 | 10 + 4 (`H × Z_3` menos 4) | 14 | 32–46 | 0,14–0,35 |
-| 72 | 18 | — | — | a busca não achou K com |U| ≤ 54 | — |
+| 72 | 18 | — | — | a busca não achou K com \|U\| ≤ 54 | — |
 
 **Controle que derruba a amostra.** O LP também mata K aleatórios onde existe código: K_3(6,1)
 com M = 75 (3 de 3), 78 (3 de 3), 81 (1 de 3); K_3(5,1) com M = 27 (5 de 6) e M = 30 (3 de 6),

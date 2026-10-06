@@ -1,19 +1,20 @@
 {
-  "gerado_em": "2026-10-06T01:51:55+00:00",
-  "commit": "a37643168cbf1cbbebc55da0c8f7f227745ec9aa",
-  "versao": "0.9.0",
-  "doi": "10.5281/zenodo.23172276",
+  "gerado_em": "2026-10-06T06:46:55+00:00",
+  "commit": "cacbe6e6fe5dd31c574cc17cb67140f5c4dbc84f",
+  "versao": "0.9.1",
+  "doi": "10.5281/zenodo.23178159",
+  "doi_da_versao": "0.9.1",
   "doi_conceito": "10.5281/zenodo.23085769",
   "frase_ledger": "A machine-checked ledger of covering-code upper bounds, with formally certified exact entries.",
   "celulas_total": 1145,
   "exatas": 523,
   "abertas": 622,
   "superiores_por_estado": {
-    "CLAIMED": 657,
+    "CLAIMED": 503,
     "WITNESS_CHECKED": 0,
     "CERTIFICATE_VERIFIED": 0,
-    "FORMALIZED": 435,
-    "INDEPENDENTLY_REPRODUCED": 53
+    "FORMALIZED": 551,
+    "INDEPENDENTLY_REPRODUCED": 91
   },
   "inferiores_por_estado": {
     "CLAIMED": 1140,
@@ -152,5 +153,5 @@
       "fonte": "Lean: Syn.K7_10_4_le_5607_syn"
     }
   ],
-  "codigos_verificados": 19
+  "codigos_verificados": 44
 }

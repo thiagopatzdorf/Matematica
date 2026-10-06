@@ -58,7 +58,9 @@ descartar todas as alternativas. Explicado em quatro camadas (30 segundos, ensin
 Um **código de cobertura** é um conjunto de palavras de comprimento `n` sobre `q` símbolos tal que toda palavra do
 espaço fica a distância de Hamming no máximo `R` de alguma delas. `K_q(n,R)` é o tamanho do menor código assim:
 
-$$K_q(n,R) \;=\; \min\bigl\{\,|C| \;:\; C \subseteq \mathbb{Z}_q^n,\ \ \forall x \in \mathbb{Z}_q^n\ \ \exists c \in C,\ \ d_H(x,c) \le R \,\bigr\}$$
+```math
+K_q(n,R) \;=\; \min\bigl\lbrace\,|C| \;:\; C \subseteq \mathbb{Z}_q^n,\ \ \forall x \in \mathbb{Z}_q^n\ \ \exists c \in C,\ \ d_H(x,c) \le R \,\bigr\rbrace
+```
 
 Uma cota superior é um código explícito: achar é difícil, conferir é contar. A referência são as
 [tabelas do Kéri](https://old.sztaki.hu/~keri/codes/); o vocabulário inteiro está no [glossário](docs/GLOSSARIO.md).
@@ -87,13 +89,13 @@ O bloco abaixo é gerado a partir de `ledger/cells.json` e não se edita à mão
 | células `K_q(n,R)` no ledger (q de 2 a 21) | **1145** |
 | exatas (cota inferior = superior) | **523** |
 | abertas | **622** |
-| cotas superiores que são teorema do kernel do Lean (FORMALIZED + INDEPENDENTLY_REPRODUCED) | **488** de 1145 (435 + 53) |
+| cotas superiores que são teorema do kernel do Lean (FORMALIZED + INDEPENDENTLY_REPRODUCED) | **642** de 1145 (551 + 91) |
 | cotas inferiores por estado (quase todas herdadas da literatura) | CLAIMED 1140 · CERTIFICATE_VERIFIED 3 · FORMALIZED 2 |
 | exatas fechadas aqui (o intervalo publicado estava aberto) | **4** (1 com as duas cotas no kernel; 3 com a inferior por certificado verificado fora do Lean) |
-| células com teorema Lean próprio | **15** (12 abaixo da melhor cota superior publicada que achamos) |
-| códigos explícitos em `data/codes/` | **19** (todos passam no verificador C oficial, `tools/verify/check_all.sh`, no CI); 13 são a testemunha atual de uma cota do ledger, sha256 conferido |
+| células com teorema Lean próprio | **110** (12 abaixo da melhor cota superior publicada que achamos) |
+| códigos explícitos em `data/codes/` | **44** (todos passam no verificador C oficial, `tools/verify/check_all.sh`, no CI); 38 são a testemunha atual de uma cota do ledger, sha256 conferido |
 
-Versão 0.9.0 · DOI [10.5281/zenodo.23085769](https://doi.org/10.5281/zenodo.23085769) · ledger atualizado em 2026-10-06. As cotas inferiores **não** estão, em geral, no Lean: só 2 delas são teorema do kernel.
+Versão 0.9.1 · DOI [10.5281/zenodo.23085769](https://doi.org/10.5281/zenodo.23085769) · ledger atualizado em 2026-10-06. As cotas inferiores **não** estão, em geral, no Lean: só 2 delas são teorema do kernel.
 
 ### Destaques
 
@@ -117,6 +119,101 @@ Células com resultado próprio: teorema Lean nosso ou cota inferior por certifi
 | `K_5(9,3)` | 354–1275 | 354–**1250** (−2,0 %) | CLAIMED | INDEPENDENTLY_REPRODUCED | `CoveringKernel.K5_9_3_le_1250_kernel` · [código](data/codes/q5_n9_R3_M1250.txt) |
 | `K_5(9,4)` | 64–255 | 64–**250** (−2,0 %) | CLAIMED | INDEPENDENTLY_REPRODUCED | `CoveringKernel.K5_9_4_le_250_kernel` · [código](data/codes/q5_n9_R4_M250.txt) |
 | `K_2(6,1)` | = 12 | **= 12** | FORMALIZED | FORMALIZED | `SC.K_2_6_1_eq12` |
+| `K_2(12,3)` | 19–28 | 19–28 | CLAIMED | INDEPENDENTLY_REPRODUCED | `CoveringLit.K2_12_3_le_28` · [código](data/codes/q2_n12_R3_M28.txt) |
+| `K_2(13,1)` | 607–704 | 607–704 | CLAIMED | INDEPENDENTLY_REPRODUCED | `Syn.K2_13_1_le_704_syn` · [código](data/codes/q2_n13_R1_M704.txt) |
+| `K_2(13,3)` | 28–42 | 28–42 | CLAIMED | INDEPENDENTLY_REPRODUCED | `CoveringLit.K2_13_3_le_42` · [código](data/codes/q2_n13_R3_M42.txt) |
+| `K_2(14,1)` | 1185–1408 | 1185–1408 | CLAIMED | FORMALIZED | `CoveringLit.K2_14_1_le_1408` |
+| `K_2(14,4)` | 16–28 | 16–28 | CLAIMED | INDEPENDENTLY_REPRODUCED | `CoveringLit.K2_14_4_le_28` · [código](data/codes/q2_n14_R4_M28.txt) |
+| `K_2(15,2)` | 310–384 | 310–384 | CLAIMED | INDEPENDENTLY_REPRODUCED | `Syn.K2_15_2_le_384_syn` · [código](data/codes/q2_n15_R2_M384.txt) |
+| `K_2(15,4)` | 23–32 | 23–32 | CLAIMED | INDEPENDENTLY_REPRODUCED | `CoveringLit.K2_15_4_le_32` · [código](data/codes/q2_n15_R4_M32.txt) |
+| `K_2(17,3)` | 187–320 | 187–320 | CLAIMED | INDEPENDENTLY_REPRODUCED | `Syn.K2_17_3_le_320_syn` · [código](data/codes/q2_n17_R3_M320.txt) |
+| `K_2(17,5)` | 20–32 | 20–32 | CLAIMED | INDEPENDENTLY_REPRODUCED | `Syn.K2_17_5_le_32_syn` · [código](data/codes/q2_n17_R5_M32.txt) |
+| `K_2(18,2)` | 1702–2944 | 1702–2944 | CLAIMED | INDEPENDENTLY_REPRODUCED | `Syn.K2_18_2_le_2944_syn` · [código](data/codes/q2_n18_R2_M2944.txt) |
+| `K_2(18,3)` | 316–512 | 316–512 | CLAIMED | INDEPENDENTLY_REPRODUCED | `Syn.K2_18_3_le_512_syn` · [código](data/codes/q2_n18_R3_M512.txt) |
+| `K_2(19,4)` | 128–256 | 128–256 | CLAIMED | INDEPENDENTLY_REPRODUCED | `Syn.K2_19_4_le_256_syn` · [código](data/codes/q2_n19_R4_M256.txt) |
+| `K_2(19,6)` | 17–32 | 17–32 | CLAIMED | INDEPENDENTLY_REPRODUCED | `Syn.K2_19_6_le_32_syn` · [código](data/codes/q2_n19_R6_M32.txt) |
+| `K_2(21,3)` | 1475–3072 | 1475–3072 | CLAIMED | FORMALIZED | `Syn.K2_21_3_le_3072_syn` |
+| `K_2(23,4)` | 912–2048 | 912–2048 | CLAIMED | FORMALIZED | `Syn.K2_23_4_le_2048_syn` |
+| `K_2(24,5)` | 376–1024 | 376–1024 | CLAIMED | FORMALIZED | `Syn.K2_24_5_le_1024_syn` |
+| `K_6(5,2)` | 36–66 | 36–66 | CLAIMED | INDEPENDENTLY_REPRODUCED | `CoveringLit.K6_5_2_le_66` · [código](data/codes/q6_n5_R2_M66.txt) |
+| `K_6(6,4)` | = 10 | **= 10** | CLAIMED | INDEPENDENTLY_REPRODUCED | `CoveringLit.K6_6_4_le_10` · [código](data/codes/q6_n6_R4_M10.txt) |
+| `K_6(7,4)` | 18–36 | 18–36 | CLAIMED | INDEPENDENTLY_REPRODUCED | `CoveringLit.K6_7_4_le_36` · [código](data/codes/q6_n7_R4_M36.txt) |
+| `K_6(10,6)` | 25–72 | 25–72 | CLAIMED | FORMALIZED | `CoveringLit.K6_10_6_le_72` |
+| `K_7(5,2)` | 55–97 | 55–97 | CLAIMED | INDEPENDENTLY_REPRODUCED | `CoveringLit.K7_5_2_le_97` · [código](data/codes/q7_n5_R2_M97.txt) |
+| `K_7(7,5)` | = 11 | **= 11** | CLAIMED | INDEPENDENTLY_REPRODUCED | `CoveringLit.K7_7_5_le_11` · [código](data/codes/q7_n7_R5_M11.txt) |
+| `K_7(9,6)` | 17–37 | 17–37 | CLAIMED | FORMALIZED | `CoveringLit.K7_9_6_le_37` |
+| `K_8(5,2)` | 83–128 | 83–128 | CLAIMED | INDEPENDENTLY_REPRODUCED | `CoveringLit.K8_5_2_le_128` · [código](data/codes/q8_n5_R2_M128.txt) |
+| `K_8(7,4)` | 37–92 | 37–92 | CLAIMED | INDEPENDENTLY_REPRODUCED | `CoveringLit.K8_7_4_le_92` · [código](data/codes/q8_n7_R4_M92.txt) |
+| `K_8(7,5)` | 14–16 | 14–16 | CLAIMED | INDEPENDENTLY_REPRODUCED | `CoveringLit.K8_7_5_le_16` · [código](data/codes/q8_n7_R5_M16.txt) |
+| `K_8(8,6)` | = 12 | **= 12** | CLAIMED | FORMALIZED | `CoveringLit.K8_8_6_le_12` |
+| `K_8(9,6)` | 22–48 | 22–48 | CLAIMED | FORMALIZED | `CoveringLit.K8_9_6_le_48` |
+| `K_9(5,2)` | 113–189 | 113–189 | CLAIMED | INDEPENDENTLY_REPRODUCED | `CoveringLit.K9_5_2_le_189` · [código](data/codes/q9_n5_R2_M189.txt) |
+| `K_9(7,4)` | 51–120 | 51–120 | CLAIMED | INDEPENDENTLY_REPRODUCED | `CoveringLit.K9_7_4_le_120` · [código](data/codes/q9_n7_R4_M120.txt) |
+| `K_9(7,5)` | 16–21 | 16–21 | CLAIMED | INDEPENDENTLY_REPRODUCED | `CoveringLit.K9_7_5_le_21` · [código](data/codes/q9_n7_R5_M21.txt) |
+| `K_9(8,6)` | 15–17 | 15–17 | CLAIMED | FORMALIZED | `CoveringLit.K9_8_6_le_17` |
+| `K_9(9,7)` | = 13 | **= 13** | CLAIMED | FORMALIZED | `CoveringLit.K9_9_7_le_13` |
+| `K_10(5,2)` | 149–250 | 149–250 | CLAIMED | INDEPENDENTLY_REPRODUCED | `CoveringLit.K10_5_2_le_250` · [código](data/codes/q10_n5_R2_M250.txt) |
+| `K_10(7,5)` | 19–26 | 19–26 | CLAIMED | INDEPENDENTLY_REPRODUCED | `CoveringLit.K10_7_5_le_26` · [código](data/codes/q10_n7_R5_M26.txt) |
+| `K_10(8,6)` | 17–22 | 17–22 | CLAIMED | FORMALIZED | `CoveringLit.K10_8_6_le_22` |
+| `K_10(9,7)` | 16–18 | 16–18 | CLAIMED | FORMALIZED | `CoveringLit.K10_9_7_le_18` |
+| `K_10(10,8)` | = 14 | **= 14** | CLAIMED | FORMALIZED | `CoveringLit.K10_10_8_le_14` |
+| `K_11(7,5)` | 22–31 | 22–31 | CLAIMED | FORMALIZED | `CoveringLit.K11_7_5_le_31` |
+| `K_11(8,6)` | 20–27 | 20–27 | CLAIMED | FORMALIZED | `CoveringLit.K11_8_6_le_27` |
+| `K_12(5,2)` | 256–468 | 256–468 | CLAIMED | FORMALIZED | `CoveringLit.K12_5_2_le_468` |
+| `K_12(7,5)` | 25–36 | 25–36 | CLAIMED | FORMALIZED | `CoveringLit.K12_7_5_le_36` |
+| `K_12(8,6)` | 23–32 | 23–32 | CLAIMED | FORMALIZED | `CoveringLit.K12_8_6_le_32` |
+| `K_13(4,2)` | = 57 | **= 57** | CLAIMED | FORMALIZED | `CoveringLit.K13_4_2_le_57` |
+| `K_13(7,5)` | 29–42 | 29–42 | CLAIMED | FORMALIZED | `CoveringLit.K13_7_5_le_42` |
+| `K_13(8,6)` | 25–37 | 25–37 | CLAIMED | FORMALIZED | `CoveringLit.K13_8_6_le_37` |
+| `K_14(4,2)` | = 66 | **= 66** | CLAIMED | FORMALIZED | `CoveringLit.K14_4_2_le_66` |
+| `K_14(5,2)` | 381–686 | 381–686 | CLAIMED | FORMALIZED | `CoveringLit.K14_5_2_le_686` |
+| `K_14(5,3)` | 50–54 | 50–54 | CLAIMED | FORMALIZED | `CoveringLit.K14_5_3_le_54` |
+| `K_14(7,3)` | 1570–4802 | 1570–4802 | CLAIMED | FORMALIZED | `CoveringLit.K14_7_3_le_4802` |
+| `K_14(7,5)` | 34–48 | 34–48 | CLAIMED | FORMALIZED | `CoveringLit.K14_7_5_le_48` |
+| `K_14(8,6)` | 29–42 | 29–42 | CLAIMED | FORMALIZED | `CoveringLit.K14_8_6_le_42` |
+| `K_15(4,2)` | = 75 | **= 75** | CLAIMED | FORMALIZED | `CoveringLit.K15_4_2_le_75` |
+| `K_15(5,2)` | 465–855 | 465–855 | CLAIMED | FORMALIZED | `CoveringLit.K15_5_2_le_855` |
+| `K_15(5,3)` | 57–59 | 57–59 | CLAIMED | FORMALIZED | `CoveringLit.K15_5_3_le_59` |
+| `K_15(7,3)` | 1745–6497 | 1745–6497 | CLAIMED | FORMALIZED | `CoveringLit.K15_7_3_le_6497` |
+| `K_15(7,5)` | 39–54 | 39–54 | CLAIMED | FORMALIZED | `CoveringLit.K15_7_5_le_54` |
+| `K_15(8,6)` | 33–49 | 33–49 | CLAIMED | FORMALIZED | `CoveringLit.K15_8_6_le_49` |
+| `K_16(4,2)` | 86–87 | 86–87 | CLAIMED | FORMALIZED | `CoveringLit.K16_4_2_le_87` |
+| `K_16(5,2)` | 576–1024 | 576–1024 | CLAIMED | FORMALIZED | `CoveringLit.K16_5_2_le_1024` |
+| `K_16(5,3)` | = 64 | **= 64** | CLAIMED | FORMALIZED | `CoveringLit.K16_5_3_le_64` |
+| `K_16(7,3)` | 2226–8192 | 2226–8192 | CLAIMED | FORMALIZED | `CoveringLit.K16_7_3_le_8192` |
+| `K_16(7,5)` | 44–60 | 44–60 | CLAIMED | FORMALIZED | `CoveringLit.K16_7_5_le_60` |
+| `K_16(8,6)` | 38–56 | 38–56 | CLAIMED | FORMALIZED | `CoveringLit.K16_8_6_le_56` |
+| `K_17(4,2)` | 97–99 | 97–99 | CLAIMED | FORMALIZED | `CoveringLit.K17_4_2_le_99` |
+| `K_17(5,2)` | 671–1241 | 671–1241 | CLAIMED | FORMALIZED | `CoveringLit.K17_5_2_le_1241` |
+| `K_17(5,3)` | = 73 | **= 73** | CLAIMED | FORMALIZED | `CoveringLit.K17_5_3_le_73` |
+| `K_17(7,3)` | 2806–10657 | 2806–10657 | CLAIMED | FORMALIZED | `CoveringLit.K17_7_3_le_10657` |
+| `K_17(7,5)` | 49–66 | 49–66 | CLAIMED | FORMALIZED | `CoveringLit.K17_7_5_le_66` |
+| `K_17(8,6)` | 43–63 | 43–63 | CLAIMED | FORMALIZED | `CoveringLit.K17_8_6_le_63` |
+| `K_18(4,2)` | 109–111 | 109–111 | CLAIMED | FORMALIZED | `CoveringLit.K18_4_2_le_111` |
+| `K_18(5,2)` | 807–1458 | 807–1458 | CLAIMED | FORMALIZED | `CoveringLit.K18_5_2_le_1458` |
+| `K_18(5,3)` | = 82 | **= 82** | CLAIMED | FORMALIZED | `CoveringLit.K18_5_3_le_82` |
+| `K_18(6,4)` | 66–80 | 66–80 | CLAIMED | FORMALIZED | `CoveringLit.K18_6_4_le_80` |
+| `K_18(7,3)` | 3492–13122 | 3492–13122 | CLAIMED | FORMALIZED | `CoveringLit.K18_7_3_le_13122` |
+| `K_18(7,5)` | 55–72 | 55–72 | CLAIMED | FORMALIZED | `CoveringLit.K18_7_5_le_72` |
+| `K_18(8,6)` | 48–70 | 48–70 | CLAIMED | FORMALIZED | `CoveringLit.K18_8_6_le_70` |
+| `K_19(4,2)` | 121–123 | 121–123 | CLAIMED | FORMALIZED | `CoveringLit.K19_4_2_le_123` |
+| `K_19(5,3)` | = 91 | **= 91** | CLAIMED | FORMALIZED | `CoveringLit.K19_5_3_le_91` |
+| `K_19(6,4)` | 73–86 | 73–86 | CLAIMED | FORMALIZED | `CoveringLit.K19_6_4_le_86` |
+| `K_19(7,3)` | 4282–18737 | 4282–18737 | CLAIMED | FORMALIZED | `CoveringLit.K19_7_3_le_18737` |
+| `K_19(7,5)` | 61–81 | 61–81 | CLAIMED | FORMALIZED | `CoveringLit.K19_7_5_le_81` |
+| `K_19(8,6)` | 53–77 | 53–77 | CLAIMED | FORMALIZED | `CoveringLit.K19_8_6_le_77` |
+| `K_20(4,2)` | 134–135 | 134–135 | CLAIMED | FORMALIZED | `CoveringLit.K20_4_2_le_135` |
+| `K_20(5,3)` | = 100 | **= 100** | CLAIMED | FORMALIZED | `CoveringLit.K20_5_3_le_100` |
+| `K_20(6,4)` | 81–93 | 81–93 | CLAIMED | FORMALIZED | `CoveringLit.K20_6_4_le_93` |
+| `K_20(7,3)` | 5215–21202 | 5215–21202 | CLAIMED | FORMALIZED | `CoveringLit.K20_7_3_le_21202` |
+| `K_20(7,5)` | 68–89 | 68–89 | CLAIMED | FORMALIZED | `CoveringLit.K20_7_5_le_89` |
+| `K_20(8,6)` | 58–84 | 58–84 | CLAIMED | FORMALIZED | `CoveringLit.K20_8_6_le_84` |
+| `K_21(4,2)` | = 147 | **= 147** | CLAIMED | FORMALIZED | `CoveringLit.K21_4_2_le_147` |
+| `K_21(5,3)` | 111–114 | 111–114 | CLAIMED | FORMALIZED | `CoveringLit.K21_5_3_le_114` |
+| `K_21(6,4)` | 89–99 | 89–99 | CLAIMED | FORMALIZED | `CoveringLit.K21_6_4_le_99` |
+| `K_21(7,4)` | 497–1029 | 497–1029 | CLAIMED | FORMALIZED | `CoveringLit.K21_7_4_le_1029` |
+| `K_21(7,5)` | 75–98 | 75–98 | CLAIMED | FORMALIZED | `CoveringLit.K21_7_5_le_98` |
+| `K_21(8,6)` | 64–91 | 64–91 | CLAIMED | FORMALIZED | `CoveringLit.K21_8_6_le_91` |
 
 Potencialmente novas (não encontradas na literatura que pesquisamos, ver [NOVIDADE_V09](docs/exatos/NOVIDADE_V09.md)): `K_7(6,4)`, `K_3(6,2)`, `K_7(5,3)`.
 
