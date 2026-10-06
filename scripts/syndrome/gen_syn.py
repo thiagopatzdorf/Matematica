@@ -33,7 +33,8 @@ ap.add_argument("--expect-sha", default=None)
 ap.add_argument("--out", default=os.path.join(os.path.dirname(__file__), "..", "..", "CoveringLean"))
 ap.add_argument("--wrong", action="store_true", help="teste negativo: remove uma palavra do código")
 a = ap.parse_args()
-LIST_RECDEPTH_THRESHOLD = 2048
+# Medido: M = 2048 (K_2(23,4)) já estoura o maxRecDepth; M = 1887 passa. 1900 mantém byte a byte os antigos.
+LIST_RECDEPTH_THRESHOLD = 1900
 J = json.load(open(a.spec))
 q, n, R = J["q"], J["n"], J["R"]
 base_dir = os.path.dirname(os.path.abspath(a.spec))

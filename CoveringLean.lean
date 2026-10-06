@@ -31,3 +31,4 @@ import CoveringLean.LratK_K4
 import CoveringLean.Regras
 import CoveringLean.K764_Upper
 import CoveringLean.K753_Upper
+import CoveringLean.Surjetivo

@@ -138,3 +138,20 @@ def test_codigos_dos_artigos_em_data_codes_sao_os_reconstruidos():
         assert p.read_text().split() == txt, p.name
         vistos += 1
     assert vistos >= 20
+
+
+def test_lean_gerado_cobre_exatamente_as_celulas_que_o_gerador_escolhe_e_o_ledger_registra():
+    sys.path.insert(0, str(RAIZ / "tools" / "literatura"))
+    import gerar_lean as gl
+    teoremas, ings = gl.ko05(False)
+    ko05 = (RAIZ / "CoveringLean" / "Literatura" / "KO05.lean").read_text()
+    nomes = {f"K{q}_{n}_{R}_le_{M}" for q, n, R, _t, M, _p in teoremas}
+    assert len(nomes) == 79 and all(f"theorem {x} :" in ko05 for x in nomes)
+    for nm in ings:
+        assert (RAIZ / "CoveringLean" / "Literatura" / f"Surj_{nm}.lean").exists(), nm
+    ours = json.loads((RAIZ / "ledger" / "ours.json").read_text())["cells"]
+    decs = {e["ours_lean"]["declaration"] for e in ours.values() if e.get("ours_lean")}
+    assert {f"CoveringLit.{x}" for x in nomes} <= decs
+    for p in (RAIZ / "CoveringLean" / "Literatura").glob("*.lean"):
+        t = p.read_text()
+        assert "sorry" not in t and "native_decide" not in t, p.name

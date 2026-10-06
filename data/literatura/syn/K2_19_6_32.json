@@ -1,0 +1,21 @@
+{
+ "q": 2,
+ "n": 19,
+ "R": 6,
+ "generator": [
+  "0000000011111110000",
+  "1111111100000001111"
+ ],
+ "coset_reps": [
+  "0000000000000000000",
+  "0110100111010000000",
+  "0111010001101000000",
+  "0010011110111000000",
+  "0001110111100100000",
+  "0011101000110100000",
+  "0100111010001100000",
+  "0101001101011100000"
+ ],
+ "patch_words": [],
+ "origem": "OK98-Ex11-ADS2: Tabela 3, chave a1 (ADS com [3,1]1) sobre o Exemplo 11. Patric R. J. Östergård, Markku K. Kaikkonen, *New upper bounds for binary covering codes*, Discrete Mathematics 178 (1998) 165-179, DOI 10.1016/S0012-365X(97)81825-0."
+}

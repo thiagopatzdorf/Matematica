@@ -30,3 +30,22 @@ mesma convenção, batem; nenhuma troca de um dígito hexadecimal (em `M` ou em 
 bits de `M` conserta. É provável erro de impressão. Esse código é ingrediente do Exemplo 7
 (`K(23,5) ≤ 640`) e da chave a9 da Tabela 3 (`K(27,6)`, `K(29,7)`, `K(30,8)`, `K(31,8)`, `K(33,9)`,
 e `K(32,9)` por a1); essas células continuam só anunciadas aqui.
+
+## No Lean
+
+`tools/literatura/gerar_lean.py` gera os certificados das células cuja cota publicada é igual à do
+código (e `--registrar` grava `ours_lean` em `ledger/ours.json`, depois do build verde):
+
+* Corolário 3 (79 células de chave `n`): o teorema genérico `CoveringSurj.cobre`
+  (`CoveringLean/Surjetivo.lean`, no alvo padrão) e, por célula, `CoveringLit.K<q>_<n>_<R>_le_<M>`
+  (`CoveringLean/Literatura/KO05.lean`); a sobrejetividade de cada ingrediente é conferida pelo
+  kernel com um mapa de bits (`checkSurj`), em `CoveringLean/Literatura/Surj_*.lean`;
+* binários pequenos por witness (`CoveringLean/Literatura/Binarios.lean`, `UB.of_go`) e K₂(14,1) ≤
+  1408 pela regra `K(n+1,R) ≤ 2K(n,R)` sobre o (13,704)1;
+* binários uniões de cosets pelo certificado por síndromes (`Syn.K2_<n>_<R>_le_<M>_syn`, specs em
+  `syn/`, lib `CoveringSyn`).
+
+`lake build CoveringLiteratura` (~1 h de CPU; o ingrediente de 11⁴ palavras leva ~35 min) e
+`lake build CoveringSyn`. Ficam de fora do Lean os binários cujo transversal passa de 2¹⁷ pontos
+(K₂(21,7), K₂(23,8), K₂(25,9), K₂(26,9), K₂(27,10), K₂(28,6), K₂(28,10)): conferidos só pelo
+avaliador exato, continuam CLAIMED no ledger.

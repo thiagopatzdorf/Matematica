@@ -54,7 +54,8 @@ def main(origem: Path) -> None:
             dentro = lambda e: (e["q"], e["n"], e["R"]) in CELULAS  # noqa: E731
             if nome == "bounds":
                 d["entries"] = [e for e in d["entries"] if dentro(e)]
-                d["keys"] = []
+                # As chaves (legenda das tabelas) ficam: o build cita o autor de cada chave na proveniência
+                # e, sem elas, o recorte diverge do ledger inteiro (test_ledger_commitado_bate_com_o_recortado).
                 d["lower_bound_updates_2025"] = []
             elif nome == "sweep_state":
                 d = {k: v for k, v in d.items() if tuple(int(x) for x in k.split(",")) in CELULAS}
