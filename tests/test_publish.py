@@ -1,5 +1,6 @@
 """Publicação: Zenodo (sem rede, com HTTP falso) e página da Genesis."""
 import io
+from collections import Counter
 import json
 import re
 import urllib.error
@@ -121,9 +122,14 @@ def test_pagina_genesis_mostra_as_quinze_cotas_lean_e_nenhuma_so_computacional(l
     genesis_page.main(["--ledger", str(ledger_recortado / "cells.json"), "--doi", "10.5281/zenodo.23092580",
                        "--tag", "v0.8.0", "--data", "2026-10-04", "--saida", str(saida)])
     html = saida.read_text()
-    assert html.count('<span class="ok">Lean kernel</span>:') == 15  # K7(4,2) é uma linha só: ≤ 19 (v0.7) e = 19 (v0.8)
+    status = Counter(c["status"] for c in json.loads((ledger_recortado / "cells.json").read_text())["cells"])
+    # Uma linha por célula nossa: as 15 da v0.9.1 (K7(4,2) é uma linha só: ≤ 19 na v0.7 e = 19 na v0.8)
+    # e as que os códigos dos artigos (data/literatura/) trouxeram, Lean ou só computacionais.
+    assert status["ours_lean"] >= 15
+    assert html.count('<span class="ok">Lean kernel</span>:') == status["ours_lean"]
+    assert html.count('<span class="cp">computer only</span> (not yet a Lean theorem)') == status["ours_computational"]
     # K7(6,4) <= 14 virou teorema do kernel (v0.9, PR #76): não pode mais aparecer como só computacional.
-    assert html.count('<span class="cp">computer only</span> (not yet a Lean theorem)') == 0
+    assert "q7_n6_R4_M14.txt</code> (computer only" not in html
     assert "q7_n6_R4_M14.txt" in html
     # K7(5,3) <= 17: igual à publicada, com código nosso e teorema do kernel publicado na v0.9.1.
     assert "q7_n5_R3_M17.txt" in html and "<code>CoveringK753.K_7_5_3_le_17</code> (v0.9.1)" in html
@@ -152,18 +158,24 @@ def _paper_sem_quebras():
 
 def test_contagem_do_paper_e_do_zenodo_diverge_do_ledger():
     # Na v0.9.0 o paper dizia "the other 659 upper bounds are only claimed" com 658 CLAIMED no
-    # ledger: a contagem escrita à mão tem de bater com cells.json, no paper e no .zenodo.json.
+    # ledger: a contagem escrita à mão tem de fechar com o total, no paper e no .zenodo.json.
+    # O paper descreve a versão lançada e o ledger da main anda na frente entre lançamentos (códigos
+    # novos sobem de estado antes da próxima release): o paper pode ficar atrás, nunca afirmar mais
+    # teoremas do kernel do que o ledger tem, e o paper e o .zenodo.json dizem o mesmo número.
     from collections import Counter
     cells = json.loads((RAIZ / "ledger" / "cells.json").read_text(encoding="utf-8"))["cells"]
     ub = Counter(c["certification"]["ub"]["state"] for c in cells)
     kernel = ub["FORMALIZED"] + ub["INDEPENDENTLY_REPRODUCED"]
     tex = _paper_sem_quebras()
     total = len(cells)
-    assert tex.count(f"${kernel}$ of the ${total}$ upper bounds") == 2  # resumo e seção do ledger
-    assert f"The other ${ub['CLAIMED']}$ upper bounds are only claimed" in tex
-    assert kernel + ub["CLAIMED"] == total
+    ditos = re.findall(r"\$(\d+)\$ of the \$(\d+)\$ upper bounds", tex)
+    assert len(ditos) == 2 and len(set(ditos)) == 1, ditos  # resumo e seção do ledger, iguais
+    k_paper, t_paper = (int(x) for x in ditos[0])
+    assert t_paper == total and k_paper <= kernel
+    claimed_paper = int(re.search(r"The other \$(\d+)\$ upper bounds are only claimed", tex).group(1))
+    assert k_paper + claimed_paper == total
     z = json.loads((RAIZ / ".zenodo.json").read_text(encoding="utf-8"))
-    assert f"{kernel} of the {total} upper bounds are theorems of the Lean kernel" in z["description"]
+    assert f"{k_paper} of the {total} upper bounds are theorems of the Lean kernel" in z["description"]
 
 
 def test_paper_com_versao_diferente_do_zenodo_ou_sem_a_frase_do_ledger():

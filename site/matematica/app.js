@@ -19,7 +19,7 @@
   // a página diz isso no carimbo da seção de números.
   var DADOS_EMBUTIDOS = {
     versao: "0.9.1", doi: "10.5281/zenodo.23085769", celulas_total: 1145, exatas: 523, abertas: 622,
-    superiores_por_estado: { CLAIMED: 657, WITNESS_CHECKED: 0, CERTIFICATE_VERIFIED: 0, FORMALIZED: 435, INDEPENDENTLY_REPRODUCED: 53 },
+    superiores_por_estado: { CLAIMED: 632, WITNESS_CHECKED: 25, CERTIFICATE_VERIFIED: 0, FORMALIZED: 435, INDEPENDENTLY_REPRODUCED: 53 },
     inferiores_por_estado: { CLAIMED: 1140, WITNESS_CHECKED: 0, CERTIFICATE_VERIFIED: 3, FORMALIZED: 2, INDEPENDENTLY_REPRODUCED: 0 },
     destaques: [
       { celula: "K3(6,2)", antes: "15–17", agora: "= 17", estado_lb: "CERTIFICATE_VERIFIED", estado_ub: "INDEPENDENTLY_REPRODUCED", fonte: "docs/exatos/NOVIDADE_V09.md" },

@@ -190,6 +190,23 @@ PROVENANCE = {
 }
 
 
+def _literatura() -> dict:
+    """Proveniência dos códigos reconstruídos de artigos (tools/literatura/codigos_papers.py): vem do
+    registro P-lit-* de ledger/provenance.json, para não haver duas cópias da mesma informação."""
+    with open(os.path.join(ROOT, "ledger", "provenance.json"), encoding="utf-8") as f:
+        reg = json.load(f)["registros"]
+    out = {}
+    for pid, r in reg.items():
+        if pid.startswith("P-lit-"):
+            out[os.path.basename(r["codigo"])[:-4]] = {
+                "generator": r["gerador"], "commit": r["commit"], "seed": r["seed"], "command": r["comando"],
+                "date": r["data"], "agent": r["agente"], "repo_commit": None, "notes": r["lacuna"]}
+    return out
+
+
+PROVENANCE.update(_literatura())
+
+
 def build(txt: str) -> tuple[str, str]:
     q, n, R, M = cf.parse_cell_name(txt)
     name = os.path.basename(txt)[:-4]

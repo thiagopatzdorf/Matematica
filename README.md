@@ -91,7 +91,7 @@ The block below is generated from `ledger/cells.json` and is not edited by hand.
 | lower bounds by state (almost all inherited from the literature) | CLAIMED 1140 · CERTIFICATE_VERIFIED 3 · FORMALIZED 2 |
 | exact values closed here (the published interval was open) | **4** (1 with both bounds in the kernel; 3 with the lower bound by a verified certificate outside Lean) |
 | cells with our own Lean theorem | **15** (12 below the best published upper bound we found) |
-| explicit codes in `data/codes/` | **19** (all pass the official C verifier, `tools/verify/check_all.sh`, in CI); 13 are the current witness of a ledger bound, sha256 checked |
+| explicit codes in `data/codes/` | **44** (all pass the official C verifier, `tools/verify/check_all.sh`, in CI); 13 are the current witness of a ledger bound, sha256 checked |
 
 Version 0.9.1 · DOI [10.5281/zenodo.23085769](https://doi.org/10.5281/zenodo.23085769) · ledger updated on 2026-10-06. Lower bounds are, in general, **not** in Lean: only 2 of them are kernel theorems.
 

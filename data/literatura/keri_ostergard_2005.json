@@ -1,0 +1,2024 @@
+{
+ "chave": "keri_ostergard_2005",
+ "citacao": {
+  "autores": [
+   "Gerzson Kéri",
+   "Patric R. J. Östergård"
+  ],
+  "titulo": "Bounds for covering codes over large alphabets",
+  "veiculo": "Designs, Codes and Cryptography",
+  "volume": 37,
+  "ano": 2005,
+  "paginas": "45-60",
+  "doi": "10.1007/s10623-004-3804-8"
+ },
+ "aviso": "Fatos matemáticos do artigo; o PDF não é versionado. O artigo não lista palavras de nenhum código de cobertura (os códigos 'available on request' / página web): o único código explícito é o do Exemplo 3. A chave n das tabelas é o Corolário 3 (p. 55): K_{q1+...+qk}(kr-k+1, kr-k+1-r) <= sum sigma_{qi}(kr-k+1, r; 0), com os sigma das Tabelas 2 e 3 (p. 52-53). Aqui cada célula de chave n é reconstruída por essa construção, com ingredientes r-sobrejetivos explícitos: Reed–Solomon estendido (potência de primo, n <= v+1), Kleitman–Spencer (binário, t = 2), o código do Exemplo 3, ou covering arrays achados aqui por recozimento simulado (data/literatura/surjetivos/) com os tamanhos das Tabelas 2 e 3 (e, para sigma_3(7,3) = 40 e sigma_2(10,4) = 24, os tamanhos das tabelas de covering arrays que o Kéri usou em 2011).",
+ "itens": [
+  {
+   "id": "KO05-Ex3",
+   "local": "Exemplo 3, p. 54",
+   "tipo": "surjetivo",
+   "q": 7,
+   "n": 7,
+   "t": 3,
+   "M": 343,
+   "geradores_Z7": [
+    [
+     1,
+     0,
+     0,
+     1,
+     3,
+     1,
+     1
+    ],
+    [
+     0,
+     1,
+     0,
+     1,
+     4,
+     4,
+     5
+    ],
+    [
+     0,
+     0,
+     1,
+     5,
+     3,
+     2,
+     3
+    ]
+   ],
+   "nota": "código linear [7,3] sobre Z_7 que o artigo afirma 3-sobrejetivo (conferido aqui por exaustão); é o ingrediente sigma_7(7,3) = 343 (arquivo data/literatura/surjetivos/ca_t3_n7_v7_N343.txt)"
+  },
+  {
+   "id": "KO05-n-K6_4_2",
+   "local": "Corolário 3, p. 55; tabelas 5-7 (chave n) e tabelas do Kéri 2011",
+   "q": 6,
+   "n": 4,
+   "R": 2,
+   "tipo": "nao_reproduzido",
+   "M": 15,
+   "motivo": "com os ingredientes disponíveis o Corolário 3 dá 18 > 15 (falta sigma de tabelas posteriores)"
+  },
+  {
+   "id": "KO05-n-K6_5_2",
+   "local": "Corolário 3, p. 55; tabelas 5-7 (chave n) e tabelas do Kéri 2011",
+   "q": 6,
+   "n": 5,
+   "R": 2,
+   "tipo": "corolario3",
+   "M": 66,
+   "partes": [
+    3,
+    3
+   ],
+   "ingredientes": [
+    "data/literatura/surjetivos/ca_t3_n5_v3_N33.txt",
+    "data/literatura/surjetivos/ca_t3_n5_v3_N33.txt"
+   ]
+  },
+  {
+   "id": "KO05-n-K6_6_4",
+   "local": "Corolário 3, p. 55; tabelas 5-7 (chave n) e tabelas do Kéri 2011",
+   "q": 6,
+   "n": 6,
+   "R": 4,
+   "tipo": "corolario3",
+   "M": 10,
+   "partes": [
+    2,
+    1,
+    1,
+    1,
+    1
+   ],
+   "ingredientes": [
+    "Kleitman–Spencer (6 linhas)",
+    "trivial (uma palavra)",
+    "trivial (uma palavra)",
+    "trivial (uma palavra)",
+    "trivial (uma palavra)"
+   ]
+  },
+  {
+   "id": "KO05-n-K6_7_4",
+   "local": "Corolário 3, p. 55; tabelas 5-7 (chave n) e tabelas do Kéri 2011",
+   "q": 6,
+   "n": 7,
+   "R": 4,
+   "tipo": "corolario3",
+   "M": 36,
+   "partes": [
+    2,
+    2,
+    2
+   ],
+   "ingredientes": [
+    "data/literatura/surjetivos/ca_t3_n7_v2_N12.txt",
+    "data/literatura/surjetivos/ca_t3_n7_v2_N12.txt",
+    "data/literatura/surjetivos/ca_t3_n7_v2_N12.txt"
+   ]
+  },
+  {
+   "id": "KO05-n-K6_10_6",
+   "local": "Corolário 3, p. 55; tabelas 5-7 (chave n) e tabelas do Kéri 2011",
+   "q": 6,
+   "n": 10,
+   "R": 6,
+   "tipo": "corolario3",
+   "M": 72,
+   "partes": [
+    2,
+    2,
+    2
+   ],
+   "ingredientes": [
+    "data/literatura/surjetivos/ca_t4_n10_v2_N24.txt",
+    "data/literatura/surjetivos/ca_t4_n10_v2_N24.txt",
+    "data/literatura/surjetivos/ca_t4_n10_v2_N24.txt"
+   ]
+  },
+  {
+   "id": "KO05-n-K7_4_2",
+   "local": "Corolário 3, p. 55; tabelas 5-7 (chave n) e tabelas do Kéri 2011",
+   "q": 7,
+   "n": 4,
+   "R": 2,
+   "tipo": "corolario3",
+   "M": 19,
+   "partes": [
+    3,
+    3,
+    1
+   ],
+   "ingredientes": [
+    "Reed–Solomon estendido sobre GF(3)",
+    "Reed–Solomon estendido sobre GF(3)",
+    "trivial (uma palavra)"
+   ]
+  },
+  {
+   "id": "KO05-n-K7_5_2",
+   "local": "Corolário 3, p. 55; tabelas 5-7 (chave n) e tabelas do Kéri 2011",
+   "q": 7,
+   "n": 5,
+   "R": 2,
+   "tipo": "corolario3",
+   "M": 97,
+   "partes": [
+    4,
+    3
+   ],
+   "ingredientes": [
+    "Reed–Solomon estendido sobre GF(4)",
+    "data/literatura/surjetivos/ca_t3_n5_v3_N33.txt"
+   ]
+  },
+  {
+   "id": "KO05-n-K7_6_4",
+   "local": "Corolário 3, p. 55; tabelas 5-7 (chave n) e tabelas do Kéri 2011",
+   "q": 7,
+   "n": 6,
+   "R": 4,
+   "tipo": "corolario3",
+   "M": 15,
+   "partes": [
+    2,
+    2,
+    1,
+    1,
+    1
+   ],
+   "ingredientes": [
+    "Kleitman–Spencer (6 linhas)",
+    "Kleitman–Spencer (6 linhas)",
+    "trivial (uma palavra)",
+    "trivial (uma palavra)",
+    "trivial (uma palavra)"
+   ]
+  },
+  {
+   "id": "KO05-n-K7_7_5",
+   "local": "Corolário 3, p. 55; tabelas 5-7 (chave n) e tabelas do Kéri 2011",
+   "q": 7,
+   "n": 7,
+   "R": 5,
+   "tipo": "corolario3",
+   "M": 11,
+   "partes": [
+    2,
+    1,
+    1,
+    1,
+    1,
+    1
+   ],
+   "ingredientes": [
+    "Kleitman–Spencer (6 linhas)",
+    "trivial (uma palavra)",
+    "trivial (uma palavra)",
+    "trivial (uma palavra)",
+    "trivial (uma palavra)",
+    "trivial (uma palavra)"
+   ]
+  },
+  {
+   "id": "KO05-n-K7_9_6",
+   "local": "Corolário 3, p. 55; tabelas 5-7 (chave n) e tabelas do Kéri 2011",
+   "q": 7,
+   "n": 9,
+   "R": 6,
+   "tipo": "corolario3",
+   "M": 37,
+   "partes": [
+    2,
+    2,
+    2,
+    1
+   ],
+   "ingredientes": [
+    "data/literatura/surjetivos/ca_t3_n9_v2_N12.txt",
+    "data/literatura/surjetivos/ca_t3_n9_v2_N12.txt",
+    "data/literatura/surjetivos/ca_t3_n9_v2_N12.txt",
+    "trivial (uma palavra)"
+   ]
+  },
+  {
+   "id": "KO05-n-K8_4_2",
+   "local": "Corolário 3, p. 55; tabelas 5-7 (chave n) e tabelas do Kéri 2011",
+   "q": 8,
+   "n": 4,
+   "R": 2,
+   "tipo": "nao_reproduzido",
+   "M": 23,
+   "motivo": "com os ingredientes disponíveis o Corolário 3 dá 26 > 23 (falta sigma de tabelas posteriores)"
+  },
+  {
+   "id": "KO05-n-K8_5_2",
+   "local": "Corolário 3, p. 55; tabelas 5-7 (chave n) e tabelas do Kéri 2011",
+   "q": 8,
+   "n": 5,
+   "R": 2,
+   "tipo": "corolario3",
+   "M": 128,
+   "partes": [
+    4,
+    4
+   ],
+   "ingredientes": [
+    "Reed–Solomon estendido sobre GF(4)",
+    "Reed–Solomon estendido sobre GF(4)"
+   ]
+  },
+  {
+   "id": "KO05-n-K8_6_4",
+   "local": "Corolário 3, p. 55; tabelas 5-7 (chave n) e tabelas do Kéri 2011",
+   "q": 8,
+   "n": 6,
+   "R": 4,
+   "tipo": "nao_reproduzido",
+   "M": 19,
+   "motivo": "cota publicada atual 19 é do Marosi 2026 (melhor que o Corolário 3)"
+  },
+  {
+   "id": "KO05-n-K8_7_4",
+   "local": "Corolário 3, p. 55; tabelas 5-7 (chave n) e tabelas do Kéri 2011",
+   "q": 8,
+   "n": 7,
+   "R": 4,
+   "tipo": "corolario3",
+   "M": 92,
+   "partes": [
+    3,
+    3,
+    2
+   ],
+   "ingredientes": [
+    "data/literatura/surjetivos/ca_t3_n7_v3_N40.txt",
+    "data/literatura/surjetivos/ca_t3_n7_v3_N40.txt",
+    "data/literatura/surjetivos/ca_t3_n7_v2_N12.txt"
+   ]
+  },
+  {
+   "id": "KO05-n-K8_7_5",
+   "local": "Corolário 3, p. 55; tabelas 5-7 (chave n) e tabelas do Kéri 2011",
+   "q": 8,
+   "n": 7,
+   "R": 5,
+   "tipo": "corolario3",
+   "M": 16,
+   "partes": [
+    2,
+    2,
+    1,
+    1,
+    1,
+    1
+   ],
+   "ingredientes": [
+    "Kleitman–Spencer (6 linhas)",
+    "Kleitman–Spencer (6 linhas)",
+    "trivial (uma palavra)",
+    "trivial (uma palavra)",
+    "trivial (uma palavra)",
+    "trivial (uma palavra)"
+   ]
+  },
+  {
+   "id": "KO05-n-K8_8_6",
+   "local": "Corolário 3, p. 55; tabelas 5-7 (chave n) e tabelas do Kéri 2011",
+   "q": 8,
+   "n": 8,
+   "R": 6,
+   "tipo": "corolario3",
+   "M": 12,
+   "partes": [
+    2,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1
+   ],
+   "ingredientes": [
+    "Kleitman–Spencer (6 linhas)",
+    "trivial (uma palavra)",
+    "trivial (uma palavra)",
+    "trivial (uma palavra)",
+    "trivial (uma palavra)",
+    "trivial (uma palavra)",
+    "trivial (uma palavra)"
+   ]
+  },
+  {
+   "id": "KO05-n-K8_9_6",
+   "local": "Corolário 3, p. 55; tabelas 5-7 (chave n) e tabelas do Kéri 2011",
+   "q": 8,
+   "n": 9,
+   "R": 6,
+   "tipo": "corolario3",
+   "M": 48,
+   "partes": [
+    2,
+    2,
+    2,
+    2
+   ],
+   "ingredientes": [
+    "data/literatura/surjetivos/ca_t3_n9_v2_N12.txt",
+    "data/literatura/surjetivos/ca_t3_n9_v2_N12.txt",
+    "data/literatura/surjetivos/ca_t3_n9_v2_N12.txt",
+    "data/literatura/surjetivos/ca_t3_n9_v2_N12.txt"
+   ]
+  },
+  {
+   "id": "KO05-n-K8_10_6",
+   "local": "Corolário 3, p. 55; tabelas 5-7 (chave n) e tabelas do Kéri 2011",
+   "q": 8,
+   "n": 10,
+   "R": 6,
+   "tipo": "nao_reproduzido",
+   "M": 324,
+   "motivo": "cota publicada atual 324 é do Marosi 2026 (melhor que o Corolário 3)"
+  },
+  {
+   "id": "KO05-n-K9_4_2",
+   "local": "Corolário 3, p. 55; tabelas 5-7 (chave n) e tabelas do Kéri 2011",
+   "q": 9,
+   "n": 4,
+   "R": 2,
+   "tipo": "corolario3",
+   "M": 27,
+   "partes": [
+    3,
+    3,
+    3
+   ],
+   "ingredientes": [
+    "Reed–Solomon estendido sobre GF(3)",
+    "Reed–Solomon estendido sobre GF(3)",
+    "Reed–Solomon estendido sobre GF(3)"
+   ]
+  },
+  {
+   "id": "KO05-n-K9_5_2",
+   "local": "Corolário 3, p. 55; tabelas 5-7 (chave n) e tabelas do Kéri 2011",
+   "q": 9,
+   "n": 5,
+   "R": 2,
+   "tipo": "corolario3",
+   "M": 189,
+   "partes": [
+    5,
+    4
+   ],
+   "ingredientes": [
+    "Reed–Solomon estendido sobre GF(5)",
+    "Reed–Solomon estendido sobre GF(4)"
+   ]
+  },
+  {
+   "id": "KO05-n-K9_7_4",
+   "local": "Corolário 3, p. 55; tabelas 5-7 (chave n) e tabelas do Kéri 2011",
+   "q": 9,
+   "n": 7,
+   "R": 4,
+   "tipo": "corolario3",
+   "M": 120,
+   "partes": [
+    3,
+    3,
+    3
+   ],
+   "ingredientes": [
+    "data/literatura/surjetivos/ca_t3_n7_v3_N40.txt",
+    "data/literatura/surjetivos/ca_t3_n7_v3_N40.txt",
+    "data/literatura/surjetivos/ca_t3_n7_v3_N40.txt"
+   ]
+  },
+  {
+   "id": "KO05-n-K9_7_5",
+   "local": "Corolário 3, p. 55; tabelas 5-7 (chave n) e tabelas do Kéri 2011",
+   "q": 9,
+   "n": 7,
+   "R": 5,
+   "tipo": "corolario3",
+   "M": 21,
+   "partes": [
+    2,
+    2,
+    2,
+    1,
+    1,
+    1
+   ],
+   "ingredientes": [
+    "Kleitman–Spencer (6 linhas)",
+    "Kleitman–Spencer (6 linhas)",
+    "Kleitman–Spencer (6 linhas)",
+    "trivial (uma palavra)",
+    "trivial (uma palavra)",
+    "trivial (uma palavra)"
+   ]
+  },
+  {
+   "id": "KO05-n-K9_8_6",
+   "local": "Corolário 3, p. 55; tabelas 5-7 (chave n) e tabelas do Kéri 2011",
+   "q": 9,
+   "n": 8,
+   "R": 6,
+   "tipo": "corolario3",
+   "M": 17,
+   "partes": [
+    2,
+    2,
+    1,
+    1,
+    1,
+    1,
+    1
+   ],
+   "ingredientes": [
+    "Kleitman–Spencer (6 linhas)",
+    "Kleitman–Spencer (6 linhas)",
+    "trivial (uma palavra)",
+    "trivial (uma palavra)",
+    "trivial (uma palavra)",
+    "trivial (uma palavra)",
+    "trivial (uma palavra)"
+   ]
+  },
+  {
+   "id": "KO05-n-K9_9_7",
+   "local": "Corolário 3, p. 55; tabelas 5-7 (chave n) e tabelas do Kéri 2011",
+   "q": 9,
+   "n": 9,
+   "R": 7,
+   "tipo": "corolario3",
+   "M": 13,
+   "partes": [
+    2,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1
+   ],
+   "ingredientes": [
+    "Kleitman–Spencer (6 linhas)",
+    "trivial (uma palavra)",
+    "trivial (uma palavra)",
+    "trivial (uma palavra)",
+    "trivial (uma palavra)",
+    "trivial (uma palavra)",
+    "trivial (uma palavra)",
+    "trivial (uma palavra)"
+   ]
+  },
+  {
+   "id": "KO05-n-K9_10_6",
+   "local": "Corolário 3, p. 55; tabelas 5-7 (chave n) e tabelas do Kéri 2011",
+   "q": 9,
+   "n": 10,
+   "R": 6,
+   "tipo": "nao_reproduzido",
+   "M": 477,
+   "motivo": "falta ingrediente t-sobrejetivo para (n=10, t=4) que dê 477 (sigma de tabelas posteriores de covering arrays, não reproduzido)"
+  },
+  {
+   "id": "KO05-n-K10_4_2",
+   "local": "Corolário 3, p. 55; tabelas 5-7 (chave n) e tabelas do Kéri 2011",
+   "q": 10,
+   "n": 4,
+   "R": 2,
+   "tipo": "corolario3",
+   "M": 34,
+   "partes": [
+    4,
+    3,
+    3
+   ],
+   "ingredientes": [
+    "Reed–Solomon estendido sobre GF(4)",
+    "Reed–Solomon estendido sobre GF(3)",
+    "Reed–Solomon estendido sobre GF(3)"
+   ]
+  },
+  {
+   "id": "KO05-n-K10_5_2",
+   "local": "Corolário 3, p. 55; tabelas 5-7 (chave n) e tabelas do Kéri 2011",
+   "q": 10,
+   "n": 5,
+   "R": 2,
+   "tipo": "corolario3",
+   "M": 250,
+   "partes": [
+    5,
+    5
+   ],
+   "ingredientes": [
+    "Reed–Solomon estendido sobre GF(5)",
+    "Reed–Solomon estendido sobre GF(5)"
+   ]
+  },
+  {
+   "id": "KO05-n-K10_7_4",
+   "local": "Corolário 3, p. 55; tabelas 5-7 (chave n) e tabelas do Kéri 2011",
+   "q": 10,
+   "n": 7,
+   "R": 4,
+   "tipo": "nao_reproduzido",
+   "M": 168,
+   "motivo": "com os ingredientes disponíveis o Corolário 3 dá 356 > 168 (falta sigma de tabelas posteriores)"
+  },
+  {
+   "id": "KO05-n-K10_7_5",
+   "local": "Corolário 3, p. 55; tabelas 5-7 (chave n) e tabelas do Kéri 2011",
+   "q": 10,
+   "n": 7,
+   "R": 5,
+   "tipo": "corolario3",
+   "M": 26,
+   "partes": [
+    2,
+    2,
+    2,
+    2,
+    1,
+    1
+   ],
+   "ingredientes": [
+    "Kleitman–Spencer (6 linhas)",
+    "Kleitman–Spencer (6 linhas)",
+    "Kleitman–Spencer (6 linhas)",
+    "Kleitman–Spencer (6 linhas)",
+    "trivial (uma palavra)",
+    "trivial (uma palavra)"
+   ]
+  },
+  {
+   "id": "KO05-n-K10_8_6",
+   "local": "Corolário 3, p. 55; tabelas 5-7 (chave n) e tabelas do Kéri 2011",
+   "q": 10,
+   "n": 8,
+   "R": 6,
+   "tipo": "corolario3",
+   "M": 22,
+   "partes": [
+    2,
+    2,
+    2,
+    1,
+    1,
+    1,
+    1
+   ],
+   "ingredientes": [
+    "Kleitman–Spencer (6 linhas)",
+    "Kleitman–Spencer (6 linhas)",
+    "Kleitman–Spencer (6 linhas)",
+    "trivial (uma palavra)",
+    "trivial (uma palavra)",
+    "trivial (uma palavra)",
+    "trivial (uma palavra)"
+   ]
+  },
+  {
+   "id": "KO05-n-K10_9_7",
+   "local": "Corolário 3, p. 55; tabelas 5-7 (chave n) e tabelas do Kéri 2011",
+   "q": 10,
+   "n": 9,
+   "R": 7,
+   "tipo": "corolario3",
+   "M": 18,
+   "partes": [
+    2,
+    2,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1
+   ],
+   "ingredientes": [
+    "Kleitman–Spencer (6 linhas)",
+    "Kleitman–Spencer (6 linhas)",
+    "trivial (uma palavra)",
+    "trivial (uma palavra)",
+    "trivial (uma palavra)",
+    "trivial (uma palavra)",
+    "trivial (uma palavra)",
+    "trivial (uma palavra)"
+   ]
+  },
+  {
+   "id": "KO05-n-K10_10_6",
+   "local": "Corolário 3, p. 55; tabelas 5-7 (chave n) e tabelas do Kéri 2011",
+   "q": 10,
+   "n": 10,
+   "R": 6,
+   "tipo": "nao_reproduzido",
+   "M": 802,
+   "motivo": "cota publicada atual 802 é do Marosi 2026 (melhor que o Corolário 3)"
+  },
+  {
+   "id": "KO05-n-K10_10_8",
+   "local": "Corolário 3, p. 55; tabelas 5-7 (chave n) e tabelas do Kéri 2011",
+   "q": 10,
+   "n": 10,
+   "R": 8,
+   "tipo": "corolario3",
+   "M": 14,
+   "partes": [
+    2,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1
+   ],
+   "ingredientes": [
+    "Kleitman–Spencer (6 linhas)",
+    "trivial (uma palavra)",
+    "trivial (uma palavra)",
+    "trivial (uma palavra)",
+    "trivial (uma palavra)",
+    "trivial (uma palavra)",
+    "trivial (uma palavra)",
+    "trivial (uma palavra)",
+    "trivial (uma palavra)"
+   ]
+  },
+  {
+   "id": "KO05-n-K11_4_2",
+   "local": "Corolário 3, p. 55; tabelas 5-7 (chave n) e tabelas do Kéri 2011",
+   "q": 11,
+   "n": 4,
+   "R": 2,
+   "tipo": "corolario3",
+   "M": 41,
+   "partes": [
+    4,
+    4,
+    3
+   ],
+   "ingredientes": [
+    "Reed–Solomon estendido sobre GF(4)",
+    "Reed–Solomon estendido sobre GF(4)",
+    "Reed–Solomon estendido sobre GF(3)"
+   ]
+  },
+  {
+   "id": "KO05-n-K11_7_4",
+   "local": "Corolário 3, p. 55; tabelas 5-7 (chave n) e tabelas do Kéri 2011",
+   "q": 11,
+   "n": 7,
+   "R": 4,
+   "tipo": "nao_reproduzido",
+   "M": 216,
+   "motivo": "com os ingredientes disponíveis o Corolário 3 dá 367 > 216 (falta sigma de tabelas posteriores)"
+  },
+  {
+   "id": "KO05-n-K11_7_5",
+   "local": "Corolário 3, p. 55; tabelas 5-7 (chave n) e tabelas do Kéri 2011",
+   "q": 11,
+   "n": 7,
+   "R": 5,
+   "tipo": "corolario3",
+   "M": 31,
+   "partes": [
+    2,
+    2,
+    2,
+    2,
+    2,
+    1
+   ],
+   "ingredientes": [
+    "Kleitman–Spencer (6 linhas)",
+    "Kleitman–Spencer (6 linhas)",
+    "Kleitman–Spencer (6 linhas)",
+    "Kleitman–Spencer (6 linhas)",
+    "Kleitman–Spencer (6 linhas)",
+    "trivial (uma palavra)"
+   ]
+  },
+  {
+   "id": "KO05-n-K11_8_6",
+   "local": "Corolário 3, p. 55; tabelas 5-7 (chave n) e tabelas do Kéri 2011",
+   "q": 11,
+   "n": 8,
+   "R": 6,
+   "tipo": "corolario3",
+   "M": 27,
+   "partes": [
+    2,
+    2,
+    2,
+    2,
+    1,
+    1,
+    1
+   ],
+   "ingredientes": [
+    "Kleitman–Spencer (6 linhas)",
+    "Kleitman–Spencer (6 linhas)",
+    "Kleitman–Spencer (6 linhas)",
+    "Kleitman–Spencer (6 linhas)",
+    "trivial (uma palavra)",
+    "trivial (uma palavra)",
+    "trivial (uma palavra)"
+   ]
+  },
+  {
+   "id": "KO05-n-K12_4_2",
+   "local": "Corolário 3, p. 55; tabelas 5-7 (chave n) e tabelas do Kéri 2011",
+   "q": 12,
+   "n": 4,
+   "R": 2,
+   "tipo": "corolario3",
+   "M": 48,
+   "partes": [
+    4,
+    4,
+    4
+   ],
+   "ingredientes": [
+    "Reed–Solomon estendido sobre GF(4)",
+    "Reed–Solomon estendido sobre GF(4)",
+    "Reed–Solomon estendido sobre GF(4)"
+   ]
+  },
+  {
+   "id": "KO05-n-K12_5_2",
+   "local": "Corolário 3, p. 55; tabelas 5-7 (chave n) e tabelas do Kéri 2011",
+   "q": 12,
+   "n": 5,
+   "R": 2,
+   "tipo": "corolario3",
+   "M": 468,
+   "partes": [
+    7,
+    5
+   ],
+   "ingredientes": [
+    "Reed–Solomon estendido sobre GF(7)",
+    "Reed–Solomon estendido sobre GF(5)"
+   ]
+  },
+  {
+   "id": "KO05-n-K12_7_4",
+   "local": "Corolário 3, p. 55; tabelas 5-7 (chave n) e tabelas do Kéri 2011",
+   "q": 12,
+   "n": 7,
+   "R": 4,
+   "tipo": "nao_reproduzido",
+   "M": 264,
+   "motivo": "com os ingredientes disponíveis o Corolário 3 dá 395 > 264 (falta sigma de tabelas posteriores)"
+  },
+  {
+   "id": "KO05-n-K12_7_5",
+   "local": "Corolário 3, p. 55; tabelas 5-7 (chave n) e tabelas do Kéri 2011",
+   "q": 12,
+   "n": 7,
+   "R": 5,
+   "tipo": "corolario3",
+   "M": 36,
+   "partes": [
+    2,
+    2,
+    2,
+    2,
+    2,
+    2
+   ],
+   "ingredientes": [
+    "Kleitman–Spencer (6 linhas)",
+    "Kleitman–Spencer (6 linhas)",
+    "Kleitman–Spencer (6 linhas)",
+    "Kleitman–Spencer (6 linhas)",
+    "Kleitman–Spencer (6 linhas)",
+    "Kleitman–Spencer (6 linhas)"
+   ]
+  },
+  {
+   "id": "KO05-n-K12_8_6",
+   "local": "Corolário 3, p. 55; tabelas 5-7 (chave n) e tabelas do Kéri 2011",
+   "q": 12,
+   "n": 8,
+   "R": 6,
+   "tipo": "corolario3",
+   "M": 32,
+   "partes": [
+    2,
+    2,
+    2,
+    2,
+    2,
+    1,
+    1
+   ],
+   "ingredientes": [
+    "Kleitman–Spencer (6 linhas)",
+    "Kleitman–Spencer (6 linhas)",
+    "Kleitman–Spencer (6 linhas)",
+    "Kleitman–Spencer (6 linhas)",
+    "Kleitman–Spencer (6 linhas)",
+    "trivial (uma palavra)",
+    "trivial (uma palavra)"
+   ]
+  },
+  {
+   "id": "KO05-n-K13_4_2",
+   "local": "Corolário 3, p. 55; tabelas 5-7 (chave n) e tabelas do Kéri 2011",
+   "q": 13,
+   "n": 4,
+   "R": 2,
+   "tipo": "corolario3",
+   "M": 57,
+   "partes": [
+    5,
+    4,
+    4
+   ],
+   "ingredientes": [
+    "Reed–Solomon estendido sobre GF(5)",
+    "Reed–Solomon estendido sobre GF(4)",
+    "Reed–Solomon estendido sobre GF(4)"
+   ]
+  },
+  {
+   "id": "KO05-n-K13_7_3",
+   "local": "Corolário 3, p. 55; tabelas 5-7 (chave n) e tabelas do Kéri 2011",
+   "q": 13,
+   "n": 7,
+   "R": 3,
+   "tipo": "nao_reproduzido",
+   "M": 4294,
+   "motivo": "falta ingrediente t-sobrejetivo para (n=7, t=4) que dê 4294 (sigma de tabelas posteriores de covering arrays, não reproduzido)"
+  },
+  {
+   "id": "KO05-n-K13_7_5",
+   "local": "Corolário 3, p. 55; tabelas 5-7 (chave n) e tabelas do Kéri 2011",
+   "q": 13,
+   "n": 7,
+   "R": 5,
+   "tipo": "corolario3",
+   "M": 42,
+   "partes": [
+    3,
+    2,
+    2,
+    2,
+    2,
+    2
+   ],
+   "ingredientes": [
+    "data/literatura/surjetivos/ca_t2_n7_v3_N12.txt",
+    "Kleitman–Spencer (6 linhas)",
+    "Kleitman–Spencer (6 linhas)",
+    "Kleitman–Spencer (6 linhas)",
+    "Kleitman–Spencer (6 linhas)",
+    "Kleitman–Spencer (6 linhas)"
+   ]
+  },
+  {
+   "id": "KO05-n-K13_8_6",
+   "local": "Corolário 3, p. 55; tabelas 5-7 (chave n) e tabelas do Kéri 2011",
+   "q": 13,
+   "n": 8,
+   "R": 6,
+   "tipo": "corolario3",
+   "M": 37,
+   "partes": [
+    2,
+    2,
+    2,
+    2,
+    2,
+    2,
+    1
+   ],
+   "ingredientes": [
+    "Kleitman–Spencer (6 linhas)",
+    "Kleitman–Spencer (6 linhas)",
+    "Kleitman–Spencer (6 linhas)",
+    "Kleitman–Spencer (6 linhas)",
+    "Kleitman–Spencer (6 linhas)",
+    "Kleitman–Spencer (6 linhas)",
+    "trivial (uma palavra)"
+   ]
+  },
+  {
+   "id": "KO05-n-K14_4_2",
+   "local": "Corolário 3, p. 55; tabelas 5-7 (chave n) e tabelas do Kéri 2011",
+   "q": 14,
+   "n": 4,
+   "R": 2,
+   "tipo": "corolario3",
+   "M": 66,
+   "partes": [
+    5,
+    5,
+    4
+   ],
+   "ingredientes": [
+    "Reed–Solomon estendido sobre GF(5)",
+    "Reed–Solomon estendido sobre GF(5)",
+    "Reed–Solomon estendido sobre GF(4)"
+   ]
+  },
+  {
+   "id": "KO05-n-K14_5_2",
+   "local": "Corolário 3, p. 55; tabelas 5-7 (chave n) e tabelas do Kéri 2011",
+   "q": 14,
+   "n": 5,
+   "R": 2,
+   "tipo": "corolario3",
+   "M": 686,
+   "partes": [
+    7,
+    7
+   ],
+   "ingredientes": [
+    "Reed–Solomon estendido sobre GF(7)",
+    "Reed–Solomon estendido sobre GF(7)"
+   ]
+  },
+  {
+   "id": "KO05-n-K14_5_3",
+   "local": "Corolário 3, p. 55; tabelas 5-7 (chave n) e tabelas do Kéri 2011",
+   "q": 14,
+   "n": 5,
+   "R": 3,
+   "tipo": "corolario3",
+   "M": 54,
+   "partes": [
+    4,
+    4,
+    4,
+    2
+   ],
+   "ingredientes": [
+    "Reed–Solomon estendido sobre GF(4)",
+    "Reed–Solomon estendido sobre GF(4)",
+    "Reed–Solomon estendido sobre GF(4)",
+    "Kleitman–Spencer (6 linhas)"
+   ]
+  },
+  {
+   "id": "KO05-n-K14_7_3",
+   "local": "Corolário 3, p. 55; tabelas 5-7 (chave n) e tabelas do Kéri 2011",
+   "q": 14,
+   "n": 7,
+   "R": 3,
+   "tipo": "corolario3",
+   "M": 4802,
+   "partes": [
+    7,
+    7
+   ],
+   "ingredientes": [
+    "Reed–Solomon estendido sobre GF(7)",
+    "Reed–Solomon estendido sobre GF(7)"
+   ]
+  },
+  {
+   "id": "KO05-n-K14_7_5",
+   "local": "Corolário 3, p. 55; tabelas 5-7 (chave n) e tabelas do Kéri 2011",
+   "q": 14,
+   "n": 7,
+   "R": 5,
+   "tipo": "corolario3",
+   "M": 48,
+   "partes": [
+    3,
+    3,
+    2,
+    2,
+    2,
+    2
+   ],
+   "ingredientes": [
+    "data/literatura/surjetivos/ca_t2_n7_v3_N12.txt",
+    "data/literatura/surjetivos/ca_t2_n7_v3_N12.txt",
+    "Kleitman–Spencer (6 linhas)",
+    "Kleitman–Spencer (6 linhas)",
+    "Kleitman–Spencer (6 linhas)",
+    "Kleitman–Spencer (6 linhas)"
+   ]
+  },
+  {
+   "id": "KO05-n-K14_8_6",
+   "local": "Corolário 3, p. 55; tabelas 5-7 (chave n) e tabelas do Kéri 2011",
+   "q": 14,
+   "n": 8,
+   "R": 6,
+   "tipo": "corolario3",
+   "M": 42,
+   "partes": [
+    2,
+    2,
+    2,
+    2,
+    2,
+    2,
+    2
+   ],
+   "ingredientes": [
+    "Kleitman–Spencer (6 linhas)",
+    "Kleitman–Spencer (6 linhas)",
+    "Kleitman–Spencer (6 linhas)",
+    "Kleitman–Spencer (6 linhas)",
+    "Kleitman–Spencer (6 linhas)",
+    "Kleitman–Spencer (6 linhas)",
+    "Kleitman–Spencer (6 linhas)"
+   ]
+  },
+  {
+   "id": "KO05-n-K15_4_2",
+   "local": "Corolário 3, p. 55; tabelas 5-7 (chave n) e tabelas do Kéri 2011",
+   "q": 15,
+   "n": 4,
+   "R": 2,
+   "tipo": "corolario3",
+   "M": 75,
+   "partes": [
+    5,
+    5,
+    5
+   ],
+   "ingredientes": [
+    "Reed–Solomon estendido sobre GF(5)",
+    "Reed–Solomon estendido sobre GF(5)",
+    "Reed–Solomon estendido sobre GF(5)"
+   ]
+  },
+  {
+   "id": "KO05-n-K15_5_2",
+   "local": "Corolário 3, p. 55; tabelas 5-7 (chave n) e tabelas do Kéri 2011",
+   "q": 15,
+   "n": 5,
+   "R": 2,
+   "tipo": "corolario3",
+   "M": 855,
+   "partes": [
+    8,
+    7
+   ],
+   "ingredientes": [
+    "Reed–Solomon estendido sobre GF(8)",
+    "Reed–Solomon estendido sobre GF(7)"
+   ]
+  },
+  {
+   "id": "KO05-n-K15_5_3",
+   "local": "Corolário 3, p. 55; tabelas 5-7 (chave n) e tabelas do Kéri 2011",
+   "q": 15,
+   "n": 5,
+   "R": 3,
+   "tipo": "corolario3",
+   "M": 59,
+   "partes": [
+    4,
+    4,
+    4,
+    3
+   ],
+   "ingredientes": [
+    "Reed–Solomon estendido sobre GF(4)",
+    "Reed–Solomon estendido sobre GF(4)",
+    "Reed–Solomon estendido sobre GF(4)",
+    "data/literatura/surjetivos/ca_t2_n5_v3_N11.txt"
+   ]
+  },
+  {
+   "id": "KO05-n-K15_7_3",
+   "local": "Corolário 3, p. 55; tabelas 5-7 (chave n) e tabelas do Kéri 2011",
+   "q": 15,
+   "n": 7,
+   "R": 3,
+   "tipo": "corolario3",
+   "M": 6497,
+   "partes": [
+    8,
+    7
+   ],
+   "ingredientes": [
+    "Reed–Solomon estendido sobre GF(8)",
+    "Reed–Solomon estendido sobre GF(7)"
+   ]
+  },
+  {
+   "id": "KO05-n-K15_7_4",
+   "local": "Corolário 3, p. 55; tabelas 5-7 (chave n) e tabelas do Kéri 2011",
+   "q": 15,
+   "n": 7,
+   "R": 4,
+   "tipo": "nao_reproduzido",
+   "M": 519,
+   "motivo": "com os ingredientes disponíveis o Corolário 3 dá 687 > 519 (falta sigma de tabelas posteriores)"
+  },
+  {
+   "id": "KO05-n-K15_7_5",
+   "local": "Corolário 3, p. 55; tabelas 5-7 (chave n) e tabelas do Kéri 2011",
+   "q": 15,
+   "n": 7,
+   "R": 5,
+   "tipo": "corolario3",
+   "M": 54,
+   "partes": [
+    3,
+    3,
+    3,
+    2,
+    2,
+    2
+   ],
+   "ingredientes": [
+    "data/literatura/surjetivos/ca_t2_n7_v3_N12.txt",
+    "data/literatura/surjetivos/ca_t2_n7_v3_N12.txt",
+    "data/literatura/surjetivos/ca_t2_n7_v3_N12.txt",
+    "Kleitman–Spencer (6 linhas)",
+    "Kleitman–Spencer (6 linhas)",
+    "Kleitman–Spencer (6 linhas)"
+   ]
+  },
+  {
+   "id": "KO05-n-K15_8_6",
+   "local": "Corolário 3, p. 55; tabelas 5-7 (chave n) e tabelas do Kéri 2011",
+   "q": 15,
+   "n": 8,
+   "R": 6,
+   "tipo": "corolario3",
+   "M": 49,
+   "partes": [
+    3,
+    2,
+    2,
+    2,
+    2,
+    2,
+    2
+   ],
+   "ingredientes": [
+    "data/literatura/surjetivos/ca_t2_n8_v3_N13.txt",
+    "Kleitman–Spencer (6 linhas)",
+    "Kleitman–Spencer (6 linhas)",
+    "Kleitman–Spencer (6 linhas)",
+    "Kleitman–Spencer (6 linhas)",
+    "Kleitman–Spencer (6 linhas)",
+    "Kleitman–Spencer (6 linhas)"
+   ]
+  },
+  {
+   "id": "KO05-n-K16_4_2",
+   "local": "Corolário 3, p. 55; tabelas 5-7 (chave n) e tabelas do Kéri 2011",
+   "q": 16,
+   "n": 4,
+   "R": 2,
+   "tipo": "corolario3",
+   "M": 87,
+   "partes": [
+    6,
+    5,
+    5
+   ],
+   "ingredientes": [
+    "data/literatura/surjetivos/ca_t2_n4_v6_N37.txt",
+    "Reed–Solomon estendido sobre GF(5)",
+    "Reed–Solomon estendido sobre GF(5)"
+   ]
+  },
+  {
+   "id": "KO05-n-K16_5_2",
+   "local": "Corolário 3, p. 55; tabelas 5-7 (chave n) e tabelas do Kéri 2011",
+   "q": 16,
+   "n": 5,
+   "R": 2,
+   "tipo": "corolario3",
+   "M": 1024,
+   "partes": [
+    8,
+    8
+   ],
+   "ingredientes": [
+    "Reed–Solomon estendido sobre GF(8)",
+    "Reed–Solomon estendido sobre GF(8)"
+   ]
+  },
+  {
+   "id": "KO05-n-K16_5_3",
+   "local": "Corolário 3, p. 55; tabelas 5-7 (chave n) e tabelas do Kéri 2011",
+   "q": 16,
+   "n": 5,
+   "R": 3,
+   "tipo": "corolario3",
+   "M": 64,
+   "partes": [
+    4,
+    4,
+    4,
+    4
+   ],
+   "ingredientes": [
+    "Reed–Solomon estendido sobre GF(4)",
+    "Reed–Solomon estendido sobre GF(4)",
+    "Reed–Solomon estendido sobre GF(4)",
+    "Reed–Solomon estendido sobre GF(4)"
+   ]
+  },
+  {
+   "id": "KO05-n-K16_7_3",
+   "local": "Corolário 3, p. 55; tabelas 5-7 (chave n) e tabelas do Kéri 2011",
+   "q": 16,
+   "n": 7,
+   "R": 3,
+   "tipo": "corolario3",
+   "M": 8192,
+   "partes": [
+    8,
+    8
+   ],
+   "ingredientes": [
+    "Reed–Solomon estendido sobre GF(8)",
+    "Reed–Solomon estendido sobre GF(8)"
+   ]
+  },
+  {
+   "id": "KO05-n-K16_7_5",
+   "local": "Corolário 3, p. 55; tabelas 5-7 (chave n) e tabelas do Kéri 2011",
+   "q": 16,
+   "n": 7,
+   "R": 5,
+   "tipo": "corolario3",
+   "M": 60,
+   "partes": [
+    3,
+    3,
+    3,
+    3,
+    2,
+    2
+   ],
+   "ingredientes": [
+    "data/literatura/surjetivos/ca_t2_n7_v3_N12.txt",
+    "data/literatura/surjetivos/ca_t2_n7_v3_N12.txt",
+    "data/literatura/surjetivos/ca_t2_n7_v3_N12.txt",
+    "data/literatura/surjetivos/ca_t2_n7_v3_N12.txt",
+    "Kleitman–Spencer (6 linhas)",
+    "Kleitman–Spencer (6 linhas)"
+   ]
+  },
+  {
+   "id": "KO05-n-K16_8_6",
+   "local": "Corolário 3, p. 55; tabelas 5-7 (chave n) e tabelas do Kéri 2011",
+   "q": 16,
+   "n": 8,
+   "R": 6,
+   "tipo": "corolario3",
+   "M": 56,
+   "partes": [
+    3,
+    3,
+    2,
+    2,
+    2,
+    2,
+    2
+   ],
+   "ingredientes": [
+    "data/literatura/surjetivos/ca_t2_n8_v3_N13.txt",
+    "data/literatura/surjetivos/ca_t2_n8_v3_N13.txt",
+    "Kleitman–Spencer (6 linhas)",
+    "Kleitman–Spencer (6 linhas)",
+    "Kleitman–Spencer (6 linhas)",
+    "Kleitman–Spencer (6 linhas)",
+    "Kleitman–Spencer (6 linhas)"
+   ]
+  },
+  {
+   "id": "KO05-n-K17_4_2",
+   "local": "Corolário 3, p. 55; tabelas 5-7 (chave n) e tabelas do Kéri 2011",
+   "q": 17,
+   "n": 4,
+   "R": 2,
+   "tipo": "corolario3",
+   "M": 99,
+   "partes": [
+    7,
+    5,
+    5
+   ],
+   "ingredientes": [
+    "Reed–Solomon estendido sobre GF(7)",
+    "Reed–Solomon estendido sobre GF(5)",
+    "Reed–Solomon estendido sobre GF(5)"
+   ]
+  },
+  {
+   "id": "KO05-n-K17_5_2",
+   "local": "Corolário 3, p. 55; tabelas 5-7 (chave n) e tabelas do Kéri 2011",
+   "q": 17,
+   "n": 5,
+   "R": 2,
+   "tipo": "corolario3",
+   "M": 1241,
+   "partes": [
+    9,
+    8
+   ],
+   "ingredientes": [
+    "Reed–Solomon estendido sobre GF(9)",
+    "Reed–Solomon estendido sobre GF(8)"
+   ]
+  },
+  {
+   "id": "KO05-n-K17_5_3",
+   "local": "Corolário 3, p. 55; tabelas 5-7 (chave n) e tabelas do Kéri 2011",
+   "q": 17,
+   "n": 5,
+   "R": 3,
+   "tipo": "corolario3",
+   "M": 73,
+   "partes": [
+    5,
+    4,
+    4,
+    4
+   ],
+   "ingredientes": [
+    "Reed–Solomon estendido sobre GF(5)",
+    "Reed–Solomon estendido sobre GF(4)",
+    "Reed–Solomon estendido sobre GF(4)",
+    "Reed–Solomon estendido sobre GF(4)"
+   ]
+  },
+  {
+   "id": "KO05-n-K17_7_3",
+   "local": "Corolário 3, p. 55; tabelas 5-7 (chave n) e tabelas do Kéri 2011",
+   "q": 17,
+   "n": 7,
+   "R": 3,
+   "tipo": "corolario3",
+   "M": 10657,
+   "partes": [
+    9,
+    8
+   ],
+   "ingredientes": [
+    "Reed–Solomon estendido sobre GF(9)",
+    "Reed–Solomon estendido sobre GF(8)"
+   ]
+  },
+  {
+   "id": "KO05-n-K17_7_5",
+   "local": "Corolário 3, p. 55; tabelas 5-7 (chave n) e tabelas do Kéri 2011",
+   "q": 17,
+   "n": 7,
+   "R": 5,
+   "tipo": "corolario3",
+   "M": 66,
+   "partes": [
+    3,
+    3,
+    3,
+    3,
+    3,
+    2
+   ],
+   "ingredientes": [
+    "data/literatura/surjetivos/ca_t2_n7_v3_N12.txt",
+    "data/literatura/surjetivos/ca_t2_n7_v3_N12.txt",
+    "data/literatura/surjetivos/ca_t2_n7_v3_N12.txt",
+    "data/literatura/surjetivos/ca_t2_n7_v3_N12.txt",
+    "data/literatura/surjetivos/ca_t2_n7_v3_N12.txt",
+    "Kleitman–Spencer (6 linhas)"
+   ]
+  },
+  {
+   "id": "KO05-n-K17_8_6",
+   "local": "Corolário 3, p. 55; tabelas 5-7 (chave n) e tabelas do Kéri 2011",
+   "q": 17,
+   "n": 8,
+   "R": 6,
+   "tipo": "corolario3",
+   "M": 63,
+   "partes": [
+    3,
+    3,
+    3,
+    2,
+    2,
+    2,
+    2
+   ],
+   "ingredientes": [
+    "data/literatura/surjetivos/ca_t2_n8_v3_N13.txt",
+    "data/literatura/surjetivos/ca_t2_n8_v3_N13.txt",
+    "data/literatura/surjetivos/ca_t2_n8_v3_N13.txt",
+    "Kleitman–Spencer (6 linhas)",
+    "Kleitman–Spencer (6 linhas)",
+    "Kleitman–Spencer (6 linhas)",
+    "Kleitman–Spencer (6 linhas)"
+   ]
+  },
+  {
+   "id": "KO05-n-K18_4_2",
+   "local": "Corolário 3, p. 55; tabelas 5-7 (chave n) e tabelas do Kéri 2011",
+   "q": 18,
+   "n": 4,
+   "R": 2,
+   "tipo": "corolario3",
+   "M": 111,
+   "partes": [
+    7,
+    6,
+    5
+   ],
+   "ingredientes": [
+    "Reed–Solomon estendido sobre GF(7)",
+    "data/literatura/surjetivos/ca_t2_n4_v6_N37.txt",
+    "Reed–Solomon estendido sobre GF(5)"
+   ]
+  },
+  {
+   "id": "KO05-n-K18_5_2",
+   "local": "Corolário 3, p. 55; tabelas 5-7 (chave n) e tabelas do Kéri 2011",
+   "q": 18,
+   "n": 5,
+   "R": 2,
+   "tipo": "corolario3",
+   "M": 1458,
+   "partes": [
+    9,
+    9
+   ],
+   "ingredientes": [
+    "Reed–Solomon estendido sobre GF(9)",
+    "Reed–Solomon estendido sobre GF(9)"
+   ]
+  },
+  {
+   "id": "KO05-n-K18_5_3",
+   "local": "Corolário 3, p. 55; tabelas 5-7 (chave n) e tabelas do Kéri 2011",
+   "q": 18,
+   "n": 5,
+   "R": 3,
+   "tipo": "corolario3",
+   "M": 82,
+   "partes": [
+    5,
+    5,
+    4,
+    4
+   ],
+   "ingredientes": [
+    "Reed–Solomon estendido sobre GF(5)",
+    "Reed–Solomon estendido sobre GF(5)",
+    "Reed–Solomon estendido sobre GF(4)",
+    "Reed–Solomon estendido sobre GF(4)"
+   ]
+  },
+  {
+   "id": "KO05-n-K18_6_4",
+   "local": "Corolário 3, p. 55; tabelas 5-7 (chave n) e tabelas do Kéri 2011",
+   "q": 18,
+   "n": 6,
+   "R": 4,
+   "tipo": "corolario3",
+   "M": 80,
+   "partes": [
+    5,
+    5,
+    3,
+    3,
+    2
+   ],
+   "ingredientes": [
+    "Reed–Solomon estendido sobre GF(5)",
+    "Reed–Solomon estendido sobre GF(5)",
+    "data/literatura/surjetivos/ca_t2_n6_v3_N12.txt",
+    "data/literatura/surjetivos/ca_t2_n6_v3_N12.txt",
+    "Kleitman–Spencer (6 linhas)"
+   ]
+  },
+  {
+   "id": "KO05-n-K18_7_3",
+   "local": "Corolário 3, p. 55; tabelas 5-7 (chave n) e tabelas do Kéri 2011",
+   "q": 18,
+   "n": 7,
+   "R": 3,
+   "tipo": "corolario3",
+   "M": 13122,
+   "partes": [
+    9,
+    9
+   ],
+   "ingredientes": [
+    "Reed–Solomon estendido sobre GF(9)",
+    "Reed–Solomon estendido sobre GF(9)"
+   ]
+  },
+  {
+   "id": "KO05-n-K18_7_5",
+   "local": "Corolário 3, p. 55; tabelas 5-7 (chave n) e tabelas do Kéri 2011",
+   "q": 18,
+   "n": 7,
+   "R": 5,
+   "tipo": "corolario3",
+   "M": 72,
+   "partes": [
+    3,
+    3,
+    3,
+    3,
+    3,
+    3
+   ],
+   "ingredientes": [
+    "data/literatura/surjetivos/ca_t2_n7_v3_N12.txt",
+    "data/literatura/surjetivos/ca_t2_n7_v3_N12.txt",
+    "data/literatura/surjetivos/ca_t2_n7_v3_N12.txt",
+    "data/literatura/surjetivos/ca_t2_n7_v3_N12.txt",
+    "data/literatura/surjetivos/ca_t2_n7_v3_N12.txt",
+    "data/literatura/surjetivos/ca_t2_n7_v3_N12.txt"
+   ]
+  },
+  {
+   "id": "KO05-n-K18_8_6",
+   "local": "Corolário 3, p. 55; tabelas 5-7 (chave n) e tabelas do Kéri 2011",
+   "q": 18,
+   "n": 8,
+   "R": 6,
+   "tipo": "corolario3",
+   "M": 70,
+   "partes": [
+    3,
+    3,
+    3,
+    3,
+    2,
+    2,
+    2
+   ],
+   "ingredientes": [
+    "data/literatura/surjetivos/ca_t2_n8_v3_N13.txt",
+    "data/literatura/surjetivos/ca_t2_n8_v3_N13.txt",
+    "data/literatura/surjetivos/ca_t2_n8_v3_N13.txt",
+    "data/literatura/surjetivos/ca_t2_n8_v3_N13.txt",
+    "Kleitman–Spencer (6 linhas)",
+    "Kleitman–Spencer (6 linhas)",
+    "Kleitman–Spencer (6 linhas)"
+   ]
+  },
+  {
+   "id": "KO05-n-K19_4_2",
+   "local": "Corolário 3, p. 55; tabelas 5-7 (chave n) e tabelas do Kéri 2011",
+   "q": 19,
+   "n": 4,
+   "R": 2,
+   "tipo": "corolario3",
+   "M": 123,
+   "partes": [
+    7,
+    7,
+    5
+   ],
+   "ingredientes": [
+    "Reed–Solomon estendido sobre GF(7)",
+    "Reed–Solomon estendido sobre GF(7)",
+    "Reed–Solomon estendido sobre GF(5)"
+   ]
+  },
+  {
+   "id": "KO05-n-K19_5_3",
+   "local": "Corolário 3, p. 55; tabelas 5-7 (chave n) e tabelas do Kéri 2011",
+   "q": 19,
+   "n": 5,
+   "R": 3,
+   "tipo": "corolario3",
+   "M": 91,
+   "partes": [
+    5,
+    5,
+    5,
+    4
+   ],
+   "ingredientes": [
+    "Reed–Solomon estendido sobre GF(5)",
+    "Reed–Solomon estendido sobre GF(5)",
+    "Reed–Solomon estendido sobre GF(5)",
+    "Reed–Solomon estendido sobre GF(4)"
+   ]
+  },
+  {
+   "id": "KO05-n-K19_6_4",
+   "local": "Corolário 3, p. 55; tabelas 5-7 (chave n) e tabelas do Kéri 2011",
+   "q": 19,
+   "n": 6,
+   "R": 4,
+   "tipo": "corolario3",
+   "M": 86,
+   "partes": [
+    5,
+    5,
+    3,
+    3,
+    3
+   ],
+   "ingredientes": [
+    "Reed–Solomon estendido sobre GF(5)",
+    "Reed–Solomon estendido sobre GF(5)",
+    "data/literatura/surjetivos/ca_t2_n6_v3_N12.txt",
+    "data/literatura/surjetivos/ca_t2_n6_v3_N12.txt",
+    "data/literatura/surjetivos/ca_t2_n6_v3_N12.txt"
+   ]
+  },
+  {
+   "id": "KO05-n-K19_7_3",
+   "local": "Corolário 3, p. 55; tabelas 5-7 (chave n) e tabelas do Kéri 2011",
+   "q": 19,
+   "n": 7,
+   "R": 3,
+   "tipo": "corolario3",
+   "M": 18737,
+   "partes": [
+    11,
+    8
+   ],
+   "ingredientes": [
+    "Reed–Solomon estendido sobre GF(11)",
+    "Reed–Solomon estendido sobre GF(8)"
+   ]
+  },
+  {
+   "id": "KO05-n-K19_7_5",
+   "local": "Corolário 3, p. 55; tabelas 5-7 (chave n) e tabelas do Kéri 2011",
+   "q": 19,
+   "n": 7,
+   "R": 5,
+   "tipo": "corolario3",
+   "M": 81,
+   "partes": [
+    4,
+    3,
+    3,
+    3,
+    3,
+    3
+   ],
+   "ingredientes": [
+    "data/literatura/surjetivos/ca_t2_n7_v4_N21.txt",
+    "data/literatura/surjetivos/ca_t2_n7_v3_N12.txt",
+    "data/literatura/surjetivos/ca_t2_n7_v3_N12.txt",
+    "data/literatura/surjetivos/ca_t2_n7_v3_N12.txt",
+    "data/literatura/surjetivos/ca_t2_n7_v3_N12.txt",
+    "data/literatura/surjetivos/ca_t2_n7_v3_N12.txt"
+   ]
+  },
+  {
+   "id": "KO05-n-K19_8_6",
+   "local": "Corolário 3, p. 55; tabelas 5-7 (chave n) e tabelas do Kéri 2011",
+   "q": 19,
+   "n": 8,
+   "R": 6,
+   "tipo": "corolario3",
+   "M": 77,
+   "partes": [
+    3,
+    3,
+    3,
+    3,
+    3,
+    2,
+    2
+   ],
+   "ingredientes": [
+    "data/literatura/surjetivos/ca_t2_n8_v3_N13.txt",
+    "data/literatura/surjetivos/ca_t2_n8_v3_N13.txt",
+    "data/literatura/surjetivos/ca_t2_n8_v3_N13.txt",
+    "data/literatura/surjetivos/ca_t2_n8_v3_N13.txt",
+    "data/literatura/surjetivos/ca_t2_n8_v3_N13.txt",
+    "Kleitman–Spencer (6 linhas)",
+    "Kleitman–Spencer (6 linhas)"
+   ]
+  },
+  {
+   "id": "KO05-n-K20_4_2",
+   "local": "Corolário 3, p. 55; tabelas 5-7 (chave n) e tabelas do Kéri 2011",
+   "q": 20,
+   "n": 4,
+   "R": 2,
+   "tipo": "corolario3",
+   "M": 135,
+   "partes": [
+    7,
+    7,
+    6
+   ],
+   "ingredientes": [
+    "Reed–Solomon estendido sobre GF(7)",
+    "Reed–Solomon estendido sobre GF(7)",
+    "data/literatura/surjetivos/ca_t2_n4_v6_N37.txt"
+   ]
+  },
+  {
+   "id": "KO05-n-K20_5_3",
+   "local": "Corolário 3, p. 55; tabelas 5-7 (chave n) e tabelas do Kéri 2011",
+   "q": 20,
+   "n": 5,
+   "R": 3,
+   "tipo": "corolario3",
+   "M": 100,
+   "partes": [
+    5,
+    5,
+    5,
+    5
+   ],
+   "ingredientes": [
+    "Reed–Solomon estendido sobre GF(5)",
+    "Reed–Solomon estendido sobre GF(5)",
+    "Reed–Solomon estendido sobre GF(5)",
+    "Reed–Solomon estendido sobre GF(5)"
+   ]
+  },
+  {
+   "id": "KO05-n-K20_6_4",
+   "local": "Corolário 3, p. 55; tabelas 5-7 (chave n) e tabelas do Kéri 2011",
+   "q": 20,
+   "n": 6,
+   "R": 4,
+   "tipo": "corolario3",
+   "M": 93,
+   "partes": [
+    5,
+    5,
+    5,
+    3,
+    2
+   ],
+   "ingredientes": [
+    "Reed–Solomon estendido sobre GF(5)",
+    "Reed–Solomon estendido sobre GF(5)",
+    "Reed–Solomon estendido sobre GF(5)",
+    "data/literatura/surjetivos/ca_t2_n6_v3_N12.txt",
+    "Kleitman–Spencer (6 linhas)"
+   ]
+  },
+  {
+   "id": "KO05-n-K20_7_3",
+   "local": "Corolário 3, p. 55; tabelas 5-7 (chave n) e tabelas do Kéri 2011",
+   "q": 20,
+   "n": 7,
+   "R": 3,
+   "tipo": "corolario3",
+   "M": 21202,
+   "partes": [
+    11,
+    9
+   ],
+   "ingredientes": [
+    "Reed–Solomon estendido sobre GF(11)",
+    "Reed–Solomon estendido sobre GF(9)"
+   ]
+  },
+  {
+   "id": "KO05-n-K20_7_5",
+   "local": "Corolário 3, p. 55; tabelas 5-7 (chave n) e tabelas do Kéri 2011",
+   "q": 20,
+   "n": 7,
+   "R": 5,
+   "tipo": "corolario3",
+   "M": 89,
+   "partes": [
+    5,
+    3,
+    3,
+    3,
+    3,
+    3
+   ],
+   "ingredientes": [
+    "data/literatura/surjetivos/ca_t2_n7_v5_N29.txt",
+    "data/literatura/surjetivos/ca_t2_n7_v3_N12.txt",
+    "data/literatura/surjetivos/ca_t2_n7_v3_N12.txt",
+    "data/literatura/surjetivos/ca_t2_n7_v3_N12.txt",
+    "data/literatura/surjetivos/ca_t2_n7_v3_N12.txt",
+    "data/literatura/surjetivos/ca_t2_n7_v3_N12.txt"
+   ]
+  },
+  {
+   "id": "KO05-n-K20_8_6",
+   "local": "Corolário 3, p. 55; tabelas 5-7 (chave n) e tabelas do Kéri 2011",
+   "q": 20,
+   "n": 8,
+   "R": 6,
+   "tipo": "corolario3",
+   "M": 84,
+   "partes": [
+    3,
+    3,
+    3,
+    3,
+    3,
+    3,
+    2
+   ],
+   "ingredientes": [
+    "data/literatura/surjetivos/ca_t2_n8_v3_N13.txt",
+    "data/literatura/surjetivos/ca_t2_n8_v3_N13.txt",
+    "data/literatura/surjetivos/ca_t2_n8_v3_N13.txt",
+    "data/literatura/surjetivos/ca_t2_n8_v3_N13.txt",
+    "data/literatura/surjetivos/ca_t2_n8_v3_N13.txt",
+    "data/literatura/surjetivos/ca_t2_n8_v3_N13.txt",
+    "Kleitman–Spencer (6 linhas)"
+   ]
+  },
+  {
+   "id": "KO05-n-K21_4_2",
+   "local": "Corolário 3, p. 55; tabelas 5-7 (chave n) e tabelas do Kéri 2011",
+   "q": 21,
+   "n": 4,
+   "R": 2,
+   "tipo": "corolario3",
+   "M": 147,
+   "partes": [
+    7,
+    7,
+    7
+   ],
+   "ingredientes": [
+    "Reed–Solomon estendido sobre GF(7)",
+    "Reed–Solomon estendido sobre GF(7)",
+    "Reed–Solomon estendido sobre GF(7)"
+   ]
+  },
+  {
+   "id": "KO05-n-K21_5_3",
+   "local": "Corolário 3, p. 55; tabelas 5-7 (chave n) e tabelas do Kéri 2011",
+   "q": 21,
+   "n": 5,
+   "R": 3,
+   "tipo": "corolario3",
+   "M": 114,
+   "partes": [
+    6,
+    5,
+    5,
+    5
+   ],
+   "ingredientes": [
+    "data/literatura/surjetivos/ca_t2_n5_v6_N39.txt",
+    "Reed–Solomon estendido sobre GF(5)",
+    "Reed–Solomon estendido sobre GF(5)",
+    "Reed–Solomon estendido sobre GF(5)"
+   ]
+  },
+  {
+   "id": "KO05-n-K21_6_4",
+   "local": "Corolário 3, p. 55; tabelas 5-7 (chave n) e tabelas do Kéri 2011",
+   "q": 21,
+   "n": 6,
+   "R": 4,
+   "tipo": "corolario3",
+   "M": 99,
+   "partes": [
+    5,
+    5,
+    5,
+    3,
+    3
+   ],
+   "ingredientes": [
+    "Reed–Solomon estendido sobre GF(5)",
+    "Reed–Solomon estendido sobre GF(5)",
+    "Reed–Solomon estendido sobre GF(5)",
+    "data/literatura/surjetivos/ca_t2_n6_v3_N12.txt",
+    "data/literatura/surjetivos/ca_t2_n6_v3_N12.txt"
+   ]
+  },
+  {
+   "id": "KO05-n-K21_7_4",
+   "local": "Corolário 3, p. 55; tabelas 5-7 (chave n) e tabelas do Kéri 2011",
+   "q": 21,
+   "n": 7,
+   "R": 4,
+   "tipo": "corolario3",
+   "M": 1029,
+   "partes": [
+    7,
+    7,
+    7
+   ],
+   "ingredientes": [
+    "data/literatura/surjetivos/ca_t3_n7_v7_N343.txt",
+    "data/literatura/surjetivos/ca_t3_n7_v7_N343.txt",
+    "data/literatura/surjetivos/ca_t3_n7_v7_N343.txt"
+   ]
+  },
+  {
+   "id": "KO05-n-K21_7_5",
+   "local": "Corolário 3, p. 55; tabelas 5-7 (chave n) e tabelas do Kéri 2011",
+   "q": 21,
+   "n": 7,
+   "R": 5,
+   "tipo": "corolario3",
+   "M": 98,
+   "partes": [
+    5,
+    4,
+    3,
+    3,
+    3,
+    3
+   ],
+   "ingredientes": [
+    "data/literatura/surjetivos/ca_t2_n7_v5_N29.txt",
+    "data/literatura/surjetivos/ca_t2_n7_v4_N21.txt",
+    "data/literatura/surjetivos/ca_t2_n7_v3_N12.txt",
+    "data/literatura/surjetivos/ca_t2_n7_v3_N12.txt",
+    "data/literatura/surjetivos/ca_t2_n7_v3_N12.txt",
+    "data/literatura/surjetivos/ca_t2_n7_v3_N12.txt"
+   ]
+  },
+  {
+   "id": "KO05-n-K21_8_6",
+   "local": "Corolário 3, p. 55; tabelas 5-7 (chave n) e tabelas do Kéri 2011",
+   "q": 21,
+   "n": 8,
+   "R": 6,
+   "tipo": "corolario3",
+   "M": 91,
+   "partes": [
+    3,
+    3,
+    3,
+    3,
+    3,
+    3,
+    3
+   ],
+   "ingredientes": [
+    "data/literatura/surjetivos/ca_t2_n8_v3_N13.txt",
+    "data/literatura/surjetivos/ca_t2_n8_v3_N13.txt",
+    "data/literatura/surjetivos/ca_t2_n8_v3_N13.txt",
+    "data/literatura/surjetivos/ca_t2_n8_v3_N13.txt",
+    "data/literatura/surjetivos/ca_t2_n8_v3_N13.txt",
+    "data/literatura/surjetivos/ca_t2_n8_v3_N13.txt",
+    "data/literatura/surjetivos/ca_t2_n8_v3_N13.txt"
+   ]
+  }
+ ]
+}
