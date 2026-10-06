@@ -145,6 +145,12 @@ r = n − 2 quando q = 2 e n ≥ 5) saem do teorema das q palavras, não de enum
 | 3 | 5 | 4 | 3 | exato | 3: teorema das q palavras | 3: testemunha |
 <!-- tabela:fim -->
 
+**As cinco células abertas.** Na auditoria, o CaDiCaL procurou por 50 min (com a quebra de
+simetria) um código de 15 palavras para K^(2)_2(7,2) e um de 26 para K^(2)_3(4,1), sem resposta
+nos dois sentidos; o recozimento também não achou. As testemunhas de q = 2, n = 7 são o produto da
+melhor de n = 6 por uma coordenada livre. Fechar 3,4,1 pede refutar até 26 palavras, e a escada
+de refutações dobrou de custo a cada passo (40 min para chegar a 22): ficou para outra rodada.
+
 O mesmo estado, com todas as cotas livres de cada célula, está em
 `segunda_ordem/dados/tabela.json`. Este bloco é gerado (`python3 -m segunda_ordem.tabela readme`)
 e um teste falha se ele divergir dos dados.
