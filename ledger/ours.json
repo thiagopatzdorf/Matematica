@@ -1,6 +1,6 @@
 {
   "descricao": "Estado NOSSO por célula K_q(n,R). Fonte de verdade escrita à mão (ou pelo scripts/loop/record_loop.py); build.py mescla isto com as cotas publicadas e gera cells.json. Ver README.md.",
-  "atualizado": "2026-10-05",
+  "atualizado": "2026-10-06",
   "cells": {
     "7,9,4": {
       "ours_computational": null,
@@ -275,8 +275,20 @@
       }
     },
     "7,5,3": {
-      "ours_computational": null,
-      "ours_lean": null,
+      "ours_computational": {
+        "M": 17,
+        "file": "data/codes/q7_n5_R3_M17.txt",
+        "sha256": "d4b4c2acda99bd2143572a0c2c73f9b9db07606090d0660fa3c43b838c7fe242",
+        "provenance": "P-753-17"
+      },
+      "ours_lean": {
+        "M": 17,
+        "declaration": "CoveringK753.K_7_5_3_le_17",
+        "tag": null,
+        "file": "data/codes/q7_n5_R3_M17.txt",
+        "sha256": "d4b4c2acda99bd2143572a0c2c73f9b9db07606090d0660fa3c43b838c7fe242",
+        "provenance": "P-753-17"
+      },
       "lb": {
         "value": 17,
         "estado": "CERTIFICATE_VERIFIED",

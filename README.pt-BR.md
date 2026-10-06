@@ -87,13 +87,13 @@ O bloco abaixo é gerado a partir de `ledger/cells.json` e não se edita à mão
 | células `K_q(n,R)` no ledger (q de 2 a 21) | **1145** |
 | exatas (cota inferior = superior) | **523** |
 | abertas | **622** |
-| cotas superiores que são teorema do kernel do Lean (FORMALIZED + INDEPENDENTLY_REPRODUCED) | **487** de 1145 (435 + 52) |
+| cotas superiores que são teorema do kernel do Lean (FORMALIZED + INDEPENDENTLY_REPRODUCED) | **488** de 1145 (435 + 53) |
 | cotas inferiores por estado (quase todas herdadas da literatura) | CLAIMED 1140 · CERTIFICATE_VERIFIED 3 · FORMALIZED 2 |
 | exatas fechadas aqui (o intervalo publicado estava aberto) | **4** (1 com as duas cotas no kernel; 3 com a inferior por certificado verificado fora do Lean) |
-| células com teorema Lean próprio | **14** (12 abaixo da melhor cota superior publicada que achamos) |
-| códigos explícitos em `data/codes/` | **18** (todos passam no verificador C oficial, `tools/verify/check_all.sh`, no CI); 12 são a testemunha atual de uma cota do ledger, sha256 conferido |
+| células com teorema Lean próprio | **15** (12 abaixo da melhor cota superior publicada que achamos) |
+| códigos explícitos em `data/codes/` | **19** (todos passam no verificador C oficial, `tools/verify/check_all.sh`, no CI); 13 são a testemunha atual de uma cota do ledger, sha256 conferido |
 
-Versão 0.9.0 · DOI [10.5281/zenodo.23085769](https://doi.org/10.5281/zenodo.23085769) · ledger atualizado em 2026-10-05. As cotas inferiores **não** estão, em geral, no Lean: só 2 delas são teorema do kernel.
+Versão 0.9.0 · DOI [10.5281/zenodo.23085769](https://doi.org/10.5281/zenodo.23085769) · ledger atualizado em 2026-10-06. As cotas inferiores **não** estão, em geral, no Lean: só 2 delas são teorema do kernel.
 
 ### Destaques
 
@@ -103,7 +103,7 @@ Células com resultado próprio: teorema Lean nosso ou cota inferior por certifi
 |---|---:|---:|---|---|---|
 | `K_7(6,4)` | 13–15 | **= 14** | CERTIFICATE_VERIFIED | INDEPENDENTLY_REPRODUCED | [FIBRAS_GERAL](docs/exatos/FIBRAS_GERAL.md) · `CoveringK764.K_7_6_4_le_14` · [código](data/codes/q7_n6_R4_M14.txt) |
 | `K_3(6,2)` | 15–17 | **= 17** | CERTIFICATE_VERIFIED | INDEPENDENTLY_REPRODUCED | [K3_M16](docs/exatos/k362/K3_M16.md) · `CoveringLedger.K3_6_2_le_17` |
-| `K_7(5,3)` | 15–17 | **= 17** | CERTIFICATE_VERIFIED | CLAIMED | [FIBRAS_GERAL](docs/exatos/FIBRAS_GERAL.md) |
+| `K_7(5,3)` | 15–17 | **= 17** | CERTIFICATE_VERIFIED | INDEPENDENTLY_REPRODUCED | [FIBRAS_GERAL](docs/exatos/FIBRAS_GERAL.md) · `CoveringK753.K_7_5_3_le_17` · [código](data/codes/q7_n5_R3_M17.txt) |
 | `K_7(4,2)` | 17–19 | **= 19** | FORMALIZED | FORMALIZED | [FASE1_B_K742](docs/exatos/FASE1_B_K742.md) · `K742.K_7_4_2_le_19` · `K742.K_7_4_2_eq_19` |
 | `K_5(10,4)` | 177–875 | 177–**625** (−28,6 %) | CLAIMED | INDEPENDENTLY_REPRODUCED | `CoveringKernel.K5_10_4_le_625_kernel` · [código](data/codes/q5_n10_R4_M625.txt) |
 | `K_7(9,4)` | 264–1475 | 264–**1134** (−23,1 %) | CLAIMED | INDEPENDENTLY_REPRODUCED | `Syn.K7_9_4_le_1134_syn` · [código](data/codes/q7_n9_R4_M1134.txt) |
@@ -120,7 +120,7 @@ Células com resultado próprio: teorema Lean nosso ou cota inferior por certifi
 
 Potencialmente novas (não encontradas na literatura que pesquisamos, ver [NOVIDADE_V09](docs/exatos/NOVIDADE_V09.md)): `K_7(6,4)`, `K_3(6,2)`, `K_7(5,3)`.
 
-Lacunas declaradas: a cota inferior de `K_7(6,4)`, `K_3(6,2)`, `K_7(5,3)` é certificado computacional verificado, não teorema do Lean; a cota superior de `K_7(5,3)` é só a anunciada na literatura (CLAIMED), não conferida aqui.
+Lacunas declaradas: a cota inferior de `K_7(6,4)`, `K_3(6,2)`, `K_7(5,3)` é certificado computacional verificado, não teorema do Lean.
 <!-- RESULTADOS:FIM -->
 
 ## IV. Demonstração

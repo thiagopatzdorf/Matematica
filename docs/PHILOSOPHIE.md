@@ -132,7 +132,7 @@ lui a été décerné en 2010, et il l’a refusé. Les six autres restent ouver
 - Les bornes inférieures de `K₃(6,2)`, `K₇(6,4)` et `K₇(5,3)` ne sont pas des théorèmes du noyau. Elles
   reposent sur une réduction démontrée sur papier et sur des certificats vérifiés hors de Lean
   ([article](../paper/main.tex)).
-- La borne supérieure `K₇(5,3) ≤ 17` n’est qu’annoncée dans les tables de Kéri et reste `CLAIMED`.
+- La borne supérieure `K₇(5,3) ≤ 17` a désormais notre propre code de 17 mots et un théorème Lean (`CoveringK753.K_7_5_3_le_17`) ; la lacune restante est la borne inférieure, hors de Lean.
 - « Potentiellement nouveau » signifie non trouvé dans les sources listées. Des textes en accès fermé
   de 2004 à 2009 n’ont pas été lus ([NOVIDADE_V09](exatos/NOVIDADE_V09.md)).
 - La littérature postérieure à 2011 hors des sources du registre n’a pas été auditée

@@ -61,6 +61,20 @@ PROVENANCE = {
         "notes": "decodificado do modelo SAT e conferido pelo cobre() do rodar.py, por força bruta à parte e por "
                  "tools/verify/verify.c (0 de 117 649 pontos descobertos). Ver docs/exatos/FIBRAS_GERAL.md.",
     },
+    "q7_n5_R3_M17": {
+        "generator": "tools/exatos/busca_local/sa.c (recozimento simulado, custo = pontos descobertos, lance = "
+                     "trocar um símbolo); gcc -O3, seed 12, T0 1.5; saída ordenada com sort",
+        "commit": None,
+        "seed": 12,
+        "command": "cc -O3 -o sa tools/exatos/busca_local/sa.c -lm && ./sa 17 12 1.5 | sort",
+        "date": "2026-10-06",
+        "agent": "James.V1",
+        "repo_commit": None,
+        "notes": "fecha a superior de K_7(5,3) = 17 (antes só anunciada nas tabelas do Kéri / Rivas Soriano). "
+                 "Perfil de fibras 3332222 nas 5 coordenadas (o equilibrado; o CaDiCaL via sonda.py ficou "
+                 "INDEFINIDO em 600 s nesse perfil). Conferido por tools/verify/verify.c (0 de 16 807 pontos "
+                 "descobertos) e por força bruta em Python (tests/test_fibras.py).",
+    },
     "q7_n9_R4_M1351": {
         "generator": "lincov (Mapika/coldcase) para os 3 cosets de [9,3]_7; remendo de 322 palavras sem registro",
         "commit": "56a8cce",

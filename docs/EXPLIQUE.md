@@ -219,7 +219,7 @@ vérifiée formellement.
 - `K₇(6,4)` et `K₇(5,3)` n’ont pas été reproduites intégralement de façon indépendante : le codage
   indépendant a couvert 16 des 8 008 profils et 8 profils bon marché, respectivement
   ([article](../paper/main.tex)).
-- `K₇(5,3) ≤ 17` n’est qu’annoncée dans les tables de Kéri et reste `CLAIMED`.
+- `K₇(5,3) ≤ 17` a désormais notre propre code de 17 mots et un théorème Lean (`CoveringK753.K_7_5_3_le_17`).
 - Là où les mêmes méthodes s’arrêtent : `K₃(7,3)` (11–12) et des cellules binaires plus grandes,
   consignés dans la section « Where the same methods stop » de l’[article](../paper/main.tex). Et le pari
   à 6 matchs, `K₃(6,1)`, reste à 71–73.

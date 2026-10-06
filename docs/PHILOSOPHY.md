@@ -124,7 +124,7 @@ in 2010, and he declined it. The other six remain open
 
 - The lower bounds of `K₃(6,2)`, `K₇(6,4)` and `K₇(5,3)` are not kernel theorems. They rest on a
   reduction proved on paper and on certificates checked outside Lean ([paper](../paper/main.tex)).
-- The upper bound `K₇(5,3) ≤ 17` is only announced in Kéri's tables and remains `CLAIMED`.
+- The upper bound `K₇(5,3) ≤ 17` now has our own 17-word code and a Lean theorem (`CoveringK753.K_7_5_3_le_17`); the remaining gap is the lower bound, outside Lean.
 - "Potentially new" means not found in the sources listed. Closed-access texts from 2004 to 2009 were
   not read ([NOVIDADE_V09](exatos/NOVIDADE_V09.md)).
 - Literature after 2011 outside the ledger's sources has not been audited ([ledger](../ledger/README.md)).
