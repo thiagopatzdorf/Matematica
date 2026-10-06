@@ -87,4 +87,9 @@ unset GCS_TOKEN
 
 | data | o quê | carimbo de volta |
 |---|---|---|
-| 2026-10-06 | 1ª publicação: página provisória mínima (só para provar a rota) e `dados.json` | ver o PR `banho/publicacao` |
+| 2026-10-06 01:10Z | 1ª publicação: página provisória mínima, fora do repo, só para provar a rota, mais `dados.json`. O bucket estava vazio nesse prefixo. A conferência falhou por dois motivos medidos: 403 ao User-Agent `Python-urllib` e o beacon do Web Analytics injetado pela borda. Os dois foram corrigidos no script | `20261006T011017Z` (vazio) |
+| 2026-10-06 01:11Z | republicação com conferência `ok` | `20261006T011143Z` |
+| 2026-10-06 01:12Z | prova da inversa: `despublicar` deu 404, `restaurar` voltou a 200 com o mesmo conteúdo. Raiz e `/provas/cobertura` seguiram 200 | `20261006T011158Z` |
+
+Próximo passo: depois do merge de `index.html`, `estilo.css`, `app.js` e `conteudo.json`, rodar `publicar --confirmar`
+a partir da `main`. Isso substitui a página provisória.
