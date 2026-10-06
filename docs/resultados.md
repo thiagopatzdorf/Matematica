@@ -53,7 +53,7 @@ fechados com teste diferencial e verificador independente.
 
 | Teorema | Enunciado | Como |
 |---|---|---|
-| `CoveringA6.K_2_6_1_ge_11` (`A6e_Excess`) | todo código binário de comprimento 6 que cobre com raio 1 tem ≥ 11 palavras | contagem dupla do excesso, sem busca: para `a ≠ c`, `|B(a) ∩ B(c)|` é par; daí `50K ≥ 512` |
+| `CoveringA6.K_2_6_1_ge_11` (`A6e_Excess`) | todo código binário de comprimento 6 que cobre com raio 1 tem ≥ 11 palavras | contagem dupla do excesso, sem busca: para `a ≠ c`, `\|B(a) ∩ B(c)\|` é par; daí `50K ≥ 512` |
 | `SC.K_2_6_1_eq12` (`SearchK6ge12`) | `IsK 2 6 1 12`, isto é `K_2(6,1) = 12` | busca com poda verificada (`SearchCore.chkN`, correção em `SearchSound.chkN_sound`), translação "WLOG 63 ∈ C", exclusão de irmãos, 38 pedaços `G610_Chunk_*` com `decide +kernel` |
 | `CoveringKernel.K7_9_4_le_1351_kernel` (`K3_K7_9_4_Final`) | existe `C : Finset (Fin 9 → ZMod 7)` com `C.card = 1351` e `Covers 4 C` | o código explícito (`C1_Data_K7_9_4`, sha256 canônico `54dbdade…1162`), checagem booleana `go` com prova de correção (`K2_Core`, `K2_Loop`, `K3_Bridge`), 2401 folhas em 95 pedaços `K3_K7_9_4_P*` |
 
@@ -90,7 +90,7 @@ Espaço `Fin n → ZMod q` (A1–A3, Chain, K3) ou `Fin n → Fin q` (A6*, Searc
 | Arquivo | Conteúdo |
 |---|---|
 | `A1_Weight` | `weight_genfun`: `∑ X^peso = (1+(q-1)X)^n`; `count_weight`; `ball_zero_card` |
-| `A2_Sphere` | `ball_card_indep`, `sphere_covering` (`q^n ≤ |C|·V`), `no_perfect`, `ceil_bound`, `equality_iff_perfect` |
+| `A2_Sphere` | `ball_card_indep`, `sphere_covering` (`q^n ≤ \|C\|·V`), `no_perfect`, `ceil_bound`, `equality_iff_perfect` |
 | `A3_Numeric` | aritmética: `V` fechada, `⌈q^n/V⌉`, os 8 `cell_*` e `lb_*`, `tight_*` |
 | `Chain` | `sphere_covering_formula` e os 8 `CoveringChain.SPH_K*_lb` |
 | `A4_Closed` | `K_q(n,n-1)=q`, `K=1` para `R ≥ n`, monotonias |

@@ -26,8 +26,8 @@ qualquer forma canônica de verdade; a segunda é o que separa canonicalização
 
 | teste | o que mede |
 |---|---|
-| `test_forma_do_nauty_separa_exatamente_as_classes_da_forca_bruta` | para s = 2, 3, 4 pontos em Z₃³: em 60 conjuntos sorteados, "mesma forma no nauty" ⇔ "mesma forma na força bruta" (1 770 pares por s), `|Stab|` do nauty = força bruta em 15, e o número de formas distintas entre **todos** os conjuntos = número de representantes de `fatia.configuracoes` |
-| `test_forma_do_nauty_nao_muda_sob_milhares_de_transformacoes_aleatorias` | 3 000 imagens (20 conjuntos de 5 pontos em Z₃⁵ × 150 elementos aleatórios de S₃ ≀ S₅): forma e `|Stab|` idênticos |
+| `test_forma_do_nauty_separa_exatamente_as_classes_da_forca_bruta` | para s = 2, 3, 4 pontos em Z₃³: em 60 conjuntos sorteados, "mesma forma no nauty" ⇔ "mesma forma na força bruta" (1 770 pares por s), `\|Stab\|` do nauty = força bruta em 15, e o número de formas distintas entre **todos** os conjuntos = número de representantes de `fatia.configuracoes` |
+| `test_forma_do_nauty_nao_muda_sob_milhares_de_transformacoes_aleatorias` | 3 000 imagens (20 conjuntos de 5 pontos em Z₃⁵ × 150 elementos aleatórios de S₃ ≀ S₅): forma e `\|Stab\|` idênticos |
 | `test_representantes_nao_equivalentes_tem_formas_diferentes_no_nauty` | os representantes de `fatia.configuracoes(3,4,4)` (dois a dois não equivalentes) têm formas duas a duas distintas |
 
 Erro meu registrado: a primeira versão do teste de invariância sorteava **um elemento por ponto**

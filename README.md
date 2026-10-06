@@ -58,7 +58,9 @@ alternative must be ruled out. Explained in four layers (30 seconds, high school
 A **covering code** is a set of words of length `n` over `q` symbols such that every word of the space lies within
 Hamming distance `R` of one of them. `K_q(n,R)` is the size of the smallest such code:
 
-$$K_q(n,R) \;=\; \min\bigl\{\,|C| \;:\; C \subseteq \mathbb{Z}_q^n,\ \ \forall x \in \mathbb{Z}_q^n\ \ \exists c \in C,\ \ d_H(x,c) \le R \,\bigr\}$$
+```math
+K_q(n,R) \;=\; \min\bigl\lbrace\,|C| \;:\; C \subseteq \mathbb{Z}_q^n,\ \ \forall x \in \mathbb{Z}_q^n\ \ \exists c \in C,\ \ d_H(x,c) \le R \,\bigr\rbrace
+```
 
 An upper bound is an explicit code: finding it is hard, checking it is counting. The reference is
 [Kéri's tables](https://old.sztaki.hu/~keri/codes/); the full vocabulary is in the [glossary](docs/GLOSSARIO.md) (Portuguese).
