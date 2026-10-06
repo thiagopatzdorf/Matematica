@@ -18,7 +18,7 @@
 \author{Thiago Patzdorf}
 \address{Universidade de Caxias do Sul, Brazil}
 \email{thiagosleman@gmail.com}
-\date{5 October 2026 (version~0.9.0)}
+\date{6 October 2026 (version~0.9.1)}
 
 \begin{document}
 \begin{abstract}
@@ -28,13 +28,13 @@ The codes are unions of cosets of a linear code plus a small patch, and we give 
 The base of the $K_7(9,4)$ code was chosen from an enumeration of all $6362$ equivalence classes of non-degenerate $[9,3]_7$ codes.
 We also prove $K_2(6,1)\ge 11$ by a short double-counting argument and the classical value $K_2(6,1)=12$ by a search whose soundness is a theorem.
 Finally we determine $K_7(4,2)=19$ (previously $17\le K_7(4,2)\le 19$), and the equality is a theorem checked by the kernel with no hypothesis: the upper bound is an explicit code, and the non-existence of an $18$-word code reduces, by lemmas proved in Lean, to $70$ SAT instances whose LRAT refutations are replayed by a verified checker inside the kernel ($284$ modules, $37.8$ CPU-hours); the same refutations were also checked by two independent checkers outside Lean and confirmed by a second, independent encoding.
-We also describe a machine-checked ledger of covering-code upper bounds, with formally certified exact entries: $487$ of the $1145$ upper bounds in the tables are theorems of the Lean kernel, almost all of them from a single theorem, a generic bound $K_q(n,R)\le|C|$, construction rules and explicit witnesses.
+We also describe a machine-checked ledger of covering-code upper bounds, with formally certified exact entries: $488$ of the $1145$ upper bounds in the tables are theorems of the Lean kernel, almost all of them from a single theorem, a generic bound $K_q(n,R)\le|C|$, construction rules and explicit witnesses.
 
 Version~0.9 adds three exact values that are, as far as we can tell, potentially new: we did not find them in the literature we searched.
 Their lower bounds are \emph{not} theorems of the kernel: each rests on a reduction proved on paper and on computational certificates checked by exact programs outside Lean.
 First, $K_3(6,2)=17$ (previously $15\le K_3(6,2)\le 17$, the lower bound by Bertolo, Östergård and Weakley~\cite{bow2004} and the upper bound by Hämäläinen and Rankinen~\cite{hr1991}): after a normalization that fixes a minimal fibre, every hypothetical code with $15$ or $16$ words falls into one of $12\,049$ or $12\,674$ instances, whose linear relaxations are infeasible by $12\,054$ and $13\,099$ integer Farkas certificates checked in exact arithmetic; a second pipeline sharing no code with the first (another reduction, enumeration and canonical form, with VeriPB and LRAT proofs) reproduces both steps independently.
 Second, we generalize the fibre lemma behind $K_7(4,2)=19$ to $K_q(n,n-2)$ and obtain $K_7(6,4)=14$ (previously $13\le K_7(6,4)\le 15$~\cite{hsq2009,ko2005}): a new $14$-word code, whose covering property is formalized in Lean (kernel), and LRAT refutations of the $8008$ fibre profiles of a $13$-word code.
-Third, $K_7(5,3)=17$ (previously $15\le K_7(5,3)\le 17$, both bounds announced in Kéri's tables~\cite{keri}), by LRAT refutations of one profile for $15$ words and of all $201\,376$ profiles for $16$ words, two of them split into $1812$ and $4953$ cubes; the upper bound $17$ is the published one and was not checked here.
+Third, $K_7(5,3)=17$ (previously $15\le K_7(5,3)\le 17$, both bounds announced in Kéri's tables~\cite{keri}), by LRAT refutations of one profile for $15$ words and of all $201\,376$ profiles for $16$ words, two of them split into $1812$ and $4953$ cubes; version~0.9.1 adds a $17$-word code of our own whose covering property is formalized in Lean (kernel), so both bounds of this value are now established here, the upper one as a theorem of the kernel.
 Each of the three lower bounds survived an adversarial review; the gaps that remain are stated in the text.
 \end{abstract}
 \maketitle
@@ -47,7 +47,7 @@ Upper bounds are certificates: a list of words and the claim that it covers.
 Checking the claim is a finite computation, but for $q^n$ in the tens of millions it is done by programs that are rarely audited.
 Florath~\cite{florath2026} built a Lean library of covering-code bounds whose derivations are replayed by the kernel; it formalizes the sphere-covering bound and records many cells.
 This note adds certificates that the kernel checks for eleven cells where the codes are new, a certificate that scales by working on syndromes, formal determinations of a small classical value and of a value that was open, and a ledger in which every upper bound we could certify is a theorem.
-Version~0.9 adds three exact values whose lower bounds are of a different nature (Sections~\ref{sec:k362} and~\ref{sec:fibre}), and records where the same methods stop (Section~\ref{sec:limits}).
+Version~0.9 adds three exact values whose lower bounds are of a different nature (Sections~\ref{sec:k362} and~\ref{sec:fibre}), and records where the same methods stop (Section~\ref{sec:limits}); version~0.9.1 adds a kernel proof of $K_7(5,3)\le 17$ by a code of our own, so the two bounds of $K_7(5,3)=17$ no longer depend on an announced, unpublished code.
 
 Throughout, we distinguish three kinds of statement.
 A \emph{theorem of the kernel} (or \emph{formalized} statement) is the name of a declaration that Lean's kernel accepted with no hypothesis.
@@ -56,7 +56,7 @@ We call such a result \emph{independently reproduced} when a second pipeline, sh
 An \emph{observation} is a measurement that supports no claim and enters no proof.
 Every statement labelled \emph{Theorem}, and every upper bound of Table~\ref{tab:other}, is of the first kind; the lower bounds of Sections~\ref{sec:k362} and~\ref{sec:fibre} are of the second kind and are labelled \emph{computational results}.
 
-The proofs use Lean~4~\cite{lean4} and Mathlib~\cite{mathlib}. The source is \url{https://github.com/thiagopatzdorf/Matematica}, tag \texttt{v0.\allowbreak 9.\allowbreak 0}.
+The proofs use Lean~4~\cite{lean4} and Mathlib~\cite{mathlib}. The source is \url{https://github.com/thiagopatzdorf/Matematica}, tag \texttt{v0.\allowbreak 9.\allowbreak 1}.
 A statement below is a theorem of the kernel only when it is the name of a declaration in that tree; the computational lower bounds of Sections~\ref{sec:k362} and~\ref{sec:fibre} are claims of the second kind and name no declaration.
 The default target \texttt{CoveringLean} builds in minutes; the prefix certificates form the target \texttt{CoveringHeavy}, the syndrome certificates the target \texttt{CoveringSyn}, the refutations for $K_7(4,2)$ and its final theorem the target \texttt{CoveringK742Sat}, and the certified ledger the target \texttt{CoveringLedger}.
 
@@ -260,7 +260,7 @@ What is hard for the solver is finding that refutation inside the whole formula,
 This is an observation and is not used in Result~\ref{res:k362}.
 
 \section{The fibre lemma for $K_q(n,n-2)$: $K_7(6,4)=14$ and $K_7(5,3)$}\label{sec:fibre}
-The proof of $K_7(4,2)=19$ in Section~\ref{sec:k742} reduces to fibre profiles. Here the reduction is stated for every $(q,n)$ with $R=n-2$; the lower bounds obtained are computational results in the sense of the introduction, not theorems of the kernel, while the new upper bound $K_7(6,4)\le 14$ is formalized in Lean (kernel).
+The proof of $K_7(4,2)=19$ in Section~\ref{sec:k742} reduces to fibre profiles. Here the reduction is stated for every $(q,n)$ with $R=n-2$; the lower bounds obtained are computational results in the sense of the introduction, not theorems of the kernel, while the new upper bound $K_7(6,4)\le 14$ and the upper bound $K_7(5,3)\le 17$, by a code of our own, are formalized in Lean (kernel).
 
 \begin{lemma}[fibres]\label{lem:fibre}
 Let $C\subseteq\mathbb{Z}_q^n$ cover at radius $R\le n-2$ with $M$ words, and let $F=F(j,a)$ have $s<q$ words. Then $K_{q-s}(n-1,R-1)\le M-s$.
@@ -308,7 +308,16 @@ The previous lower bound, $13$, comes from the recursion $K_{q+1}(n+1,R+1)\ge\mi
 The lower bound uses only $K_7(5,3)\ge 14$, below the published $15$~\cite{keri}; we do not chain it on Result~\ref{res:k753}, which would make it depend on (h) twice.
 
 \subsection*{$K_7(5,3)$}
-The previous bounds are $15$, announced by Haas, Quistorff and Schlage-Puchta in Kéri's tables (update of 6 October 2009), and $17$, announced by Rivas Soriano (update of 25 January 2006)~\cite{keri}; we prove $K_7(5,3)=17$, and to our knowledge both lower bounds $16$ and $17$ are new. We did not find a published $17$-word code, so the upper bound is the announced one and was not checked here.
+The previous bounds are $15$, announced by Haas, Quistorff and Schlage-Puchta in Kéri's tables (update of 6 October 2009), and $17$, announced by Rivas Soriano (update of 25 January 2006)~\cite{keri}; we prove $K_7(5,3)=17$, and to our knowledge both lower bounds $16$ and $17$ are new. We did not find a published $17$-word code, so until version~0.9 the upper bound was the announced one and was not checked here.
+Version~0.9.1 closes this gap with a code of our own, found by simulated annealing: the code
+\[
+\begin{array}{ccccccccc}
+00534 & 01114 & 02654 & 13005 & 16302 & 25243 & 25426 & 30611 & 31551\\
+32131 & 43365 & 46062 & 54226 & 54443 & 60150 & 61630 & 62510 &
+\end{array}
+\]
+covers $\mathbb{Z}_7^5$ at radius $3$, as checked by the official checker of the repository (canonical SHA-256 beginning \texttt{d4b4c2ac}).
+The upper bound $K_7(5,3)\le 17$ is formalized in Lean (kernel), as the declaration \texttt{CoveringK753.\allowbreak K\_\allowbreak 7\_\allowbreak 5\_\allowbreak 3\_\allowbreak le\_\allowbreak 17}, whose axioms are \texttt{propext}, \texttt{Classical.choice} and \texttt{Quot.sound}, by a kernel check of the $17$-word list over the $7^5=16\,807$ words (the digit-prefix certificate \texttt{go}, closed by \texttt{decide +kernel}).
 For $M=15$, $s=0$ would need $K_7(4,2)\le 15$ and $s=1$ would need $K_6(4,2)\le 14$; both are false ($K_7(4,2)\ge 17$ is in Kéri's tables and $K_7(4,2)=19$ is Theorem~\ref{thm:k742}; $K_6(4,2)=15$ is in Kéri's tables, and we refuted $14$ again with $8855$ LRAT-checked profiles). So $s_{\min}=2$, and $7\cdot 2=14\le 15$ leaves a single profile, type $3222222$ in every coordinate.
 Its CNF was refuted by CaDiCaL in $221$ seconds with an LRAT proof of $1.56$\,GB, checked by \texttt{lrat-check} and by a second checker, and again by kissat; the review regenerated the proof bit for bit and checked it with \texttt{cake\_lpr}.
 Without (h) kissat needed $10\,365$ seconds, and without (g) and (h) it did not finish in $3$ hours.
@@ -322,12 +331,12 @@ The run took $722\,699$ seconds of solver time and $116\,197$ seconds of \texttt
 A code with fewer than $16$ words can be completed with repeated words, which the encoding allows, so this run alone gives the lower bound $17$.
 
 \begin{result}\label{res:k753b}
-No code in $\mathbb{Z}_7^5$ with $16$ words has covering radius $3$; with the $17$-word code announced in~\cite{keri}, $K_7(5,3)=17$.
+No code in $\mathbb{Z}_7^5$ with $16$ words has covering radius $3$; with the $17$-word code above, $K_7(5,3)=17$.
 \end{result}
 An adversarial review of $M=16$ enumerated the $201\,376$ profiles with a program of its own (none missing, none extra, none duplicated) and regenerated $2000$ CNFs with the recorded SHA-256.
 It proved the completeness of the cube splitting of the three expensive profiles by SAT, without trusting any enumerator: a subset of the clauses of the profile plus one blocking clause per cube is unsatisfiable, with LRAT proofs checked by \texttt{lrat-check} and \texttt{cake\_lpr}, and removing one blocking clause makes it satisfiable inside the freed cube; it checked that every cube is closed.
 It regenerated $51$ records bit for bit (CNF and proof) and checked them with both checkers, and refuted $8$ cheap profiles with the independent encoding.
-Its stated gaps are three: $9$ large proofs of its sample ($0.73$ to $27.8$\,GB) were not regenerated for lack of disk, so for them the only check is \texttt{lrat-check} in the original run; the independent encoding covers only $8$ cheap profiles; and the upper bound $17$ is taken from the literature.
+Its stated gaps are three: $9$ large proofs of its sample ($0.73$ to $27.8$\,GB) were not regenerated for lack of disk, so for them the only check is \texttt{lrat-check} in the original run; the independent encoding covers only $8$ cheap profiles; and the upper bound $17$ was taken from the literature, a gap that the $17$-word code above, formalized in version~0.9.1, closes.
 The state of Results~\ref{res:k753} and~\ref{res:k753b} is a verified computational certificate, not independently reproduced as a whole.
 
 \section{Where the same methods stop}\label{sec:limits}
@@ -391,7 +400,7 @@ $K_7(4,2)$ & $17$--$19$ & $19$ & kernel (explicit code) & kernel (Theorem~\ref{t
 $K_3(6,2)$ & $15$--$17$ & $17$ & kernel (ledger, witness of~\cite{hr1991}) & integer Farkas certificates, exact checker (Result~\ref{res:k362}); independently reproduced \\
 $K_7(6,4)$ & $13$--$15$ & $14$ & kernel (new code)
  & LRAT, $8008$ profiles (Result~\ref{res:k764}); reproduced on a sample \\
-$K_7(5,3)$ & $15$--$17$ & $17$ & announced~\cite{keri}, not checked & LRAT, $201\,376$ profiles (Result~\ref{res:k753b}); reproduced on a sample \\
+$K_7(5,3)$ & $15$--$17$ & $17$ & kernel (our code, version~0.9.1) & LRAT, $201\,376$ profiles (Result~\ref{res:k753b}); reproduced on a sample \\
 \bottomrule
 \end{tabular}
 \caption{Exact values and lower bounds. ``Kernel'' means a theorem of the Lean kernel with no hypothesis; every lower bound of the last three rows is a verified computational certificate, checked by exact programs outside Lean.}
@@ -405,13 +414,13 @@ The states are computed by a script from the Lean sources and the certificates, 
 
 For the upper bounds the library has a generic statement, \texttt{CoveringUB.\allowbreak K\_\allowbreak le\_\allowbreak card}: if $C$ covers at radius $R$ then $K_q(n,R)\le|C|$, with $K_q(n,R)$ defined as an infimum; and the classical construction rules~\cite[Ch.~3]{cohen1997} as theorems for the same types: direct sum, free and dummy lengthening, puncturing, monotonicity in the radius and projection of the alphabet.
 A generator picks, for each cell, the cheapest certificate that reaches the best known upper bound (a trivial code, a small explicit witness checked by the kernel, or a rule applied to other cells) and writes one theorem per cell; all of them are collected in the single theorem \texttt{CoveringLedger.\allowbreak todas\_\allowbreak as\_\allowbreak cotas} (target \texttt{CoveringLedger}).
-Counting also the theorems of the previous sections, $487$ of the $1145$ upper bounds are formalized or independently reproduced.
+Counting also the theorems of the previous sections, $488$ of the $1145$ upper bounds are formalized or independently reproduced.
 
 This is not a verification of the whole table.
-The other $659$ upper bounds are only claimed, and the lower bounds are, with two exceptions, inherited from the literature: only $K_2(6,1)\ge 12$ and $K_7(4,2)\ge 19$ are theorems here, so these are the two cells whose exact value is formalized on both sides.
+The other $657$ upper bounds are only claimed, and the lower bounds are, with two exceptions, inherited from the literature: only $K_2(6,1)\ge 12$ and $K_7(4,2)\ge 19$ are theorems here, so these are the two cells whose exact value is formalized on both sides.
 The lower bounds of Results~\ref{res:k362}, \ref{res:k764} and~\ref{res:k753b} are not theorems of the kernel and never enter the ledger as formalized entries.
 For them version~0.9 adds a separate state, \emph{verified certificate}, for a bound proved by a reduction on paper and certificates checked by an exact program outside Lean, with the certificates, the checker and the reviews in the provenance; it is computed by the same script and is never counted among the formalized bounds.
-The new upper bound $K_7(6,4)\le 14$ is a theorem of the kernel; since its $14$-word code is also checked by the C verifier, it enters as independently reproduced.
+The new upper bound $K_7(6,4)\le 14$ and, from version~0.9.1, the upper bound $K_7(5,3)\le 17$ by our own $17$-word code are theorems of the kernel; since both codes are also checked by the C verifier, they enter as independently reproduced.
 
 \subsection*{Propagation}
 A script applies the inequalities between cells that are theorems here (the construction rules above, read forwards for upper bounds and contrapositively for lower bounds) together with the sphere-covering bound, up to a fixed point over all cells of the tables.
@@ -441,9 +450,9 @@ On 3 October 2026, in a container with 4 cores and 15\,GB, the four certificates
 On 4 October 2026, in the same container, \texttt{Syn\_\allowbreak K5607} built in 1261\,s of wall-clock time.
 For each of the four, three kinds of mutation were built and rejected by Lean: replacing one codeword, removing one codeword (both for the cardinality and for the coverage check), and corrupting one witness in the coverage table.
 Also on 4 October 2026, the target \texttt{CoveringK742Sat} (Theorem~\ref{thm:k742}) was built on two virtual machines (\texttt{t2d-standard-8} and \texttt{c2d-highmem-8}): $284$ modules, all accepted, $37.8$ CPU-hours, $3.7$ hours of wall-clock time, peak $9.2$\,GB per process; the inputs (CNF and trimmed LRAT of each profile) are regenerated deterministically and their SHA-256 are recorded in the repository.
-The upper bound $K_7(6,4)\le 14$ of Section~\ref{sec:fibre} is in the default target.
+The upper bounds $K_7(6,4)\le 14$ and $K_7(5,3)\le 17$ of Section~\ref{sec:fibre} are in the default target.
 The computational lower bounds of Sections~\ref{sec:k362} and~\ref{sec:fibre} were not built by Lean; their measurements are given in those sections.
-\texttt{\#print axioms} on Theorems~\ref{thm:k794}, \ref{thm:ge11}, \ref{thm:eq12}, \ref{thm:k742}, on \texttt{CoveringLedger.\allowbreak todas\_\allowbreak as\_\allowbreak cotas} and on every declaration of Table~\ref{tab:other} reports \texttt{propext}, \texttt{Classical.\allowbreak choice} and \texttt{Quot.\allowbreak sound} only.
+\texttt{\#print axioms} on Theorems~\ref{thm:k794}, \ref{thm:ge11}, \ref{thm:eq12}, \ref{thm:k742}, on \texttt{CoveringLedger.\allowbreak todas\_\allowbreak as\_\allowbreak cotas}, on \texttt{CoveringK764.\allowbreak K\_\allowbreak 7\_\allowbreak 6\_\allowbreak 4\_\allowbreak le\_\allowbreak 14} and \texttt{CoveringK753.\allowbreak K\_\allowbreak 7\_\allowbreak 5\_\allowbreak 3\_\allowbreak le\_\allowbreak 17}, and on every declaration of Table~\ref{tab:other} reports \texttt{propext}, \texttt{Classical.\allowbreak choice} and \texttt{Quot.\allowbreak sound} only.
 
 \section{Literature search}\label{sec:lit}
 For version~0.6 we collected, with a reproducible script, the works citing Kéri's tables, the book~\cite{cohen1997} and the main papers on $q$-ary covering codes, through OpenAlex, zbMATH Open, Crossref, OpenCitations and arXiv, down to two levels of citations ($2103$ works, $582$ open-access PDFs read in full), together with Kéri's tables and their archived copies.
@@ -453,10 +462,10 @@ For version~0.9, the interval $15\le K_3(6,2)\le 17$ was traced to its sources~\
 
 \section{What is not a theorem}
 Novelty is a reading of the literature, not a checked fact.
-No lower bound of Section~\ref{sec:k362} or Section~\ref{sec:fibre} is a theorem of the kernel; of their upper bounds, $K_3(6,2)\le 17$ and $K_7(6,4)\le 14$ are, and $K_7(5,3)\le 17$ is only cited.
+No lower bound of Section~\ref{sec:k362} or Section~\ref{sec:fibre} is a theorem of the kernel; of their upper bounds, $K_3(6,2)\le 17$, $K_7(6,4)\le 14$ and $K_7(5,3)\le 17$ are.
 For $K_3(6,2)=17$ the trusted base is the completeness proof of Lemma~\ref{lem:complete}, written on paper and reviewed adversarially; the enumeration and normalization programs; and the exact Farkas checkers, which rebuild every system from its description. The linear-programming solver is not trusted. The independent reproduction has its own reduction, enumeration and checkers (VeriPB, \texttt{lrat-check}, an exact Farkas checker), so a single error in either pipeline would not by itself invalidate the result.
 For $K_7(6,4)=14$ and $K_7(5,3)=17$ the trusted base is Lemmas~\ref{lem:fibre} and~\ref{lem:h} and the symmetry-breaking steps (a)--(g), written on paper (Lemma~\ref{lem:h} after a correction); the CNF encoder; the cube splitting for two profiles of $K_7(5,3)$, whose completeness was checked by SAT with checked proofs; and \texttt{lrat-check}. The SAT solvers are not trusted. Of the $201\,376$ profiles and $6765$ cubes of $K_7(5,3)$ with $16$ words, only a sample was checked by a second checker; $9$ large proofs of the review's sample were not regenerated.
-These results also inherit lower bounds from the literature: $K_7(5,3)\ge 14$ for $K_7(6,4)$; $K_6(4,2)=15$ and $K_7(4,2)\ge 17$ for $K_7(5,3)\ge 16$, and $K_7(4,2)\ge 17$ for $K_7(5,3)\ge 17$ (the last one is also Theorem~\ref{thm:k742}); and $K_7(5,3)\le 17$ is the announced bound of~\cite{keri}.
+These results also inherit lower bounds from the literature: $K_7(5,3)\ge 14$ for $K_7(6,4)$; $K_6(4,2)=15$ and $K_7(4,2)\ge 17$ for $K_7(5,3)\ge 16$, and $K_7(4,2)\ge 17$ for $K_7(5,3)\ge 17$ (the last one is also Theorem~\ref{thm:k742}).
 The autopsy of the hard instances at the end of Section~\ref{sec:k362} is an observation, not part of any proof.
 The search programs are not verified; only their output is.
 For $K_7(4,2)\ge 19$ the kernel checks the reduction, the bridge to the CNF, the CNF itself and the $70$ refutations; the SAT solver, the trimming tool and the Python scripts that split the proofs into modules are not verified, and need not be, since only their output enters the kernel.

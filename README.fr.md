@@ -95,7 +95,7 @@ Le bloc ci-dessous est généré à partir de `ledger/cells.json` et ne se modif
 | cellules avec un théorème Lean à nous | **15** (12 sous la meilleure borne supérieure publiée que nous avons trouvée) |
 | codes explicites dans `data/codes/` | **19** (tous passent le vérificateur C officiel, `tools/verify/check_all.sh`, en CI) ; 13 sont le témoin actuel d'une borne du registre, sha256 vérifié |
 
-Version 0.9.0 · DOI [10.5281/zenodo.23085769](https://doi.org/10.5281/zenodo.23085769) · registre mis à jour le 2026-10-06. Les bornes inférieures ne sont **pas**, en général, dans Lean : seules 2 d'entre elles sont des théorèmes du noyau.
+Version 0.9.1 · DOI [10.5281/zenodo.23085769](https://doi.org/10.5281/zenodo.23085769) · registre mis à jour le 2026-10-06. Les bornes inférieures ne sont **pas**, en général, dans Lean : seules 2 d'entre elles sont des théorèmes du noyau.
 
 ### Faits marquants
 

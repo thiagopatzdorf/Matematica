@@ -243,17 +243,17 @@
         <div class="numero"><dd data-d="celulas_total">1145</dd><dt data-i="num.celulas">células K<sub>q</sub>(n,R) no ledger</dt></div>
         <div class="numero"><dd data-d="exatas">523</dd><dt data-i="num.exatas">exatas: cota inferior igual à superior</dt></div>
         <div class="numero"><dd data-d="abertas">622</dd><dt data-i="num.abertas">ainda abertas</dt></div>
-        <div class="numero"><dd data-d="no_lean">487</dd><dt data-i="num.lean">cotas superiores no Lean (FORMALIZED ou acima)</dt></div>
+        <div class="numero"><dd data-d="no_lean">488</dd><dt data-i="num.lean">cotas superiores no Lean (FORMALIZED ou acima)</dt></div>
       </dl>
       <div class="barra-rotulo"><span data-i="barra.rotulo">Cotas superiores, por estado</span><span id="barra-total">1145 cotas</span></div>
-      <div class="barra" id="barra" role="img" aria-label="Cotas superiores: 658 CLAIMED, 435 FORMALIZED, 52 INDEPENDENTLY_REPRODUCED."><span class="e-CLAIMED" style="flex:658"></span><span class="e-FORMALIZED" style="flex:435"></span><span class="e-INDEPENDENTLY_REPRODUCED" style="flex:52"></span></div>
+      <div class="barra" id="barra" role="img" aria-label="Cotas superiores: 657 CLAIMED, 435 FORMALIZED, 53 INDEPENDENTLY_REPRODUCED."><span class="e-CLAIMED" style="flex:657"></span><span class="e-FORMALIZED" style="flex:435"></span><span class="e-INDEPENDENTLY_REPRODUCED" style="flex:53"></span></div>
       <ul class="legenda" id="legenda">
-        <li><i class="e-CLAIMED"></i>CLAIMED · 658</li>
+        <li><i class="e-CLAIMED"></i>CLAIMED · 657</li>
         <li><i class="e-FORMALIZED"></i>FORMALIZED · 435</li>
-        <li><i class="e-INDEPENDENTLY_REPRODUCED"></i>INDEPENDENTLY_REPRODUCED · 52</li>
+        <li><i class="e-INDEPENDENTLY_REPRODUCED"></i>INDEPENDENTLY_REPRODUCED · 53</li>
       </ul>
       <p class="nota" id="inferiores">Cotas inferiores: 1140 CLAIMED, 3 CERTIFICATE_VERIFIED, 2 FORMALIZED.</p>
-      <p class="carimbo" id="carimbo">Números embutidos na página (ledger/COBERTURA.md, v0.9.0).</p>
+      <p class="carimbo" id="carimbo">Números embutidos na página (ledger/COBERTURA.md, v0.9.1).</p>
     </div>
   </section>
 
@@ -301,11 +301,11 @@
       <h2 id="h-metodo" data-i="h.metodo">Contra o não-provado, uma escada de <em>estados</em>.</h2>
       <p class="lede" data-i="metodo.lede">Cada cota começa como afirmação e só sobe um degrau quando um instrumento mais exigente confere. Os estados são cumulativos.</p>
       <ol class="escada" id="escada" aria-label="Cotas superiores por estado" data-i-aria="escada.titulo">
-        <li class="degrau" style="--i:4"><code>INDEPENDENTLY_REPRODUCED</code><p data-i="e.INDEPENDENTLY_REPRODUCED">No Lean e reproduzida por um segundo caminho independente.</p><span class="q" data-ub="INDEPENDENTLY_REPRODUCED">52<small>cotas</small></span></li>
+        <li class="degrau" style="--i:4"><code>INDEPENDENTLY_REPRODUCED</code><p data-i="e.INDEPENDENTLY_REPRODUCED">No Lean e reproduzida por um segundo caminho independente.</p><span class="q" data-ub="INDEPENDENTLY_REPRODUCED">53<small>cotas</small></span></li>
         <li class="degrau" style="--i:3"><code>FORMALIZED</code><p data-i="e.FORMALIZED">Teorema aceito pelo kernel do Lean 4.</p><span class="q" data-ub="FORMALIZED">435<small>cotas</small></span></li>
         <li class="degrau" style="--i:2"><code>CERTIFICATE_VERIFIED</code><p data-i="e.CERTIFICATE_VERIFIED">Certificado conferido por verificador (estado típico de cota inferior).</p><span class="q" data-ub="CERTIFICATE_VERIFIED">0<small>cotas</small></span></li>
         <li class="degrau" style="--i:1"><code>WITNESS_CHECKED</code><p data-i="e.WITNESS_CHECKED">Código explícito conferido por programa.</p><span class="q" data-ub="WITNESS_CHECKED">0<small>cotas</small></span></li>
-        <li class="degrau" style="--i:0"><code>CLAIMED</code><p data-i="e.CLAIMED">Afirmada na literatura; nada conferido aqui.</p><span class="q" data-ub="CLAIMED">658<small>cotas</small></span></li>
+        <li class="degrau" style="--i:0"><code>CLAIMED</code><p data-i="e.CLAIMED">Afirmada na literatura; nada conferido aqui.</p><span class="q" data-ub="CLAIMED">657<small>cotas</small></span></li>
       </ol>
       <ol class="passos" data-c="metodo">
         <li><b>Definir</b><span>Fixar a célula K<sub>q</sub>(n,R) e a melhor cota publicada, com fonte.</span></li>
@@ -350,7 +350,7 @@
   author  = {Patzdorf, Thiago},
   title   = {Covering codes checked by the Lean kernel},
   year    = {2026},
-  version = {0.9.0},
+  version = {0.9.1},
   doi     = {10.5281/zenodo.23085769},
   url     = {https://github.com/thiagopatzdorf/Matematica}
 }</pre>

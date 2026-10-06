@@ -1,8 +1,9 @@
 {
-  "gerado_em": "2026-10-06T04:28:14+00:00",
-  "commit": "6b17c50bc206a857c7a6e30ee140b6238ddcb33a",
-  "versao": "0.9.0",
-  "doi": "10.5281/zenodo.23172276",
+  "gerado_em": "2026-10-06T04:29:08+00:00",
+  "commit": "69d57fb689eee21cbf561d056ff76fc9fe75cd8a",
+  "versao": "0.9.1",
+  "doi": "10.5281/zenodo.23178159",
+  "doi_da_versao": "0.9.1",
   "doi_conceito": "10.5281/zenodo.23085769",
   "frase_ledger": "A machine-checked ledger of covering-code upper bounds, with formally certified exact entries.",
   "celulas_total": 1145,
