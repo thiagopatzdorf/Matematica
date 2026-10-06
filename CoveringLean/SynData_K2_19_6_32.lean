@@ -1,0 +1,25 @@
+-- gerado por scripts/syndrome/gen_syn.py; não editar à mão
+import CoveringLean.SynCheck
+
+/-! Dados do certificado `K2_19_6_32`: q=2, n=19, R=6, M=32.
+sha256 canônico do código (palavras como strings w_0..w_(n-1), ordenadas, uma por linha): d466fc9751eb37cba1240b575fec2a4f1dc2af1fe02cd9f656214158cee249e1
+C0 = [19,2]_2, bloco de informação [7,9), 8 cosets completos, 0 síndromes órfãs (0 pontos). -/
+
+namespace Syn
+
+def PK2_19_6_32 : Spec where
+  q := 2
+  n := 19
+  k := 2
+  o := 7
+  R := 6
+  Gs := [491775, 32512]
+  reps := [0, 11356, 20082, 5678, 521321, 506421, 516635, 514119]
+  orphs := []
+  PN := 1062275974171274051348797971949515953304901863660440931099164163924191229287601047387629379484765977805343424042805497761885680374554007332546077693095585940918892348328233081548832768
+  b := 19
+  cnt := 32
+
+def LK2_19_6_32 : List Nat := [0, 2966, 5678, 7652, 10168, 11356, 12658, 15050, 17866, 20082, 21340, 22712, 25316, 26926, 29846, 32512, 491775, 494441, 497361, 498971, 501575, 502947, 504205, 506421, 509237, 511629, 512931, 514119, 516635, 518609, 521321, 524287]
+
+end Syn
