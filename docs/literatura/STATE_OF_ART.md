@@ -85,3 +85,31 @@ for _ in range(R):
     A=B
 print(len(C), int((~A).sum()))   # -> 1475 0
 ```
+
+---
+
+# Entrada: códigos de cobertura de segunda ordem, K^(2)_q(n,r)
+
+Revisão feita em 2026-10-06 para o diretório [`segunda_ordem/`](../../segunda_ordem/README.md). É um
+problema **irmão** de K_q(n,R), fora do ledger e fora das contagens do Kéri.
+
+**Pergunta:** existe tabela publicada de K^(2)_q(n,r) = min |C| com R_2(C) ≤ r (raio de cobertura
+generalizado de ordem 2, códigos não necessariamente lineares) para n pequeno? E para códigos
+lineares?
+
+**Resposta curta: não achei nenhuma.** As fontes tratam de taxa assintótica ou de famílias
+lineares específicas:
+
+| fonte | o que traz | tabela de n pequeno? |
+|---|---|---|
+| Elimelech–Firer–Schwartz, IEEE TIT 67(12), 2021, arXiv:2012.06467 | define R_t para códigos lineares; cotas assintóticas; Exemplo 3: Hamming tem R_t = t | não (só o exemplo; conferido: o [7,4] tem R_2 = 2 pelos nossos verificadores) |
+| Elimelech–Schwartz, arXiv:2210.00531 (ISIT 2023) | bolão de segunda ordem; κ_2(ρ,q) = 1 − H_{q²}(ρ) para códigos gerais | não |
+| Li–Shangguan–Wei, arXiv:2608.24856 (2026) | taxa ótima para todo t, também para lineares | não |
+| Yu–Schwartz, arXiv:2609.14477 (2026) | raio de empacotamento generalizado ≤ raio de cobertura generalizado | não |
+| Yohananov–Schwartz; Özbudak–Öztürk; Xiong–Yip; Li–Xiong; Luo et al. (2022–2026) | R_2 (e R_3) de BCH, Reed–Muller, Melas, Zetterberg, cíclicos | não: R_2 de um código fixo, não o mínimo sobre códigos |
+
+Busca: OpenAlex ("generalized covering radius codes", 135 obras; obras que citam
+arXiv:2210.00531), Consensus e arXiv ("second-order covering codes football pool"). Não foram
+consultados Google Scholar, teses nem bases pagas. Conclusão: os valores de `segunda_ordem/` são
+plausivelmente os primeiros publicados para n pequeno, o que **não** prova que não existam em
+outro lugar.

@@ -1,0 +1,595 @@
+{
+ "celulas": {
+  "2,2,1": {
+   "cotas_livres": {
+    "K_q": 2,
+    "K_q2_lb": 4,
+    "esfera": 2,
+    "q_palavras": 2,
+    "raiz_K_q2": 2
+   },
+   "exato": true,
+   "lb": 2,
+   "n": 2,
+   "origem_lb": [
+    "teorema_q_palavras"
+   ],
+   "origem_ub": "testemunha",
+   "q": 2,
+   "r": 1,
+   "ub": 2
+  },
+  "2,3,1": {
+   "cotas_livres": {
+    "K_q": 2,
+    "K_q2_lb": 8,
+    "esfera": 3,
+    "q_palavras": 2,
+    "raiz_K_q2": 3
+   },
+   "exato": true,
+   "lb": 4,
+   "n": 3,
+   "origem_lb": [
+    "veripb"
+   ],
+   "origem_ub": "testemunha",
+   "q": 2,
+   "r": 1,
+   "ub": 4
+  },
+  "2,3,2": {
+   "cotas_livres": {
+    "K_q": 2,
+    "K_q2_lb": 4,
+    "esfera": 2,
+    "q_palavras": 2,
+    "raiz_K_q2": 2
+   },
+   "exato": true,
+   "lb": 2,
+   "n": 3,
+   "origem_lb": [
+    "teorema_q_palavras"
+   ],
+   "origem_ub": "testemunha",
+   "q": 2,
+   "r": 2,
+   "ub": 2
+  },
+  "2,4,1": {
+   "cotas_livres": {
+    "K_q": 4,
+    "K_q2_lb": 24,
+    "esfera": 5,
+    "q_palavras": 2,
+    "raiz_K_q2": 5
+   },
+   "exato": true,
+   "lb": 8,
+   "n": 4,
+   "origem_lb": [
+    "veripb"
+   ],
+   "origem_ub": "testemunha",
+   "q": 2,
+   "r": 1,
+   "ub": 8
+  },
+  "2,4,2": {
+   "cotas_livres": {
+    "K_q": 2,
+    "K_q2_lb": 7,
+    "esfera": 2,
+    "q_palavras": 2,
+    "raiz_K_q2": 3
+   },
+   "exato": true,
+   "lb": 4,
+   "n": 4,
+   "origem_lb": [
+    "veripb"
+   ],
+   "origem_ub": "testemunha",
+   "q": 2,
+   "r": 2,
+   "ub": 4
+  },
+  "2,4,3": {
+   "cotas_livres": {
+    "K_q": 2,
+    "K_q2_lb": 4,
+    "esfera": 2,
+    "q_palavras": 2,
+    "raiz_K_q2": 2
+   },
+   "exato": true,
+   "lb": 2,
+   "n": 4,
+   "origem_lb": [
+    "teorema_q_palavras"
+   ],
+   "origem_ub": "testemunha",
+   "q": 2,
+   "r": 3,
+   "ub": 2
+  },
+  "2,5,1": {
+   "cotas_livres": {
+    "K_q": 7,
+    "K_q2_lb": 64,
+    "esfera": 8,
+    "q_palavras": 2,
+    "raiz_K_q2": 8
+   },
+   "exato": true,
+   "lb": 16,
+   "n": 5,
+   "origem_lb": [
+    "veripb"
+   ],
+   "origem_ub": "testemunha",
+   "q": 2,
+   "r": 1,
+   "ub": 16
+  },
+  "2,5,2": {
+   "cotas_livres": {
+    "K_q": 2,
+    "K_q2_lb": 16,
+    "esfera": 4,
+    "q_palavras": 2,
+    "raiz_K_q2": 4
+   },
+   "exato": true,
+   "lb": 6,
+   "n": 5,
+   "origem_lb": [
+    "veripb"
+   ],
+   "origem_ub": "testemunha",
+   "q": 2,
+   "r": 2,
+   "ub": 6
+  },
+  "2,5,3": {
+   "cotas_livres": {
+    "K_q": 2,
+    "K_q2_lb": 4,
+    "esfera": 2,
+    "q_palavras": 2,
+    "raiz_K_q2": 2
+   },
+   "exato": true,
+   "lb": 2,
+   "n": 5,
+   "origem_lb": [
+    "teorema_q_palavras"
+   ],
+   "origem_ub": "testemunha",
+   "q": 2,
+   "r": 3,
+   "ub": 2
+  },
+  "2,5,4": {
+   "cotas_livres": {
+    "K_q": 2,
+    "K_q2_lb": 4,
+    "esfera": 2,
+    "q_palavras": 2,
+    "raiz_K_q2": 2
+   },
+   "exato": true,
+   "lb": 2,
+   "n": 5,
+   "origem_lb": [
+    "teorema_q_palavras"
+   ],
+   "origem_ub": "testemunha",
+   "q": 2,
+   "r": 4,
+   "ub": 2
+  },
+  "2,6,1": {
+   "cotas_livres": {
+    "K_q": 12,
+    "K_q2_lb": 228,
+    "esfera": 15,
+    "q_palavras": 2,
+    "raiz_K_q2": 16
+   },
+   "exato": true,
+   "lb": 28,
+   "n": 6,
+   "origem_lb": [
+    "drat"
+   ],
+   "origem_ub": "testemunha",
+   "q": 2,
+   "r": 1,
+   "ub": 28
+  },
+  "2,6,2": {
+   "cotas_livres": {
+    "K_q": 4,
+    "K_q2_lb": 33,
+    "esfera": 6,
+    "q_palavras": 2,
+    "raiz_K_q2": 6
+   },
+   "exato": true,
+   "lb": 8,
+   "n": 6,
+   "origem_lb": [
+    "drat"
+   ],
+   "origem_ub": "testemunha",
+   "q": 2,
+   "r": 2,
+   "ub": 8
+  },
+  "2,6,3": {
+   "cotas_livres": {
+    "K_q": 2,
+    "K_q2_lb": 11,
+    "esfera": 3,
+    "q_palavras": 2,
+    "raiz_K_q2": 4
+   },
+   "exato": true,
+   "lb": 4,
+   "n": 6,
+   "origem_lb": [
+    "raiz_K_q2"
+   ],
+   "origem_ub": "testemunha",
+   "q": 2,
+   "r": 3,
+   "ub": 4
+  },
+  "2,6,4": {
+   "cotas_livres": {
+    "K_q": 2,
+    "K_q2_lb": 4,
+    "esfera": 2,
+    "q_palavras": 2,
+    "raiz_K_q2": 2
+   },
+   "exato": true,
+   "lb": 2,
+   "n": 6,
+   "origem_lb": [
+    "teorema_q_palavras"
+   ],
+   "origem_ub": "testemunha",
+   "q": 2,
+   "r": 4,
+   "ub": 2
+  },
+  "2,6,5": {
+   "cotas_livres": {
+    "K_q": 2,
+    "K_q2_lb": 4,
+    "esfera": 2,
+    "q_palavras": 2,
+    "raiz_K_q2": 2
+   },
+   "exato": true,
+   "lb": 2,
+   "n": 6,
+   "origem_lb": [
+    "teorema_q_palavras"
+   ],
+   "origem_ub": "testemunha",
+   "q": 2,
+   "r": 5,
+   "ub": 2
+  },
+  "2,7,1": {
+   "cotas_livres": {
+    "K_q": 16,
+    "K_q2_lb": 776,
+    "esfera": 28,
+    "q_palavras": 2,
+    "raiz_K_q2": 28
+   },
+   "exato": false,
+   "lb": 28,
+   "n": 7,
+   "origem_lb": [
+    "esfera",
+    "raiz_K_q2"
+   ],
+   "origem_ub": "testemunha",
+   "q": 2,
+   "r": 1,
+   "ub": 56
+  },
+  "2,7,2": {
+   "cotas_livres": {
+    "K_q": 7,
+    "K_q2_lb": 88,
+    "esfera": 9,
+    "q_palavras": 2,
+    "raiz_K_q2": 10
+   },
+   "exato": false,
+   "lb": 12,
+   "n": 7,
+   "origem_lb": [
+    "drat"
+   ],
+   "origem_ub": "testemunha",
+   "q": 2,
+   "r": 2,
+   "ub": 16
+  },
+  "2,7,3": {
+   "cotas_livres": {
+    "K_q": 2,
+    "K_q2_lb": 19,
+    "esfera": 4,
+    "q_palavras": 2,
+    "raiz_K_q2": 5
+   },
+   "exato": true,
+   "lb": 7,
+   "n": 7,
+   "origem_lb": [
+    "drat"
+   ],
+   "origem_ub": "testemunha",
+   "q": 2,
+   "r": 3,
+   "ub": 7
+  },
+  "2,7,4": {
+   "cotas_livres": {
+    "K_q": 2,
+    "K_q2_lb": 9,
+    "esfera": 3,
+    "q_palavras": 2,
+    "raiz_K_q2": 3
+   },
+   "exato": true,
+   "lb": 4,
+   "n": 7,
+   "origem_lb": [
+    "drat"
+   ],
+   "origem_ub": "testemunha",
+   "q": 2,
+   "r": 4,
+   "ub": 4
+  },
+  "2,7,5": {
+   "cotas_livres": {
+    "K_q": 2,
+    "K_q2_lb": 4,
+    "esfera": 2,
+    "q_palavras": 2,
+    "raiz_K_q2": 2
+   },
+   "exato": true,
+   "lb": 2,
+   "n": 7,
+   "origem_lb": [
+    "teorema_q_palavras"
+   ],
+   "origem_ub": "testemunha",
+   "q": 2,
+   "r": 5,
+   "ub": 2
+  },
+  "2,7,6": {
+   "cotas_livres": {
+    "K_q": 2,
+    "K_q2_lb": 4,
+    "esfera": 2,
+    "q_palavras": 2,
+    "raiz_K_q2": 2
+   },
+   "exato": true,
+   "lb": 2,
+   "n": 7,
+   "origem_lb": [
+    "teorema_q_palavras"
+   ],
+   "origem_ub": "testemunha",
+   "q": 2,
+   "r": 6,
+   "ub": 2
+  },
+  "3,2,1": {
+   "cotas_livres": {
+    "K_q": 3,
+    "K_q2_lb": 9,
+    "esfera": 3,
+    "q_palavras": 3,
+    "raiz_K_q2": 3
+   },
+   "exato": true,
+   "lb": 3,
+   "n": 2,
+   "origem_lb": [
+    "teorema_q_palavras"
+   ],
+   "origem_ub": "testemunha",
+   "q": 3,
+   "r": 1,
+   "ub": 3
+  },
+  "3,3,1": {
+   "cotas_livres": {
+    "K_q": 5,
+    "K_q2_lb": 41,
+    "esfera": 6,
+    "q_palavras": 3,
+    "raiz_K_q2": 7
+   },
+   "exato": true,
+   "lb": 9,
+   "n": 3,
+   "origem_lb": [
+    "veripb"
+   ],
+   "origem_ub": "testemunha",
+   "q": 3,
+   "r": 1,
+   "ub": 9
+  },
+  "3,3,2": {
+   "cotas_livres": {
+    "K_q": 3,
+    "K_q2_lb": 9,
+    "esfera": 2,
+    "q_palavras": 3,
+    "raiz_K_q2": 3
+   },
+   "exato": true,
+   "lb": 3,
+   "n": 3,
+   "origem_lb": [
+    "teorema_q_palavras"
+   ],
+   "origem_ub": "testemunha",
+   "q": 3,
+   "r": 2,
+   "ub": 3
+  },
+  "3,4,1": {
+   "cotas_livres": {
+    "K_q": 9,
+    "K_q2_lb": 243,
+    "esfera": 15,
+    "q_palavras": 3,
+    "raiz_K_q2": 16
+   },
+   "exato": false,
+   "lb": 22,
+   "n": 4,
+   "origem_lb": [
+    "drat"
+   ],
+   "origem_ub": "testemunha",
+   "q": 3,
+   "r": 1,
+   "ub": 27
+  },
+  "3,4,2": {
+   "cotas_livres": {
+    "K_q": 3,
+    "K_q2_lb": 27,
+    "esfera": 4,
+    "q_palavras": 3,
+    "raiz_K_q2": 6
+   },
+   "exato": true,
+   "lb": 9,
+   "n": 4,
+   "origem_lb": [
+    "drat"
+   ],
+   "origem_ub": "testemunha",
+   "q": 3,
+   "r": 2,
+   "ub": 9
+  },
+  "3,4,3": {
+   "cotas_livres": {
+    "K_q": 3,
+    "K_q2_lb": 9,
+    "esfera": 2,
+    "q_palavras": 3,
+    "raiz_K_q2": 3
+   },
+   "exato": true,
+   "lb": 3,
+   "n": 4,
+   "origem_lb": [
+    "teorema_q_palavras"
+   ],
+   "origem_ub": "testemunha",
+   "q": 3,
+   "r": 3,
+   "ub": 3
+  },
+  "3,5,1": {
+   "cotas_livres": {
+    "K_q": 27,
+    "K_q2_lb": 1641,
+    "esfera": 38,
+    "q_palavras": 3,
+    "raiz_K_q2": 41
+   },
+   "exato": false,
+   "lb": 41,
+   "n": 5,
+   "origem_lb": [
+    "raiz_K_q2"
+   ],
+   "origem_ub": "testemunha",
+   "q": 3,
+   "r": 1,
+   "ub": 78
+  },
+  "3,5,2": {
+   "cotas_livres": {
+    "K_q": 8,
+    "K_q2_lb": 113,
+    "esfera": 10,
+    "q_palavras": 3,
+    "raiz_K_q2": 11
+   },
+   "exato": false,
+   "lb": 11,
+   "n": 5,
+   "origem_lb": [
+    "raiz_K_q2"
+   ],
+   "origem_ub": "testemunha",
+   "q": 3,
+   "r": 2,
+   "ub": 21
+  },
+  "3,5,3": {
+   "cotas_livres": {
+    "K_q": 3,
+    "K_q2_lb": 21,
+    "esfera": 4,
+    "q_palavras": 3,
+    "raiz_K_q2": 5
+   },
+   "exato": true,
+   "lb": 7,
+   "n": 5,
+   "origem_lb": [
+    "drat"
+   ],
+   "origem_ub": "testemunha",
+   "q": 3,
+   "r": 3,
+   "ub": 7
+  },
+  "3,5,4": {
+   "cotas_livres": {
+    "K_q": 3,
+    "K_q2_lb": 9,
+    "esfera": 2,
+    "q_palavras": 3,
+    "raiz_K_q2": 3
+   },
+   "exato": true,
+   "lb": 3,
+   "n": 5,
+   "origem_lb": [
+    "teorema_q_palavras"
+   ],
+   "origem_ub": "testemunha",
+   "q": 3,
+   "r": 4,
+   "ub": 3
+  }
+ },
+ "descricao": "K^(2)_q(n,r) = min |C| com R_2(C) <= r; gerado por segunda_ordem/tabela.py"
+}

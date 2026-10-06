@@ -1,0 +1,157 @@
+{
+ "2,3,1": {
+  "formula": "Codificacao(q, n, r, fixar_zero=True).opb()",
+  "formula_sha256": "42ae0209924cadab5e30a30889c2fc16e02fb4fbdb2051f80d4b1f0da5b41e5a",
+  "lb": 4,
+  "metodo": "veripb",
+  "prova_bytes": 1841,
+  "prova_gz": "dados/provas/k2_q2_n3_r1.pbp.gz",
+  "prova_sha256": "60b6bc9438dade922451f5ff93bc46581dfcea65d563d5d168287470320a5d99",
+  "simetria": "s\u00f3 0 \u2208 C",
+  "verificado": true
+ },
+ "2,4,1": {
+  "formula": "Codificacao(q, n, r, fixar_zero=True).opb()",
+  "formula_sha256": "7d0650f6cab88308aa16963d5491bb0b897ae07724f31c5c59adde118317678d",
+  "lb": 8,
+  "metodo": "veripb",
+  "prova_bytes": 48004,
+  "prova_gz": "dados/provas/k2_q2_n4_r1.pbp.gz",
+  "prova_sha256": "ac4c17280cd6cc88268dfeb058633b0f74e3696f08e9a08c3155ee4ffdf2a0bb",
+  "simetria": "s\u00f3 0 \u2208 C",
+  "verificado": true
+ },
+ "2,4,2": {
+  "formula": "Codificacao(q, n, r, fixar_zero=True).opb()",
+  "formula_sha256": "fa0d5ea8cd54105d799a90735ee312b6a8ce6b191aeb3a9452ff900714c80ae9",
+  "lb": 4,
+  "metodo": "veripb",
+  "prova_bytes": 8861,
+  "prova_gz": "dados/provas/k2_q2_n4_r2.pbp.gz",
+  "prova_sha256": "5bf8d82101e200034f8b722f9aff212db4cca7ceaf9a0ca1387195e12926611b",
+  "simetria": "s\u00f3 0 \u2208 C",
+  "verificado": true
+ },
+ "2,5,1": {
+  "formula": "Codificacao(q, n, r, fixar_zero=True).opb()",
+  "formula_sha256": "6d07fbfab14f10b7abec8836c21b3afdaaf67decb3894cbb4d8b0a389d457228",
+  "lb": 16,
+  "metodo": "veripb",
+  "prova_bytes": 38705787,
+  "prova_sha256": "daccd7e5ddd185a43f09d36bb2aec6c3a5b2c3b193d16508e6d25bb9ad98e8f1",
+  "simetria": "s\u00f3 0 \u2208 C",
+  "verificado": true
+ },
+ "2,5,2": {
+  "formula": "Codificacao(q, n, r, fixar_zero=True).opb()",
+  "formula_sha256": "477ac25fc9fe51f79a44a1ef194f4566e78a8eeebc812b221094c4f9723fab7e",
+  "lb": 6,
+  "metodo": "veripb",
+  "prova_bytes": 526036,
+  "prova_gz": "dados/provas/k2_q2_n5_r2.pbp.gz",
+  "prova_sha256": "ac4655d9aa569866282a321258e8dbfe0e12a64acd04bb47f82aa0919f176311",
+  "simetria": "s\u00f3 0 \u2208 C",
+  "verificado": true
+ },
+ "2,6,1": {
+  "formula": "Codificacao(q, n, r, fixar_zero=True) + quebrar_simetria() + dimacs(27)",
+  "formula_sha256": "5f258be5303fa181602493a36b9b63e54de6e8fd4fa190b8ae9a8e4cbd67e4da",
+  "lb": 28,
+  "metodo": "drat",
+  "prova_bytes": 162262477,
+  "prova_sha256": "7a2932ef11c346c7c719e200a475a8962f213eba5e4e48e84b475cc5ef17f2e2",
+  "simetria": "0 \u2208 C e x \u2265lex g(x) para transposi\u00e7\u00f5es de coordenadas e de s\u00edmbolos",
+  "unsat_ate": 27,
+  "verificado": true
+ },
+ "2,6,2": {
+  "formula": "Codificacao(q, n, r, fixar_zero=True) + quebrar_simetria() + dimacs(7)",
+  "formula_sha256": "59632a18efa44a6cb5e9f0f0220ac41e9be22baf133c583243a8ff7f30fa1962",
+  "lb": 8,
+  "metodo": "drat",
+  "prova_bytes": 1274033,
+  "prova_gz": "dados/provas/k2_q2_n6_r2_ate7.drat.gz",
+  "prova_sha256": "57c846934ccab7b2776544d1368ae635a5ab02563794bc66c1a7994790700ebf",
+  "simetria": "0 \u2208 C e x \u2265lex g(x) para transposi\u00e7\u00f5es de coordenadas e de s\u00edmbolos",
+  "unsat_ate": 7,
+  "verificado": true
+ },
+ "2,7,2": {
+  "formula": "Codificacao(q, n, r, fixar_zero=True) + quebrar_simetria() + dimacs(11)",
+  "formula_sha256": "8232cd0a4e652b6d91efd4212bc1f0c1bd0463339faff37a3b6e45428f9350f2",
+  "lb": 12,
+  "metodo": "drat",
+  "prova_bytes": 102575755,
+  "prova_sha256": "6f5072d7f9ff0d3029b7a4c902d143cf66682ec2629cb740acfb2b173ac86882",
+  "simetria": "0 \u2208 C e x \u2265lex g(x) para transposi\u00e7\u00f5es de coordenadas e de s\u00edmbolos",
+  "unsat_ate": 11,
+  "verificado": true
+ },
+ "2,7,3": {
+  "formula": "Codificacao(q, n, r, fixar_zero=True) + quebrar_simetria() + dimacs(6)",
+  "formula_sha256": "a50ea70159c65d2c42d7036b2fb83cc0fd20c9d093a6737806656287a644b3ba",
+  "lb": 7,
+  "metodo": "drat",
+  "prova_bytes": 18631043,
+  "prova_sha256": "2bece60c217a6bf5b3ebbaefc9138f9474252334f6510ce77521685b4875ea12",
+  "simetria": "0 \u2208 C e x \u2265lex g(x) para transposi\u00e7\u00f5es de coordenadas e de s\u00edmbolos",
+  "unsat_ate": 6,
+  "verificado": true
+ },
+ "2,7,4": {
+  "formula": "Codificacao(q, n, r, fixar_zero=True) + quebrar_simetria() + dimacs(3)",
+  "formula_sha256": "b8d8034652777e2a536bf44aab0bca48469ef9b0a13bab90d125bf723e4bc028",
+  "lb": 4,
+  "metodo": "drat",
+  "prova_bytes": 123636,
+  "prova_gz": "dados/provas/k2_q2_n7_r4_ate3.drat.gz",
+  "prova_sha256": "f98185739b8cf31f42af7da8db118ee43511c62f523f393384f029ceaee15903",
+  "simetria": "0 \u2208 C e x \u2265lex g(x) para transposi\u00e7\u00f5es de coordenadas e de s\u00edmbolos",
+  "unsat_ate": 3,
+  "verificado": true
+ },
+ "3,3,1": {
+  "formula": "Codificacao(q, n, r, fixar_zero=True).opb()",
+  "formula_sha256": "cccca7d72bb03c46f6f19e6ea4ac40901d723a0828d21d88052af18eb083e94e",
+  "lb": 9,
+  "metodo": "veripb",
+  "prova_bytes": 87077,
+  "prova_gz": "dados/provas/k2_q3_n3_r1.pbp.gz",
+  "prova_sha256": "81ac65ce370ba4612a0b571b624bca6bf01fcb842c191616aefe505e91ca505f",
+  "simetria": "s\u00f3 0 \u2208 C",
+  "verificado": true
+ },
+ "3,4,1": {
+  "formula": "Codificacao(q, n, r, fixar_zero=True) + quebrar_simetria() + dimacs(21)",
+  "formula_sha256": "c78faff23306e937640eb53433f94be392e710a22ea7c38fa2e6dfbfa1865793",
+  "lb": 22,
+  "metodo": "drat",
+  "prova_bytes": 303078989,
+  "prova_sha256": "9a6d4b294849fcb36106b24dbec4611bd063fba3fc9ecca9fb7ba016d049f7f2",
+  "simetria": "0 \u2208 C e x \u2265lex g(x) para transposi\u00e7\u00f5es de coordenadas e de s\u00edmbolos",
+  "unsat_ate": 21,
+  "verificado": true
+ },
+ "3,4,2": {
+  "formula": "Codificacao(q, n, r, fixar_zero=True) + quebrar_simetria() + dimacs(8)",
+  "formula_sha256": "7d0a9f933ba819e525068cae8112ea5754058c673faf8a7bb246757f3095ba63",
+  "lb": 9,
+  "metodo": "drat",
+  "prova_bytes": 28711541,
+  "prova_sha256": "80e26eefea93e22f7083f788cb2ffe38000a8692ab18318ba1348ad1a69e252c",
+  "simetria": "0 \u2208 C e x \u2265lex g(x) para transposi\u00e7\u00f5es de coordenadas e de s\u00edmbolos",
+  "unsat_ate": 8,
+  "verificado": true
+ },
+ "3,5,3": {
+  "formula": "Codificacao(q, n, r, fixar_zero=True) + quebrar_simetria() + dimacs(6)",
+  "formula_sha256": "90c11f371e686c3367c11a4c629522e0328b64db1b44e37203a181da3f05a2df",
+  "lb": 7,
+  "metodo": "drat",
+  "prova_bytes": 44549229,
+  "prova_sha256": "d4a03243006eabd2787717118e25f2418466f9b7ef70a62833f16f622634e5f8",
+  "simetria": "0 \u2208 C e x \u2265lex g(x) para transposi\u00e7\u00f5es de coordenadas e de s\u00edmbolos",
+  "unsat_ate": 6,
+  "verificado": true
+ }
+}
