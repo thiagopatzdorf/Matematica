@@ -1,6 +1,6 @@
 """Os docs da porta de entrada não podem apontar para arquivo que não existe.
 
-Confere, em README.md, CONTRIBUTING.md, AGENTS.md, SECURITY.md, CODE_OF_CONDUCT.md e docs/*.md:
+Confere, em README.md (e as traduções README.pt-BR.md e README.fr.md), CONTRIBUTING.md, AGENTS.md, SECURITY.md, CODE_OF_CONDUCT.md e docs/*.md:
   * links markdown relativos `[texto](alvo)` (resolvidos a partir da pasta do documento);
   * caminhos entre crases (resolvidos a partir da raiz do repositório) que têm barra e extensão
     conhecida, ou terminam em barra. Globs e placeholders (`*`, `<`, `{`, `$`) são ignorados.
@@ -13,6 +13,7 @@ import pytest
 
 RAIZ = Path(__file__).resolve().parents[1]
 DOCS = [RAIZ / n for n in ("README.md", "CONTRIBUTING.md", "AGENTS.md", "SECURITY.md", "CODE_OF_CONDUCT.md")]
+DOCS += [RAIZ / "README.pt-BR.md", RAIZ / "README.fr.md"]  # traduções do README: mesmos links
 DOCS += sorted((RAIZ / "docs").glob("*.md"))
 
 EXT = (".py .md .json .jsonl .c .h .sh .lean .yml .yaml .toml .txt .pdf .tex .cff .svg .csv .lock").split()
