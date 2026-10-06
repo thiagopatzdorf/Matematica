@@ -3,12 +3,13 @@
 
 Duas famílias de peça:
 
-* Diagramas e marca em SVG (logo, colapso, escada de estados, cubo, torres): precisam ser nítidos e legíveis
+* Diagramas e marca em SVG (logo, colapso, escada de estados, cubo, torres, quatro causas): precisam ser nítidos e legíveis
   em qualquer tela. O texto vira contorno (path), porque SVG dentro de <img> no GitHub não carrega webfont;
   cada glifo é definido uma vez em <defs> e reaproveitado com <use>, o que mantém cada arquivo < 60 KB.
 * Banner (claro e escuro) e social preview em PNG: uma cena WebGL (three.js) em cena/historia.html, com o
   caos do espaço Z_q^n condensando em quatro esferas de Hamming tangentes, com profundidade, luz e névoa,
-  retratada no Chromium headless. O PNG é quantizado para 256 cores (fica < 1 MB sem perda visível).
+  retratada no Chromium headless; o hero das páginas de filosofia (claro e escuro) é outra cena,
+  cena/filosofia.html, com o caos se ordenando nas quatro causas de Aristóteles. O PNG é quantizado para 256 cores (fica < 1 MB sem perda visível).
 
 Fonte: Cormorant Garamond (SIL Open Font License 1.1, Christian Thalmann), do pacote
 @fontsource/cormorant-garamond; three.js (MIT) do pacote npm `three`. Os dois são baixados num cache
@@ -45,7 +46,8 @@ URL_FONTE = ("https://cdn.jsdelivr.net/npm/@fontsource/cormorant-garamond@{v}/fi
 PESOS = {"r": ("400", "normal"), "m": ("500", "normal"), "sb": ("600", "normal"),
          "i": ("400", "italic"), "mi": ("500", "italic")}
 SAIDAS = ("logo.svg", "colapso.svg", "escada-de-estados.svg", "cubo-cobertura.svg", "torres.svg",
-          "banner-claro.png", "banner-escuro.png", "social-preview.png")
+          "quatro-causas.svg", "banner-claro.png", "banner-escuro.png", "social-preview.png",
+          "filosofia-claro.png", "filosofia-escuro.png")
 VERSAO_THREE = "0.170.0"
 ARQUIVOS_THREE = ["build/three.module.js"] + [f"examples/jsm/postprocessing/{n}.js" for n in (
     "EffectComposer", "RenderPass", "UnrealBloomPass", "OutputPass", "Pass", "ShaderPass", "MaskPass")] + [
@@ -631,6 +633,118 @@ def torres(tip: Tipografo) -> str:
 
 
 # --------------------------------------------------------------------------------------------
+# Filosofia: as quatro causas de Aristóteles, na leitura de docs/FILOSOFIA.md (seção V)
+# --------------------------------------------------------------------------------------------
+
+def _icone_material(cx, cy, c):
+    """Matéria: palavras soltas, sem forma ainda; algumas já em ouro (as que virarão código)."""
+    rnd = random.Random(11)
+    out = [f'<g fill="{c["tinta"]}">']
+    ouro = []
+    for k in range(64):
+        a, r = rnd.uniform(0, 2 * math.pi), 54 * math.sqrt(rnd.random())
+        x, y = cx + r * math.cos(a), cy + r * math.sin(a)
+        if k % 9 == 0:
+            ouro.append((x, y))
+            continue
+        out.append(f'<circle cx="{x:.1f}" cy="{y:.1f}" r="{rnd.uniform(1.0, 2.4):.1f}" '
+                   f'opacity="{rnd.uniform(.35, .9):.2f}"/>')
+    out.append(f'</g><g fill="{c["ouro"]}">')
+    out += [f'<circle cx="{x:.1f}" cy="{y:.1f}" r="3"/>' for x, y in ouro]
+    out.append("</g>")
+    return "".join(out)
+
+
+def _icone_eficiente(cx, cy, c):
+    """Causa eficiente: o laço. À esquerda o gerador que propõe, à direita o verificador que decide."""
+    xa, xb = cx - 44, cx + 44
+    estilo = (f'fill="none" stroke="{c["ouro"]}" stroke-width="1.4" stroke-linecap="round" '
+              f'stroke-linejoin="round"')
+
+    def arco(p0, ctrl, p2, extra=""):
+        # quadrática com ponta de seta na tangente final (p2 - ctrl), girada ±28°
+        tx, ty = p2[0] - ctrl[0], p2[1] - ctrl[1]
+        n = math.hypot(tx, ty)
+        tx, ty = tx / n * 8, ty / n * 8
+        pontas = []
+        for a in (math.radians(152), math.radians(-152)):
+            pontas.append((p2[0] + tx * math.cos(a) - ty * math.sin(a), p2[1] + tx * math.sin(a) + ty * math.cos(a)))
+        return (f'<path d="M{p0[0]:.1f} {p0[1]:.1f} Q{ctrl[0]:.1f} {ctrl[1]:.1f} {p2[0]:.1f} {p2[1]:.1f}" {estilo}{extra}/>'
+                f'<path d="M{pontas[0][0]:.1f} {pontas[0][1]:.1f} L{p2[0]:.1f} {p2[1]:.1f} '
+                f'L{pontas[1][0]:.1f} {pontas[1][1]:.1f}" {estilo}/>')
+
+    return (arco((xa + 6, cy - 14), (cx, cy - 58), (xb - 7, cy - 15))
+            + arco((xb - 6, cy + 14), (cx, cy + 58), (xa + 7, cy + 15), ' stroke-dasharray="3 4"')
+            + f'<circle cx="{xa}" cy="{cy}" r="11" fill="none" stroke="{c["tinta"]}" stroke-width="1.4"/>'
+            f'<circle cx="{xa}" cy="{cy}" r="3" fill="{c["tinta"]}"/>'
+            f'<circle cx="{xb}" cy="{cy}" r="11" fill="{c["ouro"]}"/>'
+            f'<path d="M{xb - 5} {cy} l3.5 4 l6.5 -8" fill="none" stroke="{c["fundo"]}" stroke-width="2" '
+            f'stroke-linecap="round" stroke-linejoin="round"/>')
+
+
+def _icone_final(cx, cy, c):
+    """Causa final: o intervalo [inferior, superior] que encolhe até virar ponto (o colapso de estado)."""
+    out = []
+    for k, (meia, op) in enumerate(((52, .35), (34, .6), (16, .85))):
+        y = cy - 38 + k * 26
+        out.append(f'<g stroke="{c["tinta"]}" stroke-width="1.4" opacity="{op}" fill="none">'
+                   f'<path d="M{cx - meia} {y}H{cx + meia}"/>'
+                   f'<path d="M{cx - meia + 4} {y - 6}h-4v12h4M{cx + meia - 4} {y - 6}h4v12h-4"/></g>')
+    out.append(f'<circle cx="{cx}" cy="{cy + 40}" r="5.5" fill="{c["ouro"]}"/>'
+               f'<circle cx="{cx}" cy="{cy + 40}" r="11" fill="none" stroke="{c["ouro"]}" stroke-width="1"/>')
+    return "".join(out)
+
+
+# Uma linha por causa. O texto é o da seção "As quatro causas" de docs/FILOSOFIA.md; mudou lá, muda aqui.
+CAUSAS = [
+    ("I", "Material", "de quê?", _icone_material,
+     "Palavras sobre um alfabeto finito; códigos; certificados: refutações LRAT, multiplicadores de Farkas."),
+    ("II", "Formal", "o que faz ser o que é?", _icone_ledger,
+     "A escada de estados e o kernel do Lean, que decidem o que conta como sabido."),
+    ("III", "Eficiente", "por obra de quê?", _icone_eficiente,
+     "O laço de busca e verificação. Geradores que propõem, verificadores que decidem. Pessoas e agentes."),
+    ("IV", "Final", "para quê?", _icone_final,
+     "Reverter a entropia local. Tornar sabido o incerto, e o sabido barato de conferir outra vez."),
+]
+
+
+def quatro_causas(tip: Tipografo) -> str:
+    tip.reiniciar()
+    c = TEMAS["claro"]
+    W, H = 1280, 640
+    t = [_cartao(W, H, c)]
+    t.append(tip.texto("ARISTÓTELES, FÍSICA II 3", 72, 82, 14, "m", c["ourotx"], tracking=0.24))
+    t.append(tip.texto("As quatro causas, neste repositório", 72, 128, 44, "r", c["tinta"]))
+    col_w, x0, gap = 262, 72, 30
+    for k, (num, nome, pergunta, icone, texto) in enumerate(CAUSAS):
+        x = x0 + k * (col_w + gap)
+        cx = x + col_w / 2
+        t.append(tip.texto(num, cx, 196, 20, "m", c["ourotx"], ancora="middle", tracking=0.1))
+        t.append(icone(cx, 278, c))
+        t.append(tip.texto(nome, cx, 376, 30, "r", c["tinta"], ancora="middle"))
+        t.append(tip.texto(f"*{pergunta}*", cx, 404, 18, "r", c["ourotx"], ancora="middle"))
+        par, _ = tip.paragrafo(texto, x + 8, 440, col_w - 16, 17.5, 24, chave="r", cor=c["suave"])
+        t.append(par)
+        if k < 3:
+            ax = x + col_w + gap / 2
+            t.append(f'<line x1="{ax}" y1="190" x2="{ax}" y2="520" stroke="{c["fraco"]}" stroke-width="1"/>')
+    # o laço se fecha: a causa final volta à matéria como memória (o ledger)
+    y = 556
+    xa, xb = x0 + col_w / 2, x0 + 3 * (col_w + gap) + col_w / 2
+    t.append(f'<path d="M{xb} {y - 14} V{y} H{xa} V{y - 14}" fill="none" stroke="{c["ouro"]}" stroke-width="1.4" '
+             f'stroke-linecap="round" stroke-linejoin="round"/>'
+             f'<path d="M{xa - 5} {y - 8} L{xa} {y - 14} L{xa + 5} {y - 8}" fill="none" stroke="{c["ouro"]}" '
+             f'stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>')
+    t.append(tip.texto("O ledger é a memória: quem chega amanhã não repete a busca. Lê o estado e confere o "
+                       "certificado.", W / 2, 596, 18, "r", c["tinta"], ancora="middle", opacidade=0.85))
+    desc = ("As quatro causas de Aristóteles (Física II 3) aplicadas a este repositório, em quatro colunas. " + " ".join(
+        f"{n}. Causa {nome.lower()} ({p}): {tx}" for n, nome, p, _i, tx in CAUSAS)
+        + " Uma linha de ouro volta da causa final à material: o ledger é a memória; quem chega amanhã não "
+          "repete a busca, lê o estado e confere o certificado.")
+    return documento(tip, W, H, "As quatro causas, neste repositório", desc, "".join(t))
+
+
+# --------------------------------------------------------------------------------------------
 # Peças em PNG: a cena WebGL retratada no Chromium headless
 # --------------------------------------------------------------------------------------------
 
@@ -638,7 +752,8 @@ def _preparar_cena(destino: Path) -> None:
     """Monta o diretório servido: a cena, o three.js e as duas fontes que o título usa."""
     import shutil
 
-    shutil.copy(AQUI / "cena" / "historia.html", destino / "historia.html")
+    for cena in ("historia.html", "filosofia.html"):
+        shutil.copy(AQUI / "cena" / cena, destino / cena)
     cache = _cache_fontes() / f"three-{VERSAO_THREE}"
     for rel in ARQUIVOS_THREE:
         alvo = cache / rel
@@ -654,7 +769,7 @@ def _preparar_cena(destino: Path) -> None:
         shutil.copy(_baixar(peso, estilo), destino / "fontes" / f"cg-{peso}-{estilo}.woff")
 
 
-def renderizar_cena() -> dict[str, bytes]:
+def renderizar_cena(so: set[str] | None = None) -> dict[str, bytes]:
     import functools
     import http.server
     import io
@@ -663,9 +778,14 @@ def renderizar_cena() -> dict[str, bytes]:
     from PIL import Image
     from playwright.sync_api import sync_playwright
 
-    pecas = {"banner-claro.png": ("claro", "banner", 1280, 400, 2),
-             "banner-escuro.png": ("escuro", "banner", 1280, 400, 2),
-             "social-preview.png": ("escuro", "social", 1280, 640, 1)}
+    # nome -> (cena, tema, peça, largura, altura, escala)
+    pecas = {"banner-claro.png": ("historia", "claro", "banner", 1280, 400, 2),
+             "banner-escuro.png": ("historia", "escuro", "banner", 1280, 400, 2),
+             "social-preview.png": ("historia", "escuro", "social", 1280, 640, 1),
+             "filosofia-claro.png": ("filosofia", "claro", "hero", 1280, 320, 2),
+             "filosofia-escuro.png": ("filosofia", "escuro", "hero", 1280, 320, 2)}
+    if so:
+        pecas = {k: v for k, v in pecas.items() if k in so}
     saida = {}
     with tempfile.TemporaryDirectory() as tmp:
         _preparar_cena(Path(tmp))
@@ -681,11 +801,11 @@ def renderizar_cena() -> dict[str, bytes]:
                 exe = os.environ.get("CHROMIUM_PATH") or None
                 nav = p.chromium.launch(executable_path=exe,
                                         args=["--use-angle=swiftshader", "--enable-unsafe-swiftshader"])
-                for nome, (tema, peca, w, h, escala) in pecas.items():
+                for nome, (cena, tema, peca, w, h, escala) in pecas.items():
                     pg = nav.new_page(viewport={"width": w, "height": h}, device_scale_factor=escala)
                     erros: list[str] = []
                     pg.on("pageerror", lambda e, erros=erros: erros.append(str(e)))
-                    pg.goto(f"http://127.0.0.1:{srv.server_port}/historia.html?tema={tema}&peca={peca}")
+                    pg.goto(f"http://127.0.0.1:{srv.server_port}/{cena}.html?tema={tema}&peca={peca}")
                     pg.wait_for_function("document.title === 'pronto'", timeout=120_000)
                     if erros:
                         raise SystemExit(f"{nome}: erro na cena: {erros}")
@@ -709,16 +829,23 @@ def main() -> None:
     ap = argparse.ArgumentParser(description=__doc__.split("\n")[0])
     ap.add_argument("--previa", type=Path, help="diretório onde renderizar PNG de cada SVG para conferência")
     ap.add_argument("--so-svg", action="store_true", help="não abre o navegador: gera só os SVG")
+    ap.add_argument("--so", nargs="+", metavar="PECA", choices=SAIDAS,
+                    help="escreve só estas peças de SAIDAS (o retrato WebGL não é idêntico byte a byte entre "
+                         "máquinas; regravar o que não mudou só suja o diff)")
     a = ap.parse_args()
 
     tip = Tipografo()
     pecas = {"logo.svg": logo(tip), "colapso.svg": colapso(tip), "escada-de-estados.svg": escada(tip),
-             "cubo-cobertura.svg": cubo(tip), "torres.svg": torres(tip)}
+             "cubo-cobertura.svg": cubo(tip), "torres.svg": torres(tip),
+             "quatro-causas.svg": quatro_causas(tip)}
+    so = set(a.so) if a.so else None
+    if so:
+        pecas = {k: v for k, v in pecas.items() if k in so}
     for nome, svg in pecas.items():
         (AQUI / nome).write_text(svg, encoding="utf-8")
         print(f"{nome}: {len(svg.encode()) / 1000:.1f} KB")
-    if not a.so_svg:
-        for nome, png in renderizar_cena().items():
+    if not a.so_svg and (so is None or any(n.endswith(".png") for n in so)):
+        for nome, png in renderizar_cena(so).items():
             (AQUI / nome).write_bytes(png)
             print(f"{nome}: {len(png) / 1000:.1f} KB")
     if a.previa:

@@ -1,0 +1,253 @@
+<!doctype html>
+<!--
+  Cena WebGL do hero das páginas de filosofia (docs/PHILOSOPHY.md, FILOSOFIA.md, PHILOSOPHIE.md):
+  o caos do espaço Z_q^n se ordenando em quatro estações, uma por causa de Aristóteles, na leitura que
+  os próprios docs fazem (seção "As quatro causas"):
+    I   material  — palavras soltas, sem forma (a nuvem);
+    II  formal    — as mesmas palavras presas a uma forma: a grade dentro da esfera de Hamming;
+    III eficiente — o laço que confere: fios de ouro ligando cada palavra ao centro;
+    IV  final     — o sabido: a esfera acesa, barata de conferir outra vez.
+  Rótulos em latim (causa materialis...) para servir às três línguas com a mesma imagem.
+  Não é página publicada: docs/assets/gerar_identidade.py a serve num diretório temporário (com three.js e a
+  fonte baixados, fixados por versão) e tira o retrato com o Chromium headless.
+  Parâmetros: ?tema=escuro|claro
+-->
+<html lang="la">
+<head>
+<meta charset="utf-8">
+<title>Cena</title>
+<link rel="icon" href="data:,">
+<style>
+  @font-face { font-family: "CG"; src: url("fontes/cg-500-normal.woff") format("woff"); font-weight: 500; }
+  @font-face { font-family: "CG"; src: url("fontes/cg-400-italic.woff") format("woff"); font-style: italic; }
+  :root { --fundo: #141414; --tinta: #F6F1E7; --suave: #A9A193; --ouro: #B8975A; --ourotx: #C9AB72; }
+  :root[data-tema="claro"] { --fundo: #F6F1E7; --tinta: #141414; --suave: #5C564C; --ourotx: #7A5F2F; }
+  html, body { margin: 0; background: var(--fundo); overflow: hidden; }
+  #palco { position: relative; width: 1280px; height: 320px; }
+  canvas { display: block; }
+  #texto { position: absolute; inset: 0; pointer-events: none; font-family: "CG", serif; color: var(--tinta); }
+  .sobre { position: absolute; letter-spacing: .32em; font-weight: 500; color: var(--ourotx); white-space: nowrap; }
+  .titulo { position: absolute; font-weight: 500; letter-spacing: -.005em; line-height: 1; white-space: nowrap; }
+  .fio { position: absolute; height: 1px; background: var(--ouro); }
+  .sub { position: absolute; font-style: italic; color: var(--suave); line-height: 1.3; white-space: nowrap; }
+  .num { position: absolute; font-weight: 500; color: var(--ourotx); letter-spacing: .12em; transform: translateX(-50%); }
+  .causa { position: absolute; font-style: italic; color: var(--suave); transform: translateX(-50%); white-space: nowrap; }
+  #veu { position: absolute; inset: 0; pointer-events: none; }
+</style>
+<script type="importmap">{"imports": {"three": "./three/build/three.module.js", "three/addons/": "./three/examples/jsm/"}}</script>
+</head>
+<body>
+<div id="palco"><div id="veu"></div><div id="texto"></div></div>
+<script type="module">
+import * as THREE from "three";
+import { EffectComposer } from "three/addons/postprocessing/EffectComposer.js";
+import { RenderPass } from "three/addons/postprocessing/RenderPass.js";
+import { UnrealBloomPass } from "three/addons/postprocessing/UnrealBloomPass.js";
+import { OutputPass } from "three/addons/postprocessing/OutputPass.js";
+
+const q = new URLSearchParams(location.search);
+const tema = q.get("tema") || "escuro";
+const escuro = tema === "escuro";
+document.documentElement.dataset.tema = tema;
+const W = 1280, H = 320;
+
+// gerador determinístico: a mesma imagem a cada execução (mulberry32)
+let semente = 3841;
+const rnd = () => { semente |= 0; semente = semente + 0x6D2B79F5 | 0; let t = Math.imul(semente ^ semente >>> 15, 1 | semente);
+  t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t; return ((t ^ t >>> 14) >>> 0) / 4294967296; };
+const gauss = () => { let u = 0, v = 0; while (!u) u = rnd(); while (!v) v = rnd(); return Math.sqrt(-2 * Math.log(u)) * Math.cos(2 * Math.PI * v); };
+const suave = (a, b, x) => { const t = Math.min(1, Math.max(0, (x - a) / (b - a))); return t * t * (3 - 2 * t); };
+
+const FUNDO = new THREE.Color(escuro ? 0x141414 : 0xF6F1E7);
+const TINTA = new THREE.Color(escuro ? 0xF6F1E7 : 0x141414);
+const OURO = new THREE.Color(0xB8975A);
+const OURO_LUZ = new THREE.Color(escuro ? 0xE9CF94 : 0x8C6E36);
+const OURO_FIO = escuro ? OURO : new THREE.Color(0x8C6E36);
+
+const renderer = new THREE.WebGLRenderer({ antialias: true, preserveDrawingBuffer: true });
+renderer.setPixelRatio(window.devicePixelRatio);
+renderer.setSize(W, H);
+document.getElementById("palco").prepend(renderer.domElement);
+
+const cena = new THREE.Scene();
+// fundo pela cena, não pelo clearColor (com o EffectComposer o clearColor sai sem conversão de cor)
+cena.background = FUNDO;
+// câmera longe (z=90): densidade da névoa dividida por 3 para manter a mesma profundidade aparente
+cena.fog = new THREE.FogExp2(FUNDO, escuro ? 0.0075 : 0.0088);
+// fov 8 a z=90: ~25 px por unidade no plano z=0, e a perspectiva quase plana não ovaliza as esferas da
+// direita (com fov 24 a esfera IV saía visivelmente larga, medido no primeiro retrato)
+const camera = new THREE.PerspectiveCamera(8, W / H, 1, 300);
+camera.position.set(0, 0.4, 90);
+camera.lookAt(0, 0, 0);
+
+// --- as quatro estações ---------------------------------------------------------------------------
+const R = 2.05;
+const Y = 0.75;
+const estacoes = [0.6, 7.9, 14.9, 21.5].map(x => new THREE.Vector3(x, Y, 0));
+const giro = new THREE.Euler(0.42, -0.55, 0.08);
+// grade 3x3x3 de passo r/sqrt(3): os oito cantos ficam exatamente sobre a esfera (distância = raio)
+const d = R / Math.sqrt(3);
+const grade = [];
+for (const a of [-1, 0, 1]) for (const b of [-1, 0, 1]) for (const e of [-1, 0, 1])
+  grade.push(new THREE.Vector3(a * d, b * d, e * d).applyEuler(giro));
+const ehCentro = v => v.lengthSq() < 1e-9;
+
+// --- partículas: um rio que nasce disperso à esquerda e se adensa até a primeira estação -----------
+const N = 22000;
+const pos = new Float32Array(N * 3), cor = new Float32Array(N * 3), tam = new Float32Array(N), alfa = new Float32Array(N);
+const x0 = -9.5, x1 = estacoes[0].x;
+for (let i = 0; i < N; i++) {
+  let x, y, z, w;
+  if (i < N * 0.62) {
+    // o caos que corre para a estação I
+    const p = Math.pow(rnd(), 1.25);
+    w = p;
+    const espalho = 2.6 * (1 - p) + 0.9;
+    x = x0 + p * (x1 - x0) + gauss() * 1.4 * (1 - p);
+    y = Y + gauss() * espalho * 0.62;
+    z = gauss() * espalho;
+  } else if (i < N * 0.88) {
+    // estação I, causa material: a nuvem densa de palavras sem forma
+    w = 0.6;
+    const v = new THREE.Vector3(gauss(), gauss(), gauss()).normalize().multiplyScalar(R * Math.pow(rnd(), 0.55) * 1.05);
+    x = estacoes[0].x + v.x; y = Y + v.y; z = v.z;
+  } else {
+    // poeira fina que ainda atravessa as estações e se apaga para a direita: o caos que resta
+    w = 0.9;
+    x = estacoes[0].x + Math.pow(rnd(), 1.8) * (estacoes[3].x - estacoes[0].x + 3);
+    y = Y + gauss() * 1.5; z = gauss() * 2.2;
+  }
+  pos.set([x, y, z], i * 3);
+  const c = TINTA.clone().lerp(OURO_LUZ, Math.pow(w, 3) * 0.5);
+  cor.set([c.r, c.g, c.b], i * 3);
+  tam[i] = 0.55 + rnd() * 1.5;
+  const fim = i >= N * 0.88 ? 0.35 * (1 - suave(estacoes[0].x, estacoes[3].x + 2, x)) : 1;
+  alfa[i] = (0.25 + 0.75 * rnd()) * (escuro ? 0.42 : 0.8) * suave(x0 - 1, x0 + 4, x) * fim;
+}
+const geo = new THREE.BufferGeometry();
+geo.setAttribute("position", new THREE.BufferAttribute(pos, 3));
+geo.setAttribute("cor", new THREE.BufferAttribute(cor, 3));
+geo.setAttribute("tam", new THREE.BufferAttribute(tam, 1));
+geo.setAttribute("alfa", new THREE.BufferAttribute(alfa, 1));
+cena.add(new THREE.Points(geo, new THREE.ShaderMaterial({
+  uniforms: { escala: { value: H * window.devicePixelRatio * (escuro ? 0.0062 : 0.0072) },
+              fundo: { value: escuro ? new THREE.Color(0x000000) : FUNDO }, densidadeNevoa: { value: cena.fog.density } },
+  vertexShader: `
+    attribute vec3 cor; attribute float tam; attribute float alfa;
+    varying vec3 vCor; varying float vAlfa; varying float vProf;
+    uniform float escala;
+    void main() {
+      vec4 mv = modelViewMatrix * vec4(position, 1.0);
+      vProf = -mv.z; vCor = cor; vAlfa = alfa;
+      gl_PointSize = tam * escala * (66.0 / vProf);
+      gl_Position = projectionMatrix * mv;
+    }`,
+  fragmentShader: `
+    varying vec3 vCor; varying float vAlfa; varying float vProf;
+    uniform vec3 fundo; uniform float densidadeNevoa;
+    void main() {
+      vec2 c = gl_PointCoord - 0.5; float r = length(c);
+      if (r > 0.5) discard;
+      float nucleo = smoothstep(0.5, 0.0, r);
+      float nevoa = 1.0 - exp(-pow(densidadeNevoa * vProf, 2.0));
+      vec3 col = mix(vCor, fundo, nevoa);
+      gl_FragColor = vec4(col, vAlfa * nucleo * (1.0 - 0.85 * nevoa));
+    }`,
+  transparent: true, depthWrite: false, blending: escuro ? THREE.AdditiveBlending : THREE.NormalBlending,
+})));
+
+// --- peças das estações II a IV -------------------------------------------------------------------
+const casca = forca => new THREE.ShaderMaterial({
+  uniforms: { cor: { value: escuro ? OURO_LUZ : OURO }, forca: { value: forca } },
+  vertexShader: `varying vec3 vN; varying vec3 vV;
+    void main() { vec4 mv = modelViewMatrix * vec4(position, 1.0); vN = normalize(normalMatrix * normal); vV = normalize(-mv.xyz);
+      gl_Position = projectionMatrix * mv; }`,
+  fragmentShader: `varying vec3 vN; varying vec3 vV; uniform vec3 cor; uniform float forca;
+    void main() { float f = pow(1.0 - abs(dot(vN, vV)), 2.6); gl_FragColor = vec4(cor, f * forca); }`,
+  transparent: true, depthWrite: false, blending: escuro ? THREE.AdditiveBlending : THREE.NormalBlending,
+});
+const linha = (pts, cor, opac) => new THREE.Line(new THREE.BufferGeometry().setFromPoints(pts),
+  new THREE.LineBasicMaterial({ color: cor, transparent: true, opacity: opac }));
+const circulo = (centro, rx, ry, opac) => {
+  const pts = []; for (let k = 0; k <= 256; k++) { const t = k / 256 * Math.PI * 2; pts.push(new THREE.Vector3(Math.cos(t) * R, Math.sin(t) * R, 0)); }
+  const l = linha(pts, OURO_FIO, opac); l.rotation.set(rx, ry, 0); l.position.copy(centro); cena.add(l);
+};
+const bolinha = (p, raio, cor, opac = 0.95) => { const m = new THREE.Mesh(new THREE.SphereGeometry(raio, 16, 12),
+  new THREE.MeshBasicMaterial({ color: cor, transparent: true, opacity: opac })); m.position.copy(p); cena.add(m); };
+
+// II formal: a forma imposta — a esfera desenhada e a grade que ela fixa
+{
+  const c = estacoes[1];
+  const s = new THREE.Mesh(new THREE.SphereGeometry(R, 96, 64), casca(escuro ? 0.30 : 0.30)); s.position.copy(c); cena.add(s);
+  circulo(c, 0, 0, 1.0); circulo(c, Math.PI / 2, 0, 0.28); circulo(c, 0, Math.PI / 2, 0.28); circulo(c, Math.PI / 2.6, Math.PI / 5, 0.14);
+  // arestas da grade, finas: a forma é relação, não só lugar
+  for (const p of grade) for (const r of grade) {
+    const dd = p.distanceTo(r);
+    if (Math.abs(dd - d) < 1e-6 && p.x + p.y * 1e-3 + p.z * 1e-6 < r.x + r.y * 1e-3 + r.z * 1e-6)
+      cena.add(linha([p.clone().add(c), r.clone().add(c)], TINTA, escuro ? 0.10 : 0.14));
+  }
+  for (const p of grade) if (!ehCentro(p)) bolinha(p.clone().add(c), 0.05, TINTA);
+  bolinha(c, 0.08, TINTA);
+}
+// III eficiente: o laço que confere — cada palavra ligada ao centro por um fio de ouro
+{
+  const c = estacoes[2];
+  const s = new THREE.Mesh(new THREE.SphereGeometry(R, 96, 64), casca(escuro ? 0.36 : 0.36)); s.position.copy(c); cena.add(s);
+  circulo(c, 0, 0, 1.0); circulo(c, Math.PI / 2, 0, 0.22); circulo(c, 0, Math.PI / 2, 0.22);
+  for (const p of grade) if (!ehCentro(p)) {
+    cena.add(linha([c.clone(), p.clone().add(c)], OURO_FIO, escuro ? 0.75 : 0.8));
+    bolinha(p.clone().add(c), 0.055, TINTA);
+  }
+  bolinha(c, 0.11, escuro ? 0xE9CF94 : 0x9C7A3F, 1);
+}
+// IV final: o sabido — a esfera acesa, as palavras em ouro
+{
+  const c = estacoes[3];
+  const s = new THREE.Mesh(new THREE.SphereGeometry(R, 96, 64), casca(escuro ? 0.95 : 0.85)); s.position.copy(c); cena.add(s);
+  const miolo = new THREE.Mesh(new THREE.SphereGeometry(R * 0.995, 64, 48), new THREE.MeshBasicMaterial({
+    color: OURO_LUZ, transparent: true, opacity: escuro ? 0.06 : 0.12, depthWrite: false }));
+  miolo.position.copy(c); cena.add(miolo);
+  circulo(c, 0, 0, 1.0); circulo(c, Math.PI / 2, 0, 0.4); circulo(c, 0, Math.PI / 2, 0.4); circulo(c, Math.PI / 2.6, Math.PI / 5, 0.25);
+  for (const p of grade) if (!ehCentro(p)) bolinha(p.clone().add(c), 0.06, escuro ? 0xE9CF94 : 0x8C6E36, 1);
+  bolinha(c, 0.14, escuro ? 0xF3DFAE : 0x7A5F2F, 1);
+}
+
+// --- render ---------------------------------------------------------------------------------------
+if (escuro) {
+  const comp = new EffectComposer(renderer);
+  comp.addPass(new RenderPass(cena, camera));
+  comp.addPass(new UnrealBloomPass(new THREE.Vector2(W, H), 0.6, 0.5, 0.45));
+  comp.addPass(new OutputPass());
+  comp.render();
+} else {
+  renderer.render(cena, camera);
+}
+
+// --- texto: título à esquerda; numeral e nome de cada causa sob a sua estação ----------------------
+const tela = v => { const p = v.clone().project(camera); return [(p.x + 1) / 2 * W, (1 - p.y) / 2 * H]; };
+const T = document.getElementById("texto");
+const nomes = ["causa materialis", "causa formalis", "causa efficiens", "causa finalis"];
+const numerais = ["I", "II", "III", "IV"];
+let rotulos = "";
+const yBase = tela(new THREE.Vector3(0, Y - R, 0))[1] + 26;
+estacoes.forEach((c, k) => {
+  const [x] = tela(c);
+  rotulos += `<div class="num" style="left:${x}px;top:${yBase}px;font-size:13px">${numerais[k]}</div>`
+          + `<div class="causa" style="left:${x}px;top:${yBase + 18}px;font-size:19px">${nomes[k]}</div>`;
+});
+const xs = estacoes.map(c => tela(c)[0]);
+T.innerHTML = `
+  <div class="sobre" style="left:84px;top:${96 - 12}px;font-size:12px">QUATTUOR CAUSAE</div>
+  <div class="titulo" style="left:80px;top:112px;font-size:66px">Ordo ex chao</div>
+  <div class="fio" style="left:84px;top:196px;width:52px"></div>
+  <div class="sub" style="left:84px;top:210px;font-size:19px">Aristoteles, <i>Physica</i> II 3</div>
+  <div class="fio" style="left:${xs[0]}px;top:${yBase - 8}px;width:${xs[3] - xs[0]}px;opacity:.45"></div>
+  ${rotulos}`;
+const f = escuro ? "20,20,20" : "246,241,231";
+document.getElementById("veu").style.background =
+  `linear-gradient(90deg, rgba(${f},.94) 0%, rgba(${f},.82) 26%, rgba(${f},0) 40%)`;
+await document.fonts.ready;
+document.title = "pronto";
+</script>
+</body>
+</html>
