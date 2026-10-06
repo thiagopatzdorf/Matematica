@@ -208,7 +208,11 @@ Trocar o commit fixado em `sources.json`: rode `build.py`, depois
 
 ## Publicação (`scripts/publish/`)
 
-* `zenodo_newversion.py --record ID --pdf PDF --zenodo-json .zenodo.json`: nova versão no Zenodo.
+* `zenodo_newversion.py --record ID --pdf PDF --zenodo-json .zenodo.json`: nova versão no Zenodo. Com
+  `--publicar --release-github`, cria também a release do GitHub (tag `v<versão>`, marcada como Latest, PDF
+  anexado) com as notas tiradas do trecho "New in version <versão>:" do `.zenodo.json` e o DOI recém-cunhado.
+* `github_release.py --zenodo-json .zenodo.json --doi DOI [--criar]`: o mesmo passo isolado, para uma versão já
+  publicada no Zenodo (seco por padrão).
   Seco por padrão (sem rede); `--publicar` publica. Token só de `ZENODO_TOKEN`, nunca impresso.
 * `genesis_page.py --doi DOI --tag TAG`: gera `build/provas/cobertura.html` a partir do ledger, no
   molde da página da v0.3. Só gera o arquivo; não sobe nada.

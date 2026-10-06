@@ -20,6 +20,7 @@ Uso:
     python3 scripts/publish/zenodo_newversion.py --record 23085770 \\
         --pdf paper/main.pdf --zenodo-json .zenodo.json            # seco
     ZENODO_TOKEN=... python3 scripts/publish/zenodo_newversion.py ... --publicar
+    ZENODO_TOKEN=... python3 scripts/publish/zenodo_newversion.py ... --publicar --release-github
 """
 from __future__ import annotations
 
@@ -28,10 +29,14 @@ import datetime as dt
 import hashlib
 import json
 import os
+import subprocess
 import sys
 import urllib.error
 import urllib.request
 from pathlib import Path
+
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+import github_release  # noqa: E402
 
 API = {"zenodo": "https://zenodo.org/api/deposit/depositions",
        "sandbox": "https://sandbox.zenodo.org/api/deposit/depositions"}
@@ -118,7 +123,7 @@ def publicar(cli: Cliente, record: str, pdf: Path, nome_arquivo: str, meta: dict
     return pub
 
 
-def main(argv=None, abrir=None, ambiente=None) -> int:
+def main(argv=None, abrir=None, ambiente=None, rodar=subprocess.run) -> int:
     ap = argparse.ArgumentParser(description=__doc__.splitlines()[0],
                                  formatter_class=argparse.RawDescriptionHelpFormatter, epilog=__doc__)
     ap.add_argument("--record", required=True, help="id de qualquer versão do registro (ex.: 23085770)")
@@ -129,6 +134,9 @@ def main(argv=None, abrir=None, ambiente=None) -> int:
     ap.add_argument("--sandbox", action="store_true", help="usa sandbox.zenodo.org")
     ap.add_argument("--conferir", action="store_true", help="seco, mas faz o GET do registro atual")
     ap.add_argument("--publicar", action="store_true", help="publica de verdade (padrão: seco)")
+    ap.add_argument("--release-github", action="store_true",
+                    help="depois de publicar, cria a release do GitHub com o DOI cunhado (github_release.py)")
+    ap.add_argument("--titulo-release", help="título da release do GitHub (padrão: v<versão>)")
     a = ap.parse_args(argv)
     env = os.environ if ambiente is None else ambiente
     token = env.get("ZENODO_TOKEN", "").strip() or None
@@ -157,8 +165,16 @@ def main(argv=None, abrir=None, ambiente=None) -> int:
             return 0
         if not token:
             raise ErroZenodo("ZENODO_TOKEN ausente no ambiente")
-        publicar(Cliente(token, base, abrir), a.record, a.pdf, nome, meta)
+        pub = publicar(Cliente(token, base, abrir), a.record, a.pdf, nome, meta)
+        if a.release_github:
+            # A release do GitHub nasce no mesmo passo que o DOI: v0.8.0 e v0.9.0 ficaram
+            # dois dias sem página de release porque esse passo dependia de lembrar.
+            tag, titulo, notas = github_release.montar(z, pub.get("doi", ""), a.titulo_release)
+            github_release.criar(tag, titulo, notas, a.pdf, rodar)
         return 0
+    except github_release.ErroRelease as e:
+        print("ERRO (Zenodo já publicado; release do GitHub não criada): " + redigir(e, token), file=sys.stderr)
+        return 3
     except ErroZenodo as e:
         print("ERRO: " + redigir(e, token), file=sys.stderr)
         return 2
