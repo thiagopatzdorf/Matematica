@@ -125,8 +125,8 @@ def test_pagina_genesis_mostra_as_quinze_cotas_lean_e_nenhuma_so_computacional(l
     # K7(6,4) <= 14 virou teorema do kernel (v0.9, PR #76): não pode mais aparecer como só computacional.
     assert html.count('<span class="cp">computer only</span> (not yet a Lean theorem)') == 0
     assert "q7_n6_R4_M14.txt" in html
-    # K7(5,3) <= 17: igual à publicada, mas agora com código nosso e teorema do kernel ainda sem tag.
-    assert "q7_n5_R3_M17.txt" in html and "<code>CoveringK753.K_7_5_3_le_17</code> (next release)" in html
+    # K7(5,3) <= 17: igual à publicada, com código nosso e teorema do kernel publicado na v0.9.1.
+    assert "q7_n5_R3_M17.txt" in html and "<code>CoveringK753.K_7_5_3_le_17</code> (v0.9.1)" in html
     for decl in ("Syn.K7_9_4_le_1134_syn", "Syn.K7_8_3_le_1887_syn", "SC.K_2_6_1_eq12", "CoveringKernel.K5_9_5_le_50_kernel",
                  "Syn.K5_10_5_le_162_syn", "Syn.K5_11_4_le_2875_syn", "Syn.K7_10_4_le_5607_syn", "K742.K_7_4_2_le_19",
                  "K742.K_7_4_2_eq_19", "CoveringK764.K_7_6_4_le_14", "CoveringK753.K_7_5_3_le_17"):
