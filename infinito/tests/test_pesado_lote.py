@@ -163,7 +163,7 @@ def test_vm_continua_viva_depois_do_prazo():
     t = [1000.0]
     api = ComputeFalso(relogio=lambda: t[0])
     ctx, c = _modulo(_lote(api), relogio=lambda: t[0])
-    j = ctx.tools["pesado"]("script", 1.0, {"nome": "fumaca"}, paralelo=3, confirmar=True)["job"]
+    ctx.tools["pesado"]("script", 1.0, {"nome": "fumaca"}, paralelo=3, confirmar=True)
     for corpo in api.corpos:                              # a trava do próprio Compute, que não depende de nós
         assert corpo["scheduling"]["provisioningModel"] == "SPOT"
         assert corpo["scheduling"]["instanceTerminationAction"] == "DELETE"
