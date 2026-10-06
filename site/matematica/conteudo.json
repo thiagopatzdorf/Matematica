@@ -1,0 +1,274 @@
+{
+  "titulo": "Do caos à ordem",
+  "subtitulo": "Códigos de cobertura, certificados que qualquer um confere, e um ledger que não esquece. A machine-checked ledger of covering-code upper bounds, with formally certified exact entries.",
+  "manifesto": [
+    "No princípio há o espaço. Três símbolos, seis posições: 729 palavras. Sete símbolos, nove posições: 40 353 607. Nenhum olho humano percorre isso.",
+    "Queremos poucas palavras que vigiem todas as outras. Achamos 17. E então vem a pergunta que não deixa dormir: e com 16?",
+    "Desde 1991 havia o 17. Desde 2004, a certeza de que menos de 15 era impossível. Entre os dois, a dúvida. Ninguém sabia.",
+    "A dúvida é entropia. Desfazê-la custa: buscas, becos, noites de máquina. Mas a busca cara deixa um rastro barato. Um certificado. Uma prova que qualquer pessoa confere.",
+    "E quem confere não é um homem cansado. É uma máquina que não se cansa e não aceita o que não fecha.",
+    "Então o intervalo vira ponto. 17. O estado colapsa. E há paz.",
+    "Paz pequena. A maior parte das cotas ainda é só herdada. Há perguntas maiores, que nos escapam. Uma delas pergunta se achar é sempre mais difícil que conferir.",
+    "Escrevemos o que sabemos. Escrevemos o que falta. Diante do caos, é o que se pode fazer: deixar um pouco de luz onde havia dúvida."
+  ],
+  "principios": [
+    {
+      "nome": "Verificar é mais barato que achar",
+      "enunciado": "Achar um código é busca num espaço imenso. Conferir um código dado é uma conta finita. Por isso construímos primeiro quem confere."
+    },
+    {
+      "nome": "A descoberta cara vira verificação barata",
+      "enunciado": "Toda busca que dá certo deixa um certificado. Quem vem depois não repete a busca: confere."
+    },
+    {
+      "nome": "O avaliador decide",
+      "enunciado": "Quem propõe pode errar à vontade. Quem decide precisa ser barato e exato: o verificador em C e o kernel do Lean."
+    },
+    {
+      "nome": "O medido vence o lido",
+      "enunciado": "Cota da literatura entra como CLAIMED. Só sobe quando algo aqui a confere. O estado é calculado por script, nunca escrito à mão."
+    },
+    {
+      "nome": "O erro é medida",
+      "enunciado": "Publicamos o que falhou. Cada cota inferior nova enfrenta um red team. Onde algo quebra, aparece a regra que faltava."
+    },
+    {
+      "nome": "Não dizer mais do que se provou",
+      "enunciado": "Cada cota tem um estado exato e cada resultado tem suas lacunas escritas ao lado."
+    }
+  ],
+  "metodo": [
+    {
+      "passo": "Escolher",
+      "descricao": "Uma célula K_q(n,R) pela dúvida que guarda: a largura do intervalo, o tempo sem ataque desde as tabelas de Kéri."
+    },
+    {
+      "passo": "Buscar",
+      "descricao": "A parte cara: construções algébricas, SAT, programação linear. E alguém tentando derrubar o resultado."
+    },
+    {
+      "passo": "Certificar",
+      "descricao": "Reduzir a descoberta a um objeto que um verificador exato confere: código explícito, LRAT, Farkas, VeriPB ou teorema do Lean."
+    },
+    {
+      "passo": "Registrar",
+      "descricao": "Gravar no ledger a cota, a fonte, o sha256 e o estado de certificação, calculado por script."
+    },
+    {
+      "passo": "Expor",
+      "descricao": "Paper com DOI, código aberto e lacunas declaradas, para que outra pessoa refaça sem precisar confiar em nós."
+    }
+  ],
+  "milenio": [
+    {
+      "problema": "P vs NP",
+      "enunciado_curto": "Tudo o que se confere depressa também se acha depressa? Formalmente: todo problema cuja solução se verifica em tempo polinomial também se resolve em tempo polinomial?",
+      "status": "Aberto",
+      "fonte": "https://www.claymath.org/millennium/p-vs-np/"
+    },
+    {
+      "problema": "Hipótese de Riemann",
+      "enunciado_curto": "Todos os zeros não triviais da função zeta de Riemann têm parte real igual a 1/2.",
+      "status": "Aberto",
+      "fonte": "https://www.claymath.org/millennium/riemann-hypothesis/"
+    },
+    {
+      "problema": "Yang–Mills e a lacuna de massa",
+      "enunciado_curto": "Para todo grupo de gauge compacto simples, existe uma teoria quântica de Yang–Mills em R⁴, e ela tem lacuna de massa Δ > 0.",
+      "status": "Aberto",
+      "fonte": "https://www.claymath.org/millennium/yang-mills-the-maths-gap/"
+    },
+    {
+      "problema": "Equações de Navier–Stokes",
+      "enunciado_curto": "Em três dimensões, a partir de dados iniciais suaves, existem sempre soluções suaves e de energia finita? Ou o fluido pode explodir em tempo finito?",
+      "status": "Aberto",
+      "fonte": "https://www.claymath.org/millennium/navier-stokes-equation/"
+    },
+    {
+      "problema": "Conjectura de Hodge",
+      "enunciado_curto": "Numa variedade algébrica projetiva complexa, toda classe de Hodge é combinação racional de classes de ciclos algébricos.",
+      "status": "Aberto",
+      "fonte": "https://www.claymath.org/millennium/hodge-conjecture/"
+    },
+    {
+      "problema": "Conjectura de Birch e Swinnerton-Dyer",
+      "enunciado_curto": "O posto do grupo de pontos racionais de uma curva elíptica sobre Q é igual à ordem de anulamento da sua função L em s = 1.",
+      "status": "Aberto",
+      "fonte": "https://www.claymath.org/millennium/birch-and-swinnerton-dyer-conjecture/"
+    },
+    {
+      "problema": "Conjectura de Poincaré",
+      "enunciado_curto": "Toda 3-variedade fechada e simplesmente conexa é homeomorfa à 3-esfera.",
+      "status": "Resolvida por Grigori Perelman, em preprints de 2002 e 2003. O Prêmio do Milênio foi concedido em 2010, e Perelman o recusou.",
+      "fonte": "https://www.claymath.org/millennium/poincare-conjecture/"
+    }
+  ],
+  "james": {
+    "resumo": "O repositório james-theorems prova em Lean 4, sem Mathlib e sem sorry, três propriedades de modelos simples da filosofia que guia este trabalho. Os teoremas valem para os modelos, não para o código de produção. Não resolvem um problema difícil: tornam exata a forma de um argumento. Aqui, a mesma forma encontra um problema real. O ledger é o log. O certificado é a verificação barata.",
+    "teoremas": [
+      {
+        "nome": "Conhecimento · amortizacao",
+        "enunciado": "Numa fila de N tarefas, D delas distintas, partindo de base vazia, há exatamente D buscas e N verificações. O custo total é D·busca + N·verificação.",
+        "fonte": "https://github.com/thiagopatzdorf/james-theorems/blob/12616cf56ed737a2cdfb9034753d5679c8091b49/JamesTheorems/Conhecimento.lean"
+      },
+      {
+        "nome": "Segurança · gate",
+        "enunciado": "Para qualquer log de eventos, mesmo escrito por um adversário, nenhuma ação crítica aparece executada sem aprovação registrada.",
+        "fonte": "https://github.com/thiagopatzdorf/james-theorems/blob/12616cf56ed737a2cdfb9034753d5679c8091b49/JamesTheorems/Seguranca.lean"
+      },
+      {
+        "nome": "Alma · replay, retomada, revezamento",
+        "enunciado": "O estado é a dobra de uma transição pura sobre o log. Corpos com a mesma transição chegam ao mesmo estado. Um corpo pode parar em qualquer evento, e outro retoma do snapshot. O log pode ser dividido entre corpos.",
+        "fonte": "https://github.com/thiagopatzdorf/james-theorems/blob/12616cf56ed737a2cdfb9034753d5679c8091b49/JamesTheorems/Alma.lean"
+      }
+    ]
+  },
+  "keri": {
+    "resumo": "As tabelas de Gerzson Kéri reúnem as melhores cotas conhecidas para o número de cobertura K_q(n,R): o menor código de comprimento n, sobre q símbolos, que deixa toda palavra a distância de Hamming no máximo R. São 1145 células, com q de 2 a 21. A última atualização é de novembro de 2011.",
+    "porque_importa": "São a régua de todo resultado novo: uma cota só é recorde se bate a tabela. Paradas desde 2011, são também um mapa honesto do que ninguém resolveu. O ledger parte delas, célula por célula, e registra o que conseguimos certificar: 487 das 1145 cotas superiores são teoremas do kernel do Lean ou reproduzidas de forma independente. E três células colapsaram num valor exato potencialmente novo: K₃(6,2) = 17, K₇(6,4) = 14 e K₇(5,3) = 17."
+  },
+  "lacunas": [
+    "A tabela inteira não foi verificada formalmente. As cotas inferiores são, quase todas, herdadas da literatura (CLAIMED).",
+    "As cotas inferiores de K₃(6,2) = 17, K₇(6,4) = 14 e K₇(5,3) = 17 estão em CERTIFICATE_VERIFIED, não no Lean: dependem de uma redução provada no papel e de certificados conferidos fora do kernel.",
+    "A cota superior K₇(5,3) ≤ 17 está só anunciada nas tabelas de Kéri e segue CLAIMED.",
+    "“Potencialmente novo” quer dizer: não encontrado na literatura que pesquisamos. Textos fechados de 2004 a 2009 não puderam ser lidos.",
+    "Literatura posterior a 2011 fora das fontes do ledger não foi auditada.",
+    "Os teoremas do james-theorems valem para modelos, não para o sistema em produção."
+  ],
+  "links": [
+    {
+      "rotulo": "Repositório",
+      "url": "https://github.com/thiagopatzdorf/Matematica"
+    },
+    {
+      "rotulo": "Paper (DOI 10.5281/zenodo.23172276)",
+      "url": "https://doi.org/10.5281/zenodo.23172276"
+    },
+    {
+      "rotulo": "Ledger",
+      "url": "https://github.com/thiagopatzdorf/Matematica/tree/main/ledger"
+    },
+    {
+      "rotulo": "Cobertura da certificação",
+      "url": "https://github.com/thiagopatzdorf/Matematica/blob/main/ledger/COBERTURA.md"
+    },
+    {
+      "rotulo": "Filosofia",
+      "url": "https://github.com/thiagopatzdorf/Matematica/blob/main/docs/FILOSOFIA.md"
+    },
+    {
+      "rotulo": "Explicando, de leigos a PhDs",
+      "url": "https://github.com/thiagopatzdorf/Matematica/blob/main/docs/EXPLICANDO.md"
+    },
+    {
+      "rotulo": "james-theorems",
+      "url": "https://github.com/thiagopatzdorf/james-theorems"
+    },
+    {
+      "rotulo": "Problemas do Milênio (Clay Mathematics Institute)",
+      "url": "https://www.claymath.org/millennium-problems/"
+    }
+  ],
+  "explicando": {
+    "camadas": [
+      {
+        "nivel": "Para qualquer pessoa · 30 segundos",
+        "titulo": "Poucas torres para uma cidade inteira",
+        "texto": "Imagine uma cidade e as torres de celular. Cada torre alcança as casas perto dela. Qual é o menor número de torres que cobre todas as casas? Aqui as casas são palavras, e a distância entre duas palavras é quantas letras é preciso trocar para ir de uma à outra. K_q(n,R) é o menor número de torres: palavras de n letras, num alfabeto de q letras, cada torre alcançando até R trocas.",
+        "analogia": "Torres de celular cobrindo todas as casas de uma cidade com o menor número de torres.",
+        "exemplo": "O problema nasceu no bolão de futebol (football pool): cada jogo tem três resultados. Quantos cartões garantem errar no máximo um jogo? Com 4 jogos, bastam 9 cartões, e menos é impossível. Com 6 jogos, ninguém sabe ainda: entre 71 e 73."
+      },
+      {
+        "nivel": "Ensino médio",
+        "titulo": "Mostrar é fácil; provar que não dá é difícil",
+        "texto": "Uma cota superior se prova mostrando um código: basta conferir que ele cobre tudo. Uma cota inferior diz que com menos é impossível, e aí não basta mostrar nada: é preciso descartar todas as tentativas, ou achar um argumento que dispense testá-las. Conferir é rápido. Provar que algo não existe pode exigir um universo de casos.",
+        "analogia": "Mostrar uma chave que abre a porta leva um segundo: gire. Provar que nenhuma chave menor abre exige pensar em todas as chaves.",
+        "exemplo": "Palavras de 3 bits são os 8 vértices de um cubo. Cada palavra cobre a si mesma e as 3 vizinhas: 4 vértices. Como 8 ÷ 4 = 2, uma palavra só não basta. E 000 e 111 bastam. Logo K₂(3,1) = 2."
+      },
+      {
+        "nivel": "Graduação",
+        "titulo": "Esferas de Hamming e o espaço que explode",
+        "texto": "A esfera de Hamming de raio R em torno de uma palavra tem V = Σ C(n,i)(q−1)^i palavras, com i de 0 a R. Como as esferas do código precisam cobrir as q^n palavras, vale a cota da esfera: K_q(n,R) ≥ q^n / V. Ela quase nunca é justa, porque as esferas se sobrepõem. E o espaço cresce exponencialmente: q^n palavras, e um número astronômico de códigos candidatos.",
+        "analogia": "Ladrilhar um piso com ladrilhos redondos: a área dá um mínimo, mas os ladrilhos sempre se sobrepõem nas bordas.",
+        "exemplo": "Em K₃(6,2) há 729 palavras e cada esfera tem 73. A cota da esfera dá 10. A literatura chegou a 15 em 2004, e o código de 17 é de 1991. Provamos que 15 e 16 são impossíveis: K₃(6,2) = 17."
+      },
+      {
+        "nivel": "Pós-graduação · PhD",
+        "titulo": "Dominação em grafos de Hamming, certificados e kernel",
+        "texto": "K_q(n,R) é o número de dominação da R-ésima potência do grafo de Hamming H(n,q): um set cover com q^n conjuntos. Cotas superiores vêm de construções (cosets de códigos lineares com remendo, partição do alfabeto). As inferiores novas vêm de duas reduções: a fatia mínima, com relaxação linear refutada por multiplicadores de Farkas inteiros (12 054 e 13 099 certificados para 15 e 16 palavras em K₃(6,2)); e o lema das fibras para K_q(n,n−2), que reduz a perfis de fibras refutados por SAT com provas LRAT (8 008 perfis em K₇(6,4); 201 376 em K₇(5,3)). Uma segunda pipeline, com VeriPB, reproduziu K₃(6,2). Em K₇(4,2) = 19 a prova inteira roda no kernel do Lean, com um verificador LRAT próprio: 70 perfis, 284 módulos, 37,8 horas de CPU.",
+        "analogia": "Uma engine de xadrez: o gerador de lances pode ser ingênuo, desde que o avaliador seja exato.",
+        "exemplo": "K₇(6,4): a recursão de Haas, Schlage-Puchta e Quistorff dava 13, e Kéri e Östergård tinham um código de 15. Achamos um código de 14 (formalizado no Lean) e refutamos os 8 008 perfis de um código de 13: K₇(6,4) = 14. A cota inferior é CERTIFICATE_VERIFIED, não teorema do kernel."
+      }
+    ]
+  },
+  "glossario": [
+    {
+      "termo": "Código de cobertura",
+      "definicao": "Conjunto de palavras tal que toda palavra do espaço fica a distância no máximo R de alguma delas."
+    },
+    {
+      "termo": "Distância de Hamming",
+      "definicao": "Número de posições em que duas palavras diferem."
+    },
+    {
+      "termo": "Raio de cobertura",
+      "definicao": "O R: a maior distância permitida entre uma palavra qualquer e o código."
+    },
+    {
+      "termo": "Esfera de Hamming",
+      "definicao": "Todas as palavras a distância no máximo R de uma palavra dada."
+    },
+    {
+      "termo": "K_q(n,R)",
+      "definicao": "O menor tamanho de um código de cobertura de comprimento n, sobre q símbolos, com raio R. Cada trio (q,n,R) é uma célula."
+    },
+    {
+      "termo": "Cota superior",
+      "definicao": "K_q(n,R) ≤ M: prova-se exibindo um código de M palavras."
+    },
+    {
+      "termo": "Cota inferior",
+      "definicao": "K_q(n,R) ≥ M: prova-se mostrando que nenhum código menor existe."
+    },
+    {
+      "termo": "Cota da esfera",
+      "definicao": "K_q(n,R) ≥ q^n dividido pelo tamanho de uma esfera de Hamming."
+    },
+    {
+      "termo": "Colapso de estado",
+      "definicao": "Quando as duas cotas se encontram e o intervalo vira um valor exato."
+    },
+    {
+      "termo": "Certificado",
+      "definicao": "Objeto que um programa exato confere depressa: um código, uma refutação LRAT, multiplicadores de Farkas, uma prova VeriPB."
+    },
+    {
+      "termo": "LRAT",
+      "definicao": "Formato de prova de que uma fórmula SAT não tem solução, conferível passo a passo."
+    },
+    {
+      "termo": "Certificado de Farkas",
+      "definicao": "Combinação inteira das restrições de um sistema linear que prova que ele não tem solução."
+    },
+    {
+      "termo": "Kernel do Lean",
+      "definicao": "O núcleo pequeno do assistente de provas Lean, que aceita ou recusa cada passo de uma prova."
+    },
+    {
+      "termo": "Ledger",
+      "definicao": "O registro de todas as 1145 células, com fontes, sha256 e estado de certificação de cada cota."
+    },
+    {
+      "termo": "Escada de estados",
+      "definicao": "CLAIMED → WITNESS_CHECKED → CERTIFICATE_VERIFIED → FORMALIZED → INDEPENDENTLY_REPRODUCED, do mais fraco ao mais forte."
+    },
+    {
+      "termo": "Red team",
+      "definicao": "Revisão adversarial: alguém tenta derrubar a prova antes de ela entrar no ledger."
+    },
+    {
+      "termo": "Tabelas de Kéri",
+      "definicao": "A compilação de referência das cotas de K_q(n,R), atualizada pela última vez em 2011."
+    }
+  ]
+}
