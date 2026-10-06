@@ -1,0 +1,160 @@
+{
+  "titulo": "Descobrir é caro. Verificar é barato.",
+  "subtitulo": "[exemplo] Um ledger de cotas de códigos de cobertura em que cada número sobe de estado só quando alguém confere.",
+  "manifesto": [
+    "[exemplo] Entropia local é a incerteza de um trabalho que ainda depende de alguém lembrar.",
+    "Achar um código que cobre é busca; conferir que ele cobre é contar."
+  ],
+  "principios": [
+    {
+      "nome": "Meça antes de afirmar",
+      "enunciado": "Frase sem número é hipótese."
+    },
+    {
+      "nome": "Procedência ou nada",
+      "enunciado": "Todo número tem fonte, versão e estado."
+    }
+  ],
+  "metodo": [
+    {
+      "passo": "Buscar",
+      "descricao": "Gastar computação cara."
+    },
+    {
+      "passo": "Verificar",
+      "descricao": "Conferir com verificador independente ou com o kernel do Lean."
+    }
+  ],
+  "milenio": [
+    {
+      "problema": "P versus NP",
+      "enunciado_curto": "Verificar depressa implica resolver depressa?",
+      "status": "Aberto",
+      "fonte": "https://www.claymath.org/millennium-problems/"
+    },
+    {
+      "problema": "Hipótese de Riemann",
+      "enunciado_curto": "Os zeros não triviais da zeta têm parte real 1/2.",
+      "status": "Aberto",
+      "fonte": "https://www.claymath.org/millennium-problems/"
+    },
+    {
+      "problema": "Yang–Mills e a lacuna de massa",
+      "enunciado_curto": "Existe a teoria com lacuna de massa positiva?",
+      "status": "Aberto",
+      "fonte": "https://www.claymath.org/millennium-problems/"
+    },
+    {
+      "problema": "Navier–Stokes",
+      "enunciado_curto": "Soluções suaves e globais em três dimensões?",
+      "status": "Aberto",
+      "fonte": "https://www.claymath.org/millennium-problems/"
+    },
+    {
+      "problema": "Conjectura de Hodge",
+      "enunciado_curto": "Classes de Hodge vêm de subvariedades algébricas?",
+      "status": "Aberto",
+      "fonte": "https://www.claymath.org/millennium-problems/"
+    },
+    {
+      "problema": "Birch e Swinnerton-Dyer",
+      "enunciado_curto": "O posto da curva elíptica é a ordem do zero da função L em s = 1.",
+      "status": "Aberto",
+      "fonte": "https://www.claymath.org/millennium-problems/"
+    },
+    {
+      "problema": "Conjectura de Poincaré",
+      "enunciado_curto": "Provada por Grigori Perelman (2002–2003); ele recusou o prêmio.",
+      "status": "Resolvido",
+      "fonte": "https://www.claymath.org/millennium-problems/"
+    }
+  ],
+  "james": {
+    "resumo": "[exemplo] Os três pilares da filosofia do James provados em Lean 4, sem Mathlib e sem sorry.",
+    "teoremas": [
+      {
+        "nome": "Amortização",
+        "enunciado": "O custo por tarefa tende ao custo de verificar.",
+        "fonte": "https://github.com/thiagopatzdorf/james-theorems/blob/main/Conhecimento.lean"
+      },
+      {
+        "nome": "Gate",
+        "enunciado": "Nenhuma ação crítica sem aprovação registrada.",
+        "fonte": "https://github.com/thiagopatzdorf/james-theorems/blob/main/Seguranca.lean"
+      },
+      {
+        "nome": "Replay",
+        "enunciado": "O estado é função do log, não do host.",
+        "fonte": "https://github.com/thiagopatzdorf/james-theorems/blob/main/Alma.lean"
+      }
+    ]
+  },
+  "keri": {
+    "resumo": "[exemplo] K_q(n,R) é o menor código q-ário de comprimento n que cobre tudo com raio R.",
+    "porque_importa": "Encontrar é caro; conferir é barato e exato."
+  },
+  "lacunas": [
+    "[exemplo] As cotas inferiores novas estão fora do Lean (CERTIFICATE_VERIFIED).",
+    "K7(5,3) ≤ 17 só foi anunciada na literatura (CLAIMED)."
+  ],
+  "links": [
+    {
+      "rotulo": "Matematica (GitHub)",
+      "url": "https://github.com/thiagopatzdorf/Matematica"
+    },
+    {
+      "rotulo": "ledger/COBERTURA.md",
+      "url": "ledger/COBERTURA.md"
+    },
+    {
+      "rotulo": "Zenodo · 10.5281/zenodo.23085769",
+      "url": "https://doi.org/10.5281/zenodo.23085769"
+    },
+    {
+      "rotulo": "james-theorems (Lean 4)",
+      "url": "https://github.com/thiagopatzdorf/james-theorems"
+    }
+  ],
+  "explicando": {
+    "camadas": [
+      {
+        "nivel": "Em 30 segundos",
+        "titulo": "Antenas",
+        "texto": "[exemplo] O menor número de antenas que cobre todas as casas.",
+        "analogia": "Antenas de celular.",
+        "exemplo": "000 e 111 cobrem as 8 palavras de 3 bits."
+      },
+      {
+        "nivel": "Ensino médio",
+        "titulo": "Esferas",
+        "texto": "Distância de Hamming conta posições diferentes.",
+        "analogia": "A cota da esfera.",
+        "exemplo": "K2(3,1) = 2."
+      },
+      {
+        "nivel": "Graduação",
+        "titulo": "Dominação",
+        "texto": "Número de dominação a distância R do grafo de Hamming.",
+        "analogia": "Agulha e palheiro.",
+        "exemplo": "K2(4,1) = 4."
+      },
+      {
+        "nivel": "Pesquisa",
+        "titulo": "Fronteira",
+        "texto": "Tabelas de Kéri; certificados e Lean.",
+        "analogia": "Um livro-caixa auditado.",
+        "exemplo": "K3(6,2) = 17."
+      }
+    ]
+  },
+  "glossario": [
+    {
+      "termo": "Distância de Hamming",
+      "definicao": "Número de posições em que duas palavras diferem."
+    },
+    {
+      "termo": "K_q(n,R)",
+      "definicao": "Tamanho mínimo de um código de cobertura."
+    }
+  ]
+}

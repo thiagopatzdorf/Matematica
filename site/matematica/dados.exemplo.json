@@ -1,0 +1,51 @@
+{
+  "gerado_em": "exemplo (não é dado real)",
+  "commit": "0000000000000000000000000000000000000000",
+  "versao": "0.9.0",
+  "doi": "10.5281/zenodo.23085769",
+  "doi_conceito": "10.5281/zenodo.23085769",
+  "frase_ledger": "A machine-checked ledger of covering-code upper bounds, with formally certified exact entries.",
+  "celulas_total": 1145,
+  "exatas": 523,
+  "abertas": 622,
+  "superiores_por_estado": {
+    "CLAIMED": 658,
+    "WITNESS_CHECKED": 0,
+    "CERTIFICATE_VERIFIED": 0,
+    "FORMALIZED": 435,
+    "INDEPENDENTLY_REPRODUCED": 52
+  },
+  "inferiores_por_estado": {
+    "CLAIMED": 1140,
+    "WITNESS_CHECKED": 0,
+    "CERTIFICATE_VERIFIED": 3,
+    "FORMALIZED": 2,
+    "INDEPENDENTLY_REPRODUCED": 0
+  },
+  "destaques": [
+    {
+      "celula": "K3(6,2)",
+      "antes": "15–17",
+      "agora": "= 17",
+      "estado_lb": "CERTIFICATE_VERIFIED",
+      "estado_ub": "INDEPENDENTLY_REPRODUCED",
+      "fonte": "docs/exatos/NOVIDADE_V09.md"
+    },
+    {
+      "celula": "K7(6,4)",
+      "antes": "13–15",
+      "agora": "= 14",
+      "estado_lb": "CERTIFICATE_VERIFIED",
+      "estado_ub": "INDEPENDENTLY_REPRODUCED",
+      "fonte": "docs/exatos/NOVIDADE_V09.md"
+    },
+    {
+      "celula": "K7(5,3)",
+      "antes": "15–17",
+      "agora": "= 17",
+      "estado_lb": "CERTIFICATE_VERIFIED",
+      "estado_ub": "CLAIMED",
+      "fonte": "docs/exatos/NOVIDADE_V09.md"
+    }
+  ]
+}
