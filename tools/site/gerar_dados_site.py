@@ -35,13 +35,13 @@ ESTADOS = ["CLAIMED", "WITNESS_CHECKED", "CERTIFICATE_VERIFIED", "FORMALIZED",
            "INDEPENDENTLY_REPRODUCED"]
 # DOIs do Zenodo. O de conceito está no CITATION.cff e é conferido lá; o da
 # versão 0.9.0 é o registro dessa versão específica (resolve sempre para ela).
-DOI_VERSAO = {"0.9.0": "10.5281/zenodo.23172276"}
+DOI_VERSAO = {"0.9.0": "10.5281/zenodo.23172276", "0.9.1": "10.5281/zenodo.23178159"}
 # Versão já no repositório cujo DOI o Zenodo ainda não cunhou (o PR de release vem antes da
 # publicação): aponta, de forma declarada, para a versão cunhada cujo DOI a página mostra até lá.
 # Sem esta tabela explícita, uma versão nova sem DOI cairia em silêncio no DOI antigo; versão
 # ausente das duas tabelas continua sendo Divergencia. Depois que o Zenodo cunhar, mova a versão
 # para DOI_VERSAO e apague a linha daqui.
-DOI_PENDENTE = {"0.9.1": "0.9.0"}
+DOI_PENDENTE: dict[str, str] = {}
 DOI_CONCEITO = "10.5281/zenodo.23085769"
 NOME_CODIGO = re.compile(r"^q\d+_n\d+_R\d+_M\d+\.txt$")
 # Campos que mudam a cada execução; --verificar os ignora.

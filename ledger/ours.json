@@ -284,7 +284,7 @@
       "ours_lean": {
         "M": 17,
         "declaration": "CoveringK753.K_7_5_3_le_17",
-        "tag": null,
+        "tag": "v0.9.1",
         "file": "data/codes/q7_n5_R3_M17.txt",
         "sha256": "d4b4c2acda99bd2143572a0c2c73f9b9db07606090d0660fa3c43b838c7fe242",
         "provenance": "P-753-17"
