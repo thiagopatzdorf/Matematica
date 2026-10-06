@@ -47,14 +47,28 @@ Publicar (Zenodo, site) e fazer merge **não existem aqui**: continuam com o don
 atividade, as 3 tools mais usadas, teto, gasto e disponível. As chamadas do próprio administrador não entram na conta.
 O resumo mora em `atividade/resumo.json` no bucket de estado; gravar atividade nunca derruba uma tool.
 
-## Computação pesada (a VM `lean-build2`)
+## Computação pesada (lote de VMs spot efêmeras)
 
-`pesado(tipo, horas, parametros, confirmar=true)` reserva `horas × tarifa`, liga a VM com **um** job de allowlist
-(`lake_build` ou `verificar_grande`), e `pesado_status` cobra o **tempo real** ao terminar. A VM se desliga sozinha
-(`timeout` + `shutdown` no script) e tem um limite permanente de 6 h ligada (`maxRunDuration`, que o Compute não deixa
-remover). Um job por vez; a VM não tem credencial, então só volta o código de saída e o fim do log (3 KB).
-Provado em produção em 2026-10-03: `verificar_grande` em `K_4(10,4) ≤ 192` → `uncovered=0`, 69 s, US$ 0,0115.
-`busca` não é um tipo: devolver um código achado exigiria uma credencial de armazenamento para a VM (decisão do dono).
+A VM fixa `lean-build2` foi apagada em 2026-10-06 (sobrou a imagem `bkp-lean-build2-20261006`). O `pesado` v2
+cria as máquinas na hora e as apaga no fim (`infinito_mcp/executor_lote.py`, script da VM em `vm/lote.sh`):
+
+* `pesado(tipo, horas, parametros, paralelo=N, maquina="e2-highmem-8", confirmar=true)` reserva
+  **N × horas × tarifa** (o lote inteiro) e só então cria `inf-pesado-<job>-0..N-1`, spot, a partir da imagem;
+* tipos: `lake_build`, `verificar_grande` e `script` (roda `pesado/jobs/<nome>.sh` de um commit que já está na
+  `main`, com `SHARD_INDEX`/`SHARD_TOTAL`; ver [`pesado/jobs/README.md`](../pesado/jobs/README.md));
+* a tarifa vem dos SKUs spot de São Paulo lidos da Cloud Billing Catalog API em 2026-10-06 (núcleo + memória + disco
+  + IP) com margem de 20 %: e2-highmem-8 ≈ US$ 0,18/h por VM. `pesado_tipos` mostra a de cada máquina;
+* nenhuma VM fica viva: `maxRunDuration` = horas + 10 min com `instanceTerminationAction=DELETE` (o Compute apaga
+  sozinho), `pesado_status` apaga quem terminou ou estourou, e toda chamada do módulo varre órfãs pelo rótulo;
+* cota antes de ligar: se não cabe (medido em 2026-10-06: 6 IPs externos livres na região), recusa sem cobrar;
+* a VM não tem credencial. Log e `$SAIDA` sobem por URL assinada de um objeto só (`jobs/<job>/shard-<i>.log`,
+  `...-saida.tar.gz`), se a SA do serviço puder assinar (`signBlob` nela mesma); senão volta só o fim do log (3 KB).
+
+Variáveis: `INF_EXECUTOR=lote`, `INF_GCP_PROJETO`, `INF_PESADO_IMAGEM`, `INF_PESADO_PARALELO_MAX` (8),
+`INF_PESADO_MAQUINA`, `INF_PESADO_MARGEM` (1.2), `INF_PESADO_TARIFAS` (JSON, sobrepõe), `INF_PESADO_DISCO_GB` (100),
+`INF_PESADO_TIPO_DISCO` (pd-balanced), `INF_PESADO_ASSINAR=0` desliga a URL assinada. As permissões que a SA precisa
+estão em [`docs/infra/PESADO_IAM.md`](../docs/infra/PESADO_IAM.md); até o dono conceder, o lote recusa com o erro
+do Compute e não cobra nada.
 
 ## Estado honesto (2026-10-03)
 

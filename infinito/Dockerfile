@@ -12,6 +12,8 @@ COPY data/structured ./repo/data/structured
 COPY tools/verify/verify.c ./repo/tools/verify/verify.c
 COPY README.md ./repo/
 COPY docs ./repo/docs
+# A allowlist do tipo `script` do pesado: o servidor recusa nome fora daqui antes de reservar (a VM confere de novo).
+COPY pesado/jobs ./repo/pesado/jobs
 RUN gcc -O2 -o repo/tools/verify/verify repo/tools/verify/verify.c && apt-get purge -y gcc libc6-dev && apt-get autoremove -y
 COPY infinito/infinito_mcp ./infinito_mcp
 # Sem root: o processo só precisa do metadata server e da rede de saída.
