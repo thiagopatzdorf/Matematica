@@ -51,6 +51,61 @@ ROTULO = {
 }
 
 
+# As tabelas do Kéri são quatro PDFs, e cada um tem a sua legenda: a mesma letra quer dizer
+# coisas diferentes em q = 2, q = 3, q = 4–5 e q ≥ 6 (o `f` é "van Wee, 1988" em q = 2 e
+# "direct sum" em q ≥ 6). Sem dizer a tabela, "chave 'f'" não identifica a fonte.
+TABELAS_KERI = {"keri_2_tables.pdf": "q=2", "keri_3_tables.pdf": "q=3",
+                "keri_4-5_tables.pdf": "q=4–5", "keri_6-21_tables.pdf": "q≥6"}
+# A transcrição do coldcase (bounds.json, `keys`) traz as legendas de q = 3, q = 4–5 e q ≥ 6, mas
+# deixa vazia a de q = 2. Transcrita aqui do keri_2_tables.pdf, pp. 4–5 ("Key to the tables for
+# K(n, R), lower bounds" e "... upper bounds"), lido em 2026-10-06.
+LEGENDA_KERI_Q2 = {
+    "lower": {
+        "unmarked": "trivial", "b": "(Taussky–Todd, 1948)", "c": "(Stanton–Kalbfleisch, 1968 and 1969)",
+        "d": "(Bhandari–Chanduka–Lal, 1998)", "f": "(van Wee, 1988)", "g": "(Cohen–Lobstein–Sloane, 1986)",
+        "h": "perfect code", "i": "(Bertolo–Östergård–Weakly, 2004)", "j": "(Östergård, 2005)",
+        "l": "(Habsieger, 1997)", "m": "(Honkala, 1991)", "n": "(Li–Chen, 1994)",
+        "o": "(Östergård–Blass, 2001)", "p": "(Östergård–Weakly, 2000)", "q": "(Kéri–Östergård, 2003–2006)",
+        "r": "(Habsieger–Plagne, 2000)", "s": "(Zhang, 1991)", "t": "(Zhang–Lo, 1992)", "u": "(Kéri, 2006)",
+        "v": "(Plagne, 2008)", "w": "(Kéri, 2009)", "x": "(Lang–Quistorff–Schneider, 2006)",
+        "y": "(Haas, 2007–2008)", "z": "(Blass–Litsyn, 1998 and 1999)"},
+    "upper": {
+        "unmarked": "trivial", "b": "(Taussky–Todd, 1948)", "c": "(Stanton–Kalbfleisch, 1968)",
+        "d": "(Etzion–Greenberg, 1993)", "f": "(van Wee, 1988)", "g": "(Cohen–Lobstein–Sloane, 1986)",
+        "h": "perfect code", "j": "(Wille, 1990 and 1996)", "k": "(Brualdi–Pless, 1990)",
+        "l": "(Cohen–Honkala–Litsyn–Lobstein, 1997)", "m": "(Honkala, 1991)", "n": "(Li–Chen, 1994)",
+        "o": "(Östergård, 1994)", "p": "(Östergård–Weakly, 1999)",
+        "s": "(Hämäläinen–Honkala–Kaikkonen–Litsyn, 1993)", "t": "(Hämäläinen–Honkala–Litsyn–Östergård, 1995)",
+        "u": "(Mollard, 1981)", "v": "(Östergård–Kaikkonen, 1998)", "w": "(Hämäläinen–Rankinen, 1991)",
+        "x": "(Honkala–Hämäläinen, 1988)", "y": "(Graham–Sloane, 1985)",
+        "z": "(Bertolo–Di Pasquale–Santisi, 2006)"},
+}
+
+
+def tabela_keri(q: int) -> str:
+    return "q=2" if q == 2 else "q=3" if q == 3 else "q=4–5" if q <= 5 else "q≥6"
+
+
+def legendas_keri(bounds: dict) -> dict:
+    """{tabela: {"lower"|"upper": {letra: texto}}}: q = 2 daqui, o resto do bounds.json."""
+    out = {"q=2": LEGENDA_KERI_Q2}
+    for k in bounds.get("keys") or []:
+        t = TABELAS_KERI.get(k.get("src"))
+        if t and t != "q=2" and (k.get("lower") or k.get("upper")):
+            out[t] = {"lower": k.get("lower") or {}, "upper": k.get("upper") or {}}
+    return out
+
+
+def ref_keri(q: int, lado: str, letra, legendas: dict) -> str:
+    """"chave 'f' da tabela do Kéri para q≥6 (direct sum)"; sem letra é a entrada "trivial"."""
+    t = tabela_keri(q)
+    texto = (legendas.get(t) or {}).get("upper" if lado == "ub" else "lower", {}).get(letra or "unmarked")
+    base = f"chave {letra!r} da tabela do Kéri para {t}" if letra else f"sem chave na tabela do Kéri para {t}"
+    if not texto:
+        return base
+    return f"{base} {texto}" if texto.startswith("(") else f"{base} ({texto})"
+
+
 def chave(q: int, n: int, R: int) -> str:
     return f"{q},{n},{R}"
 
@@ -171,12 +226,16 @@ def _melhor(candidatos: list[tuple[int, str]], maior: bool):
 
 
 def montar_celula(e: dict, gp: int | None, mub: dict | None, mlb: dict | None,
-                  flo: dict | None, ev: dict | None, lit: dict | None = None) -> dict:
+                  flo: dict | None, ev: dict | None, lit: dict | None = None,
+                  legendas: dict | None = None) -> dict:
     q, n, R = e["q"], e["n"], e["R"]
+    legendas = legendas if legendas is not None else {"q=2": LEGENDA_KERI_Q2}
     pub = {
         "keri_2011": {"lb": e["lb"], "ub": e["ub"], "lb_key": e.get("lb_key"),
                       "ub_key": e.get("ub_key"), "n_optimal": e.get("n_optimal"),
-                      "src": e.get("src"), "page": e.get("page")},
+                      "src": e.get("src"), "page": e.get("page"),
+                      "lb_ref": ref_keri(q, "lb", e.get("lb_key"), legendas),
+                      "ub_ref": ref_keri(q, "ub", e.get("ub_key"), legendas)},
         "gijswijt_polak_2025": {"lb": gp} if gp is not None else None,
         "marosi_2026": None,
         "florath_lean": flo,
@@ -285,7 +344,7 @@ def _ref_fonte(cel: dict, fonte: str, lado: str):
     """A referência dentro da fonte: chave do Kéri, arquivo do Marosi, regra do Florath..."""
     s = cel["published"]["sources"].get(fonte) or {}
     if fonte == "keri_2011":
-        return f"chave {s.get(lado + '_key')!r} da tabela do Kéri"
+        return s.get(lado + "_ref") or ref_keri(cel["q"], lado, s.get(lado + "_key"), {"q=2": LEGENDA_KERI_Q2})
     if fonte == "marosi_2026":
         return s.get("code_file") if lado == "ub" else s.get("lb_certificate")
     if fonte == "gijswijt_polak_2025":
@@ -478,6 +537,7 @@ def construir(fontes: dict, ours: dict, sources: dict, formal: dict | None = Non
     flo = tabela_florath(fontes)
     lit = tabela_florath(fontes, "post_keri_table")
     ev = evidencias_marosi(fontes)
+    legendas = legendas_keri(bounds)
     nossos = ours.get("cells", {})
     formal = carregar_formal() if formal is None else formal
     cells = []
@@ -486,7 +546,8 @@ def construir(fontes: dict, ours: dict, sources: dict, formal: dict | None = Non
         e = corrigir_n_optimal(e)
         k = chave(e["q"], e["n"], e["R"])
         vistos.add(k)
-        c = montar_celula(e, e.get("lb_updated"), mub.get(k), mlb.get(k), flo.get(k), ev.get(k), lit.get(k))
+        c = montar_celula(e, e.get("lb_updated"), mub.get(k), mlb.get(k), flo.get(k), ev.get(k), lit.get(k),
+                          legendas)
         cells.append(certificar(aplicar_nosso(c, nossos.get(k)), nossos.get(k), formal.get(k)))
     faltando = sorted(set(nossos) - vistos)
     if faltando:
