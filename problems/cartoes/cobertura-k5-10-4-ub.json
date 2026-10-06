@@ -27,7 +27,7 @@
     {
       "quem": "tools/problems/seed_from_ledger.py",
       "papel": "qualquer",
-      "quando": "2026-10-05",
+      "quando": "2026-10-06",
       "de": null,
       "para": "proposto",
       "evidencia": {},
@@ -36,7 +36,7 @@
     {
       "quem": "tools/problems/seed_from_ledger.py",
       "papel": "mantenedor",
-      "quando": "2026-10-05",
+      "quando": "2026-10-06",
       "de": "proposto",
       "para": "aceito",
       "evidencia": {},
@@ -45,7 +45,7 @@
     {
       "quem": "tools/problems/seed_from_ledger.py",
       "papel": "mantenedor",
-      "quando": "2026-10-05",
+      "quando": "2026-10-06",
       "de": "aceito",
       "para": "aberto",
       "evidencia": {},
@@ -54,7 +54,7 @@
     {
       "quem": "tools/problems/seed_from_ledger.py",
       "papel": "qualquer",
-      "quando": "2026-10-05",
+      "quando": "2026-10-06",
       "de": "aberto",
       "para": "candidato",
       "evidencia": {
@@ -66,7 +66,7 @@
     {
       "quem": "tools/problems/seed_from_ledger.py",
       "papel": "avaliador",
-      "quando": "2026-10-05",
+      "quando": "2026-10-06",
       "de": "candidato",
       "para": "verificado",
       "evidencia": {
@@ -80,7 +80,7 @@
     {
       "quem": "tools/problems/seed_from_ledger.py",
       "papel": "avaliador",
-      "quando": "2026-10-05",
+      "quando": "2026-10-06",
       "de": "verificado",
       "para": "certificado",
       "evidencia": {

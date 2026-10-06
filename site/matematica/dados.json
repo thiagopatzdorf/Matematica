@@ -1,6 +1,6 @@
 {
-  "gerado_em": "2026-10-06T01:06:39+00:00",
-  "commit": "ee5c19996ba7cf672cd7f3fa95bb31fa90fac05c",
+  "gerado_em": "2026-10-06T01:51:55+00:00",
+  "commit": "a37643168cbf1cbbebc55da0c8f7f227745ec9aa",
   "versao": "0.9.0",
   "doi": "10.5281/zenodo.23172276",
   "doi_conceito": "10.5281/zenodo.23085769",
@@ -9,11 +9,11 @@
   "exatas": 523,
   "abertas": 622,
   "superiores_por_estado": {
-    "CLAIMED": 658,
+    "CLAIMED": 657,
     "WITNESS_CHECKED": 0,
     "CERTIFICATE_VERIFIED": 0,
     "FORMALIZED": 435,
-    "INDEPENDENTLY_REPRODUCED": 52
+    "INDEPENDENTLY_REPRODUCED": 53
   },
   "inferiores_por_estado": {
     "CLAIMED": 1140,
@@ -116,8 +116,8 @@
       "antes": "15 ≤ K ≤ 17",
       "agora": "K = 17",
       "estado_lb": "CERTIFICATE_VERIFIED",
-      "estado_ub": "CLAIMED",
-      "fonte": "docs/exatos/REDTEAM_K753.md"
+      "estado_ub": "INDEPENDENTLY_REPRODUCED",
+      "fonte": "Lean: CoveringK753.K_7_5_3_le_17"
     },
     {
       "celula": "K7(6,4)",
@@ -152,5 +152,5 @@
       "fonte": "Lean: Syn.K7_10_4_le_5607_syn"
     }
   ],
-  "codigos_verificados": 18
+  "codigos_verificados": 19
 }

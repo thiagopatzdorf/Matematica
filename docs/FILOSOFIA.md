@@ -125,7 +125,7 @@ concedido em 2010, e ele o recusou. Os outros seis seguem abertos
 
 - As cotas inferiores de `K₃(6,2)`, `K₇(6,4)` e `K₇(5,3)` não são teoremas do kernel. Dependem de uma
   redução provada no papel e de certificados conferidos fora do Lean ([paper](../paper/main.tex)).
-- A cota superior `K₇(5,3) ≤ 17` está só anunciada nas tabelas de Kéri e segue `CLAIMED`.
+- A cota superior `K₇(5,3) ≤ 17` ganhou código próprio de 17 palavras e teorema Lean (`CoveringK753.K_7_5_3_le_17`); a lacuna que resta é a inferior, fora do Lean.
 - "Potencialmente novo" quer dizer não encontrado nas fontes listadas. Textos fechados de 2004 a 2009
   não foram lidos ([NOVIDADE_V09](exatos/NOVIDADE_V09.md)).
 - Literatura posterior a 2011 fora das fontes do ledger não foi auditada ([ledger](../ledger/README.md)).

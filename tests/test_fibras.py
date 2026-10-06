@@ -307,6 +307,14 @@ def test_codigo_k7_6_4_com_14_palavras_nao_deixa_ponto_descoberto():
     assert falta == []
 
 
+def test_codigo_k7_5_3_com_17_palavras_nao_deixa_ponto_descoberto():
+    # K_7(5,3) <= 17: segundo verificador (força bruta em Python puro, independente do verify.c)
+    cod = [tuple(map(int, ln)) for ln in (RAIZ / "data" / "codes" / "q7_n5_R3_M17.txt").read_text().split()]
+    assert len(set(cod)) == 17 and all(len(c) == 5 and max(c) < 7 for c in cod)
+    falta = [x for x in itertools.product(range(7), repeat=5) if not any(cobre_ponto(x, c, 3) for c in cod)]
+    assert falta == []
+
+
 def test_tipo_equilibrado_da_sonda_soma_M_e_varia_no_maximo_um():
     sys.path.insert(0, str(RAIZ / "tools" / "exatos" / "fibras"))
     import sonda
