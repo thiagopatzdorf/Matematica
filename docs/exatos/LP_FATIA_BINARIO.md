@@ -27,7 +27,7 @@ aceito por verificador exato, mais a completude da redução), PROVED (demonstra
 | K2(10,3) | 12 | 11 | 13 022 (`4e1b26ee…`) | 13 020 aceitas (118 625 folhas); 425 e 701 sem certificado | lb 12 **não** reproduzida por inteiro | 13 020 instâncias: COMPUTATIONALLY_VERIFIED; a célula: OBSERVED |
 | K2(9,1) | 62 | — | não gerada | — | não tentada (s* até 30, lista não cabe) | — |
 | K2(12,4) | 11–12 | 11 | 73 029 (`15b70965…`) | raiz: 21 512 mortas (29,5 %), 51 517 vivas; ramos em 24 vivas: 15 fecham | lb não muda | OBSERVED |
-| K2(14,5) | 10–12 | 10 | 341 547 (`1fef7e2b…`) | raiz em 1 000 sorteadas: 990 mortas, 10 vivas | lb 11 **não** provada; elo mais barato da família | OBSERVED |
+| K2(14,5) | 10–12 | 10 | 341 547 (`1fef7e2b…`) | raiz em 1 000 sorteadas: 990 mortas, 10 vivas; raiz inteira e ramos em [`K2_14_5.md`](K2_14_5.md): 2 835 sem certificado | lb 11 **não** provada; elo mais barato da família | OBSERVED |
 | K2(16,6) | 9–12 | 9 | 8 795 (`e09b5d7e…`) | raiz: 8 499 mortas (96,6 %), 296 vivas; ramos em 10 vivas: 5 fecham | lb 10 não provada | OBSERVED |
 | K2(18,7)…K2(24,10) | 9–12 | — | não gerada | — | não tentadas (2^18 a 2^24 pontos) | — |
 | K2(11,3) | 15–16 | 15 | não cabe (s* até 7) | sorteio: s* = 7 e s* = 5, 20 de 20 mortas na raiz cada | lb não muda | OBSERVED |
