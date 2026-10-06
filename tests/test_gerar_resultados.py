@@ -1,7 +1,7 @@
 """O bloco RESULTADOS do README e os badges são derivados do ledger; aqui se prova que não divergem dele.
 
 Gerador: tools/site/gerar_resultados.py. Se um destes testes falhar depois de mudar o ledger, rode
-`python3 tools/site/gerar_resultados.py --escrever README.md` e
+`python3 tools/site/gerar_resultados.py --escrever` (os três READMEs: en, pt-BR, fr) e
 `python3 tools/site/gerar_resultados.py --badges docs/badges`.
 """
 import importlib.util
@@ -19,12 +19,12 @@ _spec.loader.exec_module(gr)
 
 LEDGER = gr.ler_ledger()
 CELLS = LEDGER["cells"]
-BLOCO = gr.bloco(LEDGER)
-README = RAIZ / "README.md"
+BLOCO = gr.bloco(LEDGER)  # pt-BR; os testes de conteúdo valem para as três línguas pelo teste de números
+BLOCOS = {lg: gr.bloco(LEDGER, lingua=lg) for lg in gr.LINGUAS}
 
 
 def _linhas_da_tabela(bloco):
-    return [li for li in bloco.splitlines() if li.startswith("| `K_")]
+    return [li for li in bloco.splitlines() if re.match(r"^\| `K_\d+\(", li)]
 
 
 def _id(c):
@@ -34,13 +34,36 @@ def _id(c):
 # ---------------------------------------------------------------- README e badges commitados
 
 
-def test_bloco_do_readme_diverge_do_ledger():
-    texto = README.read_text(encoding="utf-8")
+@pytest.mark.parametrize("lingua", gr.LINGUAS)
+def test_bloco_do_readme_diverge_do_ledger(lingua):
+    readme = RAIZ / gr.ARQUIVOS[lingua]
+    texto = readme.read_text(encoding="utf-8") if readme.is_file() else ""
     if gr.INICIO not in texto or gr.FIM not in texto:
-        pytest.skip("README.md ainda não tem as marcas RESULTADOS (o README novo vem em outro PR); "
+        pytest.skip(f"{readme.name} ainda não tem as marcas RESULTADOS (o README novo vem em outro PR); "
                     "o teste passa a valer sozinho quando elas existirem")
-    assert gr.substituir(texto, BLOCO) == texto, (
-        "README.md desatualizado: rode `python3 tools/site/gerar_resultados.py --escrever README.md`")
+    assert gr.substituir(texto, BLOCOS[lingua]) == texto, (
+        f"{readme.name} desatualizado: rode `python3 tools/site/gerar_resultados.py --escrever`")
+
+
+def test_numeros_diferem_entre_as_linguas():
+    """Só rótulos mudam com a língua: a sequência de números do bloco é a mesma nas três."""
+    seqs = {lg: re.findall(r"\d+", b) for lg, b in BLOCOS.items()}
+    assert seqs["en"] == seqs["pt-BR"] == seqs["fr"]
+
+
+def test_lingua_sem_algum_rotulo_quebra_o_bloco():
+    chaves = {lg: set(t) for lg, t in gr.TEXTOS.items()}
+    assert chaves["en"] == chaves["pt-BR"] == chaves["fr"]
+    assert set(gr.TEXTOS) == set(gr.LINGUAS) == set(gr.ARQUIVOS)
+
+
+def test_frase_do_ledger_ou_estado_traduzido_por_engano():
+    """A frase obrigatória e os nomes dos estados são o nome da coisa: em inglês nas três línguas."""
+    linhas_pt = _linhas_da_tabela(BLOCO)
+    for lg, b in BLOCOS.items():
+        assert gr.FRASE_LEDGER in b, lg
+        for a, c in zip(_linhas_da_tabela(b), linhas_pt):
+            assert a.split("|")[1:2] + a.split("|")[4:6] == c.split("|")[1:2] + c.split("|")[4:6], lg
 
 
 def test_badges_commitados_divergem_do_ledger():
@@ -184,7 +207,7 @@ def test_escrever_sem_marcas_nao_falha_com_mensagem_clara(tmp_path, capsys):
 
 
 def test_escrever_mexe_fora_das_marcas(tmp_path):
-    alvo = tmp_path / "README.md"
+    alvo = tmp_path / "README.pt-BR.md"
     alvo.write_text(f"antes\n{gr.INICIO}\nvelho\n{gr.FIM}\ndepois\n", encoding="utf-8")
     assert gr.main(["--escrever", str(alvo)]) == 0
     t = alvo.read_text(encoding="utf-8")
@@ -195,7 +218,7 @@ def test_escrever_mexe_fora_das_marcas(tmp_path):
 
 
 def test_checar_aceita_readme_desatualizado(tmp_path):
-    alvo = tmp_path / "README.md"
+    alvo = tmp_path / "README.fr.md"
     alvo.write_text(f"{gr.INICIO}\n| células | 1144 |\n{gr.FIM}\n", encoding="utf-8")
     assert gr.main(["--checar", str(alvo)]) == 1
 
@@ -205,3 +228,39 @@ def test_marcas_duplicadas_passam_sem_erro():
         gr.substituir(f"{gr.INICIO}\n{gr.FIM}\n{gr.INICIO}\n{gr.FIM}\n", BLOCO)
     with pytest.raises(gr.SemMarcas):
         gr.substituir(f"{gr.FIM}\n{gr.INICIO}\n", BLOCO)
+
+
+def _tres_readmes(pasta):
+    for arq in gr.ARQUIVOS.values():
+        (pasta / arq).write_text(f"# {arq}\n{gr.INICIO}\n{gr.FIM}\n", encoding="utf-8")
+
+
+def test_escrever_sem_argumento_esquece_algum_dos_tres_readmes(tmp_path, monkeypatch):
+    _tres_readmes(tmp_path)
+    monkeypatch.setattr(gr, "RAIZ", tmp_path)
+    assert gr.main(["--escrever"]) == 0
+    for lg, arq in gr.ARQUIVOS.items():
+        assert BLOCOS[lg] in (tmp_path / arq).read_text(encoding="utf-8"), arq
+    assert gr.main(["--checar"]) == 0
+
+
+def test_checar_sem_argumento_ignora_um_readme_sem_marcas(tmp_path, monkeypatch, capsys):
+    _tres_readmes(tmp_path)
+    monkeypatch.setattr(gr, "RAIZ", tmp_path)
+    assert gr.main(["--escrever"]) == 0
+    (tmp_path / "README.fr.md").write_text("# fr sem marcas\n", encoding="utf-8")
+    assert gr.main(["--checar"]) == 2
+    assert "README.fr.md" in capsys.readouterr().err
+
+
+def test_checar_aceita_readme_que_nao_existe(tmp_path, monkeypatch):
+    _tres_readmes(tmp_path)
+    (tmp_path / "README.pt-BR.md").unlink()
+    monkeypatch.setattr(gr, "RAIZ", tmp_path)
+    assert gr.main(["--checar"]) == 2
+
+
+def test_arquivo_de_lingua_desconhecida_e_aceito(tmp_path):
+    alvo = tmp_path / "LEIAME.md"
+    alvo.write_text(f"{gr.INICIO}\n{gr.FIM}\n", encoding="utf-8")
+    assert gr.main(["--escrever", str(alvo)]) == 2
