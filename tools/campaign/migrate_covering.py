@@ -739,18 +739,22 @@ def main() -> int:
         "validation_problems": ["axiomas não medidos por esta campanha (declarados)", "clean_build não medido por esta campanha"]}, "FORMALIZER", PROMOTOR)
     # K_7(6,4) <= 14 (v0.9): o main tem o teorema Lean `CoveringK764.K_7_6_4_le_14` (módulo no alvo padrão, importado por CoveringLean.lean), mas esta campanha
     # não o compilou (sem `lake` neste ambiente). Registro DECLARADO, como o do perfil 64 acima: o claim não sobe a PROVED por ele (só o Lean MEDIDO sobe).
-    teo_764, arq_764 = "CoveringK764.K_7_6_4_le_14", "CoveringLean/K764_Upper.lean"
-    achados_764 = F.escanear_fontes(REPO, [arq_764])
-    gravar("formal", "f-k764-ub-14", {
-        "formal_id": "f-k764-ub-14", "theorem": teo_764, "module": "CoveringLean.K764_Upper", "file": arq_764, "lean_root": ".", "lean_version": None,
-        "lean_toolchain": ambiente.get("lean_toolchain") or (REPO / "lean-toolchain").read_text().strip(), "mathlib_commit": ambiente.get("mathlib_commit"),
-        "manifest_sha256": sha256_arquivo(REPO / "lake-manifest.json"), "axioms": None, "declared_axioms": AXIOMAS_DECLARADOS,
-        "axioms_status": "DECLARED_NOT_REPRODUCED: o próprio módulo termina em `#print axioms` e o docstring diz que só entram os três padrão; esta campanha não compilou o módulo (sem lake aqui)",
-        "measured_external": None, "kernel_run": None, "sorry_free": not any(x["kind"] in F.TIPOS_SORRY for x in achados_764),
-        "sorry_free_basis": "varredura estática de 1 fonte (não é build)", "clean_build": False,
-        "build_status": "NOT_RUN: lake build CoveringLean.K764_Upper não executado por esta campanha (o alvo padrão do CI o compila a cada commit)",
-        "repo_commit": commit, "source_sha256": sha256_arquivo(REPO / arq_764), "scan_findings": achados_764, "measured": None,
-        "validation_problems": ["axiomas não medidos por esta campanha (declarados)", "clean_build não medido por esta campanha"]}, "FORMALIZER", PROMOTOR)
+    # Mesmo registro declarado para toda cota do main que tem teorema Lean no alvo padrão e que esta campanha não compilou (v0.9: K_7(6,4) <= 14, K_7(5,3) <= 17).
+    DECLARADOS = {("k7-6-4", 14): ("f-k764-ub-14", "CoveringK764.K_7_6_4_le_14", "CoveringLean/K764_Upper.lean"),
+                  ("k7-5-3", 17): ("f-k753-ub-17", "CoveringK753.K_7_5_3_le_17", "CoveringLean/K753_Upper.lean")}
+    for (_cel_d, _m_d), (fid_d, teo_d, arq_d) in DECLARADOS.items():
+        achados_d = F.escanear_fontes(REPO, [arq_d])
+        mod_d = "CoveringLean." + Path(arq_d).stem
+        gravar("formal", fid_d, {
+            "formal_id": fid_d, "theorem": teo_d, "module": mod_d, "file": arq_d, "lean_root": ".", "lean_version": None,
+            "lean_toolchain": ambiente.get("lean_toolchain") or (REPO / "lean-toolchain").read_text().strip(), "mathlib_commit": ambiente.get("mathlib_commit"),
+            "manifest_sha256": sha256_arquivo(REPO / "lake-manifest.json"), "axioms": None, "declared_axioms": AXIOMAS_DECLARADOS,
+            "axioms_status": "DECLARED_NOT_REPRODUCED: o próprio módulo termina em `#print axioms` e o docstring diz que só entram os três padrão; esta campanha não compilou o módulo (sem lake aqui)",
+            "measured_external": None, "kernel_run": None, "sorry_free": not any(x["kind"] in F.TIPOS_SORRY for x in achados_d),
+            "sorry_free_basis": "varredura estática de 1 fonte (não é build)", "clean_build": False,
+            "build_status": f"NOT_RUN: lake build {mod_d} não executado por esta campanha (o alvo padrão do CI o compila a cada commit)",
+            "repo_commit": commit, "source_sha256": sha256_arquivo(REPO / arq_d), "scan_findings": achados_d, "measured": None,
+            "validation_problems": ["axiomas não medidos por esta campanha (declarados)", "clean_build não medido por esta campanha"]}, "FORMALIZER", PROMOTOR)
     pesados = {
         "f-k2-6-1-eq12": ("SC.K_2_6_1_eq12", "CoveringLean/SearchK6ge12.lean", "CoveringLean.SearchK6ge12",
                           sorted(str(p.relative_to(REPO)) for p in (REPO / "CoveringLean").glob("G610_*.lean"))),
@@ -1040,8 +1044,8 @@ def main() -> int:
                 anexa(cid, "formal", fid_heavy(HEAVY[(cel, m)][2], m))
         if (cel, m) == ("k7-9-4", 1351):
             anexa(cid, "experiments", "exp-lean-data-equals-witness-1351")
-        if (cel, m) == ("k7-6-4", 14):
-            anexa(cid, "formal", "f-k764-ub-14")
+        if (cel, m) in DECLARADOS:
+            anexa(cid, "formal", DECLARADOS[(cel, m)][0])
         anexa(cid, "experiments", "exp-structure-regeneration")
         if corridas:
             negado = promover(cid, "INDEPENDENTLY_REPRODUCED", "INDEPENDENT_VERIFIER", "verificadores de autores/grupos distintos, PASS válido e sem desacordo, neste run")
