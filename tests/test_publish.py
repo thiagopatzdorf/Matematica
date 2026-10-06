@@ -14,9 +14,38 @@ from conftest import RAIZ
 TOKEN = "tok-SEGREDO-de-teste-1234567890"
 
 
-def _args(*extra):
+def _ledger_com(kernel: int, claimed: int, destino) -> str:
+    """cells.json mínimo com `kernel` cotas FORMALIZED e `claimed` CLAIMED (o que o --publicar lê)."""
+    cells = [{"certification": {"ub": {"state": "FORMALIZED" if i < kernel else "CLAIMED"}}}
+             for i in range(kernel + claimed)]
+    p = destino / "cells.json"
+    p.write_text(json.dumps({"cells": cells}))
+    return str(p)
+
+
+def _contagem_do_paper():
+    tex = (RAIZ / "paper" / "main.tex").read_text(encoding="utf-8").replace(r"\allowbreak ", "")
+    k = int(re.search(r"\$(\d+)\$ of the \$\d+\$ upper bounds", tex).group(1))
+    c = int(re.search(r"The other \$(\d+)\$ upper bounds are only claimed", tex).group(1))
+    return k, c
+
+
+_LEDGER_DO_PAPER = None
+
+
+def _args(*extra, ledger=None):
+    # Por padrão, um ledger com exatamente a contagem do paper: os testes do fluxo de publicação não
+    # dependem de a main estar entre lançamentos (aí o ledger real anda na frente do paper).
+    global _LEDGER_DO_PAPER
+    if ledger is None:
+        if _LEDGER_DO_PAPER is None:
+            import tempfile
+            from pathlib import Path
+            _LEDGER_DO_PAPER = _ledger_com(*_contagem_do_paper(), Path(tempfile.mkdtemp()))
+        ledger = _LEDGER_DO_PAPER
     return ["--record", "23085770", "--pdf", str(RAIZ / "paper" / "main.pdf"),
-            "--zenodo-json", str(RAIZ / ".zenodo.json"), "--data-publicacao", "2026-10-02", *extra]
+            "--zenodo-json", str(RAIZ / ".zenodo.json"), "--data-publicacao", "2026-10-02",
+            "--ledger", ledger, *extra]
 
 
 class Resp:
@@ -92,6 +121,18 @@ def test_erro_http_que_ecoa_o_token_sai_redigido(capsys):
     out = capsys.readouterr()
     assert TOKEN not in out.out + out.err
     assert "***" in out.err and "HTTP 403" in out.err
+
+
+def test_publicar_com_paper_atras_do_ledger_passa(capsys, tmp_path):
+    """O paper pode ficar atrás do ledger entre lançamentos, mas não no lançamento: com uma cota a mais
+    no kernel do que o paper e o .zenodo.json dizem, --publicar recusa antes de abrir rede."""
+    k, c = _contagem_do_paper()
+    led = _ledger_com(k + 1, c - 1, tmp_path)
+    assert zn.main(_args("--publicar", ledger=led), abrir=_rede_proibida, ambiente={"ZENODO_TOKEN": TOKEN}) == 2
+    err = capsys.readouterr().err
+    assert "contagem diverge do ledger" in err and f"{k + 1} no kernel" in err
+    # O seco continua só mostrando o plano (não publica, não precisa da igualdade).
+    assert zn.main(_args(ledger=led), abrir=_rede_proibida, ambiente={"ZENODO_TOKEN": TOKEN}) == 0
 
 
 def test_publicar_sem_token_falha_antes_de_qualquer_chamada(capsys):
