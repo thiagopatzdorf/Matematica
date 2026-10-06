@@ -49,7 +49,7 @@ What does not point anywhere is conviction, and is written as such.
 
 ## III. Propositions
 
-- **487 of the 1145 upper bounds** are `FORMALIZED` or `INDEPENDENTLY_REPRODUCED`. Among the lower
+- **488 of the 1145 upper bounds** are `FORMALIZED` or `INDEPENDENTLY_REPRODUCED`. Among the lower
   bounds, 3 are `CERTIFICATE_VERIFIED` and 2 are `FORMALIZED`
   ([`ledger/COBERTURA.md`](../ledger/COBERTURA.md)).
 - **Two exact cells with both bounds in the kernel:** `K₂(6,1) = 12` and `K₇(4,2) = 19`

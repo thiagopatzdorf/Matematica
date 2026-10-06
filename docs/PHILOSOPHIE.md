@@ -53,7 +53,7 @@ Ce qui ne renvoie à rien est conviction, et écrit comme tel.
 
 ## III. Propositions
 
-- **487 des 1145 bornes supérieures** sont `FORMALIZED` ou `INDEPENDENTLY_REPRODUCED`. Parmi les
+- **488 des 1145 bornes supérieures** sont `FORMALIZED` ou `INDEPENDENTLY_REPRODUCED`. Parmi les
   inférieures, 3 sont `CERTIFICATE_VERIFIED` et 2 `FORMALIZED`
   ([`ledger/COBERTURA.md`](../ledger/COBERTURA.md)).
 - **Deux cellules exactes avec les deux bornes dans le noyau :** `K₂(6,1) = 12` et `K₇(4,2) = 19`

@@ -49,7 +49,7 @@ O que não aponta é convicção, e está escrito como tal.
 
 ## III. Proposições
 
-- **487 das 1145 cotas superiores** estão em `FORMALIZED` ou `INDEPENDENTLY_REPRODUCED`. Das
+- **488 das 1145 cotas superiores** estão em `FORMALIZED` ou `INDEPENDENTLY_REPRODUCED`. Das
   inferiores, 3 estão em `CERTIFICATE_VERIFIED` e 2 em `FORMALIZED`
   ([`ledger/COBERTURA.md`](../ledger/COBERTURA.md)).
 - **Duas células exatas com as duas cotas no kernel:** `K₂(6,1) = 12` e `K₇(4,2) = 19`
