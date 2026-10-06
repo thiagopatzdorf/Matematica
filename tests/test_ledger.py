@@ -72,7 +72,10 @@ def test_ledger_commitado_tem_1145_celulas_e_sha256_dos_nossos_codigos_confere()
     led = build.carregar(RAIZ / "ledger" / "cells.json")
     assert led["meta"]["n_cells"] == len(led["cells"]) == 1145
     nossos = [c for c in led["cells"] if c["status"] != "published"]
-    assert len(nossos) == 15  # 15 no Lean (K7(6,4) <= 14 na v0.9, PR #76; K7(5,3) <= 17 com código nosso)
+    # 15 no Lean (K7(6,4) <= 14 na v0.9, PR #76; K7(5,3) <= 17 com código nosso) + 25 códigos dos artigos
+    # (data/literatura/, WITNESS_CHECKED pelo verify.c: 12 binários e 13 do Corolário 3 de Kéri–Östergård).
+    assert len(nossos) == 40
+    assert sum(1 for c in nossos if c["status"] == "ours_computational") == 25
     for c in nossos:
         for lado in ("ours_computational", "ours_lean"):
             e = c[lado]

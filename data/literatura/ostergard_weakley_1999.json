@@ -1,0 +1,112 @@
+{
+ "chave": "ostergard_weakley_1999",
+ "citacao": {
+  "autores": [
+   "Patric R. J. Östergård",
+   "William D. Weakley"
+  ],
+  "titulo": "Constructing covering codes with given automorphisms",
+  "veiculo": "Designs, Codes and Cryptography",
+  "volume": 16,
+  "ano": 1999,
+  "paginas": "65-73",
+  "doi": "10.1023/A:1008326409439"
+ },
+ "aviso": "Transcrição dos dados explícitos (fatos matemáticos) do artigo; o PDF não é versionado. Convenção binária: a palavra 'c1 c2 ... cn' do artigo é o inteiro sum c_j 2^(j-1); hexadecimal de coluna/síndrome com o bit i na linha i (convenção consistente; qualquer uma dá código equivalente). Automorfismo chi = sigma tau_S (barras = S): complementa as coordenadas de S e depois leva a coordenada i para sigma(i).",
+ "itens": [
+  {
+   "id": "OW99-D",
+   "local": "Seção 4, Teorema 1, pp. 68-69",
+   "tipo": "orbitas",
+   "q": 2,
+   "n": 13,
+   "R": 1,
+   "M": 704,
+   "geradores": [
+    {
+     "ciclos": [
+      [
+       1,
+       2,
+       3,
+       4,
+       5,
+       6,
+       7,
+       8,
+       9,
+       10,
+       11,
+       12,
+       13
+      ]
+     ],
+     "barras": []
+    },
+    {
+     "ciclos": [
+      [
+       1
+      ],
+      [
+       3,
+       9
+      ],
+      [
+       4,
+       10
+      ],
+      [
+       5,
+       6
+      ],
+      [
+       7,
+       11
+      ]
+     ],
+     "barras": [
+      1,
+      3,
+      9
+     ]
+    }
+   ],
+   "representantes": [
+    "0000000000000",
+    "1100100000000"
+   ],
+   "complementos": false
+  },
+  {
+   "id": "OW99-Ex6",
+   "local": "Exemplo da Seção 3, p. 67",
+   "tipo": "orbitas",
+   "q": 2,
+   "n": 6,
+   "R": 1,
+   "M": 12,
+   "geradores": [
+    {
+     "ciclos": [
+      [
+       1,
+       2,
+       3,
+       4,
+       5,
+       6
+      ]
+     ],
+     "barras": [
+      1
+     ]
+    }
+   ],
+   "representantes": [
+    "000100"
+   ],
+   "complementos": false
+  }
+ ]
+}

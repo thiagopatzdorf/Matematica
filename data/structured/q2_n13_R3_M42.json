@@ -1,0 +1,82 @@
+{
+ "format": "covering-code/v1",
+ "q": 2,
+ "n": 13,
+ "R": 3,
+ "M": 42,
+ "digit_convention": "word text s[0]..s[n-1]; integer w = sum_k s[k]*q^k; digit k = (w // q^k) % q",
+ "linear_base": {
+  "k": 2,
+  "generator": [
+   "1111110000000",
+   "0000001111111"
+  ],
+  "info_columns": [
+   5,
+   12
+  ],
+  "parity_check": [
+   "1000010000000",
+   "0100010000000",
+   "0010010000000",
+   "0001010000000",
+   "0000110000000",
+   "0000001000001",
+   "0000000100001",
+   "0000000010001",
+   "0000000001001",
+   "0000000000101",
+   "0000000000011"
+  ],
+  "check_columns": [
+   0,
+   1,
+   2,
+   3,
+   4,
+   6,
+   7,
+   8,
+   9,
+   10,
+   11
+  ],
+  "coset_syndromes": [
+   "00000000000",
+   "00111000111",
+   "01011101110",
+   "01100011100",
+   "01100100101",
+   "10001001011",
+   "10110111110",
+   "11010010111",
+   "11101111001"
+  ]
+ },
+ "subcode_cosets": [
+  {
+   "generators": [
+    "1110100000000",
+    "0000001111111"
+   ],
+   "reps": [
+    "0000000011011"
+   ]
+  }
+ ],
+ "patch_words": [
+  "0111010011011",
+  "0111011100100"
+ ],
+ "provenance": {
+  "generator": "tools/literatura/codigos_papers.py a partir de data/literatura/hamalainen_honkala_kaikkonen_litsyn_1993.json (item HHKL93-T1-13-42); fonte: Heikki O. Hämäläinen, Iiro S. Honkala, Markku K. Kaikkonen, Simon N. Litsyn, Bounds for binary multiple covering codes, Designs, Codes and Cryptography 3 (1993), DOI 10.1007/BF01388486",
+  "commit": null,
+  "seed": null,
+  "command": "python3 tools/literatura/codigos_papers.py --escrever",
+  "date": "2026-10-06",
+  "agent": "James.V1",
+  "repo_commit": null,
+  "notes": "Reconstrução determinística da transcrição (sem semente); o gerador entra no mesmo commit do código. Construção e dependências descritas no item do JSON."
+ },
+ "canonical_sha256": "ad172331a14a884b8bafd6af1c71bb9ef77e71441138636e4612c2155553914a"
+}

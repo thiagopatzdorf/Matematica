@@ -10,5 +10,53 @@
   "achieved": null,
   "improved": false,
   "ts": "2026-08-20 15:51"
+ },
+ "8,7,4": {
+  "ub": 92,
+  "achieved": null,
+  "improved": false,
+  "ts": "2026-08-20 21:25"
+ },
+ "9,7,4": {
+  "ub": 120,
+  "achieved": null,
+  "improved": false,
+  "ts": "2026-08-20 22:08"
+ },
+ "10,5,2": {
+  "ub": 250,
+  "achieved": null,
+  "improved": false,
+  "ts": "2026-08-21 00:56"
+ },
+ "9,5,2": {
+  "ub": 189,
+  "achieved": null,
+  "improved": false,
+  "ts": "2026-08-21 01:04"
+ },
+ "8,5,2": {
+  "ub": 128,
+  "achieved": null,
+  "improved": false,
+  "ts": "2026-08-21 01:12"
+ },
+ "10,7,5": {
+  "ub": 26,
+  "achieved": 26,
+  "improved": false,
+  "ts": "2026-08-21 03:24"
+ },
+ "9,7,5": {
+  "ub": 21,
+  "achieved": null,
+  "improved": false,
+  "ts": "2026-08-21 05:47"
+ },
+ "8,7,5": {
+  "ub": 16,
+  "achieved": 16,
+  "improved": false,
+  "ts": "2026-08-21 09:12"
  }
 }

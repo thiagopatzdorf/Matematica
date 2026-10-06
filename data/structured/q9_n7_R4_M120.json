@@ -1,0 +1,69 @@
+{
+ "format": "covering-code/v1",
+ "q": 9,
+ "n": 7,
+ "R": 4,
+ "M": 120,
+ "digit_convention": "word text s[0]..s[n-1]; integer w = sum_k s[k]*q^k; digit k = (w // q^k) % q",
+ "subcode_cosets": [
+  {
+   "generators": [
+    "3333333"
+   ],
+   "reps": [
+    "0002210",
+    "0010112",
+    "0011120",
+    "0021001",
+    "0101111",
+    "0110201",
+    "0120020",
+    "0122102",
+    "0200100",
+    "0202022",
+    "0212011",
+    "0221212",
+    "0221221",
+    "1001102",
+    "1010000",
+    "1011211",
+    "1020222",
+    "1022012",
+    "1100212",
+    "1112021",
+    "1112110",
+    "1121200",
+    "1201020",
+    "1202201",
+    "1212122",
+    "1220111",
+    "2000021",
+    "2002121",
+    "2012202",
+    "2021110",
+    "2101222",
+    "2102000",
+    "2111012",
+    "2120122",
+    "2122211",
+    "2200010",
+    "2210220",
+    "2211101",
+    "2220002",
+    "2222220"
+   ]
+  }
+ ],
+ "patch_words": [],
+ "provenance": {
+  "generator": "tools/literatura/codigos_papers.py a partir de data/literatura/keri_ostergard_2005.json (item KO05-n-K9_7_4); fonte: Gerzson Kéri, Patric R. J. Östergård, Bounds for covering codes over large alphabets, Designs, Codes and Cryptography 37 (2005), DOI 10.1007/s10623-004-3804-8",
+  "commit": null,
+  "seed": null,
+  "command": "python3 tools/literatura/codigos_papers.py --escrever",
+  "date": "2026-10-06",
+  "agent": "James.V1",
+  "repo_commit": null,
+  "notes": "Reconstrução determinística da transcrição (sem semente); o gerador entra no mesmo commit do código. Construção e dependências descritas no item do JSON."
+ },
+ "canonical_sha256": "de8b462d72384dded68027d1855564b9b82a455f5aeaf9d52f1bc1960e3e38d9"
+}

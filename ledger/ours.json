@@ -334,6 +334,231 @@
         },
         "dependencias": "Lema 1 usa K_6(4,2) = 15 (Kéri 2011; ∄ 14 também reprovado por 8855 perfis LRAT no k742) e K_7(4,2) ≥ 17 (Rodemich; aqui = 19 no Lean)"
       }
+    },
+    "2,18,2": {
+      "ours_computational": {
+        "M": 2944,
+        "file": "data/codes/q2_n18_R2_M2944.txt",
+        "sha256": "bde9af6646dba5afe06ae1f2374b9423589bff6963a43433e20ccfa2dc3055ff",
+        "provenance": "P-lit-2-18-2-2944"
+      },
+      "ours_lean": null
+    },
+    "2,17,3": {
+      "ours_computational": {
+        "M": 320,
+        "file": "data/codes/q2_n17_R3_M320.txt",
+        "sha256": "400fef9e67d92cdfeef54940e246c049c323810cf57d79512844393b053656d5",
+        "provenance": "P-lit-2-17-3-320"
+      },
+      "ours_lean": null
+    },
+    "2,18,3": {
+      "ours_computational": {
+        "M": 512,
+        "file": "data/codes/q2_n18_R3_M512.txt",
+        "sha256": "604e3f670290cf2c7f3fa02a1321374554c5df163ccde15021eca2ac6bb093c5",
+        "provenance": "P-lit-2-18-3-512"
+      },
+      "ours_lean": null
+    },
+    "2,19,4": {
+      "ours_computational": {
+        "M": 256,
+        "file": "data/codes/q2_n19_R4_M256.txt",
+        "sha256": "4c8464f205928c4b63f4bb494939f4324820c92e96bfea992caf91f574c39cc8",
+        "provenance": "P-lit-2-19-4-256"
+      },
+      "ours_lean": null
+    },
+    "2,15,4": {
+      "ours_computational": {
+        "M": 32,
+        "file": "data/codes/q2_n15_R4_M32.txt",
+        "sha256": "fcfb2b52dc7ed008a8c3fecf8e37172bc6f2350e1c141e68725f0c1cd8ef8501",
+        "provenance": "P-lit-2-15-4-32"
+      },
+      "ours_lean": null
+    },
+    "2,12,3": {
+      "ours_computational": {
+        "M": 28,
+        "file": "data/codes/q2_n12_R3_M28.txt",
+        "sha256": "7233c5729cd861a4287af186462f85a41cb7c21d2daf9b44f7d16f5c3b6047e5",
+        "provenance": "P-lit-2-12-3-28"
+      },
+      "ours_lean": null
+    },
+    "2,15,2": {
+      "ours_computational": {
+        "M": 384,
+        "file": "data/codes/q2_n15_R2_M384.txt",
+        "sha256": "57c2d0bc2c6d52fee4d6f3adf3de604a4827627d257cb666559d35cb695d0fc0",
+        "provenance": "P-lit-2-15-2-384"
+      },
+      "ours_lean": null
+    },
+    "2,17,5": {
+      "ours_computational": {
+        "M": 32,
+        "file": "data/codes/q2_n17_R5_M32.txt",
+        "sha256": "3846acf19c6f319254936c157743657d4d83e828cbc1e5ee0c278a29f58ad4c3",
+        "provenance": "P-lit-2-17-5-32"
+      },
+      "ours_lean": null
+    },
+    "2,19,6": {
+      "ours_computational": {
+        "M": 32,
+        "file": "data/codes/q2_n19_R6_M32.txt",
+        "sha256": "d466fc9751eb37cba1240b575fec2a4f1dc2af1fe02cd9f656214158cee249e1",
+        "provenance": "P-lit-2-19-6-32"
+      },
+      "ours_lean": null
+    },
+    "2,14,4": {
+      "ours_computational": {
+        "M": 28,
+        "file": "data/codes/q2_n14_R4_M28.txt",
+        "sha256": "255964dc35b485cfd9b70c389cb24921ec3321e933a1e6ca53d5cf7c912aadfd",
+        "provenance": "P-lit-2-14-4-28"
+      },
+      "ours_lean": null
+    },
+    "2,13,1": {
+      "ours_computational": {
+        "M": 704,
+        "file": "data/codes/q2_n13_R1_M704.txt",
+        "sha256": "1d6621ac0cc2474e193664786a7bec35c49541a48b883c0ef13c08594e256f2c",
+        "provenance": "P-lit-2-13-1-704"
+      },
+      "ours_lean": null
+    },
+    "2,13,3": {
+      "ours_computational": {
+        "M": 42,
+        "file": "data/codes/q2_n13_R3_M42.txt",
+        "sha256": "ad172331a14a884b8bafd6af1c71bb9ef77e71441138636e4612c2155553914a",
+        "provenance": "P-lit-2-13-3-42"
+      },
+      "ours_lean": null
+    },
+    "6,5,2": {
+      "ours_computational": {
+        "M": 66,
+        "file": "data/codes/q6_n5_R2_M66.txt",
+        "sha256": "5656c848ca76db62313b109c4bfa9692adc81fbe7f273b76f44eeb2db1629cc9",
+        "provenance": "P-lit-6-5-2-66"
+      },
+      "ours_lean": null
+    },
+    "6,6,4": {
+      "ours_computational": {
+        "M": 10,
+        "file": "data/codes/q6_n6_R4_M10.txt",
+        "sha256": "7792bc4af64712d93659e134acef0b889b2d0f2fedb5d78161987ea587da7b78",
+        "provenance": "P-lit-6-6-4-10"
+      },
+      "ours_lean": null
+    },
+    "6,7,4": {
+      "ours_computational": {
+        "M": 36,
+        "file": "data/codes/q6_n7_R4_M36.txt",
+        "sha256": "6413635f6c92e7533e1aa97afc361d3aed8c585c5b9c08f6087e031c943c41f0",
+        "provenance": "P-lit-6-7-4-36"
+      },
+      "ours_lean": null
+    },
+    "7,5,2": {
+      "ours_computational": {
+        "M": 97,
+        "file": "data/codes/q7_n5_R2_M97.txt",
+        "sha256": "ba0f81fea71ff307cc694f0be9508961cf00c2a9c852609ad6ef4b3a0a35c7a3",
+        "provenance": "P-lit-7-5-2-97"
+      },
+      "ours_lean": null
+    },
+    "7,7,5": {
+      "ours_computational": {
+        "M": 11,
+        "file": "data/codes/q7_n7_R5_M11.txt",
+        "sha256": "793c333c809e6baefca01753205e5859428949ef987af2e232372d31fab9bb4b",
+        "provenance": "P-lit-7-7-5-11"
+      },
+      "ours_lean": null
+    },
+    "8,5,2": {
+      "ours_computational": {
+        "M": 128,
+        "file": "data/codes/q8_n5_R2_M128.txt",
+        "sha256": "4ff72bbcbd53e2c73794c45c178521cc35698f31a3ad0c82d1371509259f2b07",
+        "provenance": "P-lit-8-5-2-128"
+      },
+      "ours_lean": null
+    },
+    "8,7,4": {
+      "ours_computational": {
+        "M": 92,
+        "file": "data/codes/q8_n7_R4_M92.txt",
+        "sha256": "b6648c2db60b2711dbbf29b4502f165a18d5734fcbd56f36ab0aaac734ac6f53",
+        "provenance": "P-lit-8-7-4-92"
+      },
+      "ours_lean": null
+    },
+    "8,7,5": {
+      "ours_computational": {
+        "M": 16,
+        "file": "data/codes/q8_n7_R5_M16.txt",
+        "sha256": "6bced1b6d12d0dc756860f5e05b00cdaca77726246a5f5213ae4df9d64bad81b",
+        "provenance": "P-lit-8-7-5-16"
+      },
+      "ours_lean": null
+    },
+    "9,5,2": {
+      "ours_computational": {
+        "M": 189,
+        "file": "data/codes/q9_n5_R2_M189.txt",
+        "sha256": "1cc8876917199586bbb44c55a117dab61b6b2bdcbc8b25071dc2917782504076",
+        "provenance": "P-lit-9-5-2-189"
+      },
+      "ours_lean": null
+    },
+    "9,7,4": {
+      "ours_computational": {
+        "M": 120,
+        "file": "data/codes/q9_n7_R4_M120.txt",
+        "sha256": "de8b462d72384dded68027d1855564b9b82a455f5aeaf9d52f1bc1960e3e38d9",
+        "provenance": "P-lit-9-7-4-120"
+      },
+      "ours_lean": null
+    },
+    "9,7,5": {
+      "ours_computational": {
+        "M": 21,
+        "file": "data/codes/q9_n7_R5_M21.txt",
+        "sha256": "515e8308aa55e919d8350a296a7402d76f412434d03707de874698522f4565ef",
+        "provenance": "P-lit-9-7-5-21"
+      },
+      "ours_lean": null
+    },
+    "10,5,2": {
+      "ours_computational": {
+        "M": 250,
+        "file": "data/codes/q10_n5_R2_M250.txt",
+        "sha256": "86c2d525c09247343d0e487a1945f3193002e12b09d67c85ec571f7d24e954e1",
+        "provenance": "P-lit-10-5-2-250"
+      },
+      "ours_lean": null
+    },
+    "10,7,5": {
+      "ours_computational": {
+        "M": 26,
+        "file": "data/codes/q10_n7_R5_M26.txt",
+        "sha256": "5a7c5d0b770057e7cb5fe11f07d975fff3fcd65a2290f465da6d5856d57d832e",
+        "provenance": "P-lit-10-7-5-26"
+      },
+      "ours_lean": null
     }
   }
 }

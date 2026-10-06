@@ -1,0 +1,80 @@
+{
+ "format": "covering-code/v1",
+ "q": 2,
+ "n": 19,
+ "R": 6,
+ "M": 32,
+ "digit_convention": "word text s[0]..s[n-1]; integer w = sum_k s[k]*q^k; digit k = (w // q^k) % q",
+ "linear_base": {
+  "k": 2,
+  "generator": [
+   "0000000011111110000",
+   "1111111100000001111"
+  ],
+  "info_columns": [
+   14,
+   18
+  ],
+  "parity_check": [
+   "1000000000000000001",
+   "0100000000000000001",
+   "0010000000000000001",
+   "0001000000000000001",
+   "0000100000000000001",
+   "0000010000000000001",
+   "0000001000000000001",
+   "0000000100000000001",
+   "0000000010000010000",
+   "0000000001000010000",
+   "0000000000100010000",
+   "0000000000010010000",
+   "0000000000001010000",
+   "0000000000000110000",
+   "0000000000000001001",
+   "0000000000000000101",
+   "0000000000000000011"
+  ],
+  "check_columns": [
+   0,
+   1,
+   2,
+   3,
+   4,
+   5,
+   6,
+   7,
+   8,
+   9,
+   10,
+   11,
+   12,
+   13,
+   15,
+   16,
+   17
+  ],
+  "coset_syndromes": [
+   "00000000000000000",
+   "00011101111001000",
+   "00100111101110000",
+   "00111010001101000",
+   "01001110100011000",
+   "01010011010111000",
+   "01101001110100000",
+   "01110100011010000"
+  ]
+ },
+ "subcode_cosets": [],
+ "patch_words": [],
+ "provenance": {
+  "generator": "tools/literatura/codigos_papers.py a partir de data/literatura/ostergard_kaikkonen_1998.json (item OK98-Ex11-ADS2); fonte: Patric R. J. Östergård, Markku K. Kaikkonen, New upper bounds for binary covering codes, Discrete Mathematics 178 (1998), DOI 10.1016/S0012-365X(97)81825-0",
+  "commit": null,
+  "seed": null,
+  "command": "python3 tools/literatura/codigos_papers.py --escrever",
+  "date": "2026-10-06",
+  "agent": "James.V1",
+  "repo_commit": null,
+  "notes": "Reconstrução determinística da transcrição (sem semente); o gerador entra no mesmo commit do código. Construção e dependências descritas no item do JSON."
+ },
+ "canonical_sha256": "d466fc9751eb37cba1240b575fec2a4f1dc2af1fe02cd9f656214158cee249e1"
+}
