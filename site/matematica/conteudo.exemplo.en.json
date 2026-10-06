@@ -1,0 +1,156 @@
+{
+  "titulo": "Discovery is expensive. Verification is cheap.",
+  "subtitulo": "[example] A ledger of covering-code bounds where every number moves up a state only when someone checks it.",
+  "manifesto": [
+    "[example] Local entropy is the uncertainty of work that still depends on someone remembering.",
+    "Finding a covering code is search; checking it covers is counting."
+  ],
+  "principios": [
+    {
+      "nome": "Measure before you claim",
+      "enunciado": "A sentence without a number is a hypothesis."
+    },
+    {
+      "nome": "Provenance or nothing",
+      "enunciado": "Every number has a source, a version and a state."
+    }
+  ],
+  "metodo": [
+    {
+      "passo": "Search",
+      "descricao": "Spend expensive computation."
+    },
+    {
+      "passo": "Verify",
+      "descricao": "Check with an independent verifier or the Lean kernel."
+    }
+  ],
+  "milenio": [
+    {
+      "problema": "P versus NP",
+      "enunciado_curto": "[example] Open problem; see claymath.org.",
+      "status": "Open",
+      "fonte": "https://www.claymath.org/millennium-problems/"
+    },
+    {
+      "problema": "Riemann Hypothesis",
+      "enunciado_curto": "[example] Open problem; see claymath.org.",
+      "status": "Open",
+      "fonte": "https://www.claymath.org/millennium-problems/"
+    },
+    {
+      "problema": "Yang–Mills and the mass gap",
+      "enunciado_curto": "[example] Open problem; see claymath.org.",
+      "status": "Open",
+      "fonte": "https://www.claymath.org/millennium-problems/"
+    },
+    {
+      "problema": "Navier–Stokes",
+      "enunciado_curto": "[example] Open problem; see claymath.org.",
+      "status": "Open",
+      "fonte": "https://www.claymath.org/millennium-problems/"
+    },
+    {
+      "problema": "Hodge Conjecture",
+      "enunciado_curto": "[example] Open problem; see claymath.org.",
+      "status": "Open",
+      "fonte": "https://www.claymath.org/millennium-problems/"
+    },
+    {
+      "problema": "Birch and Swinnerton-Dyer",
+      "enunciado_curto": "[example] Open problem; see claymath.org.",
+      "status": "Open",
+      "fonte": "https://www.claymath.org/millennium-problems/"
+    },
+    {
+      "problema": "Poincaré Conjecture",
+      "enunciado_curto": "Proved by Grigori Perelman (2002–2003); he declined the prize.",
+      "status": "Solved",
+      "fonte": "https://www.claymath.org/millennium-problems/"
+    }
+  ],
+  "james": {
+    "resumo": "[example] The three pillars of James’s philosophy proved in Lean 4, without Mathlib and without sorry.",
+    "teoremas": [
+      {
+        "nome": "Amortização",
+        "enunciado": "O custo por tarefa tende ao custo de verificar.",
+        "fonte": "https://github.com/thiagopatzdorf/james-theorems/blob/main/Conhecimento.lean"
+      },
+      {
+        "nome": "Gate",
+        "enunciado": "Nenhuma ação crítica sem aprovação registrada.",
+        "fonte": "https://github.com/thiagopatzdorf/james-theorems/blob/main/Seguranca.lean"
+      },
+      {
+        "nome": "Replay",
+        "enunciado": "O estado é função do log, não do host.",
+        "fonte": "https://github.com/thiagopatzdorf/james-theorems/blob/main/Alma.lean"
+      }
+    ]
+  },
+  "keri": {
+    "resumo": "[example] K_q(n,R) is the smallest q-ary code of length n covering everything within radius R.",
+    "porque_importa": "Finding is expensive; checking is cheap and exact."
+  },
+  "lacunas": [
+    "[example] The new lower bounds are outside Lean (CERTIFICATE_VERIFIED).",
+    "K7(5,3) ≤ 17 has only been announced in the literature (CLAIMED)."
+  ],
+  "links": [
+    {
+      "rotulo": "Matematica (GitHub)",
+      "url": "https://github.com/thiagopatzdorf/Matematica"
+    },
+    {
+      "rotulo": "ledger/COBERTURA.md",
+      "url": "ledger/COBERTURA.md"
+    },
+    {
+      "rotulo": "Zenodo · 10.5281/zenodo.23085769",
+      "url": "https://doi.org/10.5281/zenodo.23085769"
+    },
+    {
+      "rotulo": "james-theorems (Lean 4)",
+      "url": "https://github.com/thiagopatzdorf/james-theorems"
+    }
+  ],
+  "explicando": {
+    "camadas": [
+      {
+        "nivel": "In 30 seconds",
+        "titulo": "[example]",
+        "texto": "[example] English layer.",
+        "analogia": "[example]",
+        "exemplo": "K2(3,1) = 2."
+      },
+      {
+        "nivel": "High school",
+        "titulo": "[example]",
+        "texto": "[example] English layer.",
+        "analogia": "[example]",
+        "exemplo": "K2(3,1) = 2."
+      },
+      {
+        "nivel": "Undergraduate",
+        "titulo": "[example]",
+        "texto": "[example] English layer.",
+        "analogia": "[example]",
+        "exemplo": "K2(3,1) = 2."
+      },
+      {
+        "nivel": "Research",
+        "titulo": "[example]",
+        "texto": "[example] English layer.",
+        "analogia": "[example]",
+        "exemplo": "K2(3,1) = 2."
+      }
+    ]
+  },
+  "glossario": [
+    {
+      "termo": "Hamming distance",
+      "definicao": "Number of positions in which two words differ."
+    }
+  ]
+}
