@@ -130,7 +130,7 @@
   "lacunas": [
     "La table entière n’a pas été vérifiée formellement. Les bornes inférieures sont, presque toutes, héritées de la littérature (CLAIMED).",
     "Les bornes inférieures de K₃(6,2) = 17, K₇(6,4) = 14 et K₇(5,3) = 17 sont CERTIFICATE_VERIFIED, pas dans Lean : elles reposent sur une réduction démontrée sur papier et sur des certificats vérifiés hors du noyau.",
-    "La borne supérieure K₇(5,3) ≤ 17 n’est qu’annoncée dans les tables de Kéri et reste CLAIMED.",
+    "La borne supérieure K₇(5,3) ≤ 17 a désormais notre propre code de 17 mots, vérifié par deux vérificateurs et prouvé en Lean ; la borne inférieure reste un certificat calculatoire, pas un théorème Lean.",
     "« Potentiellement nouveau » signifie : non trouvé dans la littérature que nous avons consultée. Des textes en accès fermé de 2004 à 2009 n’ont pas pu être lus.",
     "La littérature postérieure à 2011 hors des sources du registre n’a pas été auditée.",
     "Les théorèmes de james-theorems valent pour des modèles, non pour le système en production."

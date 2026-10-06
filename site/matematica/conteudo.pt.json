@@ -130,7 +130,7 @@
   "lacunas": [
     "A tabela inteira não foi verificada formalmente. As cotas inferiores são, quase todas, herdadas da literatura (CLAIMED).",
     "As cotas inferiores de K₃(6,2) = 17, K₇(6,4) = 14 e K₇(5,3) = 17 estão em CERTIFICATE_VERIFIED, não no Lean: dependem de uma redução provada no papel e de certificados conferidos fora do kernel.",
-    "A cota superior K₇(5,3) ≤ 17 está só anunciada nas tabelas de Kéri e segue CLAIMED.",
+    "A cota superior K₇(5,3) ≤ 17 ganhou código próprio de 17 palavras, conferido por dois verificadores e provado no Lean; já a inferior segue certificado computacional, não teorema do Lean.",
     "“Potencialmente novo” quer dizer: não encontrado na literatura que pesquisamos. Textos fechados de 2004 a 2009 não puderam ser lidos.",
     "Literatura posterior a 2011 fora das fontes do ledger não foi auditada.",
     "Os teoremas do james-theorems valem para modelos, não para o sistema em produção."
