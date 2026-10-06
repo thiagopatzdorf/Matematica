@@ -19,12 +19,12 @@
   // a página diz isso no carimbo da seção de números.
   var DADOS_EMBUTIDOS = {
     versao: "0.9.0", doi: "10.5281/zenodo.23085769", celulas_total: 1145, exatas: 523, abertas: 622,
-    superiores_por_estado: { CLAIMED: 658, WITNESS_CHECKED: 0, CERTIFICATE_VERIFIED: 0, FORMALIZED: 435, INDEPENDENTLY_REPRODUCED: 52 },
+    superiores_por_estado: { CLAIMED: 657, WITNESS_CHECKED: 0, CERTIFICATE_VERIFIED: 0, FORMALIZED: 435, INDEPENDENTLY_REPRODUCED: 53 },
     inferiores_por_estado: { CLAIMED: 1140, WITNESS_CHECKED: 0, CERTIFICATE_VERIFIED: 3, FORMALIZED: 2, INDEPENDENTLY_REPRODUCED: 0 },
     destaques: [
       { celula: "K3(6,2)", antes: "15–17", agora: "= 17", estado_lb: "CERTIFICATE_VERIFIED", estado_ub: "INDEPENDENTLY_REPRODUCED", fonte: "docs/exatos/NOVIDADE_V09.md" },
       { celula: "K7(6,4)", antes: "13–15", agora: "= 14", estado_lb: "CERTIFICATE_VERIFIED", estado_ub: "INDEPENDENTLY_REPRODUCED", fonte: "docs/exatos/NOVIDADE_V09.md" },
-      { celula: "K7(5,3)", antes: "15–17", agora: "= 17", estado_lb: "CERTIFICATE_VERIFIED", estado_ub: "CLAIMED", fonte: "docs/exatos/NOVIDADE_V09.md" },
+      { celula: "K7(5,3)", antes: "15–17", agora: "= 17", estado_lb: "CERTIFICATE_VERIFIED", estado_ub: "INDEPENDENTLY_REPRODUCED", fonte: "docs/exatos/NOVIDADE_V09.md" },
       { celula: "K7(4,2)", antes: "17–19", agora: "= 19", estado_lb: "FORMALIZED", estado_ub: "FORMALIZED", fonte: "docs/exatos/LEAN_K742.md" },
       { celula: "K7(9,4)", antes: "≤ 1475", agora: "≤ 1134", estado_lb: "CLAIMED", estado_ub: "INDEPENDENTLY_REPRODUCED", fonte: "ledger/COBERTURA.md" }
     ]
@@ -45,7 +45,7 @@
       "prologo.legenda": "Visualisation of a real code: the 14 words of <code>data/codes/q7_n6_R4_M14.txt</code> and the 117,649 words of ℤ<sub>7</sub><sup>6</sup>, each carried to the sphere of a centre within distance 4, layered by distance. K<sub>7</sub>(6,4) = 14 is potentially new: not found in the literature we searched. The upper bound was independently reproduced; the lower bound is a certificate checked by a verifier, outside Lean.",
       "formula.rotulo": "The sphere bound: no code covers with fewer words than",
       "formula.nota": "For K<sub>7</sub>(6,4): 117,649 ÷ 24,337 ≈ 4.8, so at least 5. The truth is 14: the distance between that floor and the real value is where the work lives.",
-      "keri.nota": "“Potentially new”: not found in the literature we searched (docs/exatos/NOVIDADE_V09.md). For K<sub>7</sub>(5,3), the upper bound 17 has only been announced in the literature and is still CLAIMED.",
+      "keri.nota": "“Potentially new”: not found in the literature we searched (docs/exatos/NOVIDADE_V09.md). For K<sub>7</sub>(5,3), the upper bound 17 now has our own 17-word code and a Lean theorem; its lower bound is a verified certificate outside Lean.",
       "rodape.fotos": "Photographs (Unsplash licence), toned for this page:",
       "pular": "Skip to content", "marca": "Mathematics, home", "secoes": "Index", "tema": "Toggle light and dark theme", "idioma": "Language",
       "hero.sobre": "State collapse · local entropy reversal",
@@ -104,7 +104,7 @@
       "prologo.legenda": "Visualisation d’un code réel : les 14 mots de <code>data/codes/q7_n6_R4_M14.txt</code> et les 117 649 mots de ℤ<sub>7</sub><sup>6</sup>, chacun porté vers la sphère d’un centre à distance au plus 4, en couches selon la distance. K<sub>7</sub>(6,4) = 14 est potentiellement nouveau : introuvable dans la littérature que nous avons consultée. La borne supérieure a été reproduite de façon indépendante ; la borne inférieure est un certificat vérifié par un vérificateur, hors de Lean.",
       "formula.rotulo": "La borne des sphères : aucun code ne recouvre avec moins de mots que",
       "formula.nota": "Pour K<sub>7</sub>(6,4) : 117 649 ÷ 24 337 ≈ 4,8, donc au moins 5. La vérité est 14 : l’écart entre ce plancher et la valeur réelle, c’est là que vit le travail.",
-      "keri.nota": "« Potentiellement nouveau » : introuvable dans la littérature que nous avons consultée (docs/exatos/NOVIDADE_V09.md). Pour K<sub>7</sub>(5,3), la borne supérieure 17 n’a été qu’annoncée dans la littérature et reste CLAIMED.",
+      "keri.nota": "« Potentiellement nouveau » : introuvable dans la littérature que nous avons consultée (docs/exatos/NOVIDADE_V09.md). Pour K<sub>7</sub>(5,3), la borne supérieure 17 a désormais notre propre code de 17 mots et un théorème Lean ; sa borne inférieure est un certificat vérifié hors de Lean.",
       "rodape.fotos": "Photographies (licence Unsplash), teintées pour cette page :",
       "pular": "Aller au contenu", "marca": "Mathématiques, accueil", "secoes": "Sommaire", "tema": "Basculer entre thème clair et sombre", "idioma": "Langue",
       "hero.sobre": "Effondrement d’état · inversion locale de l’entropie",
