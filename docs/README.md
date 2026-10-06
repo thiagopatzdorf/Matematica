@@ -44,6 +44,7 @@ glossário e pela filosofia; o resto se consulta quando precisar.
 |---|---|
 | [infra/RUNNERS.md](infra/RUNNERS.md) | runners do CI e cota de vCPU |
 | [infra/LAKE_CACHE.md](infra/LAKE_CACHE.md) | cache da Mathlib compartilhado entre worktrees |
+| [infra/PESADO_IAM.md](infra/PESADO_IAM.md) | permissões, cota e custo do `pesado` em lote de VMs spot (pedido ao dono) |
 
 ## Mapa do repositório
 
