@@ -10,7 +10,7 @@ from pathlib import Path
 import pytest
 
 ASSETS = Path(__file__).resolve().parents[1] / "docs" / "assets"
-SVGS = ["logo.svg", "colapso.svg", "escada-de-estados.svg", "cubo-cobertura.svg", "torres.svg"]
+SVGS = ["logo.svg", "colapso.svg", "escada-de-estados.svg", "cubo-cobertura.svg", "torres.svg", "quatro-causas.svg"]
 NS = "{http://www.w3.org/2000/svg}"
 
 
@@ -47,6 +47,13 @@ def _png(nome):
 def test_banner_fora_da_proporcao_1280x400_quebra_o_hero_do_readme(nome):
     (largura, altura), tamanho = _png(nome)
     assert largura * 400 == altura * 1280 and largura >= 1280  # 2x para tela de alta densidade
+    assert tamanho < 1_000_000
+
+
+@pytest.mark.parametrize("nome", ["filosofia-claro.png", "filosofia-escuro.png"])
+def test_hero_da_filosofia_fora_da_proporcao_4x1_quebra_o_topo_das_paginas(nome):
+    (largura, altura), tamanho = _png(nome)
+    assert largura == 4 * altura and largura >= 2560  # 2x de 1280x320
     assert tamanho < 1_000_000
 
 
