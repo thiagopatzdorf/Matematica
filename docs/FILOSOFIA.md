@@ -114,7 +114,7 @@ As cotas inferiores são, quase todas, herdadas da literatura ([cobertura](../le
 
 | proposição | evidência |
 |---|---|
-| **488 das 1145 cotas superiores** estão em `FORMALIZED` ou `INDEPENDENTLY_REPRODUCED`. Das inferiores, 3 estão em `CERTIFICATE_VERIFIED` e 2 em `FORMALIZED`. | [`ledger/COBERTURA.md`](../ledger/COBERTURA.md) |
+| **547 das 1145 cotas superiores** estão em `FORMALIZED` ou `INDEPENDENTLY_REPRODUCED`. Das inferiores, 3 estão em `CERTIFICATE_VERIFIED` e 2 em `FORMALIZED`. | [`ledger/COBERTURA.md`](../ledger/COBERTURA.md) |
 | **Duas células exatas com as duas cotas no kernel:** `K₂(6,1) = 12` e `K₇(4,2) = 19`. | [paper, "A certified ledger"](../paper/main.tex) · [LEAN_K742](exatos/LEAN_K742.md) |
 | **Três colapsos potencialmente novos**, não encontrados na literatura que pesquisamos: `K₃(6,2) = 17`, `K₇(6,4) = 14`, `K₇(5,3) = 17`. As três cotas inferiores são `CERTIFICATE_VERIFIED`, não teoremas do kernel. | [NOVIDADE_V09](exatos/NOVIDADE_V09.md) · [ledger](../ledger/README.md) |
 

@@ -347,3 +347,32 @@ def test_cobertura_lista_as_tres_exatas_por_certificado():
     assert "| K3(6,2) | 17 | INDEPENDENTLY_REPRODUCED | 17 | CERTIFICATE_VERIFIED | sim |" in texto
     assert "| K7(5,3) | 17 | INDEPENDENTLY_REPRODUCED | 17 | CERTIFICATE_VERIFIED | sim |" in texto
     assert "| K7(6,4) | 14 | INDEPENDENTLY_REPRODUCED | 14 | CERTIFICATE_VERIFIED | sim |" in texto
+
+
+def test_chave_do_keri_sem_tabela_e_ambigua_por_isso_a_proveniencia_nomeia_tabela_e_legenda():
+    """A letra `f` é "van Wee, 1988" na tabela q=2 e "direct sum" na de q≥6: sem a tabela, a
+    referência não identifica a fonte."""
+    leg = build.legendas_keri({"keys": [
+        {"src": "keri_6-21_tables.pdf", "lower": {}, "upper": {"f": "direct sum", "unmarked": "trivial"}}]})
+    assert build.ref_keri(7, "ub", "f", leg) == "chave 'f' da tabela do Kéri para q≥6 (direct sum)"
+    assert build.ref_keri(2, "ub", "f", leg) == "chave 'f' da tabela do Kéri para q=2 (van Wee, 1988)"
+    assert build.ref_keri(9, "ub", None, leg) == "sem chave na tabela do Kéri para q≥6 (trivial)"
+    # Tabela sem legenda transcrita (q=3 aqui): diz a tabela, sem inventar referência.
+    assert build.ref_keri(3, "ub", "v", leg) == "chave 'v' da tabela do Kéri para q=3"
+    assert [build.tabela_keri(q) for q in (2, 3, 4, 5, 6, 21)] == ["q=2", "q=3", "q=4–5", "q=4–5", "q≥6", "q≥6"]
+
+
+def test_ledger_publicado_diz_a_tabela_do_keri_em_toda_cota_que_vem_dela():
+    cells = build.carregar(RAIZ / "ledger" / "cells.json")["cells"]
+    vistos = 0
+    for c in cells:
+        for lado in ("ub", "lb"):
+            b = c["certification"][lado]
+            f = (b or {}).get("provenance", {}).get("fonte") or {}
+            if f.get("source") == "keri_2011":
+                vistos += 1
+                assert f"tabela do Kéri para {build.tabela_keri(c['q'])}" in f["ref"], c["id"]
+    assert vistos > 1000
+    d = {c["id"]: c for c in cells}
+    assert d["K7(9,3)"]["published"]["sources"]["keri_2011"]["ub_ref"] == \
+        "chave 'f' da tabela do Kéri para q≥6 (direct sum)"
