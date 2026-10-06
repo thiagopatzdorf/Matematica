@@ -263,3 +263,16 @@ def test_prova_comprimida_orfa_ou_faltando():
     citadas = {Path(c["prova_gz"]).name for c in cert.values() if "prova_gz" in c}
     no_disco = {p.name for p in (DADOS / "provas").glob("*.gz")}
     assert citadas == no_disco
+
+
+def test_tabela_do_readme_diverge_dos_dados():
+    readme = (RAIZ / "segunda_ordem" / "README.md").read_text(encoding="utf-8")
+    assert tabela.bloco_readme(tabela.montar()) in readme, "rode: python3 -m segunda_ordem.tabela readme"
+
+
+def test_celula_exata_com_cota_inferior_so_do_ledger():
+    # Exato exige as duas cotas conferidas aqui; cota do ledger (literatura) sozinha não basta.
+    nossas = {"teorema_q_palavras", "veripb", "drat", "esfera", "q_palavras"}
+    for k, c in tabela.montar()["celulas"].items():
+        if c["exato"]:
+            assert nossas & set(c["origem_lb"]), k

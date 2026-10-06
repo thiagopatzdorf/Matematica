@@ -106,9 +106,10 @@ lineares específicas:
 | Elimelech–Schwartz, arXiv:2210.00531 (ISIT 2023) | bolão de segunda ordem; κ_2(ρ,q) = 1 − H_{q²}(ρ) para códigos gerais | não |
 | Li–Shangguan–Wei, arXiv:2608.24856 (2026) | taxa ótima para todo t, também para lineares | não |
 | Yu–Schwartz, arXiv:2609.14477 (2026) | raio de empacotamento generalizado ≤ raio de cobertura generalizado | não |
+| Alfarano–Marino–Neri–Trombetti, arXiv:2606.16669 (2026) | R_t de lineares via (ρ,t)-saturating sets; cotas e construções | não |
 | Yohananov–Schwartz; Özbudak–Öztürk; Xiong–Yip; Li–Xiong; Luo et al. (2022–2026) | R_2 (e R_3) de BCH, Reed–Muller, Melas, Zetterberg, cíclicos | não: R_2 de um código fixo, não o mínimo sobre códigos |
 
-Busca: OpenAlex ("generalized covering radius codes", 135 obras; obras que citam
+Busca: OpenAlex ("generalized covering radius codes", 135 obras, 60 desde 2020, revistas de novo na auditoria; obras que citam
 arXiv:2210.00531), Consensus e arXiv ("second-order covering codes football pool"). Não foram
 consultados Google Scholar, teses nem bases pagas. Conclusão: os valores de `segunda_ordem/` são
 plausivelmente os primeiros publicados para n pequeno, o que **não** prova que não existam em

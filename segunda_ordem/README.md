@@ -1,8 +1,8 @@
 # Códigos de cobertura de segunda ordem: tabela exata para n pequeno
 
 Este diretório calcula K^(2)_q(n,r), o menor número de bilhetes que garante o prêmio no
-**bolão de segunda ordem** de Elimelech e Schwartz, para q = 2 com n ≤ 6 e q = 3 com n ≤ 5,
-em todo 1 ≤ r < n. É um problema irmão do bolão clássico K_q(n,R) do ledger, e **não entra nas
+**bolão de segunda ordem** de Elimelech e Schwartz, para q = 2 com n ≤ 7 e q = 3 com n ≤ 5,
+em todo 1 ≤ r < n (31 células). É um problema irmão do bolão clássico K_q(n,R) do ledger, e **não entra nas
 contagens do ledger** (nada aqui lê ou escreve em `ledger/`, a não ser a leitura de cotas
 publicadas de K_q e K_{q²} em `ledger/cells.json`).
 
@@ -82,12 +82,76 @@ Esse teorema é conferido por força bruta em `tests/test_segunda_ordem.py`.
 
 ## Tabela
 
-TABELA_AQUI
+Um número sozinho é valor **exato**: as duas cotas foram conferidas (a superior por uma
+testemunha reconferida pelos verificadores, a inferior por um teorema deste README ou por um
+certificado VeriPB/DRAT conferido). `a–b` é intervalo. As células triviais (r = n − 1, e também
+r = n − 2 quando q = 2 e n ≥ 5) saem do teorema das q palavras, não de enumeração.
 
-Leitura: um número só é valor **exato** (as duas cotas conferidas); `a–b` é intervalo. Estado de
-cada célula, com a origem de cada cota, em `segunda_ordem/dados/tabela.json`.
+<!-- tabela:inicio (gerado por tabela.py readme) -->
+**q = 2**
 
-ESTADO_AQUI
+| n \ r | 1 | 2 | 3 | 4 | 5 | 6 |
+|---|---|---|---|---|---|---|
+| 2 | 2 |  |  |  |  |  |
+| 3 | 4 | 2 |  |  |  |  |
+| 4 | 8 | 4 | 2 |  |  |  |
+| 5 | 16 | 6 | 2 | 2 |  |  |
+| 6 | 28 | 8 | 4 | 2 | 2 |  |
+| 7 | 28–56 | 12–16 | 7 | 4 | 2 | 2 |
+
+**q = 3**
+
+| n \ r | 1 | 2 | 3 | 4 |
+|---|---|---|---|---|
+| 2 | 3 |  |  |  |
+| 3 | 9 | 3 |  |  |
+| 4 | 22–27 | 9 | 3 |  |
+| 5 | 41–78 | 11–21 | 7 | 3 |
+
+26 de 31 células exatas. Estado de cada uma:
+
+| q | n | r | K^(2) | estado | cota inferior | cota superior |
+|---|---|---|---|---|---|---|
+| 2 | 2 | 1 | 2 | exato | 2: teorema das q palavras | 2: testemunha |
+| 2 | 3 | 1 | 4 | exato | 4: VeriPB (ótimo) | 4: testemunha |
+| 2 | 3 | 2 | 2 | exato | 2: teorema das q palavras | 2: testemunha |
+| 2 | 4 | 1 | 8 | exato | 8: VeriPB (ótimo) | 8: testemunha |
+| 2 | 4 | 2 | 4 | exato | 4: VeriPB (ótimo) | 4: testemunha |
+| 2 | 4 | 3 | 2 | exato | 2: teorema das q palavras | 2: testemunha |
+| 2 | 5 | 1 | 16 | exato | 16: VeriPB (ótimo) | 16: testemunha |
+| 2 | 5 | 2 | 6 | exato | 6: VeriPB (ótimo) | 6: testemunha |
+| 2 | 5 | 3 | 2 | exato | 2: teorema das q palavras | 2: testemunha |
+| 2 | 5 | 4 | 2 | exato | 2: teorema das q palavras | 2: testemunha |
+| 2 | 6 | 1 | 28 | exato | 28: DRAT | 28: testemunha |
+| 2 | 6 | 2 | 8 | exato | 8: DRAT | 8: testemunha |
+| 2 | 6 | 3 | 4 | exato | 4: raiz de K_{q²} (ledger), DRAT | 4: testemunha |
+| 2 | 6 | 4 | 2 | exato | 2: teorema das q palavras | 2: testemunha |
+| 2 | 6 | 5 | 2 | exato | 2: teorema das q palavras | 2: testemunha |
+| 2 | 7 | 1 | 28–56 | intervalo | 28: esfera, raiz de K_{q²} (ledger) | 56: testemunha |
+| 2 | 7 | 2 | 12–16 | intervalo | 12: DRAT | 16: testemunha |
+| 2 | 7 | 3 | 7 | exato | 7: DRAT | 7: testemunha |
+| 2 | 7 | 4 | 4 | exato | 4: DRAT | 4: testemunha |
+| 2 | 7 | 5 | 2 | exato | 2: teorema das q palavras | 2: testemunha |
+| 2 | 7 | 6 | 2 | exato | 2: teorema das q palavras | 2: testemunha |
+| 3 | 2 | 1 | 3 | exato | 3: teorema das q palavras | 3: testemunha |
+| 3 | 3 | 1 | 9 | exato | 9: VeriPB (ótimo) | 9: testemunha |
+| 3 | 3 | 2 | 3 | exato | 3: teorema das q palavras | 3: testemunha |
+| 3 | 4 | 1 | 22–27 | intervalo | 22: DRAT | 27: testemunha |
+| 3 | 4 | 2 | 9 | exato | 9: DRAT | 9: testemunha |
+| 3 | 4 | 3 | 3 | exato | 3: teorema das q palavras | 3: testemunha |
+| 3 | 5 | 1 | 41–78 | intervalo | 41: raiz de K_{q²} (ledger) | 78: testemunha |
+| 3 | 5 | 2 | 11–21 | intervalo | 11: raiz de K_{q²} (ledger), DRAT | 21: testemunha |
+| 3 | 5 | 3 | 7 | exato | 7: DRAT | 7: testemunha |
+| 3 | 5 | 4 | 3 | exato | 3: teorema das q palavras | 3: testemunha |
+<!-- tabela:fim -->
+
+O mesmo estado, com todas as cotas livres de cada célula, está em
+`segunda_ordem/dados/tabela.json`. Este bloco é gerado (`python3 -m segunda_ordem.tabela readme`)
+e um teste falha se ele divergir dos dados.
+
+**Por que K^(2) não é K_q.** A coluna r = 1 de q = 2 já mostra a diferença: K_2(6,1) = 12, mas
+K^(2)_2(6,1) = 28, perto de ⌈√K_4(6,1)⌉ = 16 e longe de 2^5 = 32. Para r = 2 em n = 5, K_2(5,2) = 2
+e K^(2)_2(5,2) = 6.
 
 ## Como as cotas foram obtidas
 
@@ -120,14 +184,36 @@ isometria). Dois caminhos com certificado:
   conferem, em células pequenas, que a quebra não muda o mínimo.
 
 Os registros (sha256 da fórmula e da prova, tamanho, método) estão em `dados/certificados.json`.
-Provas pequenas vão comprimidas em `dados/provas/`; as grandes não cabem no repositório e são
-refeitas pelo comando abaixo (o sha256 registrado é o da nossa execução; RoundingSat e CaDiCaL
-não prometem prova byte a byte igual entre versões).
+Provas pequenas vão comprimidas em `dados/provas/` (8 arquivos, ~0,8 MB). As grandes (de 18 MB a
+303 MB descomprimidas) não cabem no repositório e são refeitas pelo comando abaixo.
+
+**Auditoria de 2026-10-06.** As 14 cotas certificadas do rascunho foram reconferidas do zero: a fórmula
+foi regerada pelo código deste diretório (sha256 igual ao registrado em todas), a prova refeita
+pelo mesmo solver e conferida de novo pela ferramenta para a qual foi feita (`veripb` para os
+`.pbp`, `drat-trim` para os `.drat`). As provas refeitas saíram **byte a byte iguais** às
+registradas (mesmo sha256), então o registro identifica a prova, e não só a fórmula. O resultado
+está no campo `reverificacao` de cada certificado. Na auditoria entraram mais dois certificados
+DRAT, para que nenhuma célula dependa só do ledger onde não precisa: K^(2)_2(6,3) ≥ 4 (antes a
+célula era "exata" só pela raiz de K_4(6,3) do ledger) e K^(2)_3(5,2) ≥ 11 (mesmo valor da raiz,
+agora também nosso; a prova tem 666 MB e não está no repositório).
+
+## Lean (opcional, fora do alvo padrão)
+
+`lean/SegundaOrdemUB.lean` confere no kernel duas cotas superiores, K^(2)_2(5,2) ≤ 6 e
+K^(2)_3(3,1) ≤ 9, a partir das testemunhas publicadas (um teste confere que são as mesmas). Usa só
+o núcleo do Lean (sem Mathlib) e `decide +kernel`; sem `sorry` e sem `native_decide`, e
+`#print axioms` diz que os dois teoremas não dependem de axioma nenhum. Não está em nenhuma
+`lean_lib` do `lakefile.toml`, então o `lake build` padrão não muda. Para conferir:
+
+    lean -j1 segunda_ordem/lean/SegundaOrdemUB.lean     # ~1 min, Lean da versão de lean-toolchain
+
+A testemunha de K^(2)_3(4,2) ≤ 9 estourou a memória no kernel e ficou de fora.
 
 ## Como reproduzir
 
     python3 -m segunda_ordem.tabela conferir        # reconfere testemunhas e cotas (segundos)
     python3 -m segunda_ordem.tabela gerar           # regrava dados/tabela.json
+    python3 -m segunda_ordem.tabela readme          # regrava a tabela deste README
     python3 -m pytest -q -p no:cacheprovider tests/test_segunda_ordem.py
 
 Certificados de cota inferior (precisam dos binários; caminhos por variável de ambiente):
@@ -141,8 +227,9 @@ os usados aqui. `SEGUNDA_ORDEM_TRABALHO` escolhe a pasta das fórmulas e provas 
 
 ## Literatura (revisão de 2026-10-06)
 
-Busca em OpenAlex, Consensus e arXiv por "generalized covering radius", "second-order covering
-codes" e "football pool second order", mais as obras que citam o artigo-fonte.
+Busca em OpenAlex (60 obras desde 2020 para "generalized covering radius codes", mais as que citam
+o artigo-fonte), Consensus, arXiv e busca na web por "second-order covering codes", "football pool
+second order" e "generalized covering radius small length table".
 
 * Elimelech–Firer–Schwartz, *The generalized covering radii of linear codes*, IEEE TIT 67(12),
   2021 (arXiv:2012.06467): definem R_t para códigos **lineares** e dão cotas assintóticas; o único
@@ -154,9 +241,13 @@ codes" e "football pool second order", mais as obras que citam o artigo-fonte.
   assintótico, sem tabela.
 * Yu–Schwartz, arXiv:2609.14477 (2026): raios de empacotamento × cobertura generalizados; sem
   tabela de K^(2).
-* A linha de BCH, Reed–Muller, Melas e Zetterberg (Yohananov–Schwartz, Özbudak–Öztürk,
-  Xiong–Yip, Li–Xiong, e outros, 2022–2026) calcula R_2 de **famílias lineares** específicas de
-  comprimento 2^m − 1 ou parecido, não o mínimo sobre todos os códigos.
+* Alfarano–Marino–Neri–Trombetti, arXiv:2606.16669 (2026): versão geométrica de R_t para
+  códigos lineares ((ρ,t)-saturating sets), com cotas e construções; sem tabela de valores.
+* A linha de BCH, Reed–Muller, Melas, Zetterberg e cíclicos (Elimelech–Wei–Schwartz 2022,
+  Yohananov–Schwartz 2024/2025, Özbudak–Öztürk 2025/2026, Essayag–Zabokritskiy arXiv:2608.07215,
+  Xiong–Yip, Li–Xiong, Luo et al., 2022–2026) calcula o R_2 **exato de um código linear fixo** de
+  comprimento 2^m − 1 ou parecido, não o mínimo de tamanho sobre todos os códigos de comprimento
+  n. São perguntas diferentes: nenhum desses valores é uma célula desta tabela.
 
 **Não achei nenhuma tabela de K^(2)_q(n,r) para n pequeno, nem para códigos lineares.** Pelo que
 foi revisado, os valores daqui são plausivelmente os primeiros publicados. Isso não prova que
@@ -169,6 +260,9 @@ não existam em outro lugar (teses, anais sem indexação, bases pagas não fora
   (o recozimento falhar abaixo de um tamanho não prova nada).
 * As cotas inferiores da raiz e de K_q herdam o estado das cotas do ledger, que para essas
   células pequenas são valores da literatura (Kéri e anteriores), não certificados nossos.
+  Nenhuma célula exata depende delas (um teste garante). A única cota da tabela que depende
+  **só** do ledger é a inferior de K^(2)_3(5,1) ≥ 41, que vem de K_9(5,1) ≥ 1641; sem o ledger,
+  a esfera dá 38.
 * Os certificados DRAT valem para a fórmula com quebra de simetria; a ponte para a fórmula
   original é o lema lex-leader, não uma prova verificada por máquina.
 * A codificação booleana e o contador sequencial do PySAT são confiados como corretos por

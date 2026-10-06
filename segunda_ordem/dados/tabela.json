@@ -240,7 +240,8 @@
    "lb": 4,
    "n": 6,
    "origem_lb": [
-    "raiz_K_q2"
+    "raiz_K_q2",
+    "drat"
    ],
    "origem_ub": "testemunha",
    "q": 2,
@@ -545,7 +546,8 @@
    "lb": 11,
    "n": 5,
    "origem_lb": [
-    "raiz_K_q2"
+    "raiz_K_q2",
+    "drat"
    ],
    "origem_ub": "testemunha",
    "q": 3,

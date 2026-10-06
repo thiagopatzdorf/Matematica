@@ -4,6 +4,7 @@ Uso (da raiz do repositório):
 
     python3 -m segunda_ordem.tabela conferir     # reconfere testemunhas e cotas, imprime a tabela
     python3 -m segunda_ordem.tabela gerar        # reescreve dados/tabela.json a partir do resto
+    python3 -m segunda_ordem.tabela readme       # reescreve a tabela do README.md a partir do resto
     python3 -m segunda_ordem.tabela veripb Q N R   # RoundingSat + VeriPB: ótimo da célula
     python3 -m segunda_ordem.tabela drat Q N R [M] # CaDiCaL + drat-trim: nada com menos de M palavras
                                                    # (sem M: M = tamanho da testemunha)
@@ -138,7 +139,7 @@ def tabela_markdown(tab: dict) -> str:
     out = []
     for q in FAIXA:
         ns = list(FAIXA[q])
-        out.append(f"\nq = {q}\n")
+        out.append(f"\n**q = {q}**\n")
         out.append("| n \\ r | " + " | ".join(str(r) for r in range(1, ns[-1])) + " |")
         out.append("|---" * ns[-1] + "|")
         for n in ns:
@@ -151,6 +152,44 @@ def tabela_markdown(tab: dict) -> str:
                 cel.append(str(c["ub"]) if c["exato"] else f"{c['lb']}–{c['ub']}")
             out.append(f"| {n} | " + " | ".join(cel) + " |")
     return "\n".join(out)
+
+
+ROTULO_LB = {
+    "teorema_q_palavras": "teorema das q palavras",
+    "veripb": "VeriPB (ótimo)",
+    "drat": "DRAT",
+    "raiz_K_q2": "raiz de K_{q²} (ledger)",
+    "K_q": "K_q (ledger)",
+    "esfera": "esfera",
+    "q_palavras": "q palavras",
+}
+INICIO, FIM = "<!-- tabela:inicio (gerado por tabela.py readme) -->", "<!-- tabela:fim -->"
+README = AQUI / "README.md"
+
+
+def estado_markdown(tab: dict) -> str:
+    """Uma linha por célula: valor ou intervalo, e a origem de cada cota."""
+    out = ["| q | n | r | K^(2) | estado | cota inferior | cota superior |", "|---|---|---|---|---|---|---|"]
+    for c in tab["celulas"].values():
+        valor = str(c["ub"]) if c["exato"] else f"{c['lb']}–{c['ub']}"
+        estado = "exato" if c["exato"] else "intervalo"
+        lb = f"{c['lb']}: " + ", ".join(ROTULO_LB[o] for o in c["origem_lb"])
+        ub = f"{c['ub']}: " + ("testemunha" if c["origem_ub"] == "testemunha" else "q^(n−r)")
+        out.append(f"| {c['q']} | {c['n']} | {c['r']} | {valor} | {estado} | {lb} | {ub} |")
+    return "\n".join(out)
+
+
+def bloco_readme(tab: dict) -> str:
+    exatas = sum(c["exato"] for c in tab["celulas"].values())
+    return "\n".join([
+        INICIO,
+        tabela_markdown(tab).lstrip("\n"),
+        "",
+        f"{exatas} de {len(tab['celulas'])} células exatas. Estado de cada uma:",
+        "",
+        estado_markdown(tab),
+        FIM,
+    ])
 
 
 def conferir() -> dict:
@@ -332,6 +371,13 @@ def main(argv: list[str]) -> int:
         TABELA.write_text(json.dumps(tab, indent=1, sort_keys=True, ensure_ascii=False) + "\n",
                           encoding="utf-8")
         print(f"gravado {TABELA.relative_to(RAIZ)}")
+        return 0
+    if argv[0] == "readme":
+        texto = README.read_text(encoding="utf-8")
+        antes, resto = texto.split(INICIO, 1)
+        depois = resto.split(FIM, 1)[1]
+        README.write_text(antes + bloco_readme(conferir()) + depois, encoding="utf-8")
+        print(f"atualizado {README.relative_to(RAIZ)}")
         return 0
     if argv[0] == "cubos":
         q, n, r, M, k = map(int, argv[1:6])

@@ -7,6 +7,10 @@
   "prova_bytes": 1841,
   "prova_gz": "dados/provas/k2_q2_n3_r1.pbp.gz",
   "prova_sha256": "60b6bc9438dade922451f5ff93bc46581dfcea65d563d5d168287470320a5d99",
+  "reverificacao": {
+   "como": "f\u00f3rmula regerada (sha igual), prova do reposit\u00f3rio (sha igual) conferida por veripb 3.0.2",
+   "data": "2026-10-06"
+  },
   "simetria": "s\u00f3 0 \u2208 C",
   "verificado": true
  },
@@ -18,6 +22,10 @@
   "prova_bytes": 48004,
   "prova_gz": "dados/provas/k2_q2_n4_r1.pbp.gz",
   "prova_sha256": "ac4c17280cd6cc88268dfeb058633b0f74e3696f08e9a08c3155ee4ffdf2a0bb",
+  "reverificacao": {
+   "como": "f\u00f3rmula regerada (sha igual), prova do reposit\u00f3rio (sha igual) conferida por veripb 3.0.2",
+   "data": "2026-10-06"
+  },
   "simetria": "s\u00f3 0 \u2208 C",
   "verificado": true
  },
@@ -29,6 +37,10 @@
   "prova_bytes": 8861,
   "prova_gz": "dados/provas/k2_q2_n4_r2.pbp.gz",
   "prova_sha256": "5bf8d82101e200034f8b722f9aff212db4cca7ceaf9a0ca1387195e12926611b",
+  "reverificacao": {
+   "como": "f\u00f3rmula regerada (sha igual), prova do reposit\u00f3rio (sha igual) conferida por veripb 3.0.2",
+   "data": "2026-10-06"
+  },
   "simetria": "s\u00f3 0 \u2208 C",
   "verificado": true
  },
@@ -39,6 +51,10 @@
   "metodo": "veripb",
   "prova_bytes": 38705787,
   "prova_sha256": "daccd7e5ddd185a43f09d36bb2aec6c3a5b2c3b193d16508e6d25bb9ad98e8f1",
+  "reverificacao": {
+   "como": "f\u00f3rmula regerada (sha igual), prova refeita byte a byte (sha igual), conferida por veripb 3.0.2",
+   "data": "2026-10-06"
+  },
   "simetria": "s\u00f3 0 \u2208 C",
   "verificado": true
  },
@@ -50,6 +66,10 @@
   "prova_bytes": 526036,
   "prova_gz": "dados/provas/k2_q2_n5_r2.pbp.gz",
   "prova_sha256": "ac4655d9aa569866282a321258e8dbfe0e12a64acd04bb47f82aa0919f176311",
+  "reverificacao": {
+   "como": "f\u00f3rmula regerada (sha igual), prova do reposit\u00f3rio (sha igual) conferida por veripb 3.0.2",
+   "data": "2026-10-06"
+  },
   "simetria": "s\u00f3 0 \u2208 C",
   "verificado": true
  },
@@ -60,6 +80,10 @@
   "metodo": "drat",
   "prova_bytes": 162262477,
   "prova_sha256": "7a2932ef11c346c7c719e200a475a8962f213eba5e4e48e84b475cc5ef17f2e2",
+  "reverificacao": {
+   "como": "f\u00f3rmula regerada (sha igual), prova refeita byte a byte (sha igual), conferida por drat-trim",
+   "data": "2026-10-06"
+  },
   "simetria": "0 \u2208 C e x \u2265lex g(x) para transposi\u00e7\u00f5es de coordenadas e de s\u00edmbolos",
   "unsat_ate": 27,
   "verificado": true
@@ -72,8 +96,28 @@
   "prova_bytes": 1274033,
   "prova_gz": "dados/provas/k2_q2_n6_r2_ate7.drat.gz",
   "prova_sha256": "57c846934ccab7b2776544d1368ae635a5ab02563794bc66c1a7994790700ebf",
+  "reverificacao": {
+   "como": "f\u00f3rmula regerada (sha igual), prova do reposit\u00f3rio (sha igual) conferida por drat-trim",
+   "data": "2026-10-06"
+  },
   "simetria": "0 \u2208 C e x \u2265lex g(x) para transposi\u00e7\u00f5es de coordenadas e de s\u00edmbolos",
   "unsat_ate": 7,
+  "verificado": true
+ },
+ "2,6,3": {
+  "formula": "Codificacao(q, n, r, fixar_zero=True) + quebrar_simetria() + dimacs(3)",
+  "formula_sha256": "7974774b9a5d5c74babab94682cfeb1427aa0a2fdf59f5428c59c988fe27f076",
+  "lb": 4,
+  "metodo": "drat",
+  "prova_bytes": 6793,
+  "prova_gz": "dados/provas/k2_q2_n6_r3_ate3.drat.gz",
+  "prova_sha256": "975abe37490eb1500820ee487f61e5ff41d0ed09aae6c0adfdacc2e35dc76698",
+  "reverificacao": {
+   "como": "certificado criado na auditoria; prova conferida por drat-trim na cria\u00e7\u00e3o",
+   "data": "2026-10-06"
+  },
+  "simetria": "0 \u2208 C e x \u2265lex g(x) para transposi\u00e7\u00f5es de coordenadas e de s\u00edmbolos",
+  "unsat_ate": 3,
   "verificado": true
  },
  "2,7,2": {
@@ -83,6 +127,10 @@
   "metodo": "drat",
   "prova_bytes": 102575755,
   "prova_sha256": "6f5072d7f9ff0d3029b7a4c902d143cf66682ec2629cb740acfb2b173ac86882",
+  "reverificacao": {
+   "como": "f\u00f3rmula regerada (sha igual), prova refeita byte a byte (sha igual), conferida por drat-trim",
+   "data": "2026-10-06"
+  },
   "simetria": "0 \u2208 C e x \u2265lex g(x) para transposi\u00e7\u00f5es de coordenadas e de s\u00edmbolos",
   "unsat_ate": 11,
   "verificado": true
@@ -94,6 +142,10 @@
   "metodo": "drat",
   "prova_bytes": 18631043,
   "prova_sha256": "2bece60c217a6bf5b3ebbaefc9138f9474252334f6510ce77521685b4875ea12",
+  "reverificacao": {
+   "como": "f\u00f3rmula regerada (sha igual), prova refeita byte a byte (sha igual), conferida por drat-trim",
+   "data": "2026-10-06"
+  },
   "simetria": "0 \u2208 C e x \u2265lex g(x) para transposi\u00e7\u00f5es de coordenadas e de s\u00edmbolos",
   "unsat_ate": 6,
   "verificado": true
@@ -106,6 +158,10 @@
   "prova_bytes": 123636,
   "prova_gz": "dados/provas/k2_q2_n7_r4_ate3.drat.gz",
   "prova_sha256": "f98185739b8cf31f42af7da8db118ee43511c62f523f393384f029ceaee15903",
+  "reverificacao": {
+   "como": "f\u00f3rmula regerada (sha igual), prova do reposit\u00f3rio (sha igual) conferida por drat-trim",
+   "data": "2026-10-06"
+  },
   "simetria": "0 \u2208 C e x \u2265lex g(x) para transposi\u00e7\u00f5es de coordenadas e de s\u00edmbolos",
   "unsat_ate": 3,
   "verificado": true
@@ -118,6 +174,10 @@
   "prova_bytes": 87077,
   "prova_gz": "dados/provas/k2_q3_n3_r1.pbp.gz",
   "prova_sha256": "81ac65ce370ba4612a0b571b624bca6bf01fcb842c191616aefe505e91ca505f",
+  "reverificacao": {
+   "como": "f\u00f3rmula regerada (sha igual), prova do reposit\u00f3rio (sha igual) conferida por veripb 3.0.2",
+   "data": "2026-10-06"
+  },
   "simetria": "s\u00f3 0 \u2208 C",
   "verificado": true
  },
@@ -128,6 +188,10 @@
   "metodo": "drat",
   "prova_bytes": 303078989,
   "prova_sha256": "9a6d4b294849fcb36106b24dbec4611bd063fba3fc9ecca9fb7ba016d049f7f2",
+  "reverificacao": {
+   "como": "f\u00f3rmula regerada (sha igual), prova refeita byte a byte (sha igual), conferida por drat-trim",
+   "data": "2026-10-06"
+  },
   "simetria": "0 \u2208 C e x \u2265lex g(x) para transposi\u00e7\u00f5es de coordenadas e de s\u00edmbolos",
   "unsat_ate": 21,
   "verificado": true
@@ -139,8 +203,27 @@
   "metodo": "drat",
   "prova_bytes": 28711541,
   "prova_sha256": "80e26eefea93e22f7083f788cb2ffe38000a8692ab18318ba1348ad1a69e252c",
+  "reverificacao": {
+   "como": "f\u00f3rmula regerada (sha igual), prova refeita byte a byte (sha igual), conferida por drat-trim",
+   "data": "2026-10-06"
+  },
   "simetria": "0 \u2208 C e x \u2265lex g(x) para transposi\u00e7\u00f5es de coordenadas e de s\u00edmbolos",
   "unsat_ate": 8,
+  "verificado": true
+ },
+ "3,5,2": {
+  "formula": "Codificacao(q, n, r, fixar_zero=True) + quebrar_simetria() + dimacs(10)",
+  "formula_sha256": "3d85f44f546891591bfde22b0ac852acf80e2ba0b4f16915e81142f1aa672abf",
+  "lb": 11,
+  "metodo": "drat",
+  "prova_bytes": 665984685,
+  "prova_sha256": "e4b4845ac1cae16dd264419845609bc7d8932b9db8b8130b6ba24dce5e7133b9",
+  "reverificacao": {
+   "como": "certificado criado na auditoria; prova conferida por drat-trim na cria\u00e7\u00e3o",
+   "data": "2026-10-06"
+  },
+  "simetria": "0 \u2208 C e x \u2265lex g(x) para transposi\u00e7\u00f5es de coordenadas e de s\u00edmbolos",
+  "unsat_ate": 10,
   "verificado": true
  },
  "3,5,3": {
@@ -150,6 +233,10 @@
   "metodo": "drat",
   "prova_bytes": 44549229,
   "prova_sha256": "d4a03243006eabd2787717118e25f2418466f9b7ef70a62833f16f622634e5f8",
+  "reverificacao": {
+   "como": "f\u00f3rmula regerada (sha igual), prova refeita byte a byte (sha igual), conferida por drat-trim",
+   "data": "2026-10-06"
+  },
   "simetria": "0 \u2208 C e x \u2265lex g(x) para transposi\u00e7\u00f5es de coordenadas e de s\u00edmbolos",
   "unsat_ate": 6,
   "verificado": true
