@@ -75,3 +75,11 @@ def test_conferencia_no_ar_usa_user_agent_python_urllib_que_a_cloudflare_barra(m
     monkeypatch.setattr(p.urllib.request, "urlopen", falso_urlopen)
     assert p.conferir_no_ar([("genesis/matematica", "text/html", b"x")]) == []
     assert vistos and not vistos[0].lower().startswith("python-urllib")
+
+
+def test_beacon_injetado_pela_cloudflare_reprova_publicacao_identica():
+    html = b'<html><body>x\n</body></html>'
+    injetado = (b'<html><body>x\n<script defer src="https://static.cloudflareinsights.com/beacon.min.js/v1" '
+                b'data-cf-beacon=\'{"token": "t"}\' crossorigin="anonymous"></script>\n</body></html>')
+    assert p.sem_beacon(injetado) == html
+    assert p.sem_beacon(b"<script src='/app.js'></script>") == b"<script src='/app.js'></script>"

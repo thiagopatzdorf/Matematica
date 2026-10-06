@@ -188,6 +188,16 @@ def apagar(tok: str, nome: str) -> None:
         raise RuntimeError(f"apagar {nome}: HTTP {st} {r[:200]!r}")
 
 
+# A borda da Cloudflare injeta o beacon do Web Analytics no HTML de algumas
+# respostas (medido em 2026-10-06 a partir da factory-01, não daqui): a
+# conferência descarta só essa tag antes de comparar os bytes.
+BEACON = re.compile(rb'<script[^>]*static\.cloudflareinsights\.com[^>]*>\s*</script>\s*')
+
+
+def sem_beacon(corpo: bytes) -> bytes:
+    return BEACON.sub(b"", corpo)
+
+
 def conferir_no_ar(itens: list[tuple[str, str, bytes]]) -> list[str]:
     """Baixa cada arquivo pela URL pública e compara os bytes: 'enviado' não é 'entregue'."""
     erros = []
@@ -196,7 +206,7 @@ def conferir_no_ar(itens: list[tuple[str, str, bytes]]) -> list[str]:
         try:
             with urllib.request.urlopen(urllib.request.Request(url, headers={"Cache-Control": "no-cache", "User-Agent": UA}),
                                         timeout=60) as r:
-                if r.status != 200 or r.read() != dados:
+                if r.status != 200 or sem_beacon(r.read()) != dados:
                     erros.append(f"{url}: conteúdo no ar difere do enviado")
         except urllib.error.HTTPError as e:
             erros.append(f"{url}: HTTP {e.code}")
