@@ -43,13 +43,17 @@ Ce qui ne renvoie à rien est conviction, et écrit comme tel.
 chaque mot à distance de Hamming au plus `R` d’un mot du code
 ([article, Introduction](../paper/main.tex)).
 
-$$K_q(n,R) \;=\; \min\bigl\{\,|C| \;:\; C \subseteq \mathbb{Z}_q^n,\ \ \forall x \in \mathbb{Z}_q^n\ \ \exists c \in C,\ \ d_H(x,c) \le R \,\bigr\}$$
+```math
+K_q(n,R) \;=\; \min\bigl\lbrace\,|C| \;:\; C \subseteq \mathbb{Z}_q^n,\ \ \forall x \in \mathbb{Z}_q^n\ \ \exists c \in C,\ \ d_H(x,c) \le R \,\bigr\rbrace
+```
 
 Les tables de Kéri comptent 1145 cellules, avec `q` de 2 à 21 ([registre](../ledger/README.md)).
 
 **2. Borne.** Un intervalle.
 
-$$\text{inférieure} \;\le\; K_q(n,R) \;\le\; \text{supérieure}$$
+```math
+\text{inférieure} \;\le\; K_q(n,R) \;\le\; \text{supérieure}
+```
 
 La borne supérieure se prouve en montrant un code.
 L’inférieure, en prouvant qu’aucun code plus petit n’existe.
@@ -115,7 +119,7 @@ Les bornes inférieures sont, presque toutes, héritées de la littérature
 
 | proposition | preuve |
 |---|---|
-| **488 des 1145 bornes supérieures** sont `FORMALIZED` ou `INDEPENDENTLY_REPRODUCED`. Parmi les inférieures, 3 sont `CERTIFICATE_VERIFIED` et 2 `FORMALIZED`. | [`ledger/COBERTURA.md`](../ledger/COBERTURA.md) |
+| **547 des 1145 bornes supérieures** sont `FORMALIZED` ou `INDEPENDENTLY_REPRODUCED`. Parmi les inférieures, 3 sont `CERTIFICATE_VERIFIED` et 2 `FORMALIZED`. | [`ledger/COBERTURA.md`](../ledger/COBERTURA.md) |
 | **Deux cellules exactes avec les deux bornes dans le noyau :** `K₂(6,1) = 12` et `K₇(4,2) = 19`. | [article, « A certified ledger »](../paper/main.tex) · [LEAN_K742](exatos/LEAN_K742.md) |
 | **Trois effondrements potentiellement nouveaux**, non trouvés dans la littérature consultée : `K₃(6,2) = 17`, `K₇(6,4) = 14`, `K₇(5,3) = 17`. Les trois bornes inférieures sont `CERTIFICATE_VERIFIED`, pas des théorèmes du noyau. | [NOVIDADE_V09](exatos/NOVIDADE_V09.md) · [registre](../ledger/README.md) |
 
@@ -167,7 +171,9 @@ guide ce travail
 Dans une file de $N$ tâches, dont $D$ distinctes, en partant d’une base vide : exactement $D$
 recherches et $N$ vérifications.
 
-$$\text{coût} \;=\; D \cdot \text{recherche} \;+\; N \cdot \text{vérification}$$
+```math
+\text{coût} \;=\; D \cdot \text{recherche} \;+\; N \cdot \text{vérification}
+```
 
 ([Conhecimento.lean](https://github.com/thiagopatzdorf/james-theorems/blob/12616cf56ed737a2cdfb9034753d5679c8091b49/JamesTheorems/Conhecimento.lean)).
 Que le coût par tâche tende vers celui de vérifier lorsque $D$ croît moins vite que $N$ est une

@@ -58,7 +58,9 @@ alternative must be ruled out. Explained in four layers (30 seconds, high school
 A **covering code** is a set of words of length `n` over `q` symbols such that every word of the space lies within
 Hamming distance `R` of one of them. `K_q(n,R)` is the size of the smallest such code:
 
-$$K_q(n,R) \;=\; \min\bigl\{\,|C| \;:\; C \subseteq \mathbb{Z}_q^n,\ \ \forall x \in \mathbb{Z}_q^n\ \ \exists c \in C,\ \ d_H(x,c) \le R \,\bigr\}$$
+```math
+K_q(n,R) \;=\; \min\bigl\lbrace\,|C| \;:\; C \subseteq \mathbb{Z}_q^n,\ \ \forall x \in \mathbb{Z}_q^n\ \ \exists c \in C,\ \ d_H(x,c) \le R \,\bigr\rbrace
+```
 
 An upper bound is an explicit code: finding it is hard, checking it is counting. The reference is
 [Kéri's tables](https://old.sztaki.hu/~keri/codes/); the full vocabulary is in the [glossary](docs/GLOSSARIO.md) (Portuguese).
@@ -87,7 +89,7 @@ The block below is generated from `ledger/cells.json` and is not edited by hand.
 | `K_q(n,R)` cells in the ledger (q from 2 to 21) | **1145** |
 | exact (lower bound = upper bound) | **523** |
 | open | **622** |
-| upper bounds that are Lean kernel theorems (FORMALIZED + INDEPENDENTLY_REPRODUCED) | **488** of 1145 (435 + 53) |
+| upper bounds that are Lean kernel theorems (FORMALIZED + INDEPENDENTLY_REPRODUCED) | **547** of 1145 (481 + 66) |
 | lower bounds by state (almost all inherited from the literature) | CLAIMED 1140 · CERTIFICATE_VERIFIED 3 · FORMALIZED 2 |
 | exact values closed here (the published interval was open) | **4** (1 with both bounds in the kernel; 3 with the lower bound by a verified certificate outside Lean) |
 | cells with our own Lean theorem | **15** (12 below the best published upper bound we found) |

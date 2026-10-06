@@ -58,7 +58,9 @@ descartar todas as alternativas. Explicado em quatro camadas (30 segundos, ensin
 Um **código de cobertura** é um conjunto de palavras de comprimento `n` sobre `q` símbolos tal que toda palavra do
 espaço fica a distância de Hamming no máximo `R` de alguma delas. `K_q(n,R)` é o tamanho do menor código assim:
 
-$$K_q(n,R) \;=\; \min\bigl\{\,|C| \;:\; C \subseteq \mathbb{Z}_q^n,\ \ \forall x \in \mathbb{Z}_q^n\ \ \exists c \in C,\ \ d_H(x,c) \le R \,\bigr\}$$
+```math
+K_q(n,R) \;=\; \min\bigl\lbrace\,|C| \;:\; C \subseteq \mathbb{Z}_q^n,\ \ \forall x \in \mathbb{Z}_q^n\ \ \exists c \in C,\ \ d_H(x,c) \le R \,\bigr\rbrace
+```
 
 Uma cota superior é um código explícito: achar é difícil, conferir é contar. A referência são as
 [tabelas do Kéri](https://old.sztaki.hu/~keri/codes/); o vocabulário inteiro está no [glossário](docs/GLOSSARIO.md).
@@ -87,7 +89,7 @@ O bloco abaixo é gerado a partir de `ledger/cells.json` e não se edita à mão
 | células `K_q(n,R)` no ledger (q de 2 a 21) | **1145** |
 | exatas (cota inferior = superior) | **523** |
 | abertas | **622** |
-| cotas superiores que são teorema do kernel do Lean (FORMALIZED + INDEPENDENTLY_REPRODUCED) | **488** de 1145 (435 + 53) |
+| cotas superiores que são teorema do kernel do Lean (FORMALIZED + INDEPENDENTLY_REPRODUCED) | **547** de 1145 (481 + 66) |
 | cotas inferiores por estado (quase todas herdadas da literatura) | CLAIMED 1140 · CERTIFICATE_VERIFIED 3 · FORMALIZED 2 |
 | exatas fechadas aqui (o intervalo publicado estava aberto) | **4** (1 com as duas cotas no kernel; 3 com a inferior por certificado verificado fora do Lean) |
 | células com teorema Lean próprio | **15** (12 abaixo da melhor cota superior publicada que achamos) |

@@ -57,8 +57,8 @@ S, e só as do bloco B = {3,…,6} concordam em S^c. Medido (`fam.py` da sessão
 
 | bloco | palavras | cobre A^S para |
 |---|---|---|
-| A (3 símbolos) | 6 | todo |S| ≥ 4, e 18 dos 20 triplos (falha em {0,4,5} e {1,2,3}) |
-| B (4 símbolos) | 8 | todo |S| ≥ 4, e 4 triplos: {0,1,3}, {2,4,5}, {0,4,5}, {1,2,3} |
+| A (3 símbolos) | 6 | todo \|S\| ≥ 4, e 18 dos 20 triplos (falha em {0,4,5} e {1,2,3}) |
+| B (4 símbolos) | 8 | todo \|S\| ≥ 4, e 4 triplos: {0,1,3}, {2,4,5}, {0,4,5}, {1,2,3} |
 
 Os dois triplos que A não cobre são complementares, e B cobre os dois. Os 10 pares {S, S^c} de
 triplos ficam todos resolvidos: ou A cobre S, ou B cobre S^c. |S| ≤ 2 cai em B (|S^c| ≥ 4) e

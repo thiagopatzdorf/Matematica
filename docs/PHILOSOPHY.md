@@ -42,13 +42,17 @@ What does not point anywhere is conviction, and is written as such.
 **1. Cell.** A number `K_q(n,R)`: the smallest code of length `n` over `q` symbols that leaves every
 word within Hamming distance `R` of some codeword ([paper, Introduction](../paper/main.tex)).
 
-$$K_q(n,R) \;=\; \min\bigl\{\,|C| \;:\; C \subseteq \mathbb{Z}_q^n,\ \ \forall x \in \mathbb{Z}_q^n\ \ \exists c \in C,\ \ d_H(x,c) \le R \,\bigr\}$$
+```math
+K_q(n,R) \;=\; \min\bigl\lbrace\,|C| \;:\; C \subseteq \mathbb{Z}_q^n,\ \ \forall x \in \mathbb{Z}_q^n\ \ \exists c \in C,\ \ d_H(x,c) \le R \,\bigr\rbrace
+```
 
 Kéri's tables hold 1145 cells, with `q` from 2 to 21 ([ledger](../ledger/README.md)).
 
 **2. Bound.** An interval.
 
-$$\text{lower} \;\le\; K_q(n,R) \;\le\; \text{upper}$$
+```math
+\text{lower} \;\le\; K_q(n,R) \;\le\; \text{upper}
+```
 
 The upper bound is proved by showing a code.
 The lower bound, by proving that no smaller code exists.
@@ -114,7 +118,7 @@ The lower bounds are, almost all of them, inherited from the literature
 
 | proposition | evidence |
 |---|---|
-| **488 of the 1145 upper bounds** are `FORMALIZED` or `INDEPENDENTLY_REPRODUCED`. Among the lower bounds, 3 are `CERTIFICATE_VERIFIED` and 2 are `FORMALIZED`. | [`ledger/COBERTURA.md`](../ledger/COBERTURA.md) |
+| **547 of the 1145 upper bounds** are `FORMALIZED` or `INDEPENDENTLY_REPRODUCED`. Among the lower bounds, 3 are `CERTIFICATE_VERIFIED` and 2 are `FORMALIZED`. | [`ledger/COBERTURA.md`](../ledger/COBERTURA.md) |
 | **Two exact cells with both bounds in the kernel:** `K₂(6,1) = 12` and `K₇(4,2) = 19`. | [paper, "A certified ledger"](../paper/main.tex) · [LEAN_K742](exatos/LEAN_K742.md) |
 | **Three collapses that are potentially new**, not found in the literature we searched: `K₃(6,2) = 17`, `K₇(6,4) = 14`, `K₇(5,3) = 17`. All three lower bounds are `CERTIFICATE_VERIFIED`, not kernel theorems. | [NOVIDADE_V09](exatos/NOVIDADE_V09.md) · [ledger](../ledger/README.md) |
 
@@ -166,7 +170,9 @@ philosophy behind this work
 In a queue of $N$ tasks, $D$ of them distinct, starting from an empty base: exactly $D$ searches and
 $N$ verifications.
 
-$$\text{cost} \;=\; D \cdot \text{search} \;+\; N \cdot \text{verification}$$
+```math
+\text{cost} \;=\; D \cdot \text{search} \;+\; N \cdot \text{verification}
+```
 
 ([Conhecimento.lean](https://github.com/thiagopatzdorf/james-theorems/blob/12616cf56ed737a2cdfb9034753d5679c8091b49/JamesTheorems/Conhecimento.lean)).
 That the cost per task tends to the cost of checking when $D$ grows more slowly than $N$ is the

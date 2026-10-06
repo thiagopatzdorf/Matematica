@@ -43,13 +43,17 @@ O que não aponta é convicção, e está escrito como tal.
 toda palavra a distância de Hamming no máximo `R` de alguma palavra do código
 ([paper, Introdução](../paper/main.tex)).
 
-$$K_q(n,R) \;=\; \min\bigl\{\,|C| \;:\; C \subseteq \mathbb{Z}_q^n,\ \ \forall x \in \mathbb{Z}_q^n\ \ \exists c \in C,\ \ d_H(x,c) \le R \,\bigr\}$$
+```math
+K_q(n,R) \;=\; \min\bigl\lbrace\,|C| \;:\; C \subseteq \mathbb{Z}_q^n,\ \ \forall x \in \mathbb{Z}_q^n\ \ \exists c \in C,\ \ d_H(x,c) \le R \,\bigr\rbrace
+```
 
 As tabelas de Kéri guardam 1145 células, com `q` de 2 a 21 ([ledger](../ledger/README.md)).
 
 **2. Cota.** Um intervalo.
 
-$$\text{inferior} \;\le\; K_q(n,R) \;\le\; \text{superior}$$
+```math
+\text{inferior} \;\le\; K_q(n,R) \;\le\; \text{superior}
+```
 
 A superior se prova mostrando um código.
 A inferior, provando que nenhum código menor existe.
@@ -114,7 +118,7 @@ As cotas inferiores são, quase todas, herdadas da literatura ([cobertura](../le
 
 | proposição | evidência |
 |---|---|
-| **488 das 1145 cotas superiores** estão em `FORMALIZED` ou `INDEPENDENTLY_REPRODUCED`. Das inferiores, 3 estão em `CERTIFICATE_VERIFIED` e 2 em `FORMALIZED`. | [`ledger/COBERTURA.md`](../ledger/COBERTURA.md) |
+| **547 das 1145 cotas superiores** estão em `FORMALIZED` ou `INDEPENDENTLY_REPRODUCED`. Das inferiores, 3 estão em `CERTIFICATE_VERIFIED` e 2 em `FORMALIZED`. | [`ledger/COBERTURA.md`](../ledger/COBERTURA.md) |
 | **Duas células exatas com as duas cotas no kernel:** `K₂(6,1) = 12` e `K₇(4,2) = 19`. | [paper, "A certified ledger"](../paper/main.tex) · [LEAN_K742](exatos/LEAN_K742.md) |
 | **Três colapsos potencialmente novos**, não encontrados na literatura que pesquisamos: `K₃(6,2) = 17`, `K₇(6,4) = 14`, `K₇(5,3) = 17`. As três cotas inferiores são `CERTIFICATE_VERIFIED`, não teoremas do kernel. | [NOVIDADE_V09](exatos/NOVIDADE_V09.md) · [ledger](../ledger/README.md) |
 
@@ -166,7 +170,9 @@ este trabalho
 Numa fila de $N$ tarefas, $D$ delas distintas, partindo de base vazia: exatamente $D$ buscas e
 $N$ verificações.
 
-$$\text{custo} \;=\; D \cdot \text{busca} \;+\; N \cdot \text{verificação}$$
+```math
+\text{custo} \;=\; D \cdot \text{busca} \;+\; N \cdot \text{verificação}
+```
 
 ([Conhecimento.lean](https://github.com/thiagopatzdorf/james-theorems/blob/12616cf56ed737a2cdfb9034753d5679c8091b49/JamesTheorems/Conhecimento.lean)).
 Que o custo por tarefa tenda ao de verificar quando $D$ cresce mais devagar que $N$ é leitura do
