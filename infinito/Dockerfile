@@ -10,7 +10,7 @@ COPY ledger ./repo/ledger
 COPY data/codes ./repo/data/codes
 COPY data/structured ./repo/data/structured
 COPY tools/verify/verify.c ./repo/tools/verify/verify.c
-COPY README.md STATE_OF_ART.md VALIDATION.md REPRODUCE_1137.md LEAN_REVIEW.md LEAN_RED_TEAM.md ./repo/
+COPY README.md ./repo/
 COPY docs ./repo/docs
 RUN gcc -O2 -o repo/tools/verify/verify repo/tools/verify/verify.c && apt-get purge -y gcc libc6-dev && apt-get autoremove -y
 COPY infinito/infinito_mcp ./infinito_mcp

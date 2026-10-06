@@ -26,7 +26,7 @@ plano (seco por padrão); com `--executar` gera, verifica, registra no ledger e 
 * **Cota inferior ou inexistência** ("não há código menor"): prova no Lean ou prova SAT/LRAT verificada de forma
   independente. Um `INFEASIBLE` ou `NAO_EXISTE` de script de busca **não** é prova (ver `tools/exatos/README.md`).
 * **Novidade** ("melhor que a literatura"): é afirmação nossa, nunca do Lean. Cite a fonte comparada e a data da
-  conferência, como em `STATE_OF_ART.md`. Não chame de "recorde mundial" o que foi só "o menor valor que achamos".
+  conferência, como em `docs/literatura/STATE_OF_ART.md`. Não chame de "recorde mundial" o que foi só "o menor valor que achamos".
 * **Nunca** conta: opinião de modelo, "rodou sem erro", número sem comando que o reproduza. Cole o comando e a saída.
 
 ## Pull requests
@@ -66,14 +66,20 @@ Consultar o ledger e verificar códigos é grátis; computação pesada e Gemini
 ## Revisão
 
 A revisão confere três coisas, nesta ordem: (1) o avaliador exato aprova o candidato, reproduzido por quem revisa;
-(2) o enunciado formal diz o que a nota diz (revisão humana dos enunciados, como em `LEAN_REVIEW.md`); (3) nada que
+(2) o enunciado formal diz o que a nota diz (revisão humana dos enunciados, como em `docs/validacao/LEAN_REVIEW.md`); (3) nada que
 não foi medido virou afirmação. Quem revisa pergunta o que tornou o erro provável, não quem errou.
 
-## Em construção
+## Além dos códigos de cobertura
 
-Este hub está crescendo além dos códigos de cobertura. Em construção, ainda sem arquivos nesta branch: um diretório
-de problemas, com uma ficha por problema (enunciado, avaliador, estado, quem reivindicou) e modelos de issue para
-propor e reivindicar; um diretório de avaliadores, com um avaliador exato por tipo de problema, todos com a mesma
-interface (entrada candidata, saída aprovado ou reprovado e motivo); e um site com o mapa público das células e dos
-problemas abertos. Até chegarem, o ciclo acima roda pelo ledger e pelas issues. Se você quer propor um domínio novo,
-abra uma issue descrevendo qual seria o avaliador barato e exato: sem ele o problema ainda é subjetivo.
+O hub já tem as três peças para receber problemas de outros domínios:
+
+* **registro de problemas** em [problems/](problems/README.md): um Cartão por problema (enunciado, avaliador, estado,
+  quem reivindicou), com as regras em [problems/SPEC.md](problems/SPEC.md) e os formulários de issue
+  "Proposta de problema" e "Submissão de candidato";
+* **avaliadores** em [evaluators/](evaluators/README.md): um avaliador exato por tipo de problema, todos com o mesmo
+  contrato (entrada candidata; saída aprovado, reprovado ou não avaliável, com motivo);
+* **mapa público** em [site/](site/README.md), gerado do ledger.
+
+Se você quer propor um domínio novo, abra uma issue descrevendo qual seria o avaliador barato e exato: sem ele o
+problema ainda é subjetivo. Achou algo que o repositório afirma e não se sustenta? Use o formulário
+"Erro em certificado ou no ledger"; um erro achado vale mais que um acerto, porque vira regra.

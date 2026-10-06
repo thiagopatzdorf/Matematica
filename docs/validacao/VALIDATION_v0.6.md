@@ -4,9 +4,9 @@ Data: 2026-10-03. Branch `feat/v0.6`, que junta `feat/k794-1134`, `origin/feat/a
 `origin/main` (merges sem rebase e sem conflito). Toolchain: Lean 4.34.1 e Mathlib `v4.34.1`, os
 mesmos do `lake-manifest.json`. Máquina: contêiner com 4 vCPU (Xeon 2,1 GHz) e 15 GB de RAM.
 
-O padrão é o da v0.5 (`VALIDATION.md` e `LEAN_RED_TEAM.md`, feitos para o 1137): um teorema Lean
+O padrão é o da v0.5 (`docs/validacao/VALIDATION.md` e `docs/validacao/LEAN_RED_TEAM.md`, feitos para o 1137): um teorema Lean
 por célula, verificadores independentes sobre todo o espaço e mutações que **têm de falhar**.
-O red team da v0.6 está em `LEAN_RED_TEAM.md`, seção "v0.6".
+O red team da v0.6 está em `docs/validacao/LEAN_RED_TEAM.md`, seção "v0.6".
 
 ## Teoremas
 

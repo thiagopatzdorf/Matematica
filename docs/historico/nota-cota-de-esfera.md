@@ -1,6 +1,6 @@
 # A cota de esfera, verificada pelo kernel
 
-O paper, em inglês: [PDF](paper/main.pdf). A página pública é https://genesisinnovation.io/provas/paper.
+O paper, em inglês: [PDF](../../paper/main.pdf). A página pública é https://genesisinnovation.io/provas/paper.
 
 ## O que o Lean aceitou, e o que ainda não é teorema.
 

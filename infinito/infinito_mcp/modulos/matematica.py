@@ -17,9 +17,9 @@ from pathlib import Path
 
 NOME = "matematica"
 DOCS = {  # allowlist: o agente lê estes, não caminhos arbitrários
-    "readme": "README.md", "estado_da_arte": "STATE_OF_ART.md", "validacao": "VALIDATION.md",
-    "reproduzir_1137": "REPRODUCE_1137.md", "ledger": "ledger/README.md", "formato_de_codigo": "docs/code-format.md",
-    "revisao_lean": "LEAN_REVIEW.md", "red_team_lean": "LEAN_RED_TEAM.md",
+    "readme": "README.md", "estado_da_arte": "docs/literatura/STATE_OF_ART.md", "validacao": "docs/validacao/VALIDATION.md",
+    "reproduzir_1137": "docs/validacao/REPRODUCE_1137.md", "ledger": "ledger/README.md", "formato_de_codigo": "docs/code-format.md",
+    "revisao_lean": "docs/validacao/LEAN_REVIEW.md", "red_team_lean": "docs/validacao/LEAN_RED_TEAM.md",
 }
 _CELULA = re.compile(r"^K(\d+)\((\d+),(\d+)\)$")
 _ARQ_CODIGO = re.compile(r"^q\d+_n\d+_R\d+_M\d+\.(txt|json)$")

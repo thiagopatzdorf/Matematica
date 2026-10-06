@@ -6,3 +6,6 @@ contact_links:
   - name: Como propor, reivindicar e submeter
     url: https://github.com/thiagopatzdorf/Matematica/blob/main/problems/README.md
     about: Passo a passo com um exemplo que roda.
+  - name: Relatar falha de segurança (não use issue pública)
+    url: https://github.com/thiagopatzdorf/Matematica/blob/main/SECURITY.md
+    about: Token, crédito do Infinito, CI. Escreva para o contato do SECURITY.md.
