@@ -223,6 +223,8 @@ def construcoes() -> list[dict]:
     golay3 = _sistematico(3, _ciclico(3, 11, [2, 0, 1, 2, 1, 1]))
     cs = [
         (2, 15, 1, _hamming(2, 4), "código de Hamming binário [15,11]", "h"),
+        (2, 31, 1, _hamming(2, 5), "código de Hamming binário [31,26]", "h"),
+        (3, 13, 1, _hamming(3, 3), "código de Hamming [13,10]_3", "h"),
         (2, 23, 3, golay2, "código de Golay binário [23,12] (cíclico, g = 1+x²+x⁴+x⁵+x⁶+x¹⁰+x¹¹)", "h"),
         (3, 11, 2, golay3, "código de Golay ternário [11,6] (cíclico, g = 2+x²+2x³+x⁴+x⁵)", "h"),
         (5, 6, 1, _hamming(5, 2), "código de Hamming [6,4]_5", "h"),

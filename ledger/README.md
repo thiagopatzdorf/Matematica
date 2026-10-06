@@ -137,7 +137,7 @@ certificado mais barato que atinge `best.ub` e gera o Lean.
   marca como código de Hamming, código perfeito (Golay) ou código linear (chaves `h` e `p`).
   `Syn.lin_cert` (`CoveringLean/SynLinear.lean`) confere `q^(n-k)` pontos do transversal, sem a
   lista de `q^k` palavras; o segundo verificador é o avaliador de síndromes em Python
-  (`INDEPENDENTLY_REPRODUCED`). Hoje: dez códigos, de `K2(15,1) ≤ 2048` a `K13(8,2) ≤ 371293`.
+  (`INDEPENDENTLY_REPRODUCED`). Hoje: treze códigos, de `K2(19,5) ≤ 64` a `K2(31,1) ≤ 2^26`.
 * **Regra** a partir de outras células (`CoveringLean/Regras.lean`): soma direta, alongamento
   livre, coordenada muda, punção, monotonia do raio, projeção de alfabeto. São as regras das
   chaves `c`, `e` e `f` do Kéri para q ≥ 6 e das entradas sem chave ("trivial"). A projeção só vai

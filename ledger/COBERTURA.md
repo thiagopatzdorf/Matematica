@@ -11,7 +11,7 @@ Total: 1145 células; exatas (inferior = superior): 523; exatas com as duas cota
 
 | lado | CLAIMED | WITNESS_CHECKED | CERTIFICATE_VERIFIED | FORMALIZED | INDEPENDENTLY_REPRODUCED |
 |---|---:|---:|---:|---:|---:|
-| ub | 603 | 0 | 0 | 478 | 64 |
+| ub | 598 | 0 | 0 | 481 | 66 |
 | lb | 1140 | 0 | 3 | 2 | 0 |
 
 Cotas superiores com prova Lean externa da mesma cota (Florath, commit fixado, não reconstruída aqui, por isso não sobe o estado): 527.
@@ -20,8 +20,8 @@ Cotas superiores com prova Lean externa da mesma cota (Florath, commit fixado, n
 
 | q | células | ub C | ub W | ub V | ub F | ub I | lb C | lb W | lb V | lb F | lb I | exatas | ub Lean externo |
 |---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|
-| 2 | 285 | 158 | 0 | 0 | 113 | 14 | 284 | 0 | 0 | 1 | 0 | 107 | 116 |
-| 3 | 84 | 35 | 0 | 0 | 43 | 6 | 83 | 0 | 1 | 0 | 0 | 45 | 50 |
+| 2 | 285 | 155 | 0 | 0 | 115 | 15 | 284 | 0 | 0 | 1 | 0 | 107 | 116 |
+| 3 | 84 | 33 | 0 | 0 | 44 | 7 | 83 | 0 | 1 | 0 | 0 | 45 | 50 |
 | 4 | 60 | 30 | 0 | 0 | 26 | 4 | 60 | 0 | 0 | 0 | 0 | 31 | 33 |
 | 5 | 60 | 24 | 0 | 0 | 26 | 10 | 60 | 0 | 0 | 0 | 0 | 27 | 28 |
 | 6 | 52 | 30 | 0 | 0 | 20 | 2 | 52 | 0 | 0 | 0 | 0 | 25 | 24 |
@@ -172,6 +172,9 @@ Cotas superiores com prova Lean externa da mesma cota (Florath, commit fixado, n
 | K2(30,4) | 65536 | FORMALIZED | 38067 | CLAIMED | não |
 | K2(30,6) | 8192 | FORMALIZED | 1727 | CLAIMED | não |
 | K2(30,10) | 128 | FORMALIZED | 27 | CLAIMED | não |
+| K2(31,1) | 67108864 | INDEPENDENTLY_REPRODUCED | 67108864 | CLAIMED | sim |
+| K2(32,1) | 134217728 | FORMALIZED | 134217728 | CLAIMED | sim |
+| K2(33,1) | 268435456 | FORMALIZED | 253764801 | CLAIMED | não |
 | K3(1,1) | 1 | FORMALIZED | 1 | CLAIMED | sim |
 | K3(2,1) | 3 | FORMALIZED | 3 | CLAIMED | sim |
 | K3(2,2) | 1 | FORMALIZED | 1 | CLAIMED | sim |
@@ -216,8 +219,10 @@ Cotas superiores com prova Lean externa da mesma cota (Florath, commit fixado, n
 | K3(11,8) | 3 | FORMALIZED | 3 | CLAIMED | sim |
 | K3(12,2) | 2187 | FORMALIZED | 1919 | CLAIMED | não |
 | K3(12,8) | 3 | FORMALIZED | 3 | CLAIMED | sim |
+| K3(13,1) | 59049 | INDEPENDENTLY_REPRODUCED | 59049 | CLAIMED | sim |
 | K3(13,2) | 6561 | FORMALIZED | 5062 | CLAIMED | não |
 | K3(13,8) | 3 | FORMALIZED | 3 | CLAIMED | sim |
+| K3(14,1) | 177147 | FORMALIZED | 166610 | CLAIMED | não |
 | K3(14,2) | 19683 | FORMALIZED | 12323 | CLAIMED | não |
 | K3(14,7) | 27 | FORMALIZED | 11 | CLAIMED | não |
 | K3(14,8) | 9 | FORMALIZED | 9 | CLAIMED | sim |

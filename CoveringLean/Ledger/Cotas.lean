@@ -7,7 +7,9 @@ import CoveringLean.Ledger.W3
 import CoveringLean.Ledger.Lin_K2_15_1
 import CoveringLean.Ledger.Lin_K2_19_5
 import CoveringLean.Ledger.Lin_K2_23_3
+import CoveringLean.Ledger.Lin_K2_31_1
 import CoveringLean.Ledger.Lin_K3_11_2
+import CoveringLean.Ledger.Lin_K3_13_1
 import CoveringLean.Ledger.Lin_K5_6_1
 import CoveringLean.Ledger.Lin_K7_6_2
 import CoveringLean.Ledger.Lin_K7_7_4
@@ -1397,156 +1399,171 @@ theorem u2425 : UB 2 19 5 64 :=
 -- código de Golay binário [23,12] (cíclico, g = 1+x²+x⁴+x⁵+x⁶+x¹⁰+x¹¹)
 theorem u2426 : UB 2 23 3 4096 :=
   Lin.l_K2_23_3
+-- código de Hamming binário [31,26]
+theorem u2427 : UB 2 31 1 67108864 :=
+  Lin.l_K2_31_1
 -- código de Golay ternário [11,6] (cíclico, g = 2+x²+2x³+x⁴+x⁵)
-theorem u2427 : UB 3 11 2 729 :=
+theorem u2428 : UB 3 11 2 729 :=
   Lin.l_K3_11_2
+-- código de Hamming [13,10]_3
+theorem u2429 : UB 3 13 1 59049 :=
+  Lin.l_K3_13_1
 -- código de Hamming [6,4]_5
-theorem u2428 : UB 5 6 1 625 :=
+theorem u2430 : UB 5 6 1 625 :=
   Lin.l_K5_6_1
 -- código linear [6,3]_7 de raio 2
-theorem u2429 : UB 7 6 2 343 :=
+theorem u2431 : UB 7 6 2 343 :=
   Lin.l_K7_6_2
 -- código linear [7,2]_7 de raio 4
-theorem u2430 : UB 7 7 4 49 :=
+theorem u2432 : UB 7 7 4 49 :=
   Lin.l_K7_7_4
 -- código de Hamming [8,6]_7
-theorem u2431 : UB 7 8 1 117649 :=
+theorem u2433 : UB 7 8 1 117649 :=
   Lin.l_K7_8_1
 -- coordenada muda (t = 1) de K2(3,1) ≤ 2
-theorem u2432 : UB 2 4 1 4 :=
+theorem u2434 : UB 2 4 1 4 :=
   (UB.lengthen_dummy 1 u10).weaken (by decide) (by decide) (by decide)
 -- coordenada muda (t = 1) de K2(7,3) ≤ 2
-theorem u2433 : UB 2 8 3 4 :=
+theorem u2435 : UB 2 8 3 4 :=
   (UB.lengthen_dummy 1 u48).weaken (by decide) (by decide) (by decide)
 -- coordenada muda (t = 1) de K2(9,4) ≤ 2
-theorem u2437 : UB 2 10 4 4 :=
+theorem u2439 : UB 2 10 4 4 :=
   (UB.lengthen_dummy 1 u76).weaken (by decide) (by decide) (by decide)
 -- coordenada muda (t = 1) de K2(11,5) ≤ 2
-theorem u2444 : UB 2 12 5 4 :=
+theorem u2446 : UB 2 12 5 4 :=
   (UB.lengthen_dummy 1 u110).weaken (by decide) (by decide) (by decide)
 -- coordenada muda (t = 1) de K2(13,6) ≤ 2
-theorem u2455 : UB 2 14 6 4 :=
+theorem u2457 : UB 2 14 6 4 :=
   (UB.lengthen_dummy 1 u150).weaken (by decide) (by decide) (by decide)
 -- coordenada muda (t = 1) de K2(15,1) ≤ 2048
-theorem u2461 : UB 2 16 1 4096 :=
+theorem u2463 : UB 2 16 1 4096 :=
   (UB.lengthen_dummy 1 u2424).weaken (by decide) (by decide) (by decide)
 -- coordenada muda (t = 1) de K2(15,7) ≤ 2
-theorem u2467 : UB 2 16 7 4 :=
+theorem u2469 : UB 2 16 7 4 :=
   (UB.lengthen_dummy 1 u196).weaken (by decide) (by decide) (by decide)
 -- coordenada muda (t = 1) de K2(16,1) ≤ 4096
-theorem u2468 : UB 2 17 1 8192 :=
-  (UB.lengthen_dummy 1 u2461).weaken (by decide) (by decide) (by decide)
+theorem u2470 : UB 2 17 1 8192 :=
+  (UB.lengthen_dummy 1 u2463).weaken (by decide) (by decide) (by decide)
 -- coordenada muda (t = 1) de K2(17,1) ≤ 8192
-theorem u2475 : UB 2 18 1 16384 :=
-  (UB.lengthen_dummy 1 u2468).weaken (by decide) (by decide) (by decide)
+theorem u2477 : UB 2 18 1 16384 :=
+  (UB.lengthen_dummy 1 u2470).weaken (by decide) (by decide) (by decide)
 -- punção (t = 1) de K2(19,5) ≤ 64
-theorem u2479 : UB 2 18 5 64 :=
+theorem u2481 : UB 2 18 5 64 :=
   UB.puncture (n := 18) 1 (u2425.weaken (by decide) le_rfl le_rfl)
 -- coordenada muda (t = 1) de K2(17,8) ≤ 2
-theorem u2482 : UB 2 18 8 4 :=
+theorem u2484 : UB 2 18 8 4 :=
   (UB.lengthen_dummy 1 u248).weaken (by decide) (by decide) (by decide)
 -- coordenada muda (t = 1) de K2(19,5) ≤ 64
-theorem u2494 : UB 2 20 5 128 :=
+theorem u2496 : UB 2 20 5 128 :=
   (UB.lengthen_dummy 1 u2425).weaken (by decide) (by decide) (by decide)
 -- alongamento livre (t = 1) de K2(19,5) ≤ 64
-theorem u2495 : UB 2 20 6 64 :=
+theorem u2497 : UB 2 20 6 64 :=
   (UB.lengthen_free 1 u2425).weaken (by decide) (by decide) (by decide)
 -- coordenada muda (t = 1) de K2(19,9) ≤ 2
-theorem u2498 : UB 2 20 9 4 :=
+theorem u2500 : UB 2 20 9 4 :=
   (UB.lengthen_dummy 1 u306).weaken (by decide) (by decide) (by decide)
 -- coordenada muda (t = 1) de K2(20,5) ≤ 128
-theorem u2503 : UB 2 21 5 256 :=
-  (UB.lengthen_dummy 1 u2494).weaken (by decide) (by decide) (by decide)
+theorem u2505 : UB 2 21 5 256 :=
+  (UB.lengthen_dummy 1 u2496).weaken (by decide) (by decide) (by decide)
 -- punção (t = 1) de K2(23,3) ≤ 4096
-theorem u2510 : UB 2 22 3 4096 :=
+theorem u2512 : UB 2 22 3 4096 :=
   UB.puncture (n := 22) 1 (u2426.weaken (by decide) le_rfl le_rfl)
 -- coordenada muda (t = 1) de K2(21,5) ≤ 256
-theorem u2512 : UB 2 22 5 512 :=
-  (UB.lengthen_dummy 1 u2503).weaken (by decide) (by decide) (by decide)
+theorem u2514 : UB 2 22 5 512 :=
+  (UB.lengthen_dummy 1 u2505).weaken (by decide) (by decide) (by decide)
 -- soma direta de K2(3,1) ≤ 2 e K2(19,5) ≤ 64
-theorem u2513 : UB 2 22 6 128 :=
+theorem u2515 : UB 2 22 6 128 :=
   (UB.direct_sum u10 u2425).weaken (by decide) (by decide) (by decide)
 -- coordenada muda (t = 1) de K2(21,10) ≤ 2
-theorem u2517 : UB 2 22 10 4 :=
+theorem u2519 : UB 2 22 10 4 :=
   (UB.lengthen_dummy 1 u370).weaken (by decide) (by decide) (by decide)
 -- coordenada muda (t = 1) de K2(23,3) ≤ 4096
-theorem u2529 : UB 2 24 3 8192 :=
+theorem u2531 : UB 2 24 3 8192 :=
   (UB.lengthen_dummy 1 u2426).weaken (by decide) (by decide) (by decide)
 -- alongamento livre (t = 1) de K2(23,3) ≤ 4096
-theorem u2530 : UB 2 24 4 4096 :=
+theorem u2532 : UB 2 24 4 4096 :=
   (UB.lengthen_free 1 u2426).weaken (by decide) (by decide) (by decide)
 -- soma direta de K2(5,2) ≤ 2 e K2(19,5) ≤ 64
-theorem u2533 : UB 2 24 7 128 :=
+theorem u2535 : UB 2 24 7 128 :=
   (UB.direct_sum u26 u2425).weaken (by decide) (by decide) (by decide)
 -- coordenada muda (t = 1) de K2(24,3) ≤ 8192
-theorem u2540 : UB 2 25 3 16384 :=
-  (UB.lengthen_dummy 1 u2529).weaken (by decide) (by decide) (by decide)
+theorem u2542 : UB 2 25 3 16384 :=
+  (UB.lengthen_dummy 1 u2531).weaken (by decide) (by decide) (by decide)
 -- coordenada muda (t = 1) de K2(25,3) ≤ 16384
-theorem u2551 : UB 2 26 3 32768 :=
-  (UB.lengthen_dummy 1 u2540).weaken (by decide) (by decide) (by decide)
+theorem u2553 : UB 2 26 3 32768 :=
+  (UB.lengthen_dummy 1 u2542).weaken (by decide) (by decide) (by decide)
 -- soma direta de K2(3,1) ≤ 2 e K2(23,3) ≤ 4096
-theorem u2552 : UB 2 26 4 8192 :=
+theorem u2554 : UB 2 26 4 8192 :=
   (UB.direct_sum u10 u2426).weaken (by decide) (by decide) (by decide)
 -- soma direta de K2(7,1) ≤ 16 e K2(19,5) ≤ 64
-theorem u2554 : UB 2 26 6 1024 :=
+theorem u2556 : UB 2 26 6 1024 :=
   (UB.direct_sum u2397 u2425).weaken (by decide) (by decide) (by decide)
 -- soma direta de K2(7,3) ≤ 2 e K2(19,5) ≤ 64
-theorem u2556 : UB 2 26 8 128 :=
+theorem u2558 : UB 2 26 8 128 :=
   (UB.direct_sum u48 u2425).weaken (by decide) (by decide) (by decide)
 -- coordenada muda (t = 1) de K2(26,3) ≤ 32768
-theorem u2563 : UB 2 27 3 65536 :=
-  (UB.lengthen_dummy 1 u2551).weaken (by decide) (by decide) (by decide)
+theorem u2565 : UB 2 27 3 65536 :=
+  (UB.lengthen_dummy 1 u2553).weaken (by decide) (by decide) (by decide)
 -- coordenada muda (t = 1) de K2(27,3) ≤ 65536
-theorem u2575 : UB 2 28 3 131072 :=
-  (UB.lengthen_dummy 1 u2563).weaken (by decide) (by decide) (by decide)
+theorem u2577 : UB 2 28 3 131072 :=
+  (UB.lengthen_dummy 1 u2565).weaken (by decide) (by decide) (by decide)
 -- soma direta de K2(5,2) ≤ 2 e K2(23,3) ≤ 4096
-theorem u2577 : UB 2 28 5 8192 :=
+theorem u2579 : UB 2 28 5 8192 :=
   (UB.direct_sum u26 u2426).weaken (by decide) (by decide) (by decide)
 -- soma direta de K2(9,4) ≤ 2 e K2(19,5) ≤ 64
-theorem u2581 : UB 2 28 9 128 :=
+theorem u2583 : UB 2 28 9 128 :=
   (UB.direct_sum u76 u2425).weaken (by decide) (by decide) (by decide)
 -- coordenada muda (t = 1) de K2(28,3) ≤ 131072
-theorem u2588 : UB 2 29 3 262144 :=
-  (UB.lengthen_dummy 1 u2575).weaken (by decide) (by decide) (by decide)
+theorem u2590 : UB 2 29 3 262144 :=
+  (UB.lengthen_dummy 1 u2577).weaken (by decide) (by decide) (by decide)
 -- soma direta de K2(15,1) ≤ 2048 e K2(15,1) ≤ 2048
-theorem u2600 : UB 2 30 2 4194304 :=
+theorem u2602 : UB 2 30 2 4194304 :=
   (UB.direct_sum u2424 u2424).weaken (by decide) (by decide) (by decide)
 -- coordenada muda (t = 1) de K2(29,3) ≤ 262144
-theorem u2601 : UB 2 30 3 524288 :=
-  (UB.lengthen_dummy 1 u2588).weaken (by decide) (by decide) (by decide)
+theorem u2603 : UB 2 30 3 524288 :=
+  (UB.lengthen_dummy 1 u2590).weaken (by decide) (by decide) (by decide)
 -- soma direta de K2(7,1) ≤ 16 e K2(23,3) ≤ 4096
-theorem u2602 : UB 2 30 4 65536 :=
+theorem u2604 : UB 2 30 4 65536 :=
   (UB.direct_sum u2397 u2426).weaken (by decide) (by decide) (by decide)
 -- soma direta de K2(7,3) ≤ 2 e K2(23,3) ≤ 4096
-theorem u2604 : UB 2 30 6 8192 :=
+theorem u2606 : UB 2 30 6 8192 :=
   (UB.direct_sum u48 u2426).weaken (by decide) (by decide) (by decide)
 -- soma direta de K2(11,5) ≤ 2 e K2(19,5) ≤ 64
-theorem u2608 : UB 2 30 10 128 :=
+theorem u2610 : UB 2 30 10 128 :=
   (UB.direct_sum u110 u2425).weaken (by decide) (by decide) (by decide)
+-- coordenada muda (t = 1) de K2(31,1) ≤ 67108864
+theorem u2628 : UB 2 32 1 134217728 :=
+  (UB.lengthen_dummy 1 u2427).weaken (by decide) (by decide) (by decide)
+-- coordenada muda (t = 1) de K2(32,1) ≤ 134217728
+theorem u2643 : UB 2 33 1 268435456 :=
+  (UB.lengthen_dummy 1 u2628).weaken (by decide) (by decide) (by decide)
 -- coordenada muda (t = 1) de K3(4,1) ≤ 9
-theorem u2657 : UB 3 5 1 27 :=
+theorem u2658 : UB 3 5 1 27 :=
   (UB.lengthen_dummy 1 u2404).weaken (by decide) (by decide) (by decide)
 -- soma direta de K3(4,1) ≤ 9 e K3(4,1) ≤ 9
-theorem u2663 : UB 3 8 2 81 :=
+theorem u2664 : UB 3 8 2 81 :=
   (UB.direct_sum u2404 u2404).weaken (by decide) (by decide) (by decide)
 -- soma direta de K3(4,1) ≤ 9 e K3(4,2) ≤ 3
-theorem u2664 : UB 3 8 3 27 :=
+theorem u2665 : UB 3 8 3 27 :=
   (UB.direct_sum u2404 u932).weaken (by decide) (by decide) (by decide)
 -- coordenada muda (t = 1) de K3(7,4) ≤ 3
-theorem u2665 : UB 3 8 4 9 :=
+theorem u2666 : UB 3 8 4 9 :=
   (UB.lengthen_dummy 1 u961).weaken (by decide) (by decide) (by decide)
 -- soma direta de K3(4,1) ≤ 9 e K3(7,4) ≤ 3
-theorem u2679 : UB 3 11 5 27 :=
+theorem u2680 : UB 3 11 5 27 :=
   (UB.direct_sum u2404 u961).weaken (by decide) (by decide) (by decide)
 -- coordenada muda (t = 1) de K3(10,6) ≤ 3
-theorem u2680 : UB 3 11 6 9 :=
+theorem u2681 : UB 3 11 6 9 :=
   (UB.lengthen_dummy 1 u1002).weaken (by decide) (by decide) (by decide)
 -- coordenada muda (t = 1) de K3(11,2) ≤ 729
-theorem u2682 : UB 3 12 2 2187 :=
-  (UB.lengthen_dummy 1 u2427).weaken (by decide) (by decide) (by decide)
+theorem u2683 : UB 3 12 2 2187 :=
+  (UB.lengthen_dummy 1 u2428).weaken (by decide) (by decide) (by decide)
 -- coordenada muda (t = 1) de K3(12,2) ≤ 2187
 theorem u2689 : UB 3 13 2 6561 :=
-  (UB.lengthen_dummy 1 u2682).weaken (by decide) (by decide) (by decide)
+  (UB.lengthen_dummy 1 u2683).weaken (by decide) (by decide) (by decide)
+-- coordenada muda (t = 1) de K3(13,1) ≤ 59049
+theorem u2695 : UB 3 14 1 177147 :=
+  (UB.lengthen_dummy 1 u2429).weaken (by decide) (by decide) (by decide)
 -- coordenada muda (t = 1) de K3(13,2) ≤ 6561
 theorem u2696 : UB 3 14 2 19683 :=
   (UB.lengthen_dummy 1 u2689).weaken (by decide) (by decide) (by decide)
@@ -1561,7 +1578,7 @@ theorem u2727 : UB 4 10 6 16 :=
   (UB.lengthen_dummy 1 u1157).weaken (by decide) (by decide) (by decide)
 -- coordenada muda (t = 1) de K5(6,1) ≤ 625
 theorem u2741 : UB 5 7 1 3125 :=
-  (UB.lengthen_dummy 1 u2428).weaken (by decide) (by decide) (by decide)
+  (UB.lengthen_dummy 1 u2430).weaken (by decide) (by decide) (by decide)
 -- coordenada muda (t = 1) de K5(7,1) ≤ 3125
 theorem u2745 : UB 5 8 1 15625 :=
   (UB.lengthen_dummy 1 u2741).weaken (by decide) (by decide) (by decide)
@@ -1573,19 +1590,19 @@ theorem u2756 : UB 5 10 1 390625 :=
   (UB.lengthen_dummy 1 u2750).weaken (by decide) (by decide) (by decide)
 -- coordenada muda (t = 1) de K7(6,2) ≤ 343
 theorem u2808 : UB 7 7 2 2401 :=
-  (UB.lengthen_dummy 1 u2429).weaken (by decide) (by decide) (by decide)
+  (UB.lengthen_dummy 1 u2431).weaken (by decide) (by decide) (by decide)
 -- alongamento livre (t = 1) de K7(6,2) ≤ 343
 theorem u2809 : UB 7 7 3 343 :=
-  (UB.lengthen_free 1 u2429).weaken (by decide) (by decide) (by decide)
+  (UB.lengthen_free 1 u2431).weaken (by decide) (by decide) (by decide)
 -- alongamento livre (t = 1) de K7(7,4) ≤ 49
 theorem u2814 : UB 7 8 5 49 :=
-  (UB.lengthen_free 1 u2430).weaken (by decide) (by decide) (by decide)
+  (UB.lengthen_free 1 u2432).weaken (by decide) (by decide) (by decide)
 -- coordenada muda (t = 1) de K7(8,1) ≤ 117649
 theorem u2815 : UB 7 9 1 823543 :=
-  (UB.lengthen_dummy 1 u2431).weaken (by decide) (by decide) (by decide)
+  (UB.lengthen_dummy 1 u2433).weaken (by decide) (by decide) (by decide)
 -- soma direta de K7(3,1) ≤ 25 e K7(6,2) ≤ 343
 theorem u2817 : UB 7 9 3 8575 :=
-  (UB.direct_sum u2415 u2429).weaken (by decide) (by decide) (by decide)
+  (UB.direct_sum u2415 u2431).weaken (by decide) (by decide) (by decide)
 -- coordenada muda (t = 1) de K7(9,1) ≤ 823543
 theorem u2821 : UB 7 10 1 5764801 :=
   (UB.lengthen_dummy 1 u2815).weaken (by decide) (by decide) (by decide)
@@ -1620,7 +1637,7 @@ theorem K2_2_2_le_1 : K 2 2 2 ≤ 1 := K_le u7
 theorem K2_3_1_le_2 : K 2 3 1 ≤ 2 := K_le u10
 theorem K2_3_2_le_2 : K 2 3 2 ≤ 2 := K_le u12
 theorem K2_3_3_le_1 : K 2 3 3 ≤ 1 := K_le u14
-theorem K2_4_1_le_4 : K 2 4 1 ≤ 4 := K_le u2432
+theorem K2_4_1_le_4 : K 2 4 1 ≤ 4 := K_le u2434
 theorem K2_4_2_le_2 : K 2 4 2 ≤ 2 := K_le u18
 theorem K2_4_3_le_2 : K 2 4 3 ≤ 2 := K_le u20
 theorem K2_4_4_le_1 : K 2 4 4 ≤ 1 := K_le u22
@@ -1644,7 +1661,7 @@ theorem K2_7_6_le_2 : K 2 7 6 ≤ 2 := K_le u54
 theorem K2_7_7_le_1 : K 2 7 7 ≤ 1 := K_le u56
 theorem K2_8_1_le_32 : K 2 8 1 ≤ 32 := K_le u2399
 theorem K2_8_2_le_12 : K 2 8 2 ≤ 12 := K_le u2400
-theorem K2_8_3_le_4 : K 2 8 3 ≤ 4 := K_le u2433
+theorem K2_8_3_le_4 : K 2 8 3 ≤ 4 := K_le u2435
 theorem K2_8_4_le_2 : K 2 8 4 ≤ 2 := K_le u62
 theorem K2_8_5_le_2 : K 2 8 5 ≤ 2 := K_le u64
 theorem K2_8_6_le_2 : K 2 8 6 ≤ 2 := K_le u66
@@ -1659,7 +1676,7 @@ theorem K2_9_7_le_2 : K 2 9 7 ≤ 2 := K_le u82
 theorem K2_9_8_le_2 : K 2 9 8 ≤ 2 := K_le u84
 theorem K2_9_9_le_1 : K 2 9 9 ≤ 1 := K_le u86
 theorem K2_10_3_le_12 : K 2 10 3 ≤ 12 := K_le u2391
-theorem K2_10_4_le_4 : K 2 10 4 ≤ 4 := K_le u2437
+theorem K2_10_4_le_4 : K 2 10 4 ≤ 4 := K_le u2439
 theorem K2_10_5_le_2 : K 2 10 5 ≤ 2 := K_le u93
 theorem K2_10_6_le_2 : K 2 10 6 ≤ 2 := K_le u95
 theorem K2_10_7_le_2 : K 2 10 7 ≤ 2 := K_le u97
@@ -1674,7 +1691,7 @@ theorem K2_11_7_le_2 : K 2 11 7 ≤ 2 := K_le u114
 theorem K2_11_8_le_2 : K 2 11 8 ≤ 2 := K_le u116
 theorem K2_11_9_le_2 : K 2 11 9 ≤ 2 := K_le u118
 theorem K2_11_10_le_2 : K 2 11 10 ≤ 2 := K_le u120
-theorem K2_12_5_le_4 : K 2 12 5 ≤ 4 := K_le u2444
+theorem K2_12_5_le_4 : K 2 12 5 ≤ 4 := K_le u2446
 theorem K2_12_6_le_2 : K 2 12 6 ≤ 2 := K_le u130
 theorem K2_12_7_le_2 : K 2 12 7 ≤ 2 := K_le u132
 theorem K2_12_8_le_2 : K 2 12 8 ≤ 2 := K_le u134
@@ -1685,7 +1702,7 @@ theorem K2_13_7_le_2 : K 2 13 7 ≤ 2 := K_le u152
 theorem K2_13_8_le_2 : K 2 13 8 ≤ 2 := K_le u154
 theorem K2_13_9_le_2 : K 2 13 9 ≤ 2 := K_le u156
 theorem K2_13_10_le_2 : K 2 13 10 ≤ 2 := K_le u158
-theorem K2_14_6_le_4 : K 2 14 6 ≤ 4 := K_le u2455
+theorem K2_14_6_le_4 : K 2 14 6 ≤ 4 := K_le u2457
 theorem K2_14_7_le_2 : K 2 14 7 ≤ 2 := K_le u173
 theorem K2_14_8_le_2 : K 2 14 8 ≤ 2 := K_le u175
 theorem K2_14_9_le_2 : K 2 14 9 ≤ 2 := K_le u177
@@ -1695,52 +1712,55 @@ theorem K2_15_7_le_2 : K 2 15 7 ≤ 2 := K_le u196
 theorem K2_15_8_le_2 : K 2 15 8 ≤ 2 := K_le u198
 theorem K2_15_9_le_2 : K 2 15 9 ≤ 2 := K_le u200
 theorem K2_15_10_le_2 : K 2 15 10 ≤ 2 := K_le u202
-theorem K2_16_1_le_4096 : K 2 16 1 ≤ 4096 := K_le u2461
-theorem K2_16_7_le_4 : K 2 16 7 ≤ 4 := K_le u2467
+theorem K2_16_1_le_4096 : K 2 16 1 ≤ 4096 := K_le u2463
+theorem K2_16_7_le_4 : K 2 16 7 ≤ 4 := K_le u2469
 theorem K2_16_8_le_2 : K 2 16 8 ≤ 2 := K_le u222
 theorem K2_16_9_le_2 : K 2 16 9 ≤ 2 := K_le u224
 theorem K2_16_10_le_2 : K 2 16 10 ≤ 2 := K_le u226
-theorem K2_17_1_le_8192 : K 2 17 1 ≤ 8192 := K_le u2468
+theorem K2_17_1_le_8192 : K 2 17 1 ≤ 8192 := K_le u2470
 theorem K2_17_8_le_2 : K 2 17 8 ≤ 2 := K_le u248
 theorem K2_17_9_le_2 : K 2 17 9 ≤ 2 := K_le u250
 theorem K2_17_10_le_2 : K 2 17 10 ≤ 2 := K_le u252
-theorem K2_18_1_le_16384 : K 2 18 1 ≤ 16384 := K_le u2475
-theorem K2_18_5_le_64 : K 2 18 5 ≤ 64 := K_le u2479
-theorem K2_18_8_le_4 : K 2 18 8 ≤ 4 := K_le u2482
+theorem K2_18_1_le_16384 : K 2 18 1 ≤ 16384 := K_le u2477
+theorem K2_18_5_le_64 : K 2 18 5 ≤ 64 := K_le u2481
+theorem K2_18_8_le_4 : K 2 18 8 ≤ 4 := K_le u2484
 theorem K2_18_9_le_2 : K 2 18 9 ≤ 2 := K_le u277
 theorem K2_18_10_le_2 : K 2 18 10 ≤ 2 := K_le u279
 theorem K2_19_5_le_64 : K 2 19 5 ≤ 64 := K_le u2425
 theorem K2_19_9_le_2 : K 2 19 9 ≤ 2 := K_le u306
 theorem K2_19_10_le_2 : K 2 19 10 ≤ 2 := K_le u308
-theorem K2_20_5_le_128 : K 2 20 5 ≤ 128 := K_le u2494
-theorem K2_20_6_le_64 : K 2 20 6 ≤ 64 := K_le u2495
-theorem K2_20_9_le_4 : K 2 20 9 ≤ 4 := K_le u2498
+theorem K2_20_5_le_128 : K 2 20 5 ≤ 128 := K_le u2496
+theorem K2_20_6_le_64 : K 2 20 6 ≤ 64 := K_le u2497
+theorem K2_20_9_le_4 : K 2 20 9 ≤ 4 := K_le u2500
 theorem K2_20_10_le_2 : K 2 20 10 ≤ 2 := K_le u338
-theorem K2_21_5_le_256 : K 2 21 5 ≤ 256 := K_le u2503
+theorem K2_21_5_le_256 : K 2 21 5 ≤ 256 := K_le u2505
 theorem K2_21_10_le_2 : K 2 21 10 ≤ 2 := K_le u370
-theorem K2_22_3_le_4096 : K 2 22 3 ≤ 4096 := K_le u2510
-theorem K2_22_5_le_512 : K 2 22 5 ≤ 512 := K_le u2512
-theorem K2_22_6_le_128 : K 2 22 6 ≤ 128 := K_le u2513
-theorem K2_22_10_le_4 : K 2 22 10 ≤ 4 := K_le u2517
+theorem K2_22_3_le_4096 : K 2 22 3 ≤ 4096 := K_le u2512
+theorem K2_22_5_le_512 : K 2 22 5 ≤ 512 := K_le u2514
+theorem K2_22_6_le_128 : K 2 22 6 ≤ 128 := K_le u2515
+theorem K2_22_10_le_4 : K 2 22 10 ≤ 4 := K_le u2519
 theorem K2_23_3_le_4096 : K 2 23 3 ≤ 4096 := K_le u2426
-theorem K2_24_3_le_8192 : K 2 24 3 ≤ 8192 := K_le u2529
-theorem K2_24_4_le_4096 : K 2 24 4 ≤ 4096 := K_le u2530
-theorem K2_24_7_le_128 : K 2 24 7 ≤ 128 := K_le u2533
-theorem K2_25_3_le_16384 : K 2 25 3 ≤ 16384 := K_le u2540
-theorem K2_26_3_le_32768 : K 2 26 3 ≤ 32768 := K_le u2551
-theorem K2_26_4_le_8192 : K 2 26 4 ≤ 8192 := K_le u2552
-theorem K2_26_6_le_1024 : K 2 26 6 ≤ 1024 := K_le u2554
-theorem K2_26_8_le_128 : K 2 26 8 ≤ 128 := K_le u2556
-theorem K2_27_3_le_65536 : K 2 27 3 ≤ 65536 := K_le u2563
-theorem K2_28_3_le_131072 : K 2 28 3 ≤ 131072 := K_le u2575
-theorem K2_28_5_le_8192 : K 2 28 5 ≤ 8192 := K_le u2577
-theorem K2_28_9_le_128 : K 2 28 9 ≤ 128 := K_le u2581
-theorem K2_29_3_le_262144 : K 2 29 3 ≤ 262144 := K_le u2588
-theorem K2_30_2_le_4194304 : K 2 30 2 ≤ 4194304 := K_le u2600
-theorem K2_30_3_le_524288 : K 2 30 3 ≤ 524288 := K_le u2601
-theorem K2_30_4_le_65536 : K 2 30 4 ≤ 65536 := K_le u2602
-theorem K2_30_6_le_8192 : K 2 30 6 ≤ 8192 := K_le u2604
-theorem K2_30_10_le_128 : K 2 30 10 ≤ 128 := K_le u2608
+theorem K2_24_3_le_8192 : K 2 24 3 ≤ 8192 := K_le u2531
+theorem K2_24_4_le_4096 : K 2 24 4 ≤ 4096 := K_le u2532
+theorem K2_24_7_le_128 : K 2 24 7 ≤ 128 := K_le u2535
+theorem K2_25_3_le_16384 : K 2 25 3 ≤ 16384 := K_le u2542
+theorem K2_26_3_le_32768 : K 2 26 3 ≤ 32768 := K_le u2553
+theorem K2_26_4_le_8192 : K 2 26 4 ≤ 8192 := K_le u2554
+theorem K2_26_6_le_1024 : K 2 26 6 ≤ 1024 := K_le u2556
+theorem K2_26_8_le_128 : K 2 26 8 ≤ 128 := K_le u2558
+theorem K2_27_3_le_65536 : K 2 27 3 ≤ 65536 := K_le u2565
+theorem K2_28_3_le_131072 : K 2 28 3 ≤ 131072 := K_le u2577
+theorem K2_28_5_le_8192 : K 2 28 5 ≤ 8192 := K_le u2579
+theorem K2_28_9_le_128 : K 2 28 9 ≤ 128 := K_le u2583
+theorem K2_29_3_le_262144 : K 2 29 3 ≤ 262144 := K_le u2590
+theorem K2_30_2_le_4194304 : K 2 30 2 ≤ 4194304 := K_le u2602
+theorem K2_30_3_le_524288 : K 2 30 3 ≤ 524288 := K_le u2603
+theorem K2_30_4_le_65536 : K 2 30 4 ≤ 65536 := K_le u2604
+theorem K2_30_6_le_8192 : K 2 30 6 ≤ 8192 := K_le u2606
+theorem K2_30_10_le_128 : K 2 30 10 ≤ 128 := K_le u2610
+theorem K2_31_1_le_67108864 : K 2 31 1 ≤ 67108864 := K_le u2427
+theorem K2_32_1_le_134217728 : K 2 32 1 ≤ 134217728 := K_le u2628
+theorem K2_33_1_le_268435456 : K 2 33 1 ≤ 268435456 := K_le u2643
 theorem K3_1_1_le_1 : K 3 1 1 ≤ 1 := K_le u917
 theorem K3_2_1_le_3 : K 3 2 1 ≤ 3 := K_le u920
 theorem K3_2_2_le_1 : K 3 2 2 ≤ 1 := K_le u922
@@ -1751,7 +1771,7 @@ theorem K3_4_1_le_9 : K 3 4 1 ≤ 9 := K_le u2404
 theorem K3_4_2_le_3 : K 3 4 2 ≤ 3 := K_le u932
 theorem K3_4_3_le_3 : K 3 4 3 ≤ 3 := K_le u934
 theorem K3_4_4_le_1 : K 3 4 4 ≤ 1 := K_le u936
-theorem K3_5_1_le_27 : K 3 5 1 ≤ 27 := K_le u2657
+theorem K3_5_1_le_27 : K 3 5 1 ≤ 27 := K_le u2658
 theorem K3_5_2_le_8 : K 3 5 2 ≤ 8 := K_le u2405
 theorem K3_5_3_le_3 : K 3 5 3 ≤ 3 := K_le u941
 theorem K3_5_4_le_3 : K 3 5 4 ≤ 3 := K_le u943
@@ -1765,9 +1785,9 @@ theorem K3_7_4_le_3 : K 3 7 4 ≤ 3 := K_le u961
 theorem K3_7_5_le_3 : K 3 7 5 ≤ 3 := K_le u963
 theorem K3_7_6_le_3 : K 3 7 6 ≤ 3 := K_le u965
 theorem K3_7_7_le_1 : K 3 7 7 ≤ 1 := K_le u967
-theorem K3_8_2_le_81 : K 3 8 2 ≤ 81 := K_le u2663
-theorem K3_8_3_le_27 : K 3 8 3 ≤ 27 := K_le u2664
-theorem K3_8_4_le_9 : K 3 8 4 ≤ 9 := K_le u2665
+theorem K3_8_2_le_81 : K 3 8 2 ≤ 81 := K_le u2664
+theorem K3_8_3_le_27 : K 3 8 3 ≤ 27 := K_le u2665
+theorem K3_8_4_le_9 : K 3 8 4 ≤ 9 := K_le u2666
 theorem K3_8_5_le_3 : K 3 8 5 ≤ 3 := K_le u974
 theorem K3_8_6_le_3 : K 3 8 6 ≤ 3 := K_le u976
 theorem K3_8_7_le_3 : K 3 8 7 ≤ 3 := K_le u978
@@ -1778,15 +1798,17 @@ theorem K3_9_8_le_3 : K 3 9 8 ≤ 3 := K_le u992
 theorem K3_10_6_le_3 : K 3 10 6 ≤ 3 := K_le u1002
 theorem K3_10_7_le_3 : K 3 10 7 ≤ 3 := K_le u1004
 theorem K3_10_8_le_3 : K 3 10 8 ≤ 3 := K_le u1006
-theorem K3_11_2_le_729 : K 3 11 2 ≤ 729 := K_le u2427
-theorem K3_11_5_le_27 : K 3 11 5 ≤ 27 := K_le u2679
-theorem K3_11_6_le_9 : K 3 11 6 ≤ 9 := K_le u2680
+theorem K3_11_2_le_729 : K 3 11 2 ≤ 729 := K_le u2428
+theorem K3_11_5_le_27 : K 3 11 5 ≤ 27 := K_le u2680
+theorem K3_11_6_le_9 : K 3 11 6 ≤ 9 := K_le u2681
 theorem K3_11_7_le_3 : K 3 11 7 ≤ 3 := K_le u1019
 theorem K3_11_8_le_3 : K 3 11 8 ≤ 3 := K_le u1021
-theorem K3_12_2_le_2187 : K 3 12 2 ≤ 2187 := K_le u2682
+theorem K3_12_2_le_2187 : K 3 12 2 ≤ 2187 := K_le u2683
 theorem K3_12_8_le_3 : K 3 12 8 ≤ 3 := K_le u1037
+theorem K3_13_1_le_59049 : K 3 13 1 ≤ 59049 := K_le u2429
 theorem K3_13_2_le_6561 : K 3 13 2 ≤ 6561 := K_le u2689
 theorem K3_13_8_le_3 : K 3 13 8 ≤ 3 := K_le u1055
+theorem K3_14_1_le_177147 : K 3 14 1 ≤ 177147 := K_le u2695
 theorem K3_14_2_le_19683 : K 3 14 2 ≤ 19683 := K_le u2696
 theorem K3_14_7_le_27 : K 3 14 7 ≤ 27 := K_le u2701
 theorem K3_14_8_le_9 : K 3 14 8 ≤ 9 := K_le u2702
@@ -1830,7 +1852,7 @@ theorem K5_4_3_le_5 : K 5 4 3 ≤ 5 := K_le u1213
 theorem K5_4_4_le_1 : K 5 4 4 ≤ 1 := K_le u1215
 theorem K5_5_4_le_5 : K 5 5 4 ≤ 5 := K_le u1221
 theorem K5_5_5_le_1 : K 5 5 5 ≤ 1 := K_le u1223
-theorem K5_6_1_le_625 : K 5 6 1 ≤ 625 := K_le u2428
+theorem K5_6_1_le_625 : K 5 6 1 ≤ 625 := K_le u2430
 theorem K5_6_4_le_5 : K 5 6 4 ≤ 5 := K_le u1229
 theorem K5_6_5_le_5 : K 5 6 5 ≤ 5 := K_le u1231
 theorem K5_6_6_le_1 : K 5 6 6 ≤ 1 := K_le u1233
@@ -1881,15 +1903,15 @@ theorem K7_4_3_le_7 : K 7 4 3 ≤ 7 := K_le u1406
 theorem K7_4_4_le_1 : K 7 4 4 ≤ 1 := K_le u1408
 theorem K7_5_4_le_7 : K 7 5 4 ≤ 7 := K_le u1414
 theorem K7_5_5_le_1 : K 7 5 5 ≤ 1 := K_le u1416
-theorem K7_6_2_le_343 : K 7 6 2 ≤ 343 := K_le u2429
+theorem K7_6_2_le_343 : K 7 6 2 ≤ 343 := K_le u2431
 theorem K7_6_5_le_7 : K 7 6 5 ≤ 7 := K_le u1423
 theorem K7_6_6_le_1 : K 7 6 6 ≤ 1 := K_le u1425
 theorem K7_7_2_le_2401 : K 7 7 2 ≤ 2401 := K_le u2808
 theorem K7_7_3_le_343 : K 7 7 3 ≤ 343 := K_le u2809
-theorem K7_7_4_le_49 : K 7 7 4 ≤ 49 := K_le u2430
+theorem K7_7_4_le_49 : K 7 7 4 ≤ 49 := K_le u2432
 theorem K7_7_6_le_7 : K 7 7 6 ≤ 7 := K_le u1433
 theorem K7_7_7_le_1 : K 7 7 7 ≤ 1 := K_le u1435
-theorem K7_8_1_le_117649 : K 7 8 1 ≤ 117649 := K_le u2431
+theorem K7_8_1_le_117649 : K 7 8 1 ≤ 117649 := K_le u2433
 theorem K7_8_5_le_49 : K 7 8 5 ≤ 49 := K_le u2814
 theorem K7_8_6_le_7 : K 7 8 6 ≤ 7 := K_le u1443
 theorem K7_8_7_le_7 : K 7 8 7 ≤ 7 := K_le u1445
@@ -2273,6 +2295,9 @@ theorem todas_as_cotas :
     K 2 30 4 ≤ 65536 ∧
     K 2 30 6 ≤ 8192 ∧
     K 2 30 10 ≤ 128 ∧
+    K 2 31 1 ≤ 67108864 ∧
+    K 2 32 1 ≤ 134217728 ∧
+    K 2 33 1 ≤ 268435456 ∧
     K 3 1 1 ≤ 1 ∧
     K 3 2 1 ≤ 3 ∧
     K 3 2 2 ≤ 1 ∧
@@ -2317,8 +2342,10 @@ theorem todas_as_cotas :
     K 3 11 8 ≤ 3 ∧
     K 3 12 2 ≤ 2187 ∧
     K 3 12 8 ≤ 3 ∧
+    K 3 13 1 ≤ 59049 ∧
     K 3 13 2 ≤ 6561 ∧
     K 3 13 8 ≤ 3 ∧
+    K 3 14 1 ≤ 177147 ∧
     K 3 14 2 ≤ 19683 ∧
     K 3 14 7 ≤ 27 ∧
     K 3 14 8 ≤ 9 ∧
@@ -2802,6 +2829,9 @@ theorem todas_as_cotas :
    CoveringLedger.K2_30_4_le_65536,
    CoveringLedger.K2_30_6_le_8192,
    CoveringLedger.K2_30_10_le_128,
+   CoveringLedger.K2_31_1_le_67108864,
+   CoveringLedger.K2_32_1_le_134217728,
+   CoveringLedger.K2_33_1_le_268435456,
    CoveringLedger.K3_1_1_le_1,
    CoveringLedger.K3_2_1_le_3,
    CoveringLedger.K3_2_2_le_1,
@@ -2846,8 +2876,10 @@ theorem todas_as_cotas :
    CoveringLedger.K3_11_8_le_3,
    CoveringLedger.K3_12_2_le_2187,
    CoveringLedger.K3_12_8_le_3,
+   CoveringLedger.K3_13_1_le_59049,
    CoveringLedger.K3_13_2_le_6561,
    CoveringLedger.K3_13_8_le_3,
+   CoveringLedger.K3_14_1_le_177147,
    CoveringLedger.K3_14_2_le_19683,
    CoveringLedger.K3_14_7_le_27,
    CoveringLedger.K3_14_8_le_9,

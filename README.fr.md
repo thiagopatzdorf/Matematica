@@ -89,7 +89,7 @@ Le bloc ci-dessous est généré à partir de `ledger/cells.json` et ne se modif
 | cellules `K_q(n,R)` dans le registre (q de 2 à 21) | **1145** |
 | exactes (borne inférieure = borne supérieure) | **523** |
 | ouvertes | **622** |
-| bornes supérieures qui sont des théorèmes du noyau de Lean (FORMALIZED + INDEPENDENTLY_REPRODUCED) | **542** sur 1145 (478 + 64) |
+| bornes supérieures qui sont des théorèmes du noyau de Lean (FORMALIZED + INDEPENDENTLY_REPRODUCED) | **547** sur 1145 (481 + 66) |
 | bornes inférieures par état (presque toutes héritées de la littérature) | CLAIMED 1140 · CERTIFICATE_VERIFIED 3 · FORMALIZED 2 |
 | valeurs exactes établies ici (l'intervalle publié était ouvert) | **4** (1 avec les deux bornes dans le noyau ; 3 avec la borne inférieure par certificat vérifié hors de Lean) |
 | cellules avec un théorème Lean à nous | **15** (12 sous la meilleure borne supérieure publiée que nous avons trouvée) |
