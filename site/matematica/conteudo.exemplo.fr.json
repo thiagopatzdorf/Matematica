@@ -1,0 +1,151 @@
+{
+  "titulo": "Découvrir coûte cher. Vérifier coûte peu.",
+  "subtitulo": "[exemple] Un registre de bornes où chaque nombre ne monte d’un état que lorsqu’on le vérifie.",
+  "manifesto": [
+    "[exemple] L’entropie locale est l’incertitude d’un travail qui dépend encore de la mémoire de quelqu’un."
+  ],
+  "principios": [
+    {
+      "nome": "Mesurer avant d’affirmer",
+      "enunciado": "Une phrase sans nombre est une hypothèse."
+    }
+  ],
+  "metodo": [
+    {
+      "passo": "Chercher",
+      "descricao": "Dépenser du calcul coûteux."
+    },
+    {
+      "passo": "Vérifier",
+      "descricao": "Vérifier avec un vérificateur indépendant ou le noyau de Lean."
+    }
+  ],
+  "milenio": [
+    {
+      "problema": "P versus NP",
+      "enunciado_curto": "[exemple] Problème ouvert ; voir claymath.org.",
+      "status": "Ouvert",
+      "fonte": "https://www.claymath.org/millennium-problems/"
+    },
+    {
+      "problema": "Hypothèse de Riemann",
+      "enunciado_curto": "[exemple] Problème ouvert ; voir claymath.org.",
+      "status": "Ouvert",
+      "fonte": "https://www.claymath.org/millennium-problems/"
+    },
+    {
+      "problema": "Yang–Mills et le saut de masse",
+      "enunciado_curto": "[exemple] Problème ouvert ; voir claymath.org.",
+      "status": "Ouvert",
+      "fonte": "https://www.claymath.org/millennium-problems/"
+    },
+    {
+      "problema": "Navier–Stokes",
+      "enunciado_curto": "[exemple] Problème ouvert ; voir claymath.org.",
+      "status": "Ouvert",
+      "fonte": "https://www.claymath.org/millennium-problems/"
+    },
+    {
+      "problema": "Conjecture de Hodge",
+      "enunciado_curto": "[exemple] Problème ouvert ; voir claymath.org.",
+      "status": "Ouvert",
+      "fonte": "https://www.claymath.org/millennium-problems/"
+    },
+    {
+      "problema": "Birch et Swinnerton-Dyer",
+      "enunciado_curto": "[exemple] Problème ouvert ; voir claymath.org.",
+      "status": "Ouvert",
+      "fonte": "https://www.claymath.org/millennium-problems/"
+    },
+    {
+      "problema": "Conjecture de Poincaré",
+      "enunciado_curto": "Prouvée par Grigori Perelman (2002–2003) ; il a refusé le prix.",
+      "status": "Résolu",
+      "fonte": "https://www.claymath.org/millennium-problems/"
+    }
+  ],
+  "james": {
+    "resumo": "[exemple] Les trois piliers de la philosophie de James prouvés en Lean 4, sans Mathlib et sans sorry.",
+    "teoremas": [
+      {
+        "nome": "Amortização",
+        "enunciado": "O custo por tarefa tende ao custo de verificar.",
+        "fonte": "https://github.com/thiagopatzdorf/james-theorems/blob/main/Conhecimento.lean"
+      },
+      {
+        "nome": "Gate",
+        "enunciado": "Nenhuma ação crítica sem aprovação registrada.",
+        "fonte": "https://github.com/thiagopatzdorf/james-theorems/blob/main/Seguranca.lean"
+      },
+      {
+        "nome": "Replay",
+        "enunciado": "O estado é função do log, não do host.",
+        "fonte": "https://github.com/thiagopatzdorf/james-theorems/blob/main/Alma.lean"
+      }
+    ]
+  },
+  "keri": {
+    "resumo": "[exemple] K_q(n,R) est le plus petit code q-aire de longueur n qui recouvre tout au rayon R.",
+    "porque_importa": "Trouver coûte cher ; vérifier est bon marché et exact."
+  },
+  "lacunas": [
+    "[exemple] Les nouvelles bornes inférieures sont hors de Lean (CERTIFICATE_VERIFIED).",
+    "K7(5,3) ≤ 17 n’a été qu’annoncée dans la littérature (CLAIMED)."
+  ],
+  "links": [
+    {
+      "rotulo": "Matematica (GitHub)",
+      "url": "https://github.com/thiagopatzdorf/Matematica"
+    },
+    {
+      "rotulo": "ledger/COBERTURA.md",
+      "url": "ledger/COBERTURA.md"
+    },
+    {
+      "rotulo": "Zenodo · 10.5281/zenodo.23085769",
+      "url": "https://doi.org/10.5281/zenodo.23085769"
+    },
+    {
+      "rotulo": "james-theorems (Lean 4)",
+      "url": "https://github.com/thiagopatzdorf/james-theorems"
+    }
+  ],
+  "explicando": {
+    "camadas": [
+      {
+        "nivel": "En 30 secondes",
+        "titulo": "[exemple]",
+        "texto": "[exemple] Couche en français.",
+        "analogia": "[exemple]",
+        "exemplo": "K2(3,1) = 2."
+      },
+      {
+        "nivel": "Lycée",
+        "titulo": "[exemple]",
+        "texto": "[exemple] Couche en français.",
+        "analogia": "[exemple]",
+        "exemplo": "K2(3,1) = 2."
+      },
+      {
+        "nivel": "Licence",
+        "titulo": "[exemple]",
+        "texto": "[exemple] Couche en français.",
+        "analogia": "[exemple]",
+        "exemplo": "K2(3,1) = 2."
+      },
+      {
+        "nivel": "Recherche",
+        "titulo": "[exemple]",
+        "texto": "[exemple] Couche en français.",
+        "analogia": "[exemple]",
+        "exemplo": "K2(3,1) = 2."
+      }
+    ]
+  },
+  "glossario": [
+    {
+      "termo": "Distance de Hamming",
+      "definicao": "Nombre de positions où deux mots diffèrent."
+    }
+  ]
+}
