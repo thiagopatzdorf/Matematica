@@ -10,6 +10,7 @@ ORDEM=${ORDEM:-min}
 TEMPO=${TEMPO:-900}            # 1ª passada, por perfil
 CUBOS=${CUBOS:-9}               # 2ª passada: cubos pela coordenada 1 das CUBOS primeiras palavras
 TEMPO_CUBO=${TEMPO_CUBO:-20000}
+J=${J:-$(nproc)}                 # processos de solver em paralelo neste shard
 FERR=/opt/fibras-solvers
 CADICAL_SHA=c607304   # CaDiCaL 3.0.1, o mesmo dos certificados de K_7(5,3) e K_7(6,4)
 DRAT_SHA=2e3b2dc      # drat-trim (lrat-check)
@@ -29,7 +30,7 @@ mkdir -p "$TRAB"
 # Se o shard voltar (reboot da spot), o JSONL já gravado é reaproveitado: rodar.py pula o que fechou.
 # 1ª passada: perfil inteiro com teto de TEMPO s. 2ª: o que ficou INDEFINIDO vai em cubos pela coordenada 1 das
 # L primeiras palavras (fib_cubos; um perfil só conta como fechado com TODOS os cubos UNSAT, fecha_perfis.py).
-COMUM=(--q "$Q" --n "$N" --R "$R" --M "$M" --ordem "$ORDEM" --prova --descartar -j "$(nproc)" --dir "$TRAB")
+COMUM=(--q "$Q" --n "$N" --R "$R" --M "$M" --ordem "$ORDEM" --prova --descartar -j "$J" --dir "$TRAB")
 python3 tools/exatos/fibras/rodar.py "${COMUM[@]}" --fatia "$SHARD_INDEX/$SHARD_TOTAL" --tempo "$TEMPO" | tail -n 100
 cp "$TRAB"/*.jsonl "$SAIDA/"
 ABERTOS=$(python3 - "$TRAB" <<'PY'
