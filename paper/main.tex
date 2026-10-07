@@ -493,51 +493,77 @@ In the sources we read, none concerns covering codes, the covering radius or the
 The closest item, on binary codes in the ``ten advances'' manuscript of OpenAI~\cite{openai2026ten}, is an asymptotic upper bound for \emph{packing} ($A(n,d)$, improving the MRRW bound) and gives no number for a finite cell $K_q(n,R)$.
 That manuscript is accompanied by Lean~4 proofs whose metadata declare no \texttt{sorry} and only the axioms \texttt{propext}, \texttt{Quot.sound} and \texttt{Classical.choice}, and by one ``Comparator'' challenge per result: a short file that only defines and states, the solution in another module, a list of allowed axioms and an independent kernel checker, so that a reviewer reads only the statement.
 AlphaProof Nexus~\cite{alphaproofnexus} couples language-model agents with the Lean compiler and formalizes $9$ of $353$ Erdős problems end to end, at a cost of some hundreds of dollars per problem; AlphaEvolve~\cite{alphaevolve} lets a language model evolve \emph{programs} that search for constructions, judged by an automatic evaluator, and formalized one of its results in Lean.
-The repository \texttt{openai/math}~\cite{openaimath}, released on 6 October 2026 with about $722$ problems, was scanned by the maintainer, who found nothing on covering codes, $K_q(n,R)$ or Kéri's tables; we did not read it ourselves and record this as his reading.
+The repository \texttt{openai/math}~\cite{openaimath}, released on 6 October 2026 with about $722$ problems, was read during the campaign of Section~\ref{sec:campanha}: it contains nothing on covering codes in a finite Hamming space, $K_q(n,R)$ or Kéri's tables.
 Among the 2026 work on covering codes itself, none declares the use of artificial intelligence: Marosi~\cite{marosi2026} (upper bounds by local search and lower bounds by semidefinite programming with rational duals checked exactly), Gijswijt and Polak~\cite{gp2025} and Florath~\cite{florath2026} are cited throughout this note.
 
 Our position relative to this work is narrow and, we think, complementary.
 We do not claim that a model solved anything: search programs (and, in the campaign below, language models) are proposers in step~1 of Section~\ref{sec:method}.
 What we add is that every bound is published as a certificate anyone can check, with a stated trusted base: a list of words that a dependency-free C program verifies in seconds, a declaration that the Lean kernel accepts with the three standard axioms, or a reduction with LRAT or Farkas certificates and the exact checker that accepts them, together with a ledger of all $\NumCelulas$ cells whose states are computed and never typed.
-The division of labour of AlphaEvolve (an expensive, creative proposer and a cheap, exact evaluator that decides) and the Comparator format (statements reviewed by people, proofs checked by machines) are the two ideas from that work that fit our setting; the first is being tried in the campaign below, and the second is not yet applied to our certificates.
+The division of labour of AlphaEvolve (an expensive, creative proposer and a cheap, exact evaluator that decides) and the Comparator format (statements reviewed by people, proofs checked by machines) are the two ideas from that work that fit our setting; the first was tried in the campaign of Section~\ref{sec:campanha}, where at our scale it lost to plain local search, and the second is not yet applied to our certificates.
 
 \section{Results of the campaign of 7 October 2026}\label{sec:campanha}
 % ===== CAMPANHA-2026-10-07 =====================================================================
-% Esta seção é preenchida na segunda rodada, com os resultados FINAIS de cada frente, e só com o que
+% Preenchida na segunda rodada (2026-10-07) com os resultados FINAIS de cada frente, e só com o que
 % passou pelo verificador oficial e, quando for teorema, pelo `lake build`. Cada marcador abaixo é
 % substituído por texto; os números de contagem do ledger continuam vindo de numeros.tex.
 % Mantenha os marcadores (tests/test_paper_numeros.py confere): troque só o que está entre eles e apague o parágrafo "pending".
-\emph{This section is pending: it will report, with the same states as the rest of the note, only what passed the official verifier and, for theorems, the kernel.}
+During one night (7 October 2026) several agents worked in parallel on the ledger, each under the method of Section~\ref{sec:method} and a budget enforced in code (Section~\ref{sec:infra}).
+This section reports only what passed the official verifier and, for theorems, the kernel, with the same vocabulary as the rest of the note; negative results are reported too.
+No upper bound below the best known was found.
 
 \paragraph{New upper bounds.}
 % CAMPANHA:m3:superiores:INICIO  (m3: células, M antigo -> M novo, sha256 canônico, verify.c, estado)
-\emph{Pending.}
+A tabu search over the whole space, for any $q\le 10$ (\texttt{tools/\allowbreak busca\_\allowbreak direta/}), and a variant that prescribes a group of isometries and searches only orbit representatives (the method of Östergård and Weakley) were calibrated on known values: they reach the optima of small cells and never go below them, and every code they write passes the official verifier.
+On medium cells they stay far from the records of 2011, which almost always have structure (direct sums, cosets, prescribed groups).
+With prescribed groups they \emph{tie} the best known upper bound, checked by the official verifier, in $K_3(8,3)=27$, $K_3(11,5)=27$, $K_7(6,3)=77$ and $K_5(6,3)=25$ (these are the published upper bounds, not values; the lower bounds are far below); no code below a record appeared.
+This is an observation and changes no bound.
 % CAMPANHA:m3:superiores:FIM
 
 \paragraph{Exact values.}
 % CAMPANHA:m4:exatos:INICIO  (m4: célula, as duas cotas, tipo de certificado de cada lado, revisão)
-\emph{Pending.}
+% NOVIDADE-PENDENTE: a checagem de novidade de K4(7,4) >= 10 e K4(6,3) >= 12 (padrão de docs/exatos/NOVIDADE_V09.md)
+% não tinha fechado em 2026-10-07. Até ela fechar, o texto fica condicional ("as far as we know") e
+% não afirma novidade. Quando fechar, trocar este trecho e apagar este comentário.
+The fibre reduction of Section~\ref{sec:fibre} extends from $R=n-2$ to every $R\le n-2$: with $t=n-R\ge 2$, a word covers $x$ exactly when they agree on some $t$ coordinates, so coverage is expressed through projections on $t$-subsets of coordinates, and Lemma~\ref{lem:fibre} and the symmetry breaking (a)--(h) do not depend on $R$.
+The encoder was first validated on known values ($K_3(6,3)=6$ and $K_3(5,2)=8$, both directions).
+
+\begin{result}\label{res:k474}
+No code in $\mathbb{Z}_4^7$ with $9$ words has covering radius $4$, so $K_4(7,4)\ge 10$; and no code in $\mathbb{Z}_4^6$ with $11$ words has covering radius $3$, so $K_4(6,3)\ge 12$.
+\end{result}
+For $K_4(7,4)$ the $792$ fibre profiles of $M=9$ are all refuted with LRAT proofs checked by \texttt{lrat-check} ($786$ whole and $6$ split into $168$ cubes; $151$\,GB of proofs, checked and discarded); for $K_4(6,3)$ the $8008$ profiles of $M=11$ are all refuted the same way ($7990$ whole and $18$ in $2100$ cubes; $402$\,GB).
+A second solver (kissat, without proofs) refutes again all $792$ and all $8008$ profiles on the same CNFs, and an independent encoding, which writes coverage directly from the distance and uses only the symmetry breaking implied by the profile, refutes a fixed random sample ($26$ of $40$ and $58$ of $60$ profiles, the others timing out, none satisfiable).
+The upper bound $10$ for $K_4(7,4)$ is in Kéri's tables (attributed to Rivas Soriano); the repository now has an explicit $10$-word code, found by the tabu search above and checked by the official verifier (canonical SHA-256 beginning \texttt{f2abfa60}), so both halves of $K_4(7,4)=10$ can be checked here.
+The previous bounds were $9\le K_4(7,4)\le 10$ and $11\le K_4(6,3)\le 14$; as far as we know both lower bounds are new, but the novelty check of these two cells was not finished when this draft was written, and we do not claim novelty.
+The state of Result~\ref{res:k474} is a verified computational certificate, not a theorem of the kernel (the proofs are too large for the checker of Section~\ref{sec:k742} as it stands) and not independently reproduced as a whole; the ledger has not yet been updated with it.
+For $K_3(7,3)$ ($11$--$12$) only $587$ of the $11\,440$ profiles of $M=11$ were closed, all with checked proofs, and the cell is unchanged.
 % CAMPANHA:m4:exatos:FIM
 
 \paragraph{Batch certification in Lean.}
 % CAMPANHA:m5:lean:INICIO  (m5: quantas cotas subiram para FORMALIZED, alvo, tempo e memória do lake build, #print axioms)
-\emph{Pending.}
+The number of upper bounds that are theorems of the kernel went from $642$ to $\NumUBKernel$ of the $\NumCelulas$ cells ($\NumUBFormalizada$ formalized, $\NumUBReproduzida$ independently reproduced), in two steps.
+First, the kernel theorems proved outside the batch generator (the syndrome certificates, Corollary~3 of~\cite{ko2005}, the witnesses from the literature and the codes of $K_7(5,3)$ and $K_7(6,4)$) became bases of the generator's closure under the construction rules, which certified $28$ more cells.
+Second, a search for linear codes $[n,k]_q$ (simulated annealing over parity-check matrices $[A\mid I_r]$ in $\mathbb{Z}_q$, each candidate checked by a syndrome evaluator before it is recorded) found $26$ linear codes that, through \texttt{Syn.\allowbreak lin\_\allowbreak cert} and the rules, certify $30$ more cells.
+Every new theorem equals a bound already published: this is certification, not a new record.
 % CAMPANHA:m5:lean:FIM
 
 \paragraph{Programs evolved by a language model.}
 % CAMPANHA:m7:funsearch:INICIO  (m7: avaliador, gerações, custo medido, melhor código conferido; resultado negativo também entra)
-\emph{Pending.}
+Following the division of labour of AlphaEvolve~\cite{alphaevolve}, a language model run locally (an open-weight model of $20$ billion parameters on one GPU) wrote construction heuristics, each scored by the size of the code it produces as checked by the official verifier, on $K_4(7,3)$ and $K_5(6,3)$ (records $32$ and $25$).
+Over $173$ calls and $159$ evaluated functions ($106$ valid), the best evolved heuristics gave $40$ and $32$ words, while plain tabu search, with no language model, reached the record $25$ in $K_5(6,3)$ (a tie, checked by the official verifier).
+At this scale the language model lost to the baseline; this is a negative observation, and no code from it enters the ledger.
 % CAMPANHA:m7:funsearch:FIM
 
 \paragraph{Cross-check with \texttt{openai/math}.}
 % CAMPANHA:m6:cruzamento:INICIO  (m6: só o que estiver em docs/literatura/ com fonte)
-\emph{Pending.}
+The repository \texttt{openai/math}~\cite{openaimath} was read at commit \texttt{adc7f12} ($722$ manuscripts in $372$ families), classified against the fronts of this project by text embeddings with a second automatic judge, and the strong pairs were read in the original manuscripts; the record is \texttt{docs/\allowbreak literatura/\allowbreak cruzamento-openai-math.md}.
+No family treats covering codes in a finite Hamming space; the closest (covering of convex bodies by lattices, covering numbers of hypergraphs) are asymptotic and give no number for any cell of the ledger.
+Three structural leads were found for other fronts of the project: explicit pairs of graphs that are $k$-WL-equivalent (``parity lifts''), exact certificates by rational identities with a complete checker (family $266$), and explicit hard pairs for trace reconstruction; the release uses the same versions of Lean and Mathlib as this note.
 % CAMPANHA:m6:cruzamento:FIM
 % ===== /CAMPANHA-2026-10-07 ====================================================================
 
 \section{What is not a theorem}
 Novelty is a reading of the literature, not a checked fact.
-No lower bound of Section~\ref{sec:k362} or Section~\ref{sec:fibre} is a theorem of the kernel; of their upper bounds, $K_3(6,2)\le 17$, $K_7(6,4)\le 14$ and $K_7(5,3)\le 17$ are.
+No lower bound of Section~\ref{sec:k362}, Section~\ref{sec:fibre} or Result~\ref{res:k474} is a theorem of the kernel, and the novelty of Result~\ref{res:k474} is not yet checked; of their upper bounds, $K_3(6,2)\le 17$, $K_7(6,4)\le 14$ and $K_7(5,3)\le 17$ are.
 For $K_3(6,2)=17$ the trusted base is the completeness proof of Lemma~\ref{lem:complete}, written on paper and reviewed adversarially; the enumeration and normalization programs; and the exact Farkas checkers, which rebuild every system from its description. The linear-programming solver is not trusted. The independent reproduction has its own reduction, enumeration and checkers (VeriPB, \texttt{lrat-check}, an exact Farkas checker), so a single error in either pipeline would not by itself invalidate the result.
 For $K_7(6,4)=14$ and $K_7(5,3)=17$ the trusted base is Lemmas~\ref{lem:fibre} and~\ref{lem:h} and the symmetry-breaking steps (a)--(g), written on paper (Lemma~\ref{lem:h} after a correction); the CNF encoder; the cube splitting for two profiles of $K_7(5,3)$, whose completeness was checked by SAT with checked proofs; and \texttt{lrat-check}. The SAT solvers are not trusted. Of the $201\,376$ profiles and $6765$ cubes of $K_7(5,3)$ with $16$ words, only a sample was checked by a second checker; $9$ large proofs of the review's sample were not regenerated.
 These results also inherit lower bounds from the literature: $K_7(5,3)\ge 14$ for $K_7(6,4)$; $K_6(4,2)=15$ and $K_7(4,2)\ge 17$ for $K_7(5,3)\ge 16$, and $K_7(4,2)\ge 17$ for $K_7(5,3)\ge 17$ (the last one is also Theorem~\ref{thm:k742}).
