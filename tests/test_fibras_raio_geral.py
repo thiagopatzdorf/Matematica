@@ -156,3 +156,35 @@ def test_registro_de_k4_6_3_m11_fecha_os_8008_perfis_e_bate_o_manifesto():
     assert encode.fibra_minima(4, 6, 3, 11) == 1      # K_4(5,2) = 16 > 11 exclui fibra vazia
     assert encode.contar_instancias(4, 6, 11, 6, 1) == (11, 8008)
     _registro_fecha_todos("K4_6_3_M11", 4, 6, 3, 11, 8008)
+
+
+def _kissat_cobre_todos(arq, q, n, R, M):
+    """Segundo solver (kissat, sem prova) nas mesmas CNFs: todo perfil UNSAT inteiro ou em todos os cubos."""
+    import json
+    import lzma
+    import fib_cubos
+    regs = [json.loads(ln) for ln in lzma.open(arq, "rt")]
+    assert regs and all(r.get("R") == R and r["M"] == M for r in regs)
+    assert not [r for r in regs if r["resultado"] == "SAT"], "o segundo solver achou modelo"
+    regs = [r for r in regs if r["resultado"] == "UNSAT"]   # INDEFINIDO (tempo) não conta, nem contra nem a favor
+    _, mn = encode.instancias(q, n, M, n, R=R)
+    todos = {tuple(sorted("".join(map(str, t)) for t in p)) for p in mn}
+    inteiros = {tuple(sorted(r["tipos"])) for r in regs if not r.get("L")}
+    cubos = {}
+    for r in regs:
+        if r.get("L"):
+            cubos.setdefault((tuple(sorted(r["tipos"])), r["ordem"], r["inst"], r["L"]), set()).add(r["cubo_idx"])
+    for (perfil, ordem, inst, L), feitos in cubos.items():
+        _, ins = encode.instancias(q, n, M, n, R=R, ordem=ordem)
+        ts = ins[inst]
+        if feitos >= set(range(len(fib_cubos.atribuicoes_coord1(q, M, ts[0], ts[1], 1, L)))):
+            inteiros.add(perfil)
+    assert todos <= inteiros, f"{len(todos - inteiros)} perfis sem UNSAT do kissat"
+
+
+def test_kissat_confirma_os_792_perfis_de_k4_7_4_m9():
+    _kissat_cobre_todos(RAIZ / "tools/exatos/fibras_redteam/resultados/k474_dupla_kissat.jsonl.xz", 4, 7, 4, 9)
+
+
+def test_kissat_confirma_os_8008_perfis_de_k4_6_3_m11():
+    _kissat_cobre_todos(RAIZ / "tools/exatos/fibras_redteam/resultados/k463_dupla_kissat.jsonl.xz", 4, 6, 3, 11)

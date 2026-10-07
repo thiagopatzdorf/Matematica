@@ -11,12 +11,15 @@ acima do previsto).
 |---|---|---|---|---|---|
 | **K₄(7,4)** | 9–10 | **10** (ub 10 de Rivas Soriano, publicado) | ∄ código com 9 palavras | 792 perfis: 786 inteiros + 6 em 168 cubos | 792/792 perfis fechados, todo registro UNSAT com `lrat-check` VERIFIED; `fecha_perfis.py --R 4` 792/792; 10/10 CNFs regeneradas batem o sha256; registro em `tools/exatos/fibras/certificados/K4_7_4_M9.jsonl.xz` (manifesto `K4_7_4_M9.sha256`) |
 | **K₄(6,3)** | 11–14 | **12–14** | ∄ código com 11 palavras | 8008 perfis (ordem max) | 8008/8008 perfis fechados: 7990 inteiros + 18 em 2100 cubos, todo registro UNSAT com `lrat-check` VERIFIED; `fecha_perfis.py --R 3` 8008/8008; 20/20 CNFs regeneradas batem o sha256; registro em `certificados/K4_6_3_M11.jsonl.xz` (manifesto `K4_6_3_M11.sha256`); 18,5 h de solver, 2,6 h de `lrat-check`, 402 GB de LRAT conferidos e descartados |
-| K₃(7,3) | 11–12 | 11–12 (sem mudança) | parcial: ver "K₃(7,3)" | <!-- K373 --> | idem, por perfil |
+| K₃(7,3) | 11–12 | 11–12 (sem mudança) | parcial: 587 de 11 440 perfis de M = 11 fechados | perfis k = 7 (ordens min e max) | `certificados/K3_7_3_M11_parcial.jsonl.xz` (reaproveitável com `PULAR=`) |
 
 Status honesto, igual ao de `FIBRAS_GERAL.md`: resultado **computacional com certificado** (LRAT
 conferido por perfil ou por cubo), mais os lemas escritos à mão e testados por máquina. Não está no
 Lean e o ledger não foi tocado. A cota superior 10 é da literatura (Rivas Soriano, chave q do
 Kéri): este repositório ainda não tem o código de 10 palavras (ver "Cota superior").
+
+Custo de toda a rodada (K₄(7,4), K₄(6,3), o parcial de K₃(7,3) e a dupla checagem): três VMs spot próprias da
+campanha, ~8,4 VM-h, **≈ US$ 2,1 estimados por preço de lista** (o billing real chega em ~1 dia).
 
 Custo de K₄(7,4): 6,8 h de solver e 0,8 h de `lrat-check` somadas nos registros que fecham a célula
 (151 GB de LRAT conferidos e descartados), em VMs spot `c2d-highcpu-16` e `t2d-standard-16`.
@@ -89,3 +92,31 @@ M = 9 só precisa de K₄(6,3) > 9, que este resultado dá (≥ 12) a partir de 
 Novidade: não refiz a busca de literatura. A TRIAGEM (04/10) não achou nada pós-2011 para K₄(6,3);
 o SDP de Gijswijt–Polak dá 8,76 e o de Marosi não melhorou o 11. Antes de citar como novo, rodar
 a checagem no padrão de `NOVIDADE_V09.md`.
+
+## K₃(7,3): o que ficou
+
+11 440 perfis (s_min = 1; cobertura por 4-uplas, 2187 pontos). Medido nas VMs: 2–430 s de solver por perfil
+(média ~50 s nos primeiros 587, que incluem os mais duros), ou seja ~160 CPU-h para a célula inteira, fora a
+cauda em cubos. Não coube na janela da campanha (a cota global de vCPU do projeto é 96). Os 587 perfis fechados
+(todos com LRAT conferido) estão em `certificados/K3_7_3_M11_parcial.jsonl.xz`; para continuar, descomprimir e
+passar em `PULAR=` ao `pesado/jobs/fibras-k3-7-3-m11.sh` (o casamento é pelo multiconjunto de tipos, vale entre
+ordens). Prefixo k = 4 não ajuda (22 de 25 instâncias passaram de 200 s).
+
+## Dupla checagem
+
+Dois caminhos que não dividem com a prova principal nada além do enunciado (`fibras_redteam/dupla_raio.sh`):
+
+| célula | outro solver: kissat 4.0.4 `8af8e56`, sem prova, mesmas CNFs | outra codificação: `indep_raio.py` + kissat |
+|---|---|---|
+| K₄(7,4), M = 9 | **792/792 perfis UNSAT** (791 inteiros, ordem max; o perfil (3222)⁷, que passou de 1800 s inteiro, em 28/28 cubos); 4,1 h de solver; `resultados/k474_dupla_kissat.jsonl.xz` | amostra de 40 perfis (sorteio fixo, semente 2026): **26 UNSAT, 14 com tempo esgotado (1800 s), 0 SAT**; `resultados/k474_indep_raio.txt` |
+| K₄(6,3), M = 11 | **8008/8008 perfis UNSAT**, todos inteiros (inclusive os 18 que o CaDiCaL com prova só fechou em cubos); 7,4 h de solver; `resultados/k463_dupla_kissat.jsonl.xz` | amostra de 60 perfis (semente 2026): **58 UNSAT, 2 com tempo esgotado (900 s), 0 SAT**; `resultados/k463_indep_raio.txt` |
+
+A codificação independente escreve a cobertura direto pela distância (z[w,v] → "todo (n − t + 1)-subconjunto
+de coordenadas tem uma concordância", sem projeções) e só usa a quebra que vem do perfil (fibras exatas por
+coordenada e palavras ordenadas pela coordenada 0; nada de (d)–(h)). Os tempos esgotados são os perfis com
+mais simetria, em que sem as quebras (d)–(h) o solver não termina em 30 min. Ela foi validada antes em
+K₃(5,2) = 8 (56/56 UNSAT em M = 7 e o perfil SAT de M = 8 também SAT).
+
+Testes: `test_kissat_confirma_os_792_perfis_de_k4_7_4_m9` e `test_kissat_confirma_os_8008_perfis_de_k4_6_3_m11`
+leem esses registros e exigem UNSAT do segundo solver em todo perfil (inteiro ou em todos os cubos) e nenhum SAT.
+
