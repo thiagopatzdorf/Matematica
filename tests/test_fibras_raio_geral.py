@@ -108,3 +108,23 @@ def test_lema_das_fibras_nos_alvos_de_raio_menor():
     # K_3(7,3), M = 11: K_3(6,2) >= 15 > 11; K_2(6,2) = 4 <= 10
     assert encode.fibra_minima(3, 7, 3, 11) == 1
     assert encode.contar_instancias(3, 7, 11, 7, 1) == (10, 11440)
+
+
+def test_fecha_perfis_nao_conta_registro_de_outro_raio_como_fechado(tmp_path):
+    import json
+    import subprocess
+    _, ins = encode.instancias(3, 6, 5, 6, 1, R=3)
+    arq = tmp_path / "r3.jsonl"
+    with open(arq, "w") as f:
+        for i, p in enumerate(ins):
+            f.write(json.dumps({"q": 3, "n": 6, "R": 3, "M": 5, "k": 6, "inst": i, "resultado": "UNSAT",
+                                "lrat_check": "VERIFIED", "tempo_solver_s": 0,
+                                "tipos": ["".join(map(str, t)) for t in p]}) + "\n")
+    script = str(RAIZ / "tools" / "exatos" / "fibras" / "fecha_perfis.py")
+    ok = subprocess.run([sys.executable, script, "--q", "3", "--n", "6", "--R", "3", "--M", "5", str(arq)],
+                        capture_output=True, text=True)
+    assert ok.returncode == 0, ok.stdout + ok.stderr
+    # os mesmos registros não fecham K_3(6,4) (raio padrão n - 2): o raio faz parte da chave
+    outro = subprocess.run([sys.executable, script, "--q", "3", "--n", "6", "--M", "5", str(arq)],
+                           capture_output=True, text=True)
+    assert outro.returncode == 1, outro.stdout + outro.stderr

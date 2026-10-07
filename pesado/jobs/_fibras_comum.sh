@@ -7,7 +7,9 @@
 set -eu
 : "${Q:?}" "${N:?}" "${R:?}" "${M:?}" "${SHARD_INDEX:?}" "${SHARD_TOTAL:?}" "${SAIDA:?}"
 ORDEM=${ORDEM:-min}
-TEMPO=${TEMPO:-20000}
+TEMPO=${TEMPO:-900}            # 1ª passada, por perfil
+CUBOS=${CUBOS:-9}               # 2ª passada: cubos pela coordenada 1 das CUBOS primeiras palavras
+TEMPO_CUBO=${TEMPO_CUBO:-20000}
 FERR=/opt/fibras-solvers
 CADICAL_SHA=c607304   # CaDiCaL 3.0.1, o mesmo dos certificados de K_7(5,3) e K_7(6,4)
 DRAT_SHA=2e3b2dc      # drat-trim (lrat-check)
@@ -25,9 +27,30 @@ export CADICAL="$FERR/cadical" LRAT_CHECK="$FERR/lrat-check"
 TRAB=/var/tmp/fibras-$JOB_ID-$SHARD_INDEX   # CNF e LRAT temporárias (descartadas depois de conferidas)
 mkdir -p "$TRAB"
 # Se o shard voltar (reboot da spot), o JSONL já gravado é reaproveitado: rodar.py pula o que fechou.
-python3 tools/exatos/fibras/rodar.py --q "$Q" --n "$N" --R "$R" --M "$M" --ordem "$ORDEM" \
-  --fatia "$SHARD_INDEX/$SHARD_TOTAL" --prova --descartar --tempo "$TEMPO" -j "$(nproc)" --dir "$TRAB" | tail -n 200
+# 1ª passada: perfil inteiro com teto de TEMPO s. 2ª: o que ficou INDEFINIDO vai em cubos pela coordenada 1 das
+# L primeiras palavras (fib_cubos; um perfil só conta como fechado com TODOS os cubos UNSAT, fecha_perfis.py).
+COMUM=(--q "$Q" --n "$N" --R "$R" --M "$M" --ordem "$ORDEM" --prova --descartar -j "$(nproc)" --dir "$TRAB")
+python3 tools/exatos/fibras/rodar.py "${COMUM[@]}" --fatia "$SHARD_INDEX/$SHARD_TOTAL" --tempo "$TEMPO" | tail -n 100
 cp "$TRAB"/*.jsonl "$SAIDA/"
+ABERTOS=$(python3 - "$TRAB" <<'PY'
+import json, pathlib, sys
+fech, todos = set(), set()
+for arq in pathlib.Path(sys.argv[1]).glob("*.jsonl"):
+    if "_L" in arq.name:
+        continue
+    for ln in open(arq):
+        r = json.loads(ln)
+        todos.add(r["inst"])
+        if r["resultado"] != "INDEFINIDO":
+            fech.add(r["inst"])
+print(",".join(map(str, sorted(todos - fech))))
+PY
+)
+if [ -n "$ABERTOS" ]; then
+  echo "em cubos (L=$CUBOS): $ABERTOS"
+  python3 tools/exatos/fibras/rodar.py "${COMUM[@]}" --inst "$ABERTOS" --cubos "$CUBOS" --tempo "$TEMPO_CUBO" | tail -n 100
+  cp "$TRAB"/*.jsonl "$SAIDA/"
+fi
 python3 - "$SAIDA" <<'PY'
 import json, pathlib, sys, collections
 c = collections.Counter()
