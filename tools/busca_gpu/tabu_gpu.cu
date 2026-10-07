@@ -28,7 +28,9 @@
 
 #define MAXN 12
 #define MAXM 128
-#define MAXC (MAXM * MAXN)
+#ifndef MAXC
+#define MAXC (MAXM * MAXN) /* candidatos por iteração; -DMAXC=640 libera memória compartilhada (mais blocos por SM) */
+#endif
 #define NT 128
 
 #ifdef EMU
@@ -263,6 +265,7 @@ int main(int argc, char **argv) {
     int iters = argc > 9 ? atoi(argv[9]) : 2000;
     const char *pref = argc > 10 ? argv[10] : "./gpu";
     if (q < 2 || q > 10 || n < 2 || n > MAXN || R < 1 || R >= n || M < 1 || M > MAXM || M >= 255) { fprintf(stderr, "parâmetros\n"); return 2; }
+    if (M * (R + 1) > MAXC) { fprintf(stderr, "M*(R+1)=%d > MAXC=%d: recompile com -DMAXC maior\n", M * (R + 1), MAXC); return 2; }
     hp.q = q; hp.n = n; hp.R = R; hp.M = M; hp.tenure = tenure;
     hp.pw[0] = 1;
     for (int k = 1; k <= n; k++) hp.pw[k] = hp.pw[k - 1] * q;
