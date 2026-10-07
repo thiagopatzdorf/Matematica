@@ -13,7 +13,7 @@
  * correção sem GPU (contagens incrementais == recontagem do zero). Não mede desempenho de GPU.
  *
  * Uso:  tabu_gpu q n R M cadeias segundos semente [tenure=1] [iter_por_lancamento=2000] [saida] [modo=0]
- *                [ciclo=2000000] [T0=2.0] [Tmin=0.05]     (modo 0 = tabu, 1 = recozimento simulado guiado)
+ *                [ciclo=2000000] [T0=2.0] [Tmin=0.05]     (modo 0 = tabu, 1 = SA guiado de 1 coordenada, 2 = SA que realoca palavra, como sa_cover)
  * Saída (stdout, uma linha por evento):
  *   CFG ...                      parâmetros e tamanho da casca
  *   LANCA t=<s> it_total=<n> descobertos_min=<d> ok=<k>   a cada lançamento
@@ -52,9 +52,9 @@ static inline int atomicAddI(int *a, int v) { int o = *a; *a += v; return o; }
 #define CONSTANT __constant__
 #endif
 
-typedef struct { int q, n, R, M, S, N, tenure, mode, cycle; float T0, Tmin; int pw[MAXN + 1]; } Par;
+typedef struct { int q, n, R, M, S, N, tenure, mode, cycle, nball; float T0, Tmin; int pw[MAXN + 1]; } Par;
 typedef struct { uint64_t rng; int64_t it; int nunc, best, done, pad; } St;
-typedef struct { uint8_t *cnt, *cw, *shell; int *ci; int64_t *tabu; St *st; } Dev;
+typedef struct { uint8_t *cnt, *cw, *shell, *bt; int *ci; int64_t *tabu; St *st; } Dev;
 
 CONSTANT Par P;
 CONSTANT int dlt[MAXN][10][10]; /* dlt[k][a][v]: troca o dígito k de a para (a+v) mod q, em unidades do índice */
@@ -75,7 +75,8 @@ DEV static void run_chain(const Dev *D, int ch, int iters) {
     int *ci = D->ci + (size_t)ch * M;
     int64_t *tb = D->tabu + (size_t)ch * M;
     St *st = D->st + ch;
-    SHARED int s_nunc, s_ncand, s_x, s_best, s_stop, s_bm, s_bj, s_owner, s_off, s_dsum, s_pick;
+    SHARED int s_nunc, s_ncand, s_x, s_best, s_stop, s_bm, s_bj, s_owner, s_off, s_dsum, s_pick, s_loss, s_gain, s_widx;
+    SHARED uint8_t s_wd[MAXN];
     SHARED int s_cm[MAXC], s_cj[MAXC], s_dv[MAXC], s_cz[NT];
     SHARED uint8_t s_xd[MAXN];
     SHARED uint64_t s_rng;
@@ -117,6 +118,87 @@ DEV static void run_chain(const Dev *D, int ch, int iters) {
             }
         }
         SYNC;
+        if (P.mode == 2) {
+            /* SA "realoca" (o movimento do sa_cover.c): uma palavra i qualquer vai para um ponto sorteado da bola
+               de raio R em volta do descoberto x. Custo exato = perde(bola velha com cnt==1) - ganha(bola nova com
+               cnt - [na bola velha] == 0); aplica em duas fases (tira a velha, põe a nova) para não haver corrida. */
+            PHASE {
+                if (t == 0) {
+                    int i = (int)(xs(&s_rng) % (uint64_t)M), r = (int)(xs(&s_rng) % (uint64_t)P.nball), idx = 0;
+                    for (int k = 0; k < n; k++) { int d = ((int)s_xd[k] + D->bt[r * n + k]) % P.q; s_wd[k] = (uint8_t)d; idx += d * P.pw[k]; }
+                    s_pick = i; s_widx = idx; s_loss = 0; s_gain = 0;
+                }
+            }
+            SYNC;
+            PHASE {
+                const uint8_t *oc = cw + s_pick * n;
+                int oi = ci[s_pick], ls = 0, gn = 0;
+                for (int b = t; b < P.nball; b += NT) {
+                    const uint8_t *e = D->bt + (size_t)b * n;
+                    int offo = 0, offn = 0, dist = 0;
+                    for (int k = 0; k < n; k++) {
+                        offo += dlt[k][oc[k]][e[k]];
+                        offn += dlt[k][s_wd[k]][e[k]];
+                        dist += ((s_wd[k] + e[k]) % P.q) != oc[k];
+                    }
+                    ls += (cnt[oi + offo] == 1);
+                    gn += ((int)cnt[s_widx + offn] - (dist <= R) == 0);
+                }
+                atomicAddI(&s_loss, ls);
+                atomicAddI(&s_gain, gn);
+            }
+            SYNC;
+            PHASE {
+                if (t == 0) {
+                    int d = s_loss - s_gain;
+                    float frac = (float)(s_it % P.cycle) / (float)P.cycle;
+                    float T = P.Tmin + P.T0 * powf(0.002f, frac);
+                    float u = (float)(xs(&s_rng) >> 40) * (1.0f / 16777216.0f);
+                    s_bm = (d <= 0 || u < expf(-(float)d / T)) ? s_pick : -1;
+                }
+            }
+            SYNC;
+            PHASE {  /* fase A: tira a bola velha */
+                if (s_bm >= 0) {
+                    const uint8_t *oc = cw + s_bm * n;
+                    int oi = ci[s_bm], ld = 0;
+                    for (int b = t; b < P.nball; b += NT) {
+                        const uint8_t *e = D->bt + (size_t)b * n;
+                        int off = 0;
+                        for (int k = 0; k < n; k++) off += dlt[k][oc[k]][e[k]];
+                        uint8_t v = (uint8_t)(cnt[oi + off] - 1);
+                        cnt[oi + off] = v;
+                        ld += (v == 0);
+                    }
+                    atomicAddI(&s_nunc, ld);
+                }
+            }
+            SYNC;
+            PHASE {  /* fase B: põe a bola nova */
+                if (s_bm >= 0) {
+                    int ld = 0;
+                    for (int b = t; b < P.nball; b += NT) {
+                        const uint8_t *e = D->bt + (size_t)b * n;
+                        int off = 0;
+                        for (int k = 0; k < n; k++) off += dlt[k][s_wd[k]][e[k]];
+                        uint8_t w = cnt[s_widx + off];
+                        cnt[s_widx + off] = (uint8_t)(w + 1);
+                        ld -= (w == 0);
+                    }
+                    atomicAddI(&s_nunc, ld);
+                }
+            }
+            SYNC;
+            PHASE {
+                if (t == 0) {
+                    if (s_bm >= 0) { ci[s_bm] = s_widx; for (int k = 0; k < n; k++) cw[s_bm * n + k] = s_wd[k]; }
+                    s_it++;
+                    if (s_nunc < s_best) s_best = s_nunc;
+                }
+            }
+            SYNC;
+            continue;
+        }
         /* 2. candidatos: palavras a distância exatamente R+1 de x, uma coordenada j em que diferem */
         PHASE {
             if (t < M) {
@@ -272,6 +354,7 @@ static void ball(uint8_t *cnt, const uint8_t *c, int p, int left, long idx) {
         for (int v = 1; v < hp.q; v++) ball(cnt, c, k + 1, left - 1, idx + hdlt[k][c[k]][v]);
 }
 
+static uint8_t *ball_tab; static int nball_h;
 static uint8_t *shell_tab; /* [n][S][n] vetores de erro de peso exato R com e_j = 0 */
 static void gen_shell(int j, int p, int left, uint8_t *e, int *cntS) {
     if (left == 0) {
@@ -282,6 +365,18 @@ static void gen_shell(int j, int p, int left, uint8_t *e, int *cntS) {
     for (int k = p; k < hp.n; k++) {
         if (k == j) continue;
         for (int v = 1; v < hp.q; v++) { e[k] = (uint8_t)v; gen_shell(j, k + 1, left - 1, e, cntS); }
+        e[k] = 0;
+    }
+}
+
+
+/* todos os vetores de erro de peso <= R (a bola em volta de uma palavra), um por linha de n bytes */
+static void gen_ball_tab(int p, int left, uint8_t *e, int *cntB) {
+    memcpy(ball_tab + (size_t)(*cntB) * hp.n, e, hp.n);
+    (*cntB)++;
+    if (left == 0) return;
+    for (int k = p; k < hp.n; k++) {
+        for (int v = 1; v < hp.q; v++) { e[k] = (uint8_t)v; gen_ball_tab(k + 1, left - 1, e, cntB); }
         e[k] = 0;
     }
 }
@@ -330,6 +425,12 @@ int main(int argc, char **argv) {
     for (int k = 0; k < n; k++) for (int a = 0; a < q; a++) for (int v = 0; v < q; v++) hdlt[k][a][v] = ((a + v) % q - a) * hp.pw[k];
     shell_tab = (uint8_t *)calloc((size_t)n * hp.S * n, 1);
     for (int j = 0; j < n; j++) { uint8_t e[MAXN] = {0}; int c = 0; gen_shell(j, 0, R, e, &c); if (c != hp.S) { fprintf(stderr, "casca %d != %d\n", c, hp.S); return 3; } }
+    { long B = 1, c = 1;
+      for (int i = 1; i <= R; i++) { c = c * (n - i + 1) / i; long t = c; for (int j = 0; j < i; j++) t *= (q - 1); B += t; }
+      nball_h = (int)B; hp.nball = nball_h;
+      ball_tab = (uint8_t *)calloc((size_t)B * n, 1);
+      uint8_t e[MAXN] = {0}; int cb = 0; gen_ball_tab(0, R, e, &cb);
+      if (cb != nball_h) { fprintf(stderr, "bola %d != %d\n", cb, nball_h); return 3; } }
     hrng ^= seed * 0x9E3779B97F4A7C15ULL;
     for (int i = 0; i < 10; i++) hrnd();
 
@@ -356,7 +457,7 @@ int main(int argc, char **argv) {
 #ifdef EMU
     P = hp;
     memcpy(dlt, hdlt, sizeof hdlt);
-    D.cnt = h_cnt; D.cw = h_cw; D.ci = h_ci; D.tabu = h_tabu; D.st = h_st; D.shell = shell_tab;
+    D.cnt = h_cnt; D.cw = h_cw; D.ci = h_ci; D.tabu = h_tabu; D.st = h_st; D.shell = shell_tab; D.bt = ball_tab;
 #define SYNCDEV()
 #define PULL()
 #else
@@ -366,6 +467,8 @@ int main(int argc, char **argv) {
     CK(cudaMalloc(&D.cnt, Ncnt)); CK(cudaMalloc(&D.cw, Ncw)); CK(cudaMalloc(&D.ci, (size_t)chains * M * sizeof(int)));
     CK(cudaMalloc(&D.tabu, (size_t)chains * M * sizeof(int64_t))); CK(cudaMalloc(&D.st, chains * sizeof(St)));
     CK(cudaMalloc(&D.shell, (size_t)n * hp.S * n));
+    CK(cudaMalloc(&D.bt, (size_t)nball_h * n));
+    CK(cudaMemcpy(D.bt, ball_tab, (size_t)nball_h * n, cudaMemcpyHostToDevice));
     CK(cudaMemcpy(D.cnt, h_cnt, Ncnt, cudaMemcpyHostToDevice)); CK(cudaMemcpy(D.cw, h_cw, Ncw, cudaMemcpyHostToDevice));
     CK(cudaMemcpy(D.ci, h_ci, (size_t)chains * M * sizeof(int), cudaMemcpyHostToDevice));
     CK(cudaMemcpy(D.tabu, h_tabu, (size_t)chains * M * sizeof(int64_t), cudaMemcpyHostToDevice));
