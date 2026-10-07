@@ -20,6 +20,8 @@ q,n,r,lower_bound,upper_bound,lower_bound_reference,upper_bound_reference
 2,24,5,376,1024,lit_li_chen_1994,lit_ostergard_kaikkonen_1998
 3,6,1,71,73,lit_linderoth_margot_thain_2007,lit_laarhoven_aarts_van_lint_wille_1989
 3,6,2,15,17,lit_bertolo_ostergard_weakly_2004,lit_hamalainen_rankinen_1991
+4,6,3,11,14,lit_haas_schlage_puchta_quistorff_2008_2009,lit_bertolo_di_pasquale_santisi_2004_2006
+4,7,4,9,10,lit_haas_schlage_puchta_quistorff_2008_2009,lit_rivas_soriano_2006_2008
 4,10,4,62,208,lit_gijswijt_polak_2025,lit_ostergard_1999
 5,7,2,236,525,lit_gijswijt_polak_2025,lit_ostergard_1999
 5,9,3,354,1275,lit_gijswijt_polak_2025,lit_bhandari_durairajan_1996

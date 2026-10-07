@@ -73,10 +73,13 @@ def test_ledger_commitado_tem_1145_celulas_e_sha256_dos_nossos_codigos_confere()
     assert led["meta"]["n_cells"] == len(led["cells"]) == 1145
     nossos = [c for c in led["cells"] if c["status"] != "published"]
     # 15 no Lean (K7(6,4) <= 14 na v0.9, PR #76; K7(5,3) <= 17 com código nosso) + 95 dos artigos de
-    # data/literatura/ (79 pelo Corolário 3 de Kéri–Östergård, 16 binárias), todas teoremas do kernel.
-    assert len(nossos) == 110
-    assert all(c["status"] == "ours_lean" for c in nossos)
-    lit = [c for c in nossos if c["ours_lean"]["declaration"].startswith(("CoveringLit.", "Syn.K2_"))]
+    # data/literatura/ (79 pelo Corolário 3 de Kéri–Östergård, 16 binárias), todas teoremas do kernel;
+    # mais K4(7,4) <= 10 só computacional (código em data/codes/, ainda sem teorema, 2026-10-07).
+    assert len(nossos) == 111
+    assert [c["id"] for c in nossos if c["status"] != "ours_lean"] == ["K4(7,4)"]
+    assert next(c for c in nossos if c["id"] == "K4(7,4)")["status"] == "ours_computational"
+    lean = [c for c in nossos if c["status"] == "ours_lean"]
+    lit = [c for c in lean if c["ours_lean"]["declaration"].startswith(("CoveringLit.", "Syn.K2_"))]
     assert len(lit) == 95
     # Com código em data/codes/ (25) a cota sobe a INDEPENDENTLY_REPRODUCED; sem, fica FORMALIZED.
     assert sum(1 for c in lit if c["certification"]["ub"]["state"] == "INDEPENDENTLY_REPRODUCED") == 25
@@ -255,7 +258,21 @@ EXATAS_POR_CERTIFICADO = {
     (3, 6, 2): (17, ["Farkas"], [60], 61, "INDEPENDENTLY_REPRODUCED"),
     (7, 6, 4): (14, ["LRAT"], [56], 62, "INDEPENDENTLY_REPRODUCED"),
     (7, 5, 3): (17, ["LRAT"], [56], 67, "INDEPENDENTLY_REPRODUCED"),
+    # 2026-10-07, por decisão do dono: o "red team" é a dupla checagem do autor no #111 (o registro diz isso);
+    # a superior é o código de data/codes/ sem teorema Lean, logo WITNESS_CHECKED
+    (4, 7, 4): (10, ["LRAT"], [103, 111], 111, "WITNESS_CHECKED"),
 }
+
+
+def test_k4_6_3_inferior_12_por_certificado_sem_virar_exata(ledger_recortado):
+    c = _celulas(ledger_recortado)[(4, 6, 3)]
+    cert = c["certification"]
+    assert cert["lb"]["value"] == 12 and cert["lb"]["state"] == "CERTIFICATE_VERIFIED"
+    assert cert["ub"]["value"] == 14 and cert["ub"]["state"] == "CLAIMED" and cert["exact"] is False
+    k = cert["lb"]["provenance"]["certificado"]
+    assert "PENDENTE" in k["red_team"]["veredito"].upper()
+    for arq, sha in k["arquivos"].items():
+        assert hashlib.sha256((RAIZ / arq).read_bytes()).hexdigest() == sha, arq
 
 
 def _ours_e_sources():

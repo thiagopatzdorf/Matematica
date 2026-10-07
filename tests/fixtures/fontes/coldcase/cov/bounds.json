@@ -441,6 +441,30 @@
   },
   {
    "q": 4,
+   "n": 6,
+   "R": 3,
+   "lb": 11,
+   "ub": 14,
+   "lb_key": "k",
+   "ub_key": "x",
+   "n_optimal": null,
+   "src": "keri_4-5_tables.pdf",
+   "page": 1
+  },
+  {
+   "q": 4,
+   "n": 7,
+   "R": 4,
+   "lb": 9,
+   "ub": 10,
+   "lb_key": "k",
+   "ub_key": "q",
+   "n_optimal": null,
+   "src": "keri_4-5_tables.pdf",
+   "page": 1
+  },
+  {
+   "q": 4,
    "n": 10,
    "R": 4,
    "lb": 59,
