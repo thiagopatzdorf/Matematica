@@ -130,17 +130,29 @@ def test_fecha_perfis_nao_conta_registro_de_outro_raio_como_fechado(tmp_path):
     assert outro.returncode == 1, outro.stdout + outro.stderr
 
 
-def test_registro_de_k4_7_4_m9_fecha_os_792_perfis_e_bate_o_manifesto():
-    """K_4(7,4) >= 10: todo perfil de M = 9 tem UNSAT com LRAT conferido (inteiro ou em todos os cubos)."""
+def _registro_fecha_todos(nome, q, n, R, M, perfis):
     import hashlib
     import lzma
     import subprocess
     cert = RAIZ / "tools" / "exatos" / "fibras" / "certificados"
-    xz = cert / "K4_7_4_M9.jsonl.xz"
-    esperado = {ln.split()[1]: ln.split()[0] for ln in (cert / "K4_7_4_M9.sha256").read_text().splitlines()}
-    assert hashlib.sha256(xz.read_bytes()).hexdigest() == esperado["K4_7_4_M9.jsonl.xz"]
-    assert hashlib.sha256(lzma.open(xz).read()).hexdigest() == esperado["K4_7_4_M9.jsonl"]
+    xz = cert / f"{nome}.jsonl.xz"
+    esperado = {ln.split()[1]: ln.split()[0] for ln in (cert / f"{nome}.sha256").read_text().splitlines()}
+    assert hashlib.sha256(xz.read_bytes()).hexdigest() == esperado[f"{nome}.jsonl.xz"]
+    assert hashlib.sha256(lzma.open(xz).read()).hexdigest() == esperado[f"{nome}.jsonl"]
     r = subprocess.run([sys.executable, str(RAIZ / "tools" / "exatos" / "fibras" / "fecha_perfis.py"),
-                        "--q", "4", "--n", "7", "--R", "4", "--M", "9", str(xz)], capture_output=True, text=True)
+                        "--q", str(q), "--n", str(n), "--R", str(R), "--M", str(M), str(xz)],
+                       capture_output=True, text=True)
     assert r.returncode == 0, r.stdout + r.stderr
-    assert "792 perfis, 792 fechados" in r.stdout
+    assert f"{perfis} perfis, {perfis} fechados" in r.stdout
+
+
+def test_registro_de_k4_7_4_m9_fecha_os_792_perfis_e_bate_o_manifesto():
+    """K_4(7,4) >= 10: todo perfil de M = 9 tem UNSAT com LRAT conferido (inteiro ou em todos os cubos)."""
+    _registro_fecha_todos("K4_7_4_M9", 4, 7, 4, 9, 792)
+
+
+def test_registro_de_k4_6_3_m11_fecha_os_8008_perfis_e_bate_o_manifesto():
+    """K_4(6,3) >= 12: todo perfil de M = 11 tem UNSAT com LRAT conferido (inteiro ou em todos os cubos)."""
+    assert encode.fibra_minima(4, 6, 3, 11) == 1      # K_4(5,2) = 16 > 11 exclui fibra vazia
+    assert encode.contar_instancias(4, 6, 11, 6, 1) == (11, 8008)
+    _registro_fecha_todos("K4_6_3_M11", 4, 6, 3, 11, 8008)

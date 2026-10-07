@@ -10,6 +10,7 @@ acima do previsto).
 | célula | antes | depois | afirmação provada | instâncias | verificação |
 |---|---|---|---|---|---|
 | **K₄(7,4)** | 9–10 | **10** (ub 10 de Rivas Soriano, publicado) | ∄ código com 9 palavras | 792 perfis: 786 inteiros + 6 em 168 cubos | 792/792 perfis fechados, todo registro UNSAT com `lrat-check` VERIFIED; `fecha_perfis.py --R 4` 792/792; 10/10 CNFs regeneradas batem o sha256; registro em `tools/exatos/fibras/certificados/K4_7_4_M9.jsonl.xz` (manifesto `K4_7_4_M9.sha256`) |
+| **K₄(6,3)** | 11–14 | **12–14** | ∄ código com 11 palavras | 8008 perfis (ordem max) | 8008/8008 perfis fechados: 7990 inteiros + 18 em 2100 cubos, todo registro UNSAT com `lrat-check` VERIFIED; `fecha_perfis.py --R 3` 8008/8008; 20/20 CNFs regeneradas batem o sha256; registro em `certificados/K4_6_3_M11.jsonl.xz` (manifesto `K4_6_3_M11.sha256`); 18,5 h de solver, 2,6 h de `lrat-check`, 402 GB de LRAT conferidos e descartados |
 | K₃(7,3) | 11–12 | 11–12 (sem mudança) | parcial: ver "K₃(7,3)" | <!-- K373 --> | idem, por perfil |
 
 Status honesto, igual ao de `FIBRAS_GERAL.md`: resultado **computacional com certificado** (LRAT
@@ -73,3 +74,18 @@ e reordenação das palavras: não dependem de R. Então a redução por perfis 
 Testes (`tests/test_fibras_raio_geral.py`): completude da forma normal com R < n − 2 em 8 casos
 (q, n, R, k), uma cláusula violada por ponto descoberto, R = n − 2 explícito igual ao padrão,
 s_min e número de perfis dos alvos, e `fecha_perfis` não conta registro de outro raio.
+
+## K₄(6,3) ≥ 12 (alvo que apareceu no caminho)
+
+A `TRIAGEM_2026-10-04.md` listava K₄(6,3) 11–14 com "∄ 11 ⇒ lb 12, ~2·10⁵ nós ideais, 40 %". Com o
+codificador de triplas a CNF tem só 4096 cláusulas de cobertura e os perfis medidos levaram
+0,5–80 s. Lema 1 com M = 11: fibra vazia exige K₄(5,2) ≤ 11, falso (K₄(5,2) = 16, Kéri 2011); s = 1
+exige K₃(5,2) = 8 ≤ 10, verdadeiro: s_min = 1, 11 tipos e C(11 + 6 − 1, 6) = 8008
+perfis. Dependência de literatura: só K₄(5,2) ≥ 16.
+
+Isso também tira de K₄(7,4) = 10 a dependência de K₄(6,3) ≥ 11 (HSPQ): o Lema 1 de K₄(7,4) com
+M = 9 só precisa de K₄(6,3) > 9, que este resultado dá (≥ 12) a partir de K₄(5,2) ≥ 16.
+
+Novidade: não refiz a busca de literatura. A TRIAGEM (04/10) não achou nada pós-2011 para K₄(6,3);
+o SDP de Gijswijt–Polak dá 8,76 e o de Marosi não melhorou o 11. Antes de citar como novo, rodar
+a checagem no padrão de `NOVIDADE_V09.md`.
