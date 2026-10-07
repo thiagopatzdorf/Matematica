@@ -17,3 +17,4 @@ Contrato de um script:
 | script | o que faz | horas típicas |
 |---|---|---|
 | `fumaca` | prova de vida do lote: imagem, commit, CPU e upload da saída | 0,2 |
+| `busca_tabu` | busca tabu direta (`tools/busca_direta/tabu.c`) nas células de `busca_tabu.alvos`; confere cada código achado com `tools/verify/verify` e grava `resumo.tsv` | 1,2 |
