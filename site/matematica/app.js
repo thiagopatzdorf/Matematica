@@ -15,10 +15,10 @@
   var HTML_LANG = { pt: "pt-BR", en: "en", fr: "fr" };
   var reduzir = window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-  // Números embutidos (ledger/COBERTURA.md e ledger/cells.json, v0.9.1). Valem só quando dados.json falta;
+  // Números embutidos (ledger/COBERTURA.md e ledger/cells.json, v0.10.0). Valem só quando dados.json falta;
   // a página diz isso no carimbo da seção de números.
   var DADOS_EMBUTIDOS = {
-    versao: "0.9.1", doi: "10.5281/zenodo.23085769", celulas_total: 1145, exatas: 524, abertas: 621,
+    versao: "0.10.0", doi: "10.5281/zenodo.23214556", doi_conceito: "10.5281/zenodo.23085769", celulas_total: 1145, exatas: 524, abertas: 621,
     superiores_por_estado: { CLAIMED: 444, WITNESS_CHECKED: 1, CERTIFICATE_VERIFIED: 0, FORMALIZED: 579, INDEPENDENTLY_REPRODUCED: 121 },
     inferiores_por_estado: { CLAIMED: 1138, WITNESS_CHECKED: 0, CERTIFICATE_VERIFIED: 5, FORMALIZED: 2, INDEPENDENTLY_REPRODUCED: 0 },
     destaques: [
@@ -480,7 +480,7 @@
       if (partes.length) setHTML("#carimbo", t("lido", { x: partes.join(" · ") }));
     }
     var pre = $("#bibtex");
-    var doi = txt(d.doi_conceito) || txt(d.doi);
+    var doi = txt(d.doi) || txt(d.doi_conceito); // DOI da versão citada; o de conceito só se faltar
     if (pre && doi) pre.textContent = pre.textContent.replace(/doi\s*=\s*\{[^}]*\}/, "doi     = {" + doi + "}");
     if (pre && txt(d.versao)) pre.textContent = pre.textContent.replace(/version\s*=\s*\{[^}]*\}/, "version = {" + d.versao.replace(/^v/, "") + "}");
   }

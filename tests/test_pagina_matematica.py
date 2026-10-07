@@ -6,6 +6,7 @@ externo fora da lista, página pesada demais, ou <base> que o publicador recusa.
 """
 import json
 import re
+import sys
 from collections import Counter
 from html.parser import HTMLParser
 from pathlib import Path
@@ -15,6 +16,9 @@ PAGINA = RAIZ / "site" / "matematica"
 HTML = (PAGINA / "index.html").read_text(encoding="utf-8")
 JS = (PAGINA / "app.js").read_text(encoding="utf-8")
 CELLS = json.loads((RAIZ / "ledger" / "cells.json").read_text(encoding="utf-8"))["cells"]
+sys.path.insert(0, str(RAIZ / "tools" / "site"))
+from gerar_dados_site import DOI_VERSAO  # noqa: E402
+
 FRASE_LEDGER = "A machine-checked ledger of covering-code upper bounds, with formally certified exact entries."
 ESTADOS = ["CLAIMED", "WITNESS_CHECKED", "CERTIFICATE_VERIFIED", "FORMALIZED", "INDEPENDENTLY_REPRODUCED"]
 HOSTS_PERMITIDOS = ("https://fonts.googleapis.com", "https://fonts.gstatic.com")
@@ -145,6 +149,19 @@ def test_numeros_embutidos_batem_com_o_ledger():
             assert f"{e}: {contagem.get(e, 0)}" in trecho, f"{lado}.{e} diverge do ledger"
     assert f'data-d="celulas_total">{len(CELLS)}<' in HTML
     assert f'data-d="exatas">{exatas}<' in HTML
+
+
+def test_versao_e_doi_embutidos_ou_do_html_ficam_para_tras_do_zenodo_e_do_ledger():
+    # A 0.10.0 foi cunhada no Zenodo; página embutida com versão ou DOI da anterior cita o artefato errado,
+    # e o "no kernel" do HTML estático tem de ser FORMALIZED + INDEPENDENTLY_REPRODUCED do ledger.
+    zen = json.loads((RAIZ / ".zenodo.json").read_text(encoding="utf-8"))["version"]
+    doi = DOI_VERSAO[zen]
+    emb = _objeto_js("DADOS_EMBUTIDOS")
+    assert f'versao: "{zen}"' in emb and f'doi: "{doi}"' in emb
+    assert f"version = {{{zen}}}" in HTML and f"doi     = {{{doi}}}" in HTML
+    assert f"v{zen})." in HTML  # carimbo "Números embutidos na página"
+    sup = Counter(c["certification"]["ub"]["state"] for c in CELLS)
+    assert f'data-d="no_lean">{sup["FORMALIZED"] + sup["INDEPENDENTLY_REPRODUCED"]}<' in HTML
 
 
 def test_destaques_embutidos_batem_com_os_estados_do_ledger():
