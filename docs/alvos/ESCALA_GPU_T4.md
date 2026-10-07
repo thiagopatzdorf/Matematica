@@ -117,12 +117,41 @@ metade (T2D 48 → 24, E2 48 → 0), então 4 pode virar 2 ou 1; se negarem, o p
 * Removi o cache do `apt` e excluí as bibliotecas estáticas do CUDA para caber; **não apaguei nada do James**.
 * Armei `shutdown -h +240` no início como teto de segurança.
 
-## 7. O que NÃO foi feito
+## 7. O que NÃO foi feito (ver também as seções 5b e 8)
 
 * Nenhum recorde até aqui. K_3(6,1), M = 72 (aberto desde 1989): 3 variantes de SA na T4 (modo 1 com ciclos de 2 M e 20 M, modo 2 com
   ciclo de 2 M; 240 cadeias, 8 min cada, ~43 bilhões de iterações) e 6 processos `sa_cover` em CPU (~3,2 bilhões, 25 min):
   **todos ficam em 2 pontos descobertos**, o mesmo platô já medido pela sondagem de 04/10 e pelo `k361-lider`.
   Mais iterações (13× a CPU) não tiraram a busca do platô, o que reforça que o obstáculo é estrutural, não de vazão.
-* Resultados das células de recorde (K_4(7,3), K_3(8,3), K_5(6,3)): seção a ser preenchida no fim da fase 7.
+* Células de recorde (fase 7; 240 cadeias, 2-6 min cada; "melhor" = menor número de pontos descobertos visto em qualquer lançamento):
+
+| célula, alvo M (recorde) | método | melhor | resultado |
+|---|---|---|---|
+| K_5(6,3), M = 25 (25) | tabu (modo 0) | 0 | **240 de 240 cadeias fecharam em 16 s; os 240 códigos passam no verificador oficial** (empate com o recorde, não superação; 240 códigos distintos) |
+| K_5(6,3), M = 24 (25) | tabu | 19 | não fecha em 6 min (328 mil it/s) |
+| K_3(8,3), M = 27 (27) | SA que realoca (modo 2) | 17 | não chega nem ao empate em 4 min (8,7 M it/s) |
+| K_3(8,3), M = 26 (27) | SA que realoca | 27 | não fecha |
+| K_4(7,3), M = 32 (32) | SA modo 2 / modo 1 | 129 / 89 | longe do empate (1,6-1,8 M it/s) |
+
+Leitura: a busca sem estrutura **só atinge os recordes das células pequenas e fáceis** (K_5(6,3) = 25, K_3(6,1) = 73). Nas células
+onde o recorde veio de construção com simetria (K_3(8,3) = 27 e K_4(7,3) = 32 foram achados por grupo prescrito em `tabu_grupo`), a
+vazão da GPU não substitui a estrutura. Próximo passo coerente: levar o grupo prescrito (`tools/busca_direta/tabu_grupo.c`) para a GPU.
+Nada foi publicado e nenhum código daqui entra no ledger sem decisão do dono.
+
+## 8. Resultado do pedido de cota (consultado 23:20Z)
+
+| cota | pedido | resultado |
+|---|---|---|
+| `GPUS-ALL-REGIONS-per-project` | 4, depois 2 | **negado nas duas vezes** (continua 1) |
+| `PREEMPTIBLE-NVIDIA-T4-GPUS-per-project-region` (sa-east1) | 4 | **aprovado parcialmente: 3** |
+| `PREEMPTIBLE-NVIDIA-L4-GPUS-per-project-region` (sa-east1) | 4 | negado (continua 1) |
+
+Como o teto total continua 1, o efeito prático é **uma GPU**. Um próximo pedido precisa de revisão humana no console do Google Cloud
+(IAM e administração > Cotas) ou do suporte; pedidos automáticos repetidos só somam negativas.
+
+## 9. Custo real
+
+VM ligada de 22:06Z a 23:46Z (~1,7 h), ≈ US$ 0,75 por preço de lista (billing real em ~1 dia), de US$ 10 autorizados.
+A T4 foi desligada ao fim (`gcp_vm desligar`); o desligamento automático (`shutdown -h +240`) ficou como segunda trava.
 * Não comparei com a c2d na prática (o preço por resultado da seção 3 é cálculo).
 * Não otimizei o kernel além de `MAXC`.
