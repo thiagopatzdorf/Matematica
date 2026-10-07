@@ -122,3 +122,18 @@ def test_codigo_do_grupo_sem_simetria_ou_reprovado_pelo_verificador(grupo_bin, b
         palavras = set(open(arq).read().split())
         imagem = {"".join(str((int(w[perm[i]]) + soma[i]) % 3) for i in range(6)) for w in palavras}
         assert imagem == palavras, f"código de {ger} não é invariante"
+
+
+def test_grupo_com_multiplicador_perde_o_codigo_de_hamming_ternario(grupo_bin, tmp_path):
+    # negação em F_3^4 (y_i = 2 x_i): o [4,2]_3 de Hamming é linear, logo invariante, e tem 9 palavras
+    # (o zero fixo + 4 pares); a busca com esse grupo tem de achar 9 e nunca menos
+    prefixo, achados = _roda_grupo(grupo_bin, tmp_path, 3, 4, 1, 8, "0,1,2,3:0,0,0,0:2,2,2,2")
+    assert achados and min(achados) == 9
+    palavras = set(open(f"{prefixo}_M9.txt").read().split())
+    assert {"".join(str(2 * int(c) % 3) for c in w) for w in palavras} == palavras
+
+
+def test_multiplicador_nao_invertivel_e_recusado(grupo_bin, tmp_path):
+    r = subprocess.run([grupo_bin, "4", "3", "1", "4", "1", "1", str(tmp_path / "x"), "0,1,2:0,0,0:2,2,2"],
+                       capture_output=True, text=True)
+    assert r.returncode == 2 and "invertível" in r.stderr

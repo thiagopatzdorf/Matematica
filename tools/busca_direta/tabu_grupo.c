@@ -7,9 +7,10 @@
  * (1999)): o código é a união das órbitas por G de poucos representantes, e a busca anda só neles.
  *
  * Uso: tabu_grupo q n R nrep segundos semente prefixo "geradores" [tenure=1] [max_cand=0 (todos)]
- *   geradores: separados por ';', cada um "p0,p1,...,p{n-1}" ou "p0,...,p{n-1}:a0,...,a{n-1}", que age
- *   como y_i = x_{p_i} + a_i (mod q). Ex. (n=6): troca cíclica "1,2,3,4,5,0"; translação por 111111:
- *   "0,1,2,3,4,5:1,1,1,1,1,1".
+ *   geradores: separados por ';', cada um "p0,...,p{n-1}[:a0,...,a{n-1}[:m0,...,m{n-1}]]", que age como
+ *   y_i = m_i x_{p_i} + a_i (mod q), com m_i invertível mod q (padrão a = 0, m = 1). Ex. (n=6): troca
+ *   cíclica "1,2,3,4,5,0"; translação por 111111: "0,1,2,3,4,5:1,1,1,1,1,1"; negação em F_5^6:
+ *   "0,1,2,3,4,5:0,0,0,0,0,0:4,4,4,4,4,4".
  *
  * A conta: a órbita de pontos o fica coberta sse alguma bola B_R(r) de um representante r a intersecta
  * (x em o é coberto por g·r sse g^{-1}x ∈ B_R(r) ∩ o). Então basta cO[o] = soma_r |o ∩ B_R(r)|, e mover
@@ -40,7 +41,7 @@ static uint32_t *cO;
 static uint32_t *uo, *upos, nuo; /* órbitas descobertas */
 static uint64_t nunc;           /* pontos descobertos */
 static int ng;
-static uint8_t gp[MAXG][MAXN], ga[MAXG][MAXN];
+static uint8_t gp[MAXG][MAXN], ga[MAXG][MAXN], gm[MAXG][MAXN];
 static int nrep;
 static uint8_t (*rp)[MAXN];
 static int64_t *ri;
@@ -54,7 +55,7 @@ static double agora(void) { struct timespec t; clock_gettime(CLOCK_MONOTONIC, &t
 
 static void digitos(uint64_t x, uint8_t *d) { for (int k = 0; k < n; k++) { d[k] = (uint8_t)(x % q); x /= q; } }
 static uint64_t indice(const uint8_t *d) { uint64_t x = 0; for (int k = 0; k < n; k++) x += d[k] * (uint64_t)pw[k]; return x; }
-static void aplica(int g, const uint8_t *x, uint8_t *y) { for (int i = 0; i < n; i++) y[i] = (uint8_t)((x[gp[g][i]] + ga[g][i]) % q); }
+static void aplica(int g, const uint8_t *x, uint8_t *y) { for (int i = 0; i < n; i++) y[i] = (uint8_t)((gm[g][i] * x[gp[g][i]] + ga[g][i]) % q); }
 
 /* transições de cobertura de uma órbita; modo 1 mexe na lista de descobertas, modo 0 só em cO
  * (modo 0 serve para medir a saída de um representante e desfazer) */
@@ -135,34 +136,47 @@ static int64_t avalia(const uint8_t *c, int j, int64_t ia, int64_t ib) {
 
 static int grupo(const char *spec) {
     /* identidade + geradores, depois fecho por composição */
-    uint8_t gens[64][2][MAXN];
+    uint8_t gens[64][3][MAXN];
     int nge = 0;
     char *s = strdup(spec), *sv = NULL;
     for (char *tok = strtok_r(s, ";", &sv); tok; tok = strtok_r(NULL, ";", &sv)) {
-        char *dois = strchr(tok, ':');
-        if (dois) *dois++ = 0;
+        char *dois = strchr(tok, ':'), *tres = NULL;
+        if (dois) { *dois++ = 0; tres = strchr(dois, ':'); if (tres) *tres++ = 0; }
         int i = 0;
         for (char *e = strtok(tok, ","); e && i < n; e = strtok(NULL, ",")) gens[nge][0][i++] = (uint8_t)atoi(e);
         if (i != n) { fprintf(stderr, "gerador com %d posições\n", i); return -1; }
         memset(gens[nge][1], 0, MAXN);
         if (dois) { i = 0; for (char *e = strtok(dois, ","); e && i < n; e = strtok(NULL, ",")) gens[nge][1][i++] = (uint8_t)(atoi(e) % q); }
+        memset(gens[nge][2], 1, MAXN);
+        if (tres) { i = 0; for (char *e = strtok(tres, ","); e && i < n; e = strtok(NULL, ",")) gens[nge][2][i++] = (uint8_t)(atoi(e) % q); }
+        for (i = 0; i < n; i++) { /* multiplicador tem de ser invertível, senão não é isometria */
+            int a = gens[nge][2][i], b = q;
+            while (b) { int t = a % b; a = b; b = t; }
+            if (a != 1) { fprintf(stderr, "multiplicador não invertível mod q\n"); return -1; }
+        }
         int vis[MAXN] = {0};
         for (i = 0; i < n; i++) { if (gens[nge][0][i] >= n || vis[gens[nge][0][i]]++) { fprintf(stderr, "não é permutação\n"); return -1; } }
         nge++;
     }
     free(s);
     ng = 1;
-    for (int i = 0; i < n; i++) { gp[0][i] = (uint8_t)i; ga[0][i] = 0; }
+    for (int i = 0; i < n; i++) { gp[0][i] = (uint8_t)i; ga[0][i] = 0; gm[0][i] = 1; }
     for (int a = 0; a < ng; a++)
         for (int b = 0; b < nge; b++) {
-            /* h = gen_b ∘ g_a : z_i = y_{pb_i} + ab_i, y_k = x_{pa_k} + aa_k */
-            uint8_t hp[MAXN], ha[MAXN];
-            for (int i = 0; i < n; i++) { int k = gens[b][0][i]; hp[i] = gp[a][k]; ha[i] = (uint8_t)((ga[a][k] + gens[b][1][i]) % q); }
+            /* h = gen_b ∘ g_a : z_i = mb_i y_{pb_i} + ab_i, y_k = ma_k x_{pa_k} + aa_k */
+            uint8_t hp[MAXN], ha[MAXN], hm[MAXN];
+            for (int i = 0; i < n; i++) {
+                int k = gens[b][0][i], mb = gens[b][2][i];
+                hp[i] = gp[a][k];
+                hm[i] = (uint8_t)(mb * gm[a][k] % q);
+                ha[i] = (uint8_t)((mb * ga[a][k] + gens[b][1][i]) % q);
+            }
             int novo = 1;
-            for (int c = 0; c < ng && novo; c++) if (!memcmp(gp[c], hp, n) && !memcmp(ga[c], ha, n)) novo = 0;
+            for (int c = 0; c < ng && novo; c++)
+                if (!memcmp(gp[c], hp, n) && !memcmp(ga[c], ha, n) && !memcmp(gm[c], hm, n)) novo = 0;
             if (novo) {
                 if (ng == MAXG) { fprintf(stderr, "grupo grande demais\n"); return -1; }
-                memcpy(gp[ng], hp, n); memcpy(ga[ng], ha, n); ng++;
+                memcpy(gp[ng], hp, n); memcpy(ga[ng], ha, n); memcpy(gm[ng], hm, n); ng++;
             }
         }
     return ng;
