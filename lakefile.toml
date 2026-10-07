@@ -52,6 +52,15 @@ name = "CoveringLedger"
 srcDir = "."
 roots = ["CoveringLean.Ledger.Cotas"]
 
+# Células do ledger cuja prova é regra sobre um teorema do kernel de fora do lote (ledger/ours.json:
+# síndromes binárias, Corolário 3 de Kéri–Östergård, witnesses dos artigos), GERADAS por
+# tools/certificar/gerar.py em CoveringLean/LedgerExt/Cotas.lean. Importa os módulos dessas bases
+# (KO05 ~30 min de CPU, Syn_K2_*), por isso fica fora do CoveringLedger; `lake build CoveringLedgerExt`.
+[[lean_lib]]
+name = "CoveringLedgerExt"
+srcDir = "."
+roots = ["CoveringLean.LedgerExt.Cotas"]
+
 # Cotas dos artigos transcritos em data/literatura/ (GERADAS por tools/literatura/gerar_lean.py):
 # Corolário 3 de Kéri–Östergård 2005 (chave n, CoveringLean/Surjetivo.lean + Literatura/KO05.lean),
 # binários pequenos por witness (Literatura/Binarios.lean) e K_2(14,1) ≤ 1408. Fora do alvo padrão

@@ -89,7 +89,7 @@ O bloco abaixo é gerado a partir de `ledger/cells.json` e não se edita à mão
 | células `K_q(n,R)` no ledger (q de 2 a 21) | **1145** |
 | exatas (cota inferior = superior) | **523** |
 | abertas | **622** |
-| cotas superiores que são teorema do kernel do Lean (FORMALIZED + INDEPENDENTLY_REPRODUCED) | **642** de 1145 (551 + 91) |
+| cotas superiores que são teorema do kernel do Lean (FORMALIZED + INDEPENDENTLY_REPRODUCED) | **670** de 1145 (579 + 91) |
 | cotas inferiores por estado (quase todas herdadas da literatura) | CLAIMED 1140 · CERTIFICATE_VERIFIED 3 · FORMALIZED 2 |
 | exatas fechadas aqui (o intervalo publicado estava aberto) | **4** (1 com as duas cotas no kernel; 3 com a inferior por certificado verificado fora do Lean) |
 | células com teorema Lean próprio | **110** (12 abaixo da melhor cota superior publicada que achamos) |

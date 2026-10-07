@@ -1,6 +1,6 @@
 {
-  "gerado_em": "2026-10-06T06:46:55+00:00",
-  "commit": "cacbe6e6fe5dd31c574cc17cb67140f5c4dbc84f",
+  "gerado_em": "2026-10-07T05:03:15+00:00",
+  "commit": "dfcdcaa11da4fea774b63347b01ed7fe9f054ca4",
   "versao": "0.9.1",
   "doi": "10.5281/zenodo.23178159",
   "doi_da_versao": "0.9.1",
@@ -10,10 +10,10 @@
   "exatas": 523,
   "abertas": 622,
   "superiores_por_estado": {
-    "CLAIMED": 503,
+    "CLAIMED": 475,
     "WITNESS_CHECKED": 0,
     "CERTIFICATE_VERIFIED": 0,
-    "FORMALIZED": 551,
+    "FORMALIZED": 579,
     "INDEPENDENTLY_REPRODUCED": 91
   },
   "inferiores_por_estado": {

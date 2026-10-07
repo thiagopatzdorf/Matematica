@@ -146,6 +146,15 @@
    "sha256_arquivo": "3bad91645241214277fbd561c954651fe1756331106bdec5ba9bb23c402c9a8a",
    "witness": null
   },
+  "10,9,4": {
+   "M": 8500,
+   "arquivo": "CoveringLean/LedgerExt/Cotas.lean",
+   "construcao": "soma direta de K10(4,2) ≤ 34 e K10(5,2) ≤ 250",
+   "declaration": "CoveringLedgerExt.K10_9_4_le_8500",
+   "lib": "CoveringLedgerExt",
+   "sha256_arquivo": "9871e1b67805396071c57b33915672d3b54bf8a166b12e743b518fe21c9bf503",
+   "witness": null
+  },
   "10,9,8": {
    "M": 10,
    "arquivo": "CoveringLean/Ledger/Cotas.lean",
@@ -613,6 +622,15 @@
    "verificador": "avaliador de síndromes em Python (tools/certificar/lineares.py, cobre_por_sindromes), rodado em tests/test_certificar.py",
    "witness": "tools/certificar/lineares/K13_8_3_M28561.json"
   },
+  "13,8,4": {
+   "M": 3249,
+   "arquivo": "CoveringLean/LedgerExt/Cotas.lean",
+   "construcao": "soma direta de K13(4,2) ≤ 57 e K13(4,2) ≤ 57",
+   "declaration": "CoveringLedgerExt.K13_8_4_le_3249",
+   "lib": "CoveringLedgerExt",
+   "sha256_arquivo": "9871e1b67805396071c57b33915672d3b54bf8a166b12e743b518fe21c9bf503",
+   "witness": null
+  },
   "13,8,7": {
    "M": 13,
    "arquivo": "CoveringLean/Ledger/Cotas.lean",
@@ -740,6 +758,15 @@
    "construcao": "raio ≥ n: uma palavra",
    "declaration": "CoveringLedger.K14_7_7_le_1",
    "sha256_arquivo": "3bad91645241214277fbd561c954651fe1756331106bdec5ba9bb23c402c9a8a",
+   "witness": null
+  },
+  "14,8,4": {
+   "M": 4356,
+   "arquivo": "CoveringLean/LedgerExt/Cotas.lean",
+   "construcao": "soma direta de K14(4,2) ≤ 66 e K14(4,2) ≤ 66",
+   "declaration": "CoveringLedgerExt.K14_8_4_le_4356",
+   "lib": "CoveringLedgerExt",
+   "sha256_arquivo": "9871e1b67805396071c57b33915672d3b54bf8a166b12e743b518fe21c9bf503",
    "witness": null
   },
   "14,8,7": {
@@ -871,6 +898,15 @@
    "sha256_arquivo": "3bad91645241214277fbd561c954651fe1756331106bdec5ba9bb23c402c9a8a",
    "witness": null
   },
+  "15,8,4": {
+   "M": 5625,
+   "arquivo": "CoveringLean/LedgerExt/Cotas.lean",
+   "construcao": "soma direta de K15(4,2) ≤ 75 e K15(4,2) ≤ 75",
+   "declaration": "CoveringLedgerExt.K15_8_4_le_5625",
+   "lib": "CoveringLedgerExt",
+   "sha256_arquivo": "9871e1b67805396071c57b33915672d3b54bf8a166b12e743b518fe21c9bf503",
+   "witness": null
+  },
   "15,8,7": {
    "M": 15,
    "arquivo": "CoveringLean/Ledger/Cotas.lean",
@@ -968,6 +1004,15 @@
    "sha256_arquivo": "3bad91645241214277fbd561c954651fe1756331106bdec5ba9bb23c402c9a8a",
    "witness": null
   },
+  "16,6,4": {
+   "M": 64,
+   "arquivo": "CoveringLean/LedgerExt/Cotas.lean",
+   "construcao": "alongamento livre (t = 1) de K16(5,3) ≤ 64",
+   "declaration": "CoveringLedgerExt.K16_6_4_le_64",
+   "lib": "CoveringLedgerExt",
+   "sha256_arquivo": "9871e1b67805396071c57b33915672d3b54bf8a166b12e743b518fe21c9bf503",
+   "witness": null
+  },
   "16,6,5": {
    "M": 16,
    "arquivo": "CoveringLean/Ledger/Cotas.lean",
@@ -998,6 +1043,15 @@
    "construcao": "raio ≥ n: uma palavra",
    "declaration": "CoveringLedger.K16_7_7_le_1",
    "sha256_arquivo": "3bad91645241214277fbd561c954651fe1756331106bdec5ba9bb23c402c9a8a",
+   "witness": null
+  },
+  "16,8,4": {
+   "M": 7569,
+   "arquivo": "CoveringLean/LedgerExt/Cotas.lean",
+   "construcao": "soma direta de K16(4,2) ≤ 87 e K16(4,2) ≤ 87",
+   "declaration": "CoveringLedgerExt.K16_8_4_le_7569",
+   "lib": "CoveringLedgerExt",
+   "sha256_arquivo": "9871e1b67805396071c57b33915672d3b54bf8a166b12e743b518fe21c9bf503",
    "witness": null
   },
   "16,8,7": {
@@ -1097,6 +1151,24 @@
    "sha256_arquivo": "3bad91645241214277fbd561c954651fe1756331106bdec5ba9bb23c402c9a8a",
    "witness": null
   },
+  "17,6,3": {
+   "M": 1241,
+   "arquivo": "CoveringLean/LedgerExt/Cotas.lean",
+   "construcao": "alongamento livre (t = 1) de K17(5,2) ≤ 1241",
+   "declaration": "CoveringLedgerExt.K17_6_3_le_1241",
+   "lib": "CoveringLedgerExt",
+   "sha256_arquivo": "9871e1b67805396071c57b33915672d3b54bf8a166b12e743b518fe21c9bf503",
+   "witness": null
+  },
+  "17,6,4": {
+   "M": 73,
+   "arquivo": "CoveringLean/LedgerExt/Cotas.lean",
+   "construcao": "alongamento livre (t = 1) de K17(5,3) ≤ 73",
+   "declaration": "CoveringLedgerExt.K17_6_4_le_73",
+   "lib": "CoveringLedgerExt",
+   "sha256_arquivo": "9871e1b67805396071c57b33915672d3b54bf8a166b12e743b518fe21c9bf503",
+   "witness": null
+  },
   "17,6,5": {
    "M": 17,
    "arquivo": "CoveringLean/Ledger/Cotas.lean",
@@ -1127,6 +1199,15 @@
    "construcao": "raio ≥ n: uma palavra",
    "declaration": "CoveringLedger.K17_7_7_le_1",
    "sha256_arquivo": "3bad91645241214277fbd561c954651fe1756331106bdec5ba9bb23c402c9a8a",
+   "witness": null
+  },
+  "17,8,4": {
+   "M": 9801,
+   "arquivo": "CoveringLean/LedgerExt/Cotas.lean",
+   "construcao": "soma direta de K17(4,2) ≤ 99 e K17(4,2) ≤ 99",
+   "declaration": "CoveringLedgerExt.K17_8_4_le_9801",
+   "lib": "CoveringLedgerExt",
+   "sha256_arquivo": "9871e1b67805396071c57b33915672d3b54bf8a166b12e743b518fe21c9bf503",
    "witness": null
   },
   "17,8,7": {
@@ -1258,6 +1339,15 @@
    "sha256_arquivo": "3bad91645241214277fbd561c954651fe1756331106bdec5ba9bb23c402c9a8a",
    "witness": null
   },
+  "18,8,4": {
+   "M": 12321,
+   "arquivo": "CoveringLean/LedgerExt/Cotas.lean",
+   "construcao": "soma direta de K18(4,2) ≤ 111 e K18(4,2) ≤ 111",
+   "declaration": "CoveringLedgerExt.K18_8_4_le_12321",
+   "lib": "CoveringLedgerExt",
+   "sha256_arquivo": "9871e1b67805396071c57b33915672d3b54bf8a166b12e743b518fe21c9bf503",
+   "witness": null
+  },
   "18,8,7": {
    "M": 18,
    "arquivo": "CoveringLean/Ledger/Cotas.lean",
@@ -1376,6 +1466,15 @@
    "construcao": "raio ≥ n: uma palavra",
    "declaration": "CoveringLedger.K19_7_7_le_1",
    "sha256_arquivo": "3bad91645241214277fbd561c954651fe1756331106bdec5ba9bb23c402c9a8a",
+   "witness": null
+  },
+  "19,8,4": {
+   "M": 15129,
+   "arquivo": "CoveringLean/LedgerExt/Cotas.lean",
+   "construcao": "soma direta de K19(4,2) ≤ 123 e K19(4,2) ≤ 123",
+   "declaration": "CoveringLedgerExt.K19_8_4_le_15129",
+   "lib": "CoveringLedgerExt",
+   "sha256_arquivo": "9871e1b67805396071c57b33915672d3b54bf8a166b12e743b518fe21c9bf503",
    "witness": null
   },
   "19,8,7": {
@@ -1719,6 +1818,24 @@
    "sha256_arquivo": "3bad91645241214277fbd561c954651fe1756331106bdec5ba9bb23c402c9a8a",
    "witness": null
   },
+  "2,16,2": {
+   "M": 768,
+   "arquivo": "CoveringLean/LedgerExt/Cotas.lean",
+   "construcao": "coordenada muda (t = 1) de K2(15,2) ≤ 384",
+   "declaration": "CoveringLedgerExt.K2_16_2_le_768",
+   "lib": "CoveringLedgerExt",
+   "sha256_arquivo": "9871e1b67805396071c57b33915672d3b54bf8a166b12e743b518fe21c9bf503",
+   "witness": null
+  },
+  "2,16,4": {
+   "M": 64,
+   "arquivo": "CoveringLean/LedgerExt/Cotas.lean",
+   "construcao": "coordenada muda (t = 1) de K2(15,4) ≤ 32",
+   "declaration": "CoveringLedgerExt.K2_16_4_le_64",
+   "lib": "CoveringLedgerExt",
+   "sha256_arquivo": "9871e1b67805396071c57b33915672d3b54bf8a166b12e743b518fe21c9bf503",
+   "witness": null
+  },
   "2,16,7": {
    "M": 4,
    "arquivo": "CoveringLean/Ledger/Cotas.lean",
@@ -1757,6 +1874,15 @@
    "construcao": "palavras constantes (pombal)",
    "declaration": "CoveringLedger.K2_17_10_le_2",
    "sha256_arquivo": "3bad91645241214277fbd561c954651fe1756331106bdec5ba9bb23c402c9a8a",
+   "witness": null
+  },
+  "2,17,2": {
+   "M": 1536,
+   "arquivo": "CoveringLean/LedgerExt/Cotas.lean",
+   "construcao": "coordenada muda (t = 1) de K2(16,2) ≤ 768",
+   "declaration": "CoveringLedgerExt.K2_17_2_le_1536",
+   "lib": "CoveringLedgerExt",
+   "sha256_arquivo": "9871e1b67805396071c57b33915672d3b54bf8a166b12e743b518fe21c9bf503",
    "witness": null
   },
   "2,17,8": {
@@ -1823,6 +1949,15 @@
    "sha256_arquivo": "3bad91645241214277fbd561c954651fe1756331106bdec5ba9bb23c402c9a8a",
    "witness": null
   },
+  "2,19,3": {
+   "M": 1024,
+   "arquivo": "CoveringLean/LedgerExt/Cotas.lean",
+   "construcao": "coordenada muda (t = 1) de K2(18,3) ≤ 512",
+   "declaration": "CoveringLedgerExt.K2_19_3_le_1024",
+   "lib": "CoveringLedgerExt",
+   "sha256_arquivo": "9871e1b67805396071c57b33915672d3b54bf8a166b12e743b518fe21c9bf503",
+   "witness": null
+  },
   "2,19,5": {
    "M": 64,
    "arquivo": "CoveringLean/Ledger/Cotas.lean",
@@ -1863,6 +1998,24 @@
    "construcao": "palavras constantes (pombal)",
    "declaration": "CoveringLedger.K2_20_10_le_2",
    "sha256_arquivo": "3bad91645241214277fbd561c954651fe1756331106bdec5ba9bb23c402c9a8a",
+   "witness": null
+  },
+  "2,20,3": {
+   "M": 2048,
+   "arquivo": "CoveringLean/LedgerExt/Cotas.lean",
+   "construcao": "coordenada muda (t = 1) de K2(19,3) ≤ 1024",
+   "declaration": "CoveringLedgerExt.K2_20_3_le_2048",
+   "lib": "CoveringLedgerExt",
+   "sha256_arquivo": "9871e1b67805396071c57b33915672d3b54bf8a166b12e743b518fe21c9bf503",
+   "witness": null
+  },
+  "2,20,4": {
+   "M": 512,
+   "arquivo": "CoveringLean/LedgerExt/Cotas.lean",
+   "construcao": "coordenada muda (t = 1) de K2(19,4) ≤ 256",
+   "declaration": "CoveringLedgerExt.K2_20_4_le_512",
+   "lib": "CoveringLedgerExt",
+   "sha256_arquivo": "9871e1b67805396071c57b33915672d3b54bf8a166b12e743b518fe21c9bf503",
    "witness": null
   },
   "2,20,5": {
@@ -1937,6 +2090,15 @@
    "sha256_arquivo": "3bad91645241214277fbd561c954651fe1756331106bdec5ba9bb23c402c9a8a",
    "witness": null
   },
+  "2,22,7": {
+   "M": 64,
+   "arquivo": "CoveringLean/LedgerExt/Cotas.lean",
+   "construcao": "soma direta de K2(3,1) ≤ 2 e K2(19,6) ≤ 32",
+   "declaration": "CoveringLedgerExt.K2_22_7_le_64",
+   "lib": "CoveringLedgerExt",
+   "sha256_arquivo": "9871e1b67805396071c57b33915672d3b54bf8a166b12e743b518fe21c9bf503",
+   "witness": null
+  },
   "2,23,3": {
    "M": 4096,
    "arquivo": "CoveringLean/Ledger/Cotas.lean",
@@ -1971,12 +2133,30 @@
    "sha256_arquivo": "3bad91645241214277fbd561c954651fe1756331106bdec5ba9bb23c402c9a8a",
    "witness": null
   },
+  "2,24,8": {
+   "M": 64,
+   "arquivo": "CoveringLean/LedgerExt/Cotas.lean",
+   "construcao": "soma direta de K2(5,2) ≤ 2 e K2(19,6) ≤ 32",
+   "declaration": "CoveringLedgerExt.K2_24_8_le_64",
+   "lib": "CoveringLedgerExt",
+   "sha256_arquivo": "9871e1b67805396071c57b33915672d3b54bf8a166b12e743b518fe21c9bf503",
+   "witness": null
+  },
   "2,25,3": {
    "M": 16384,
    "arquivo": "CoveringLean/Ledger/Cotas.lean",
    "construcao": "coordenada muda (t = 1) de K2(24,3) ≤ 8192",
    "declaration": "CoveringLedger.K2_25_3_le_16384",
    "sha256_arquivo": "3bad91645241214277fbd561c954651fe1756331106bdec5ba9bb23c402c9a8a",
+   "witness": null
+  },
+  "2,25,5": {
+   "M": 2048,
+   "arquivo": "CoveringLean/LedgerExt/Cotas.lean",
+   "construcao": "coordenada muda (t = 1) de K2(24,5) ≤ 1024",
+   "declaration": "CoveringLedgerExt.K2_25_5_le_2048",
+   "lib": "CoveringLedgerExt",
+   "sha256_arquivo": "9871e1b67805396071c57b33915672d3b54bf8a166b12e743b518fe21c9bf503",
    "witness": null
   },
   "2,26,3": {
@@ -1993,6 +2173,15 @@
    "construcao": "soma direta de K2(3,1) ≤ 2 e K2(23,3) ≤ 4096",
    "declaration": "CoveringLedger.K2_26_4_le_8192",
    "sha256_arquivo": "3bad91645241214277fbd561c954651fe1756331106bdec5ba9bb23c402c9a8a",
+   "witness": null
+  },
+  "2,26,5": {
+   "M": 4096,
+   "arquivo": "CoveringLean/LedgerExt/Cotas.lean",
+   "construcao": "coordenada muda (t = 1) de K2(25,5) ≤ 2048",
+   "declaration": "CoveringLedgerExt.K2_26_5_le_4096",
+   "lib": "CoveringLedgerExt",
+   "sha256_arquivo": "9871e1b67805396071c57b33915672d3b54bf8a166b12e743b518fe21c9bf503",
    "witness": null
   },
   "2,26,6": {
@@ -2558,6 +2747,15 @@
    "sha256_arquivo": "3bad91645241214277fbd561c954651fe1756331106bdec5ba9bb23c402c9a8a",
    "witness": null
   },
+  "20,8,4": {
+   "M": 18225,
+   "arquivo": "CoveringLean/LedgerExt/Cotas.lean",
+   "construcao": "soma direta de K20(4,2) ≤ 135 e K20(4,2) ≤ 135",
+   "declaration": "CoveringLedgerExt.K20_8_4_le_18225",
+   "lib": "CoveringLedgerExt",
+   "sha256_arquivo": "9871e1b67805396071c57b33915672d3b54bf8a166b12e743b518fe21c9bf503",
+   "witness": null
+  },
   "20,8,7": {
    "M": 20,
    "arquivo": "CoveringLean/Ledger/Cotas.lean",
@@ -2676,6 +2874,24 @@
    "construcao": "raio ≥ n: uma palavra",
    "declaration": "CoveringLedger.K21_7_7_le_1",
    "sha256_arquivo": "3bad91645241214277fbd561c954651fe1756331106bdec5ba9bb23c402c9a8a",
+   "witness": null
+  },
+  "21,8,4": {
+   "M": 21609,
+   "arquivo": "CoveringLean/LedgerExt/Cotas.lean",
+   "construcao": "coordenada muda (t = 1) de K21(7,4) ≤ 1029",
+   "declaration": "CoveringLedgerExt.K21_8_4_le_21609",
+   "lib": "CoveringLedgerExt",
+   "sha256_arquivo": "9871e1b67805396071c57b33915672d3b54bf8a166b12e743b518fe21c9bf503",
+   "witness": null
+  },
+  "21,8,5": {
+   "M": 1029,
+   "arquivo": "CoveringLean/LedgerExt/Cotas.lean",
+   "construcao": "alongamento livre (t = 1) de K21(7,4) ≤ 1029",
+   "declaration": "CoveringLedgerExt.K21_8_5_le_1029",
+   "lib": "CoveringLedgerExt",
+   "sha256_arquivo": "9871e1b67805396071c57b33915672d3b54bf8a166b12e743b518fe21c9bf503",
    "witness": null
   },
   "21,8,7": {
@@ -4138,6 +4354,15 @@
    "sha256_arquivo": "3bad91645241214277fbd561c954651fe1756331106bdec5ba9bb23c402c9a8a",
    "witness": null
   },
+  "8,8,3": {
+   "M": 4096,
+   "arquivo": "CoveringLean/LedgerExt/Cotas.lean",
+   "construcao": "soma direta de K8(3,1) ≤ 32 e K8(5,2) ≤ 128",
+   "declaration": "CoveringLedgerExt.K8_8_3_le_4096",
+   "lib": "CoveringLedgerExt",
+   "sha256_arquivo": "9871e1b67805396071c57b33915672d3b54bf8a166b12e743b518fe21c9bf503",
+   "witness": null
+  },
   "8,8,7": {
    "M": 8,
    "arquivo": "CoveringLean/Ledger/Cotas.lean",
@@ -4152,6 +4377,15 @@
    "construcao": "raio ≥ n: uma palavra",
    "declaration": "CoveringLedger.K8_8_8_le_1",
    "sha256_arquivo": "3bad91645241214277fbd561c954651fe1756331106bdec5ba9bb23c402c9a8a",
+   "witness": null
+  },
+  "8,9,4": {
+   "M": 2944,
+   "arquivo": "CoveringLean/LedgerExt/Cotas.lean",
+   "construcao": "soma direta de K8(4,2) ≤ 23 e K8(5,2) ≤ 128",
+   "declaration": "CoveringLedgerExt.K8_9_4_le_2944",
+   "lib": "CoveringLedgerExt",
+   "sha256_arquivo": "9871e1b67805396071c57b33915672d3b54bf8a166b12e743b518fe21c9bf503",
    "witness": null
   },
   "8,9,7": {
@@ -4316,6 +4550,15 @@
    "sha256_arquivo": "3bad91645241214277fbd561c954651fe1756331106bdec5ba9bb23c402c9a8a",
    "witness": null
   },
+  "9,8,5": {
+   "M": 120,
+   "arquivo": "CoveringLean/LedgerExt/Cotas.lean",
+   "construcao": "alongamento livre (t = 1) de K9(7,4) ≤ 120",
+   "declaration": "CoveringLedgerExt.K9_8_5_le_120",
+   "lib": "CoveringLedgerExt",
+   "sha256_arquivo": "9871e1b67805396071c57b33915672d3b54bf8a166b12e743b518fe21c9bf503",
+   "witness": null
+  },
   "9,8,7": {
    "M": 9,
    "arquivo": "CoveringLean/Ledger/Cotas.lean",
@@ -4332,6 +4575,15 @@
    "sha256_arquivo": "3bad91645241214277fbd561c954651fe1756331106bdec5ba9bb23c402c9a8a",
    "witness": null
   },
+  "9,9,4": {
+   "M": 5103,
+   "arquivo": "CoveringLean/LedgerExt/Cotas.lean",
+   "construcao": "soma direta de K9(4,2) ≤ 27 e K9(5,2) ≤ 189",
+   "declaration": "CoveringLedgerExt.K9_9_4_le_5103",
+   "lib": "CoveringLedgerExt",
+   "sha256_arquivo": "9871e1b67805396071c57b33915672d3b54bf8a166b12e743b518fe21c9bf503",
+   "witness": null
+  },
   "9,9,8": {
    "M": 9,
    "arquivo": "CoveringLean/Ledger/Cotas.lean",
@@ -4341,5 +4593,5 @@
    "witness": null
   }
  },
- "descricao": "GERADO por tools/certificar/gerar.py: células cuja melhor cota superior tem teorema em CoveringLean/Ledger/Cotas.lean (lake build CoveringLedger). Não edite à mão."
+ "descricao": "GERADO por tools/certificar/gerar.py: células cuja melhor cota superior tem teorema em CoveringLean/Ledger/Cotas.lean (lake build CoveringLedger) ou, quando a prova passa por um teorema de fora do lote, em CoveringLean/LedgerExt/Cotas.lean (lake build CoveringLedgerExt). Não edite à mão."
 }
