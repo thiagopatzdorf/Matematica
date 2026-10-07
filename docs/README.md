@@ -17,6 +17,7 @@ glossário e pela filosofia; o resto se consulta quando precisar.
 |---|---|
 | [resultados.md](resultados.md) | resultados por versão, tabelas, certificados e como reconstruir |
 | [exatos/NOVIDADE_V09.md](exatos/NOVIDADE_V09.md) | a busca bibliográfica dos exatos da v0.9 e o que ela não achou |
+| [exatos/NOVIDADE_V010.md](exatos/NOVIDADE_V010.md) | a busca bibliográfica de K₄(7,4) = 10 e K₄(6,3) ≥ 12 (v0.10) e a lacuna que a deixa aberta (Haas 2011) |
 | [PROPAGACAO_COTAS.md](PROPAGACAO_COTAS.md) | o que muda por consequência quando uma cota cai |
 
 ## Demonstração

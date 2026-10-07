@@ -20,7 +20,7 @@
 \author{Thiago Patzdorf}
 \address{Universidade de Caxias do Sul, Brazil}
 \email{thiagosleman@gmail.com}
-\date{6 October 2026 (version~0.9.1)}
+\date{7 October 2026 (version~0.10.0)}
 
 \begin{document}
 \begin{abstract}
@@ -39,7 +39,8 @@ Second, we generalize the fibre lemma behind $K_7(4,2)=19$ to $K_q(n,n-2)$ and o
 Third, $K_7(5,3)=17$ (previously $15\le K_7(5,3)\le 17$, both bounds announced in Kéri's tables~\cite{keri}), by LRAT refutations of one profile for $15$ words and of all $201\,376$ profiles for $16$ words, two of them split into $1812$ and $4953$ cubes; version~0.9.1 adds a $17$-word code of our own whose covering property is formalized in Lean (kernel), so both bounds of this value are now established here, the upper one as a theorem of the kernel.
 Each of the three lower bounds survived an adversarial review; the gaps that remain are stated in the text.
 
-This draft (7 October 2026) also states the method as a pipeline, witness $\to$ independent verifier $\to$ Lean kernel $\to$ objective bound, in which search programs, solvers and language models only propose and never decide; describes the infrastructure that runs it (an official exact verifier, the Lean targets, and a batch executor for ephemeral spot machines whose budget is enforced in code); and places the project among the 2026 results on mathematics with artificial intelligence, none of which, in the sources we read, concerns covering codes.
+Version~0.10.0 adds two lower bounds for quaternary codes, $K_4(7,4)\ge 10$ and $K_4(6,3)\ge 12$ (previously $9$ and $11$), by LRAT refutations of all fibre profiles, checked outside Lean; with a $10$-word code checked by the official verifier this gives $K_4(7,4)=10$. We found neither lower bound in the sources we read, but one paper that would cover these cells was not read, so novelty is not established; an independent adversarial review of the two LRAT bounds is pending. It raises the certified upper bounds to $\NumUBKernel$ of $\NumCelulas$, all equal to published values, and records the negative results of the same campaign (local search with prescribed groups and programs evolved by a language model found no smaller code).
+It also states the method as a pipeline, witness $\to$ independent verifier $\to$ Lean kernel $\to$ objective bound, in which search programs, solvers and language models only propose and never decide; describes the infrastructure that runs it (an official exact verifier, the Lean targets, and a batch executor for ephemeral spot machines whose budget is enforced in code); and places the project among the 2026 results on mathematics with artificial intelligence, none of which, in the sources we read, concerns covering codes.
 Every count of the ledger quoted in this note is generated from the ledger by a script, and a test fails if the text diverges from it.
 \end{abstract}
 \maketitle
@@ -52,7 +53,7 @@ Upper bounds are certificates: a list of words and the claim that it covers.
 Checking the claim is a finite computation, but for $q^n$ in the tens of millions it is done by programs that are rarely audited.
 Florath~\cite{florath2026} built a Lean library of covering-code bounds whose derivations are replayed by the kernel; it formalizes the sphere-covering bound and records many cells.
 This note adds certificates that the kernel checks for eleven cells where the codes are new, a certificate that scales by working on syndromes, formal determinations of a small classical value and of a value that was open, and a ledger in which every upper bound we could certify is a theorem.
-Version~0.9 adds three exact values whose lower bounds are of a different nature (Sections~\ref{sec:k362} and~\ref{sec:fibre}), and records where the same methods stop (Section~\ref{sec:limits}); version~0.9.1 adds a kernel proof of $K_7(5,3)\le 17$ by a code of our own, so the two bounds of $K_7(5,3)=17$ no longer depend on an announced, unpublished code.
+Version~0.9 adds three exact values whose lower bounds are of a different nature (Sections~\ref{sec:k362} and~\ref{sec:fibre}), and records where the same methods stop (Section~\ref{sec:limits}); version~0.9.1 adds a kernel proof of $K_7(5,3)\le 17$ by a code of our own, so the two bounds of $K_7(5,3)=17$ no longer depend on an announced, unpublished code; version~0.10.0 extends the fibre reduction to every $R\le n-2$ and reports the campaign of 7 October 2026 (Section~\ref{sec:campanha}).
 The method common to all sections is stated in Section~\ref{sec:method}, the infrastructure in Section~\ref{sec:infra}, and related work on mathematics with artificial intelligence in Section~\ref{sec:related}.
 
 Throughout, we distinguish three kinds of statement.
@@ -62,7 +63,7 @@ We call such a result \emph{independently reproduced} when a second pipeline, sh
 An \emph{observation} is a measurement that supports no claim and enters no proof.
 Every statement labelled \emph{Theorem}, and every upper bound of Table~\ref{tab:other}, is of the first kind; the lower bounds of Sections~\ref{sec:k362} and~\ref{sec:fibre} are of the second kind and are labelled \emph{computational results}.
 
-The proofs use Lean~4~\cite{lean4} and Mathlib~\cite{mathlib}. The source is \url{https://github.com/thiagopatzdorf/Matematica}, tag \texttt{v0.\allowbreak 9.\allowbreak 1}.
+The proofs use Lean~4~\cite{lean4} and Mathlib~\cite{mathlib}. The source is \url{https://github.com/thiagopatzdorf/Matematica}, tag \texttt{v0.\allowbreak 10.\allowbreak 0}.
 A statement below is a theorem of the kernel only when it is the name of a declaration in that tree; the computational lower bounds of Sections~\ref{sec:k362} and~\ref{sec:fibre} are claims of the second kind and name no declaration.
 The default target \texttt{CoveringLean} builds in minutes; the prefix certificates form the target \texttt{CoveringHeavy}, the syndrome certificates the target \texttt{CoveringSyn}, the refutations for $K_7(4,2)$ and its final theorem the target \texttt{CoveringK742Sat}, and the certified ledger the target \texttt{CoveringLedger}.
 
@@ -407,9 +408,11 @@ $K_3(6,2)$ & $15$--$17$ & $17$ & kernel (ledger, witness of~\cite{hr1991}) & int
 $K_7(6,4)$ & $13$--$15$ & $14$ & kernel (new code)
  & LRAT, $8008$ profiles (Result~\ref{res:k764}); reproduced on a sample \\
 $K_7(5,3)$ & $15$--$17$ & $17$ & kernel (our code, version~0.9.1) & LRAT, $201\,376$ profiles (Result~\ref{res:k753b}); reproduced on a sample \\
+$K_4(7,4)$ & $9$--$10$ & $10$ & witness, official verifier (our code, version~0.10.0) & LRAT, $792$ profiles (Result~\ref{res:k474}); second solver on all, review pending \\
+$K_4(6,3)$ & $11$--$14$ & $12$--$14$ & published & LRAT, $8008$ profiles (Result~\ref{res:k474}); second solver on all, review pending \\
 \bottomrule
 \end{tabular}
-\caption{Exact values and lower bounds. ``Kernel'' means a theorem of the Lean kernel with no hypothesis; every lower bound of the last three rows is a verified computational certificate, checked by exact programs outside Lean.}
+\caption{Exact values and lower bounds. ``Kernel'' means a theorem of the Lean kernel with no hypothesis; every lower bound of the last five rows is a verified computational certificate, checked by exact programs outside Lean.}
 \label{tab:exact}
 \end{table}
 
@@ -427,7 +430,7 @@ The transcription is not trusted: two codes printed in those papers, as transcri
 Counting also the theorems of the previous sections, $\NumUBKernel$ of the $\NumCelulas$ upper bounds are formalized or independently reproduced ($\NumUBFormalizada$ formalized and $\NumUBReproduzida$ independently reproduced).
 
 This is not a verification of the whole table.
-The other $\NumUBForaDoKernel$ upper bounds are only claimed, and the lower bounds are, with $\NumLBKernel$ exceptions, inherited from the literature: only $K_2(6,1)\ge 12$ and $K_7(4,2)\ge 19$ are theorems here, so \ExatasLeanLista{} are the $\NumExatasLean$ cells whose exact value is formalized on both sides; $\NumLBVerificada$ more lower bounds (\LBVerificadaLista) carry verified certificates, and $\NumLBClaimed$ are only claimed.
+The other $\NumUBForaDoKernel$ upper bounds are not theorems of the kernel ($\NumUBWitness$ witness checked, $\NumUBClaimed$ only claimed), and the lower bounds are, with $\NumLBKernel$ exceptions, inherited from the literature: only $K_2(6,1)\ge 12$ and $K_7(4,2)\ge 19$ are theorems here, so \ExatasLeanLista{} are the $\NumExatasLean$ cells whose exact value is formalized on both sides; $\NumLBVerificada$ more lower bounds (\LBVerificadaLista) carry verified certificates, and $\NumLBClaimed$ are only claimed.
 Of the $\NumExatas$ cells whose two bounds now agree, $\NumExatasCertificadas$ have both bounds certified here at least as witness checked.
 The lower bounds of Results~\ref{res:k362}, \ref{res:k764} and~\ref{res:k753b} are not theorems of the kernel and never enter the ledger as formalized entries.
 For them version~0.9 adds a separate state, \emph{verified certificate}, for a bound proved by a reduction on paper and certificates checked by an exact program outside Lean, with the certificates, the checker and the reviews in the provenance; it is computed by the same script and is never counted among the formalized bounds.
@@ -503,7 +506,7 @@ The division of labour of AlphaEvolve (an expensive, creative proposer and a che
 
 \section{Results of the campaign of 7 October 2026}\label{sec:campanha}
 % ===== CAMPANHA-2026-10-07 =====================================================================
-% Preenchida na segunda rodada (2026-10-07) com os resultados FINAIS de cada frente, e só com o que
+% Preenchida na segunda rodada (2026-10-07; versão 0.10.0) com os resultados FINAIS de cada frente, e só com o que
 % passou pelo verificador oficial e, quando for teorema, pelo `lake build`. Cada marcador abaixo é
 % substituído por texto; os números de contagem do ledger continuam vindo de numeros.tex.
 % Mantenha os marcadores (tests/test_paper_numeros.py confere): troque só o que está entre eles e apague o parágrafo "pending".
@@ -521,9 +524,6 @@ This is an observation and changes no bound.
 
 \paragraph{Exact values.}
 % CAMPANHA:m4:exatos:INICIO  (m4: célula, as duas cotas, tipo de certificado de cada lado, revisão)
-% NOVIDADE-PENDENTE: a checagem de novidade de K4(7,4) >= 10 e K4(6,3) >= 12 (padrão de docs/exatos/NOVIDADE_V09.md)
-% não tinha fechado em 2026-10-07. Até ela fechar, o texto fica condicional ("as far as we know") e
-% não afirma novidade. Quando fechar, trocar este trecho e apagar este comentário.
 The fibre reduction of Section~\ref{sec:fibre} extends from $R=n-2$ to every $R\le n-2$: with $t=n-R\ge 2$, a word covers $x$ exactly when they agree on some $t$ coordinates, so coverage is expressed through projections on $t$-subsets of coordinates, and Lemma~\ref{lem:fibre} and the symmetry breaking (a)--(h) do not depend on $R$.
 The encoder was first validated on known values ($K_3(6,3)=6$ and $K_3(5,2)=8$, both directions).
 
@@ -533,8 +533,12 @@ No code in $\mathbb{Z}_4^7$ with $9$ words has covering radius $4$, so $K_4(7,4)
 For $K_4(7,4)$ the $792$ fibre profiles of $M=9$ are all refuted with LRAT proofs checked by \texttt{lrat-check} ($786$ whole and $6$ split into $168$ cubes; $151$\,GB of proofs, checked and discarded); for $K_4(6,3)$ the $8008$ profiles of $M=11$ are all refuted the same way ($7990$ whole and $18$ in $2100$ cubes; $402$\,GB).
 A second solver (kissat, without proofs) refutes again all $792$ and all $8008$ profiles on the same CNFs, and an independent encoding, which writes coverage directly from the distance and uses only the symmetry breaking implied by the profile, refutes a fixed random sample ($26$ of $40$ and $58$ of $60$ profiles, the others timing out, none satisfiable).
 The upper bound $10$ for $K_4(7,4)$ is in Kéri's tables (attributed to Rivas Soriano); the repository now has an explicit $10$-word code, found by the tabu search above and checked by the official verifier (canonical SHA-256 beginning \texttt{f2abfa60}), so both halves of $K_4(7,4)=10$ can be checked here.
-The previous bounds were $9\le K_4(7,4)\le 10$ and $11\le K_4(6,3)\le 14$; as far as we know both lower bounds are new, but the novelty check of these two cells was not finished when this draft was written, and we do not claim novelty.
-The state of Result~\ref{res:k474} is a verified computational certificate, not a theorem of the kernel (the proofs are too large for the checker of Section~\ref{sec:k742} as it stands) and not independently reproduced as a whole; the ledger has not yet been updated with it.
+The previous bounds were $9\le K_4(7,4)\le 10$ and $11\le K_4(6,3)\le 14$, the lower bounds by Haas, Schlage-Puchta and Quistorff as recorded in Kéri's tables of 2009~\cite{keri} ($K_4(6,3)\ge 10$ without a computer in~\cite{hhs2009}, $\ge 11$ announced there for later work); the exact value $K_4(7,4)=10$ and the bound $K_4(6,3)\ge 12$ are new in our ledger, but we do not claim that they are new in the literature.
+A novelty check on 7 October 2026 read Kéri's tables for $q=4,5$ and their bibliography, \cite{hhs2009}, the tables of new lower bounds and the semidefinite values of Gijswijt and Polak~\cite{gp2025} (whose bound is $8.76$ and $6.40$ at these cells), Marosi~\cite{marosi2026} (only $q\ge 5$) and Florath~\cite{florath2026}, and searched OpenAlex (works since 2011), Zenodo and the web; none gives $K_4(6,3)\ge 12$ or $K_4(7,4)\ge 10$.
+One source was not read: W.~Haas, \emph{Lower bounds for quaternary covering codes}~\cite{haas2011}, which is behind a paywall; Kéri's bibliography lists it as submitted in December 2008 and his tables of 2009 still give $11$ and $9$, from which one may infer, without having read it, that it does not contain these bounds; this is an inference, not a reading, so the novelty check of these two cells is not closed (record: \texttt{docs/\allowbreak exatos/\allowbreak NOVIDADE\_\allowbreak V010.md}).
+The upper bound $10$ of $K_4(7,4)$ was announced on the web site of a pool-reduction program (Rivas Soriano, cited by Kéri), not in a refereed paper, and we found no published code; our own $10$-word code is in \texttt{data/\allowbreak codes/}, so the upper bound here rests on a checked witness, not on that announcement.
+The state of Result~\ref{res:k474} is a verified computational certificate: the proofs are LRAT refutations checked by \texttt{lrat-check}, not a theorem of the kernel (they are too large for the checker of Section~\ref{sec:k742} as it stands); it is not independently reproduced as a whole, and the independent adversarial review that each lower bound of version~0.9 received is still pending for this one.
+In the ledger both lower bounds enter as verified certificates, never counted among the formalized bounds.
 For $K_3(7,3)$ ($11$--$12$) only $587$ of the $11\,440$ profiles of $M=11$ were closed, all with checked proofs, and the cell is unchanged.
 % CAMPANHA:m4:exatos:FIM
 
@@ -563,7 +567,7 @@ Three structural leads were found for other fronts of the project: explicit pair
 
 \section{What is not a theorem}
 Novelty is a reading of the literature, not a checked fact.
-No lower bound of Section~\ref{sec:k362}, Section~\ref{sec:fibre} or Result~\ref{res:k474} is a theorem of the kernel, and the novelty of Result~\ref{res:k474} is not yet checked; of their upper bounds, $K_3(6,2)\le 17$, $K_7(6,4)\le 14$ and $K_7(5,3)\le 17$ are.
+No lower bound of Section~\ref{sec:k362}, Section~\ref{sec:fibre} or Result~\ref{res:k474} is a theorem of the kernel, the novelty of Result~\ref{res:k474} is not established (one paper not read~\cite{haas2011}), and no independent adversarial review of its two LRAT bounds has been done yet; of their upper bounds, $K_3(6,2)\le 17$, $K_7(6,4)\le 14$ and $K_7(5,3)\le 17$ are.
 For $K_3(6,2)=17$ the trusted base is the completeness proof of Lemma~\ref{lem:complete}, written on paper and reviewed adversarially; the enumeration and normalization programs; and the exact Farkas checkers, which rebuild every system from its description. The linear-programming solver is not trusted. The independent reproduction has its own reduction, enumeration and checkers (VeriPB, \texttt{lrat-check}, an exact Farkas checker), so a single error in either pipeline would not by itself invalidate the result.
 For $K_7(6,4)=14$ and $K_7(5,3)=17$ the trusted base is Lemmas~\ref{lem:fibre} and~\ref{lem:h} and the symmetry-breaking steps (a)--(g), written on paper (Lemma~\ref{lem:h} after a correction); the CNF encoder; the cube splitting for two profiles of $K_7(5,3)$, whose completeness was checked by SAT with checked proofs; and \texttt{lrat-check}. The SAT solvers are not trusted. Of the $201\,376$ profiles and $6765$ cubes of $K_7(5,3)$ with $16$ words, only a sample was checked by a second checker; $9$ large proofs of the review's sample were not regenerated.
 These results also inherit lower bounds from the literature: $K_7(5,3)\ge 14$ for $K_7(6,4)$; $K_6(4,2)=15$ and $K_7(4,2)\ge 17$ for $K_7(5,3)\ge 16$, and $K_7(4,2)\ge 17$ for $K_7(5,3)\ge 17$ (the last one is also Theorem~\ref{thm:k742}).
@@ -589,6 +593,10 @@ G.~Cohen, I.~Honkala, S.~Litsyn and A.~Lobstein, \emph{Covering Codes}, North-Ho
 A.~Florath, \emph{Formal foundations and proof-carrying certificates for $q$-ary covering codes in Lean~4}, arXiv:2606.09600, 2026; failure notes for $K_3(6,2)$ in \url{https://github.com/florath/covering-codes-lean}, file \texttt{docs/failures/K\_3\_6\_2.md}.
 \bibitem{gp2025}
 D.~Gijswijt and S.~Polak, \emph{Semidefinite lower bounds for covering codes}, arXiv:2504.01932, 2025.
+\bibitem{haas2011}
+W.~Haas, \emph{Lower bounds for quaternary covering codes}, Ars Combin. \textbf{99} (2011), 19--23 (not read; see Section~\ref{sec:campanha}).
+\bibitem{hhs2009}
+W.~Haas, I.~Halupczok and J.-C. Schlage-Puchta, \emph{Lower bounds for $q$-ary codes with large covering radius}, Electron. J. Combin. \textbf{16} (2009), \#R133.
 \bibitem{hr1991}
 H.~O. Hämäläinen and S.~Rankinen, \emph{Upper bounds for football pool problems and mixed covering codes}, J. Combin. Theory Ser. A \textbf{56} (1991), 84--95, doi:10.1016/0097-3165(91)90024-B.
 \bibitem{hsq2009}

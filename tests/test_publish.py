@@ -26,7 +26,7 @@ def _ledger_com(kernel: int, claimed: int, destino) -> str:
 def _contagem_do_paper():
     tex = zn.ler_tex(RAIZ / "paper" / "main.tex").replace(r"\allowbreak ", "")
     k = int(re.search(r"\$(\d+)\$ of the \$\d+\$ upper bounds", tex).group(1))
-    c = int(re.search(r"The other \$(\d+)\$ upper bounds are only claimed", tex).group(1))
+    c = int(re.search(r"The other \$(\d+)\$ upper bounds are not theorems of the kernel", tex).group(1))
     return k, c
 
 
@@ -108,7 +108,7 @@ def test_publicar_faz_newversion_apaga_herdado_sobe_pdf_metadados_e_publica_ness
     metodos = [(m, u.rsplit("/", 2)[-2:]) for m, u, _ in falso.chamadas]
     assert [m for m, _ in metodos] == ["POST", "GET", "DELETE", "PUT", "PUT", "POST"]
     assert falso.chamadas[0][1].endswith("/23085770/actions/newversion")
-    assert falso.chamadas[3][1].endswith("/covering-codes-lean-kernel-v0.9.1.pdf")
+    assert falso.chamadas[3][1].endswith("/covering-codes-lean-kernel-v0.10.0.pdf")
     assert all(auth == f"Bearer {TOKEN}" for _, _, auth in falso.chamadas)
     out = capsys.readouterr()
     assert "PUBLICADO 10.5281/zenodo.1" in out.out
@@ -213,7 +213,7 @@ def test_contagem_do_paper_e_do_zenodo_diverge_do_ledger():
     assert len(ditos) == 2 and len(set(ditos)) == 1, ditos  # resumo e seção do ledger, iguais
     k_paper, t_paper = (int(x) for x in ditos[0])
     assert t_paper == total and k_paper <= kernel
-    claimed_paper = int(re.search(r"The other \$(\d+)\$ upper bounds are only claimed", tex).group(1))
+    claimed_paper = int(re.search(r"The other \$(\d+)\$ upper bounds are not theorems of the kernel", tex).group(1))
     assert k_paper + claimed_paper == total
     z = json.loads((RAIZ / ".zenodo.json").read_text(encoding="utf-8"))
     assert f"{k_paper} of the {total} upper bounds are theorems of the Lean kernel" in z["description"]
@@ -235,3 +235,17 @@ def test_cota_superior_nossa_no_lean_some_do_paper():
     for decl in ("CoveringK764.K\\_7\\_6\\_4\\_le\\_14", "CoveringK753.K\\_7\\_5\\_3\\_le\\_17"):
         assert tex.count(decl) >= 2, decl  # na seção da fibra e na lista do #print axioms
     assert "is the announced bound of~\\cite{keri}" not in tex
+
+
+def test_trava_de_contagem_recusa_paper_com_testemunha_fora_do_kernel_contada_como_claimed(tmp_path):
+    """Desde o #114 há cota superior WITNESS_CHECKED: "os outros" são total - kernel, não o total de CLAIMED."""
+    cells = ([{"certification": {"ub": {"state": "FORMALIZED"}}}] * 3
+             + [{"certification": {"ub": {"state": "WITNESS_CHECKED"}}}]
+             + [{"certification": {"ub": {"state": "CLAIMED"}}}] * 2)
+    led = tmp_path / "cells.json"
+    led.write_text(json.dumps({"cells": cells}))
+    z = {"description": "3 of the 6 upper bounds are theorems of the Lean kernel"}
+    base = "$3$ of the $6$ upper bounds; again $3$ of the $6$ upper bounds. "
+    zn.conferir_contagem(base + "The other $3$ upper bounds are not theorems of the kernel", z, led)
+    with pytest.raises(zn.ErroZenodo, match="The other \\$3\\$"):
+        zn.conferir_contagem(base + "The other $2$ upper bounds are not theorems of the kernel", z, led)

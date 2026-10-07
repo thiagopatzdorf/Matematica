@@ -61,8 +61,9 @@ def test_contagem_de_codigos_ignora_ou_inventa_arquivo_de_data_codes(dados):
 
 
 def test_doi_da_versao_ou_de_conceito_trocado(dados):
-    # 0.9.1 cunhada no Zenodo em 2026-10-06: a página mostra o DOI da própria versão.
-    assert dados["versao"] == "0.9.1"
+    # 0.10.0 no repositório antes de o Zenodo cunhar: a página mostra, declarado, o DOI da 0.9.1
+    # (DOI_PENDENTE). Depois de cunhar, mover a 0.10.0 para DOI_VERSAO e voltar este teste ao DOI próprio.
+    assert dados["versao"] == "0.10.0"
     assert dados["doi"] == "10.5281/zenodo.23178159"
     assert dados["doi_da_versao"] == "0.9.1"
     assert dados["doi_conceito"] == "10.5281/zenodo.23085769"

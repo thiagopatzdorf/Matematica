@@ -11,8 +11,8 @@ repository-code: https://github.com/thiagopatzdorf/Matematica
 url: https://genesisinnovation.io/provas/cobertura
 doi: 10.5281/zenodo.23085769
 license: CC-BY-4.0
-version: 0.9.1
-date-released: 2026-10-06
+version: 0.10.0
+date-released: 2026-10-07
 preferred-citation:
   type: article
   title: "Covering codes checked by the Lean kernel: K_7(9,4) <= 1134, ten more upper bounds, K_2(6,1) = 12, and K_7(4,2) = 19"

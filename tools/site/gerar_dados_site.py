@@ -41,7 +41,7 @@ DOI_VERSAO = {"0.9.0": "10.5281/zenodo.23172276", "0.9.1": "10.5281/zenodo.23178
 # Sem esta tabela explícita, uma versão nova sem DOI cairia em silêncio no DOI antigo; versão
 # ausente das duas tabelas continua sendo Divergencia. Depois que o Zenodo cunhar, mova a versão
 # para DOI_VERSAO e apague a linha daqui.
-DOI_PENDENTE: dict[str, str] = {}
+DOI_PENDENTE: dict[str, str] = {"0.10.0": "0.9.1"}
 DOI_CONCEITO = "10.5281/zenodo.23085769"
 NOME_CODIGO = re.compile(r"^q\d+_n\d+_R\d+_M\d+\.txt$")
 # Campos que mudam a cada execução; --verificar os ignora.
