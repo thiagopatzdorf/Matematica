@@ -17,3 +17,5 @@ Contrato de um script:
 | script | o que faz | horas típicas |
 |---|---|---|
 | `fumaca` | prova de vida do lote: imagem, commit, CPU e upload da saída | 0,2 |
+| `fibras-k4-7-4-m9` | K₄(7,4), M = 9: os 792 perfis do lema das fibras com LRAT conferido (`tools/exatos/fibras`, R = n − 3); todos UNSAT ⇒ K₄(7,4) = 10 | 1–3 por shard (paralelo 6) |
+| `fibras-k3-7-3-m11` | K₃(7,3), M = 11: os 11 440 perfis, cobertura por 4-uplas; todos UNSAT ⇒ K₃(7,3) = 12 | 1–3 por shard (paralelo 6) |

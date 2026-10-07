@@ -134,7 +134,7 @@ def violadas(cnf, val):
     return [cl for cl in cnf.cl if not any(val.get(abs(l), False) == (l > 0) for l in cl)]
 
 
-def descobertos(cod, q, n):
-    R = n - 2
+def descobertos(cod, q, n, R=None):
+    R = n - 2 if R is None else R
     return sum(1 for w in itertools.product(range(q), repeat=n)
                if not any(sum(a != b for a, b in zip(w, c)) <= R for c in cod))
