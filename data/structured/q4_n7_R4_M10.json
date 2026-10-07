@@ -1,0 +1,32 @@
+{
+ "format": "covering-code/v1",
+ "q": 4,
+ "n": 7,
+ "R": 4,
+ "M": 10,
+ "digit_convention": "word text s[0]..s[n-1]; integer w = sum_k s[k]*q^k; digit k = (w // q^k) % q",
+ "subcode_cosets": [],
+ "patch_words": [
+  "0213010",
+  "1002122",
+  "1131233",
+  "1320301",
+  "2022123",
+  "2101231",
+  "2330302",
+  "3032121",
+  "3121232",
+  "3300303"
+ ],
+ "provenance": {
+  "generator": "tools/busca_direta/tabu.c (busca tabu direta), gcc -O3; lista de docs/alvos/k474/q4_n7_R4_M10.txt (PR #112) ordenada com sort",
+  "commit": "ebf5522",
+  "seed": 1,
+  "command": "./tabu 4 7 4 14 120 1 prefixo",
+  "date": "2026-10-07",
+  "agent": "James.V1",
+  "repo_commit": null,
+  "notes": "cota superior de K_4(7,4) = 10 (antes só anunciada nas tabelas do Kéri / Rivas Soriano). Conferido por tools/verify/verify.c (0 de 16 384 pontos descobertos) e por scripts/loop/verify_cover.py."
+ },
+ "canonical_sha256": "f2abfa603967023157efdd98786f7bdce44efcc103006ed525b661728475aac7"
+}

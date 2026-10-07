@@ -1,25 +1,25 @@
 {
-  "gerado_em": "2026-10-07T06:24:18+00:00",
-  "commit": "8a93073f45aa3cc3e97de8941665e7954c531cae",
+  "gerado_em": "2026-10-07T11:54:53+00:00",
+  "commit": "444eaf76efd63ab99cf4f6e2e96d1a95d0f5fe80",
   "versao": "0.9.1",
   "doi": "10.5281/zenodo.23178159",
   "doi_da_versao": "0.9.1",
   "doi_conceito": "10.5281/zenodo.23085769",
   "frase_ledger": "A machine-checked ledger of covering-code upper bounds, with formally certified exact entries.",
   "celulas_total": 1145,
-  "exatas": 523,
-  "abertas": 622,
+  "exatas": 524,
+  "abertas": 621,
   "superiores_por_estado": {
-    "CLAIMED": 445,
-    "WITNESS_CHECKED": 0,
+    "CLAIMED": 444,
+    "WITNESS_CHECKED": 1,
     "CERTIFICATE_VERIFIED": 0,
     "FORMALIZED": 579,
     "INDEPENDENTLY_REPRODUCED": 121
   },
   "inferiores_por_estado": {
-    "CLAIMED": 1140,
+    "CLAIMED": 1138,
     "WITNESS_CHECKED": 0,
-    "CERTIFICATE_VERIFIED": 3,
+    "CERTIFICATE_VERIFIED": 5,
     "FORMALIZED": 2,
     "INDEPENDENTLY_REPRODUCED": 0
   },
@@ -39,6 +39,22 @@
       "estado_lb": "CERTIFICATE_VERIFIED",
       "estado_ub": "INDEPENDENTLY_REPRODUCED",
       "fonte": "docs/exatos/k362/K3_M16_REDTEAM.md"
+    },
+    {
+      "celula": "K4(6,3)",
+      "antes": "11 ≤ K ≤ 14",
+      "agora": "12 ≤ K ≤ 14",
+      "estado_lb": "CERTIFICATE_VERIFIED",
+      "estado_ub": "CLAIMED",
+      "fonte": "docs/exatos/FIBRAS_RAIO_GERAL.md"
+    },
+    {
+      "celula": "K4(7,4)",
+      "antes": "9 ≤ K ≤ 10",
+      "agora": "K = 10",
+      "estado_lb": "CERTIFICATE_VERIFIED",
+      "estado_ub": "WITNESS_CHECKED",
+      "fonte": "docs/exatos/FIBRAS_RAIO_GERAL.md"
     },
     {
       "celula": "K4(10,4)",
@@ -153,5 +169,5 @@
       "fonte": "Lean: Syn.K7_10_4_le_5607_syn"
     }
   ],
-  "codigos_verificados": 44
+  "codigos_verificados": 45
 }

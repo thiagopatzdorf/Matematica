@@ -264,3 +264,18 @@ def test_arquivo_de_lingua_desconhecida_e_aceito(tmp_path):
     alvo = tmp_path / "LEIAME.md"
     alvo.write_text(f"{gr.INICIO}\n{gr.FIM}\n", encoding="utf-8")
     assert gr.main(["--escrever", str(alvo)]) == 2
+
+
+def test_celula_fechada_sem_checagem_de_novidade_aparece_como_potencialmente_nova():
+    """Fechar a célula não basta: a frase "potencialmente novas" e o selo só listam células cuja busca
+    bibliográfica está feita (NOVIDADE_CONFERIDA). K_4(7,4) fechou em 2026-10-07 sem essa checagem."""
+    fechadas = [c for c in CELLS if c["certification"]["exact"] and not c["published"]["exact"]
+                and c["certification"]["lb"]["state"] == "CERTIFICATE_VERIFIED"]
+    sem_checagem = [c for c in fechadas if (c["q"], c["n"], c["R"]) not in gr.NOVIDADE_CONFERIDA]
+    assert any((c["q"], c["n"], c["R"]) == (4, 7, 4) for c in sem_checagem)
+    for lg, b in BLOCOS.items():
+        frase = next((li for li in b.splitlines() if li.startswith(gr.TEXTOS[lg]["pot_novas"].split("(")[0])), "")
+        for c in sem_checagem:
+            assert _id(c) not in frase, f"{_id(c)} listada como potencialmente nova em {lg} sem checagem"
+    n = gr.numeros(LEDGER)
+    assert n["exatas_novidade_conferida"] == len(fechadas) - len(sem_checagem)

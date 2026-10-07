@@ -87,15 +87,15 @@ The block below is generated from `ledger/cells.json` and is not edited by hand.
 | what | value |
 |---|---:|
 | `K_q(n,R)` cells in the ledger (q from 2 to 21) | **1145** |
-| exact (lower bound = upper bound) | **523** |
-| open | **622** |
+| exact (lower bound = upper bound) | **524** |
+| open | **621** |
 | upper bounds that are Lean kernel theorems (FORMALIZED + INDEPENDENTLY_REPRODUCED) | **700** of 1145 (579 + 121) |
-| lower bounds by state (almost all inherited from the literature) | CLAIMED 1140 · CERTIFICATE_VERIFIED 3 · FORMALIZED 2 |
-| exact values closed here (the published interval was open) | **4** (1 with both bounds in the kernel; 3 with the lower bound by a verified certificate outside Lean) |
+| lower bounds by state (almost all inherited from the literature) | CLAIMED 1138 · CERTIFICATE_VERIFIED 5 · FORMALIZED 2 |
+| exact values closed here (the published interval was open) | **5** (1 with both bounds in the kernel; 4 with the lower bound by a verified certificate outside Lean) |
 | cells with our own Lean theorem | **110** (12 below the best published upper bound we found) |
-| explicit codes in `data/codes/` | **44** (all pass the official C verifier, `tools/verify/check_all.sh`, in CI); 38 are the current witness of a ledger bound, sha256 checked |
+| explicit codes in `data/codes/` | **45** (all pass the official C verifier, `tools/verify/check_all.sh`, in CI); 38 are the current witness of a ledger bound, sha256 checked |
 
-Version 0.9.1 · DOI [10.5281/zenodo.23085769](https://doi.org/10.5281/zenodo.23085769) · ledger updated on 2026-10-06. Lower bounds are, in general, **not** in Lean: only 2 of them are kernel theorems.
+Version 0.9.1 · DOI [10.5281/zenodo.23085769](https://doi.org/10.5281/zenodo.23085769) · ledger updated on 2026-10-07. Lower bounds are, in general, **not** in Lean: only 2 of them are kernel theorems.
 
 ### Highlights
 
@@ -107,6 +107,7 @@ Cells with a result of our own: our Lean theorem or a lower bound by verified ce
 | `K_3(6,2)` | 15–17 | **= 17** | CERTIFICATE_VERIFIED | INDEPENDENTLY_REPRODUCED | [K3_M16](docs/exatos/k362/K3_M16.md) · `CoveringLedger.K3_6_2_le_17` |
 | `K_7(5,3)` | 15–17 | **= 17** | CERTIFICATE_VERIFIED | INDEPENDENTLY_REPRODUCED | [FIBRAS_GERAL](docs/exatos/FIBRAS_GERAL.md) · `CoveringK753.K_7_5_3_le_17` · [code](data/codes/q7_n5_R3_M17.txt) |
 | `K_7(4,2)` | 17–19 | **= 19** | FORMALIZED | FORMALIZED | [FASE1_B_K742](docs/exatos/FASE1_B_K742.md) · `K742.K_7_4_2_le_19` · `K742.K_7_4_2_eq_19` |
+| `K_4(7,4)` | 9–10 | **= 10** | CERTIFICATE_VERIFIED | WITNESS_CHECKED | [FIBRAS_RAIO_GERAL](docs/exatos/FIBRAS_RAIO_GERAL.md) · [code](data/codes/q4_n7_R4_M10.txt) |
 | `K_5(10,4)` | 177–875 | 177–**625** (−28.6%) | CLAIMED | INDEPENDENTLY_REPRODUCED | `CoveringKernel.K5_10_4_le_625_kernel` · [code](data/codes/q5_n10_R4_M625.txt) |
 | `K_7(9,4)` | 264–1475 | 264–**1134** (−23.1%) | CLAIMED | INDEPENDENTLY_REPRODUCED | `Syn.K7_9_4_le_1134_syn` · [code](data/codes/q7_n9_R4_M1134.txt) |
 | `K_7(8,3)` | 471–2337 | 471–**1887** (−19.3%) | CLAIMED | INDEPENDENTLY_REPRODUCED | `Syn.K7_8_3_le_1887_syn` · [code](data/codes/q7_n8_R3_M1887.txt) |
@@ -135,6 +136,7 @@ Cells with a result of our own: our Lean theorem or a lower bound by verified ce
 | `K_2(21,3)` | 1475–3072 | 1475–3072 | CLAIMED | FORMALIZED | `Syn.K2_21_3_le_3072_syn` |
 | `K_2(23,4)` | 912–2048 | 912–2048 | CLAIMED | FORMALIZED | `Syn.K2_23_4_le_2048_syn` |
 | `K_2(24,5)` | 376–1024 | 376–1024 | CLAIMED | FORMALIZED | `Syn.K2_24_5_le_1024_syn` |
+| `K_4(6,3)` | 11–14 | **12**–14 | CERTIFICATE_VERIFIED | CLAIMED | [FIBRAS_RAIO_GERAL](docs/exatos/FIBRAS_RAIO_GERAL.md) |
 | `K_6(5,2)` | 36–66 | 36–66 | CLAIMED | INDEPENDENTLY_REPRODUCED | `CoveringLit.K6_5_2_le_66` · [code](data/codes/q6_n5_R2_M66.txt) |
 | `K_6(6,4)` | = 10 | **= 10** | CLAIMED | INDEPENDENTLY_REPRODUCED | `CoveringLit.K6_6_4_le_10` · [code](data/codes/q6_n6_R4_M10.txt) |
 | `K_6(7,4)` | 18–36 | 18–36 | CLAIMED | INDEPENDENTLY_REPRODUCED | `CoveringLit.K6_7_4_le_36` · [code](data/codes/q6_n7_R4_M36.txt) |
@@ -217,7 +219,7 @@ Cells with a result of our own: our Lean theorem or a lower bound by verified ce
 
 Potentially new (not found in the literature we searched, see [NOVIDADE_V09](docs/exatos/NOVIDADE_V09.md)): `K_7(6,4)`, `K_3(6,2)`, `K_7(5,3)`.
 
-Declared gaps: the lower bound of `K_7(6,4)`, `K_3(6,2)`, `K_7(5,3)` is a verified computational certificate, not a Lean theorem.
+Declared gaps: the lower bound of `K_7(6,4)`, `K_3(6,2)`, `K_7(5,3)`, `K_4(7,4)` is a verified computational certificate, not a Lean theorem; the upper bound of `K_4(6,3)` is only the one announced in the literature (CLAIMED), not checked here.
 <!-- RESULTADOS:FIM -->
 
 ## IV. Demonstration
