@@ -86,6 +86,30 @@ rápida que a da n1, então a comparação abaixo favorece a GPU). Cálculo, nã
 5. **Mais GPU**: só com cota maior (`GPUS_ALL_REGIONS`), ou GPU de outro provedor (preços por hora em outra conversa; 4090
    de US$ 0,34/h seria ~10× a FP32 da T4), decisão do dono.
 
+## 5b. Limpeza do disco da T4 e pedido de cota (por ordem do dono, 2026-10-07)
+
+**Disco** (100 GB, estava 99% cheio, 1,6 GB livres; agora 89%, 11 GB livres). Apaguei só o que é descartável ou se refaz:
+
+| o que | tamanho | por que pode |
+|---|---|---|
+| `~/imgfactory/jobs/*` com mais de 14 dias (2743 pastas, todas de 10 a 12/09) | 7,1 GB | pasta de trabalho do `bin/imagem.py`: a foto entra por scp, o resultado volta para quem chamou; refaz-se a partir das fotos originais; nenhum job rodando |
+| `~/.cache/pip` | 0,8 GB | cache |
+| journal do systemd (vacuum para 100 MB) | 0,8 GB | log antigo |
+| `apt-get clean` | ~0,8 GB | cache de pacotes |
+
+**Não toquei** (e por quê): `/home/arthurjww` (24 GB, outro usuário, sem permissão de leitura); os modelos `synex-ai` e
+`synex-security` do Ollama (~13 GB cada, **não aparecem em nenhum arquivo do repo**, então não são do James, provavelmente de
+outro usuário); `gpt-oss:20b` (dois blobs de 13,8 GB, um deles criado pela corrida de FunSearch de hoje cedo) e o Ornith
+(o cérebro do James); `~/.cache/huggingface` (modelos de voz do `voz-james.service`, em uso). Se o dono confirmar que os
+`synex-*` e um dos `gpt-oss:20b` podem sair, são ~27 GB (`ollama rm`, e `ollama pull` volta).
+
+**Cota de GPU** (Cloud Quotas API; só pedido, não gasta nada). Estado antes: `GPUS_ALL_REGIONS` 1 (pedido de 07/09, aprovado em 1),
+T4 e L4 spot por região 1 cada; as cotas **por zona são fixas** (`is_fixed`) e não aceitam pedido. Pedi **4** para
+`GPUS-ALL-REGIONS-per-project` (atualizando o pedido existente), `PREEMPTIBLE-NVIDIA-T4-GPUS-per-project-region` e
+`PREEMPTIBLE-NVIDIA-L4-GPUS-per-project-region` em `southamerica-east1`, com o e-mail do dono como contato (a API exige).
+Os três ficaram `reconciling` (em análise). Histórico do projeto: pedidos de CPU grandes foram negados ou concedidos pela
+metade (T2D 48 → 24, E2 48 → 0), então 4 pode virar 2 ou 1; se negarem, o plano é reaproveitar a única GPU.
+
 ## 6. Decisões tomadas sozinho
 
 * Adicionei a chave pública da factory-01 ao metadata `ssh-keys` da instância `gcp-t4-teste`, com validade de 12 h
@@ -95,6 +119,10 @@ rápida que a da n1, então a comparação abaixo favorece a GPU). Cálculo, nã
 
 ## 7. O que NÃO foi feito
 
-* Nenhum recorde: ver a seção de ataques abaixo (preenchida no fim da corrida).
+* Nenhum recorde até aqui. K_3(6,1), M = 72 (aberto desde 1989): 3 variantes de SA na T4 (modo 1 com ciclos de 2 M e 20 M, modo 2 com
+  ciclo de 2 M; 240 cadeias, 8 min cada, ~43 bilhões de iterações) e 6 processos `sa_cover` em CPU (~3,2 bilhões, 25 min):
+  **todos ficam em 2 pontos descobertos**, o mesmo platô já medido pela sondagem de 04/10 e pelo `k361-lider`.
+  Mais iterações (13× a CPU) não tiraram a busca do platô, o que reforça que o obstáculo é estrutural, não de vazão.
+* Resultados das células de recorde (K_4(7,3), K_3(8,3), K_5(6,3)): seção a ser preenchida no fim da fase 7.
 * Não comparei com a c2d na prática (o preço por resultado da seção 3 é cálculo).
 * Não otimizei o kernel além de `MAXC`.
