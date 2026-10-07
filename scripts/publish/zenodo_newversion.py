@@ -38,7 +38,9 @@ import urllib.request
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
+sys.path.insert(0, str(Path(__file__).resolve().parents[2] / "tools" / "paper"))
 import github_release  # noqa: E402
+import numeros as paper_numeros  # noqa: E402
 
 API = {"zenodo": "https://zenodo.org/api/deposit/depositions",
        "sandbox": "https://sandbox.zenodo.org/api/deposit/depositions"}
@@ -50,6 +52,13 @@ class ErroZenodo(RuntimeError):
 
 
 RAIZ = Path(__file__).resolve().parents[2]
+
+
+def ler_tex(caminho: Path) -> str:
+    """O .tex com as macros do numeros.tex ao lado já expandidas: as contagens do ledger moram lá, não no texto."""
+    tex = caminho.read_text(encoding="utf-8")
+    numeros = caminho.with_name("numeros.tex")
+    return paper_numeros.expandir(tex, numeros.read_text(encoding="utf-8")) if numeros.is_file() else tex
 
 
 def contagem_do_kernel(cells_json: Path) -> tuple[int, int, int]:
@@ -201,7 +210,7 @@ def main(argv=None, abrir=None, ambiente=None, rodar=subprocess.run) -> int:
             return 0
         if not token:
             raise ErroZenodo("ZENODO_TOKEN ausente no ambiente")
-        tex = (a.tex or a.pdf.with_suffix(".tex")).read_text(encoding="utf-8")
+        tex = ler_tex(a.tex or a.pdf.with_suffix(".tex"))
         conferir_contagem(tex, z, a.ledger)
         pub = publicar(Cliente(token, base, abrir), a.record, a.pdf, nome, meta)
         if a.release_github:
