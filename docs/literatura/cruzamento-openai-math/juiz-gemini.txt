@@ -1,0 +1,54 @@
+# gemini-3.8-flash via MCP Infinito (tool gemini), 3 chamadas, US$ 0.047472 + 0.013487 + 0.024064 = 0.085023
+092|F03|1|cobertura contínua assintótica sem técnica discreta reaproveitável em tabelas de códigos
+097|F07|1|equilíbrio vetorial euclidiano sem técnica de programação inteira reaproveitável
+100|F03|1|cobertura contínua por cilindros sem conexão computacional com códigos corretores
+117|F11|1|gaps semidefinidos teóricos sem certificados racionais exatos para códigos finitos
+118|F07|1|gaps de LP de bin packing sem formulação pseudo-booleana reaproveitável
+122|F16|2|pares de palavras indistinguíveis e algoritmos de reconstrução aplicáveis a F16
+126|F11|1|limite inferior de extensão SDP sem cálculo de limitantes numéricos
+129|F20|2|técnicas de separação e cotas de estados reaproveitáveis em quocientes mínimos
+132|F07|1|Separação analítica em funções booleanas sem reaproveitamento direto de pseudo-booleano.
+133|F15|3|Pares k-WL adversariais alimentam e testam diretamente a escada de invariantes.
+134|F20|1|Mesmo domínio de autômatos finitos, mas complexidade teórica difere de minimização.
+155|F06|0|Aperiodicidade infinita em Z^3 não aproveita verificação finita por fibras LRAT.
+156|F11|1|Cotas de partição geométrica usam programação semidefinida sem dual exato compatível.
+158|F06|2|Grafos de distâncias unitárias usam codificação CNF e certificados de insatisfatibilidade.
+160|F18|1|Mesma raiz aritmética de coloração, porém van der Waerden aqui é assintótico.
+161|F11|2|Desigualdades de homomorfismos de grafos usam hierarquias SDP de flag algebras.
+162|F01|2|Planos finitos modificados compartilham estruturas de códigos e espaços afins simétricos.
+164|F18|1|Problema partition regular abordável por SAT, sem codificação diretamente transferível.
+168|F08|1|Ações de grupos de Coxeter com objetivos combinatórios distintos de formas canônicas.
+172|F18|1|Colorações euclidianas formuláveis como SAT finito, mas com geometria contínua subjacente.
+179|F17|3|Problema de Hadamard com simetria circulante reaproveita diretamente infraestrutura de Hadamard.
+183|F11|0|Geometria combinatória discreta sem acoplamento técnico a relaxações LP/SDP exatas.
+185|F07|0|Matroides infinitos não admitem formulação pseudo-booleana ou de programação linear inteira.
+187|F21|3|Verificação independente com certificado literal corresponde à proveniência assistida por computador.
+189|F18|2|Busca exata de números de Ramsey cycle-clique emprega codificação SAT canônica.
+190|F06|1|Contraexemplo matricial finito abordável por SAT, sem estrutura de fibras evidente.
+191|F11|1|Otimização de área mínima versus distribuições pontuais usa métodos analíticos distintos.
+229|F16|0|Termo homônimo; reconstrução probabilística em árvores difere de decks de subgrafos.
+235|F18|1|Transição de fase assintótica em k-SAT contrasta com busca de testemunhas finitas.
+239|F17|1|Matrizes com entradas {-1,1} de Hadamard, mas foco probabilístico em singularidade.
+241|F08|0|Graus de Turing não compartilham técnicas com ações de grupos finitos.
+242|F19|1|Equações diofantinas compartilham tema, mas sem técnicas aditivas reaproveitáveis.
+243|F15|2|Instâncias tipo CFI geram famílias adversariais para invariantes combinatórios de grafos.
+245|F04|1|Teoria dos tipos pura sem certificados de afirmações finitas reaproveitáveis.
+266|F17|3|Hadamard complexas e aritmética racional correspondem diretamente à frente F17.
+009|F16|0|Reconstrução algébrica abstrata não possui ligação com decks combinatórios finitos.
+076|F07|1|Otimização binária tem tema próximo, mas sem técnica LP/Farkas reaproveitável.
+004|F19|0|Indecidibilidade sobre racionais não se conecta com busca de potências.
+025|F19|1|Problema diofantino de frações sem soma de potências reaproveitável.
+095|F11|2|Obstruções de lifts semidefinidos usam formulações e dualidade exata de SDP.
+104|F20|1|Jogos de paridade envolvem autômatos, mas sem minimização de estados compatível.
+141|F11|1|Complexidade da geometria semialgébrica sem cotas SDP racionais exatas aproveitáveis.
+206|F08|0|Indecidibilidade algébrica não aproveita computação de formas canônicas finitas.
+013|F03|1|Combinatória aditiva inversa sem propagação de desigualdades em células reaproveitável.
+113|F15|1|Estrutura de emparelhamentos não reaproveita escada de invariantes para isomorfismo.
+115|F03|2|Propagação de desigualdades em células restringe diretamente margens de tabelas inteiras.
+119|F07|1|Extremos booleanos sob ruído não aproveitam cortes Farkas inteiros.
+124|F07|2|Pseudo-booleano e LP Farkas inteiro resolvem formulações exatas de escalonamento.
+138|F14|1|Algoritmos para subset sum não reaproveitam a infraestrutura do GNFS.
+177|F06|1|Cobordos e complexos simpliciais sem redução útil a fibras CNF.
+178|F11|1|Grafos de Ramanujan utilizam autovalores sem transferência de SDP racional exato.
+105|F06|1|PCP e jogos 2-to-1 não usam refutação finita CNF/LRAT.
+106|F18|1|Dureza de coloração compartilha tema cromático sem redução SAT reaproveitável.

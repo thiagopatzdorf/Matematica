@@ -1,0 +1,22 @@
+{
+"codigo_cobertura":"covering codes, covering radius, every word within Hamming distance R of a codeword, football pool problem, covering number of a Hamming space",
+"codigo_corretor_empacotamento":"error-correcting codes, packing, minimum distance, maximum code size A(n,d), sphere packing, Hamming bound",
+"codigo_linear_sindrome":"linear codes over finite fields, parity-check matrix, syndromes, cosets of a linear code, generator matrix",
+"dominacao_grafo":"domination in graphs, dominating sets, Hamming graphs, hypercube, product graphs, covering vertices by balls",
+"grupo_acao_orbita":"group actions, orbits, stabilizers, automorphism group, symmetry group, permutation groups, invariance under a group",
+"isomorfismo_wl":"graph isomorphism, canonical labeling, Weisfeiler-Leman refinement, color refinement, distinguishing non-isomorphic graphs, CFI graphs, k-WL equivalence",
+"reconstrucao_identificacao":"reconstruction of an object from partial data or substructures, identifiability, determining a structure uniquely, distinguishing objects",
+"informacao_compressao":"information-theoretic lower bounds, entropy, compression, communication complexity, number of bits needed",
+"design_geometria_finita":"combinatorial designs, Steiner systems, finite projective geometry, difference sets, Hadamard matrices, finite fields incidence structures",
+"cobertura_empacotamento_hipergrafo":"covering and packing in hypergraphs, set cover, transversals, matchings, fractional covers, LP duality of covering, Ryser conjecture",
+"ramsey_aditiva":"Ramsey theory, Schur numbers, sum-free sets, monochromatic solutions, arithmetic progressions, additive combinatorics, colorings",
+"diofantino_potencias":"Diophantine equations, sums of like powers, Euler conjecture, Waring problem, integer solutions of polynomial equations",
+"sat_ilp_busca":"SAT solving, integer linear programming, exhaustive computer search, symmetry breaking, branch and bound, local search heuristics, combinatorial optimization",
+"certificado_verificavel":"verifiable certificates, proof logging, unsatisfiability proofs, Farkas certificates, dual certificates, computer-checked witnesses, exact verification",
+"formalizacao":"formalization in Lean, proof assistant, mechanized proof, kernel-checked, formal statement",
+"relaxacao_sdp_lp":"semidefinite programming, linear programming bounds, Lovasz theta, sum of squares, Delsarte bound, convex relaxation and its integrality gap",
+"complexidade_dureza":"NP-hardness, PCP theorem, hardness of approximation, reductions, unique games, computational complexity lower bounds, EXPTIME",
+"cota_extremal":"extremal combinatorics, asymptotic upper and lower bounds on the size of extremal structures, Turan problems, probabilistic method",
+"construcao_explicita":"explicit algebraic constructions, Cayley graphs, cyclic and quasi-cyclic structures, product constructions, explicit counterexample",
+"fatoracao_aritmetica":"integer factorization, number field sieve, primality, computational number theory"
+}
