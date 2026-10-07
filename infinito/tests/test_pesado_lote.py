@@ -95,8 +95,8 @@ def _modulo(executor=None, relogio=lambda: 1000.0, repo=None, **env):
     return ctx, c
 
 
-def _lote(api, assinador=None):
-    return ExecutorLote("proj", http=api, assinador=assinador, dormir=lambda s: None)
+def _lote(api, assinador=None, **kw):
+    return ExecutorLote("proj", http=api, assinador=assinador, dormir=lambda s: None, **kw)
 
 
 @pytest.fixture
@@ -197,7 +197,7 @@ def test_shard_que_nao_sobe_deixa_os_outros_ligados_e_cobra():
 
 def test_lote_que_nao_cabe_na_cota_cria_vm_mesmo_assim():
     api = ComputeFalso()                                  # medido em 2026-10-06: 8 IPs na região, 2 em uso
-    ctx, c = _modulo(_lote(api))
+    ctx, c = _modulo(_lote(api, ip_externo=True))
     r = ctx.tools["pesado"]("lake_build", 1.0, paralelo=8, confirmar=True)
     assert r["ok"] is False and "IN_USE_ADDRESSES" in r["erro"] and api.corpos == []
     assert c.saldo("a@x.com")["disponivel_usd"] == 20.0
@@ -244,10 +244,31 @@ def test_script_da_vm_roda_commit_fora_da_main_ou_engole_a_recusa():
     assert subprocess.run(["bash", "-n", str(AQUI / "infinito_mcp" / "vm" / "lote.sh")]).returncode == 0
 
 
+def test_vm_do_lote_pega_ip_externo_e_esgota_a_cota_de_ips_da_regiao():
+    api = ComputeFalso()                                  # 8 IPs na região, 2 em uso: com IP o lote parava em 6
+    ctx, _ = _modulo(_lote(api, tipo_disco="pd-standard"))   # pd-balanced pararia na cota de SSD (1000 GB, 370 em uso)
+    assert ctx.tools["pesado"]("lake_build", 1.0, paralelo=8, confirmar=True)["ok"]
+    assert len(api.corpos) == 8
+    for corpo in api.corpos:
+        (nic,) = corpo["networkInterfaces"]
+        assert "accessConfigs" not in nic
+        assert nic["subnetwork"] == "regions/southamerica-east1/subnetworks/fabrica-nos"   # coberta pelo Cloud NAT
+
+
+def test_ambiente_sem_variavel_de_rede_sobe_vm_fora_da_subrede_com_nat():
+    lote = pesado._executor_do_ambiente({"INF_EXECUTOR": "lote", "INF_GCP_PROJETO": "proj", "INF_PESADO_ASSINAR": "0"})
+    assert lote._interface() == {"subnetwork": "regions/southamerica-east1/subnetworks/fabrica-nos"}
+    com_ip = pesado._executor_do_ambiente({"INF_EXECUTOR": "lote", "INF_GCP_PROJETO": "proj", "INF_PESADO_ASSINAR": "0",
+                                          "INF_PESADO_IP_EXTERNO": "1", "INF_PESADO_SUBREDE": "outra"})
+    assert com_ip._interface()["accessConfigs"] and com_ip.subrede.endswith("/subnetworks/outra")
+
+
 # ------------------------------------------------------------------------------ preço e URL assinada
 def test_tarifa_subestima_o_preco_spot_medido():
-    cru = 8 * 0.00761 + 64 * 0.001019 + 100 * 0.15 / 730 + 0.005     # e2-highmem-8 spot + disco + IP, 2026-10-06
+    cru = 8 * 0.00761 + 64 * 0.001019 + 100 * 0.15 / 730 + 0.0014    # e2-highmem-8 spot + disco + NAT, 2026-10-06
     assert tarifa_hora("e2-highmem-8") == round(cru * 1.2, 4) and tarifa_hora("e2-highmem-8") > cru
+    com_ip = cru - 0.0014 + 0.005
+    assert tarifa_hora("e2-highmem-8", ip_externo=True) == round(com_ip * 1.2, 4)
 
 
 def test_url_assinada_nao_confere_com_a_chave_ou_vale_para_sempre():
