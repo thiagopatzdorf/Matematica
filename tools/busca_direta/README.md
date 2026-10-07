@@ -39,6 +39,14 @@ cíclica (10), e com 6 representantes (60) a 2 pontos descobertos; K_5(10,6) che
 S2+translação, 10) e, com 4 representantes da troca cíclica (40 < 45), a 146 descobertos em ~10 min;
 K_5(8,4) chegou a 80 (cíclica, 8), com 9 representantes (72) a 11 descobertos. Nada abaixo de recorde.
 
+Varredura com grupo (2026-10-07, 90 s por grupo, grupos: troca cíclica C, translação por 1…1 T1,
+negação N, meia-volta S2, ciclos paralelos P3/P4/P5 e produtos): **empates** com o recorde, conferidos no
+verificador oficial, em K_3(8,3) = 27 (T1), K_3(11,5) = 27 (T1), K_7(6,3) = 77 (T1) e K_5(6,3) = 25 (N);
+nenhum abaixo. Quase: K_4(8,4) com N e com translação por 2…2 ficou a 2 pontos de cobrir 30 palavras
+(recorde 28); K_5(7,3) com C ficou a 1 ponto de 105 (recorde 100); K_7(6,3) com C a 1 ponto de 84.
+Corridas focadas de 25 min: K_7(6,3) com N (76–77 palavras) parou em 38 descobertos e com P3 (78) em 27;
+K_4(10,5) com S2+T1 (48) em 392 e com P5 (50) em 181; K_5(10,6) com C (40) em 140.
+
 Leitura: a busca é correta (acha os ótimos pequenos e nunca menos; todo código gravado passa no
 verificador) e fica longe dos recordes de 2011 nas células médias. Esses recordes não são de busca
 local cega: quase sempre têm estrutura (somas diretas, classes laterais, grupo prescrito). Esta
