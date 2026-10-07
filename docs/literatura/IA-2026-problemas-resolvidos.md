@@ -41,6 +41,14 @@ enunciado errado (DeepMind), (4) cota inferior por SDP com dual racional, e Lean
 | 2026-04-04 (v2 05-30) | Ju et al. (Pequim) | conjectura de Anderson (álgebra comutativa) | dois agentes: raciocínio informal com busca de teoremas (Rethlas/Matlas) e formalização (Archon/LeanSearch) | **sim, Lean 4**, "essencialmente sem humano" | [arXiv 2604.03789](https://arxiv.org/abs/2604.03789) |
 | 2025-11-03 (base) | DeepMind + Tao, Gómez-Serrano, Georgiev, Wagner | AlphaEvolve em 67 problemas; melhoras em vários, inclusive Kakeya em corpo finito (d = 3, 4, 5) | LLM evolui **programas** que buscam construções; avaliador automático | só **um** caso (Kakeya, d = 3) foi formalizado em Lean, pelo AlphaProof, "porque os passos já estavam na mathlib"; o resto é construção conferida por avaliador ou prova à mão | [arXiv 2511.02864](https://arxiv.org/abs/2511.02864) |
 
+**Release `openai/math` (criado em 2026-10-06, [github.com/openai/math](https://github.com/openai/math)).**
+Não li este repositório; registro a leitura do dono, que o varreu inteiro (~722 problemas) em
+2026-10-07: **nada direto** de códigos de cobertura, K_q(n,R), Kéri, Hadamard, Schur, Euler ou
+*decks*. Conexões estruturais que ele viu: a família 133 (k-WL) com a nossa escada J em isomorfismo
+de grafos, a família 102 com NP/compressão, e o tema de formalização e proveniência. O cruzamento
+automático dos 722 problemas com este repositório é tarefa de outro agente da campanha
+(m6-cruzamento), não deste documento.
+
 Contexto que pesa na leitura:
 
 - Em outubro de 2025 a OpenAI anunciou "10 problemas de Erdős resolvidos" pelo GPT-5; o mantenedor
