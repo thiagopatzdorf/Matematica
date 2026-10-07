@@ -65,14 +65,9 @@ jobs:
     timeout-minutes: 90
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
-      # Cache dos .olean do PRÓPRIO projeto (.lake/build), por hash do toolchain e do manifest. O lake confere
-      # cada módulo pelo hash do fonte (.trace), então restaurar um build velho só recompila o que mudou. O
-      # Mathlib continua vindo do `lake exe cache get` da lean-action. Só a main grava (o PR lê o da main).
-      - uses: actions/cache/restore@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
-        with:
-          path: .lake/build
-          key: lake-padrao-${{ runner.os }}-${{ hashFiles('lean-toolchain', 'lake-manifest.json', 'lakefile.toml') }}-${{ github.sha }}
-          restore-keys: lake-padrao-${{ runner.os }}-${{ hashFiles('lean-toolchain', 'lake-manifest.json', 'lakefile.toml') }}-
+      # Sem cache próprio aqui: a lean-action já restaura e grava o `.lake` inteiro (chave
+      # `lake-<SO>-<hashes>-<sha>`, ~2,6 GB); um segundo cache de `.lake/build` (14 MB, medido 07/10) era
+      # redundante.
       # instala o elan/toolchain de lean-toolchain, baixa o cache do Mathlib (lake exe cache get)
       # e roda `lake build` do alvo padrão (CoveringLean). CoveringHeavy (~12 h de CPU) fica fora.
       - uses: leanprover/lean-action@f061402b660e0c34644504b324e830f2991d4865 # v1.6.1
@@ -80,8 +75,3 @@ jobs:
           auto-config: false
           use-mathlib-cache: true
           build: true
-      - if: github.event_name == 'push' && github.ref == 'refs/heads/main'
-        uses: actions/cache/save@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
-        with:
-          path: .lake/build
-          key: lake-padrao-${{ runner.os }}-${{ hashFiles('lean-toolchain', 'lake-manifest.json', 'lakefile.toml') }}-${{ github.sha }}
