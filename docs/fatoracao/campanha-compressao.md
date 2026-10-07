@@ -40,6 +40,33 @@ razão de compressão  ρ  =  compute do melhor baseline reproduzível  /  compu
   (`ic_razao`). Os dados atuais mostram por que: o mesmo c90 levou 500, 477 e 398 s (spread de 25%).
 * **O degrau é decidido pelo limite inferior do intervalo**, nunca pela estimativa pontual.
 
+### Custo de informação: relações achadas por bit do fator
+
+A razão ρ mede compute. O custo de informação mede **quanta busca** foi paga para entregar o resultado, com um contador
+que não depende de hardware: `relações achadas pelo crivo / (rodadas que entregaram o fator x bits do menor fator)`
+(`contabilidade.informacao`, com teste). A rodada que falhou soma no numerador e não no divisor.
+
+Limite que precisa ficar escrito: dado `N`, o fator `p` é determinado, então a complexidade de Kolmogorov condicional
+`K(p | N)` é `O(1)`. O custo não está em bits que faltam; está em **tempo de busca**. O que o modelo do James (custo =
+D · busca + N · verificação) enxerga é a parte da busca que se repete: `repetida = 1 - distintas/achadas`.
+
+Linha de base congelada (`tools/fatoracao/baseline/cado_legado.jsonl`, CADO-NFS, 4 threads, semiprimos balanceados):
+
+| dígitos | bits do fator | rodadas | falhas | relações por bit | repetida |
+|---:|---:|---:|---:|---:|---:|
+| 60 | 99,7 | 3 | 0 | 524 | 0,076 |
+| 65 | 108,0 | 3 | 0 | 904 | 0,063 |
+| 70 | 116,3 | 3 | 0 | 1567 | 0,140 |
+| 75 | 124,6 | 3 | 0 | 2154 | 0,080 |
+| 80 | 132,9 | 3 | 0 | 2322 | 0,180 |
+| 85 | 141,2 | 3 | 0 | 3912 | 0,163 |
+| 90 | 149,5 | 3 | 1 | 10253 | 0,155 |
+| 95 | 157,8 | 1 | 0 | 16259 | 0,279 |
+
+**Limite do dado:** 1 a 3 rodadas por tamanho e nenhum intervalo de confiança; o c95 tem uma só. Serve para fixar a
+métrica e o ponto de partida, **não** para concluir tendência (isso é o E6). Parte da repetição o CADO já colhe na hora
+(duplicatas, células pares); a coluna `repetida` é a que sobra no filtro.
+
 ### Lei de Amdahl com os números do recorde
 
 Participação de cada fase no **relógio** do RSA-896 (post de Weis; relógio não é compute, porque o número de nós varia

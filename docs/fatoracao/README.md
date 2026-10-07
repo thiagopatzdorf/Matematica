@@ -15,6 +15,7 @@ ele decide.
 | executor da linha de base do CADO-NFS: uma linha por tentativa, repetição determinística do `nlucky=0` (sementes 1, 2, 3), falha contada na estatística | `tools/fatoracao/medir_cado.py`, `tests/test_fatoracao_medir.py` |
 | baseline congelado: o polinômio do recorde RSA-896 (grau 6), conferido por aritmética (`p·q = N`, `Res(f,g) = −8N`) e reproduzido no CADO (alpha −11,12; Murphy-E 5,293e-10) | `tools/fatoracao/baseline/rsa896.json`, `tools/fatoracao/baseline_rsa896.py`, `tests/test_baseline_rsa896.py` |
 | contabilidade ponta a ponta (razão de compressão, Amdahl, degrau pelo limite inferior do IC) | `tools/fatoracao/contabilidade.py`, `tests/test_contabilidade_fatoracao.py` |
+| plano do recorde (RSA-270 com o menor custo de informação, o que falta decidir) | [`plano-recorde.md`](plano-recorde.md) |
 | livro de afirmações (PROVADO, VERIFICADO, EVIDÊNCIA, HIPÓTESE) e dados congelados do lote | `tools/fatoracao/baseline/claims.jsonl`, `tools/fatoracao/baseline/cado_legado.jsonl`, `tests/test_claims_fatoracao.py` |
 | protocolo da campanha de compressão (escada, cegamento, experimentos E0 a E7, red team) | [`campanha-compressao.md`](campanha-compressao.md) |
 

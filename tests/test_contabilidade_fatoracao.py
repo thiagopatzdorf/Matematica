@@ -1,4 +1,5 @@
 """Contabilidade ponta a ponta: speedup local não pode virar ganho global, nem fase pode sumir da conta."""
+import json
 import sys
 
 import pytest
@@ -70,3 +71,56 @@ def test_intervalo_de_confianca_muda_com_a_semente_da_reamostragem():
 def test_intervalo_de_confianca_com_uma_so_replica_devolve_intervalo():
     with pytest.raises(ValueError, match="réplicas"):
         c.ic_razao([100.0], [10.0, 11.0])
+
+
+LOTE = RAIZ / "tools" / "fatoracao" / "baseline" / "cado_legado.jsonl"
+
+
+def _linhas():
+    return [json.loads(l) for l in LOTE.read_text(encoding="utf-8").splitlines() if l.strip()]
+
+
+def _rodada(digitos=60, achadas=1000, distintas=900, ok=True):
+    return {"digitos": digitos, "rels_total": achadas, "rels_unicas": distintas, "fatores_ok": ok}
+
+
+def test_rodada_que_falhou_soma_no_custo_de_informacao_sem_entrar_no_divisor():
+    com_falha = c.custo_informacao([_rodada(), _rodada(), _rodada(achadas=1000, distintas=900, ok=False)])
+    sem_falha = c.custo_informacao([_rodada(), _rodada()])
+    assert com_falha["falhas"] == 1
+    assert com_falha["rels_por_bit"] == pytest.approx(sem_falha["rels_por_bit"] * 3 / 2, rel=1e-12)
+
+
+def test_lote_inteiro_sem_nenhum_fator_entregue_nao_vira_custo_zero():
+    with pytest.raises(ValueError, match="infinito"):
+        c.custo_informacao([_rodada(ok=False), _rodada(ok=False)])
+
+
+def test_registro_com_distintas_maiores_que_achadas_e_recusado_em_vez_de_dar_repeticao_negativa():
+    with pytest.raises(ValueError, match="corrompido"):
+        c.custo_informacao([_rodada(achadas=1000, distintas=1001)])
+
+
+def test_tamanhos_misturados_numa_chamada_so_nao_viram_uma_media_sem_sentido():
+    with pytest.raises(ValueError, match="misturados"):
+        c.custo_informacao([_rodada(digitos=60), _rodada(digitos=65)])
+
+
+def test_bits_do_menor_fator_de_semiprimo_de_60_digitos_sao_cerca_de_100():
+    assert c.bits_do_menor_fator(60) == pytest.approx(99.66, abs=0.01)
+    with pytest.raises(ValueError):
+        c.bits_do_menor_fator(1)
+
+
+def test_linha_de_base_congelada_do_cado_inclui_a_falha_do_c90_na_conta():
+    por_digitos = {t["digitos"]: t for t in c.tabela_informacao(_linhas())}
+    assert sorted(por_digitos) == [60, 65, 70, 75, 80, 85, 90, 95]
+    assert por_digitos[60]["rels_por_bit"] == pytest.approx(524, rel=0.005)
+    # sem a rodada que falhou daria ~6.600; com ela, o que se pagou de fato
+    assert por_digitos[90]["falhas"] == 1 and por_digitos[90]["rels_por_bit"] == pytest.approx(10253, rel=0.005)
+    assert por_digitos[95]["rels_por_bit"] == pytest.approx(16259, rel=0.005)
+
+
+def test_custo_de_informacao_por_bit_cresce_com_o_tamanho_na_linha_de_base():
+    custos = [t["rels_por_bit"] for t in c.tabela_informacao(_linhas())]
+    assert custos == sorted(custos)
