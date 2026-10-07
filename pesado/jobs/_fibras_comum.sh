@@ -25,12 +25,14 @@ if [ ! -x "$FERR/cadical" ] || [ ! -x "$FERR/lrat-check" ]; then
 fi
 export CADICAL="$FERR/cadical" LRAT_CHECK="$FERR/lrat-check"
 "$CADICAL" --version
-TRAB=/var/tmp/fibras-$JOB_ID-$SHARD_INDEX   # CNF e LRAT temporárias (descartadas depois de conferidas)
+TRAB=${TRAB:-/var/tmp/fibras-$JOB_ID-$SHARD_INDEX}   # (TRAB=/dev/shm/... em disco lento: pd-standard grava ~5 MB/s e a prova LRAT tem centenas de MB)
+# CNF e LRAT temporárias (descartadas depois de conferidas)
 mkdir -p "$TRAB"
 # Se o shard voltar (reboot da spot), o JSONL já gravado é reaproveitado: rodar.py pula o que fechou.
 # 1ª passada: perfil inteiro com teto de TEMPO s. 2ª: o que ficou INDEFINIDO vai em cubos pela coordenada 1 das
 # L primeiras palavras (fib_cubos; um perfil só conta como fechado com TODOS os cubos UNSAT, fecha_perfis.py).
 COMUM=(--q "$Q" --n "$N" --R "$R" --M "$M" --ordem "$ORDEM" --prova --descartar -j "$J" --dir "$TRAB")
+[ -n "${K:-}" ] && COMUM+=(--k "$K")   # instâncias por prefixo de K tipos (menos instâncias, cada uma maior)
 python3 tools/exatos/fibras/rodar.py "${COMUM[@]}" --fatia "$SHARD_INDEX/$SHARD_TOTAL" --tempo "$TEMPO" | tail -n 100
 cp "$TRAB"/*.jsonl "$SAIDA/"
 ABERTOS=$(python3 - "$TRAB" <<'PY'
@@ -42,7 +44,8 @@ for arq in pathlib.Path(sys.argv[1]).glob("*.jsonl"):
     for ln in open(arq):
         r = json.loads(ln)
         todos.add(r["inst"])
-        if r["resultado"] != "INDEFINIDO":
+        # prova que não passou no lrat-check (ex.: disco cheio no meio da escrita) também volta, em cubos
+        if r["resultado"] == "SAT" or (r["resultado"] == "UNSAT" and r.get("lrat_check") == "VERIFIED"):
             fech.add(r["inst"])
 print(",".join(map(str, sorted(todos - fech))))
 PY
