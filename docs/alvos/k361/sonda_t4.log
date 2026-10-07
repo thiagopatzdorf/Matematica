@@ -1,0 +1,15 @@
+inicio 2026-10-07T05:40:31Z
+== calibracao M=73 120s
+q=3 n=6 R=1 M=73 melhor_descobertos=0 iter=2499774 bola=13 espaco=729
+gravado c73.txt
+== M=72 120s semente 1
+q=3 n=6 R=1 M=72 melhor_descobertos=2 iter=41470976 bola=13 espaco=729
+== M=72 120s semente 2
+q=3 n=6 R=1 M=72 melhor_descobertos=2 iter=43376640 bola=13 espaco=729
+== M=72 120s semente 3
+q=3 n=6 R=1 M=72 melhor_descobertos=2 iter=47747072 bola=13 espaco=729
+== M=72 600s semente 4
+q=3 n=6 R=1 M=72 melhor_descobertos=2 iter=241740800 bola=13 espaco=729
+== M=72 1800s semente 5
+q=3 n=6 R=1 M=72 melhor_descobertos=2 iter=728353792 bola=13 espaco=729
+fim 2026-10-07T06:27:11Z
