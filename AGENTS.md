@@ -65,7 +65,7 @@ roda com `confirmar=true`.
 | `alvos` | células ranqueadas por chance de melhorar (`limite`, `max_espaco`) | não |
 | `verificar_codigo` | verificador exato em C num arquivo de `data/codes/` (`q<Q>_n<N>_R<R>_M<M>.txt`) | não |
 | `papers_buscar` | arXiv, OpenAlex, Semantic Scholar ou Zenodo (`fonte`); repetida volta do cache | não |
-| `pesado` | trabalho pesado na VM (`lake_build`, `verificar_grande`); veja `pesado_tipos` e acompanhe com `pesado_status` | sim |
+| `pesado` | lote de VMs spot efêmeras (`lake_build`, `verificar_grande`, `script` de `pesado/jobs/`; `paralelo=N`); veja `pesado_tipos` e acompanhe com `pesado_status` | sim |
 | `gemini` | modelo de linguagem; reserva o pior caso e cobra os tokens medidos | sim |
 
 Antes de gastar: rode `pesado` ou `gemini` sem `confirmar` para ver custo e saldo. Resposta de `gemini` é hipótese,

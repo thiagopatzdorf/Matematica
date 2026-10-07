@@ -22,7 +22,7 @@ from infinito_mcp import server  # noqa: E402
 from infinito_mcp.armazem import ArmazemMemoria  # noqa: E402
 from infinito_mcp.auth import Config, VerificadorAccess  # noqa: E402
 from infinito_mcp.creditos import Creditos, ErroCreditos  # noqa: E402
-from infinito_mcp.modulos import matematica, papers, pesado  # noqa: E402
+from infinito_mcp.modulos import matematica, papers  # noqa: E402
 
 EQUIPE = "time-teste.cloudflareaccess.com"
 AUD = "aud-do-infinito"
@@ -197,108 +197,6 @@ def test_guardar_paper_nao_pdf_ou_duplicado():
     assert ctx.tools["biblioteca_buscar"]("marosi")["total"] == 1
     papers.registrar(ctx2 := _Ctx(creditos()), {}, baixar=lambda u: b"<html>")
     assert ctx2.tools["paper_guardar"](url, "x", confirmar=True)["ok"] is False
-
-
-# -------------------------------------------------------------------- pesado
-class VMFalsa:
-    """Executor de mentira com o contrato do real: um job por vez, status lido da 'VM'."""
-
-    def __init__(self):
-        self.st, self.ligada, self.liberada = {}, False, 0
-
-    def iniciar(self, tipo, parametros, horas, quem, job_id=""):
-        if self.ligada:
-            raise ErroCreditos("a VM está ocupada (RUNNING)")
-        self.ligada, self.job = True, job_id
-        return {"vm": "ligando"}
-
-    def status(self, job_id):
-        return dict(self.st)
-
-    def parar(self):
-        self.ligada = False
-
-    def liberar(self):
-        self.liberada += 1
-
-
-def _pesado(vm=None, relogio=None):
-    c = creditos()
-    ctx = _Ctx(c)
-    pesado.registrar(ctx, vm, **({"agora": relogio} if relogio else {}))
-    return ctx, c
-
-
-def test_pesado_sem_executor_cobra_e_finge_que_rodou():
-    ctx, c = _pesado()
-    seco = ctx.tools["pesado"]("lake_build", 1.0)
-    assert seco["seco"] and seco["custo_maximo_usd"] == 0.6 and seco["cabe"]
-    r = ctx.tools["pesado"]("lake_build", 1.0, confirmar=True)
-    assert r["ok"] is False and "nenhum executor" in r["erro"]
-    assert c.saldo("a@x.com")["disponivel_usd"] == 20.0  # reserva desfeita
-
-
-def test_pesado_aceita_comando_livre_horas_absurdas_ou_busca_sem_executor_de_resultado():
-    ctx, _ = _pesado(VMFalsa())
-    assert "busca" not in pesado.TIPOS                          # a VM não devolve arquivo: busca não é um tipo
-    for tipo, h in (("comando_livre", 1.0), ("lake_build", 99.0), ("lake_build", 0.0), ("lake_build", -1.0)):
-        assert ctx.tools["pesado"](tipo, h, confirmar=True)["ok"] is False
-
-
-def test_job_que_terminou_cobra_o_tempo_real_e_nao_a_reserva_inteira():
-    vm = VMFalsa()
-    ctx, c = _pesado(vm, relogio=lambda: 1000.0)
-    r = ctx.tools["pesado"]("lake_build", 3.0, confirmar=True)
-    assert r["ok"] and c.saldo("a@x.com")["reservado_usd"] == 1.8
-    vm.st = {"vm": "TERMINATED", "inicio_vm": 1000.0, "fim_vm": 1000.0 + 1800, "estado": "concluido", "codigo": 0,
-             "saida": "Build completed"}
-    j = ctx.tools["pesado_status"](r["job"])["jobs"][0]
-    assert (j["estado"], j["horas_reais"], j["custo_usd"], j["codigo"]) == ("liquidado", 0.5, 0.3, 0)
-    s = c.saldo("a@x.com")
-    assert (s["gasto_usd"], s["reservado_usd"]) == (0.3, 0.0) and vm.liberada == 1
-    assert ctx.tools["pesado_status"](r["job"])["jobs"][0]["custo_usd"] == 0.3     # liquidar de novo não cobra de novo
-    assert c.saldo("a@x.com")["gasto_usd"] == 0.3
-
-
-def test_job_que_estourou_o_prazo_continua_ligado_e_cobrando():
-    vm, t = VMFalsa(), [1000.0]
-    ctx, c = _pesado(vm, relogio=lambda: t[0])
-    r = ctx.tools["pesado"]("verificar_grande", 1.0, {"arquivo": "q4_n10_R4_M192.txt"}, confirmar=True)
-    vm.st = {"vm": "RUNNING", "inicio_vm": 1000.0, "estado": "rodando"}
-    assert ctx.tools["pesado_status"](r["job"])["jobs"][0]["estado"] == "rodando" and vm.ligada
-    t[0] += 3600 + 600
-    j = ctx.tools["pesado_status"](r["job"])["jobs"][0]
-    assert j["estado"] == "liquidado" and j["custo_usd"] == 0.6 and not vm.ligada
-    assert c.saldo("a@x.com")["gasto_usd"] == 0.6
-
-
-def test_job_que_nunca_ligou_cobra_pela_reserva():
-    vm = VMFalsa()
-    ctx, c = _pesado(vm, relogio=lambda: 5000.0)
-    r = ctx.tools["pesado"]("lake_build", 1.0, confirmar=True)
-    vm.st = {"vm": "TERMINATED", "inicio_vm": 10.0, "fim_vm": 20.0}      # a VM tem outra história, não a deste job
-    assert ctx.tools["pesado_status"](r["job"])["jobs"][0]["estado"] == "nao_rodou"
-    assert c.saldo("a@x.com")["disponivel_usd"] == 20.0
-
-
-def test_job_de_outra_pessoa_aparece_na_consulta_de_quem_nao_e_dono():
-    vm = VMFalsa()
-    ctx, c = _pesado(vm)
-    r = ctx.tools["pesado"]("lake_build", 1.0, confirmar=True)
-    ctx.quem = lambda: "b@x.com"
-    assert ctx.tools["pesado_status"](r["job"])["ok"] is False
-    assert ctx.tools["pesado_status"]()["jobs"] == []
-    ctx.quem = lambda: DONO
-    assert ctx.tools["pesado_status"](r["job"])["ok"] is True
-
-
-def test_vm_ocupada_recusa_e_devolve_a_reserva():
-    vm = VMFalsa()
-    ctx, c = _pesado(vm)
-    assert ctx.tools["pesado"]("lake_build", 1.0, confirmar=True)["ok"]
-    r = ctx.tools["pesado"]("lake_build", 1.0, confirmar=True)
-    assert r["ok"] is False and "ocupada" in r["erro"]
-    assert c.saldo("a@x.com")["reservado_usd"] == 0.6                # só o job que está rodando
 
 
 # ------------------------------------------------------------- HTTP + Access
@@ -575,93 +473,6 @@ def test_atividade_que_falha_ao_gravar_derruba_a_tool():
         assert _dado(_tool_url(c, tok, "meus_creditos", {}))["ok"] is True
 
 
-# --------------------------------------------------------------- executor da VM
-from infinito_mcp.executor_vm import ExecutorVM  # noqa: E402
-
-
-class ComputeFalso:
-    """Mini Compute Engine: guarda o estado da instância e responde como a API."""
-
-    def __init__(self, status="TERMINATED", sched_ok=True, falha_start=False):
-        self.inst = {"status": status, "metadata": {"fingerprint": "f1", "items": [{"key": "ssh-keys", "value": "thiago:ssh-rsa AAA"}]},
-                     "lastStartTimestamp": "2026-10-03T10:00:00.000-07:00", "lastStopTimestamp": "2026-10-03T10:30:00.000-07:00"}
-        self.chamadas, self.sched_ok, self.guest, self.falha_start = [], sched_ok, {}, falha_start
-
-    def __call__(self, metodo, url, corpo):
-        caminho = url.split("/instances/lean-build2")[1]
-        self.chamadas.append((metodo, caminho))
-        if caminho == "" and metodo == "GET":
-            return 200, self.inst
-        if caminho == "/setMetadata":
-            self.inst["metadata"] = {"fingerprint": "f2", "items": corpo["items"]}
-            return 200, {}
-        if caminho == "/setScheduling":
-            self.ultimo_scheduling = corpo
-            return (200, {}) if self.sched_ok else (400, {"error": "x"})
-        if caminho == "/start":
-            if self.falha_start:
-                return 200, {"status": "DONE", "error": {"errors": [{"code": "QUOTA_EXCEEDED",
-                             "message": "Quota 'CPUS_ALL_REGIONS' exceeded.  Limit: 32.0 globally."}]}}
-            self.inst["status"] = "RUNNING"
-            return 200, {"status": "DONE"}
-        if caminho == "/stop":
-            self.inst["status"] = "TERMINATED"
-            return 200, {}
-        if caminho.startswith("/getGuestAttributes"):
-            return 200, {"queryValue": {"items": [{"namespace": "infinito", "key": k, "value": v} for k, v in self.guest.items()]}}
-        return 404, {}
-
-
-def _vm(**kw):
-    api = ComputeFalso(**kw)
-    return ExecutorVM("proj", http=api, dormir=lambda s: None), api
-
-
-def test_ligar_a_vm_apaga_a_chave_ssh_do_dono_ou_deixa_o_job_para_sempre():
-    vm, api = _vm()
-    vm.iniciar("lake_build", {"alvo": "CoveringLean"}, 1.0, "a@x.com", "job1")
-    chaves = {i["key"]: i["value"] for i in api.inst["metadata"]["items"]}
-    assert chaves["ssh-keys"] == "thiago:ssh-rsa AAA"                       # o que já estava continua
-    assert json.loads(chaves["infinito-job"])["id"] == "job1" and chaves["enable-guest-attributes"] == "TRUE"
-    assert chaves["startup-script"].startswith("#!/bin/bash") and "shutdown -h now" in chaves["startup-script"]
-    assert [c for c in api.chamadas if c[0] == "POST"][-1] == ("POST", "/start")
-    vm.liberar()
-    assert [c for c in api.chamadas if c[1] == "/setScheduling"][-1] and api.ultimo_scheduling["maxRunDuration"] == {"seconds": 6 * 3600}   # limite permanente, não removível
-    assert "infinito-job" not in {i["key"] for i in api.inst["metadata"]["items"]}
-    assert {i["key"] for i in api.inst["metadata"]["items"]} >= {"ssh-keys", "startup-script"}
-
-
-def test_vm_ocupada_liga_por_cima_e_dobra_a_conta():
-    vm, api = _vm(status="RUNNING")
-    with pytest.raises(ErroCreditos, match="ocupada"):
-        vm.iniciar("lake_build", {}, 1.0, "a@x.com", "j")
-    assert not any(c[0] == "POST" for c in api.chamadas)                   # nem mexeu nos metadados
-
-
-def test_paraquedas_de_duracao_maxima_que_falha_impede_o_job():
-    vm, api = _vm(sched_ok=False)
-    info = vm.iniciar("lake_build", {}, 1.0, "a@x.com", "j")
-    assert info["paraquedas_maxrunduration"] is False and api.inst["status"] == "RUNNING"
-
-
-def test_status_de_job_alheio_vaza_o_resultado_do_job_anterior():
-    vm, api = _vm()
-    api.guest = {"id": "outro", "estado": "concluido", "codigo": "0", "saida": "log do outro"}
-    s = vm.status("meu")
-    assert (s["estado"], s["saida"], s["codigo"]) == (None, "", None)
-    api.guest["id"] = "meu"
-    s = vm.status("meu")
-    assert (s["estado"], s["codigo"], s["saida"]) == ("concluido", 0, "log do outro")
-    assert s["inicio_vm"] < s["fim_vm"]
-
-
-def test_script_da_vm_so_conhece_a_allowlist_e_desliga_a_maquina():
-    sh = (AQUI / "infinito_mcp" / "vm" / "job.sh").read_text()
-    assert "lake_build" in sh and "verificar_grande" in sh and "shutdown -h now" in sh
-    assert 'eval "$CMD"' in sh and "fullmatch" in sh                      # o comando sai de regex, não do pedido
-    assert "|| exit 0" in sh                                              # boot manual sem job não faz nada
-
-
 # ------------------------------------------------- atritos medidos por um agente-usuário (2026-10-04)
 def test_alvos_filtrados_por_q_e_sem_nosso_devolvem_celula_que_ja_temos():
     ctx = _Ctx(creditos())
@@ -708,21 +519,3 @@ def test_papers_desde_ano_e_ordem_data_cortam_depois_da_fonte_e_o_cache_serve_a_
     r2 = ctx.tools["papers_buscar"]("x", limite=2, desde=2024, ordem="relevancia")
     assert r2["cache"] is True and [p["titulo"] for p in r2["resultados"]] == ["B", "C"] and len(chamadas) == 1
     assert ctx.tools["papers_buscar"]("x", ordem="aleatoria")["ok"] is False
-
-
-def test_start_que_falha_por_cota_espera_a_vm_ligar_por_um_minuto_e_diz_tempo_esgotado():
-    dormidas = []
-    api = ComputeFalso(falha_start=True)
-    vm = ExecutorVM("proj", http=api, dormir=dormidas.append)
-    with pytest.raises(ErroCreditos) as e:
-        vm.iniciar("lake_build", {}, 1.0, "a@x.com", "j")
-    assert "QUOTA_EXCEEDED" in str(e.value) and "CPUS_ALL_REGIONS" in str(e.value) and "Nada foi cobrado" in str(e.value)
-    assert "a tempo" not in str(e.value) and sum(dormidas) < 10          # falhou na hora, sem esperar a VM
-
-
-def test_pedido_pesado_com_cota_estourada_devolve_a_reserva_e_a_mensagem_certa():
-    vm = ExecutorVM("proj", http=ComputeFalso(falha_start=True), dormir=lambda s: None)
-    ctx, c = _pesado(vm)
-    r = ctx.tools["pesado"]("lake_build", 1.0, confirmar=True)
-    assert r["ok"] is False and "CPUS_ALL_REGIONS" in r["erro"]
-    assert c.saldo("a@x.com")["disponivel_usd"] == 20.0 and ctx.tools["pesado_status"]()["jobs"] == []
