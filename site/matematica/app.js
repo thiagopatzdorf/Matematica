@@ -18,13 +18,14 @@
   // Números embutidos (ledger/COBERTURA.md e ledger/cells.json, v0.9.1). Valem só quando dados.json falta;
   // a página diz isso no carimbo da seção de números.
   var DADOS_EMBUTIDOS = {
-    versao: "0.9.1", doi: "10.5281/zenodo.23085769", celulas_total: 1145, exatas: 523, abertas: 622,
-    superiores_por_estado: { CLAIMED: 445, WITNESS_CHECKED: 0, CERTIFICATE_VERIFIED: 0, FORMALIZED: 579, INDEPENDENTLY_REPRODUCED: 121 },
-    inferiores_por_estado: { CLAIMED: 1140, WITNESS_CHECKED: 0, CERTIFICATE_VERIFIED: 3, FORMALIZED: 2, INDEPENDENTLY_REPRODUCED: 0 },
+    versao: "0.9.1", doi: "10.5281/zenodo.23085769", celulas_total: 1145, exatas: 524, abertas: 621,
+    superiores_por_estado: { CLAIMED: 444, WITNESS_CHECKED: 1, CERTIFICATE_VERIFIED: 0, FORMALIZED: 579, INDEPENDENTLY_REPRODUCED: 121 },
+    inferiores_por_estado: { CLAIMED: 1138, WITNESS_CHECKED: 0, CERTIFICATE_VERIFIED: 5, FORMALIZED: 2, INDEPENDENTLY_REPRODUCED: 0 },
     destaques: [
       { celula: "K3(6,2)", antes: "15–17", agora: "= 17", estado_lb: "CERTIFICATE_VERIFIED", estado_ub: "INDEPENDENTLY_REPRODUCED", fonte: "docs/exatos/NOVIDADE_V09.md" },
       { celula: "K7(6,4)", antes: "13–15", agora: "= 14", estado_lb: "CERTIFICATE_VERIFIED", estado_ub: "INDEPENDENTLY_REPRODUCED", fonte: "docs/exatos/NOVIDADE_V09.md" },
       { celula: "K7(5,3)", antes: "15–17", agora: "= 17", estado_lb: "CERTIFICATE_VERIFIED", estado_ub: "INDEPENDENTLY_REPRODUCED", fonte: "docs/exatos/NOVIDADE_V09.md" },
+      { celula: "K4(7,4)", antes: "9–10", agora: "= 10", estado_lb: "CERTIFICATE_VERIFIED", estado_ub: "WITNESS_CHECKED", fonte: "docs/exatos/FIBRAS_RAIO_GERAL.md" },
       { celula: "K7(4,2)", antes: "17–19", agora: "= 19", estado_lb: "FORMALIZED", estado_ub: "FORMALIZED", fonte: "docs/exatos/LEAN_K742.md" },
       { celula: "K7(9,4)", antes: "≤ 1475", agora: "≤ 1134", estado_lb: "CLAIMED", estado_ub: "INDEPENDENTLY_REPRODUCED", fonte: "ledger/COBERTURA.md" }
     ]

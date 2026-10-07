@@ -75,6 +75,18 @@ PROVENANCE = {
                  "INDEFINIDO em 600 s nesse perfil). Conferido por tools/verify/verify.c (0 de 16 807 pontos "
                  "descobertos) e por força bruta em Python (tests/test_fibras.py).",
     },
+    "q4_n7_R4_M10": {
+        "generator": "tools/busca_direta/tabu.c (busca tabu direta), gcc -O3; lista de docs/alvos/k474/q4_n7_R4_M10.txt "
+                     "(PR #112) ordenada com sort",
+        "commit": "ebf5522",
+        "seed": 1,
+        "command": "./tabu 4 7 4 14 120 1 prefixo",
+        "date": "2026-10-07",
+        "agent": "James.V1",
+        "repo_commit": None,
+        "notes": "cota superior de K_4(7,4) = 10 (antes só anunciada nas tabelas do Kéri / Rivas Soriano). Conferido "
+                 "por tools/verify/verify.c (0 de 16 384 pontos descobertos) e por scripts/loop/verify_cover.py.",
+    },
     "q7_n9_R4_M1351": {
         "generator": "lincov (Mapika/coldcase) para os 3 cosets de [9,3]_7; remendo de 322 palavras sem registro",
         "commit": "56a8cce",
