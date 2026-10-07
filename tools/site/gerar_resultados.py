@@ -36,6 +36,10 @@ FRASE_LEDGER = "A machine-checked ledger of covering-code upper bounds, with for
 KERNEL = ("FORMALIZED", "INDEPENDENTLY_REPRODUCED")  # estados em que a cota é teorema do kernel do Lean
 # A busca bibliográfica da v0.9 não vive no ledger; o doc é a fonte da frase "potencialmente novo".
 DOC_NOVIDADE = "docs/exatos/NOVIDADE_V09.md"
+# Células cuja checagem de novidade está feita em DOC_NOVIDADE. Fechar uma célula NÃO basta para chamá-la
+# de "potencialmente nova": sem isto, K_4(7,4) (2026-10-07) apareceria na frase e no selo citando uma busca
+# bibliográfica que não a cobriu. Célula nova só entra aqui junto com a checagem escrita.
+NOVIDADE_CONFERIDA = {(3, 6, 2), (7, 5, 3), (7, 6, 4)}
 
 
 class SemMarcas(Exception):
@@ -89,6 +93,8 @@ def numeros(ledger: dict, raiz: Path = RAIZ) -> dict:
         "kernel": sum(ub[e] for e in KERNEL),
         "exatas_novas": len(novas),
         "exatas_novas_certificado": sum(c["certification"]["lb"]["state"] == "CERTIFICATE_VERIFIED" for c in novas),
+        "exatas_novidade_conferida": sum(c["certification"]["lb"]["state"] == "CERTIFICATE_VERIFIED"
+                                         and (c["q"], c["n"], c["R"]) in NOVIDADE_CONFERIDA for c in novas),
         "exatas_novas_kernel": sum(all(c["certification"][s]["state"] in KERNEL for s in ("lb", "ub")) for c in novas),
         "teorema_proprio": len(proprias),
         "abaixo_do_publicado": sum(c["best"]["beats_published"] for c in proprias),
@@ -340,13 +346,15 @@ def bloco(ledger: dict | None = None, raiz: Path = RAIZ, lingua: str = "pt-BR") 
         L.append(f"| {d['_nome']} | {_intervalo(d['antes_lb'], d['antes_ub'])} | {_agora(d, t)} | "
                  f"{d['estado_lb']} | {d['estado_ub']} | {_prova(d['_cell'], raiz, t['codigo'])} |")
     cert_lb = [d["_nome"] for d in ds if d["exata_nova"] and d["estado_lb"] == "CERTIFICATE_VERIFIED"]
+    pot_novas = [d["_nome"] for d in ds if d["exata_nova"] and d["estado_lb"] == "CERTIFICATE_VERIFIED"
+                 and (d["_cell"]["q"], d["_cell"]["n"], d["_cell"]["R"]) in NOVIDADE_CONFERIDA]
     ub_claimed = [d["_nome"] for d in ds if d["estado_ub"] == "CLAIMED"]
     L.append("")
-    if cert_lb:
+    if pot_novas:
         ver = ""
         if (raiz / DOC_NOVIDADE).is_file():
             ver = t["ver"].format(link=f"[{Path(DOC_NOVIDADE).stem}]({DOC_NOVIDADE})")
-        L += [t["pot_novas"].format(ver=ver, cels=", ".join(cert_lb)), ""]
+        L += [t["pot_novas"].format(ver=ver, cels=", ".join(pot_novas)), ""]
     lacunas = []
     if cert_lb:
         lacunas.append(t["lac_lb"].format(cels=", ".join(cert_lb)))
@@ -371,7 +379,7 @@ def badges(ledger: dict | None = None, raiz: Path = RAIZ) -> dict[str, str]:
     return {
         "kernel.json": js("cotas superiores no kernel", f"{n['kernel']}/{n['celulas']}", "blue"),
         "exatas-fechadas.json": js("exatas fechadas aqui", str(n["exatas_novas"]), "brightgreen"),
-        "potencialmente-novas.json": js("exatas potencialmente novas", str(n["exatas_novas_certificado"]),
+        "potencialmente-novas.json": js("exatas potencialmente novas", str(n["exatas_novidade_conferida"]),
                                         "brightgreen"),
         "exatas.json": js("exatas", f"{n['exatas']}/{n['celulas']}", "informational"),
     }

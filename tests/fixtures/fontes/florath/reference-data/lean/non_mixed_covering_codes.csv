@@ -20,6 +20,8 @@ q,n,r,lower_bound,upper_bound,lower_bound_reference,upper_bound_reference
 2,24,5,303,4096,rule_sphere_covering_bound,lean_known_bounds_q2_n24_r4_binary_golay_tail;rule_radius_monotonicity
 3,6,1,57,73,rule_sphere_covering_bound,lit_laarhoven_aarts_van_lint_wille_1989
 3,6,2,10,17,rule_sphere_covering_bound,lean_small_explicit_upper
+4,6,3,6,16,rule_sphere_covering_bound,rule_constant_symbol;rule_free_lengthening
+4,7,4,5,16,rule_sphere_covering_bound,rule_constant_symbol;rule_free_lengthening
 4,10,4,51,512,rule_sphere_covering_bound,lean_known_bounds_q4_n11_r4_gf4_coset_syndrome;rule_puncturing
 5,7,2,215,625,rule_sphere_covering_bound,lean_hamming_perfect_upper;rule_dummy_coordinate_lengthening
 5,9,3,327,3125,rule_sphere_covering_bound,lean_hamming_perfect_upper;rule_free_lengthening;rule_dummy_coordinate_lengthening

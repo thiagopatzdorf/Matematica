@@ -7,12 +7,12 @@ Estados (cumulativos, ver `ledger/README.md`): **C** = CLAIMED, **W** = WITNESS_
 **V** = CERTIFICATE_VERIFIED (só inferior), **F** = FORMALIZED, **I** = INDEPENDENTLY_REPRODUCED.
 As cotas inferiores são, quase todas, herdadas da literatura (CLAIMED).
 
-Total: 1145 células; exatas (inferior = superior): 523; exatas com as duas cotas certificadas aqui (W ou acima): 5; exatas com as duas cotas no Lean daqui: 2.
+Total: 1145 células; exatas (inferior = superior): 524; exatas com as duas cotas certificadas aqui (W ou acima): 6; exatas com as duas cotas no Lean daqui: 2.
 
 | lado | CLAIMED | WITNESS_CHECKED | CERTIFICATE_VERIFIED | FORMALIZED | INDEPENDENTLY_REPRODUCED |
 |---|---:|---:|---:|---:|---:|
-| ub | 445 | 0 | 0 | 579 | 121 |
-| lb | 1140 | 0 | 3 | 2 | 0 |
+| ub | 444 | 1 | 0 | 579 | 121 |
+| lb | 1138 | 0 | 5 | 2 | 0 |
 
 Cotas superiores com prova Lean externa da mesma cota (Florath, commit fixado, não reconstruída aqui, por isso não sobe o estado): 527.
 
@@ -22,7 +22,7 @@ Cotas superiores com prova Lean externa da mesma cota (Florath, commit fixado, n
 |---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|
 | 2 | 285 | 117 | 0 | 0 | 129 | 39 | 284 | 0 | 0 | 1 | 0 | 107 | 116 |
 | 3 | 84 | 28 | 0 | 0 | 44 | 12 | 83 | 0 | 1 | 0 | 0 | 45 | 50 |
-| 4 | 60 | 26 | 0 | 0 | 26 | 8 | 60 | 0 | 0 | 0 | 0 | 31 | 33 |
+| 4 | 60 | 25 | 1 | 0 | 26 | 8 | 58 | 0 | 2 | 0 | 0 | 32 | 33 |
 | 5 | 60 | 21 | 0 | 0 | 26 | 13 | 60 | 0 | 0 | 0 | 0 | 27 | 28 |
 | 6 | 52 | 25 | 0 | 0 | 21 | 6 | 52 | 0 | 0 | 0 | 0 | 25 | 24 |
 | 7 | 52 | 14 | 0 | 0 | 27 | 11 | 49 | 0 | 2 | 1 | 0 | 25 | 25 |
@@ -283,9 +283,11 @@ Cotas superiores com prova Lean externa da mesma cota (Florath, commit fixado, n
 | K4(5,4) | 4 | FORMALIZED | 4 | CLAIMED | sim |
 | K4(5,5) | 1 | FORMALIZED | 1 | CLAIMED | sim |
 | K4(6,1) | 256 | INDEPENDENTLY_REPRODUCED | 228 | CLAIMED | não |
+| K4(6,3) | 14 | CLAIMED | 12 | CERTIFICATE_VERIFIED | não |
 | K4(6,4) | 4 | FORMALIZED | 4 | CLAIMED | sim |
 | K4(6,5) | 4 | FORMALIZED | 4 | CLAIMED | sim |
 | K4(6,6) | 1 | FORMALIZED | 1 | CLAIMED | sim |
+| K4(7,4) | 10 | WITNESS_CHECKED | 10 | CERTIFICATE_VERIFIED | sim |
 | K4(7,5) | 4 | FORMALIZED | 4 | CLAIMED | sim |
 | K4(7,6) | 4 | FORMALIZED | 4 | CLAIMED | sim |
 | K4(7,7) | 1 | FORMALIZED | 1 | CLAIMED | sim |

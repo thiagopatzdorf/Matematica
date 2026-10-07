@@ -424,6 +424,16 @@
       "agente": "James.V1",
       "lacuna": "Reconstrução determinística da transcrição (sem semente); o gerador entra no mesmo commit do código. Construção e dependências descritas no item do JSON.",
       "gap": "deterministic reconstruction from the transcription (no seed); the generator lands in the same commit as the code. Construction and dependencies are described in the JSON item."
+    },
+    "P-474-10": {
+      "codigo": "data/codes/q4_n7_R4_M10.txt",
+      "gerador": "tools/busca_direta/tabu.c (busca tabu direta), gcc -O3; saída copiada de docs/alvos/k474/q4_n7_R4_M10.txt (PR #112) e ordenada com sort",
+      "commit": "ebf5522",
+      "seed": 1,
+      "comando": "./tabu 4 7 4 14 120 1 prefixo",
+      "data": "2026-10-07",
+      "agente": "James.V1",
+      "lacuna": "O comando acima é o registrado no docs/alvos/k474/README.md (PR #112); o arquivo de data/codes/ é a mesma lista de palavras ordenada (sha256 canônico do verificador igual ao do arquivo)."
     }
   }
 }

@@ -1,6 +1,6 @@
 {
   "descricao": "Estado NOSSO por célula K_q(n,R). Fonte de verdade escrita à mão (ou pelo scripts/loop/record_loop.py); build.py mescla isto com as cotas publicadas e gera cells.json. Ver README.md.",
-  "atualizado": "2026-10-06",
+  "atualizado": "2026-10-07",
   "cells": {
     "7,9,4": {
       "ours_computational": null,
@@ -1388,6 +1388,102 @@
         "declaration": "CoveringLit.K2_14_1_le_1408",
         "lib": "CoveringLiteratura",
         "tag": null
+      }
+    },
+    "4,7,4": {
+      "ours_computational": {
+        "M": 10,
+        "file": "data/codes/q4_n7_R4_M10.txt",
+        "sha256": "f2abfa603967023157efdd98786f7bdce44efcc103006ed525b661728475aac7",
+        "provenance": "P-474-10"
+      },
+      "ours_lean": null,
+      "lb": {
+        "value": 10,
+        "estado": "CERTIFICATE_VERIFIED",
+        "data": "2026-10-07",
+        "docs": "docs/exatos/FIBRAS_RAIO_GERAL.md",
+        "witness": "tools/exatos/fibras/certificados/K4_7_4_M9.sha256",
+        "sha256": "c7f89b95e446887a09566f57ef4f70517f1465075b87fb9d750465d77f1d8e37",
+        "verificador_independente": "792 perfis (786 inteiros + 168 cubos) com LRAT conferido por lrat-check; kissat confirma 792/792 nas mesmas CNFs; codificação independente (indep_raio.py) 26/40 UNSAT, 0 SAT. Sem red team adversarial ainda",
+        "lean": null,
+        "certificado": {
+          "tipo": [
+            "LRAT"
+          ],
+          "afirmacao": "∄ C ⊂ Z_4^7 com 9 palavras e raio 4 (multiconjuntos inclusos, logo nenhum com ≤ 9): os 792 perfis de fibras (s_min = 1, cobertura por triplas, Lema 2') são UNSAT, 786 inteiros e 6 ((3222)^6·x, ordem max) fechados por 28 cubos cada (168 cubos)",
+          "arquivos": {
+            "tools/exatos/fibras/certificados/K4_7_4_M9.sha256": "c7f89b95e446887a09566f57ef4f70517f1465075b87fb9d750465d77f1d8e37",
+            "tools/exatos/fibras/certificados/K4_7_4_M9.jsonl.xz": "58ddba98dc70c6ad426a4b9363da70fc4229e6e85c2c3191497e8af991615c53"
+          },
+          "contagem": {
+            "perfis": 792,
+            "perfis_inteiros": 786,
+            "cubos": 168,
+            "linhas_registro": 954
+          },
+          "nota": "registro por perfil/cubo (sha256 da CNF e da prova LRAT, resultado do lrat-check); as provas LRAT (151 GB) não estão versionadas e são regeneradas pelo codificador (fib_encode.codificar(..., R=4)) e CaDiCaL 3.0.1 c607304",
+          "verificadores": [
+            "lrat-check (drat-trim 2e3b2dc) em todos",
+            "kissat 4.0.4 8af8e56 (segundo solver, sem prova) nas mesmas CNFs: 792/792 perfis UNSAT (tools/exatos/fibras_redteam/resultados/k474_dupla_kissat.jsonl.xz)",
+            "tools/exatos/fibras_redteam/indep_raio.py (codificação independente) + kissat em amostra de 40 perfis: 26 UNSAT, 14 tempo esgotado, 0 SAT"
+          ],
+          "pr": [
+            103,
+            111
+          ],
+          "red_team": {
+            "pr": 111,
+            "doc": "docs/exatos/FIBRAS_RAIO_GERAL.md",
+            "veredito": "AINDA NÃO HÁ RED TEAM ADVERSARIAL INDEPENDENTE: o registro entrou por decisão do dono (2026-10-07) com a dupla checagem do próprio autor no PR #111 (segundo solver em todos os perfis + codificação independente em amostra, nenhum SAT); red team independente pendente"
+          }
+        },
+        "dependencias": "Lema 1 usa K_4(6,3) > 9: aqui K_4(6,3) ≥ 12 (certificado deste ledger, que por sua vez usa K_4(5,2) = 16, Kéri 2011); a literatura também dá K_4(6,3) ≥ 11 (HSPQ)"
+      }
+    },
+    "4,6,3": {
+      "ours_computational": null,
+      "ours_lean": null,
+      "lb": {
+        "value": 12,
+        "estado": "CERTIFICATE_VERIFIED",
+        "data": "2026-10-07",
+        "docs": "docs/exatos/FIBRAS_RAIO_GERAL.md",
+        "witness": "tools/exatos/fibras/certificados/K4_6_3_M11.sha256",
+        "sha256": "95ccb7411181a2da182d2de89e028dcb98dd02063a671062a818588849ecd20f",
+        "verificador_independente": "8008 perfis (7990 inteiros + 2100 cubos) com LRAT conferido por lrat-check; kissat confirma 8008/8008 nas mesmas CNFs; codificação independente 58/60 UNSAT, 0 SAT. Sem red team adversarial ainda",
+        "lean": null,
+        "certificado": {
+          "tipo": [
+            "LRAT"
+          ],
+          "afirmacao": "∄ C ⊂ Z_4^6 com 11 palavras e raio 3 (logo nenhum com ≤ 11): os 8008 perfis de fibras (s_min = 1, cobertura por triplas) são UNSAT, 7990 inteiros e 18 fechados por cubos (2100 cubos)",
+          "arquivos": {
+            "tools/exatos/fibras/certificados/K4_6_3_M11.sha256": "95ccb7411181a2da182d2de89e028dcb98dd02063a671062a818588849ecd20f",
+            "tools/exatos/fibras/certificados/K4_6_3_M11.jsonl.xz": "60534c96614f1ffe864e69abeb0a3c5ed8a3cd92cece037cc7cc4a73776c52c7"
+          },
+          "contagem": {
+            "perfis": 8008,
+            "perfis_inteiros": 7990,
+            "cubos": 2100,
+            "linhas_registro": 10090
+          },
+          "nota": "registro por perfil/cubo (sha256 da CNF e da prova LRAT, resultado do lrat-check); as provas LRAT (402 GB) não estão versionadas e são regeneradas pelo codificador (fib_encode.codificar(..., R=3)) e CaDiCaL 3.0.1 c607304",
+          "verificadores": [
+            "lrat-check (drat-trim 2e3b2dc) em todos",
+            "kissat 4.0.4 8af8e56 (segundo solver, sem prova) nas mesmas CNFs: 8008/8008 perfis UNSAT (tools/exatos/fibras_redteam/resultados/k463_dupla_kissat.jsonl.xz)",
+            "tools/exatos/fibras_redteam/indep_raio.py (codificação independente) + kissat em amostra de 60 perfis: 58 UNSAT, 2 tempo esgotado, 0 SAT"
+          ],
+          "pr": [
+            111
+          ],
+          "red_team": {
+            "pr": 111,
+            "doc": "docs/exatos/FIBRAS_RAIO_GERAL.md",
+            "veredito": "AINDA NÃO HÁ RED TEAM ADVERSARIAL INDEPENDENTE: o registro entrou por decisão do dono (2026-10-07) com a dupla checagem do próprio autor no PR #111; red team independente pendente"
+          }
+        },
+        "dependencias": "Lema 1 usa K_4(5,2) = 16 (Kéri 2011) para excluir fibra vazia e K_3(5,2) = 8 só para o valor de s_min"
       }
     }
   }
