@@ -9,6 +9,14 @@ com `q` qualquer, inclusive 4, 6, 8, 9 e 10, por busca local direta sem estrutur
     ./tabu q n R M segundos semente prefixo [tenure=1] [max_cand=0] [pesos=0] [inicial.txt]
     tools/verify/verify -q Q -n N -r R -m M prefixo_M<M>.txt                     # obrigatório
 
+    gcc -O3 -march=native -std=gnu99 -o tabu_grupo tools/busca_direta/tabu_grupo.c
+    ./tabu_grupo q n R nrep segundos semente prefixo "geradores" [tenure=1] [max_cand=0]
+
+`tabu_grupo.c` prescreve um grupo G de isometrias (cada gerador é `y_i = x_{p_i} + a_i mod q`) e busca só
+os representantes das órbitas: a órbita de pontos fica coberta sse a bola de algum representante a
+intersecta, então o custo de um movimento é o mesmo da busca direta, contado por órbita. É o método de
+Östergård–Weakley (1999) com que muitos recordes antigos foram achados.
+
 O movimento e a conta incremental (duas cascas de raio exato `R` fora da coordenada trocada, em vez
 da bola inteira) estão no cabeçalho de `tabu.c`. Em lote: `pesado/jobs/busca_tabu.sh` com os alvos de
 `pesado/jobs/busca_tabu.alvos`.
@@ -25,6 +33,11 @@ da bola inteira) estão no cabeçalho de `tabu.c`. Em lote: `pesado/jobs/busca_t
 | K_4(8,4) | 28 | com M = 27, 23 pontos descobertos no melhor momento | 60 s |
 | K_5(7,3) | 100 | com M = 99, 72 descobertos | 60 s |
 | 25 células médias (lista no corpo do PR), M = recorde − 1 | ub publicado | nenhuma zerou; menores descobertos: K_5(5,2) 17, K_5(6,3) 19, K_4(8,4) 23, K_3(8,3) 25 | 60 s cada |
+
+Com grupo (`tabu_grupo`, 90–120 s por grupo; |G| entre parênteses): K_4(10,5) chegou a 70 com a troca
+cíclica (10), e com 6 representantes (60) a 2 pontos descobertos; K_5(10,6) chegou a 60 (troca cíclica e
+S2+translação, 10) e, com 4 representantes da troca cíclica (40 < 45), a 146 descobertos em ~10 min;
+K_5(8,4) chegou a 80 (cíclica, 8), com 9 representantes (72) a 11 descobertos. Nada abaixo de recorde.
 
 Leitura: a busca é correta (acha os ótimos pequenos e nunca menos; todo código gravado passa no
 verificador) e fica longe dos recordes de 2011 nas células médias. Esses recordes não são de busca

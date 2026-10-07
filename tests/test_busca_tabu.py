@@ -71,3 +71,54 @@ def test_m_grande_sem_cnt16_e_recusado_em_vez_de_estourar_contagem(bins, tmp_pat
     r = subprocess.run([bins["tabu"], "2", "10", "1", "300", "1", "1", str(tmp_path / "x")],
                        capture_output=True, text=True)
     assert r.returncode == 2 and "CNT16" in r.stderr
+
+
+# ---------------------------------------------------------------- tabu_grupo.c (órbitas por um grupo)
+SRC_G = os.path.join(ROOT, "tools", "busca_direta", "tabu_grupo.c")
+
+
+@pytest.fixture(scope="module")
+def grupo_bin(tmp_path_factory, bins):
+    d = tmp_path_factory.mktemp("bing")
+    cc = os.environ.get("CC") or shutil.which("cc") or shutil.which("gcc")
+    out = str(d / "tabu_grupo")
+    subprocess.run([cc, "-O2", "-std=gnu99", "-Wall", "-Werror", "-o", out, SRC_G], check=True)
+    return out
+
+
+def _roda_grupo(grupo_bin, tmp_path, q, n, R, nrep, geradores, segundos=2.0):
+    prefixo = str(tmp_path / f"g{q}_{n}_{R}")
+    r = subprocess.run([grupo_bin, str(q), str(n), str(R), str(nrep), str(segundos), "1", prefixo, geradores],
+                       capture_output=True, text=True, check=True)
+    achados = sorted(int(linha.split()[0]) for linha in r.stdout.splitlines() if linha.strip())
+    return prefixo, achados
+
+
+def test_grupo_trivial_acha_codigo_abaixo_de_k3_4_1(grupo_bin, tmp_path):
+    _, achados = _roda_grupo(grupo_bin, tmp_path, 3, 4, 1, 12, "0,1,2,3")
+    assert achados and min(achados) == 9
+
+
+def test_grupo_do_complemento_aceita_codigo_impar_em_k2_5_1(grupo_bin, tmp_path):
+    # o complemento (x -> x + 11111) não tem ponto fixo em F_2^5: todo código invariante tem M par,
+    # então o ótimo invariante é 8, nunca o 7 sem simetria
+    prefixo, achados = _roda_grupo(grupo_bin, tmp_path, 2, 5, 1, 6, "0,1,2,3,4:1,1,1,1,1")
+    assert achados and min(achados) == 8
+    assert all(m % 2 == 0 for m in achados)
+
+
+def test_codigo_do_grupo_sem_simetria_ou_reprovado_pelo_verificador(grupo_bin, bins, tmp_path):
+    # translação por 111111 em F_3^6 (ordem 3) e troca cíclica: o código gravado tem de ser invariante
+    # pelos geradores e passar no verificador oficial
+    for ger, perm, soma in (("0,1,2,3,4,5:1,1,1,1,1,1", list(range(6)), [1] * 6),
+                            ("1,2,3,4,5,0", [1, 2, 3, 4, 5, 0], [0] * 6)):
+        prefixo, achados = _roda_grupo(grupo_bin, tmp_path, 3, 6, 1, 40, ger)
+        assert achados
+        m = min(achados)
+        arq = f"{prefixo}_M{m}.txt"
+        r = subprocess.run([bins["verify"], "-q", "3", "-n", "6", "-r", "1", "-m", str(m), arq],
+                           capture_output=True, text=True)
+        assert r.returncode == 0, r.stdout + r.stderr
+        palavras = set(open(arq).read().split())
+        imagem = {"".join(str((int(w[perm[i]]) + soma[i]) % 3) for i in range(6)) for w in palavras}
+        assert imagem == palavras, f"código de {ger} não é invariante"
