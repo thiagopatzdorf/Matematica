@@ -89,7 +89,7 @@ The block below is generated from `ledger/cells.json` and is not edited by hand.
 | `K_q(n,R)` cells in the ledger (q from 2 to 21) | **1145** |
 | exact (lower bound = upper bound) | **523** |
 | open | **622** |
-| upper bounds that are Lean kernel theorems (FORMALIZED + INDEPENDENTLY_REPRODUCED) | **670** of 1145 (579 + 91) |
+| upper bounds that are Lean kernel theorems (FORMALIZED + INDEPENDENTLY_REPRODUCED) | **700** of 1145 (579 + 121) |
 | lower bounds by state (almost all inherited from the literature) | CLAIMED 1140 · CERTIFICATE_VERIFIED 3 · FORMALIZED 2 |
 | exact values closed here (the published interval was open) | **4** (1 with both bounds in the kernel; 3 with the lower bound by a verified certificate outside Lean) |
 | cells with our own Lean theorem | **110** (12 below the best published upper bound we found) |

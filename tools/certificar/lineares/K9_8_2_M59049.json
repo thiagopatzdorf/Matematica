@@ -1,0 +1,12 @@
+{
+ "q": 9, "n": 8, "R": 2,
+ "construcao": "código linear [8,5]_9 de raio 2 (busca local, tools/certificar/busca_linear.c)",
+ "chave_keri": "e",
+ "gerador": [
+  [1, 0, 0, 0, 0, 2, 1, 5],
+  [0, 1, 0, 0, 0, 7, 1, 6],
+  [0, 0, 1, 0, 0, 3, 5, 5],
+  [0, 0, 0, 1, 0, 4, 6, 5],
+  [0, 0, 0, 0, 1, 7, 7, 1]
+ ]
+}

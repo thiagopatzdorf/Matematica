@@ -1,0 +1,11 @@
+{
+ "q": 4, "n": 6, "R": 1,
+ "construcao": "código linear [6,4]_4 de raio 1 (busca local, tools/certificar/busca_linear.c)",
+ "chave_keri": null,
+ "gerador": [
+  [1, 0, 0, 0, 3, 1],
+  [0, 1, 0, 0, 3, 2],
+  [0, 0, 1, 0, 1, 1],
+  [0, 0, 0, 1, 2, 3]
+ ]
+}
