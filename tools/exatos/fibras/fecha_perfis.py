@@ -28,13 +28,14 @@ def chave(tipos):
     return tuple(sorted(tipos))
 
 
-def sha_cnf(q, n, M, k, smin, r):
+def sha_cnf(q, n, M, k, smin, r, R=None):
+    R = n - 2 if R is None else R
     ordem = r.get("ordem", "min")
     sem = r.get("sem", "")
     _, ins = enc.instancias(q, n, M, k, smin, ordem=ordem)
     pref = ins[r["inst"]]
-    cnf, x, _, ts = enc.codificar(q, n, M, pref, smin, lex="g" not in sem, blocos_h="h" not in sem)
-    rot = f"K_{q}({n},{n-2}) M={M} k={k} s_min={smin} inst {r['inst']}: {pref}" + (f" sem ({sem})" if sem else "")
+    cnf, x, _, ts = enc.codificar(q, n, M, pref, smin, lex="g" not in sem, blocos_h="h" not in sem, R=R)
+    rot = f"K_{q}({n},{R}) M={M} k={k} s_min={smin} inst {r['inst']}: {pref}" + (f" sem ({sem})" if sem else "")
     if r.get("L"):
         cubo = fib_cubos.atribuicoes_coord1(q, M, ts[0], ts[1], smin, r["L"], blocos_h="h" not in sem)[r["cubo_idx"]]
         for u in fib_cubos.unitarias(x, cubo):
@@ -48,11 +49,13 @@ def main():
     ap.add_argument("--q", type=int, required=True)
     ap.add_argument("--n", type=int, required=True)
     ap.add_argument("--M", type=int, required=True)
+    ap.add_argument("--R", type=int, help="raio (padrão: n - 2); registros de outro raio são ignorados")
     ap.add_argument("--amostra-sha", type=int, default=0)
     ap.add_argument("arquivos", nargs="+")
     a = ap.parse_args()
     k = a.n
-    smin = enc.fibra_minima(a.q, a.n, a.n - 2, a.M)
+    R = a.n - 2 if a.R is None else a.R
+    smin = enc.fibra_minima(a.q, a.n, R, a.M)
     _, ins = enc.instancias(a.q, a.n, a.M, k, smin)
     todos = {chave("".join(map(str, t)) for t in p) for p in ins}
     fechados = set()
@@ -64,7 +67,8 @@ def main():
         # .xz lido direto: o registro de K_7(5,3) M=16 vai em partes comprimidas < 5 MB
         for ln in (lzma.open(arq, "rt") if arq.endswith(".xz") else open(arq)):
             r = json.loads(ln)
-            if (r["q"], r["n"], r["M"]) != (a.q, a.n, a.M) or r.get("sem"):
+            # registro sem "R" é de raio n - 2 (o rodar.py só grava R quando é outro)
+            if (r["q"], r["n"], r.get("R", r["n"] - 2), r["M"]) != (a.q, a.n, R, a.M) or r.get("sem"):
                 continue
             ok = r["resultado"] == "UNSAT" and r.get("lrat_check") == "VERIFIED"
             if r["resultado"] == "SAT":
@@ -86,13 +90,13 @@ def main():
         if feitos >= set(range(n_c)):
             fechados.add(perfil)
     falta = todos - fechados
-    print(f"K_{a.q}({a.n},{a.n-2}) M={a.M}: {len(todos)} perfis, {len(fechados & todos)} fechados "
+    print(f"K_{a.q}({a.n},{R}) M={a.M}: {len(todos)} perfis, {len(fechados & todos)} fechados "
           f"(UNSAT + LRAT conferido), {len(falta)} faltando, {len(ruins)} SAT")
     print(f"soma solver {tempo:.0f} s, soma lrat-check {tempo_check:.0f} s, LRAT {bytes_lrat / 1e9:.1f} GB")
     if a.amostra_sha:
         rng = random.Random(0)
         amostra = rng.sample(regs, min(a.amostra_sha, len(regs)))
-        bate = sum(sha_cnf(a.q, a.n, a.M, k, smin, r) == r["sha256.cnf"] for r in amostra)
+        bate = sum(sha_cnf(a.q, a.n, a.M, k, smin, r, R) == r["sha256.cnf"] for r in amostra)
         print(f"sha256 das CNFs regeneradas: {bate}/{len(amostra)} batem")
         if bate != len(amostra):
             sys.exit(1)

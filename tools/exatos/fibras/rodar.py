@@ -42,8 +42,8 @@ _rk = _mod("k742_rodar", os.path.join(K742, "rodar.py"))
 binario, sha, intervalo = _rk.binario, _rk.sha, _rk.intervalo
 
 
-def cobre(q, n, palavras):
-    R = n - 2
+def cobre(q, n, palavras, R=None):
+    R = n - 2 if R is None else R
     for x in itertools.product(range(q), repeat=n):
         if not any(sum(a != b for a, b in zip(x, c)) <= R for c in palavras):
             return False
@@ -57,12 +57,13 @@ def lrat_py(cnf, prova):
 
 
 def uma(args):
-    q, n, M, k, smin, idx, d, prova, solver, tempo, descartar, usar_py, L, ci, sem, ordem = args
+    q, n, M, k, smin, idx, d, prova, solver, tempo, descartar, usar_py, L, ci, sem, ordem = args[:16]
+    R = args[16] if len(args) > 16 else n - 2
     _, ins = enc.instancias(q, n, M, k, smin, ordem=ordem)
     pref = ins[idx]
-    cnf, x, sim0, ts = enc.codificar(q, n, M, pref, smin, lex="g" not in sem, blocos_h="h" not in sem)
-    base = os.path.join(d, f"K{q}_{n}_{n-2}_M{M}_k{k}{'_omax' if ordem == 'max' else ''}_i{idx:06d}" + (f"_sem{sem}" if sem else ""))
-    rot = f"K_{q}({n},{n-2}) M={M} k={k} s_min={smin} inst {idx}: {pref}" + (f" sem ({sem})" if sem else "")
+    cnf, x, sim0, ts = enc.codificar(q, n, M, pref, smin, lex="g" not in sem, blocos_h="h" not in sem, R=R)
+    base = os.path.join(d, f"K{q}_{n}_{R}_M{M}_k{k}{'_omax' if ordem == 'max' else ''}_i{idx:06d}" + (f"_sem{sem}" if sem else ""))
+    rot = f"K_{q}({n},{R}) M={M} k={k} s_min={smin} inst {idx}: {pref}" + (f" sem ({sem})" if sem else "")
     cubo = None
     if L:
         cubo = fib_cubos.atribuicoes_coord1(q, M, ts[0], ts[1], smin, L, blocos_h="h" not in sem)[ci]
@@ -72,7 +73,7 @@ def uma(args):
         rot += f" cubo L={L} #{ci}: {cubo}"
     with open(base + ".cnf", "w") as f:
         f.write(cnf.dimacs([rot]))
-    reg = {"q": q, "n": n, "M": M, "k": k, "smin": smin, "inst": idx, "sem": sem, "ordem": ordem,
+    reg = {"q": q, "n": n, **({"R": R} if R != n - 2 else {}), "M": M, "k": k, "smin": smin, "inst": idx, "sem": sem, "ordem": ordem,
            "tipos": ["".join(map(str, t)) for t in pref], "vars": cnf.nv, "clausulas": len(cnf.cl)}
     if L:
         reg.update(L=L, cubo_idx=ci, cubo="".join(map(str, cubo)))
@@ -116,7 +117,7 @@ def uma(args):
                   for t in ln[2:].split()]
         pal = enc.decodificar(modelo, x, sim0, q, n, M)
         reg["codigo"] = ["".join(map(str, w)) for w in pal]
-        reg["cobre"] = cobre(q, n, pal)
+        reg["cobre"] = cobre(q, n, pal, R)
         with open(base + ".codigo.txt", "w") as f:
             f.write("\n".join(reg["codigo"]) + "\n")
         os.remove(base + ".cnf")
@@ -134,6 +135,7 @@ def main():
     ap.add_argument("--n", type=int, required=True)
     ap.add_argument("--M", type=int, required=True)
     ap.add_argument("--k", type=int)
+    ap.add_argument("--R", type=int, help="raio (padrão: n - 2); R < n - 2 usa projeções de t-uplas")
     ap.add_argument("--smin", type=int, help="força s_min (validação com lema enfraquecido)")
     ap.add_argument("--dir", required=True)
     ap.add_argument("--inst", default="")
@@ -161,7 +163,8 @@ def main():
     ap.add_argument("--cubos-sel", default="", help="subconjunto dos cubos (ex.: 0-99)")
     a = ap.parse_args()
     k = a.k or a.n
-    smin = a.smin if a.smin is not None else enc.fibra_minima(a.q, a.n, a.n - 2, a.M)
+    R = a.n - 2 if a.R is None else a.R
+    smin = a.smin if a.smin is not None else enc.fibra_minima(a.q, a.n, R, a.M)
     os.makedirs(a.dir, exist_ok=True)
     _, ins = enc.instancias(a.q, a.n, a.M, k, smin, ordem=a.ordem)
     idxs = intervalo(a.inst, len(ins))
@@ -176,7 +179,7 @@ def main():
     elif a.faceis_primeiro:
         idxs.sort(key=lambda i: sum(enc.simetria_residual(t) for t in ins[i]))
     suf = ("_omax" if a.ordem == "max" else "") + (f"_L{a.cubos}" if a.cubos else "") + (f"_sem{a.sem}" if a.sem else "")
-    log = os.path.join(a.dir, f"K{a.q}_{a.n}_{a.n-2}_M{a.M}_k{k}_s{smin}{suf}.jsonl")
+    log = os.path.join(a.dir, f"K{a.q}_{a.n}_{R}_M{a.M}_k{k}_s{smin}{suf}.jsonl")
     feitos = set()
     if os.path.exists(log):
         for ln in open(log):
@@ -200,8 +203,9 @@ def main():
         else:
             cis = [None]
         tarefas += [(a.q, a.n, a.M, k, smin, i, a.dir, a.prova, a.solver, a.tempo, a.descartar,
-                     a.lrat_py, a.cubos, c, a.sem, a.ordem) for c in cis if (i, c) not in feitos]
-    print(f"K_{a.q}({a.n},{a.n-2}) M={a.M} k={k} s_min={smin}: {len(ins)} instâncias, "
+                     a.lrat_py, a.cubos, c, a.sem, a.ordem) + ((R,) if R != a.n - 2 else ())
+                    for c in cis if (i, c) not in feitos]
+    print(f"K_{a.q}({a.n},{R}) M={a.M} k={k} s_min={smin}: {len(ins)} instâncias, "
           f"{len(tarefas)} a rodar", flush=True)
     cont = {}
     with ProcessPoolExecutor(a.j) as ex, open(log, "a") as f:

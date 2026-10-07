@@ -5,6 +5,8 @@
 \hypersetup{pdftitle={Covering codes checked by the Lean kernel: K7(9,4) <= 1134, ten more upper bounds, K2(6,1) = 12, and K7(4,2) = 19},pdfauthor={Thiago Patzdorf}}
 \pdfstringdefDisableCommands{\def\\{ }\def\le{<=}}
 \usepackage[margin=1in]{geometry}
+% Contagens do ledger: geradas por tools/paper/numeros.py, nunca digitadas aqui (tests/test_paper_numeros.py).
+\input{numeros}
 
 \newtheorem{theorem}{Theorem}
 \newtheorem{lemma}[theorem]{Lemma}
@@ -28,7 +30,7 @@ The codes are unions of cosets of a linear code plus a small patch, and we give 
 The base of the $K_7(9,4)$ code was chosen from an enumeration of all $6362$ equivalence classes of non-degenerate $[9,3]_7$ codes.
 We also prove $K_2(6,1)\ge 11$ by a short double-counting argument and the classical value $K_2(6,1)=12$ by a search whose soundness is a theorem.
 Finally we determine $K_7(4,2)=19$ (previously $17\le K_7(4,2)\le 19$), and the equality is a theorem checked by the kernel with no hypothesis: the upper bound is an explicit code, and the non-existence of an $18$-word code reduces, by lemmas proved in Lean, to $70$ SAT instances whose LRAT refutations are replayed by a verified checker inside the kernel ($284$ modules, $37.8$ CPU-hours); the same refutations were also checked by two independent checkers outside Lean and confirmed by a second, independent encoding.
-We also describe a machine-checked ledger of covering-code upper bounds, with formally certified exact entries: $547$ of the $1145$ upper bounds in the tables are theorems of the Lean kernel, almost all of them from a single theorem, a generic bound $K_q(n,R)\le|C|$, construction rules and explicit witnesses.
+We also describe a machine-checked ledger of covering-code upper bounds, with formally certified exact entries: $\NumUBKernel$ of the $\NumCelulas$ upper bounds in the tables are theorems of the Lean kernel ($\NumUBFormalizada$ formalized, $\NumUBReproduzida$ of them also checked by a second, executed program), almost all of them from a single theorem, a generic bound $K_q(n,R)\le|C|$, construction rules, explicit witnesses and codes transcribed from the literature and rebuilt here; the exact value is a theorem on both sides in $\NumExatasLean$ cells, \ExatasLeanLista.
 
 Version~0.9 adds three exact values that are, as far as we can tell, potentially new: we did not find them in the literature we searched.
 Their lower bounds are \emph{not} theorems of the kernel: each rests on a reduction proved on paper and on computational certificates checked by exact programs outside Lean.
@@ -36,6 +38,9 @@ First, $K_3(6,2)=17$ (previously $15\le K_3(6,2)\le 17$, the lower bound by Bert
 Second, we generalize the fibre lemma behind $K_7(4,2)=19$ to $K_q(n,n-2)$ and obtain $K_7(6,4)=14$ (previously $13\le K_7(6,4)\le 15$~\cite{hsq2009,ko2005}): a new $14$-word code, whose covering property is formalized in Lean (kernel), and LRAT refutations of the $8008$ fibre profiles of a $13$-word code.
 Third, $K_7(5,3)=17$ (previously $15\le K_7(5,3)\le 17$, both bounds announced in Kéri's tables~\cite{keri}), by LRAT refutations of one profile for $15$ words and of all $201\,376$ profiles for $16$ words, two of them split into $1812$ and $4953$ cubes; version~0.9.1 adds a $17$-word code of our own whose covering property is formalized in Lean (kernel), so both bounds of this value are now established here, the upper one as a theorem of the kernel.
 Each of the three lower bounds survived an adversarial review; the gaps that remain are stated in the text.
+
+This draft (7 October 2026) also states the method as a pipeline, witness $\to$ independent verifier $\to$ Lean kernel $\to$ objective bound, in which search programs, solvers and language models only propose and never decide; describes the infrastructure that runs it (an official exact verifier, the Lean targets, and a batch executor for ephemeral spot machines whose budget is enforced in code); and places the project among the 2026 results on mathematics with artificial intelligence, none of which, in the sources we read, concerns covering codes.
+Every count of the ledger quoted in this note is generated from the ledger by a script, and a test fails if the text diverges from it.
 \end{abstract}
 \maketitle
 
@@ -48,6 +53,7 @@ Checking the claim is a finite computation, but for $q^n$ in the tens of million
 Florath~\cite{florath2026} built a Lean library of covering-code bounds whose derivations are replayed by the kernel; it formalizes the sphere-covering bound and records many cells.
 This note adds certificates that the kernel checks for eleven cells where the codes are new, a certificate that scales by working on syndromes, formal determinations of a small classical value and of a value that was open, and a ledger in which every upper bound we could certify is a theorem.
 Version~0.9 adds three exact values whose lower bounds are of a different nature (Sections~\ref{sec:k362} and~\ref{sec:fibre}), and records where the same methods stop (Section~\ref{sec:limits}); version~0.9.1 adds a kernel proof of $K_7(5,3)\le 17$ by a code of our own, so the two bounds of $K_7(5,3)=17$ no longer depend on an announced, unpublished code.
+The method common to all sections is stated in Section~\ref{sec:method}, the infrastructure in Section~\ref{sec:infra}, and related work on mathematics with artificial intelligence in Section~\ref{sec:related}.
 
 Throughout, we distinguish three kinds of statement.
 A \emph{theorem of the kernel} (or \emph{formalized} statement) is the name of a declaration that Lean's kernel accepted with no hypothesis.
@@ -71,7 +77,7 @@ In \texttt{CoveringA6} the alphabet is $\mathtt{Fin}\,q$, with the same distance
 \]
 which is the equality $K_q(n,R)=k$.
 
-\section{Upper bounds for $K_7(9,4)$}
+\section{Upper bounds for $K_7(9,4)$}\label{sec:k794}
 
 \begin{theorem}\label{thm:k794}
 There is $C\subseteq(\mathbb{Z}/7\mathbb{Z})^9$ with $|C|=1134$ that covers at radius $4$.
@@ -409,17 +415,20 @@ $K_7(5,3)$ & $15$--$17$ & $17$ & kernel (our code, version~0.9.1) & LRAT, $201\,
 
 \section{A certified ledger}\label{sec:ledger}
 A machine-checked ledger of covering-code upper bounds, with formally certified exact entries.
-The repository keeps one record for each of the $1145$ cells of Kéri's tables ($2\le q\le 21$), with the best published lower and upper bounds, the frozen version of the source each comes from, and a certification state for each side: \emph{claimed} (only in a published source), \emph{witness checked} (a certificate checked by an exact program outside Lean), \emph{formalized} (a theorem checked by the kernel with exactly this bound and no hypothesis) and \emph{independently reproduced} (formalized and also checked by a second, executed program).
+The repository keeps one record for each of the $\NumCelulas$ cells of Kéri's tables ($\NumQMin\le q\le \NumQMax$), with the best published lower and upper bounds, the frozen version of the source each comes from, and a certification state for each side: \emph{claimed} (only in a published source), \emph{witness checked} (a certificate checked by an exact program outside Lean), \emph{formalized} (a theorem checked by the kernel with exactly this bound and no hypothesis) and \emph{independently reproduced} (formalized and also checked by a second, executed program).
 The states are computed by a script from the Lean sources and the certificates, never written by hand.
 
 For the upper bounds the library has a generic statement, \texttt{CoveringUB.\allowbreak K\_\allowbreak le\_\allowbreak card}: if $C$ covers at radius $R$ then $K_q(n,R)\le|C|$, with $K_q(n,R)$ defined as an infimum; and the classical construction rules~\cite[Ch.~3]{cohen1997} as theorems for the same types: direct sum, free and dummy lengthening, puncturing, monotonicity in the radius and projection of the alphabet.
 A generator picks, for each cell, the cheapest certificate that reaches the best known upper bound (a trivial code, a small explicit witness checked by the kernel, or a rule applied to other cells) and writes one theorem per cell; all of them are collected in the single theorem \texttt{CoveringLedger.\allowbreak todas\_\allowbreak as\_\allowbreak cotas} (target \texttt{CoveringLedger}).
 The trivial codes and witnesses are joined by $13$ systematic linear codes, for the entries that Kéri's tables derive from a Hamming code, a perfect code or a linear code rather than from a code file: the Hamming codes $[15,11]_2$, $[31,26]_2$, $[13,10]_3$, $[6,4]_5$ and $[8,6]_7$, the Golay codes $[23,12]_2$ and $[11,6]_3$, and six codes found by local search ($[6,3]_7$, $[7,2]_7$, $[7,4]_{11}$, $[8,5]_{13}$, $[8,4]_{13}$ with covering radius $n-k-1$, and $[19,6]_2$ with radius $5$).
 For them \texttt{Syn.\allowbreak lin\_\allowbreak cert} gives $K_q(n,R)\le q^k$ over $\mathbb{Z}/q$ for any $q$: the identity block makes the encoding injective, and the kernel checks a witness for each of the $q^{n-k}$ points of a transversal, never the list of $q^k$ words; the same covering is checked again by a syndrome evaluator in Python.
-Counting also the theorems of the previous sections, $547$ of the $1145$ upper bounds are formalized or independently reproduced.
+Version~0.9.1 had $547$ certified upper bounds. The ledger now also certifies codes transcribed from four papers (Östergård--Kaikkonen 1998, Östergård--Weakley 1999, Hämäläinen--Honkala--Kaikkonen--Litsyn 1993 and Kéri--Östergård 2005~\cite{ko2005}), each rebuilt and checked by an exact evaluator of our own before it enters, and Corollary~3 of~\cite{ko2005} is a generic theorem of the kernel (\texttt{CoveringSurj.\allowbreak cobre}) with a Boolean check of surjectivity.
+The transcription is not trusted: two codes printed in those papers, as transcribed from the page, do not have the stated radius (the $(19,320)$ code of radius $4$ in Table~1 of Östergård--Kaikkonen has radius $5$, and the $[19,6]$ code of their Example~5 has radius $6$), and no single-digit correction repairs them; neither enters the ledger.
+Counting also the theorems of the previous sections, $\NumUBKernel$ of the $\NumCelulas$ upper bounds are formalized or independently reproduced ($\NumUBFormalizada$ formalized and $\NumUBReproduzida$ independently reproduced).
 
 This is not a verification of the whole table.
-The other $598$ upper bounds are only claimed, and the lower bounds are, with two exceptions, inherited from the literature: only $K_2(6,1)\ge 12$ and $K_7(4,2)\ge 19$ are theorems here, so these are the two cells whose exact value is formalized on both sides.
+The other $\NumUBForaDoKernel$ upper bounds are only claimed, and the lower bounds are, with $\NumLBKernel$ exceptions, inherited from the literature: only $K_2(6,1)\ge 12$ and $K_7(4,2)\ge 19$ are theorems here, so \ExatasLeanLista{} are the $\NumExatasLean$ cells whose exact value is formalized on both sides; $\NumLBVerificada$ more lower bounds (\LBVerificadaLista) carry verified certificates, and $\NumLBClaimed$ are only claimed.
+Of the $\NumExatas$ cells whose two bounds now agree, $\NumExatasCertificadas$ have both bounds certified here at least as witness checked.
 The lower bounds of Results~\ref{res:k362}, \ref{res:k764} and~\ref{res:k753b} are not theorems of the kernel and never enter the ledger as formalized entries.
 For them version~0.9 adds a separate state, \emph{verified certificate}, for a bound proved by a reduction on paper and certificates checked by an exact program outside Lean, with the certificates, the checker and the reviews in the provenance; it is computed by the same script and is never counted among the formalized bounds.
 The new upper bound $K_7(6,4)\le 14$ and, from version~0.9.1, the upper bound $K_7(5,3)\le 17$ by our own $17$-word code are theorems of the kernel; since both codes are also checked by the C verifier, they enter as independently reproduced.
@@ -429,6 +438,22 @@ A script applies the inequalities between cells that are theorems here (the cons
 On the current ledger it finds no inconsistency.
 With the three new values it finds no consequence outside their own cells: every neighbour already has a better bound than the one implied (for example $K_7(6,4)\ge 14$ gives $K_8(6,4)\ge 14$ by projection of the alphabet, against a known $15$).
 
+
+\section{Method: witness, independent verifier, kernel, objective bound}\label{sec:method}
+Every bound in this note follows the same pipeline, and no step trusts the one before it; only the statements labelled \emph{Theorem}, the upper bounds of Table~\ref{tab:other} and the bounds that the ledger marks as formalized reach step~3.
+\begin{enumerate}
+\item \emph{Witness.} A search program, a solver or a language model proposes an object: a list of words for an upper bound, or a reduction with certificates (LRAT refutations, integer Farkas multipliers, VeriPB proofs) for a lower bound. Nothing about the proposer is trusted, and an \texttt{INFEASIBLE} answer of a search proves nothing.
+\item \emph{Independent verifier.} An exact program that shares no code with the proposer checks the object. For codes it is the official verifier of the repository (\texttt{tools/\allowbreak verify/\allowbreak verify.c}, C99 with no dependencies): it rejects any digit $\ge q$, any word of the wrong length, any repeated word and a wrong cardinality, marks the radius-$R$ ball of every word in a bitset of $q^n$ bits, and accepts only with zero uncovered points; it also prints the canonical SHA-256 that identifies the code everywhere else. The script \texttt{tools/\allowbreak verify/\allowbreak check\_\allowbreak all.sh} runs it on every code of the repository, and on the structured description of each code after expansion, and requires the two digests to agree.
+\item \emph{Kernel.} When the statement is within reach, it becomes a declaration accepted by the Lean kernel with no \texttt{sorry}, no \texttt{native\_decide} and no axiom beyond \texttt{propext}, \texttt{Classical.choice} and \texttt{Quot.sound}; the solvers and scripts that produced the certificate stay outside the trusted base, because only their output enters the kernel.
+\item \emph{Objective bound.} The certification state of each side of each cell (Section~\ref{sec:ledger}) is computed by a script from the Lean sources and the certificates. The counts quoted in this note are generated from that ledger by \texttt{tools/\allowbreak paper/\allowbreak numeros.py} into a file of macros that the source includes, and a test fails if the committed file diverges from the ledger or if the text types one of those counts by hand.
+\end{enumerate}
+The same discipline applies to the prose: novelty is a reading of the literature and is labelled as such, an adversarial review is reported with its gaps, and a negative result is recorded (Section~\ref{sec:limits}) with no change to any bound.
+
+\section{Infrastructure}\label{sec:infra}
+The proposers are cheap and plentiful; what the infrastructure guarantees is that their output is checked the same way every time and that the cost of producing it has a ceiling.
+\emph{Verification.} Continuous integration compiles the official verifier and runs it on every code of the repository, builds the default Lean target, and builds the syndrome certificates (target \texttt{CoveringSyn}) whenever they change; the targets \texttt{CoveringHeavy} and \texttt{CoveringK742Sat} are too costly for it, are built on demand, and their per-module record (time, memory, exit code) is kept in the repository.
+\emph{Budgeted batch execution.} Heavy jobs (a \texttt{lake build}, a large verification, or a script from an allowlist in the repository) run on ephemeral spot virtual machines created by a batch executor behind a research server with a per-person ceiling in dollars enforced in code. A request first returns, without running, the hourly rate of the machine, the maximum cost (machines $\times$ hours $\times$ rate) and whether it fits the remaining budget; on confirmation the whole batch is reserved in the ledger of the server before the first machine starts, an open reservation already counts as spent (so concurrent requests cannot exceed the ceiling), and if any machine fails to start the others are deleted and the reservation is returned. Each machine has a maximum run duration of the requested hours plus ten minutes, after which the cloud provider deletes it; machines that finished or overran are deleted when the job is polled, and orphans are swept by label. A script runs only from a commit that is already on the main branch, which the machine checks with \texttt{git merge-base --is-ancestor}, receives its shard index and the number of shards, and has no credentials. The same server reserves the worst case before a call to a language model and charges the measured tokens; its answers are hypotheses and enter the pipeline only as witnesses of step~1.
+This executor (version~2, batches of machines in parallel) is in the main branch of the repository since 7 October 2026.
 
 \section{How the codes were found}
 The first codes came from the generator \texttt{lincov} of Marosi's public repository \texttt{Mapika/coldcase}~\cite{marosi2026} followed by greedy patching.
@@ -462,6 +487,54 @@ No source we read gives a code smaller than ours in any of the four cells, nor a
 Papers behind a paywall were read only through abstracts and reviews, and a full-text index does not find numbers inside tables, so this is a search, not a proof of novelty.
 For version~0.9, the interval $15\le K_3(6,2)\le 17$ was traced to its sources~\cite{bow2004,hr1991}: no later work improves either side, the paper of Bertolo, Östergård and Weakley could only be read through its review, and two 2026 attempts at $16$ words close nothing. For $K_7(6,4)$ and $K_7(5,3)$ we traced each bound to its source~\cite{hsq2009,ko2005,keri}. A novelty check of the three cells on 5 October 2026 (arXiv, OpenAlex citations of the source papers, Zenodo, GitHub repositories of the authors working on these cells, Florath's post-Kéri compilation and Marosi's tables~\cite{marosi2026}) found every cell still at its old values; this is why we call the three values potentially new, that is, not found in the literature we searched, and write ``to our knowledge new''. The credit for the previous bounds is: for $K_3(6,2)$, $15$ to Bertolo, Östergård and Weakley~\cite{bow2004} (improving $14$ of Blass and Litsyn~\cite{bl1998}) and $17$ to Hämäläinen and Rankinen~\cite{hr1991}, whose code attains the value; partial exclusions for $16$ words were obtained independently by Raval~\cite{raval2026} and attempted by Florath~\cite{florath2026}, without a global bound; for $K_7(6,4)$, $13$ to Haas, Schlage-Puchta and Quistorff~\cite{hsq2009} and $15$ to Kéri and Östergård~\cite{ko2005}; for $K_7(5,3)$, $15$ to Haas, Quistorff and Schlage-Puchta and $17$ to Rivas Soriano, both as announced in Kéri's tables~\cite{keri} (we found no publication of either, so we cite the tables). The published version of~\cite{hsq2009} and the paper~\cite{ko2005} were read only through their preprint or review.
 
+\section{Related work: mathematics with artificial intelligence in 2026}\label{sec:related}
+We surveyed, on 7 October 2026, the 2026 announcements of open problems solved with artificial intelligence; the survey, with the primary sources read and what was only seen through secondary sources, is \texttt{docs/\allowbreak literatura/\allowbreak IA-2026-problemas-resolvidos.md} in the repository.
+In the sources we read, none concerns covering codes, the covering radius or the football pool problem.
+The closest item, on binary codes in the ``ten advances'' manuscript of OpenAI~\cite{openai2026ten}, is an asymptotic upper bound for \emph{packing} ($A(n,d)$, improving the MRRW bound) and gives no number for a finite cell $K_q(n,R)$.
+That manuscript is accompanied by Lean~4 proofs whose metadata declare no \texttt{sorry} and only the axioms \texttt{propext}, \texttt{Quot.sound} and \texttt{Classical.choice}, and by one ``Comparator'' challenge per result: a short file that only defines and states, the solution in another module, a list of allowed axioms and an independent kernel checker, so that a reviewer reads only the statement.
+AlphaProof Nexus~\cite{alphaproofnexus} couples language-model agents with the Lean compiler and formalizes $9$ of $353$ Erdős problems end to end, at a cost of some hundreds of dollars per problem; AlphaEvolve~\cite{alphaevolve} lets a language model evolve \emph{programs} that search for constructions, judged by an automatic evaluator, and formalized one of its results in Lean.
+The repository \texttt{openai/math}~\cite{openaimath}, released on 6 October 2026 with about $722$ problems, was scanned by the maintainer, who found nothing on covering codes, $K_q(n,R)$ or Kéri's tables; we did not read it ourselves and record this as his reading.
+Among the 2026 work on covering codes itself, none declares the use of artificial intelligence: Marosi~\cite{marosi2026} (upper bounds by local search and lower bounds by semidefinite programming with rational duals checked exactly), Gijswijt and Polak~\cite{gp2025} and Florath~\cite{florath2026} are cited throughout this note.
+
+Our position relative to this work is narrow and, we think, complementary.
+We do not claim that a model solved anything: search programs (and, in the campaign below, language models) are proposers in step~1 of Section~\ref{sec:method}.
+What we add is that every bound is published as a certificate anyone can check, with a stated trusted base: a list of words that a dependency-free C program verifies in seconds, a declaration that the Lean kernel accepts with the three standard axioms, or a reduction with LRAT or Farkas certificates and the exact checker that accepts them, together with a ledger of all $\NumCelulas$ cells whose states are computed and never typed.
+The division of labour of AlphaEvolve (an expensive, creative proposer and a cheap, exact evaluator that decides) and the Comparator format (statements reviewed by people, proofs checked by machines) are the two ideas from that work that fit our setting; the first is being tried in the campaign below, and the second is not yet applied to our certificates.
+
+\section{Results of the campaign of 7 October 2026}\label{sec:campanha}
+% ===== CAMPANHA-2026-10-07 =====================================================================
+% Esta seção é preenchida na segunda rodada, com os resultados FINAIS de cada frente, e só com o que
+% passou pelo verificador oficial e, quando for teorema, pelo `lake build`. Cada marcador abaixo é
+% substituído por texto; os números de contagem do ledger continuam vindo de numeros.tex.
+% Mantenha os marcadores (tests/test_paper_numeros.py confere): troque só o que está entre eles e apague o parágrafo "pending".
+\emph{This section is pending: it will report, with the same states as the rest of the note, only what passed the official verifier and, for theorems, the kernel.}
+
+\paragraph{New upper bounds.}
+% CAMPANHA:m3:superiores:INICIO  (m3: células, M antigo -> M novo, sha256 canônico, verify.c, estado)
+\emph{Pending.}
+% CAMPANHA:m3:superiores:FIM
+
+\paragraph{Exact values.}
+% CAMPANHA:m4:exatos:INICIO  (m4: célula, as duas cotas, tipo de certificado de cada lado, revisão)
+\emph{Pending.}
+% CAMPANHA:m4:exatos:FIM
+
+\paragraph{Batch certification in Lean.}
+% CAMPANHA:m5:lean:INICIO  (m5: quantas cotas subiram para FORMALIZED, alvo, tempo e memória do lake build, #print axioms)
+\emph{Pending.}
+% CAMPANHA:m5:lean:FIM
+
+\paragraph{Programs evolved by a language model.}
+% CAMPANHA:m7:funsearch:INICIO  (m7: avaliador, gerações, custo medido, melhor código conferido; resultado negativo também entra)
+\emph{Pending.}
+% CAMPANHA:m7:funsearch:FIM
+
+\paragraph{Cross-check with \texttt{openai/math}.}
+% CAMPANHA:m6:cruzamento:INICIO  (m6: só o que estiver em docs/literatura/ com fonte)
+\emph{Pending.}
+% CAMPANHA:m6:cruzamento:FIM
+% ===== /CAMPANHA-2026-10-07 ====================================================================
+
 \section{What is not a theorem}
 Novelty is a reading of the literature, not a checked fact.
 No lower bound of Section~\ref{sec:k362} or Section~\ref{sec:fibre} is a theorem of the kernel; of their upper bounds, $K_3(6,2)\le 17$, $K_7(6,4)\le 14$ and $K_7(5,3)\le 17$ are.
@@ -478,6 +551,10 @@ Two files in the tree, \texttt{A5b\_\allowbreak Stress.\allowbreak lean} and \te
 \begin{thebibliography}{99}
 \bibitem{bow2004}
 R.~Bertolo, P.~R.~J. Östergård and W.~D. Weakley, \emph{An updated table of binary/ternary mixed covering codes}, J. Combin. Des. \textbf{12}(3) (2004), 157--176, doi:10.1002/jcd.20008.
+\bibitem{alphaevolve}
+Google DeepMind, with B.~Georgiev, J.~Gómez-Serrano, T.~Tao and A.~Z. Wagner, \emph{AlphaEvolve} applied to $67$ mathematical problems, arXiv:2511.02864, 2025.
+\bibitem{alphaproofnexus}
+Google DeepMind, \emph{AlphaProof Nexus}, arXiv:2605.22763, 2026 (version~2, 8 June 2026).
 \bibitem{bl1998}
 U.~Blass and S.~Litsyn, \emph{Several new lower bounds for football pool systems}, Ars Combin. \textbf{50} (1998), 297--302.
 \bibitem{cohen1997}
@@ -500,6 +577,10 @@ L.~de~Moura and S.~Ullrich, \emph{The Lean~4 theorem prover and programming lang
 M.~Marosi, \emph{New upper and lower bounds on covering codes $K_q(n,R)$ for alphabets of size $5\le q\le 21$}, arXiv:2608.19872v3, 2 September 2026 (version~1, August 2026, had $K_7(9,4)\le 1743$).
 \bibitem{mathlib}
 The Mathlib Community, \emph{Mathlib}, \url{https://github.com/leanprover-community/mathlib4}, release v4.34.1.
+\bibitem{openai2026ten}
+OpenAI, \emph{Ten advances} (manuscript of 1 August 2026, revised 6 August 2026), \url{https://cdn.openai.com/pdf/ten-proofs-oai.pdf}; Lean sources at \url{https://github.com/openai/ten-proofs}.
+\bibitem{openaimath}
+OpenAI, \texttt{openai/math}, \url{https://github.com/openai/math}, created 6 October 2026.
 \bibitem{raval2026}
 R.~R. Raval, \emph{Six certified branch exclusions for the ternary covering problem $K_3(6,2)$}, Zenodo, doi:10.5281/zenodo.22510341, version~0.1.1, 7 September 2026.
 \bibitem{sk1968}

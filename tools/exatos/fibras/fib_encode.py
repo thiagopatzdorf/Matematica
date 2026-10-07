@@ -196,9 +196,17 @@ def classes(q, t):
     return [0] * q if t is None else list(t)
 
 
-def codificar(q, n, M, prefixo, smin, quebra=True, lex=True, blocos_h=True):
+def codificar(q, n, M, prefixo, smin, quebra=True, lex=True, blocos_h=True, R=None):
     """CNF da instância. prefixo = tipos das coordenadas 0..k-1 (k >= 1); as outras são
-    livres com fibras >= smin. Devolve (cnf, x, sim0, ts) com x[k][i][a] (i >= 1)."""
+    livres com fibras >= smin. Devolve (cnf, x, sim0, ts) com x[k][i][a] (i >= 1).
+
+    R (padrão n - 2): raio. Com t = n - R, x é coberto por c sse concordam em >= t coordenadas,
+    isto é, sse para algum t-subconjunto T de coordenadas x_T = c_T (Lema 2'). t = 2 é o
+    caminho original por pares, gerado sem mudança nenhuma (os sha256 das CNFs já certificadas
+    continuam iguais); t >= 3 usa projeções de t-uplas."""
+    R = n - 2 if R is None else R
+    t = n - R
+    assert 2 <= t <= n, "o codificador exige 0 <= R <= n - 2"
     k = len(prefixo)
     assert 1 <= k <= n
     ts = list(prefixo) + [None] * (n - k)
@@ -218,8 +226,10 @@ def codificar(q, n, M, prefixo, smin, quebra=True, lex=True, blocos_h=True):
                 exatamente(cnf, col, ts[i][a])
             else:
                 pelo_menos(cnf, col, smin)
+    if t > 2:
+        _cobertura_tuplas(cnf, x, bl, q, n, M, t)
     P = {}
-    for (i, j) in itertools.combinations(range(n), 2):
+    for (i, j) in (itertools.combinations(range(n), 2) if t == 2 else ()):
         for a in range(q):
             for b in range(q):
                 p = cnf.var()
@@ -239,9 +249,10 @@ def codificar(q, n, M, prefixo, smin, quebra=True, lex=True, blocos_h=True):
                         cnf.add([-y, p])
                         ys.append(y)
                     cnf.add([-p] + ys)
-    pares = list(itertools.combinations(range(n), 2))
-    for v in itertools.product(range(q), repeat=n):
-        cnf.add([P[i, j, v[i], v[j]] for (i, j) in pares])
+    if t == 2:
+        pares = list(itertools.combinations(range(n), 2))
+        for v in itertools.product(range(q), repeat=n):
+            cnf.add([P[i, j, v[i], v[j]] for (i, j) in pares])
     if not quebra:
         return cnf, x, sim0, ts
     # (d) dentro do bloco, coordenada 1 não decrescente
@@ -281,6 +292,34 @@ def codificar(q, n, M, prefixo, smin, quebra=True, lex=True, blocos_h=True):
             if ts[i] == ts[i + 1]:
                 lex_leq(cnf, x, q, M, i, i + 1)
     return cnf, x, sim0, ts
+
+
+
+def _cobertura_tuplas(cnf, x, bl, q, n, M, t):
+    """Lema 2' (R = n - t, t >= 3): variável P[T, v] <-> alguma palavra c tem c_T = v, definida
+    de forma exata; uma cláusula de largura C(n, t) por ponto de Z_q^n. Com 0 em T, as
+    candidatas são só as palavras do bloco v_0 (a coordenada 0 está fixada pelos blocos)."""
+    subs = list(itertools.combinations(range(n), t))
+    P = {}
+    for T in subs:
+        resto = [i for i in T if i != 0]
+        for v in itertools.product(range(q), repeat=t):
+            p = cnf.var()
+            P[T, v] = p
+            val = dict(zip(T, v))
+            ws = list(bl[val[0]]) if 0 in T else range(M)
+            ys = []
+            for w in ws:
+                lits = [x[w][i][val[i]] for i in resto]
+                y = cnf.var()
+                for l in lits:
+                    cnf.add([-y, l])
+                cnf.add([y] + [-l for l in lits])
+                cnf.add([-y, p])
+                ys.append(y)
+            cnf.add([-p] + ys)
+    for v in itertools.product(range(q), repeat=n):
+        cnf.add([P[T, tuple(v[i] for i in T)] for T in subs])
 
 
 def lex_leq(cnf, x, q, M, i, j):
@@ -324,15 +363,17 @@ def main():
     ap.add_argument("--n", type=int, required=True)
     ap.add_argument("--M", type=int, required=True)
     ap.add_argument("--k", type=int, help="coordenadas com tipo fixo (padrão: n)")
+    ap.add_argument("--R", type=int, help="raio (padrão: n - 2; t = n - R >= 2)")
     ap.add_argument("--smin", type=int, help="força s_min (validação com lema enfraquecido)")
     ap.add_argument("--listar", action="store_true")
     ap.add_argument("--inst", type=int)
     ap.add_argument("--saida")
     a = ap.parse_args()
     k = a.k or a.n
-    smin = a.smin if a.smin is not None else fibra_minima(a.q, a.n, a.n - 2, a.M)
+    R = a.n - 2 if a.R is None else a.R
+    smin = a.smin if a.smin is not None else fibra_minima(a.q, a.n, R, a.M)
     T, N = contar_instancias(a.q, a.n, a.M, k, smin)
-    print(f"K_{a.q}({a.n},{a.n-2}) M={a.M} s_min={smin} tipos={T} instâncias(k={k})={N}",
+    print(f"K_{a.q}({a.n},{R}) M={a.M} s_min={smin} tipos={T} instâncias(k={k})={N}",
           file=sys.stderr)
     if a.inst is None:
         if a.listar and N <= 10000:
@@ -341,8 +382,8 @@ def main():
                 print(i, " | ".join("".join(map(str, t)) for t in p))
         return
     _, ins = instancias(a.q, a.n, a.M, k, smin)
-    cnf, *_ = codificar(a.q, a.n, a.M, ins[a.inst], smin)
-    txt = cnf.dimacs([f"K_{a.q}({a.n},{a.n-2}) M={a.M} k={k} s_min={smin} inst {a.inst}: {ins[a.inst]}"])
+    cnf, *_ = codificar(a.q, a.n, a.M, ins[a.inst], smin, R=R)
+    txt = cnf.dimacs([f"K_{a.q}({a.n},{R}) M={a.M} k={k} s_min={smin} inst {a.inst}: {ins[a.inst]}"])
     if a.saida:
         open(a.saida, "w").write(txt)
     else:
