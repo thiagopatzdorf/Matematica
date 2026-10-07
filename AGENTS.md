@@ -10,6 +10,7 @@ corrija este arquivo no mesmo PR.
     python3 -m pip install pytest==8.4.2 numpy==2.4.6    # versões do CI
     tools/verify/check_all.sh                            # compila o verificador em C e confere os 16 códigos
     python3 -m pytest -q -p no:cacheprovider tests       # suíte Python (sem rede)
+    python3 -m pytest -q -n auto tests infinito/tests    # como o CI: pytest-xdist==3.8.0, um processo por núcleo
 
 * `libnauty-dev` (apt) é necessário para `tests/test_motor_exatos.py`; sem ele esse teste **pula**, e o CI não pode pular.
 * Os testes do MCP (`infinito/tests`) pedem também as dependências de `infinito/requirements.txt`.

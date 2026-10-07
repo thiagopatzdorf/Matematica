@@ -40,6 +40,11 @@ on:
 permissions:
   contents: read
 
+# Push novo no mesmo PR cancela o run velho; na main cada push termina (o cache do Lean sai dele).
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+
 jobs:
   verify:
     name: verificador oficial + formato estruturado
@@ -51,15 +56,8 @@ jobs:
         run: cc -O2 -std=c99 -Wall -Wextra -Werror -o tools/verify/verify tools/verify/verify.c
       - name: check_all (todo data/codes cobre; todo JSON expande para o mesmo sha256 canônico)
         run: time tools/verify/check_all.sh
-      # pytest e não unittest: os testes do ledger usam o conftest.py (sys.path e fixtures);
-      # com unittest eles nem importam (ModuleNotFoundError: targets, genesis_page, record_loop).
-      - name: Testes (verificador, formato, ledger, loop, publicação)
-        run: |
-          # numpy: scripts/syndrome/gen_syn.py (tests/test_gen_syn.py roda o gerador de verdade).
-          python3 -m pip install --quiet pytest==8.4.2 numpy==2.4.6
-          # nauty: tools/exatos/motor (tests/test_motor_exatos.py pula sem ele; aqui não pode pular).
-          sudo apt-get install -y -qq libnauty-dev >/dev/null || (sudo apt-get update -qq && sudo apt-get install -y -qq libnauty-dev >/dev/null)
-          python3 -m pytest -q tests
+      # O pytest de `tests` (com nauty) roda no ci.yml, em todo push na main e em todo PR, sem filtro de
+      # caminho: aqui ele era a segunda cópia do mesmo teste (5,3 min por run, medido 05–07/10).
 
   lean:
     name: lake build (alvo padrão)
@@ -67,6 +65,14 @@ jobs:
     timeout-minutes: 90
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      # Cache dos .olean do PRÓPRIO projeto (.lake/build), por hash do toolchain e do manifest. O lake confere
+      # cada módulo pelo hash do fonte (.trace), então restaurar um build velho só recompila o que mudou. O
+      # Mathlib continua vindo do `lake exe cache get` da lean-action. Só a main grava (o PR lê o da main).
+      - uses: actions/cache/restore@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
+        with:
+          path: .lake/build
+          key: lake-padrao-${{ runner.os }}-${{ hashFiles('lean-toolchain', 'lake-manifest.json', 'lakefile.toml') }}-${{ github.sha }}
+          restore-keys: lake-padrao-${{ runner.os }}-${{ hashFiles('lean-toolchain', 'lake-manifest.json', 'lakefile.toml') }}-
       # instala o elan/toolchain de lean-toolchain, baixa o cache do Mathlib (lake exe cache get)
       # e roda `lake build` do alvo padrão (CoveringLean). CoveringHeavy (~12 h de CPU) fica fora.
       - uses: leanprover/lean-action@f061402b660e0c34644504b324e830f2991d4865 # v1.6.1
@@ -74,3 +80,8 @@ jobs:
           auto-config: false
           use-mathlib-cache: true
           build: true
+      - if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+        uses: actions/cache/save@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
+        with:
+          path: .lake/build
+          key: lake-padrao-${{ runner.os }}-${{ hashFiles('lean-toolchain', 'lake-manifest.json', 'lakefile.toml') }}-${{ github.sha }}
