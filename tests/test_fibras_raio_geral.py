@@ -188,3 +188,11 @@ def test_kissat_confirma_os_792_perfis_de_k4_7_4_m9():
 
 def test_kissat_confirma_os_8008_perfis_de_k4_6_3_m11():
     _kissat_cobre_todos(RAIZ / "tools/exatos/fibras_redteam/resultados/k463_dupla_kissat.jsonl.xz", 4, 6, 3, 11)
+
+
+def test_registro_de_k4_5_2_m11_fecha_os_3003_perfis_e_bate_o_manifesto():
+    """K_4(5,2) >= 12: todo perfil de M = 11 tem UNSAT com LRAT conferido. É a única dependência que o
+    Lema 1 de K_4(6,3) com M = 11 exige (fibra vazia precisa de K_4(5,2) > 11), sem apelar ao 16 da literatura."""
+    assert encode.fibra_minima(4, 5, 2, 11) == 1
+    assert encode.contar_instancias(4, 5, 11, 5, 1) == (11, 3003)
+    _registro_fecha_todos("K4_5_2_M11", 4, 5, 2, 11, 3003)

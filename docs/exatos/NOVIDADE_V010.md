@@ -68,3 +68,18 @@ a cota superior aqui é testemunha conferida, não o anúncio.
 Schlage-Puchta and Quistorff as recorded in Kéri's tables, the upper bound 10 announced by Rivas Soriano and
 14 by Bertolo, Di Pasquale and Santisi. We did not find K₄(7,4) ≥ 10 or K₄(6,3) ≥ 12 in the sources we read;
 one paper that would cover these cells (Haas 2011) was not read, so novelty is not established.*
+
+## Tentativas de ler Haas 2011 (2026-10-07, sem sucesso)
+
+Nenhuma fonte aberta devolveu o texto: busca web (só a ficha no dblp), zbMATH (HTTP 403), Semantic
+Scholar (HTTP 429), dblp pelo fetch (bloqueado por Anubis), OpenAlex e arXiv pelo Infinito (nenhuma
+obra com esse título; não há preprint). O veredito **não muda**: lacuna aberta, as duas células
+continuam fora de `NOVIDADE_CONFERIDA`. Precisa de acesso ao Ars Combin. 99 (19–23) por biblioteca ou
+do próprio autor (Wolfgang Haas, Freiburg).
+
+Achado de passagem, fora desta checagem: arXiv:2610.03760 (2026-09-27, Maharaj) afirma K₄(8,2) ≤ 256
+(octacode, código de Preparata P₃) e K₄(6,2) ≤ 48 (antes 352 e 52). As 48 palavras de K₄(6,2) estão na
+Tabela 2 do artigo; passam no verificador oficial deste repositório (`q=4 n=6 R=2 M=48 points=4096
+uncovered=0`, sha256 canônico `b2451b37…`), o que confirma o ≤ 48. O crédito é do autor do artigo, não
+nosso; a entrada no ledger fica para decisão do dono (PR separado, só com o candidato). O octacode
+(K₄(8,2) ≤ 256) ainda não foi construído aqui.
