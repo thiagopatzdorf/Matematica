@@ -26,7 +26,7 @@ from pathlib import Path
 from typing import Protocol
 
 from ..creditos import ErroCreditos
-from ..executor_lote import MAQUINAS, tarifa_hora
+from ..executor_lote import MAQUINAS, SUBREDE_PADRAO, tarifa_hora
 
 NOME = "pesado"
 # tipo -> (descrição, horas máximas por shard).
@@ -77,7 +77,9 @@ def _executor_do_ambiente(env: dict) -> Executor:
     return ExecutorLote(env["INF_GCP_PROJETO"], env.get("INF_VM_ZONA", "southamerica-east1-a"),
                         env.get("INF_PESADO_IMAGEM", "bkp-lean-build2-20261006"), assinador=assinar,
                         disco_gb=int(env.get("INF_PESADO_DISCO_GB", "100")),
-                        tipo_disco=env.get("INF_PESADO_TIPO_DISCO", "pd-balanced"))
+                        tipo_disco=env.get("INF_PESADO_TIPO_DISCO", "pd-balanced"),
+                        subrede=env.get("INF_PESADO_SUBREDE", SUBREDE_PADRAO),
+                        ip_externo=env.get("INF_PESADO_IP_EXTERNO") == "1")
 
 
 def registrar(ctx, executor: Executor | None = None, agora=time.time) -> None:
@@ -91,7 +93,8 @@ def registrar(ctx, executor: Executor | None = None, agora=time.time) -> None:
     pasta_jobs = Path(env.get("INF_REPO", "")) / "pesado" / "jobs" if env.get("INF_REPO") else None
 
     def tarifa(maquina: str) -> float:
-        return float(sobrepor[maquina]) if maquina in sobrepor else tarifa_hora(maquina, disco_gb, tipo_disco, margem)
+        return float(sobrepor[maquina]) if maquina in sobrepor else tarifa_hora(maquina, disco_gb, tipo_disco, margem,
+                                                                                    env.get("INF_PESADO_IP_EXTERNO") == "1")
 
     def scripts() -> list[str] | None:
         """Os scripts da allowlist que este servidor conhece (a imagem copia a pasta). None = não sabe: a VM decide."""

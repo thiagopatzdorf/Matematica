@@ -11,8 +11,13 @@ Cada shard `i` de um job vira a instância `inf-pesado-<job>-<i>`:
 * o script da VM (vm/lote.sh) só conhece a allowlist e só roda commit que já está na `main`;
 * rótulo `infinito-pesado=1` + `infinito-job=<job>`: a varredura (`listar`) acha órfã e o módulo apaga.
 
-Antes de criar qualquer coisa, confere a cota do projeto (CPUs, endereços, disco, instâncias) e recusa se não cabe:
-medido em 2026-10-06, o limite de IPs externos da região (8, 2 em uso) é o que trava primeiro, não as CPUs.
+Antes de criar qualquer coisa, confere a cota do projeto (CPUs, disco, instâncias e, se pedir IP, endereços) e
+recusa se não cabe.
+
+**Sem IP externo** (padrão): medido em 2026-10-06, a cota de IPs externos da região (8, 2 em uso) travava o lote em 6
+VMs. A VM sobe na sub-rede `fabrica-nos` (rede `mybagcenter-production-network`), que o Cloud NAT `fabrica-nat` já
+cobre: sai para a internet (GitHub, elan, Mathlib) sem gastar IP. Ela não leva a tag `fabrica-no`, então as regras de
+firewall do cluster (que só aceitam origem com essa tag) não a deixam falar com os nós nem ser alcançada.
 Se a criação do shard k falha, apaga os k-1 já criados: ou o lote inteiro sobe, ou nada fica ligado.
 """
 from __future__ import annotations
@@ -50,14 +55,18 @@ MAQUINAS = {
 PRECO_SPOT = {"e2": (0.00761, 0.001019), "c2d": (0.00873, 0.001166)}
 PRECO_DISCO_GB_MES = {"pd-standard": 0.06, "pd-balanced": 0.15}    # "Storage/Balanced PD Capacity in Sao Paulo"
 PRECO_IP_H = 0.005                                                 # IPv4 externo em uso (tabela pública do VPC)
+PRECO_NAT_VM_H = 0.0014       # Cloud NAT por VM·h (até 32 VMs, tabela pública); o GB processado (US$ 0,045) fica de fora
+SUBREDE_PADRAO = "fabrica-nos"   # coberta pelo Cloud NAT `fabrica-nat` (medido em 2026-10-07)
 
 
-def tarifa_hora(maquina: str, disco_gb: int = 100, tipo_disco: str = "pd-balanced", margem: float = 1.2) -> float:
-    """US$/h de UM shard: núcleo + memória spot + disco + IP, vezes a margem (preço spot muda até uma vez por mês;
-    o teto só vale se a tarifa não subestimar)."""
+def tarifa_hora(maquina: str, disco_gb: int = 100, tipo_disco: str = "pd-balanced", margem: float = 1.2,
+                ip_externo: bool = False) -> float:
+    """US$/h de UM shard: núcleo + memória spot + disco + saída (IP externo OU Cloud NAT), vezes a margem (preço spot
+    muda até uma vez por mês; o teto só vale se a tarifa não subestimar)."""
     cpu, mem = MAQUINAS[maquina]
     p_cpu, p_mem = PRECO_SPOT[maquina.split("-")[0]]
-    h = cpu * p_cpu + mem * p_mem + disco_gb * PRECO_DISCO_GB_MES[tipo_disco] / 730 + PRECO_IP_H
+    saida = PRECO_IP_H if ip_externo else PRECO_NAT_VM_H
+    h = cpu * p_cpu + mem * p_mem + disco_gb * PRECO_DISCO_GB_MES[tipo_disco] / 730 + saida
     return round(h * margem, 4)
 
 
@@ -127,12 +136,15 @@ def assinador_da_sa(bucket: str, http: Http = _http) -> Assinador:
 class ExecutorLote:
     def __init__(self, projeto: str, zona: str = "southamerica-east1-a", imagem: str = "bkp-lean-build2-20261006",
                  http: Http | None = None, assinador: Assinador | None = None, disco_gb: int = 100,
-                 tipo_disco: str = "pd-balanced", dormir: Callable[[float], None] = time.sleep):
+                 tipo_disco: str = "pd-balanced", dormir: Callable[[float], None] = time.sleep,
+                 subrede: str = SUBREDE_PADRAO, ip_externo: bool = False):
         self.projeto, self.zona, self.regiao = projeto, zona, zona.rsplit("-", 1)[0]
         self.imagem = imagem if "/" in imagem else f"projects/{projeto}/global/images/{imagem}"
         self.base = COMPUTE.format(p=projeto)
         self._http, self._assinar, self._dormir = http or _http, assinador or (lambda o, s: None), dormir
         self.disco_gb, self.tipo_disco = disco_gb, tipo_disco
+        self.subrede = subrede if "/" in subrede else f"regions/{self.regiao}/subnetworks/{subrede}"
+        self.ip_externo = ip_externo
 
     @staticmethod
     def nome(job_id: str, i: int) -> str:
@@ -144,8 +156,10 @@ class ExecutorLote:
     # --------------------------------------------------------------- cota antes de tudo
     def checar_cota(self, n: int, maquina: str) -> None:
         cpu = MAQUINAS[maquina][0]
-        pede = {"CPUS": n * cpu, "INSTANCES": n, "IN_USE_ADDRESSES": n,
+        pede = {"CPUS": n * cpu, "INSTANCES": n,
                 ("SSD_TOTAL_GB" if self.tipo_disco == "pd-balanced" else "DISKS_TOTAL_GB"): n * self.disco_gb}
+        if self.ip_externo:                       # sem IP (padrão) a cota de 8 endereços da região não conta
+            pede["IN_USE_ADDRESSES"] = n
         faltas = []
         for url, metricas in ((f"{self.base}/regions/{self.regiao}", pede), (self.base, {"CPUS_ALL_REGIONS": n * cpu})):
             st, d = self._http("GET", url, None)
@@ -173,10 +187,16 @@ class ExecutorLote:
             "disks": [{"boot": True, "autoDelete": True, "initializeParams": {
                 "sourceImage": self.imagem, "diskSizeGb": str(self.disco_gb),
                 "diskType": f"zones/{self.zona}/diskTypes/{self.tipo_disco}"}}],
-            "networkInterfaces": [{"network": "global/networks/default",
-                                   "accessConfigs": [{"type": "ONE_TO_ONE_NAT", "name": "externo"}]}],
+            "networkInterfaces": [self._interface()],
             "metadata": {"items": [{"key": k, "value": v} for k, v in meta.items()]},
         }
+
+    def _interface(self) -> dict:
+        """Sem `accessConfigs` a VM não tem IP externo: sai pela internet pelo Cloud NAT da sub-rede."""
+        nic: dict = {"subnetwork": self.subrede}
+        if self.ip_externo:
+            nic["accessConfigs"] = [{"type": "ONE_TO_ONE_NAT", "name": "externo"}]
+        return nic
 
     def _erro_da_operacao(self, st: int, op: dict) -> str | None:
         """O insert pode devolver 200 com o erro (cota, capacidade spot) DENTRO da operação."""

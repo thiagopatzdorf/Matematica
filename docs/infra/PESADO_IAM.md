@@ -24,7 +24,7 @@ Por isso a medição é pela leitura de cada política onde um papel poderia est
 | chamada do `executor_lote.py` | permissão |
 |---|---|
 | ler cota (`regions.get`, `projects.get`) antes de criar | `compute.regions.get`, `compute.projects.get` |
-| `instances.insert` (spot, imagem, IP externo efêmero, metadados, rótulos) | `compute.instances.create`, `compute.disks.create`, `compute.images.useReadOnly`, `compute.subnetworks.use`, `compute.subnetworks.useExternalIp`, `compute.networks.use`, `compute.networks.useExternalIp`, `compute.instances.setMetadata`, `compute.instances.setLabels` |
+| `instances.insert` (spot, imagem, sub-rede `fabrica-nos` **sem IP externo**, metadados, rótulos) | `compute.instances.create`, `compute.disks.create`, `compute.images.useReadOnly`, `compute.subnetworks.use`, `compute.instances.setMetadata`, `compute.instances.setLabels` (com `INF_PESADO_IP_EXTERNO=1`, também `compute.subnetworks.useExternalIp`) |
 | acompanhar a operação do insert | `compute.zoneOperations.get` |
 | `instances.get` e `getGuestAttributes` | `compute.instances.get`, `compute.instances.getGuestAttributes` |
 | varredura de órfãs (`instances.list` por rótulo) | `compute.instances.list` |
@@ -47,7 +47,7 @@ Dois papéis customizados, para que a SA só toque em VM cujo nome começa por `
 
     gcloud iam roles create infinitoPesadoApoio --project=$P --title="Infinito pesado: apoio do lote" \
       --permissions=compute.instances.list,compute.zoneOperations.get,compute.regions.get,compute.projects.get,\
-    compute.subnetworks.use,compute.subnetworks.useExternalIp,compute.networks.use,compute.networks.useExternalIp
+    compute.subnetworks.use
 
     gcloud projects add-iam-policy-binding $P --member=serviceAccount:$SA \
       --role=projects/$P/roles/infinitoPesadoVM \
@@ -76,6 +76,14 @@ expressão a alargar o papel.
    de VM fixa). O resto tem padrão; `INF_PESADO_PARALELO_MAX` limita o lote.
 3. Prova barata: `pesado("script", 0.2, {"nome": "fumaca"}, paralelo=2, confirmar=true)` e `pesado_status` até
    `liquidado`; conferir no bucket `jobs/<job>/shard-0-saida.tar.gz` e, no Compute, que não sobrou `inf-pesado-*`.
+
+## Rede: sem IP externo (2026-10-07)
+
+A VM sobe na sub-rede `fabrica-nos` (rede `mybagcenter-production-network`, `INF_PESADO_SUBREDE`), a única coberta
+pelo Cloud NAT existente (`fabrica-nat`, `LIST_OF_SUBNETWORKS`). Sem `accessConfigs` ela não ocupa IP da cota de 8 da
+região e sai para a internet pelo NAT. Ela não leva a tag `fabrica-no`: as regras `fabrica-interno` e `fabrica-ssh-iap`
+só valem para essa tag, então a VM do lote não alcança os nós do cluster nem é alcançada por eles. A tarifa troca o
+IP (US$ 0,005/h) pelo NAT (US$ 0,0014 por VM·h); o GB processado pelo NAT (US$ 0,045) não entra na tarifa.
 
 ## Cota e custo (medidos em 2026-10-06)
 
