@@ -32,7 +32,9 @@ mkdir -p "$TRAB"
 # 1ª passada: perfil inteiro com teto de TEMPO s. 2ª: o que ficou INDEFINIDO vai em cubos pela coordenada 1 das
 # L primeiras palavras (fib_cubos; um perfil só conta como fechado com TODOS os cubos UNSAT, fecha_perfis.py).
 COMUM=(--q "$Q" --n "$N" --R "$R" --M "$M" --ordem "$ORDEM" --prova --descartar -j "$J" --dir "$TRAB")
-[ -n "${K:-}" ] && COMUM+=(--k "$K")   # instâncias por prefixo de K tipos (menos instâncias, cada uma maior)
+[ -n "${K:-}" ] && COMUM+=(--k "$K")
+# PULAR: JSONL de rodadas anteriores (qualquer ordem); perfis já fechados com LRAT conferido não rodam de novo
+[ -n "${PULAR:-}" ] && COMUM+=(--pular $PULAR)   # instâncias por prefixo de K tipos (menos instâncias, cada uma maior)
 python3 tools/exatos/fibras/rodar.py "${COMUM[@]}" --fatia "$SHARD_INDEX/$SHARD_TOTAL" --tempo "$TEMPO" | tail -n 100
 cp "$TRAB"/*.jsonl "$SAIDA/"
 ABERTOS=$(python3 - "$TRAB" <<'PY'
