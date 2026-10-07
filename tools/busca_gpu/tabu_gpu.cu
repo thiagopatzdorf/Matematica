@@ -12,7 +12,8 @@
  * Modo EMU (-DEMU, compila com g++ -x c++): o MESMO código roda em CPU, thread a thread, para testar a
  * correção sem GPU (contagens incrementais == recontagem do zero). Não mede desempenho de GPU.
  *
- * Uso:  tabu_gpu q n R M cadeias segundos semente [tenure=1] [iter_por_lancamento=2000] [saida]
+ * Uso:  tabu_gpu q n R M cadeias segundos semente [tenure=1] [iter_por_lancamento=2000] [saida] [modo=0]
+ *                [ciclo=2000000] [T0=2.0] [Tmin=0.05]     (modo 0 = tabu, 1 = recozimento simulado guiado)
  * Saída (stdout, uma linha por evento):
  *   CFG ...                      parâmetros e tamanho da casca
  *   LANCA t=<s> it_total=<n> descobertos_min=<d> ok=<k>   a cada lançamento
@@ -25,6 +26,7 @@
 #include <string.h>
 #include <time.h>
 #include <limits.h>
+#include <math.h>
 
 #define MAXN 12
 #define MAXM 128
@@ -50,7 +52,7 @@ static inline int atomicAddI(int *a, int v) { int o = *a; *a += v; return o; }
 #define CONSTANT __constant__
 #endif
 
-typedef struct { int q, n, R, M, S, N, tenure; int pw[MAXN + 1]; } Par;
+typedef struct { int q, n, R, M, S, N, tenure, mode, cycle; float T0, Tmin; int pw[MAXN + 1]; } Par;
 typedef struct { uint64_t rng; int64_t it; int nunc, best, done, pad; } St;
 typedef struct { uint8_t *cnt, *cw, *shell; int *ci; int64_t *tabu; St *st; } Dev;
 
@@ -73,7 +75,7 @@ DEV static void run_chain(const Dev *D, int ch, int iters) {
     int *ci = D->ci + (size_t)ch * M;
     int64_t *tb = D->tabu + (size_t)ch * M;
     St *st = D->st + ch;
-    SHARED int s_nunc, s_ncand, s_x, s_best, s_stop, s_bm, s_bj, s_owner, s_off;
+    SHARED int s_nunc, s_ncand, s_x, s_best, s_stop, s_bm, s_bj, s_owner, s_off, s_dsum, s_pick;
     SHARED int s_cm[MAXC], s_cj[MAXC], s_dv[MAXC], s_cz[NT];
     SHARED uint8_t s_xd[MAXN];
     SHARED uint64_t s_rng;
@@ -126,6 +128,46 @@ DEV static void run_chain(const Dev *D, int ch, int iters) {
             }
         }
         SYNC;
+        if (P.mode == 1) {
+            /* SA guiado: UM candidato sorteado entre os de distância R+1, custo exato pelas cascas
+               (as threads dividem a casca), aceita com Metropolis; T cai geometricamente por ciclo */
+            PHASE { if (t == 0) { s_dsum = 0; s_pick = s_ncand > 0 ? (int)(xs(&s_rng) % (uint64_t)s_ncand) : 0; } }
+            SYNC;
+            PHASE {
+                if (s_ncand > 0) {
+                    int m = s_cm[s_pick], j = s_cj[s_pick];
+                    const uint8_t *c = cw + m * n;
+                    int ia = ci[m], ib = ia + ((int)s_xd[j] - (int)c[j]) * P.pw[j], dv = 0;
+                    const uint8_t *E = D->shell + (size_t)j * S * n;
+                    for (int s = t; s < S; s += NT) {
+                        const uint8_t *e = E + (size_t)s * n;
+                        int off = 0;
+                        for (int k = 0; k < n; k++) off += dlt[k][c[k]][e[k]];
+                        dv += (cnt[ia + off] == 1) - (cnt[ib + off] == 0);
+                    }
+                    atomicAddI(&s_dsum, dv);
+                }
+            }
+            SYNC;
+            PHASE {
+                if (t == 0) {
+                    int bm = -1, bj = -1;
+                    if (s_ncand == 0) { /* ninguém a R+1: aproxima uma palavra qualquer de x (sempre aceita) */
+                        bm = (int)(xs(&s_rng) % (uint64_t)M);
+                        int dif[MAXN], nd = 0;
+                        for (int k = 0; k < n; k++) if (cw[bm * n + k] != s_xd[k]) dif[nd++] = k;
+                        bj = dif[xs(&s_rng) % (uint64_t)nd];
+                    } else {
+                        float frac = (float)(s_it % P.cycle) / (float)P.cycle;
+                        float T = P.Tmin + P.T0 * powf(0.002f, frac);
+                        float u = (float)(xs(&s_rng) >> 40) * (1.0f / 16777216.0f);
+                        if (s_dsum <= 0 || u < expf(-(float)s_dsum / T)) { bm = s_cm[s_pick]; bj = s_cj[s_pick]; }
+                    }
+                    s_bm = bm; s_bj = bj;
+                }
+            }
+            SYNC;
+        } else {
         /* 3. custo exato de cada candidato: perde(cnt==1) - ganha(cnt==0) nas duas cascas */
         PHASE {
             for (int ic = t; ic < s_ncand; ic += NT) {
@@ -165,8 +207,10 @@ DEV static void run_chain(const Dev *D, int ch, int iters) {
             }
         }
         SYNC;
+        }
         /* 5. aplica o movimento: as duas cascas, sem conflito entre threads */
         PHASE {
+            if (s_bm >= 0) {
             int m = s_bm, j = s_bj, ld = 0;
             const uint8_t *c = cw + m * n;
             int ia = ci[m], ib = ia + ((int)s_xd[j] - (int)c[j]) * P.pw[j];
@@ -183,15 +227,18 @@ DEV static void run_chain(const Dev *D, int ch, int iters) {
                 ld -= (w == 0);
             }
             atomicAddI(&s_nunc, ld);
+            }
         }
         SYNC;
         PHASE {
             if (t == 0) {
-                int m = s_bm, j = s_bj;
-                ci[m] += ((int)s_xd[j] - (int)cw[m * n + j]) * P.pw[j];
-                cw[m * n + j] = s_xd[j];
+                if (s_bm >= 0) {
+                    int m = s_bm, j = s_bj;
+                    ci[m] += ((int)s_xd[j] - (int)cw[m * n + j]) * P.pw[j];
+                    cw[m * n + j] = s_xd[j];
+                    tb[m] = s_it + 1 + P.tenure + (int64_t)(xs(&s_rng) % 3);
+                }
                 s_it++;
-                tb[m] = s_it + P.tenure + (int64_t)(xs(&s_rng) % 3);
                 if (s_nunc < s_best) s_best = s_nunc;
             }
         }
@@ -264,6 +311,11 @@ int main(int argc, char **argv) {
     int tenure = argc > 8 ? atoi(argv[8]) : 1;
     int iters = argc > 9 ? atoi(argv[9]) : 2000;
     const char *pref = argc > 10 ? argv[10] : "./gpu";
+    hp.mode = argc > 11 ? atoi(argv[11]) : 0;
+    hp.cycle = argc > 12 ? atoi(argv[12]) : 2000000;
+    hp.T0 = argc > 13 ? (float)atof(argv[13]) : 2.0f;
+    hp.Tmin = argc > 14 ? (float)atof(argv[14]) : 0.05f;
+    if (hp.cycle < 1) hp.cycle = 1;
     if (q < 2 || q > 10 || n < 2 || n > MAXN || R < 1 || R >= n || M < 1 || M > MAXM || M >= 255) { fprintf(stderr, "parâmetros\n"); return 2; }
     if (M * (R + 1) > MAXC) { fprintf(stderr, "M*(R+1)=%d > MAXC=%d: recompile com -DMAXC maior\n", M * (R + 1), MAXC); return 2; }
     hp.q = q; hp.n = n; hp.R = R; hp.M = M; hp.tenure = tenure;
@@ -297,7 +349,7 @@ int main(int argc, char **argv) {
         for (int y = 0; y < hp.N; y++) z += h_cnt[(size_t)ch * hp.N + y] == 0;
         h_st[ch].nunc = z; h_st[ch].best = z; h_st[ch].rng = hrnd() | 1; h_st[ch].it = 0;
     }
-    printf("CFG q=%d n=%d R=%d M=%d N=%d casca=%d cadeias=%d tenure=%d iter_por_lancamento=%d\n", q, n, R, M, hp.N, hp.S, chains, tenure, iters);
+    printf("CFG q=%d n=%d R=%d M=%d N=%d casca=%d cadeias=%d tenure=%d iter_por_lancamento=%d modo=%d ciclo=%d T0=%.2f Tmin=%.2f\n", q, n, R, M, hp.N, hp.S, chains, tenure, iters, hp.mode, hp.cycle, hp.T0, hp.Tmin);
     fflush(stdout);
 
     Dev D;
