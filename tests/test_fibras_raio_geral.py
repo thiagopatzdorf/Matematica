@@ -128,3 +128,19 @@ def test_fecha_perfis_nao_conta_registro_de_outro_raio_como_fechado(tmp_path):
     outro = subprocess.run([sys.executable, script, "--q", "3", "--n", "6", "--M", "5", str(arq)],
                            capture_output=True, text=True)
     assert outro.returncode == 1, outro.stdout + outro.stderr
+
+
+def test_registro_de_k4_7_4_m9_fecha_os_792_perfis_e_bate_o_manifesto():
+    """K_4(7,4) >= 10: todo perfil de M = 9 tem UNSAT com LRAT conferido (inteiro ou em todos os cubos)."""
+    import hashlib
+    import lzma
+    import subprocess
+    cert = RAIZ / "tools" / "exatos" / "fibras" / "certificados"
+    xz = cert / "K4_7_4_M9.jsonl.xz"
+    esperado = {ln.split()[1]: ln.split()[0] for ln in (cert / "K4_7_4_M9.sha256").read_text().splitlines()}
+    assert hashlib.sha256(xz.read_bytes()).hexdigest() == esperado["K4_7_4_M9.jsonl.xz"]
+    assert hashlib.sha256(lzma.open(xz).read()).hexdigest() == esperado["K4_7_4_M9.jsonl"]
+    r = subprocess.run([sys.executable, str(RAIZ / "tools" / "exatos" / "fibras" / "fecha_perfis.py"),
+                        "--q", "4", "--n", "7", "--R", "4", "--M", "9", str(xz)], capture_output=True, text=True)
+    assert r.returncode == 0, r.stdout + r.stderr
+    assert "792 perfis, 792 fechados" in r.stdout
