@@ -82,7 +82,7 @@ def test_contagens_do_paper_expandido_fecham_com_o_total():
     n = pn.numeros(LEDGER)
     k, t = int(n["NumUBKernel"]), int(n["NumCelulas"])
     assert expandido.count(f"${k}$ of the ${t}$ upper bounds") == 2  # resumo e seção do ledger
-    assert f"The other ${t - k}$ upper bounds are only claimed" in expandido
+    assert f"The other ${t - k}$ upper bounds are not theorems of the kernel" in expandido
     assert int(n["NumUBFormalizada"]) + int(n["NumUBReproduzida"]) == k
 
 

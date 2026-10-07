@@ -95,7 +95,7 @@ The block below is generated from `ledger/cells.json` and is not edited by hand.
 | cells with our own Lean theorem | **110** (12 below the best published upper bound we found) |
 | explicit codes in `data/codes/` | **45** (all pass the official C verifier, `tools/verify/check_all.sh`, in CI); 38 are the current witness of a ledger bound, sha256 checked |
 
-Version 0.9.1 · DOI [10.5281/zenodo.23085769](https://doi.org/10.5281/zenodo.23085769) · ledger updated on 2026-10-07. Lower bounds are, in general, **not** in Lean: only 2 of them are kernel theorems.
+Version 0.10.0 · DOI [10.5281/zenodo.23085769](https://doi.org/10.5281/zenodo.23085769) · ledger updated on 2026-10-07. Lower bounds are, in general, **not** in Lean: only 2 of them are kernel theorems.
 
 ### Highlights
 

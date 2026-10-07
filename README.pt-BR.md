@@ -95,7 +95,7 @@ O bloco abaixo é gerado a partir de `ledger/cells.json` e não se edita à mão
 | células com teorema Lean próprio | **110** (12 abaixo da melhor cota superior publicada que achamos) |
 | códigos explícitos em `data/codes/` | **45** (todos passam no verificador C oficial, `tools/verify/check_all.sh`, no CI); 38 são a testemunha atual de uma cota do ledger, sha256 conferido |
 
-Versão 0.9.1 · DOI [10.5281/zenodo.23085769](https://doi.org/10.5281/zenodo.23085769) · ledger atualizado em 2026-10-07. As cotas inferiores **não** estão, em geral, no Lean: só 2 delas são teorema do kernel.
+Versão 0.10.0 · DOI [10.5281/zenodo.23085769](https://doi.org/10.5281/zenodo.23085769) · ledger atualizado em 2026-10-07. As cotas inferiores **não** estão, em geral, no Lean: só 2 delas são teorema do kernel.
 
 ### Destaques
 

@@ -79,8 +79,11 @@ def conferir_contagem(tex: str, z: dict, cells_json: Path) -> None:
     erros = []
     if tex.count(f"${kernel}$ of the ${total}$ upper bounds") != 2:
         erros.append(f"paper não diz ${kernel}$ of the ${total}$ upper bounds (resumo e seção do ledger)")
-    if f"The other ${claimed}$ upper bounds are only claimed" not in tex:
-        erros.append(f"paper não diz The other ${claimed}$ upper bounds are only claimed")
+    # "Os outros" são os que não estão no kernel (CLAIMED + WITNESS_CHECKED): desde o #114 há
+    # testemunha conferida fora do kernel, e "only claimed" com o total de CLAIMED deixou de fechar a conta.
+    outros = total - kernel
+    if f"The other ${outros}$ upper bounds are not theorems of the kernel" not in tex:
+        erros.append(f"paper não diz The other ${outros}$ upper bounds are not theorems of the kernel")
     if f"{kernel} of the {total} upper bounds are theorems of the Lean kernel" not in z.get("description", ""):
         erros.append(f".zenodo.json não diz {kernel} of the {total} upper bounds")
     ditos = re.findall(r"\$(\d+)\$ of the \$(\d+)\$ upper bounds", tex)
