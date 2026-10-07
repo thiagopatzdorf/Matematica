@@ -39,8 +39,8 @@ def test_regras_nunca_dao_cota_abaixo_da_melhor_conhecida():
 def test_formal_ub_commitado_e_o_que_o_gerador_produz_hoje():
     r = gerar.gerar(CELLS, escrever=False)
     assert r["certificadas"] == len(FORMAL)
-    cotas = (RAIZ / "CoveringLean" / "Ledger" / "Cotas.lean").read_text()
     for k, e in FORMAL.items():
+        cotas = (RAIZ / e["arquivo"]).read_text()
         assert f"theorem {e['declaration'].split('.')[-1]} : K " in cotas, k
 
 
@@ -75,7 +75,7 @@ def test_familia_da_particao_q42_entra_com_a_cota_do_keri_ate_o_teto_de_custo_do
 
 
 def test_lean_gerado_nao_tem_atalho_fora_do_kernel():
-    for p in (RAIZ / "CoveringLean" / "Ledger").glob("*.lean"):
+    for p in [*(RAIZ / "CoveringLean" / "Ledger").glob("*.lean"), *(RAIZ / "CoveringLean" / "LedgerExt").glob("*.lean")]:
         t = p.read_text()
         assert "sorry" not in t and "native_decide" not in t and "implemented_by" not in t, p.name
     assert "#print axioms CoveringLedger.todas_as_cotas" in (RAIZ / "CoveringLean/Ledger/Cotas.lean").read_text()
@@ -132,3 +132,48 @@ def test_chave_do_keri_declarada_no_json_do_codigo_linear_e_a_do_ledger():
     for (q, n, R), (_M, p, _G, _c) in lineares.ler_lineares().items():
         d = json.loads(p.read_text(encoding="utf-8"))
         assert d["chave_keri"] == por_id[(q, n, R)]["published"]["sources"]["keri_2011"]["ub_key"], p.name
+
+
+def test_celula_que_so_sai_de_base_externa_vai_para_o_lote_ext_com_a_lib_dele():
+    # K2(16,2) ≤ 768: coordenada muda sobre K2(15,2) ≤ 384, que é certificado por síndromes (Syn_K2_15_2_384).
+    e = FORMAL["2,16,2"]
+    assert e["lib"] == "CoveringLedgerExt" and e["arquivo"] == "CoveringLean/LedgerExt/Cotas.lean"
+    assert e["construcao"] == "coordenada muda (t = 1) de K2(15,2) ≤ 384"
+    c = {x["id"]: x for x in CELLS}["K2(16,2)"]
+    assert c["certification"]["ub"]["state"] == "FORMALIZED"
+    assert c["certification"]["ub"]["provenance"]["lean"] == {"declaration": "CoveringLedgerExt.K2_16_2_le_768",
+                                                              "lib": "CoveringLedgerExt"}
+
+
+def test_lote_principal_nao_importa_modulo_de_base_externa():
+    """O CoveringLedger tem de continuar barato: as bases externas (KO05 ~30 min, síndromes) só entram
+    no CoveringLedgerExt."""
+    cotas = (RAIZ / "CoveringLean" / "Ledger" / "Cotas.lean").read_text()
+    assert "Literatura" not in cotas and "Syn_K" not in cotas
+    assert "#print axioms CoveringLedgerExt.todas_as_cotas" in (RAIZ / "CoveringLean/LedgerExt/Cotas.lean").read_text()
+
+
+def test_bases_externas_nao_mudam_o_lote_principal():
+    sem = gerar.gerar(CELLS, escrever=False, externos={})
+    com = gerar.gerar(CELLS, escrever=False)
+    assert sem["externas"]["certificadas"] == 0
+    assert com["por_regra"] == sem["por_regra"]
+    assert com["certificadas"] == sem["certificadas"] + com["externas"]["certificadas"]
+    assert sum(1 for e in FORMAL.values() if e.get("lib") == "CoveringLedgerExt") == com["externas"]["certificadas"]
+
+
+def test_base_externa_de_lib_pesada_ou_de_enunciado_desconhecido_fica_de_fora():
+    ext = gerar.ler_externos()
+    # K5(9,3) ≤ 1250 vive em K3_K5_9_3_Final (CoveringHeavy, ~13 h de CPU): não pode virar base.
+    assert (5, 9, 3) not in ext and "lib pesada" in gerar.RECUSADOS["5,9,3"]
+    assert ext[(2, 15, 2)] == (384, "UB.of_exists Syn.K2_15_2_le_384_syn", "CoveringLean.Syn_K2_15_2_384")
+    assert ext[(8, 5, 2)] == (128, "K_le_iff.mp CoveringLit.K8_5_2_le_128", "CoveringLean.Literatura.KO05")
+    assert all(not m.startswith(("CoveringLedger", "CoveringLedgerExt")) for _M, p, m in ext.values() for _ in [p])
+
+
+def test_teorema_externo_com_nome_de_outra_celula_e_recusado(tmp_path):
+    ours = {"cells": {"8,5,2": {"ours_lean": {"M": 128, "declaration": "CoveringLit.K9_5_2_le_189"}}}}
+    arq = tmp_path / "ours.json"
+    arq.write_text(json.dumps(ours))
+    assert gerar.ler_externos(arq) == {}
+    assert "enunciado fora das duas formas" in gerar.RECUSADOS["8,5,2"]

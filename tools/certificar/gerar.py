@@ -10,6 +10,11 @@ superior conhecida (`best.ub`):
   `CoveringKernel.go`, via `UB.of_go`), ou um teorema já existente (K_7(4,2) ≤ 19);
 * código linear sistemático de tools/certificar/lineares/ (Hamming, Golay, "linear code" do Kéri),
   conferido pelo kernel pelas síndromes, sem lista de palavras (`Syn.lin_cert`, lineares.py);
+* teorema do kernel de fora do lote (`ledger/ours.json`, `ours_lean`: certificados por síndromes,
+  Corolário 3 de Kéri–Östergård, witnesses dos artigos, K_7(5,3), K_7(6,4)...) como célula base
+  **externa**, só depois do ponto fixo sem elas: o que só se alcança por uma base externa vai para
+  `CoveringLean/LedgerExt/Cotas.lean` (lib `CoveringLedgerExt`, que importa os módulos dessas bases),
+  e o lote do alvo `CoveringLedger` continua o mesmo;
 * regra a partir de outras células: soma direta, alongamento livre, coordenada muda, punção,
   monotonia do raio, projeção de alfabeto (CoveringLean/Regras.lean).
 
@@ -21,6 +26,7 @@ cota bate com `best.ub` vão para o Lean.
 Saídas (regeneradas por inteiro; não edite à mão):
 * CoveringLean/Ledger/W<k>.lean: as listas de índices dos witnesses;
 * CoveringLean/Ledger/Lin_K<q>_<n>_<R>.lean: os códigos lineares e as testemunhas do transversal;
+* CoveringLean/LedgerExt/Cotas.lean: as células que dependem de uma base externa (mesmo formato);
 * CoveringLean/Ledger/Cotas.lean: um teorema `CoveringLedger.K<q>_<n>_<R>_le_<M> : K q n R ≤ M`
   por célula certificada;
 * ledger/formal_ub.json: o que o ledger/build.py lê para marcar a cota FORMALIZED.
@@ -33,7 +39,9 @@ from __future__ import annotations
 import argparse
 import hashlib
 import json
+import re
 import sys
+import tomllib
 from pathlib import Path
 
 RAIZ = Path(__file__).resolve().parents[2]
@@ -42,6 +50,14 @@ import lineares  # noqa: E402
 WIT = RAIZ / "tools" / "certificar" / "witnesses"
 SAIDA_LEAN = RAIZ / "CoveringLean" / "Ledger"
 SAIDA_JSON = RAIZ / "ledger" / "formal_ub.json"
+SAIDA_EXT = RAIZ / "CoveringLean" / "LedgerExt"
+OURS = RAIZ / "ledger" / "ours.json"
+# Libs cujos módulos não servem de base externa: CoveringHeavy (~13 h de CPU) e a refutação SAT de
+# K_7(4,2) (~50 h). Uma base delas arrastaria a lib inteira para o build do CoveringLedgerExt.
+LIBS_PESADAS = ("CoveringHeavy", "CoveringK742Sat")
+# Namespaces gerados aqui: nunca são base externa (senão o lote leria a própria saída).
+NS_GERADOS = ("CoveringLedger", "CoveringLedgerExt")
+RECUSADOS: dict[str, str] = {}  # o que ler_externos deixou de fora na última chamada, com o motivo
 # Teto de q^n · M por witness: o kernel confere ~10^4 unidades/s e a família da partição K_q(4,2)
 # com q ≥ 13 (≥ 1,2·10^6) passou de 30 min e de 4 GB por arquivo neste container (q = 17 morreu por
 # memória). Acima do teto o witness fica versionado mas fora do lote: ver --custo-max.
@@ -67,11 +83,95 @@ def ler_witnesses() -> dict:
     return out
 
 
-def fechar(cells: list[dict], wits: dict, lins: dict | None = None):
+def _imports(mod: str) -> list[str]:
+    arq = RAIZ / (mod.replace(".", "/") + ".lean")
+    if not arq.exists():
+        return []
+    return re.findall(r"^import (CoveringLean\.[\w.]+)", arq.read_text(encoding="utf-8"), re.M)
+
+
+def _fecho_imports(raizes) -> set[str]:
+    vistos, pilha = set(), list(raizes)
+    while pilha:
+        m = pilha.pop()
+        if m not in vistos:
+            vistos.add(m)
+            pilha += _imports(m)
+    return vistos
+
+
+def modulos_pesados() -> set[str]:
+    """Módulos que só as libs pesadas (LIBS_PESADAS) alcançam: fora do alvo padrão e das libs leves."""
+    libs = tomllib.loads((RAIZ / "lakefile.toml").read_text(encoding="utf-8"))["lean_lib"]
+    pesadas = [r for lib in libs if lib["name"] in LIBS_PESADAS for r in lib.get("roots", [])]
+    leve = _fecho_imports(["CoveringLean"] + _imports("CoveringLean"))
+    return _fecho_imports(pesadas) - leve
+
+
+def _teoremas() -> dict[str, list[tuple[str, str]]]:
+    """{nome curto: [(módulo, enunciado)]} de todo `theorem` em CoveringLean/ (cada arquivo lido uma vez)."""
+    padrao = re.compile(r"^theorem (\S+)\s*:(.*?):=", re.M | re.S)
+    out: dict[str, list[tuple[str, str]]] = {}
+    for arq in sorted((RAIZ / "CoveringLean").rglob("*.lean")):
+        if arq.parent.name in ("Ledger", "LedgerExt"):
+            continue  # saída deste gerador
+        mod = ".".join(arq.relative_to(RAIZ).with_suffix("").parts)
+        for m in padrao.finditer(arq.read_text(encoding="utf-8")):
+            out.setdefault(m.group(1), []).append((mod, " ".join(m.group(2).split())))
+    return out
+
+
+def _achar_teorema(decl: str, indice: dict) -> tuple[str, str] | None:
+    """(módulo, enunciado) do teorema `decl` (nome qualificado), se o nome curto aparece uma vez só."""
+    achados = indice.get(decl.split(".")[-1], [])
+    return achados[0] if len(achados) == 1 else None
+
+
+def ler_externos(caminho: Path = OURS) -> dict:
+    """{(q,n,R): (M, prova de `UB q n R M`, módulo)}: os teoremas do kernel de `ledger/ours.json`
+    (`ours_lean`) que não saem deste gerador nem de uma lib pesada.
+
+    O enunciado decide a ponte: `K q n R ≤ M` vira `UB` por `K_le_iff`; a forma
+    `∃ C, C.card = M ∧ Covers R C` (síndromes, K742), por `UB.of_exists`. Declaração que não se acha
+    uma vez só em CoveringLean/, ou com outro enunciado (igualdade de um exato, por exemplo), fica de
+    fora e vai para `RECUSADOS` com o motivo: nunca se adivinha a ponte."""
+    if not caminho.exists():
+        return {}
+    pesados = modulos_pesados()
+    indice = _teoremas()
+    out = {}
+    RECUSADOS.clear()
+    for k, c in json.loads(caminho.read_text(encoding="utf-8"))["cells"].items():
+        lean = c.get("ours_lean")
+        if not lean or lean["declaration"].split(".")[0] in NS_GERADOS:
+            continue
+        q, n, R = (int(x) for x in k.split(","))
+        M, decl = lean["M"], lean["declaration"]
+        achado = _achar_teorema(decl, indice)
+        if achado is None:
+            RECUSADOS[k] = f"{decl}: não achado uma única vez em CoveringLean/"
+            continue
+        mod, enunc = achado
+        if mod in pesados:
+            RECUSADOS[k] = f"{decl}: módulo {mod} só numa lib pesada"
+            continue
+        if enunc == f"K {q} {n} {R} ≤ {M}":
+            prova = f"K_le_iff.mp {decl}"
+        elif enunc.startswith(f"∃ C : Finset (Fin {n} → ZMod {q}), C.card = {M} ∧") and enunc.endswith(f"Covers {R} C"):
+            prova = f"UB.of_exists {decl}"
+        else:
+            RECUSADOS[k] = f"{decl}: enunciado fora das duas formas ({enunc[:80]})"
+            continue
+        out[(q, n, R)] = (M, prova, mod)
+    return out
+
+
+def fechar(cells: list[dict], wits: dict, lins: dict | None = None, externos: dict | None = None):
     """Relaxação até ponto fixo. Devolve (valor por estado, nó atual por estado, nós).
 
     `lins` ({(q,n,R): (M, caminho, G, construcao)}, de lineares.ler_lineares) entra como base,
-    como os witnesses."""
+    como os witnesses. `externos` (de ler_externos) só entra depois do ponto fixo sem eles, de modo
+    que todo nó criado a partir daí depende de uma base externa e os anteriores não."""
     nmax: dict[int, int] = {}
     for c in cells:
         nmax[c["q"]] = max(nmax.get(c["q"], 0), c["n"])
@@ -100,38 +200,45 @@ def fechar(cells: list[dict], wits: dict, lins: dict | None = None):
     for s, (M, _d, _m) in EXISTENTES.items():
         if M < V[s]:
             novo(s, M, "existente")
-    mudou = True
-    while mudou:
-        mudou = False
-        for s in estados:
-            q, n, R = s
-            melhor = (V[s], None)
+    def relaxar():
+        mudou = True
+        while mudou:
+            mudou = False
+            for s in estados:
+                q, n, R = s
+                melhor = (V[s], None)
 
-            def cand(v, *regra):
-                nonlocal melhor
-                if v < melhor[0]:
-                    melhor = (v, regra)
+                def cand(v, *regra):
+                    nonlocal melhor
+                    if v < melhor[0]:
+                        melhor = (v, regra)
 
-            for t in range(1, n):
-                if R - t >= 0:
-                    cand(V[(q, n - t, R - t)], "free", atual[(q, n - t, R - t)], t)
-                if R <= n - t:
-                    cand(q**t * V[(q, n - t, R)], "dummy", atual[(q, n - t, R)], t)
-            for t in range(1, nmax[q] - n + 1):
-                cand(V[(q, n + t, R)], "punct", atual[(q, n + t, R)], t)
-            for Rp in range(R):
-                cand(V[(q, n, Rp)], "radius", atual[(q, n, Rp)])
-            for qp in nmax:
-                if qp > q and n <= nmax[qp]:
-                    cand(V[(qp, n, R)], "proj", atual[(qp, n, R)])
-            for n1 in range(1, n):
-                n2 = n - n1
-                for R1 in range(min(R, n1) + 1):
-                    R2 = min(R - R1, n2)
-                    cand(V[(q, n1, R1)] * V[(q, n2, R2)], "sum", atual[(q, n1, R1)], atual[(q, n2, R2)])
-            if melhor[1] is not None:
-                novo(s, melhor[0], *melhor[1])
-                mudou = True
+                for t in range(1, n):
+                    if R - t >= 0:
+                        cand(V[(q, n - t, R - t)], "free", atual[(q, n - t, R - t)], t)
+                    if R <= n - t:
+                        cand(q**t * V[(q, n - t, R)], "dummy", atual[(q, n - t, R)], t)
+                for t in range(1, nmax[q] - n + 1):
+                    cand(V[(q, n + t, R)], "punct", atual[(q, n + t, R)], t)
+                for Rp in range(R):
+                    cand(V[(q, n, Rp)], "radius", atual[(q, n, Rp)])
+                for qp in nmax:
+                    if qp > q and n <= nmax[qp]:
+                        cand(V[(qp, n, R)], "proj", atual[(qp, n, R)])
+                for n1 in range(1, n):
+                    n2 = n - n1
+                    for R1 in range(min(R, n1) + 1):
+                        R2 = min(R - R1, n2)
+                        cand(V[(q, n1, R1)] * V[(q, n2, R2)], "sum", atual[(q, n1, R1)], atual[(q, n2, R2)])
+                if melhor[1] is not None:
+                    novo(s, melhor[0], *melhor[1])
+                    mudou = True
+
+    relaxar()
+    for s, (M, _prova, _mod) in sorted((externos or {}).items()):
+        if s in V and M < V[s]:
+            novo(s, M, "ext")
+    relaxar()
     return V, atual, nos
 
 
@@ -141,6 +248,14 @@ def deps(no) -> list[int]:
     if regra == "sum":
         return list(args)
     return [args[0]] if regra in ("radius", "proj", "free", "dummy", "punct") else []
+
+
+def dependentes_de_externo(nos) -> list[bool]:
+    """Por nó: a prova passa por uma base externa? (as dependências vêm sempre antes na lista)."""
+    ext: list[bool] = []
+    for no in nos:
+        ext.append(no[2] == "ext" or any(ext[j] for j in deps(no)))
+    return ext
 
 
 def _nome(s, v):
@@ -156,6 +271,8 @@ def descrever(nos, k) -> str:
         return fixas[regra]
     if regra == "lin":
         return args[0]
+    if regra == "ext":
+        return f"teorema do kernel fora do lote ({externos_cache[s][1].split()[-1]})"
     if regra == "sum":
         return f"soma direta de {cel(args[0])} e {cel(args[1])}"
     nome = {"free": "alongamento livre", "dummy": "coordenada muda", "punct": "punção",
@@ -168,7 +285,10 @@ def _ident(s) -> str:
     return f"K{s[0]}_{s[1]}_{s[2]}"
 
 
-def prova(nos, k, wits, wmod) -> str:
+externos_cache: dict = {}  # o ler_externos da última chamada de gerar(), para descrever/prova
+
+
+def prova(nos, k, wits, wmod, nome=lambda j: f"u{j}") -> str:
     (q, n, R), v, regra, args = nos[k]
     w = "(by decide) (by decide) (by decide)"
     if regra == "univ":
@@ -183,7 +303,9 @@ def prova(nos, k, wits, wmod) -> str:
         return EXISTENTES[(q, n, R)][1]
     if regra == "lin":
         return f"Lin.l_{_ident((q, n, R))}"
-    u = [f"u{j}" for j in deps(nos[k])]
+    if regra == "ext":
+        return externos_cache[(q, n, R)][1]
+    u = [nome(j) for j in deps(nos[k])]
     if regra == "free":
         return f"(UB.lengthen_free {args[1]} {u[0]}).weaken {w}"
     if regra == "dummy":
@@ -199,23 +321,37 @@ def prova(nos, k, wits, wmod) -> str:
     raise ValueError(regra)
 
 
-def gerar(cells: list[dict], escrever: bool = True, custo_max: int = CUSTO_MAX) -> dict:
+def _fecho(nos, ks) -> set[int]:
+    usados, pilha = set(), list(ks)
+    while pilha:
+        k = pilha.pop()
+        if k not in usados:
+            usados.add(k)
+            pilha += deps(nos[k])
+    return usados
+
+
+def gerar(cells: list[dict], escrever: bool = True, custo_max: int = CUSTO_MAX,
+          externos: dict | None = None) -> dict:
     wits = {s: w for s, w in ler_witnesses().items() if s[0] ** s[1] * w[0] <= custo_max}
     lins = lineares.ler_lineares()
-    V, atual, nos = fechar(cells, wits, lins)
+    externos = ler_externos() if externos is None else externos
+    externos_cache.clear()
+    externos_cache.update(externos)
+    V, atual, nos = fechar(cells, wits, lins, externos)
     alvo = {(c["q"], c["n"], c["R"]): c["best"]["ub"] for c in cells}
     menor = [s for s, b in alvo.items() if V[s] < b]
     if menor:
         raise SystemExit(f"regras deram cota abaixo da melhor conhecida (confira!): {menor[:5]}")
-    certos = sorted(s for s, b in alvo.items() if V[s] == b)
-    # Fecho das dependências a partir das células certificadas.
-    usados, pilha = set(), [atual[s] for s in certos]
-    while pilha:
-        k = pilha.pop()
-        if k in usados:
-            continue
-        usados.add(k)
-        pilha += deps(nos[k])
+    ext = dependentes_de_externo(nos)
+    # A própria base externa já tem teorema (ours_lean): não ganha outro.
+    certos_todos = sorted(s for s, b in alvo.items() if V[s] == b and nos[atual[s]][2] != "ext")
+    certos = [s for s in certos_todos if not ext[atual[s]]]
+    certos_ext = [s for s in certos_todos if ext[atual[s]]]
+    usados_ext = {k for k in _fecho(nos, [atual[s] for s in certos_ext]) if ext[k]}
+    # O lote principal também exporta os nós de que o lote externo depende (todos sem base externa).
+    ponte = {j for k in usados_ext for j in deps(nos[k]) if not ext[j]}
+    usados = _fecho(nos, [atual[s] for s in certos] + sorted(ponte))
     wit_usados = sorted({nos[k][0] for k in usados if nos[k][2] == "wit"},
                         key=lambda s: -(s[0] ** s[1]) * wits[s][0])
     # Um arquivo por lote de custo parecido (q^n · M), para o lake conferir em paralelo.
@@ -279,10 +415,19 @@ def gerar(cells: list[dict], escrever: bool = True, custo_max: int = CUSTO_MAX) 
         "CoveringLedger." + _nome(s, V[s]) for s in certos) + "⟩",
         "", "end CoveringLedger", "", "#print axioms CoveringLedger.todas_as_cotas", ""]
     cotas = "\n".join(corpo)
+    cotas_ext, formal_ext = _lote_externo(nos, V, atual, certos_ext, usados_ext, wits, wmod)
     if escrever:
         SAIDA_LEAN.mkdir(parents=True, exist_ok=True)
         for p in SAIDA_LEAN.glob("*.lean"):
             p.unlink()
+        SAIDA_EXT.mkdir(parents=True, exist_ok=True)
+        for p in SAIDA_EXT.glob("*.lean"):
+            p.unlink()
+        if cotas_ext:
+            (SAIDA_EXT / "Cotas.lean").write_text(cotas_ext)
+            sha_ext = hashlib.sha256(cotas_ext.encode()).hexdigest()
+            for e in formal_ext.values():
+                e["sha256_arquivo"] = sha_ext
         for nome, txt in arquivos_w:
             (SAIDA_LEAN / f"{nome}.lean").write_text(txt)
         (SAIDA_LEAN / "Cotas.lean").write_text(cotas)
@@ -292,13 +437,55 @@ def gerar(cells: list[dict], escrever: bool = True, custo_max: int = CUSTO_MAX) 
             e["sha256_arquivo"] = sha
             if e["witness"]:
                 e["sha256"] = hashlib.sha256((RAIZ / e["witness"]).read_bytes()).hexdigest()
+        formal.update(formal_ext)
         doc = {"descricao": "GERADO por tools/certificar/gerar.py: células cuja melhor cota superior tem "
-                            "teorema em CoveringLean/Ledger/Cotas.lean (lake build CoveringLedger). Não edite à mão.",
+                            "teorema em CoveringLean/Ledger/Cotas.lean (lake build CoveringLedger) ou, quando a "
+                            "prova passa por um teorema de fora do lote, em CoveringLean/LedgerExt/Cotas.lean "
+                            "(lake build CoveringLedgerExt). Não edite à mão.",
                "cells": formal}
         SAIDA_JSON.write_text(json.dumps(doc, ensure_ascii=False, indent=1, sort_keys=True) + "\n")
-    return {"certificadas": len(certos), "teoremas": len(usados), "witnesses": len(wit_usados),
-            "lineares": len(lin_usados),
-            "por_regra": _contar(nos, [atual[s] for s in certos])}
+    return {"certificadas": len(certos) + len(certos_ext), "teoremas": len(usados) + len(usados_ext),
+            "witnesses": len(wit_usados), "lineares": len(lin_usados),
+            "por_regra": _contar(nos, [atual[s] for s in certos]),
+            "externas": {"certificadas": len(certos_ext), "bases": len(externos),
+                         "bases_usadas": len({nos[k][0] for k in usados_ext if nos[k][2] == "ext"}),
+                         "recusadas": len(RECUSADOS)}}
+
+
+def _lote_externo(nos, V, atual, certos_ext, usados_ext, wits, wmod) -> tuple[str, dict]:
+    """CoveringLean/LedgerExt/Cotas.lean: as células cuja prova passa por uma base externa.
+
+    Os nós sem base externa são citados do lote principal (`CoveringLedger.u<k>`, que gerar() exporta
+    para isso); os outros viram `e<k>` aqui. Devolve (texto, entradas do formal_ub.json)."""
+    if not certos_ext:
+        return "", {}
+    nome = lambda j: f"e{j}" if j in usados_ext else f"CoveringLedger.u{j}"  # noqa: E731
+    mods = sorted({externos_cache[nos[k][0]][2] for k in usados_ext if nos[k][2] == "ext"})
+    corpo = ["import CoveringLean.Ledger.Cotas"] + [f"import {m}" for m in mods] + [
+        "", "/-!", "# Cotas superiores do ledger a partir de teoremas de fora do lote (GERADO)", "",
+        "Gerado por `tools/certificar/gerar.py`; não edite à mão. Cada célula aqui é uma regra sobre pelo",
+        "menos um teorema do kernel que não sai do lote (`ledger/ours.json`: síndromes, Corolário 3 de",
+        "Kéri–Östergård, witnesses dos artigos...). Fica fora do `CoveringLedger` porque importa os",
+        "módulos dessas bases: `lake build CoveringLedgerExt`.", "-/", "",
+        "namespace CoveringLedgerExt", "open CoveringUB", ""]
+    for k in sorted(usados_ext):
+        s, v, _r, _a = nos[k]
+        corpo.append(f"-- {descrever(nos, k)}")
+        corpo.append(f"theorem e{k} : UB {s[0]} {s[1]} {s[2]} {v} :=\n  {prova(nos, k, wits, wmod, nome)}")
+    corpo.append("")
+    formal = {}
+    for s in certos_ext:
+        k = atual[s]
+        nm = _nome(s, V[s])
+        corpo.append(f"theorem {nm} : K {s[0]} {s[1]} {s[2]} ≤ {V[s]} := K_le e{k}")
+        formal[f"{s[0]},{s[1]},{s[2]}"] = {
+            "M": V[s], "declaration": f"CoveringLedgerExt.{nm}", "construcao": descrever(nos, k),
+            "witness": None, "arquivo": "CoveringLean/LedgerExt/Cotas.lean", "lib": "CoveringLedgerExt"}
+    conj = " ∧\n    ".join(f"K {s[0]} {s[1]} {s[2]} ≤ {V[s]}" for s in certos_ext)
+    corpo += ["", "set_option maxRecDepth 100000 in", f"theorem todas_as_cotas :\n    {conj} :=", "  ⟨" + ",\n   ".join(
+        "CoveringLedgerExt." + _nome(s, V[s]) for s in certos_ext) + "⟩",
+        "", "end CoveringLedgerExt", "", "#print axioms CoveringLedgerExt.todas_as_cotas", ""]
+    return "\n".join(corpo), formal
 
 
 def _contar(nos, ks):
