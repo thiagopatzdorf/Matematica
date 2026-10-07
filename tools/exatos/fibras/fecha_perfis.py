@@ -50,10 +50,12 @@ def main():
     ap.add_argument("--n", type=int, required=True)
     ap.add_argument("--M", type=int, required=True)
     ap.add_argument("--R", type=int, help="raio (padrão: n - 2); registros de outro raio são ignorados")
+    ap.add_argument("--k", type=int, help="coordenadas de tipo fixo das instâncias (padrão: n, o perfil "
+                    "inteiro); registros de outro k são ignorados")
     ap.add_argument("--amostra-sha", type=int, default=0)
     ap.add_argument("arquivos", nargs="+")
     a = ap.parse_args()
-    k = a.n
+    k = a.k or a.n
     R = a.n - 2 if a.R is None else a.R
     smin = enc.fibra_minima(a.q, a.n, R, a.M)
     _, ins = enc.instancias(a.q, a.n, a.M, k, smin)
@@ -68,7 +70,8 @@ def main():
         for ln in (lzma.open(arq, "rt") if arq.endswith(".xz") else open(arq)):
             r = json.loads(ln)
             # registro sem "R" é de raio n - 2 (o rodar.py só grava R quando é outro)
-            if (r["q"], r["n"], r.get("R", r["n"] - 2), r["M"]) != (a.q, a.n, R, a.M) or r.get("sem"):
+            if (r["q"], r["n"], r.get("R", r["n"] - 2), r["M"]) != (a.q, a.n, R, a.M) or r.get("sem") \
+                    or r.get("k", a.n) != k:
                 continue
             ok = r["resultado"] == "UNSAT" and r.get("lrat_check") == "VERIFIED"
             if r["resultado"] == "SAT":
