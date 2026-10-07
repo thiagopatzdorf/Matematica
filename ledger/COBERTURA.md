@@ -11,7 +11,7 @@ Total: 1145 células; exatas (inferior = superior): 523; exatas com as duas cota
 
 | lado | CLAIMED | WITNESS_CHECKED | CERTIFICATE_VERIFIED | FORMALIZED | INDEPENDENTLY_REPRODUCED |
 |---|---:|---:|---:|---:|---:|
-| ub | 475 | 0 | 0 | 579 | 91 |
+| ub | 445 | 0 | 0 | 579 | 121 |
 | lb | 1140 | 0 | 3 | 2 | 0 |
 
 Cotas superiores com prova Lean externa da mesma cota (Florath, commit fixado, não reconstruída aqui, por isso não sobe o estado): 527.
@@ -20,15 +20,15 @@ Cotas superiores com prova Lean externa da mesma cota (Florath, commit fixado, n
 
 | q | células | ub C | ub W | ub V | ub F | ub I | lb C | lb W | lb V | lb F | lb I | exatas | ub Lean externo |
 |---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|
-| 2 | 285 | 129 | 0 | 0 | 129 | 27 | 284 | 0 | 0 | 1 | 0 | 107 | 116 |
-| 3 | 84 | 33 | 0 | 0 | 44 | 7 | 83 | 0 | 1 | 0 | 0 | 45 | 50 |
-| 4 | 60 | 30 | 0 | 0 | 26 | 4 | 60 | 0 | 0 | 0 | 0 | 31 | 33 |
-| 5 | 60 | 24 | 0 | 0 | 26 | 10 | 60 | 0 | 0 | 0 | 0 | 27 | 28 |
-| 6 | 52 | 26 | 0 | 0 | 21 | 5 | 52 | 0 | 0 | 0 | 0 | 25 | 24 |
+| 2 | 285 | 117 | 0 | 0 | 129 | 39 | 284 | 0 | 0 | 1 | 0 | 107 | 116 |
+| 3 | 84 | 28 | 0 | 0 | 44 | 12 | 83 | 0 | 1 | 0 | 0 | 45 | 50 |
+| 4 | 60 | 26 | 0 | 0 | 26 | 8 | 60 | 0 | 0 | 0 | 0 | 31 | 33 |
+| 5 | 60 | 21 | 0 | 0 | 26 | 13 | 60 | 0 | 0 | 0 | 0 | 27 | 28 |
+| 6 | 52 | 25 | 0 | 0 | 21 | 6 | 52 | 0 | 0 | 0 | 0 | 25 | 24 |
 | 7 | 52 | 14 | 0 | 0 | 27 | 11 | 49 | 0 | 2 | 1 | 0 | 25 | 25 |
-| 8 | 52 | 25 | 0 | 0 | 22 | 5 | 52 | 0 | 0 | 0 | 0 | 23 | 25 |
-| 9 | 52 | 24 | 0 | 0 | 23 | 5 | 52 | 0 | 0 | 0 | 0 | 22 | 22 |
-| 10 | 52 | 27 | 0 | 0 | 21 | 4 | 52 | 0 | 0 | 0 | 0 | 20 | 21 |
+| 8 | 52 | 24 | 0 | 0 | 22 | 6 | 52 | 0 | 0 | 0 | 0 | 23 | 25 |
+| 9 | 52 | 21 | 0 | 0 | 23 | 8 | 52 | 0 | 0 | 0 | 0 | 22 | 22 |
+| 10 | 52 | 26 | 0 | 0 | 21 | 5 | 52 | 0 | 0 | 0 | 0 | 20 | 21 |
 | 11 | 36 | 13 | 0 | 0 | 20 | 3 | 36 | 0 | 0 | 0 | 0 | 17 | 16 |
 | 12 | 36 | 14 | 0 | 0 | 20 | 2 | 36 | 0 | 0 | 0 | 0 | 19 | 18 |
 | 13 | 36 | 14 | 0 | 0 | 19 | 3 | 36 | 0 | 0 | 0 | 0 | 17 | 17 |
@@ -113,13 +113,16 @@ Cotas superiores com prova Lean externa da mesma cota (Florath, commit fixado, n
 | K2(12,9) | 2 | FORMALIZED | 2 | CLAIMED | sim |
 | K2(12,10) | 2 | FORMALIZED | 2 | CLAIMED | sim |
 | K2(13,1) | 704 | INDEPENDENTLY_REPRODUCED | 607 | CLAIMED | não |
+| K2(13,2) | 128 | INDEPENDENTLY_REPRODUCED | 101 | CLAIMED | não |
 | K2(13,3) | 42 | INDEPENDENTLY_REPRODUCED | 28 | CLAIMED | não |
+| K2(13,4) | 16 | INDEPENDENTLY_REPRODUCED | 12 | CLAIMED | não |
 | K2(13,6) | 2 | FORMALIZED | 2 | CLAIMED | sim |
 | K2(13,7) | 2 | FORMALIZED | 2 | CLAIMED | sim |
 | K2(13,8) | 2 | FORMALIZED | 2 | CLAIMED | sim |
 | K2(13,9) | 2 | FORMALIZED | 2 | CLAIMED | sim |
 | K2(13,10) | 2 | FORMALIZED | 2 | CLAIMED | sim |
 | K2(14,1) | 1408 | FORMALIZED | 1185 | CLAIMED | não |
+| K2(14,3) | 64 | INDEPENDENTLY_REPRODUCED | 44 | CLAIMED | não |
 | K2(14,4) | 28 | INDEPENDENTLY_REPRODUCED | 16 | CLAIMED | não |
 | K2(14,6) | 4 | FORMALIZED | 4 | CLAIMED | sim |
 | K2(14,7) | 2 | FORMALIZED | 2 | CLAIMED | sim |
@@ -129,6 +132,7 @@ Cotas superiores com prova Lean externa da mesma cota (Florath, commit fixado, n
 | K2(15,1) | 2048 | INDEPENDENTLY_REPRODUCED | 2048 | CLAIMED | sim |
 | K2(15,2) | 384 | INDEPENDENTLY_REPRODUCED | 310 | CLAIMED | não |
 | K2(15,4) | 32 | INDEPENDENTLY_REPRODUCED | 23 | CLAIMED | não |
+| K2(15,5) | 16 | INDEPENDENTLY_REPRODUCED | 12 | CLAIMED | não |
 | K2(15,7) | 2 | FORMALIZED | 2 | CLAIMED | sim |
 | K2(15,8) | 2 | FORMALIZED | 2 | CLAIMED | sim |
 | K2(15,9) | 2 | FORMALIZED | 2 | CLAIMED | sim |
@@ -144,6 +148,7 @@ Cotas superiores com prova Lean externa da mesma cota (Florath, commit fixado, n
 | K2(17,2) | 1536 | FORMALIZED | 889 | CLAIMED | não |
 | K2(17,3) | 320 | INDEPENDENTLY_REPRODUCED | 187 | CLAIMED | não |
 | K2(17,5) | 32 | INDEPENDENTLY_REPRODUCED | 20 | CLAIMED | não |
+| K2(17,6) | 16 | INDEPENDENTLY_REPRODUCED | 11 | CLAIMED | não |
 | K2(17,8) | 2 | FORMALIZED | 2 | CLAIMED | sim |
 | K2(17,9) | 2 | FORMALIZED | 2 | CLAIMED | sim |
 | K2(17,10) | 2 | FORMALIZED | 2 | CLAIMED | sim |
@@ -154,12 +159,15 @@ Cotas superiores com prova Lean externa da mesma cota (Florath, commit fixado, n
 | K2(18,8) | 4 | FORMALIZED | 4 | CLAIMED | sim |
 | K2(18,9) | 2 | FORMALIZED | 2 | CLAIMED | sim |
 | K2(18,10) | 2 | FORMALIZED | 2 | CLAIMED | sim |
+| K2(19,2) | 4096 | INDEPENDENTLY_REPRODUCED | 2898 | CLAIMED | não |
 | K2(19,3) | 1024 | FORMALIZED | 513 | CLAIMED | não |
 | K2(19,4) | 256 | INDEPENDENTLY_REPRODUCED | 128 | CLAIMED | não |
 | K2(19,5) | 64 | INDEPENDENTLY_REPRODUCED | 40 | CLAIMED | não |
 | K2(19,6) | 32 | INDEPENDENTLY_REPRODUCED | 17 | CLAIMED | não |
+| K2(19,7) | 16 | INDEPENDENTLY_REPRODUCED | 10 | CLAIMED | não |
 | K2(19,9) | 2 | FORMALIZED | 2 | CLAIMED | sim |
 | K2(19,10) | 2 | FORMALIZED | 2 | CLAIMED | sim |
+| K2(20,2) | 8192 | INDEPENDENTLY_REPRODUCED | 5330 | CLAIMED | não |
 | K2(20,3) | 2048 | FORMALIZED | 892 | CLAIMED | não |
 | K2(20,4) | 512 | FORMALIZED | 208 | CLAIMED | não |
 | K2(20,5) | 128 | FORMALIZED | 62 | CLAIMED | não |
@@ -183,15 +191,19 @@ Cotas superiores com prova Lean externa da mesma cota (Florath, commit fixado, n
 | K2(24,8) | 64 | FORMALIZED | 19 | CLAIMED | não |
 | K2(25,3) | 16384 | FORMALIZED | 13896 | CLAIMED | não |
 | K2(25,5) | 2048 | FORMALIZED | 608 | CLAIMED | não |
+| K2(26,2) | 262144 | INDEPENDENTLY_REPRODUCED | 192747 | CLAIMED | não |
 | K2(26,3) | 32768 | FORMALIZED | 24256 | CLAIMED | não |
 | K2(26,4) | 8192 | FORMALIZED | 4273 | CLAIMED | não |
 | K2(26,5) | 4096 | FORMALIZED | 981 | CLAIMED | não |
 | K2(26,6) | 1024 | FORMALIZED | 275 | CLAIMED | não |
 | K2(26,8) | 128 | FORMALIZED | 36 | CLAIMED | não |
+| K2(27,2) | 524288 | INDEPENDENTLY_REPRODUCED | 380496 | CLAIMED | não |
 | K2(27,3) | 65536 | FORMALIZED | 41012 | CLAIMED | não |
+| K2(28,2) | 1048576 | INDEPENDENTLY_REPRODUCED | 683980 | CLAIMED | não |
 | K2(28,3) | 131072 | FORMALIZED | 80835 | CLAIMED | não |
 | K2(28,5) | 8192 | FORMALIZED | 2646 | CLAIMED | não |
 | K2(28,9) | 128 | FORMALIZED | 30 | CLAIMED | não |
+| K2(29,2) | 2097152 | INDEPENDENTLY_REPRODUCED | 1239885 | CLAIMED | não |
 | K2(29,3) | 262144 | FORMALIZED | 140567 | CLAIMED | não |
 | K2(30,2) | 4194304 | FORMALIZED | 2461892 | CLAIMED | não |
 | K2(30,3) | 524288 | FORMALIZED | 248218 | CLAIMED | não |
@@ -239,6 +251,8 @@ Cotas superiores com prova Lean externa da mesma cota (Florath, commit fixado, n
 | K3(10,7) | 3 | FORMALIZED | 3 | CLAIMED | sim |
 | K3(10,8) | 3 | FORMALIZED | 3 | CLAIMED | sim |
 | K3(11,2) | 729 | INDEPENDENTLY_REPRODUCED | 729 | CLAIMED | sim |
+| K3(11,3) | 243 | INDEPENDENTLY_REPRODUCED | 129 | CLAIMED | não |
+| K3(11,4) | 81 | INDEPENDENTLY_REPRODUCED | 34 | CLAIMED | não |
 | K3(11,5) | 27 | FORMALIZED | 12 | CLAIMED | não |
 | K3(11,6) | 9 | FORMALIZED | 9 | CLAIMED | sim |
 | K3(11,7) | 3 | FORMALIZED | 3 | CLAIMED | sim |
@@ -250,6 +264,9 @@ Cotas superiores com prova Lean externa da mesma cota (Florath, commit fixado, n
 | K3(13,8) | 3 | FORMALIZED | 3 | CLAIMED | sim |
 | K3(14,1) | 177147 | FORMALIZED | 166610 | CLAIMED | não |
 | K3(14,2) | 19683 | FORMALIZED | 12323 | CLAIMED | não |
+| K3(14,4) | 729 | INDEPENDENTLY_REPRODUCED | 273 | CLAIMED | não |
+| K3(14,5) | 243 | INDEPENDENTLY_REPRODUCED | 69 | CLAIMED | não |
+| K3(14,6) | 81 | INDEPENDENTLY_REPRODUCED | 24 | CLAIMED | não |
 | K3(14,7) | 27 | FORMALIZED | 11 | CLAIMED | não |
 | K3(14,8) | 9 | FORMALIZED | 9 | CLAIMED | sim |
 | K4(1,1) | 1 | FORMALIZED | 1 | CLAIMED | sim |
@@ -265,6 +282,7 @@ Cotas superiores com prova Lean externa da mesma cota (Florath, commit fixado, n
 | K4(5,3) | 4 | FORMALIZED | 4 | CLAIMED | sim |
 | K4(5,4) | 4 | FORMALIZED | 4 | CLAIMED | sim |
 | K4(5,5) | 1 | FORMALIZED | 1 | CLAIMED | sim |
+| K4(6,1) | 256 | INDEPENDENTLY_REPRODUCED | 228 | CLAIMED | não |
 | K4(6,4) | 4 | FORMALIZED | 4 | CLAIMED | sim |
 | K4(6,5) | 4 | FORMALIZED | 4 | CLAIMED | sim |
 | K4(6,6) | 1 | FORMALIZED | 1 | CLAIMED | sim |
@@ -274,9 +292,12 @@ Cotas superiores com prova Lean externa da mesma cota (Florath, commit fixado, n
 | K4(8,6) | 4 | FORMALIZED | 4 | CLAIMED | sim |
 | K4(8,7) | 4 | FORMALIZED | 4 | CLAIMED | sim |
 | K4(8,8) | 1 | FORMALIZED | 1 | CLAIMED | sim |
+| K4(9,2) | 1024 | INDEPENDENTLY_REPRODUCED | 775 | CLAIMED | não |
+| K4(9,3) | 256 | INDEPENDENTLY_REPRODUCED | 116 | CLAIMED | não |
 | K4(9,6) | 4 | FORMALIZED | 4 | CLAIMED | sim |
 | K4(9,7) | 4 | FORMALIZED | 4 | CLAIMED | sim |
 | K4(9,8) | 4 | FORMALIZED | 4 | CLAIMED | sim |
+| K4(10,2) | 4096 | INDEPENDENTLY_REPRODUCED | 2460 | CLAIMED | não |
 | K4(10,4) | 192 | INDEPENDENTLY_REPRODUCED | 62 | CLAIMED | não |
 | K4(10,6) | 16 | FORMALIZED | 8 | CLAIMED | não |
 | K4(10,7) | 4 | FORMALIZED | 4 | CLAIMED | sim |
@@ -294,6 +315,8 @@ Cotas superiores com prova Lean externa da mesma cota (Florath, commit fixado, n
 | K5(5,4) | 5 | FORMALIZED | 5 | CLAIMED | sim |
 | K5(5,5) | 1 | FORMALIZED | 1 | CLAIMED | sim |
 | K5(6,1) | 625 | INDEPENDENTLY_REPRODUCED | 625 | CLAIMED | sim |
+| K5(6,2) | 125 | INDEPENDENTLY_REPRODUCED | 71 | CLAIMED | não |
+| K5(6,3) | 25 | INDEPENDENTLY_REPRODUCED | 16 | CLAIMED | não |
 | K5(6,4) | 5 | FORMALIZED | 5 | CLAIMED | sim |
 | K5(6,5) | 5 | FORMALIZED | 5 | CLAIMED | sim |
 | K5(6,6) | 1 | FORMALIZED | 1 | CLAIMED | sim |
@@ -316,6 +339,7 @@ Cotas superiores com prova Lean externa da mesma cota (Florath, commit fixado, n
 | K5(10,4) | 625 | INDEPENDENTLY_REPRODUCED | 177 | CLAIMED | não |
 | K5(10,5) | 162 | INDEPENDENTLY_REPRODUCED | 41 | CLAIMED | não |
 | K5(10,8) | 5 | FORMALIZED | 5 | CLAIMED | sim |
+| K5(11,3) | 15625 | INDEPENDENTLY_REPRODUCED | 4366 | CLAIMED | não |
 | K5(11,4) | 2875 | INDEPENDENTLY_REPRODUCED | 546 | CLAIMED | não |
 | K5(11,8) | 5 | FORMALIZED | 5 | CLAIMED | sim |
 | K6(1,1) | 1 | FORMALIZED | 1 | CLAIMED | sim |
@@ -333,6 +357,7 @@ Cotas superiores com prova Lean externa da mesma cota (Florath, commit fixado, n
 | K6(6,4) | 10 | INDEPENDENTLY_REPRODUCED | 10 | CLAIMED | sim |
 | K6(6,5) | 6 | FORMALIZED | 6 | CLAIMED | sim |
 | K6(6,6) | 1 | FORMALIZED | 1 | CLAIMED | sim |
+| K6(7,2) | 1296 | INDEPENDENTLY_REPRODUCED | 528 | CLAIMED | não |
 | K6(7,4) | 36 | INDEPENDENTLY_REPRODUCED | 18 | CLAIMED | não |
 | K6(7,5) | 6 | FORMALIZED | 6 | CLAIMED | sim |
 | K6(7,6) | 6 | FORMALIZED | 6 | CLAIMED | sim |
@@ -396,6 +421,7 @@ Cotas superiores com prova Lean externa da mesma cota (Florath, commit fixado, n
 | K8(5,5) | 1 | FORMALIZED | 1 | CLAIMED | sim |
 | K8(6,5) | 8 | FORMALIZED | 8 | CLAIMED | sim |
 | K8(6,6) | 1 | FORMALIZED | 1 | CLAIMED | sim |
+| K8(7,2) | 4096 | INDEPENDENTLY_REPRODUCED | 1984 | CLAIMED | não |
 | K8(7,4) | 92 | INDEPENDENTLY_REPRODUCED | 37 | CLAIMED | não |
 | K8(7,5) | 16 | INDEPENDENTLY_REPRODUCED | 14 | CLAIMED | não |
 | K8(7,6) | 8 | FORMALIZED | 8 | CLAIMED | sim |
@@ -424,10 +450,13 @@ Cotas superiores com prova Lean externa da mesma cota (Florath, commit fixado, n
 | K9(5,5) | 1 | FORMALIZED | 1 | CLAIMED | sim |
 | K9(6,5) | 9 | FORMALIZED | 9 | CLAIMED | sim |
 | K9(6,6) | 1 | FORMALIZED | 1 | CLAIMED | sim |
+| K9(7,2) | 6561 | INDEPENDENTLY_REPRODUCED | 3536 | CLAIMED | não |
 | K9(7,4) | 120 | INDEPENDENTLY_REPRODUCED | 51 | CLAIMED | não |
 | K9(7,5) | 21 | INDEPENDENTLY_REPRODUCED | 16 | CLAIMED | não |
 | K9(7,6) | 9 | FORMALIZED | 9 | CLAIMED | sim |
 | K9(7,7) | 1 | FORMALIZED | 1 | CLAIMED | sim |
+| K9(8,2) | 59049 | INDEPENDENTLY_REPRODUCED | 23642 | CLAIMED | não |
+| K9(8,3) | 6561 | INDEPENDENTLY_REPRODUCED | 1464 | CLAIMED | não |
 | K9(8,4) | 729 | FORMALIZED | 181 | CLAIMED | não |
 | K9(8,5) | 120 | FORMALIZED | 39 | CLAIMED | não |
 | K9(8,6) | 17 | FORMALIZED | 15 | CLAIMED | não |
@@ -458,6 +487,7 @@ Cotas superiores com prova Lean externa da mesma cota (Florath, commit fixado, n
 | K10(8,6) | 22 | FORMALIZED | 17 | CLAIMED | não |
 | K10(8,7) | 10 | FORMALIZED | 10 | CLAIMED | sim |
 | K10(8,8) | 1 | FORMALIZED | 1 | CLAIMED | sim |
+| K10(9,2) | 1000000 | INDEPENDENTLY_REPRODUCED | 337394 | CLAIMED | não |
 | K10(9,4) | 8500 | FORMALIZED | 1160 | CLAIMED | não |
 | K10(9,7) | 18 | FORMALIZED | 16 | CLAIMED | não |
 | K10(9,8) | 10 | FORMALIZED | 10 | CLAIMED | sim |

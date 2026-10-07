@@ -48,8 +48,22 @@ def test_paper_digita_a_mao_uma_contagem_do_ledger():
     """
     sem_comentarios = re.sub(r"(?<!\\)%.*", "", TEX)
     grandes = {v for v in pn.numeros(LEDGER).values() if v.isdigit() and len(v) >= 3}
-    achados = {v for v in grandes if re.search(rf"(?<![\d.,]){v}(?![\d.,])", sem_comentarios)}
+    achados = {v for v in grandes if _digitado(v, sem_comentarios)}
     assert not achados, f"contagem do ledger digitada no main.tex: {sorted(achados)} (use a macro de numeros.tex)"
+
+
+def _digitado(v: str, texto: str) -> bool:
+    """`v` aparece como número inteiro no texto. O espaço fino do LaTeX (`117\\,649`) separa milhares:
+    o pedaço de um número maior não é a contagem (falso positivo medido com 117 no `7^6 = 117\\,649`), nem o
+    de um hexadecimal (700 no sha256 `2a700e2f`)."""
+    return re.search(rf"(?<![\w.,])(?<!\\,){v}(?![\w.,])(?!\\,\d)", texto) is not None
+
+
+def test_pedaco_de_numero_ou_de_hexadecimal_nao_conta_como_contagem_digitada():
+    assert not _digitado("117", r"sobre as $7^6=117\,649$ palavras")
+    assert not _digitado("649", r"sobre as $7^6=117\,649$ palavras")
+    assert not _digitado("700", r"\texttt{2a700e2f}")
+    assert _digitado("117", r"são $117$ cotas")
 
 
 def test_gerador_ignora_mudanca_de_estado_no_ledger():
