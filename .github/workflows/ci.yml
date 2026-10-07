@@ -5,9 +5,10 @@
 #   ci.yml           ruff, higiene (tamanho/JSON/segredo/caminho), pytest de `tests` e `infinito/tests`
 #                    COM nauty (libnauty-dev): com a variável CI definida o teste do motor de exatos não pula,
 #                    falta de nauty aparece como falha (medido no 1º run: 65 testes, `nauty/nauty.h` ausente).
-#                    Sempre roda.
-#   verify-codes.yml verificador C oficial + check_all sobre data/codes, pytest de `tests` COM nauty
-#                    e `lake build` do alvo padrão. Só com mudança em dados/Lean/ferramentas.
+#                    Sempre roda. É o ÚNICO lugar do pytest (até 2026-10-07 o verify-codes rodava `tests` de
+#                    novo, ~5 min a mais por push com dado: 1.762 min em 3 dias, o job mais caro do repo).
+#   verify-codes.yml verificador C oficial + check_all sobre data/codes e `lake build` do alvo padrão.
+#                    Só com mudança em dados/Lean/ferramentas.
 #   lean-syn.yml     `lake build CoveringSyn` (certificados por síndromes, 20-40 min). Só quando
 #                    algo que o certificado lê muda.
 # Os dois últimos têm filtro de caminho, então NÃO podem ser checks obrigatórios (um PR que não
@@ -61,10 +62,13 @@ jobs:
         run: sudo apt-get install -y -qq libnauty-dev >/dev/null || (sudo apt-get update -qq && sudo apt-get install -y -qq libnauty-dev >/dev/null)
       # Só o necessário: pytest, numpy (scripts/syndrome/gen_syn.py), httpx (TestClient do
       # Starlette em infinito/tests) e as dependências declaradas do servidor Infinito.
-      - run: python -m pip install --quiet pytest==8.4.2 numpy==2.4.6 httpx -r infinito/requirements.txt
+      - run: python -m pip install --quiet pytest==8.4.2 pytest-xdist==3.8.0 numpy==2.4.6 httpx -r infinito/requirements.txt
       # Inclui tests/test_repo_higiene.py: tamanho, JSON de dados, caminho de máquina e segredos.
+      # `-n auto`: um processo por núcleo (4 no runner hospedado). Medido em 2026-10-07 numa máquina de
+      # 4 núcleos: 893 testes em série 11 min 06 s, com `-n auto` 3 min 24 s, mesmos 893 passed / 16 skipped,
+      # em ordem aleatória (pytest-randomly) para provar que nenhum teste depende de ordem ou estado comum.
       - name: Testes e higiene
-        run: python -m pytest -q tests infinito/tests
+        run: python -m pytest -q -n auto tests infinito/tests
 
   # Único check obrigatório: falha se qualquer job acima falhar, for cancelado ou pular.
   gate:

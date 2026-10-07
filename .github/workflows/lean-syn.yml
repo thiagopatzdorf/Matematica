@@ -31,6 +31,10 @@ on:
 permissions:
   contents: read
 
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+
 jobs:
   syn:
     name: lake build CoveringSyn (certificados por síndromes)
@@ -38,6 +42,16 @@ jobs:
     timeout-minutes: 150
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      # Cache dos .olean do projeto (.lake/build), mesma regra do verify-codes.yml: o lake recompila só o
+      # módulo cujo fonte mudou (hash no .trace). Medido 05–07/10: 37 min por run, quase tudo recompilando
+      # ~500 módulos que não mudaram. Com o cache, as 6 folhas pesadas (≈31 GB se rodassem juntas) só
+      # recompilam quando o certificado delas muda, e aí seguem em série como abaixo: memória de pico de
+      # uma folha (≤ 7,5 GB, linhas PICO), nunca a soma. Só a main grava.
+      - uses: actions/cache/restore@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
+        with:
+          path: .lake/build
+          key: lake-syn-${{ runner.os }}-${{ hashFiles('lean-toolchain', 'lake-manifest.json', 'lakefile.toml') }}-${{ github.sha }}
+          restore-keys: lake-syn-${{ runner.os }}-${{ hashFiles('lean-toolchain', 'lake-manifest.json', 'lakefile.toml') }}-
       - uses: leanprover/lean-action@f061402b660e0c34644504b324e830f2991d4865 # v1.6.1
         with:
           auto-config: false
@@ -64,6 +78,12 @@ jobs:
           lake build CoveringSyn
           echo "MON fim $(free -m | awk '/Mem:/{print "mem_usada="$3"MB"}') disco_livre=$(df -h / | awk 'NR==2{print $4}') lake=$(du -sh .lake | cut -f1)"
           kill "$MON"
+      # Grava logo depois do build (antes dos axiomas): um run que falhe nos axiomas não perde a compilação.
+      - if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+        uses: actions/cache/save@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
+        with:
+          path: .lake/build
+          key: lake-syn-${{ runner.os }}-${{ hashFiles('lean-toolchain', 'lake-manifest.json', 'lakefile.toml') }}-${{ github.sha }}
       # Cada teorema final só com os três axiomas padrão.
       - name: axiomas dos teoremas finais
         run: |
