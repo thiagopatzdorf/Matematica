@@ -1,0 +1,28 @@
+q=4 n=7 R=4 M=9 smin=1 mutante=None cobertura=False: 2000 testes, 0 UNSAT
+q=4 n=6 R=3 M=11 smin=1 mutante=None cobertura=False: 2000 testes, 0 UNSAT
+q=4 n=7 R=4 M=9 smin=1 mutante=None cobertura=False: 60 testes, 0 UNSAT
+q=4 n=7 R=4 M=9 smin=1 mutante=h_ambos cobertura=False: 60 testes, 51 UNSAT
+q=4 n=7 R=4 M=9 smin=1 mutante=e_sem_classe cobertura=False: 60 testes, 12 UNSAT
+q=4 n=7 R=4 M=9 smin=1 mutante=f_sem_classe cobertura=False: 60 testes, 58 UNSAT
+q=4 n=7 R=4 M=9 smin=1 mutante=g_tipos_diferentes cobertura=False: 60 testes, 47 UNSAT
+q=4 n=6 R=3 M=11 smin=1 mutante=None cobertura=False: 60 testes, 0 UNSAT
+q=4 n=6 R=3 M=11 smin=1 mutante=h_ambos cobertura=False: 60 testes, 39 UNSAT
+q=4 n=6 R=3 M=11 smin=1 mutante=e_sem_classe cobertura=False: 60 testes, 4 UNSAT
+q=4 n=6 R=3 M=11 smin=1 mutante=f_sem_classe cobertura=False: 60 testes, 55 UNSAT
+q=4 n=6 R=3 M=11 smin=1 mutante=g_tipos_diferentes cobertura=False: 60 testes, 33 UNSAT
+q=4 n=4 R=2 M=10 smin=0 mutante=None cobertura=False: 60 testes, 0 UNSAT
+q=4 n=4 R=2 M=10 smin=0 mutante=h_ambos cobertura=False: 60 testes, 21 UNSAT
+q=4 n=4 R=2 M=10 smin=0 mutante=e_sem_classe cobertura=False: 60 testes, 8 UNSAT
+q=4 n=4 R=2 M=10 smin=0 mutante=f_sem_classe cobertura=False: 60 testes, 26 UNSAT
+q=4 n=4 R=2 M=10 smin=0 mutante=g_tipos_diferentes cobertura=False: 60 testes, 14 UNSAT
+q=4 n=7 R=4 M=9 smin=1 mutante=None: 500 testes adversariais, 0 UNSAT, 0 sem código
+q=4 n=6 R=3 M=11 smin=1 mutante=None: 500 testes adversariais, 0 UNSAT, 0 sem código
+tipos das colunas: [(3, 3, 3, 1), (3, 3, 3, 1), (3, 3, 3, 1), (3, 3, 3, 1), (3, 3, 3, 1), (3, 3, 3, 1), (3, 3, 3, 1)] smin ledger: 1
+ordem min: CNF completa (com cobertura) na órbita do código real: SAT (35s)
+ordem max: CNF completa (com cobertura) na órbita do código real: SAT (36s)
+K_4(7,4) M=9: 792 perfis, 792 fechados (UNSAT + LRAT conferido), 0 faltando, 0 SAT
+soma solver 24563 s, soma lrat-check 2757 s, LRAT 151.3 GB
+sha256 das CNFs regeneradas: 954/954 batem
+K_4(6,3) M=11: 8008 perfis, 8008 fechados (UNSAT + LRAT conferido), 0 faltando, 0 SAT
+soma solver 66550 s, soma lrat-check 9496 s, LRAT 402.1 GB
+sha256 das CNFs regeneradas: 10090/10090 batem
