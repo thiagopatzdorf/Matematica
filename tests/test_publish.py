@@ -24,7 +24,7 @@ def _ledger_com(kernel: int, claimed: int, destino) -> str:
 
 
 def _contagem_do_paper():
-    tex = (RAIZ / "paper" / "main.tex").read_text(encoding="utf-8").replace(r"\allowbreak ", "")
+    tex = zn.ler_tex(RAIZ / "paper" / "main.tex").replace(r"\allowbreak ", "")
     k = int(re.search(r"\$(\d+)\$ of the \$\d+\$ upper bounds", tex).group(1))
     c = int(re.search(r"The other \$(\d+)\$ upper bounds are only claimed", tex).group(1))
     return k, c
@@ -194,7 +194,7 @@ def test_pagina_genesis_escapa_texto_vindo_do_zenodo_json():
 
 def _paper_sem_quebras():
     """main.tex com \\allowbreak removido, para casar nomes de declaração do Lean."""
-    return (RAIZ / "paper" / "main.tex").read_text(encoding="utf-8").replace(r"\allowbreak ", "")
+    return zn.ler_tex(RAIZ / "paper" / "main.tex").replace(r"\allowbreak ", "")
 
 
 def test_contagem_do_paper_e_do_zenodo_diverge_do_ledger():
