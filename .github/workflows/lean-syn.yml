@@ -42,21 +42,23 @@ jobs:
     timeout-minutes: 150
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
-      # Cache dos .olean do projeto (.lake/build), mesma regra do verify-codes.yml: o lake recompila só o
-      # módulo cujo fonte mudou (hash no .trace). Medido 05–07/10: 37 min por run, quase tudo recompilando
-      # ~500 módulos que não mudaram. Com o cache, as 6 folhas pesadas (≈31 GB se rodassem juntas) só
-      # recompilam quando o certificado delas muda, e aí seguem em série como abaixo: memória de pico de
-      # uma folha (≤ 7,5 GB, linhas PICO), nunca a soma. Só a main grava.
-      - uses: actions/cache/restore@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
-        with:
-          path: .lake/build
-          key: lake-syn-${{ runner.os }}-${{ hashFiles('lean-toolchain', 'lake-manifest.json', 'lakefile.toml') }}-${{ github.sha }}
-          restore-keys: lake-syn-${{ runner.os }}-${{ hashFiles('lean-toolchain', 'lake-manifest.json', 'lakefile.toml') }}-
       - uses: leanprover/lean-action@f061402b660e0c34644504b324e830f2991d4865 # v1.6.1
         with:
           auto-config: false
           use-mathlib-cache: true
           build: false
+      # Cache dos .olean do projeto (.lake/build), DEPOIS da lean-action para prevalecer sobre ela. A
+      # lean-action já guarda o `.lake` inteiro sob `lake-<SO>-<hashes>-<sha>`, a mesma chave que o job
+      # `lean` do verify-codes (alvo padrão, 2 min) grava no mesmo sha; o que ela restaura aqui não traz os
+      # .olean do CoveringSyn (medido 05–07/10: 37 min por run, ~500 módulos recompilados toda vez). Esta
+      # chave é só deste job, e o lake recompila só o módulo cujo fonte mudou (hash no .trace). Com ela, as
+      # 6 folhas pesadas (≈31 GB se rodassem juntas) só recompilam quando o certificado delas muda, e aí
+      # seguem em série como abaixo: pico de uma folha (≤ 7,5 GB, linhas PICO), nunca a soma. Só a main grava.
+      - uses: actions/cache/restore@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
+        with:
+          path: .lake/build
+          key: lake-syn-${{ runner.os }}-${{ hashFiles('lean-toolchain', 'lake-manifest.json', 'lakefile.toml') }}-${{ github.sha }}
+          restore-keys: lake-syn-${{ runner.os }}-${{ hashFiles('lean-toolchain', 'lake-manifest.json', 'lakefile.toml') }}-
       # O runner hospedado (16 GB) recebeu "shutdown signal" duas vezes no #107 (exit 143) no mesmo
       # ponto: logo depois de SynLeaf_K2_21_3_3072_4, quando o lake pôs para rodar juntas as folhas que
       # mais custam (K2_21_3_3072_0..3 ~150 s cada, K2_24_5_1024_0 ~170 s, K2_23_4_2048_0 ~70 s; tempos
