@@ -1,0 +1,80 @@
+{"v": 5, "M": 26, "y": [2, 2, 5, 3, 3, 2, 3, 3, 3], "p": 8, "motor": "scip", "status": "UNSAT", "seg": 1.81, "tempo_limite": 600, "origem": "controle:nova:s0", "nos": 5}
+{"v": 5, "M": 26, "y": [2, 2, 5, 3, 3, 2, 3, 4, 2], "p": 8, "motor": "scip", "status": "UNSAT", "seg": 1.94, "tempo_limite": 600, "origem": "controle:nova:s0", "nos": 5}
+{"v": 5, "M": 26, "y": [2, 2, 4, 3, 4, 2, 4, 3, 2], "p": 8, "motor": "scip", "status": "UNSAT", "seg": 2.43, "tempo_limite": 600, "origem": "controle:nova:s0", "nos": 29}
+{"v": 5, "M": 26, "y": [2, 3, 3, 3, 2, 3, 4, 4, 2], "p": 8, "motor": "highs", "status": "UNSAT", "seg": 0.34, "tempo_limite": 600, "origem": "controle:nova:s0", "nos": 1, "status_bruto": "Infeasible"}
+{"v": 5, "M": 26, "y": [2, 2, 6, 3, 3, 2, 3, 3, 2], "p": 8, "motor": "scip", "status": "UNSAT", "seg": 2.56, "tempo_limite": 600, "origem": "controle:nova:s0", "nos": 43}
+{"v": 5, "M": 26, "y": [2, 3, 3, 3, 2, 4, 4, 3, 2], "p": 8, "motor": "highs", "status": "UNSAT", "seg": 0.34, "tempo_limite": 600, "origem": "controle:nova:s0", "nos": 1, "status_bruto": "Infeasible"}
+{"v": 5, "M": 26, "y": [2, 3, 3, 3, 2, 3, 4, 4, 2], "p": 8, "motor": "scip", "status": "UNSAT", "seg": 2.82, "tempo_limite": 600, "origem": "controle:nova:s0", "nos": 45}
+{"v": 5, "M": 26, "y": [2, 2, 5, 3, 3, 2, 3, 4, 2], "p": 8, "motor": "highs", "status": "UNSAT", "seg": 5.75, "tempo_limite": 600, "origem": "controle:nova:s0", "nos": 106, "status_bruto": "Infeasible"}
+{"v": 5, "M": 26, "y": [2, 2, 4, 3, 4, 2, 4, 3, 2], "p": 8, "motor": "highs", "status": "UNSAT", "seg": 6.0, "tempo_limite": 600, "origem": "controle:nova:s0", "nos": 92, "status_bruto": "Infeasible"}
+{"v": 5, "M": 26, "y": [2, 3, 3, 3, 2, 4, 4, 3, 2], "p": 8, "motor": "scip", "status": "UNSAT", "seg": 1.99, "tempo_limite": 600, "origem": "controle:nova:s0", "nos": 9}
+{"v": 5, "M": 26, "y": [2, 2, 5, 3, 3, 2, 3, 3, 3], "p": 8, "motor": "highs", "status": "UNSAT", "seg": 8.36, "tempo_limite": 600, "origem": "controle:nova:s0", "nos": 10, "status_bruto": "Infeasible"}
+{"v": 5, "M": 26, "y": [2, 2, 4, 2, 5, 2, 5, 2, 2], "p": 8, "motor": "highs", "status": "UNSAT", "seg": 8.46, "tempo_limite": 600, "origem": "controle:nova:s0", "nos": 32, "status_bruto": "Infeasible"}
+{"v": 5, "M": 26, "y": [2, 2, 6, 3, 3, 2, 3, 3, 2], "p": 8, "motor": "highs", "status": "UNSAT", "seg": 8.03, "tempo_limite": 600, "origem": "controle:nova:s0", "nos": 174, "status_bruto": "Infeasible"}
+{"v": 5, "M": 26, "y": [2, 3, 3, 3, 3, 3, 4, 2, 3], "p": 8, "motor": "scip", "status": "UNSAT", "seg": 4.59, "tempo_limite": 600, "origem": "controle:nova:s0", "nos": 194}
+{"v": 5, "M": 26, "y": [2, 2, 4, 2, 5, 2, 5, 2, 2], "p": 8, "motor": "scip", "status": "UNSAT", "seg": 11.53, "tempo_limite": 600, "origem": "controle:nova:s0", "nos": 1}
+{"v": 5, "M": 26, "y": [2, 3, 3, 3, 3, 3, 4, 2, 3], "p": 8, "motor": "highs", "status": "UNSAT", "seg": 8.99, "tempo_limite": 600, "origem": "controle:nova:s0", "nos": 256, "status_bruto": "Infeasible"}
+{"v": 6, "M": 59, "y": [6, 6, 7, 6, 8, 6, 8, 6, 6], "p": 19, "motor": "scip", "status": "UNSAT", "seg": 39.39, "tempo_limite": 900, "origem": "rs_M59.jsonl", "nos": 3}
+{"v": 6, "M": 59, "y": [6, 6, 7, 7, 7, 6, 7, 7, 6], "p": 19, "motor": "scip", "status": "UNSAT", "seg": 43.18, "tempo_limite": 900, "origem": "rs_M59.jsonl", "nos": 11}
+{"v": 6, "M": 60, "y": [6, 6, 7, 6, 7, 7, 8, 7, 6], "p": 20, "motor": "scip", "status": "UNSAT", "seg": 67.17, "tempo_limite": 900, "origem": "rs_M60.jsonl", "nos": 55}
+{"v": 6, "M": 60, "y": [6, 6, 7, 6, 7, 6, 8, 7, 7], "p": 20, "motor": "scip", "status": "UNSAT", "seg": 34.45, "tempo_limite": 900, "origem": "rs_M60.jsonl", "nos": 3}
+{"v": 6, "M": 59, "y": [6, 6, 7, 7, 7, 6, 7, 7, 6], "p": 19, "motor": "highs", "status": "UNSAT", "seg": 82.63, "tempo_limite": 900, "origem": "rs_M59.jsonl", "nos": 2, "status_bruto": "Infeasible"}
+{"v": 6, "M": 60, "y": [6, 6, 8, 7, 7, 6, 7, 7, 6], "p": 20, "motor": "scip", "status": "UNSAT", "seg": 106.16, "tempo_limite": 900, "origem": "rs_M60.jsonl", "nos": 83}
+{"v": 6, "M": 60, "y": [6, 6, 7, 6, 8, 6, 8, 7, 6], "p": 19, "motor": "scip", "status": "UNSAT", "seg": 37.65, "tempo_limite": 900, "origem": "rs_M60.jsonl", "nos": 3}
+{"v": 6, "M": 59, "y": [6, 6, 7, 6, 8, 6, 8, 6, 6], "p": 19, "motor": "highs", "status": "UNSAT", "seg": 134.43, "tempo_limite": 900, "origem": "rs_M59.jsonl", "nos": 76, "status_bruto": "Infeasible"}
+{"v": 6, "M": 60, "y": [6, 6, 7, 6, 7, 7, 8, 7, 6], "p": 20, "motor": "highs", "status": "UNSAT", "seg": 137.8, "tempo_limite": 900, "origem": "rs_M60.jsonl", "nos": 2, "status_bruto": "Infeasible"}
+{"v": 6, "M": 60, "y": [6, 6, 7, 6, 6, 7, 8, 8, 6], "p": 20, "motor": "scip", "status": "UNSAT", "seg": 33.32, "tempo_limite": 900, "origem": "rs_M60.jsonl", "nos": 3}
+{"v": 6, "M": 60, "y": [6, 6, 7, 6, 7, 6, 8, 7, 7], "p": 20, "motor": "highs", "status": "UNSAT", "seg": 112.48, "tempo_limite": 900, "origem": "rs_M60.jsonl", "nos": 2, "status_bruto": "Infeasible"}
+{"v": 6, "M": 60, "y": [6, 6, 7, 6, 8, 6, 8, 6, 7], "p": 20, "motor": "scip", "status": "UNSAT", "seg": 34.37, "tempo_limite": 900, "origem": "rs_M60.jsonl", "nos": 5}
+{"v": 6, "M": 60, "y": [6, 6, 7, 6, 6, 7, 8, 8, 6], "p": 20, "motor": "highs", "status": "UNSAT", "seg": 125.34, "tempo_limite": 900, "origem": "rs_M60.jsonl", "nos": 2, "status_bruto": "Infeasible"}
+{"v": 6, "M": 60, "y": [6, 6, 7, 6, 8, 6, 8, 7, 6], "p": 19, "motor": "highs", "status": "UNSAT", "seg": 171.19, "tempo_limite": 900, "origem": "rs_M60.jsonl", "nos": 124, "status_bruto": "Infeasible"}
+{"v": 6, "M": 60, "y": [6, 6, 7, 6, 8, 6, 8, 6, 7], "p": 20, "motor": "highs", "status": "UNSAT", "seg": 150.54, "tempo_limite": 900, "origem": "rs_M60.jsonl", "nos": 2, "status_bruto": "Infeasible"}
+{"v": 6, "M": 62, "y": [6, 6, 7, 6, 7, 6, 8, 8, 8], "p": 20, "motor": "scip", "status": "UNSAT", "seg": 63.77, "tempo_limite": 900, "origem": "rs_M62.jsonl", "nos": 71}
+{"v": 6, "M": 62, "y": [6, 6, 7, 6, 7, 8, 8, 7, 7], "p": 20, "motor": "scip", "status": "UNSAT", "seg": 180.24, "tempo_limite": 900, "origem": "rs_M62.jsonl", "nos": 129}
+{"v": 6, "M": 60, "y": [6, 6, 8, 7, 7, 6, 7, 7, 6], "p": 20, "motor": "highs", "status": "UNSAT", "seg": 332.78, "tempo_limite": 900, "origem": "rs_M60.jsonl", "nos": 528, "status_bruto": "Infeasible"}
+{"v": 6, "M": 62, "y": [6, 6, 7, 6, 8, 7, 8, 7, 7], "p": 20, "motor": "scip", "status": "UNSAT", "seg": 42.54, "tempo_limite": 900, "origem": "rs_M62.jsonl", "nos": 17}
+{"v": 6, "M": 62, "y": [6, 6, 8, 7, 7, 6, 7, 9, 6], "p": 20, "motor": "scip", "status": "UNSAT", "seg": 202.38, "tempo_limite": 900, "origem": "rs_M62.jsonl", "nos": 353}
+{"v": 6, "M": 62, "y": [6, 6, 7, 6, 7, 7, 9, 8, 6], "p": 20, "motor": "scip", "status": "UNSAT", "seg": 97.79, "tempo_limite": 900, "origem": "rs_M62.jsonl", "nos": 69}
+{"v": 6, "M": 62, "y": [6, 6, 8, 6, 8, 6, 8, 6, 8], "p": 20, "motor": "scip", "status": "UNSAT", "seg": 75.83, "tempo_limite": 900, "origem": "rs_M62.jsonl", "nos": 55}
+{"v": 6, "M": 62, "y": [6, 6, 7, 6, 7, 8, 8, 7, 7], "p": 20, "motor": "highs", "status": "TEMPO", "seg": 900.01, "tempo_limite": 900, "origem": "rs_M62.jsonl", "nos": 2558, "status_bruto": "Time limit reached"}
+{"v": 6, "M": 62, "y": [6, 6, 8, 7, 7, 6, 7, 9, 6], "p": 20, "motor": "highs", "status": "TEMPO", "seg": 900.0, "tempo_limite": 900, "origem": "rs_M62.jsonl", "nos": 2259, "status_bruto": "Time limit reached"}
+{"v": 6, "M": 62, "y": [6, 6, 7, 6, 7, 6, 8, 8, 8], "p": 20, "motor": "highs", "status": "TEMPO", "seg": 900.0, "tempo_limite": 900, "origem": "rs_M62.jsonl", "nos": 1922, "status_bruto": "Time limit reached"}
+{"v": 6, "M": 62, "y": [6, 6, 7, 6, 8, 7, 8, 7, 7], "p": 20, "motor": "highs", "status": "TEMPO", "seg": 900.02, "tempo_limite": 900, "origem": "rs_M62.jsonl", "nos": 2109, "status_bruto": "Time limit reached"}
+{"v": 6, "M": 62, "y": [6, 6, 7, 6, 7, 7, 9, 8, 6], "p": 20, "motor": "highs", "status": "TEMPO", "seg": 900.0, "tempo_limite": 900, "origem": "rs_M62.jsonl", "nos": 2353, "status_bruto": "Time limit reached"}
+{"v": 6, "M": 62, "y": [6, 6, 8, 6, 8, 6, 8, 6, 8], "p": 20, "motor": "highs", "status": "TEMPO", "seg": 900.0, "tempo_limite": 900, "origem": "rs_M62.jsonl", "nos": 1979, "status_bruto": "Time limit reached"}
+{"v": 6, "M": 64, "y": [6, 6, 7, 6, 9, 7, 10, 7, 6], "p": 20, "motor": "highs", "status": "TEMPO", "seg": 900.0, "tempo_limite": 900, "origem": "nova:s7", "nos": 3040, "status_bruto": "Time limit reached"}
+{"v": 6, "M": 64, "y": [6, 6, 7, 6, 9, 7, 10, 7, 6], "p": 20, "motor": "scip", "status": "TEMPO", "seg": 900.03, "tempo_limite": 900, "origem": "nova:s7", "nos": 1414}
+{"v": 6, "M": 64, "y": [6, 6, 7, 6, 7, 8, 9, 8, 7], "p": 21, "motor": "highs", "status": "TEMPO", "seg": 900.04, "tempo_limite": 900, "origem": "nova:s7", "nos": 2902, "status_bruto": "Time limit reached"}
+{"v": 6, "M": 64, "y": [6, 6, 7, 6, 7, 8, 9, 8, 7], "p": 21, "motor": "scip", "status": "TEMPO", "seg": 900.01, "tempo_limite": 900, "origem": "nova:s7", "nos": 1776}
+{"v": 6, "M": 64, "y": [6, 6, 7, 6, 6, 8, 8, 10, 7], "p": 20, "motor": "scip", "status": "UNSAT", "seg": 26.56, "tempo_limite": 900, "origem": "nova:s7", "nos": 3}
+{"v": 6, "M": 64, "y": [6, 6, 7, 7, 7, 7, 8, 9, 7], "p": 21, "motor": "highs", "status": "TEMPO", "seg": 900.0, "tempo_limite": 900, "origem": "nova:s7", "nos": 2903, "status_bruto": "Time limit reached"}
+{"v": 6, "M": 64, "y": [6, 6, 7, 7, 7, 7, 8, 9, 7], "p": 21, "motor": "scip", "status": "TEMPO", "seg": 900.04, "tempo_limite": 900, "origem": "nova:s7", "nos": 167}
+{"v": 6, "M": 64, "y": [6, 6, 8, 7, 8, 7, 7, 8, 7], "p": 20, "motor": "highs", "status": "TEMPO", "seg": 900.01, "tempo_limite": 900, "origem": "nova:s7", "nos": 3236, "status_bruto": "Time limit reached"}
+{"v": 6, "M": 64, "y": [6, 6, 8, 7, 8, 7, 7, 8, 7], "p": 20, "motor": "scip", "status": "TEMPO", "seg": 900.0, "tempo_limite": 900, "origem": "nova:s7", "nos": 520}
+{"v": 6, "M": 64, "y": [6, 6, 6, 7, 7, 9, 8, 8, 7], "p": 21, "motor": "highs", "status": "TEMPO", "seg": 900.0, "tempo_limite": 900, "origem": "nova:s7", "nos": 2365, "status_bruto": "Time limit reached"}
+{"v": 6, "M": 64, "y": [6, 6, 6, 7, 7, 9, 8, 8, 7], "p": 21, "motor": "scip", "status": "TEMPO", "seg": 900.0, "tempo_limite": 900, "origem": "nova:s7", "nos": 1774}
+{"v": 6, "M": 64, "y": [6, 6, 7, 6, 6, 8, 8, 10, 7], "p": 20, "motor": "highs", "status": "TEMPO", "seg": 900.02, "tempo_limite": 900, "origem": "nova:s7", "nos": 2453, "status_bruto": "Time limit reached"}
+{"v": 6, "M": 66, "y": [6, 6, 7, 6, 9, 8, 8, 9, 7], "p": 20, "motor": "highs", "status": "TEMPO", "seg": 900.0, "tempo_limite": 900, "origem": "nova:s7", "nos": 3832, "status_bruto": "Time limit reached"}
+{"v": 6, "M": 66, "y": [6, 6, 7, 6, 9, 8, 8, 9, 7], "p": 20, "motor": "scip", "status": "TEMPO", "seg": 900.0, "tempo_limite": 900, "origem": "nova:s7", "nos": 1654}
+{"v": 6, "M": 66, "y": [6, 6, 6, 6, 8, 9, 10, 7, 8], "p": 21, "motor": "highs", "status": "TEMPO", "seg": 900.0, "tempo_limite": 900, "origem": "nova:s7", "nos": 3230, "status_bruto": "Time limit reached"}
+{"v": 6, "M": 66, "y": [6, 6, 6, 6, 8, 9, 10, 7, 8], "p": 21, "motor": "scip", "status": "TEMPO", "seg": 900.0, "tempo_limite": 900, "origem": "nova:s7", "nos": 1027}
+{"v": 6, "M": 66, "y": [6, 6, 7, 7, 7, 9, 7, 10, 7], "p": 20, "motor": "highs", "status": "TEMPO", "seg": 900.0, "tempo_limite": 900, "origem": "nova:s7", "nos": 4110, "status_bruto": "Time limit reached"}
+{"v": 6, "M": 66, "y": [6, 6, 7, 7, 7, 9, 7, 10, 7], "p": 20, "motor": "scip", "status": "TEMPO", "seg": 900.0, "tempo_limite": 900, "origem": "nova:s7", "nos": 114}
+{"v": 6, "M": 66, "y": [6, 6, 9, 7, 8, 6, 7, 8, 9], "p": 21, "motor": "highs", "status": "TEMPO", "seg": 900.0, "tempo_limite": 900, "origem": "nova:s7", "nos": 3712, "status_bruto": "Time limit reached"}
+{"v": 6, "M": 66, "y": [5, 7, 8, 10, 6, 6, 12, 6, 6], "p": 20, "motor": "scip", "status": "UNSAT", "seg": 210.36, "tempo_limite": 900, "origem": "nova:s7", "nos": 441}
+{"v": 6, "M": 66, "y": [5, 6, 13, 8, 6, 6, 9, 8, 5], "p": 20, "motor": "highs", "status": "UNSAT", "seg": 448.94, "tempo_limite": 900, "origem": "nova:s7", "nos": 1065, "status_bruto": "Infeasible"}
+{"v": 6, "M": 66, "y": [5, 6, 13, 8, 6, 6, 9, 8, 5], "p": 20, "motor": "scip", "status": "UNSAT", "seg": 670.53, "tempo_limite": 900, "origem": "nova:s7", "nos": 1500}
+{"v": 6, "M": 72, "y": [5, 7, 8, 7, 6, 6, 19, 7, 7], "p": 20, "motor": "scip", "status": "UNSAT", "seg": 52.27, "tempo_limite": 900, "origem": "rs_M72.jsonl", "nos": 39}
+{"v": 6, "M": 66, "y": [6, 6, 9, 7, 8, 6, 7, 8, 9], "p": 21, "motor": "scip", "status": "TEMPO", "seg": 900.01, "tempo_limite": 900, "origem": "nova:s7", "nos": 2528}
+{"v": 6, "M": 66, "y": [5, 7, 8, 10, 6, 6, 12, 6, 6], "p": 20, "motor": "highs", "status": "TEMPO", "seg": 900.01, "tempo_limite": 900, "origem": "nova:s7", "nos": 2709, "status_bruto": "Time limit reached"}
+{"v": 6, "M": 72, "y": [5, 6, 14, 7, 7, 8, 10, 7, 8], "p": 22, "motor": "highs", "status": "TEMPO", "seg": 900.01, "tempo_limite": 900, "origem": "rs_M72.jsonl", "nos": 3226, "status_bruto": "Time limit reached"}
+{"v": 6, "M": 72, "y": [5, 6, 14, 7, 7, 8, 10, 7, 8], "p": 22, "motor": "scip", "status": "TEMPO", "seg": 900.0, "tempo_limite": 900, "origem": "rs_M72.jsonl", "nos": 1318}
+{"v": 6, "M": 72, "y": [5, 6, 9, 7, 11, 6, 16, 5, 7], "p": 22, "motor": "highs", "status": "TEMPO", "seg": 900.01, "tempo_limite": 900, "origem": "rs_M72.jsonl", "nos": 2937, "status_bruto": "Time limit reached"}
+{"v": 6, "M": 72, "y": [5, 6, 9, 7, 11, 6, 16, 5, 7], "p": 22, "motor": "scip", "status": "TEMPO", "seg": 900.0, "tempo_limite": 900, "origem": "rs_M72.jsonl", "nos": 1221}
+{"v": 6, "M": 72, "y": [5, 5, 18, 6, 7, 5, 10, 10, 6], "p": 21, "motor": "scip", "status": "UNSAT", "seg": 195.76, "tempo_limite": 900, "origem": "rs_M72.jsonl", "nos": 445}
+{"v": 6, "M": 72, "y": [5, 7, 8, 7, 6, 6, 19, 7, 7], "p": 20, "motor": "highs", "status": "TEMPO", "seg": 900.0, "tempo_limite": 900, "origem": "rs_M72.jsonl", "nos": 2779, "status_bruto": "Time limit reached"}
+{"v": 6, "M": 72, "y": [6, 6, 7, 6, 12, 9, 8, 10, 8], "p": 20, "motor": "highs", "status": "TEMPO", "seg": 900.0, "tempo_limite": 900, "origem": "rs_M72.jsonl", "nos": 5636, "status_bruto": "Time limit reached"}
+{"v": 6, "M": 72, "y": [6, 6, 7, 6, 12, 9, 8, 10, 8], "p": 20, "motor": "scip", "status": "TEMPO", "seg": 900.0, "tempo_limite": 900, "origem": "rs_M72.jsonl", "nos": 3216}
+{"v": 6, "M": 72, "y": [5, 5, 18, 6, 7, 5, 10, 10, 6], "p": 21, "motor": "highs", "status": "TEMPO", "seg": 900.0, "tempo_limite": 900, "origem": "rs_M72.jsonl", "nos": 4397, "status_bruto": "Time limit reached"}
+{"v": 6, "M": 72, "y": [5, 6, 7, 8, 6, 6, 16, 12, 6], "p": 19, "motor": "highs", "status": "TEMPO", "seg": 900.0, "tempo_limite": 900, "origem": "rs_M72.jsonl", "nos": 3072, "status_bruto": "Time limit reached"}
+{"v": 6, "M": 72, "y": [5, 6, 7, 8, 6, 6, 16, 12, 6], "p": 19, "motor": "scip", "status": "TEMPO", "seg": 900.01, "tempo_limite": 900, "origem": "rs_M72.jsonl", "nos": 2829}
