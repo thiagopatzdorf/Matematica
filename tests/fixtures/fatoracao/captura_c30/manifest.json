@@ -1,0 +1,86 @@
+{
+ "bytes": 1081896,
+ "commit_cado": "692ecb7",
+ "formato": "relacoes-cado/v1",
+ "meta": {
+  "classe": "ok",
+  "commit_campanha": "e5138db38b9291ac26dcd381d24188c296d807e2",
+  "conjunto": "dev",
+  "digitos": 30,
+  "i": 0,
+  "semente_bwc": 1,
+  "sha256_log": "4aace8daef91eb4680ef3ac4374fb1a564a186e8e714b6433afdd1eeab9e77e0",
+  "sha256_poly": "c4660dffa68c2a8afa09fc48d5e5a2a4fd0c118c54071510aeb13b16bafdee60",
+  "tentativa": 1
+ },
+ "n_blocos": 2,
+ "n_brutas": 33788,
+ "n_livres": 2051,
+ "n_purgadas": 3098,
+ "nome": "c30",
+ "parametros": {
+  "N": "571002867051068791554140261419",
+  "algo": "NFS",
+  "computation": "FACT",
+  "name": "c30",
+  "slaves.hostnames": "localhost",
+  "slaves.nrclients": "1",
+  "tasks.I": "9",
+  "tasks.lim0": "30000",
+  "tasks.lim1": "30000",
+  "tasks.linalg.bwc.seed": "1",
+  "tasks.linalg.characters.nchar": "50",
+  "tasks.linalg.m": "64",
+  "tasks.linalg.n": "64",
+  "tasks.lpb0": "17",
+  "tasks.lpb1": "17",
+  "tasks.polyselect.P": "1000",
+  "tasks.polyselect.admax": "5000",
+  "tasks.polyselect.adrange": "2500",
+  "tasks.polyselect.degree": "3",
+  "tasks.polyselect.incr": "20",
+  "tasks.polyselect.nq": "3",
+  "tasks.polyselect.nrkeep": "2",
+  "tasks.polyselect.ropteffort": "1",
+  "tasks.polyselect.threads": "2",
+  "tasks.qmin": "50000",
+  "tasks.sieve.las.threads": "2",
+  "tasks.sieve.mfb0": "18",
+  "tasks.sieve.mfb1": "18",
+  "tasks.sieve.qrange": "1000",
+  "tasks.sieve.rels_wanted": "30000",
+  "tasks.sieve.siqs.threads": "2",
+  "tasks.sqrt.threads": "1",
+  "tasks.threads": "2"
+ },
+ "purge": {
+  "apos_singletons": {
+   "excess": 13675,
+   "ncols": 16536,
+   "nrows": 30211
+  },
+  "etapas_de_cliques": 50,
+  "final": {
+   "excess": 160,
+   "ncols": 2938,
+   "nrows": 3098
+  },
+  "inicio": {
+   "excess": 13266,
+   "ncols": 22385,
+   "nrows": 35651
+  },
+  "tamanho_renumber": 24560
+ },
+ "sha256": {
+  "arquivos.json": "cc497e6e899693679aae5b4678df1bdd9212703d04bbdb935ad7be4a615bd174",
+  "badideais.txt": "12005a62fe719522f6744c8a0328151e1f1b0ce0782fcb9f83ee9dc8a5ed1fc1",
+  "index.gz": "79ed5a20c02c8f2a6142391cc368b89fac755a19d437b742931e75849797b0a7",
+  "inercias.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "livres.tsv.gz": "6b902cbd3b0d01695501f8b5752d19c27d7b9c2057d0f33520d89978ff28d968",
+  "poly.txt": "c4660dffa68c2a8afa09fc48d5e5a2a4fd0c118c54071510aeb13b16bafdee60",
+  "purgadas.tsv.gz": "d9cb79ec87cbf3d1b9d8cad231ded9ebc580f4e079d49e49da1e4b8fe3e9c61d",
+  "purge.json": "a494a8d0c8fadb4fbbeda82e002cbd4ed8aaf9bbdd17c03eafec15f44268efc2",
+  "relacoes.tsv.gz": "60575e847f1285fd284e373622aeabed3654fd9c65e360933c15c0e00e6b2ba6"
+ }
+}
