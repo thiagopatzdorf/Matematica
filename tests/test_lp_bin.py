@@ -139,3 +139,137 @@ def test_cobertura_por_walsh_hadamard_bate_com_a_soma_linha_por_linha():
         y = [rng.choice([0, 0, 1, 5, 12]) for _ in range(1 << n)]
         ingenuo = [sum(v for x, v in enumerate(y) if bin(x ^ c).count("1") <= R) for c in range(1 << n)]
         assert vbin.cobertura(n, R, y) == ingenuo
+
+
+def _blocos_cli(tmp_path, *args):
+    import subprocess
+    r = subprocess.run([sys.executable, str(RAIZ / "tools/exatos/lp_bin/blocos_bin.py"), *args],
+                       capture_output=True, text=True, cwd=tmp_path)
+    return r
+
+
+def test_blocos_retomados_depois_de_interrupcao_juntam_num_arquivo_que_o_verificador_aceita(tmp_path):
+    """Preempção no meio: blocos já gravados são pulados, e o juntado passa em verificar_bin."""
+    import hashlib
+    import json
+    fb = _bin()
+    _cert()
+    ins = fb.instancias(7, 2, 6)
+    lista = tmp_path / "i.json"
+    json.dump([[s, [list(k) for k in K], list(t)] for s, K, t in ins], open(lista, "w"))
+    base = ["--n", "7", "--R", "2", "--M", "6", "--instancias", str(lista), "--bloco", "5"]
+    # 1ª rodada só da raiz e só dos dois primeiros blocos (simula a VM caindo depois do bloco 1)
+    assert _blocos_cli(tmp_path, "rodar", *base, "--dir", "raiz", "--sem-ramos", "--ate", "2").returncode == 0
+    marca = (tmp_path / "raiz" / "bloco_00000.jsonl.gz").stat().st_mtime_ns
+    assert _blocos_cli(tmp_path, "rodar", *base, "--dir", "raiz", "--sem-ramos").returncode == 0
+    assert (tmp_path / "raiz" / "bloco_00000.jsonl.gz").stat().st_mtime_ns == marca  # não refeito
+    assert _blocos_cli(tmp_path, "rodar", *base, "--dir", "ramos", "--refazer-dir", "raiz",
+                       "--orcamento", "2000").returncode == 0
+    r = _blocos_cli(tmp_path, "juntar", "--dir", "ramos", "--total", str(len(ins)), "--bloco", "5",
+                    "--saida", "c.jsonl.gz")
+    assert r.returncode == 0, r.stderr
+    sha = hashlib.sha256(lista.read_bytes()).hexdigest()
+    for j in ("1", "3"):
+        v = subprocess_verificar(tmp_path, lista, sha, "c.jsonl.gz", j)
+        assert v.returncode == 0 and "TODAS INVIÁVEIS" in v.stdout, v.stdout + v.stderr
+
+
+def subprocess_verificar(tmp_path, lista, sha, cert, j="1"):
+    import subprocess
+    return subprocess.run([sys.executable, str(RAIZ / "tools/exatos/lp_bin/verificar_bin.py"), "--n", "7",
+                           "--R", "2", "--M", "6", "--instancias", str(lista), "--certificados",
+                           str(tmp_path / cert), "--sha256", sha, "-j", j], capture_output=True, text=True)
+
+
+def test_verificador_paralelo_recusa_certificado_adulterado_e_fora_de_ordem(tmp_path):
+    """-j só distribui as folhas: adulterar um y ou trocar a ordem continua reprovando."""
+    import gzip
+    import hashlib
+    import json
+    fb = _bin()
+    cert = _cert()
+    ins = fb.instancias(7, 2, 6)
+    lista = tmp_path / "i.json"
+    json.dump([[s, [list(k) for k in K], list(t)] for s, K, t in ins], open(lista, "w"))
+    E = cert.Espaco(7, 2)
+    regs = []
+    for i, (s, K, t) in enumerate(json.load(open(lista))):
+        folhas, modo = cert.certificar(E, 6, s, [tuple(k) for k in K], t, orc=2000)
+        regs.append({"inst": i, "s": s, "K": K, "t": t, "modo": modo, "folhas": folhas})
+    sha = hashlib.sha256(lista.read_bytes()).hexdigest()
+
+    def grava(nome, rr):
+        with gzip.open(tmp_path / nome, "wt") as f:
+            for r in rr:
+                f.write(json.dumps(r) + "\n")
+
+    grava("bom.gz", regs)
+    assert subprocess_verificar(tmp_path, lista, sha, "bom.gz", "3").returncode == 0
+    ruim = json.loads(json.dumps(regs))
+    f0 = ruim[5]["folhas"][0]
+    f0["y"] = {k: 0 for k in f0["y"]}  # zera a combinação: a folga deixa de ser positiva
+    grava("ruim.gz", ruim)
+    v = subprocess_verificar(tmp_path, lista, sha, "ruim.gz", "3")
+    assert v.returncode == 1 and "recusadas 1 [5]" in v.stdout, v.stdout
+    grava("ordem.gz", [regs[1], regs[0]] + regs[2:])
+    assert subprocess_verificar(tmp_path, lista, sha, "ordem.gz", "3").returncode == 1
+
+
+def test_juntar_recusa_quando_falta_bloco(tmp_path):
+    (tmp_path / "d").mkdir()
+    import gzip
+    with gzip.open(tmp_path / "d" / "bloco_00000.jsonl.gz", "wt") as f:
+        f.write("{}\n")
+    r = _blocos_cli(tmp_path, "juntar", "--dir", "d", "--total", "10", "--bloco", "5", "--saida", "x.gz")
+    assert r.returncode != 0 and "faltam 1 blocos" in r.stderr and not (tmp_path / "x.gz").exists()
+
+
+def test_remendos_espalhados_entre_partes_cobrem_as_vivas_e_o_juntado_passa(tmp_path):
+    """Vivas da raiz (aqui simuladas apagando certificados) ramificadas em 2 partes: sem os
+    remendos o juntado é recusado; com eles, aceito. Um remendo sem certificado não apaga nada."""
+    import gzip
+    import hashlib
+    import json
+    fb = _bin()
+    _cert()
+    ins = fb.instancias(9, 3, 6)
+    lista = tmp_path / "i.json"
+    json.dump([[s, [list(k) for k in K], list(t)] for s, K, t in ins], open(lista, "w"))
+    base = ["--n", "9", "--R", "3", "--M", "6", "--instancias", str(lista)]
+    assert _blocos_cli(tmp_path, "rodar", *base, "--dir", "raiz", "--bloco", "10", "--sem-ramos").returncode == 0
+    vivas = [3, 4, 17, 25, 40]
+    for k in {i // 10 for i in vivas}:  # simula vivas: apaga o certificado da raiz
+        p = tmp_path / "raiz" / f"bloco_{k:05d}.jsonl.gz"
+        regs = [json.loads(ln) for ln in gzip.open(p, "rt")]
+        for r in regs:
+            if r["inst"] in vivas:
+                r["folhas"], r["modo"] = None, None
+        with gzip.open(p, "wt") as f:
+            f.writelines(json.dumps(r) + "\n" for r in regs)
+    (tmp_path / "vivas.json").write_text(json.dumps(vivas))
+    sha = hashlib.sha256(lista.read_bytes()).hexdigest()
+    total = ["--total", str(len(ins)), "--bloco", "10"]
+
+    def verif(cert):
+        import subprocess
+        return subprocess.run([sys.executable, str(RAIZ / "tools/exatos/lp_bin/verificar_bin.py"), "--n", "9",
+                               "--R", "3", "--M", "6", "--instancias", str(lista), "--certificados",
+                               str(tmp_path / cert), "--sha256", sha, "-j", "2"], capture_output=True, text=True)
+
+    assert _blocos_cli(tmp_path, "juntar", "--dir", "raiz", *total, "--saida", "sem.gz").returncode == 0
+    v = verif("sem.gz")
+    assert v.returncode == 1 and "recusadas 5" in v.stdout, v.stdout
+    for parte in ("0", "1"):
+        r = _blocos_cli(tmp_path, "remendar", *base, "--vivas", "vivas.json", "--dir", "rem", "--grupo", "2",
+                        "--parte", parte, "--partes", "2", "--orcamento", "500")
+        assert r.returncode == 0, r.stderr
+    assert sorted(p.name for p in (tmp_path / "rem").glob("remendo_*.jsonl.gz")) == [
+        "remendo_00000.jsonl.gz", "remendo_00001.jsonl.gz", "remendo_00002.jsonl.gz"]
+    # um remendo posterior sem certificado não pode desfazer o anterior
+    (tmp_path / "rem2").mkdir()
+    with gzip.open(tmp_path / "rem2" / "remendo_00000.jsonl.gz", "wt") as f:
+        f.write(json.dumps({"inst": 3, "folhas": None}) + "\n")
+    r = _blocos_cli(tmp_path, "juntar", "--dir", "raiz", *total, "--saida", "com.gz", "--remendos", "rem", "rem2")
+    assert r.returncode == 0 and "5 registros vindos de remendos" in r.stdout, r.stdout + r.stderr
+    v = verif("com.gz")
+    assert v.returncode == 0 and "TODAS INVIÁVEIS" in v.stdout, v.stdout
