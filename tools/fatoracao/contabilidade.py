@@ -3,6 +3,7 @@
 
     python3 tools/fatoracao/contabilidade.py tetos            # teto de ganho de cada fase do recorde RSA-896
     python3 tools/fatoracao/contabilidade.py razao base.json novo.json
+    python3 tools/fatoracao/contabilidade.py informacao tools/fatoracao/baseline/cado_legado.jsonl
 
 Regras que isto impõe (cada uma nasceu de um jeito fácil de se enganar):
 
@@ -12,8 +13,11 @@ Regras que isto impõe (cada uma nasceu de um jeito fácil de se enganar):
 * **Lei de Amdahl:** ganhar `k` numa fase que pesa `s` do total rende `1 / (1 - s + s/k)`. Um 100× em 1% do custo vale 1,0100× (1 / 0,9901).
 * **Degrau da escada** (1×, 2×, 5×, 10×, 100×, 1000×) é decidido pelo **limite inferior** do intervalo de confiança
   de 95% da razão, nunca pela estimativa pontual.
+* **Custo de informação** = relações achadas pelo crivo por bit do menor fator entregue. É um contador que não depende de
+  hardware, e a rodada que falhou entra no custo sem entrar no divisor: busca que não entregou fator foi paga igual.
 """
 import json
+import math
 import random
 import sys
 from pathlib import Path
@@ -80,6 +84,47 @@ def ic_razao(totais_base, totais_novo, rodadas=10000, semente=0, nivel=0.95):
     return media(totais_base) / media(totais_novo), razoes[int(cauda * rodadas)], razoes[int((1 - cauda) * rodadas) - 1]
 
 
+def bits_do_menor_fator(digitos):
+    """Bits do menor fator de um semiprimo balanceado de `digitos` dígitos decimais (N ~ 10^digitos, p ~ raiz de N)."""
+    if digitos < 2:
+        raise ValueError(f"semiprimo de {digitos} dígito(s) não tem fator balanceado")
+    return digitos * math.log2(10) / 2
+
+
+def custo_informacao(rodadas):
+    """Custo de informação de UM tamanho: linhas do executor (`cado_legado.jsonl`) com os mesmos `digitos`.
+
+    `rels_por_bit` = relações achadas em todas as rodadas / (rodadas que entregaram o fator x bits do fator). A rodada que
+    falhou soma no numerador e não no divisor. `repetida` = 1 - distintas/achadas, a fração da busca que o filtro depois
+    descarta por já ser conhecida (N - D no teorema de amortização do James).
+    """
+    if not rodadas:
+        raise ValueError("sem rodadas")
+    tamanhos = {r["digitos"] for r in rodadas}
+    if len(tamanhos) != 1:
+        raise ValueError(f"tamanhos misturados numa chamada só: {sorted(tamanhos)}")
+    for r in rodadas:
+        if not 0 < r["rels_unicas"] <= r["rels_total"]:
+            raise ValueError(f"registro corrompido (únicas {r['rels_unicas']}, achadas {r['rels_total']}): {r}")
+    entregues = [r for r in rodadas if r["fatores_ok"]]
+    if not entregues:
+        raise ValueError("nenhuma rodada entregou o fator: o custo por bit seria infinito, não zero")
+    digitos = tamanhos.pop()
+    bits = bits_do_menor_fator(digitos)
+    achadas = sum(r["rels_total"] for r in rodadas)
+    distintas = sum(r["rels_unicas"] for r in rodadas)
+    return {"digitos": digitos, "bits_fator": bits, "rodadas": len(rodadas), "falhas": len(rodadas) - len(entregues),
+            "rels_por_bit": achadas / (len(entregues) * bits), "repetida": 1 - distintas / achadas}
+
+
+def tabela_informacao(linhas):
+    """Uma entrada de `custo_informacao` por tamanho, em ordem crescente."""
+    por_tamanho = {}
+    for r in linhas:
+        por_tamanho.setdefault(r["digitos"], []).append(r)
+    return [custo_informacao(por_tamanho[d]) for d in sorted(por_tamanho)]
+
+
 def main(argv=None):
     argv = sys.argv[1:] if argv is None else argv
     if argv[:1] == ["tetos"]:
@@ -90,6 +135,12 @@ def main(argv=None):
     if argv[:1] == ["razao"] and len(argv) == 3:
         base, novo = (json.loads(Path(p).read_text(encoding="utf-8")) for p in argv[1:])
         print(f"{razao_fim_a_fim(base, novo):.4f}")
+        return 0
+    if argv[:1] == ["informacao"] and len(argv) == 2:
+        linhas = [json.loads(l) for l in Path(argv[1]).read_text(encoding="utf-8").splitlines() if l.strip()]
+        print("dígitos  bits_fator  rodadas  falhas  relações_por_bit  repetida")
+        for t in tabela_informacao(linhas):
+            print(f"{t['digitos']:>7} {t['bits_fator']:>11.1f} {t['rodadas']:>8} {t['falhas']:>7} {t['rels_por_bit']:>16.0f} {t['repetida']:>9.3f}")
         return 0
     print(__doc__)
     return 2
