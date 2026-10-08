@@ -13,7 +13,7 @@ um conjunto explícito de 1137 palavras em (Z/7)^9 com raio de cobertura ≤ 4? 
   `df3e8d527bc393a9680fe4b2b39e7bde088ab6a02f2f94ee26019a5efc05a102`.
 - **Prova formal:** `Syn.K7_9_4_le_1137_syn : ∃ C : Finset (Fin 9 → ZMod 7), C.card = 1137 ∧ CoveringA2.Covers 4 C`,
   em Lean 4.34.1 com Mathlib `d13f23b7`. Axiomas: `propext`, `Classical.choice` e `Quot.sound`.
-- **Prova computacional:** três verificadores independentes (A, B, C) varrem os 40 353 607 pontos.
+- **Prova computacional:** três verificadores diferentes em método (A, B, C), do mesmo autor do verificador oficial (independentes de método, não de autoria) varrem os 40 353 607 pontos.
   Os três dão `uncovered = 0` e a mesma distribuição de distâncias.
 
 ## COMPUTATIONAL SEARCH RESULT (separado do teorema)

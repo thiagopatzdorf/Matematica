@@ -1,0 +1,30 @@
+{
+  "created": "2026-10-06T02:39:44Z",
+  "created_by": "agente-c",
+  "description": "Decodifica a lista LK5616 (e o campo empacotado PN) de CoveringLean/SynData_K5616.lean (base 7 little-endian) e compara o sha256 canônico com o de data/codes/q7_n10_R4_M5616.txt: o elo entre o teorema Syn.K7_10_4_le_5616_syn e o arquivo verificado por programas.",
+  "experiment_id": "exp-lean-syn-data-equals-witness-5616",
+  "implementation": "regex + sha256 em tools/campaign/migrate_covering.py (independente de scripts/syndrome/check_sha.py)",
+  "instances": [
+    "k7-10-4"
+  ],
+  "kind": "symbolic",
+  "ranges": null,
+  "repo_commit": "0bb66b85a2f98ba1242d7fb0d4d543c8915ad7d0",
+  "result": {
+    "cnt_declarado": 5616,
+    "estritamente_crescente": true,
+    "executado_neste_run": true,
+    "iguais": true,
+    "palavras": 5616,
+    "sha256_canonico_lean": "750cae3ba3ded64eef208548f6e3c8fe0356c0b599ab3f605aac6fd175a78a5e",
+    "sha256_canonico_witness": "750cae3ba3ded64eef208548f6e3c8fe0356c0b599ab3f605aac6fd175a78a5e",
+    "todas_menores_que_q_n": true,
+    "unpack_PN_igual_a_lista": true
+  },
+  "source_files": [
+    {
+      "path": "CoveringLean/SynData_K5616.lean",
+      "sha256": "2ae76cb460dcff3e3816aeb121b664ada5d141c3c8a85563f1c2f028329adb05"
+    }
+  ]
+}

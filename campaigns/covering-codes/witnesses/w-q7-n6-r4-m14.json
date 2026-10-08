@@ -1,0 +1,27 @@
+{
+  "M": 14,
+  "R": 4,
+  "canonical_sha256": "9f2c53518162b5d3451f4d9ebf7849fefad101b1658ee0aba63ee0228d5d6a62",
+  "canonical_sha256_declared_in_structured": "9f2c53518162b5d3451f4d9ebf7849fefad101b1658ee0aba63ee0228d5d6a62",
+  "claim_ids": [],
+  "created": "2026-10-06T02:39:44Z",
+  "created_by": "agente-c",
+  "format": "covering-code/v1 (lista plana, uma palavra por linha)",
+  "implementation": "tools/exatos/fibras/rodar.py (perfis de fibras + CaDiCaL 3.0.1 c607304): instância 0 da ordem max de K_7(6,4) M=14, perfil 2222222^6, SAT em 18,6 s",
+  "n": 6,
+  "parameters": {
+    "M": 14,
+    "R": 4,
+    "n": 6,
+    "q": 7
+  },
+  "path": "data/codes/q7_n6_R4_M14.txt",
+  "produced_by": "exp-prior-search-unrecorded",
+  "q": 7,
+  "sha256": "9f2c53518162b5d3451f4d9ebf7849fefad101b1658ee0aba63ee0228d5d6a62",
+  "structured_description": {
+    "path": "data/structured/q7_n6_R4_M14.json",
+    "sha256": "9b7441ab8e9119b65174ed487db9258f9f998603bc269020f1f8357d0c97e19d"
+  },
+  "witness_id": "w-q7-n6-r4-m14"
+}

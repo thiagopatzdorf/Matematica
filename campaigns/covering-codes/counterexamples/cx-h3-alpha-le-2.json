@@ -1,0 +1,13 @@
+{
+  "claim_id": "h3-alpha-le-2",
+  "counterexample_id": "cx-h3-alpha-le-2",
+  "created": "2026-10-06T02:39:44Z",
+  "created_by": "agente-c",
+  "data": {
+    "formal": "f-h3-counterexample",
+    "lean_statement": "theorem H3_counterexample : IsK 3 3 2 3 ∧ HasVol 3 3 2 19 ∧ ((3 : ℚ) * 19 / 3 ^ 3 = 19 / 9) ∧ ((2 : ℚ) < 3 * 19 / 3 ^ 3) :="
+  },
+  "description": "α(3,3,2) = 3·19/27 = 19/9 > 2 (K_3(3,2)=3, V=19, q^n=27). (CoveringA6.H3_counterexample, medido no kernel; todo o resto vem de A6_Finite.lean, sem busca).",
+  "kind": "instance",
+  "witness_id": null
+}

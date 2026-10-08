@@ -1,0 +1,78 @@
+{
+  "claim_id": "h5-ceil-bound-needs-perfect",
+  "counterexample_search": {
+    "status": "not_started"
+  },
+  "created": "2026-10-06T03:03:50Z",
+  "created_by": "agente-c",
+  "created_role": "PROPOSER",
+  "depends_on": [],
+  "evidence": {
+    "counterexamples": [
+      "cx-h5-ceil-bound-needs-perfect"
+    ],
+    "experiments": [],
+    "external_reproductions": [],
+    "formal": [
+      "f-h5-counterexample"
+    ],
+    "literature": [],
+    "proofs": [],
+    "verifier_runs": [],
+    "witnesses": []
+  },
+  "history": [
+    {
+      "actor": "agente-c",
+      "from": null,
+      "reason": "criado",
+      "role": "PROPOSER",
+      "to": "IDEA",
+      "ts": "2026-10-06T03:03:50Z"
+    },
+    {
+      "actor": "agente-c",
+      "from": "IDEA",
+      "reason": "evidência anexada: formal=f-h5-counterexample",
+      "role": "PROPOSER",
+      "to": "IDEA",
+      "ts": "2026-10-06T03:03:50Z"
+    },
+    {
+      "actor": "agente-c",
+      "from": "IDEA",
+      "reason": "hipótese registrada para ser refutada",
+      "role": "PROPOSER",
+      "to": "CONJECTURE",
+      "ts": "2026-10-06T03:03:50Z"
+    },
+    {
+      "actor": "migrate_covering.py",
+      "from": "CONJECTURE",
+      "reason": "evidência anexada: counterexamples=cx-h5-ceil-bound-needs-perfect",
+      "role": "COUNTEREXAMPLE_HUNTER",
+      "to": "CONJECTURE",
+      "ts": "2026-10-06T03:03:50Z"
+    },
+    {
+      "actor": "migrate_covering.py",
+      "from": "CONJECTURE",
+      "reason": "H5_counterexample medido no kernel",
+      "role": "COUNTEREXAMPLE_HUNTER",
+      "to": "REFUTED",
+      "ts": "2026-10-06T03:03:50Z"
+    }
+  ],
+  "kind": "conjecture",
+  "refuting_lean_statement": "theorem H5_counterexample : IsK 2 2 1 2 ∧ HasVol 2 2 1 3 ∧ 2 = (2 ^ 2 + 3 - 1) / 3 ∧ ¬ (3 ∣ 2 ^ 2) :=",
+  "reviewed_by": [],
+  "scope": {
+    "assumptions": [],
+    "domain": "todo (q,n,R) com V ∤ q^n (contraexemplo em q=2, n=2, R=1)",
+    "problem": "H5 de A6_Finite"
+  },
+  "statement": "H5: se V ∤ q^n então K_q(n,R) > ⌈q^n/V⌉, isto é, a cota de esfera com teto só é atingida por códigos perfeitos (hipótese INFERIDA do enunciado que o Lean refuta e de A2_Sphere `no_perfect`; texto original não localizado).",
+  "statement_provenance": "enunciado original não localizado em arquivo versionado; ver descrição",
+  "status": "REFUTED",
+  "trust_boundary": []
+}

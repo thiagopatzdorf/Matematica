@@ -1,0 +1,43 @@
+{
+  "applies_to": {
+    "R": 4,
+    "n": 9,
+    "q": 7
+  },
+  "build": [
+    [
+      "rustc",
+      "-O",
+      "-o",
+      "{workdir}/verify_bfs",
+      "verification/verify_bfs/main.rs"
+    ]
+  ],
+  "command": [
+    "{workdir}/verify_bfs",
+    "{witness}",
+    "{param:M}"
+  ],
+  "compartilha_logica_com": [
+    "verify-c",
+    "verify-val-balls",
+    "verify-val-bruteforce"
+  ],
+  "fail_exit_codes": [
+    1
+  ],
+  "implemented_by": "thiagopatzdorf",
+  "independence_group": "rust-bfs-verification",
+  "language": "rust",
+  "notes": "Verificador C de VALIDATION.md: BFS multi-fonte no grafo H(9,7) (Rust); R=4 cravado. Veio no main v0.5 (verification/, VALIDATION.md). git log: um commit (\"validate(k794): validação independente de K_7(9,4) ≤ 1137 (#10)\"), autor thiagopatzdorf, o MESMO de tools/verify/verify.c: a guarda de independência os junta com verify-c num componente só. VALIDATION.md diz que A, B e C têm parser e noção de cobertura próprios e nenhum código compartilhado (independência de método, não de autoria). q=7 e n=9 estão cravados no código (aplica-se só a K_7(9,4)); recebe M por {param:NOME}; as corridas só rodam nos witnesses de K_7(9,4). Um witness de outra instância seria recusado no parser (comprimento/dígitos), nunca aceito em silêncio.",
+  "registered": "2026-10-06T02:39:44Z",
+  "source_files": [
+    {
+      "normalized_sha256": "933a30ad2047554376e924db29a2633eefd66567bbdd168a284260a276849c71",
+      "path": "verification/verify_bfs/main.rs",
+      "sha256": "14acd8a9df03c7034c6ceae977555a9cccdb14593ea680e103d1f1831d4cf052"
+    }
+  ],
+  "timeout_s": 900,
+  "verifier_id": "verify-val-bfs"
+}

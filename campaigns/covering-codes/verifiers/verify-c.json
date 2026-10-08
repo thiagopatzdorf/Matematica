@@ -1,0 +1,50 @@
+{
+  "build": [
+    [
+      "cc",
+      "-O2",
+      "-std=c99",
+      "-Wall",
+      "-Wextra",
+      "-Werror",
+      "-o",
+      "{workdir}/verify",
+      "tools/verify/verify.c"
+    ]
+  ],
+  "command": [
+    "{workdir}/verify",
+    "--q",
+    "{param:q}",
+    "--n",
+    "{param:n}",
+    "--R",
+    "{param:R}",
+    "--M",
+    "{param:M}",
+    "{witness}"
+  ],
+  "compartilha_logica_com": [
+    "verify-val-balls",
+    "verify-val-bfs",
+    "verify-val-bruteforce"
+  ],
+  "fail_exit_codes": [
+    1,
+    2
+  ],
+  "implemented_by": "thiagopatzdorf",
+  "independence_group": "c-ballmark-verify.c",
+  "language": "c",
+  "notes": "Verificador oficial do repositório (marca bolas de raio R num bitset). Escrito antes desta campanha por thiagopatzdorf (autor do primeiro commit de tools/verify/verify.c). Contrato de saída: 0 cobre, 1 ponto descoberto, 2 o witness contradiz os parâmetros (FAIL = fail_exit_codes [1, 2]); 3 uso/falha operacional (ERROR, nunca FAIL). Recebe q,n,R,M por {param:NOME} e rejeita nome de arquivo que diga outra instância. Modificado em 2026-10-03 por agente-pilot-v2 (parâmetros explícitos); o autor original (implemented_by) segue o do git log.",
+  "registered": "2026-10-06T02:39:44Z",
+  "source_files": [
+    {
+      "normalized_sha256": "4dd5a22fbd8f5a41b7058496c2b26b2c0e28dff5836d47b03cf2134706467f60",
+      "path": "tools/verify/verify.c",
+      "sha256": "206b1253e2ca3804bb3d4703b5f9beadc941424de3fcc26479fe92ef4dafb9f3"
+    }
+  ],
+  "timeout_s": 120,
+  "verifier_id": "verify-c"
+}

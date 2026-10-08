@@ -1,0 +1,18 @@
+{
+  "claim_ids": [
+    "k7-9-4-ub-1351",
+    "k7-9-4-ub-1285",
+    "k7-9-4-ub-1141",
+    "k7-9-4-ub-1137",
+    "k7-9-4-ub-1134"
+  ],
+  "created": "2026-10-06T02:39:44Z",
+  "created_by": "agente-c",
+  "instances": [
+    "k7-9-4"
+  ],
+  "kind": "independencia",
+  "next_step": "o dono decide se a frase do paper/VALIDATION.md passa a dizer 'independentes de método'; ou outro autor reescreve um dos três",
+  "reason": "VALIDATION.md e o paper dizem 'três verificadores independentes' (A, B, C de verification/). MEDIDO no git log: os três vieram de UM commit e do MESMO autor (thiagopatzdorf) de tools/verify/verify.c, então a guarda de independência os conta num componente só com verify-c. A independência de AUTORIA que a campanha mede vem de verify-rust e verify-cleanroom (autoria distinta declarada nos READMEs; o git log assina 'Claude' nos dois). Os A, B, C são independentes de MÉTODO (força bruta, união de bolas, BFS) e de código, não de autoria. A frase só vale nesse sentido.",
+  "residual_id": "res-validation-independence-wording"
+}

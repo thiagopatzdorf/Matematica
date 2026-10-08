@@ -1,0 +1,84 @@
+{
+  "claim_id": "syn-cert-lemma",
+  "counterexample_search": {
+    "method": "lema provado no kernel",
+    "result": "nenhum",
+    "status": "completed"
+  },
+  "created": "2026-10-06T03:03:50Z",
+  "created_by": "agente-c",
+  "created_role": "PROPOSER",
+  "depends_on": [],
+  "evidence": {
+    "counterexamples": [],
+    "experiments": [],
+    "external_reproductions": [],
+    "formal": [
+      "f-syn-cert"
+    ],
+    "literature": [],
+    "proofs": [],
+    "verifier_runs": [],
+    "witnesses": []
+  },
+  "history": [
+    {
+      "actor": "agente-c",
+      "from": null,
+      "reason": "criado",
+      "role": "PROPOSER",
+      "to": "IDEA",
+      "ts": "2026-10-06T03:03:50Z"
+    },
+    {
+      "actor": "agente-c",
+      "from": "IDEA",
+      "reason": "evidência anexada: formal=f-syn-cert",
+      "role": "PROPOSER",
+      "to": "IDEA",
+      "ts": "2026-10-06T03:03:50Z"
+    },
+    {
+      "actor": "migrate_covering.py",
+      "from": "IDEA",
+      "reason": "registro formal medido válido",
+      "role": "FORMALIZER",
+      "to": "PROVED",
+      "ts": "2026-10-06T03:03:50Z"
+    }
+  ],
+  "kind": "lemma",
+  "reviewed_by": [],
+  "scope": {
+    "assumptions": [
+      "NeZero q"
+    ],
+    "domain": "SynBridge",
+    "problem": "ponte certificado por síndromes -> Covers (CoveringSyn)"
+  },
+  "sealed_evidence": {
+    "experiments": [],
+    "formal": [
+      "f-syn-cert"
+    ],
+    "proofs": [],
+    "witnesses": []
+  },
+  "sealed_sha256": "d36d574b3dcfffeb2ed041ccc85ca37386c8fc96d79403431fb1acf38f42aad8",
+  "statement": "Syn.syn_cert: as checagens booleanas por síndromes (okT, okO, okB) e a lista L (unpack = L, estritamente crescente, < q^n, |L| = M) dão ∃ C : Finset (Fin n → ZMod q), C.card = M ∧ Covers R C (SynBridge.lean).",
+  "status": "PROVED",
+  "trust_boundary": [
+    {
+      "component": "kernel do Lean 4 v4.34.1 + Mathlib v4.34.1 (lean-toolchain, lake-manifest.json)",
+      "trusted_for": "a correção das inferências e das decisões `decide +kernel`"
+    },
+    {
+      "component": "axiomas propext, Classical.choice, Quot.sound",
+      "trusted_for": "lógica clássica e extensionalidade (medido via #print axioms, no alvo padrão)"
+    },
+    {
+      "component": "definições Covers/IsK/ball/hammingDist (CoveringA2, CoveringA6, Mathlib)",
+      "trusted_for": "que o enunciado formal é o enunciado pretendido: REVISÃO HUMANA PENDENTE (README:73-74)"
+    }
+  ]
+}

@@ -1,0 +1,90 @@
+== K2(10,1) M=120 secs=30
+q=2 n=10 R=1 M=120 best_unc=23 iters=22256896 secs=31
+BEST 23
+== K2(10,1) M=119 secs=190
+q=2 n=10 R=1 M=119 best_unc=5 iters=148299520 secs=191
+BEST 5
+== K5(5,1) M=184 secs=30
+q=5 n=5 R=1 M=184 best_unc=21 iters=28033536 secs=31
+BEST 21
+== K5(5,1) M=183 secs=190
+q=5 n=5 R=1 M=183 best_unc=48 iters=142648064 secs=191
+BEST 48
+== K2(13,2) M=128 secs=30
+q=2 n=13 R=2 M=128 best_unc=602 iters=2216960 secs=31
+BEST 602
+== K2(13,2) M=127 secs=190
+q=2 n=13 R=2 M=127 best_unc=598 iters=14849280 secs=191
+BEST 598
+== K7(5,1) M=769 secs=15
+q=7 n=5 R=1 M=769 best_unc=975 iters=13752320 secs=16
+BEST 975
+== K7(5,1) M=768 secs=85
+q=7 n=5 R=1 M=768 best_unc=961 iters=76289792 secs=86
+BEST 961
+== K3(10,4) M=36 secs=15
+q=3 n=10 R=4 M=36 best_unc=248 iters=142336 secs=16
+BEST 248
+== K3(10,4) M=35 secs=85
+q=3 n=10 R=4 M=35 best_unc=317 iters=737792 secs=86
+BEST 317
+== K5(7,3) M=100 secs=15
+q=5 n=7 R=3 M=100 best_unc=77 iters=358912 secs=16
+BEST 77
+== K5(7,3) M=99 secs=85
+q=5 n=7 R=3 M=99 best_unc=68 iters=1896960 secs=86
+BEST 68
+== K2(17,5) M=32 secs=15
+q=2 n=17 R=5 M=32 best_unc=2343 iters=37120 secs=16
+BEST 2343
+== K2(17,5) M=31 secs=85
+q=2 n=17 R=5 M=31 best_unc=2536 iters=196096 secs=86
+BEST 2536
+== K2(18,2) M=2944 secs=15
+q=2 n=18 R=2 M=2944 best_unc=9934 iters=1939200 secs=16
+BEST 9934
+== K2(18,2) M=2943 secs=85
+q=2 n=18 R=2 M=2943 best_unc=9306 iters=10501120 secs=86
+BEST 9306
+== K2(19,3) M=1024 secs=15
+q=2 n=19 R=3 M=1024 best_unc=16263 iters=305152 secs=16
+BEST 16263
+== K2(19,3) M=1023 secs=85
+q=2 n=19 R=3 M=1023 best_unc=15703 iters=1633280 secs=86
+BEST 15703
+== K3(12,1) M=27702 secs=15
+q=3 n=12 R=1 M=27702 best_unc=46305 iters=12302848 secs=16
+BEST 46305
+== K3(12,1) M=27701 secs=85
+q=3 n=12 R=1 M=27701 best_unc=41636 iters=66963200 secs=86
+BEST 41636
+== K2(20,5) M=128 secs=15
+q=2 n=20 R=5 M=128 best_unc=16573 iters=16640 secs=16
+BEST 16573
+== K2(20,5) M=127 secs=85
+q=2 n=20 R=5 M=127 best_unc=15527 iters=88064 secs=86
+BEST 15527
+== K5(9,2) M=6375 secs=15
+q=5 n=9 R=2 M=6375 best_unc=114136 iters=819456 secs=16
+BEST 114136
+== K5(9,2) M=6374 secs=85
+q=5 n=9 R=2 M=6374 best_unc=106599 iters=4442368 secs=86
+BEST 106599
+== K2(21,1) M=122880 secs=15
+q=2 n=21 R=1 M=122880 best_unc=236762 iters=5865984 secs=16
+BEST 236762
+== K2(21,1) M=122879 secs=85
+q=2 n=21 R=1 M=122879 best_unc=184693 iters=47177216 secs=86
+BEST 184693
+== K3(14,5) M=243 secs=15
+q=3 n=14 R=5 M=243 best_unc=7818 iters=6144 secs=16
+BEST 7818
+== K3(14,5) M=242 secs=85
+q=3 n=14 R=5 M=242 best_unc=4845 iters=31744 secs=86
+BEST 4845
+== K2(23,6) M=224 secs=15
+q=2 n=23 R=6 M=224 best_unc=42803 iters=2048 secs=18
+BEST 42803
+== K2(23,6) M=223 secs=85
+q=2 n=23 R=6 M=223 best_unc=24582 iters=8704 secs=86
+BEST 24582

@@ -1,0 +1,33 @@
+==  M=-1
+q=0 n=1 R=-1 M=-1 seed=0 iters=1 best_unc=0 final_unc=0 t=0s
+./run.sh: line 23: 12952 Segmentation fault      nice -n 10 ./sa $q $n $R $M 45 1 ../codes/q${q}_n${n}_R${R}_M${M}.txt 1 0.2 2>&1
+==  M=-1
+q=0 n=1 R=-1 M=-1 seed=0 iters=1 best_unc=0 final_unc=0 t=0s
+./run.sh: line 23: 12953 Segmentation fault      nice -n 10 ./sa $q $n $R $M 45 1 ../codes/q${q}_n${n}_R${R}_M${M}.txt 1 0.2 2>&1
+==  M=-1
+q=0 n=1 R=-1 M=-1 seed=0 iters=1 best_unc=0 final_unc=0 t=0s
+./run.sh: line 23: 12954 Segmentation fault      nice -n 10 ./sa $q $n $R $M 45 1 ../codes/q${q}_n${n}_R${R}_M${M}.txt 1 0.2 2>&1
+== K2(17,6) M=15
+q=2 n=17 R=6 M=15 seed=1 iters=37120 best_unc=1110 final_unc=1110 t=46s
+== K3(10,3) M=104
+q=3 n=10 R=3 M=104 seed=1 iters=907264 best_unc=1807 final_unc=1807 t=46s
+== K2(19,6) M=31
+q=2 n=19 R=6 M=31 seed=1 iters=19200 best_unc=3871 final_unc=3871 t=46s
+== K2(18,3) M=511
+q=2 n=18 R=3 M=511 seed=1 iters=756992 best_unc=13434 final_unc=13434 t=46s
+== K3(12,2) M=2186
+q=3 n=12 R=2 M=2186 seed=1 iters=2327552 best_unc=102158 final_unc=102158 t=46s
+== K2(20,2) M=8191
+q=2 n=20 R=2 M=8191 seed=1 iters=3211008 best_unc=86446 final_unc=86446 t=46s
+== K2(13,1) M=703
+q=2 n=13 R=1 M=703 seed=1 iters=45684224 best_unc=456 final_unc=457 t=46s
+== K3(14,6) M=80
+q=3 n=14 R=6 M=80 seed=1 iters=5120 best_unc=1242 final_unc=1242 t=48s
+== K2(22,5) M=511
+q=2 n=22 R=5 M=511 seed=1 iters=26112 best_unc=5470 final_unc=5470 t=46s
+== K2(23,5) M=639
+q=2 n=23 R=5 M=639 seed=1 iters=19456 best_unc=74075 final_unc=74075 t=46s
+== K5(9,1) M=78124
+q=5 n=9 R=1 M=78124 seed=1 iters=24869376 best_unc=132922 final_unc=132922 t=46s
+== K5(10,1) M=390624
+q=5 n=10 R=1 M=390624 seed=1 iters=20639488 best_unc=622064 final_unc=622064 t=46s

@@ -1,0 +1,84 @@
+{
+  "data": "2026-10-03",
+  "medido_por": "Agente RB (rebase da campanha sobre o main v0.5), a mão, com um wrapper que mede relógio e o maior RSS de um processo filho",
+  "maquina": "4 vCPU, 15 GB de RAM, Linux 6.18, Lean 4.34.1 + Mathlib v4.34.1 (d13f23b7), cache do Mathlib já presente em .lake",
+  "nota": "o `lake build` do Lake 5.0.0 não tem opção de jobs: roda até nproc módulos em paralelo (até 4 processos Lean ao mesmo tempo aqui; o pico de 6,6 GB é de UM processo). user/sys do wrapper não somam os netos do Lake, então só o relógio e o RSS de um processo valem.",
+  "alvos": {
+    "padrao": {
+      "comando": "lake build",
+      "jobs": 8944,
+      "wall_s": 213.9,
+      "max_rss_single_proc_MB": 6502,
+      "rc": 0,
+      "observacao": "SynCheck/SynBridge construídos do zero (SynBridge 202 s); o resto do alvo veio do cache de .olean; 'Build completed successfully'; nenhum sorry no log"
+    },
+    "CoveringSyn": {
+      "comando": "lake build CoveringSyn",
+      "jobs": 8995,
+      "wall_s": 972.4,
+      "max_rss_single_proc_MB": 6596,
+      "rc": 0,
+      "observacao": "os cinco Syn_K* e as folhas SynLeaf_K*, do zero (nada deles estava em cache); 'Build completed successfully'; nenhum sorry no log"
+    },
+    "padrao_v07": {
+      "comando": "lake build",
+      "jobs": 8951,
+      "wall_s": 69.4,
+      "max_rss_single_proc_MB": 9756,
+      "rc": 0,
+      "observacao": "2026-10-04, 2 CPUs; alvo padrão do main v0.7 (inclui K742_*, LratK*), 'Build completed successfully'; o restante veio do cache de .olean"
+    }
+  },
+  "declarado_nao_medido": {
+    "CoveringHeavy": "lake build CoveringHeavy não foi executado (README: 9181 jobs, 1 h 54 min de relógio, ~9,3 h de CPU, pico 9,4 GB por processo)"
+  },
+  "modulos": {
+    "1134": {
+      "comando": "lake build CoveringLean.Syn_K1134",
+      "rc": 0,
+      "wall_s": 202.8,
+      "max_rss_single_proc_MB": 6505,
+      "cpu_user_s": 260.7,
+      "cpu_sys_s": 54.0,
+      "ambiente": "2 CPUs (taskset -c 0,1) e LEAN_NUM_THREADS=2 (no máximo 2 processos Lean), 4 vCPU/15 GB, módulos próprios do zero (nada deles em .lake/build), 'Build completed successfully', nenhum sorry no log"
+    },
+    "162": {
+      "comando": "lake build CoveringLean.Syn_K162",
+      "rc": 0,
+      "wall_s": 130.8,
+      "max_rss_single_proc_MB": 6560,
+      "cpu_user_s": 192.5,
+      "cpu_sys_s": 35.1,
+      "ambiente": "2 CPUs (taskset -c 0,1) e LEAN_NUM_THREADS=2 (no máximo 2 processos Lean), 4 vCPU/15 GB, módulos próprios do zero (nada deles em .lake/build), 'Build completed successfully', nenhum sorry no log"
+    },
+    "2875": {
+      "comando": "lake build CoveringLean.Syn_K2875",
+      "rc": 0,
+      "wall_s": 581.8,
+      "max_rss_single_proc_MB": 6668,
+      "cpu_user_s": 1022.9,
+      "cpu_sys_s": 122.3,
+      "ambiente": "2 CPUs (taskset -c 0,1) e LEAN_NUM_THREADS=2 (no máximo 2 processos Lean), 4 vCPU/15 GB, módulos próprios do zero (nada deles em .lake/build), 'Build completed successfully', nenhum sorry no log"
+    },
+    "5616": {
+      "comando": "lake build CoveringLean.Syn_K5616",
+      "rc": 0,
+      "wall_s": 1222.6,
+      "max_rss_single_proc_MB": 6838,
+      "cpu_user_s": 2150.1,
+      "cpu_sys_s": 269.4,
+      "ambiente": "2 CPUs (taskset -c 0,1) e LEAN_NUM_THREADS=2 (no máximo 2 processos Lean), 4 vCPU/15 GB, módulos próprios do zero (nada deles em .lake/build), 'Build completed successfully', nenhum sorry no log"
+    },
+    "5607": {
+      "comando": "lake build CoveringLean.Syn_K5607",
+      "rc": 0,
+      "wall_s": 1205.4,
+      "max_rss_single_proc_MB": 6838,
+      "cpu_user_s": 2104.1,
+      "cpu_sys_s": 269.4,
+      "ambiente": "2 CPUs (taskset -c 0,1) e LEAN_NUM_THREADS=2 (no máximo 2 processos Lean), 4 vCPU/15 GB, módulos próprios do zero (nada deles em .lake/build), 'Build completed successfully', nenhum sorry no log"
+    }
+  },
+  "modulos_data": "2026-10-04",
+  "modulos_medido_por": "Agente RB3 (rebase da campanha sobre o main v0.7), a mão, wrapper em Python: relógio e ru_maxrss dos filhos (maior RSS de um processo)"
+}

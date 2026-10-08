@@ -1,0 +1,30 @@
+{
+  "assumptions": [
+    "PDF lido pelo revisor"
+  ],
+  "authors": [
+    "Mark Marosi"
+  ],
+  "bound": {
+    "direction": "lower",
+    "parameters": {
+      "R": 3,
+      "n": 8,
+      "q": 7
+    },
+    "value": 471
+  },
+  "claim_ids": [],
+  "date_read": "2026-10-03",
+  "exact_bound": "K_7(8,3) >= 471",
+  "exact_statement": "v2, Tabela 2: K_7(8,3) >= 471 (certificado SDP). K_7(8,3) não está na Tabela 1 (nenhuma cota superior). LI por Lit-CC em 2026-10-03 (LITERATURA_CC.md; registro transcrito por migrate_covering.py, que não leu a fonte).",
+  "formalized": false,
+  "literature_id": "lit-marosi-2608-19872-v2-k7-8-3-lb",
+  "open_questions": [],
+  "reproduced": false,
+  "title": "New upper and lower bounds on covering codes K_q(n,R) for alphabets of size 5 <= q <= 21",
+  "url": "https://arxiv.org/abs/2608.19872v2",
+  "version": "v2",
+  "version_date": "2026-08-23",
+  "year": 2026
+}

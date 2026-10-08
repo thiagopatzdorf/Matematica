@@ -1,0 +1,4 @@
+q=2 n=18 R=7 M=11 best_unc=1227 final_unc=1227 iters=116736 secs=51
+cmd: sa 2 18 7 11 110 seed=11 cycles=3 T=0.35 0.15
+q=2 n=18 R=7 M=11 best_unc=1049 final_unc=1049 iters=115712 secs=51
+cmd: sa 2 18 7 11 110 seed=12 cycles=3 T=0.25 0.1

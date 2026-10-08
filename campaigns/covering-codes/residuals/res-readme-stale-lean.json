@@ -1,0 +1,17 @@
+{
+  "created": "2026-10-06T02:39:44Z",
+  "created_by": "agente-c",
+  "instances": [
+    "k4-10-4",
+    "k5-10-4",
+    "k5-7-2",
+    "k5-9-3",
+    "k5-9-4",
+    "k5-9-5",
+    "k7-8-3"
+  ],
+  "kind": "inconsistencia",
+  "next_step": "o dono corrige o parágrafo da v0.3 de docs/resultados.md",
+  "reason": "docs/resultados.md ainda diz dos outros 7 códigos de data/codes da v0.3 que 'ainda não são teoremas Lean', mas a tabela da v0.6 do MESMO documento lista `CoveringKernel.K*_kernel` para cada um deles (e `Syn.K7_8_3_le_1887_syn`). O texto está obsoleto; a campanha segue os arquivos .lean, não o texto.",
+  "residual_id": "res-readme-stale-lean"
+}

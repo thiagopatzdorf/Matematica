@@ -1,0 +1,35 @@
+{
+  "build": [],
+  "command": [
+    "python3",
+    "tools/campaign/verify_cover_dilation.py",
+    "--q",
+    "{param:q}",
+    "--n",
+    "{param:n}",
+    "--R",
+    "{param:R}",
+    "--M",
+    "{param:M}",
+    "{witness}"
+  ],
+  "compartilha_logica_com": [],
+  "fail_exit_codes": [
+    1,
+    2
+  ],
+  "implemented_by": "agente-c",
+  "independence_group": "python-numpy-dilation",
+  "language": "python",
+  "notes": "Escrito NESTA campanha pelo mesmo agente que cria os claims (agente-c): independente em linguagem, código e algoritmo (dilatação do indicador do código no grid, sem enumerar bolas), mas NÃO em autoria nem em especificação do formato. Concorda com verify-c em positivos e negativos (tests/test_campaign_verifier.py). Por ter o mesmo autor dos claims, a guarda de INDEPENDENTLY_REPRODUCED não conta este verificador (achado, não defeito). Contrato de saída: 0 cobre, 1 ponto descoberto, 2 o witness contradiz os parâmetros (FAIL = fail_exit_codes [1, 2]); 3 uso/falha operacional (ERROR, nunca FAIL). Recebe q,n,R,M por {param:NOME} e rejeita nome de arquivo que diga outra instância. Modificado em 2026-10-03 por agente-pilot-v2 (parâmetros explícitos); o autor original (implemented_by) segue o do git log.",
+  "registered": "2026-10-06T02:39:44Z",
+  "source_files": [
+    {
+      "normalized_sha256": "5626593e3bd8be4d52be192f265adc8d5aead98359fb469c8e1d1710c3417ca0",
+      "path": "tools/campaign/verify_cover_dilation.py",
+      "sha256": "d7dd6377997639357843b0c524ee9e8feab6c1eed6181023b85a30b3ddca90b6"
+    }
+  ],
+  "timeout_s": 300,
+  "verifier_id": "verify-py-dilation"
+}

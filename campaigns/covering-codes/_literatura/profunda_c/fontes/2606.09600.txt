@@ -1,0 +1,1347 @@
+                                                                                                                                                               Preprint, arXiv-v1, June 2026
+
+
+
+                                        Formal Foundations and Proof-Carrying Certificates
+                                        for q-ary Covering Codes in Lean 4
+                                        Andreas Florath              1
+
+
+
+                                            Abstract
+                                            Covering codes in finite Hamming spaces ask for small sets of words whose Hamming balls cover the whole
+                                            space. This paper presents a L EAN 4 formalization of the elementary theory of q-ary covering codes, centered
+                                            on certificate predicates for upper bounds, lower bounds, and exact covering numbers Kq (n, r). The formalization
+                                            proves the q-ary Hamming-ball volume formula, the sphere-covering lower bound, elementary exact cases,
+                                            product and relation rules, and selected small exact certificates. It also demonstrates an end-to-end workflow for
+arXiv:2606.09600v1 [cs.IT] 8 Jun 2026
+
+
+
+
+                                            checking explicit upper bounds transcribed from van Laarhoven et al. (1989). The accompanying database is
+                                            proof-carrying: stored bounds have traces that replay to L EAN proofs of the corresponding upper- or lower-bound
+                                            predicates. The contribution is not new record bounds or a reproduction of known tables, but a reusable, auditable
+                                            foundation for machine-checked covering-code certificates.
+                                            Keywords
+                                            Covering Codes — Hamming Spaces — Formalized Mathematics — Lean 4 — Combinatorics
+                                        1 Deutsche Telekom AG, Andreas.Florath@telekom.de
+
+
+
+
+                                                                     Contents                                               6     Elementary Constructions                                        11
+                                                                                                                            6.1   Sum-type words . . . . . . . . . . . . . . . . . . . . . . . . 11
+                                        1      Introduction                                                        2        6.2   Additivity of Hamming distance . . . . . . . . . . . . . . . . 11
+                                        2      Finite Hamming Spaces                                               3        6.3   The product code . . . . . . . . . . . . . . . . . . . . . . . . 11
+                                                                                                                            6.4   Product covering theorem . . . . . . . . . . . . . . . . . . . 12
+                                        2.1    Coordinate types and alphabets . . . . . . . . . . . . . . . . 4
+                                        2.2    The q-ary specialization . . . . . . . . . . . . . . . . . . . . . 4         7     Neighbor Relations and Structural Code Transforma-
+                                        2.3    Hamming distance . . . . . . . . . . . . . . . . . . . . . . . . 4
+                                                                                                                                  tions                                           12
+                                        2.4    Balls and exact-distance layers . . . . . . . . . . . . . . . . . 4          7.1   Indexed concatenation . . . . . . . . . . . . . . . . . . . . . 12
+                                                                                                                            7.2   Structural explicit-code rules . . . . . . . . . . . . . . . . . 13
+                                        2.5    Cardinalities and ball volume . . . . . . . . . . . . . . . . . . 5
+                                                                                                                            8     Case Study: Formalizing Published Covering Codes
+                                        3      Covering Codes and Covering Numbers                                 5
+                                                                                                                                  13
+                                        3.1    Covering codes as subsets of Hamming space . . . . . . . . 5                 8.1   Source paper . . . . . . . . . . . . . . . . . . . . . . . . . . 13
+                                        3.2    Set-valued and finset-valued predicates . . . . . . . . . . . . 6            8.2   Data extraction . . . . . . . . . . . . . . . . . . . . . . . . . 13
+                                        3.3    Elementary interpretation as set cover      . . . . . . . . . . . . 6        8.3   Lean encoding . . . . . . . . . . . . . . . . . . . . . . . . . 14
+                                        3.4    The q-ary covering number . . . . . . . . . . . . . . . . . . . 6            8.4   Switchable finite proof mode and resource use . . . . . . . 14
+                                        3.5    Certificate-style exactness . . . . . . . . . . . . . . . . . . . 6          8.5   Certificate packaging . . . . . . . . . . . . . . . . . . . . . 14
+                                        3.6    Examples of exactness statements . . . . . . . . . . . . . . 7               8.6   What this demonstrates . . . . . . . . . . . . . . . . . . . . 14
+                                        3.7    Specializations and naming discipline . . . . . . . . . . . . . 7            9     Certified Bounds and Proof-Carrying Database                    14
+                                        4      Elementary General Theorems                                         7        9.1   Certificate structure . . . . . . . . . . . . . . . . . . . . . . 15
+                                        4.1    Ball lemmas . . . . . . . . . . . . . . . . . . . . . . . . . . . . 7        9.2   Trust boundary . . . . . . . . . . . . . . . . . . . . . . . . . 15
+                                        4.2    Radius monotonicity of covers . . . . . . . . . . . . . . . . . 8            9.3   Imported explicit codes . . . . . . . . . . . . . . . . . . . . 15
+                                                                                                                            9.4   A two-block cyclic upper bound for Kq (3, 1) . . . . . . . . . 15
+                                        4.3    Full-space covers . . . . . . . . . . . . . . . . . . . . . . . . . 8
+                                                                                                                            9.5   Selected database certificates . . . . . . . . . . . . . . . . 16
+                                        4.4    Large-radius covers . . . . . . . . . . . . . . . . . . . . . . . 8
+                                                                                                                            9.6   Closure and query consistency . . . . . . . . . . . . . . . . 16
+                                        4.5    Zero-radius exactness . . . . . . . . . . . . . . . . . . . . . . 8
+                                                                                                                            9.7   Path toward solver certificates . . . . . . . . . . . . . . . . 16
+                                        4.6    Length-zero and length-one consequences . . . . . . . . . . 8
+                                        4.7    The near-diameter value      . . . . . . . . . . . . . . . . . . . . 9       10    Prior Art                                                       16
+                                                                                                                            10.1 Related formalization work . . . . . . . . . . . . . . . . . . 17
+                                        5      Hamming Balls and the Sphere-Covering Bound                         9
+                                                                                                                            11    Discussion and Future Work                                      17
+                                        5.1    Proof of the ball volume formula . . . . . . . . . . . . . . . . 9
+                                        5.2    The sphere-covering lower bound . . . . . . . . . . . . . . 10               A     Artifact and Declaration Map                                    18
+                                        5.3    Lower bound via ceiling division . . . . . . . . . . . . . . . 10            B     Database Closure Diagnostics                                    18
+
+
+                                                                                                                        1
+                          Formal Foundations and Proof-Carrying Certificates for q-ary Covering Codes in Lean 4 — 2/20
+
+
+
+      Acknowledgements                                          18     the same time, the correctness of a covering-number claim
+      Author Contributions                                      18     depends on precise definitions, edge cases, and reusable math-
+                                                                       ematical lemmas. For example, one has to say exactly what
+      Use of AI Tools                                           19
+                                                                       happens for the empty alphabet q = 0, for length n = 0, and for
+      Competing Interests                                       19     radii r ≥ n. Informal tables usually suppress such conventions;
+                                                                       a theorem prover cannot.
+                      1. Introduction                                       The aim of this paper is to turn elementary covering-code
+A simple way to meet covering codes is through a rook-                 theory into machine-checkable certificates. A certificate here
+placement problem. Place some rooks on a q × q board, and              means a theorem-prover object which can be checked inde-
+call a square covered if it is occupied or lies in the same row or     pendently of the program, search procedure, or table entry
+column as an occupied square. The question is how few rooks            that suggested it. An explicit code proves an upper bound only
+are needed to cover the board. This is already a covering-code         after the theorem prover checks that its Hamming balls really
+problem: the board is the set of pairs {0, . . . , q − 1}2 , and one   cover the space. A lower bound proves a different statement:
+rook covers all positions that differ from its own position in         every possible code below a given size fails. When the two
+at most one coordinate. Higher dimensional versions replace            bounds meet, they combine to an exact covering number.
+the board by qn grid points and ask for a small set of centers              The formalization is written in Lean 4 [5]. It provides
+whose Hamming balls cover the whole grid.                              finite Hamming spaces, Hamming balls, covering predicates,
+    Another classical example is the football-pool problem [1,         upper-bound and lower-bound certificates, exactness certifi-
+2]. Suppose each of n matches has three possible outcomes,             cates, the q-ary ball-volume formula, the sphere-covering
+viewed from the perspective of the listed home team: win,              lower bound, structural constructions, and a proof-carrying
+draw, or loss. A betting ticket is therefore a word in a ternary       database of covering-code bounds. The database stores not
+alphabet. The covering-code version of the pool problem asks           only numerical bounds, but also traces explaining how they
+how many tickets are needed to guarantee a prize-level result:         were obtained. Replaying such a trace in Lean reconstructs
+whatever the actual match outcomes are, at least one submitted         a proof of the corresponding upper or lower bound. To the
+ticket should have at most one wrong prediction, or equiva-            author’s knowledge, this is the first proof-assistant develop-
+lently at least n − 1 correct predictions. This happens exactly        ment whose central objects are q-ary covering numbers and
+when every possible outcome vector differs from some ticket            composable covering-code certificates; the main paper-level
+in at most one coordinate. In modern notation this asks for            result is this auditable certificate interface rather than any
+K3 (n, 1), the minimum size of a ternary radius-one covering           single numerical bound.
+code.                                                                       A guiding design choice is to model words as functions
+    These examples illustrate the general problem. In the Ham-         from a coordinate type to an alphabet type. In Lean notation,
+ming space over a finite alphabet A, a word of length n is an          the general word type is represented as a dependent function
+element of An , and the Hamming distance dh (x, y) counts the          type,
+number of coordinates in which two words differ [3]. We
+write N for the natural numbers including 0. For r ∈ N, an r-                Word ι β := (i : ι) → β i,
+covering code is a subset C ⊆ An such that every word x ∈ An
+                                                                       and the ordinary q-ary Hamming space of length n is the
+lies within Hamming distance r of some codeword c ∈ C.
+                                                                       specialization
+Writing q := |A|, the q-ary covering number is defined by
+
+       Kq (n, r) = min{ |C| : C ⊆ An and C is an r-cover }                   Fin n → Fin q.
+
+and is the minimum size of such a covering code [4]. Thus              This representation makes the q-ary case simple while preserv-
+Kq (n, r) asks for the smallest number of Hamming balls of             ing a more general interface for finite coordinate types and
+radius r needed to cover the whole space.                              dependent alphabets. Closed balls and covering predicates are
+    The definition is elementary, but the known values and             then defined above this word layer. Covering predicates come
+bounds are built from a mixture of ingredients: explicit con-          in both set-valued and finset-valued forms, because mathe-
+structions, counting arguments, recursive relations between pa-        matical statements are often cleaner over sets while exact
+rameters, computer searches, and tables of best known bounds.          covering-number certificates and finite computations require
+Even for small parameters, an exact statement Kq (n, r) = k            finsets.
+usually has two independent parts. One must exhibit a cover-               A second design choice concerns how to represent the
+ing code with k codewords, and one must prove that no smaller          covering number Kq (n, r) in the theorem prover. Defining it
+code can cover. These two parts often come from different              directly as a function would require committing to a specific
+sources.                                                               minimum construction in Lean, with its own proof obligations.
+    This makes covering codes a natural test case for formal-          Such a definition would also be noncomputable in Lean’s
+ized mathematics. The objects are finite and concrete, so many         sense: logically well-defined, but not directly evaluable by the
+proposed upper bounds can be checked by computation. At                proof kernel. Making this choice prematurely would lock the
+                           Formal Foundations and Proof-Carrying Certificates for q-ary Covering Codes in Lean 4 — 3/20
+
+
+
+formalization into one design decision before it is clear which             of QaryKUpper or QaryKLower; selected exact cer-
+is most convenient.                                                         tificates include K2 (5, 1) = 7, K2 (6, 2) = 4, K3 (3, 1) =
+    Instead, the formalization represents the assertion Kq (n, r) =         5, and K4 (3, 1) = 8. The van Laarhoven case study
+k as a predicate — a logical statement that k satisfies the                 yields checked upper-bound certificates for K3 (6, 1) ≤
+two conditions that characterise the minimum. A statement                   73, K3 (7, 1) ≤ 186, and K3 (8, 1) ≤ 486.
+KSpec r k asserts: (1) there exists a finite radius-r covering
+                                                                           The scope is intentionally limited. The paper does not
+code of size k (an explicit upper-bound witness), and (2) ev-
+                                                                      claim new best bounds for Kq (n, r) and does not attempt to
+ery finite radius-r covering code has size at least k (a lower-
+                                                                      reproduce the full tables of known covering-code values from
+bound proof). Together these two conditions are equivalent to
+                                                                      the literature. The case study shows that committed explicit
+Kq (n, r) = k, but without ever defining Kq as a function. The
+                                                                      code data transcribed from a publication can be made into a
+q-ary specialization is written QaryKSpec q n r k.
+                                                                      Lean certificate, and the database section shows that register-
+    This approach matches the natural structure of covering-
+                                                                      ing such a certificate as a primitive source is straightforward.
+code proofs — an explicit construction for the upper bound
+                                                                      The selected small exact certificates are included because they
+and a counting argument for the lower bound — and keeps the
+                                                                      exercise the same upper/lower/exactness interfaces beyond
+formalization modular: results from different sources (explicit
+                                                                      the trivial structural families; their authority comes from the
+constructions, sphere-covering bounds, or later computational
+                                                                      Lean proof terms, not from any external table entry used to
+certificates) can be assembled independently. The two com-
+                                                                      identify candidate triples. The finite covering-code problem
+ponent predicates are also available separately: KUpper r k
+                                                                      has a direct set-cover formulation: choose binary variables for
+expresses Kq (n, r) ≤ k and KLower r k expresses Kq (n, r) ≥ k,
+                                                                      candidate codewords and require every word to be covered by
+with a lemma KSpec.ofUpperLower recombining them into
+                                                                      at least one selected radius-r ball. This formulation is the natu-
+an exact certificate whenever both bounds agree on the same
+                                                                      ral bridge to future SAT and integer-programming certificates;
+value k.
+                                                                      the switchable proof mode in the case study is a first step in
+    Contributions. This paper is a foundation paper rather
+                                                                      that direction, and extending it to solver-generated certificates
+than a record-setting paper. Its contributions are the following.
+                                                                      is left for future work.
+  (1) It gives a Lean-compatible framework for finite Ham-            Artifact availability. The Lean artifact is available from the
+      ming spaces and q-ary covering codes, with words rep-           source repository at the following fixed revision:
+      resented as functions and q-ary words as Fin n → Fin q.
+                                                                                github.com/florath/covering-codes-lean
+      The framework includes set-valued and finset-valued                      460df105545c2d6b04ba71f29de6b56dbda92825
+      covering predicates and treats boundary cases such as
+      q = 0, n = 0, and r ≥ n inside the formal statements.           All source-code links in this manuscript refer to that revision
+                                                                      rather than to a moving branch. Artifact paths are relative
+  (2) It develops certificate-style predicates for upper bounds       to the repository root. The build and query instructions are
+      (KUpper), lower bounds (KLower), and exact covering             recorded in README.md. The ordinary proof mode checks
+      numbers (KSpec), together with lemmas that project              finite certificates through Lean’s kernel reduction path; the op-
+      and recombine these certificates.                               tional native proof mode is used only when explicitly enabled
+                                                                      and has the trust boundary described in Section 9.2.
+  (3) It formalizes the q-ary Hamming-ball volume formula
+                                                                      Artifact audit workflow.     For routine referee inspection, the
+                           min(r,n)  
+                                   n                                  recommended first artifact check is the native proof-mode
+             Vq (n, r) =    ∑        (q − 1)i     (q ≥ 1),            workflow described there. It compiles the command-line query
+                            i=0    i
+                                                                      interface and the generated-table dependencies, then exercises
+      using a Lean-total definition, and derives the classical        representative database queries. The proof-mode switch af-
+      sphere-covering lower bound. It also proves elementary          fects only expensive finite covering checks. In native mode,
+      exact cases, including radius zero and the near-diameter        those checks additionally rely on Lean’s native compiled eval-
+      value Kq (n, n − 1) = q for 1 ≤ n.                              uator; in kernel mode, the same checks use ordinary decide.
+                                                                      Kernel mode is the stronger replay path for those finite leaves,
+  (4) It formalizes product and neighbor-relation rules for           but the largest explicit-code files require the resources shown
+      transporting covering-code bounds, including length,            in Table 3. The remaining components (handwritten theory,
+      alphabet, block, concatenation, and structural explicit-        generated trace typing, and trace replay) are typechecked by
+      code transformations. One uniform construction gives            Lean in the same way in both modes.
+             Kq (3, 1) ≤ ⌊q/2⌋2 + ⌈q/2⌉2 = ⌈q2 /2⌉.
+                                                                                  2. Finite Hamming Spaces
+  (5) It provides a trace-based proof-carrying database and           This section fixes the ambient objects used throughout the
+      demonstrates the artifact workflow on explicit pub-             paper. The mathematics is standard: the points of a finite Ham-
+      lished codes. Stored bounds replay to L EAN proofs              ming space are finite words, and the distance between two
+                         Formal Foundations and Proof-Carrying Certificates for q-ary Covering Codes in Lean 4 — 4/20
+
+
+
+words is the number of coordinates in which they differ. The        including the convention 00 = 1. Later theorems add nonempti-
+formalization is slightly more general than the usual q-ary         ness hypotheses, such as q ≥ 1, q ≥ 2, or n ≥ 1, exactly where
+presentation, because many elementary lemmas do not de-             they are mathematically needed.
+pend on the alphabet being constant across coordinates. The             Both Word and QaryWord are introduced with Lean’s
+terminology and notation for finite Hamming spaces, Ham-            abbrev keyword rather than def, which makes them trans-
+ming distance, Hamming balls, shells, covering radius, and          parent to the type-checking kernel. As a result, QaryWord q
+the covering number Kq (n, r) follow the standard conventions       n is definitionally equal to Word (Fin n) (fun            : Fin
+of coding and covering-code theory; for general coding-theory       n => Fin q), and every general theorem about Word ι β
+background see MacWilliams and Sloane [6] and van Lint [7],         applies to q-ary words directly, without any explicit coercion
+and for covering-code notation see Cohen et al. [4, Sec. 2.1].      or type cast.
+                                                                        This two-layer design — a general layer over abstract ι
+2.1 Coordinate types and alphabets                                  and β , and a q-ary specialization with explicit q, n, r, k — is
+Let ι be a finite type of coordinates. For each coordinate i : ι,   used throughout the formalization. General lemmas such as
+let βi be the alphabet available at that coordinate. A word over    triangle inequalities, ball monotonicity, radius monotonicity
+these coordinate alphabets is a dependent function                  of covers, and the product construction are proved once over
+      x : ∏ βi .                                                    arbitrary finite coordinate types. Concrete covering-code state-
+          i:ι                                                       ments are then stated with q-ary names such as QaryKSpec
+                                                                    q n r k, so the mathematically meaningful parameters re-
+In Lean this is represented directly by a dependent function
+                                                                    main visible. Because the q-ary layer is transparent to Lean’s
+type:
+                                                                    kernel, this specialization does not introduce a second proof
+ abbrev Word (ι : Type u) (β : ι → Type v) : Type _ :=              layer.
+   (i : ι ) → β i
+
+This choice keeps the formal interface close to the mathemat-       2.3 Hamming distance
+ical notation. A word x is applied to a coordinate i, and the       For two words x, y : ∏i:ι βi , the Hamming distance is
+paper notation xi corresponds to the Lean expression x i.
+     The assumptions needed for this layer are explicit. The              dh (x, y) = |{ i : ι : xi ̸= yi }| .
+coordinate type must be finite, because Hamming distance is         The formalization reuses mathlib’s Hamming-distance defi-
+a finite count over coordinates. Equality at every coordinate       nition and exposes it under the project namespace as dist.
+alphabet must be decidable, because the set of positions at         The codomain is N, not R. This is the natural form for the
+which two words differ is defined by a decidable predicate.         elementary covering-code arguments: balls are defined by
+When cardinalities of word spaces are used, the coordinate          inequalities between natural numbers, exact-distance layers
+alphabets are also assumed finite.                                  are finite sets, and all cardinality estimates remain in natural-
+     Keeping the coordinate type abstract is useful later. For      number arithmetic.
+example, the product construction for two codes is naturally            The basic distance API consists of the following facts:
+stated over a sum of coordinate types before being transported
+to the usual Fin(n1 + n2 ) representation. Thus the q-ary case                 dh (x, x) = 0,
+is the main specialization, not the only setting in which the                  dh (x, y) = dh (y, x),
+elementary API is valid.
+                                                                               dh (x, z) ≤ dh (x, y) + dh (y, z),
+2.2 The q-ary specialization                                                   dh (x, y) ≤ |ι|,
+For q, n ∈ N, the q-ary Hamming space of length n is                      dh (x, y) = 0 ⇐⇒ x = y.
+      Hq (n) := (Fin q)  Fin n
+                                 ,                                  For q-ary words of length n, the bound dh (x, y) ≤ |ι| spe-
+which we also write informally as (Fin q)n . In Lean this           cializes to dh (x, y) ≤ n. In the formalization these facts are
+specialization is named as follows:                                 recorded by the expected self-distance, symmetry, triangle,
+                                                                    cardinality, and zero-distance lemmas. Together they provide
+ abbrev QaryWord (q n : N) : Type :=
+   Fin n → Fin q                                                    the metric facts needed in the rest of the paper, while keeping
+                                                                    the primary interface natural-number-valued.
+Thus QaryWord q n is the type of length-n words over an
+alphabet with q symbols.                                            2.4 Balls and exact-distance layers
+    The definitions do not build in assumptions such as q > 0       For a center word c and a radius r ∈ N, the closed Hamming
+or n > 0. For example, Fin 0 is the empty type; hence there         ball of radius r around c is
+are no words of positive length over the alphabet Fin 0, while
+there is still one empty word when n = 0. This agrees with                Br (c) = { x : dh (x, c) ≤ r }.
+the finite-type cardinality identity
+                                                                    This is the geometric object from which covering codes are
+      | Fin n → Fin q| = qn ,                                       defined. The Lean definition ball is the direct set of words
+                                  Formal Foundations and Proof-Carrying Certificates for q-ary Covering Codes in Lean 4 — 5/20
+
+
+
+satisfying the distance inequality. Consequently, membership          This classical formula is the standard volume formula for q-
+in a ball is exactly the distance inequality:                         ary Hamming balls; see Cohen et al. [4, Sec. 2.1]. The Lean
+                                                                      function qaryBallVolume implements this closed form as a
+       x ∈ Br (c)          ⇐⇒           dh (x, c) ≤ r.                total expression in q, n, r and uses natural-number truncated
+                                                                      subtraction, so q − 1 = 0 when q = 0. For q ≥ 1 the two agree.
+The elementary ball API contains the following facts:
+                                                                      The linked cardinality theorem states that the formula equals
+  (i) the center belongs to every ball around itself, c ∈ Br (c);     the size of an actual finite ball. Equivalently, for every center
+                                                                      c : Fin n → Fin q,
+  (ii) radius-zero balls are singletons, B0 (c) = {c};
+                                                                            |Br (c)| = Vq (n, r).
+ (iii) balls are monotone in the radius, so r ≤ s implies Br (c) ⊆
+       Bs (c);                                                        This theorem is used later to derive the sphere-covering lower
+                                                                      bound. The theorem is stated for an actual center word, so
+ (iv) if r ≥ |ι| (which equals n in the q-ary case), then Br (c)      edge cases such as q = 0, n > 0 are handled by the type itself:
+      is the whole word space.                                        in that case there is no center to quantify over.
+                                                                          The preceding definitions separate the finite Hamming-
+    It is also useful to refer informally to exact-distance layers.   space layer from the covering-code layer introduced next. The
+For i ∈ N, write                                                      next section adds codes, covering predicates, and certificate-
+       Si (c) = { x : dh (x, c) = i }.                                style exact covering-number statements on top of these defini-
+                                                                      tions.
+Then
+                  min(r,n)
+                                                                       3. Covering Codes and Covering Numbers
+                     [
+       Br (c) =                Si (c)                                 Section 2 fixed words, Hamming distance, and balls. This sec-
+                     i=0                                              tion adds the formal predicates used to state covering claims.
+in the q-ary length-n case. This shell notation is used only to       The main predicate says that a chosen set of centers covers the
+explain the ball-volume formula below.                                ambient space at a given radius. The q-ary covering number is
+    The notation Br (c) and Si (c) agrees with the usual Ham-         then represented, in the current formalization, by a certificate-
+ming ball and shell notation used in covering-code theory; see        style exactness predicate rather than by an immediately chosen
+Cohen et al. [4, Sec. 2.1].                                           noncomputable minimization operator.
+                                                                          This distinction is intentional. Mathematically, it is con-
+2.5 Cardinalities and ball volume                                     venient to write Kq (n, r) for the minimum size of a radius-r
+When all coordinate alphabets are finite, the dependent word          cover of (Fin q)n . In a theorem prover, however, many ele-
+space has cardinality                                                 mentary results are naturally proved by giving an upper-bound
+                                                                      witness and a lower-bound argument. The formal predicate
+                                                                      used here records precisely these two pieces of information.
+        ∏ βi = ∏ |βi |.                                               Thus a statement such as Kq (n, r) = k is represented first as
+        i:ι          i:ι
+                                                                      the existence of a finite cover of size k, together with a proof
+For the uniform q-ary case this becomes                               that every finite cover has size at least k.
+
+       |Hq (n)| = | Fin n → Fin q| = qn .                             3.1 Covering codes as subsets of Hamming space
+                                                                      Using the notation of Section 2, fix a finite word space
+This identity is used repeatedly: it gives the size of the full-
+space code, the cardinality of the search space, and the right-             W = ∏ βi
+                                                                                   i:ι
+hand side of the sphere-covering bound.
+    For a fixed center in Hq (n), the number of words at dis-         with Hamming distance dh . For C ⊆ W and r ∈ N, the formal
+tance exactly i is                                                    covering predicate is
+                                                                          Covers(C, r)           :⇐⇒   ∀x ∈ W, ∃c ∈ C, dh (x, c) ≤ r.
+                   n
+      |Si (c)| =     (q − 1)i .
+                   i                                                  Thus C is a radius-r covering code exactly when Covers(C, r)
+                                                                      holds. Equivalently,
+Indeed, one first chooses the i coordinates at which the word                     [
+differs from the center and then chooses one of the q − 1                   W=           Br (c),
+non-center symbols in each chosen coordinate. Summing over                        c∈C
+
+exact-distance layers gives the q-ary Hamming-ball volume             where Br (c) is the closed Hamming ball of radius r centered
+                                                                      at c. This union-of-balls view is the form used in the sphere-
+                     min(r,n)  
+                                   n                                  covering bound, while the existential view is usually the most
+       Vq (n, r) =         ∑         (q − 1)i            (q ≥ 1).
+                           i=0     i                                  convenient one for Lean proofs.
+                            Formal Foundations and Proof-Carrying Certificates for q-ary Covering Codes in Lean 4 — 6/20
+
+
+
+    Specializing W to Hq (n), the same condition becomes               3.4 The q-ary covering number
+                                                                       The introduction used the standard notation Kq (n, r) for the
+ Coversq (C, n, r)     :⇐⇒       ∀x : Hq (n), ∃c ∈ C, dh (x, c) ≤ r.   least size of a radius-r covering code in Hq (n):
+
+This predicate is uniform in q, n, and r. No assumption such                 Kq (n, r) = min{ |C| : C ⊆ Hq (n), C is an r-cover }.
+as q > 0 or n > 0 is built in. This is useful because edge cases,
+for example the empty alphabet or the length-zero word space,          This is standard notation [4, Sec. 2.1]. The Lean development
+can be handled by ordinary finite-type reasoning rather than           does not make this minimum function the primary formal
+by separate informal conventions.                                      object. Its certificate interface uses linked predicates for upper
+                                                                       and lower bounds, together with exactness.
+                                                                           The full-space construction gives the immediate upper
+3.2 Set-valued and finset-valued predicates                            bound
+The formalization exposes two covering predicates: Covers
+for set-valued codes and CoversFinset for finset-valued                      Kq (n, r) ≤ |Hq (n)| = qn .
+codes. Both are direct translations of the mathematical state-
+ment above, using Lean’s membership notation and proposi-              If r ≥ n, then a single word covers the entire q-ary Hamming
+tional connectives.                                                    space, because every two length-n words have distance at
+    The set-valued predicate is useful for general inclusion           most n. Under the nonemptiness assumption Hq (n) ̸= ∅, this
+arguments. For example, if C ⊆ D and C covers at radius r,             gives
+then D also covers at radius r. The finset-valued predicate is
+useful whenever cardinalities are part of the statement, as in               Kq (n, r) = 1      (r ≥ n).
+exact covering-number results and computational certificates.          These are elementary examples of the upper-bound/lower-
+    The two predicates agree after coercing a finset to a set;         bound pattern used throughout the formalization.
+this is the lemma coversFinset_iff_coe. It lets the for-
+malization move freely between set-style and finset-style rea-         3.5 Certificate-style exactness
+soning. In particular, theorems whose proofs are conceptually          Instead of making a noncomputable definition of Kq (n, r) the
+about containment can be stated for sets, while theorems               central formal object, the current formalization uses an exact-
+whose conclusions involve |C| can be stated for finsets.               ness predicate. For a fixed ambient word type, the predicate
+
+3.3 Elementary interpretation as set cover                                   KSpec(r, k)
+For fixed q, n, r, every possible center c ∈ Hq (n) determines
+                                                                       means that k is the exact minimum size of a radius-r cover.
+a subset of the ambient space, namely its ball Br (c). Finding
+                                                                       It is defined by the conjunction of an upper-bound certificate
+a smallest radius-r covering code is therefore exactly the
+                                                                       and a lower-bound theorem:
+problem of selecting as few of these balls as possible so that
+their union is the whole space:                                              KSpec(r, k)     :⇐⇒      ∃C, |C| = k, C is an r-cover,
+                                                                                                      and for every finite D,
+      Hq (n) =
+                 [
+                       Br (c).
+                 c∈C
+                                                                                                           D is an r-cover ⇒ k ≤ |D|.
+
+This is a finite instance of the standard set-cover formula-           The corresponding Lean definition is:
+tion [4]: the universe is Hq (n), and the candidate subsets are         def KSpec (r k : N) : Prop :=
+the balls {Br (c) : c ∈ Hq (n)}. Here we use this only as an              ∃ C : Finset (Word ι β ),
+                                                                            C.card = k ∧
+elementary modeling viewpoint, not as a complexity-theoretic                CoversFinset C r ∧
+hardness claim. The set-cover viewpoint is not needed to de-                ∀ D : Finset (Word ι β ), CoversFinset D r → k ≤
+fine covering codes, but it clarifies two later parts of the paper.          D.card
+First, the sphere-covering lower bound arises by comparing             The q-ary specialization QaryKSpec makes all four numerical
+the cardinality of the full space with the total size of the balls     parameters explicit. Thus a Lean theorem of type QaryKSpec
+selected by a code. Second, computational upper-bound certifi-         q n r k corresponds to the mathematical assertion Kq (n, r) =
+cates are simply explicit choices of centers whose associated          k.
+balls cover all words.                                                     This representation has two practical advantages. First,
+    This paper uses the set-cover perspective only at the el-          it matches the usual structure of covering-code proofs: an
+ementary level. More sophisticated solver-based certificates,          explicit code proves Kq (n, r) ≤ k, and a lower-bound argu-
+symmetry reductions, and integer-programming or SAT en-                ment proves Kq (n, r) ≥ k. Second, it avoids forcing early
+codings are deliberately left for future work; Section 9 records       design decisions about a global covering-number function,
+the basic computational interface.                                     for example whether to define it by Nat.find, by a finite
+                                                                       minimum over a finset of candidate cardinalities, or by an
+                          Formal Foundations and Proof-Carrying Certificates for q-ary Covering Codes in Lean 4 — 7/20
+
+
+
+order-theoretic infimum. Such a function can be added later         abbreviation for such a specialization in examples or in a later
+and proved equivalent to KSpec; the present formalization           module, but the core formalization does not depend on doing
+only needs the certificate form.                                    so. The formal library is organized around arbitrary q, n, and
+    The two conjuncts of KSpec are also exposed as stan-            r, and the q-ary specialization itself is only a specialization of
+dalone predicates. The predicate KUpper(r, k) expresses the         the more general finite-word interface.
+upper bound Kq (n, r) ≤ k: there exists a finite radius-r cov-          This naming discipline matters for the scope of the pa-
+ering code of size at most k. The predicate KLower(r, k) ex-        per. The first goal is not to formalize one named application,
+presses the lower bound Kq (n, r) ≥ k: every finite radius-r        but to build a reusable foundation for finite Hamming-space
+covering code has size at least k. Their Lean definitions are:      covering codes. Application-specific terminology can then be
+ def KUpper (r k : N) : Prop :=                                     layered on top without changing the underlying definitions.
+   ∃ C : Finset (Word ι β ), C.card ≤ k ∧ CoversFinset                  The next section records elementary consequences of
+      C r                                                           these definitions: monotonicity in the radius, full-space and
+ def KLower (r k : N) : Prop :=
+                                                                    singleton covers, zero-radius exactness, and near-diameter ex-
+   ∀ C : Finset (Word ι β ), CoversFinset C r → k ≤ C.              actness. These results are mathematically simple, but they are
+      card                                                          important tests that the formal interface has the right shape.
+The three predicates are connected by linked projection, com-
+bination, and uniqueness lemmas. The combination lemma is                  4. Elementary General Theorems
+the key result: an upper-bound witness satisfies |C| ≤ k, while
+the lower-bound theorem applied to the same code forces             The previous two sections introduced the finite Hamming-
+k ≤ |C|, so |C| = k follows by antisymmetry. The uniqueness         space interface and the covering-code predicates. This section
+lemma confirms that the certificate predicate behaves like a        records the first general theorems built on top of that interface.
+numerical covering-number value: two exact certificates for         None of the results is intended to be mathematically surprising.
+the same radius must agree on their value. The upper- and           Their role is foundational: they test that the definitions have
+lower-bound predicates also satisfy linked monotonicity and         the right shape, establish the standard edge cases, and provide
+antitonicity lemmas. Their q-ary specializations make all four      small reusable lemmas for later bounds and constructions.
+parameters explicit, in the same style as QaryKSpec.                    There are two kinds of statements in this section. The first
+                                                                    kind concerns the behavior of balls and covers under changes
+3.6 Examples of exactness statements                                of radius. These are structural lemmas used throughout the
+The elementary exact values proved later in the paper are nat-      formalization. The second kind packages elementary exact
+urally expressed using KSpec and QaryKSpec. For example,            values of covering numbers in certificate form. These exact
+the zero-radius theorem says that every word must be selected       values are simple, but they are important because they ex-
+as a codeword:                                                      ercise both halves of the exactness predicate introduced in
+                                                                    Section 3.5: an explicit covering code and a proof that no
+      Kq (n, 0) = qn .                                              smaller code can cover.
+In certificate form, the linked general theorem states that the
+                                                                    4.1 Ball lemmas
+whole finite word space is the unique minimum-size radius-
+zero cover. The upper-bound witness is the full word space,         The following lemmas are immediate consequences of the ball
+and the lower-bound proof shows that a radius-zero cover            definition from Section 2.4 and the basic Hamming-distance
+must contain every word.                                            API.
+    Another example is the near-diameter theorem:                       Ball membership is just the defining distance inequality:
+
+      Kq (n, n − 1) = q      (n ≥ 1).                                     x ∈ Br (c)    ⇐⇒      dh (x, c) ≤ r.
+
+The corresponding linked Lean theorem has the expected              The Lean simp lemma is mem_ball_iff. The same file
+QaryKSpec conclusion. The upper-bound witness is the code           proves that the center is contained in every ball around it-
+of constant q-ary words, while the lower bound shows that           self (center_mem_ball), that radius-zero balls are single-
+every radius-(n − 1) cover must contain at least q words. This      tons (ball_zero), and that balls are monotone in the radius
+theorem illustrates why the certificate-style API is convenient:    (ball_subset_ball_of_le):
+the proof object contains both the construction and the opti-
+mality argument.                                                        c ∈ Br (c),      B0 (c) = {c},       r ≤ s ⇒ Br (c) ⊆ Bs (c).
+
+3.7 Specializations and naming discipline                           These lemmas are small, but they are the local facts that make
+Some classical problems are obtained by fixing the alphabet         later covering proofs readable. For example, radius mono-
+size and radius. For example, the ternary radius-one problem        tonicity of covers is simply ball monotonicity expressed in the
+is the specialization K3 (n, 1). It may be useful to introduce an   existential form of the covering predicate.
+                           Formal Foundations and Proof-Carrying Certificates for q-ary Covering Codes in Lean 4 — 8/20
+
+
+
+4.2 Radius monotonicity of covers                                      The linked Lean theorem formalizes this singleton cover. By
+If a code covers at radius r, then it covers at every larger radius.   radius monotonicity, the same singleton covers at every larger
+For a set-valued code C ⊆ W , the statement is                         radius (large-radius version). There is also a version for arbi-
+                                                                       trary nonempty codes; its proof chooses one element c ∈ C
+      r≤s      and      Covers(C, r)     =⇒       Covers(C, s).        and ignores all other codewords.
+                                                                           Specialized to Hq (n), the coordinate type is Fin n, so |ι| =
+    The formalization provides both a linked set-valued the-
+                                                                       n. Hence, whenever the ambient space is nonempty and r ≥ n,
+orem and a linked finset-valued theorem. The finset-valued
+                                                                       one codeword is enough:
+theorem is obtained by transporting the set-valued theorem
+through the equivalence between the two covering predicates                  Kq (n, r) = 1      if Hq (n) ̸= ∅ and r ≥ n.
+after coercing a finset to a set.
+    Mathematically, this lemma is the source of the usual              The nonemptiness hypothesis is essential in a fully formal
+antitonicity of covering numbers in the radius:                        statement. If the ambient space is empty, then the empty code
+                                                                       already covers vacuously, so the exact minimum is 0, not 1.
+      r≤s      =⇒        Kq (n, s) ≤ Kq (n, r).
+                                                                       For q-ary spaces, Hq (n) is nonempty exactly when q > 0 or
+In the certificate-style API used here, the theorem is most            n = 0.
+directly used as an upper-bound transfer: a radius-r covering              The same observation can also be stated geometrically: for
+certificate immediately gives a radius-s covering certificate          any center c and any radius r ≥ |ι|, the ball Br (c) is the whole
+of the same size. A global noncomputable covering-number               word space. The formalization currently uses the equivalent
+function can later expose the displayed inequality as a named          covering-code formulation because it is the form needed for
+theorem.                                                               exactness certificates.
+    A closely related monotonicity principle concerns the code
+itself rather than the radius: adding codewords cannot destroy         4.5 Zero-radius exactness
+the covering property. If C ⊆ D and C is an r-cover, then D is         At radius zero, a codeword covers only itself. Therefore a
+also an r-cover. This lemma is not mathematically difficult,           radius-zero covering code must contain every word of the
+but it is a useful companion to radius monotonicity because            ambient space. In the q-ary case this gives the exact value
+many constructions enlarge or transform existing codes.
+                                                                             Kq (n, 0) = qn .
+4.3 Full-space covers                                                       The corresponding classical q-ary theory records the triv-
+The simplest covering code is the whole ambient space. Let W           ial values Kq (n, 0) = qn , Kq (n, n) = 1, and the near-diameter
+be any finite word space. The full-space code covers at every          value Kq (n, n − 1) = q under the usual nonempty-alphabet
+radius:                                                                convention; see Cohen et al. [4, Sec. 3.7]. The Lean interface
+      CoversFinset(W, r).                                              uses natural-number parameters throughout, so the boundary
+                                                                       cases are part of the formal statements rather than informal
+    The linked Lean theorem is stated using the universal              side conditions. Table 1 summarizes the conventions and the
+finset. In the q-ary case this gives the elementary upper bound        corresponding Lean names.
+                                                                            The linked key formal lemma characterizes radius-zero
+      Kq (n, r) ≤ |Hq (n)| = qn .                                      covers by containment of the universal finset. This provides
+                                                                       the lower-bound half of the exactness certificate.
+This upper bound is usually far from sharp, but it has two
+                                                                            The linked exactness theorem is packaged directly in cer-
+important formal uses. First, it shows that the family of finite
+                                                                       tificate form. The upper-bound witness is Finset.univ, the
+covering codes is nonempty whenever one wants to define
+                                                                       finset of all words. The lower-bound part uses the zero-radius
+Kq (n, r) as a minimum. Second, it provides the upper-bound
+                                                                       characterization above: if D is any radius-zero cover, then it
+half of the radius-zero exactness theorem.
+                                                                       contains every word, and therefore
+4.4 Large-radius covers
+                                                                             |W | ≤ |D|.
+The next elementary observation is that the maximum possi-
+ble Hamming distance between two words is the number of                    This theorem is a useful example of the intended proof
+coordinates. If |ι| denotes the cardinality of the coordinate          pattern for exact covering numbers. The construction and the
+type, then                                                             lower bound are separate arguments, but the KSpec theorem
+                                                                       combines them into a single machine-checkable certificate of
+      dh (x, y) ≤ |ι|
+                                                                       exactness.
+for all x, y ∈ W . Consequently, a single center covers the whole
+word space at radius |ι|:                                              4.6 Length-zero and length-one consequences
+                                                                       Several edge cases follow immediately from the large-radius
+      {c} is a |ι|-cover.                                              and zero-radius results. They are worth spelling out because
+                              Formal Foundations and Proof-Carrying Certificates for q-ary Covering Codes in Lean 4 — 9/20
+
+
+
+  Case                       Formal behavior                                                                   Lean declarations
+  All q, n, r ∈ N            No positivity assumption is built into the q-ary predicates; the word space is    QaryWord,    QaryKSpec,     QaryKUpper,
+                             the finite type Fin n → Fin q.                                                    QaryKLower
+  q=0                        The word space is nonempty exactly when n = 0. For n > 0, covering                qaryWord nonempty iff, zeroLower valid,
+                             conditions over the empty space are vacuous, and lower bound 0 is the             trivialUpper valid
+                             database fallback.
+  r=0                        Exact for all q, n: Kq (n, 0) = qn . This includes the empty-space value  covers zero iff univ subset,
+                             K0 (n, 0) = 0 for n > 0 and Kq (0, 0) = 1.                                qaryKSpec zero radius
+  n=0                        There is one empty word, so the exact value is Kq (0, r) = 1 for every r. This
+                                                                                                       qaryWord nonempty iff,
+                             follows from zero-radius exactness at r = 0 and from the large-radius source
+                                                                                                       qaryKSpec zero radius,
+                             bounds for r ≥ 0.                                                         largeRadiusLower valid,
+                                                                                                       largeRadiusUpper valid
+  r≥n                     A singleton covers whenever the word space has a center, giving exact value singleton covers of card le,
+                          1 for n = 0 or q > 0. For q = 0, n > 0, the space is empty and the trivial largeRadiusLower valid,
+                          upper/lower bounds give value 0.                                             largeRadiusUpper valid
+  r = n−1                 Exact for all q when 1 ≤ n: Kq (n, n − 1) = q. The n = 0 case is not part of qaryKSpec radius nMinusOne,
+                          this theorem and is handled by the radius-zero case.                         radiusNMinusOneLower valid,
+                                                                                                       radiusNMinusOneUpper valid
+
+                               Table 1. Boundary cases included by the all-natural-number q-ary interface.
+
+
+they prevent hidden informal assumptions about nonempty                            and n ≥ 1, the ambient space is empty and the value is 0 = q;
+alphabets or positive word lengths.                                                for q = 1, the ambient space has one word and the value is
+    For length zero, the q-ary Hamming space contains exactly                      1 = q.
+one word: the empty function from the empty coordinate type                            The upper bound uses the finite set of constant words. Its
+to the alphabet. This remains true for q = 0, because there is                     linked cardinality and covering lemmas establish the construc-
+a unique function from the empty type to Fin 0. Thus                               tion. The lower bound is the linked missing-symbol theorem:
+                                                                                   any radius-(n − 1) cover has at least q codewords. Combining
+         |Hq (0)| = q0 = 1                                                         these two parts gives the exact linked certificate. This theo-
+                                                                                   rem is a useful first nontrivial test of the linked QaryKSpec
+for every q, including q = 0. Since the only word is at distance
+                                                                                   interface.
+zero from itself, one codeword covers for every radius:
+                                                                                       These elementary results are deliberately modest. Their
+         Kq (0, r) = 1.                                                            importance is that they establish the basic proof pattern used
+                                                                                   throughout the rest of the paper: define a finite code, prove that
+The nonemptiness requirement in the large-radius singleton                         it covers, and separately prove that any covering code must
+theorem is therefore satisfied at n = 0, so this agrees with both                  have at least a certain size. The next section applies the same
+zero-radius exactness and the large-radius result.                                 pattern at a larger scale by counting the union of Hamming
+    For length one, radius zero requires all symbols:                              balls around an arbitrary covering code.
+
+         Kq (1, 0) = q.
+                                                                                                   5. Hamming Balls and the
+For positive radius, one selected symbol covers every one-
+letter word, provided the q-ary space is nonempty:                                                  Sphere-Covering Bound
+                                                                                   This section contains the two main analytical results of the
+         Kq (1, r) = 1        (q ≥ 1, r ≥ 1).
+                                                                                   formalization. The first is a proof of the closed-form ball
+If q = 0 and n = 1, the ambient word space is empty and the                        volume formula introduced in Section 2.5, which is needed
+exact covering number is 0. These degenerate cases are not                         as a lemma for everything that follows. The second is the
+exceptions to the formal definitions; they are ordinary con-                       classical sphere-covering lower bound, which asserts that
+sequences of representing q-ary words as functions Fin n →                         the number of codewords in any covering code is at least
+Fin q.                                                                             ⌈qn /Vq (n, r)⌉. Together these two results form the analytical
+                                                                                   core of the library and the primary input to the certified lower-
+4.7 The near-diameter value                                                        bound database described in Section 9.
+The most substantial elementary exact value in this initial
+formalization is the near-diameter case                                            5.1 Proof of the ball volume formula
+                                                                                   Section 2.5 introduced the q-ary Hamming-ball volume
+         Kq (n, n − 1) = q         (n ≥ 1).
+                                                                                                         min(r,n)  
+Common informal presentations often state this for q ≥ 2, but                                                        n
+                                                                                           Vq (n, r) =        ∑        (q − 1)i .
+the formal theorem does not need that hypothesis. For q = 0                                                   i=0    i
+                          Formal Foundations and Proof-Carrying Certificates for q-ary Covering Codes in Lean 4 — 10/20
+
+
+
+The linked theorem qaryBallVolume_eq_card formalizes                        _ ≤ (C.biUnion (fun c => ballFinset c r)).card :=
+the classical formula |Br (c)| = Vq (n, r) [4, Sec. 2.1] by double             Finset.card_le_card hcover
+                                                                            _ ≤ Finset.sum C (fun c => (ballFinset c r).card)
+induction on n and r. The base cases n = 0 and r = 0 are                          := Finset.card_biUnion_le
+immediate.                                                                  _ = Finset.sum C (fun c => qaryBallVolume q n r)
+    The inductive step is the usual first-coordinate split. A                     := Finset.sum_congr rfl (...)
+word in Br+1 (c) either agrees with c in the first coordinate and           _ = C.card * qaryBallVolume q n r              := by
+                                                                                rw [Finset.sum_const, smul_eq_mul]
+leaves a tail in Br+1 (ctail ), or differs there and chooses one of
+the q − 1 non-center symbols while leaving a tail in Br (ctail ).
+Thus the ball cardinalities satisfy                                      5.3 Lower bound via ceiling division
+                                                                         The product inequality qn ≤ |C| · Vq (n, r) can be rearranged
+       |Br+1 (c)| = |Br+1 (ctail )| + (q − 1) |Br (ctail )|.             to |C| ≥ ⌈qn /Vq (n, r)⌉, giving an explicit computable lower
+                                                                         bound. The ceiling-division version is the natural integer-
+The corresponding arithmetic recurrence is:                              arithmetic form of the same sphere-covering bound. In natural-
+ lemma qaryBallVolume_succ_succ (q n r : N) :                            number arithmetic, ceiling division is defined as follows:
+     qaryBallVolume q (n + 1) (r + 1) =
+     qaryBallVolume q n (r + 1) + (q - 1) *                                    lam       a+b−1
+      qaryBallVolume q n r                                                           =                  (b > 0),
+                                                                                 b         b
+The main formal nuisance is that the two sums naturally
+                                                                         where the division on the right is natural-number floor division.
+have different upper bounds because of min(r, n). The Lean
+                                                                         The Lean definition is:
+proof rewrites the volume      formula to an equivalent sum over
+0, . . . , r +1, using ni = 0 for i > n; after that, Pascal’s identity
+                         
+                                                                          def natCeilDiv (a b : N) : N :=
+                                                                            (a + b - 1) / b
+aligns the summands and the induction hypothesis matches the
+ball recurrence. Positivity of qaryBallVolume then follows               The convention natCeilDiv a 0 = 0 is adopted for the
+from the i = 0 summand and is used in the ceiling-division               zero-denominator case, which never arises in the sphere-
+form of the sphere-covering bound below.                                 covering application because Vq (n, r) ≥ 1 always holds.
+                                                                             The key arithmetic lemma relating ceiling division to prod-
+5.2 The sphere-covering lower bound                                      uct inequalities is:
+The sphere-covering lower bound is the standard counting ar-
+                                                                          theorem natCeilDiv_le_of_le_mul {a b c : N}
+gument for covering codes: each codeword covers at most                       (hb : 0 < b) (h : a ≤ c * b) :
+Vq (n, r) words, so a radius-r covering code must contain                     natCeilDiv a b ≤ c
+enough codewords to cover all qn words [4, Sec. 2.1]. The
+formal statement avoids natural-number division: the bound               This says that if a ≤ c · b and b > 0, then ⌈a/b⌉ ≤ c. The
+is phrased as a product inequality.                                      proof is a short calculation in natural-number arithmetic, using
+    Intuition. Let C ⊆ Hq (n) be a finite covering code of               the standard characterization of strict inequalities for natural-
+radius r. Each codeword c ∈ C is associated with a ball Br (c),          number division and the fact that ⌈a/b⌉ − 1 < a/b.
+and the balls together cover all qn words. Even if the balls                 The sphere-covering lower bound is encapsulated as a
+were pairwise disjoint — the most favorable case for the code            computable function:
+— they could account for at most |C| ·Vq (n, r) words in total.           def sphereLower (q n r : N) : N :=
+Since they must account for all qn words:                                   natCeilDiv (q ˆ n) (qaryBallVolume q n r)
+
+                                                                         Its validity as a lower-bound certificate is established by:
+       qn ≤ |C| ·Vq (n, r).
+                                                                          theorem sphereLower_valid (q n r : N) :
+                                                                              QaryKLower q n r (sphereLower q n r)
+In practice the balls overlap, which means a given word may
+be covered multiple times. The inequality is therefore conser-           The proof applies the natural-number ceiling-division lemma
+vative: it gives a lower bound, not an equality.                         with a := qn , b := Vq (n, r), and c := |C| for an arbitrary cover-
+    Formal statement. The theorem is phrased as an inequal-              ing code C. Positivity of the denominator comes from the ball-
+ity between qn and the product |C| ·Vq (n, r):                           volume positivity lemma, and the product inequality comes
+ theorem sphere_covering_bound {q n r : N}                               from the sphere-covering bound. Thus sphereLower valid
+     (C : Finset (QaryWord q n)) (hC : CoversFinset C r                  is a direct consequence of the two main results of this section.
+      ) :                                                                     The results in this section are mathematically standard.
+     q ˆ n ≤ C.card * qaryBallVolume q n r
+                                                                         Their value in the formalization is that they provide a machine-
+    Formal proof. The proof follows the intuitive argument               checked bridge between the explicit ball-volume formula
+as a single calc chain over finset cardinalities:                        and the certificate-style lower-bound predicates used by the
+ calc q ˆ n
+                                                                         database. The next section applies the same pattern at the
+     = Finset.univ.card                                        :=        construction level by combining covering codes via a product
+      ...                                                                operation.
+                         Formal Foundations and Proof-Carrying Certificates for q-ary Covering Codes in Lean 4 — 11/20
+
+
+
+           6. Elementary Constructions                                  6.2 Additivity of Hamming distance
+                                                                        The key structural property of the product construction is that
+This section presents the product construction for covering             Hamming distance decomposes additively along the left and
+codes. The idea is classical: given two codes, one covering             right coordinate blocks. Formally, for any two sum words,
+a left coordinate block and one covering a right coordinate
+block, their Cartesian product covers the combined block                       dh (sumWord(x1 , x2 ), sumWord(y1 , y2 ))
+at the sum of the two radii. This is the formal version of                           = dh (x1 , y1 ) + dh (x2 , y2 ).
+the standard direct-sum construction for covering codes, in
+which covering radii add under products; see Cohen et al. [4,           This is the content of the lemma
+Thm. 3.2.1]. The formalization states and proves this in the             lemma hammingDist_sumWord
+general setting of abstract coordinate types, with no restriction            (x1 y1 : Word iota beta1) (x2 y2 : Word kappa
+                                                                              beta2) :
+to uniform alphabets or q-ary codes. The resulting theorem
+                                                                             hammingDist (sumWord x1 x2) (sumWord y1 y2) =
+is then a direct building block for the database and for future              hammingDist x1 y1 + hammingDist x2 y2
+constructions that involve lengthened or concatenated codes.
+                                                                            The proof decomposes the filter over ι ⊕ κ that defines
+     The section follows the structure established in earlier
+                                                                        Hamming distance into two disjoint parts. Write ∆(u, v) = {t |
+sections. First, the notion of a product word over a sum of
+                                                                        u(t) ̸= v(t) }, and let inl[−] and inr[−] denote images under
+coordinate types is introduced. Second, the additivity of Ham-
+                                                                        the two sum constructors. Then
+ming distance across the two coordinate blocks is established.
+Third, the product code is defined and the main covering                       ∆(sumWord(x1 , x2 ), sumWord(y1 , y2 ))
+theorem is proved.
+                                                                                  = inl[∆(x1 , y1 )] ∪ inr[∆(x2 , y2 )].
+
+6.1 Sum-type words                                                      The two image sets are disjoint because inl and inr are disjoint
+Let ι and κ be finite coordinate types, with alphabet families          constructors. Applying the inclusion-exclusion rule for dis-
+β1 : ι → Type and β2 : κ → Type. A word over the disjoint               joint finite sets reduces the cardinality of the union to the sum
+union ι ⊕ κ assigns a symbol to each coordinate in ι and to             of the two cardinalities. Since the left image is in bijection
+each coordinate in κ. Here and throughout this section, ⊕ de-           (via inl) with the set of differing positions in x1 and y1 , and
+notes the type-level disjoint union of coordinate types, Lean’s         similarly for the right image, the cardinalities equal dh (x1 , y1 )
+Sum, not XOR or a vector-space/group operation. Given a                 and dh (x2 , y2 ) respectively, which gives the stated identity.
+word x1 over ι and a word x2 over κ, their concatenation is                 In the Lean proof, the filter decomposition is established
+the word                                                                by a finset extensionality argument using case analysis on
+                                                                        inl/inr. Disjointness is proved by noting that an element can-
+       sumWord(x1 , x2 ) : (s : ι ⊕ κ) → (β1 ⊕ β2 )(s)                  not simultaneously be in the image of inl and the image of inr.
+                                                                        The cardinality of each image under an injective map equals
+defined by                                                              the cardinality of the source, which is recorded by
+
+                                                                               Finset.card image of injective.
+        sumWord(x1 , x2 )(inl i) = x1 (i),
+       sumWord(x1 , x2 )(inr j) = x2 ( j).                              Together, these steps give the distance equality in a short rw
+                                                                        chain.
+Here inl and inr are the two constructors of the sum type
+ι ⊕ κ, and the combined alphabet at position s is the family            6.3 The product code
+Sum.elim β1 β2 s which returns β1 i when s = inl i and β2 j             Given two finite codes C1 ⊆ Word ι β1 and C2 ⊆ Word κ β2 ,
+when s = inr j.                                                         their product code is the set of all concatenations:
+    The Lean definition mirrors this case analysis directly:
+                                                                              C1 ×C2 := { sumWord(c1 , c2 ) : c1 ∈ C1 , c2 ∈ C2 }.
+ def sumWord (x1 : (i : iota) → beta1 i) (x2 : (j :
+      kappa) → beta2 j) :                                               In Lean, the product code is defined as the image of the Carte-
+     (s : Sum iota kappa) → Sum.elim beta1 beta2 s :=                   sian product under sumWord:
+   fun s =>
+     match s with                                                        def productCode (C1 : Finset (Word iota beta1)) (C2 :
+     | Sum.inl i => x1 i                                                      Finset (Word kappa beta2)) :
+     | Sum.inr j => x2 j                                                     Finset (Word (Sum iota kappa) (Sum.elim beta1
+                                                                              beta2)) :=
+                                                                           (C1 ×s C2).image (fun p => sumWord p.1 p.2)
+Conversely, every sum word decomposes into its left projec-
+tion x1 (i) := x(inl i) and its right projection x2 ( j) := x(inr j),   The expression C1 ×s C2 denotes the finset Cartesian product,
+and then reassembles as x = sumWord(x1 , x2 ). This reassem-            whose elements are pairs (c1 , c2 ) with c1 ∈ C1 and c2 ∈ C2 .
+bly identity is proved by pointwise case analysis on the sum            The image operation applies sumWord to each pair, discard-
+type and plays a central role in the main covering theorem.             ing duplicates. The resulting finset has cardinality at most
+                           Formal Foundations and Proof-Carrying Certificates for q-ary Covering Codes in Lean 4 — 12/20
+
+
+
+|C1 | · |C2 |, with equality when the mapping is injective on the    prove its distance behavior, turn it into a finset transformation,
+Cartesian product.                                                   and derive the corresponding covering theorem. The next sec-
+     In the q-ary specialization, product codes are ordinary con-    tion uses the same certificate-oriented viewpoint for standard
+catenations: a code in length n1 and a code in length n2 embed       relations between neighboring covering-code parameters.
+into length n1 + n2 via the standard bijection between the sum
+of coordinate types and Fin(n1 +n2 ). The formalization works
+with the sum-type coordinate index directly, avoiding the need       7. Neighbor Relations and Structural Code
+to state or apply any explicit bijection.                                        Transformations
+                                                                     Many standard covering-code arguments are relations between
+6.4 Product covering theorem                                         neighboring parameter triples. A proof of Kq (n, r) ≤ U or
+The main result of this section is the following.                    Kq (n, r) ≥ L can often be transported to a proof about a differ-
+     Product covering theorem. Let C1 be a finite radius-r1          ent triple (q′ , n′ , r′ ). For example, puncturing a length-eight
+covering code over ι and let C2 be a finite radius-r2 covering       ternary radius-one cover gives a length-seven radius-one cover
+code over κ. Then the product code C1 ×C2 is a radius-(r1 +          of no larger size: extend a target word by one arbitrary coordi-
+r2 ) covering code over ι ⊕ κ.                                       nate, use the original cover, and delete the added coordinate
+     The Lean statement is:                                          again.
+ theorem productCode_covers                                              The formalization packages such arguments as proof-
+     (C1 : Finset (Word iota beta1)) (C2 : Finset (Word              carrying transformations of the linked upper-bound and lower-
+       kappa beta2))
+     (r1 r2 : Nat)
+                                                                     bound predicates. The important point is not the Lean syntax
+     (h1 : CoversFinset C1 r1) (h2 : CoversFinset C2 r2              of each declaration, but the certified effect: applying a rela-
+      ) :                                                            tion theorem produces a new Lean proof that the transported
+     CoversFinset (productCode C1 C2) (r1 + r2)                      number is a valid upper or lower bound. Table 2 summarizes
+   Proof. Let x : (s : ι ⊕ κ) → (β1 ⊕ β2 )(s) be an arbitrary        the relation layer. The source links point to representative
+word. Define                                                         declarations; Appendix A gives a broader declaration map.
+                                                                         The first seven rows are numerical relations: they trans-
+      x1 (i) := x(inl i)       and        x2 ( j) := x(inr j).       form only upper- or lower-bound certificates. These are the
+                                                                     rules used by the database closure in Section 9. The remaining
+The reassembly identity gives x = sumWord(x1 , x2 ). Since           rows are structural rules. They need an explicit code together
+C1 covers at radius r1 , there exists c1 ∈ C1 with dh (x1 , c1 ) ≤   with side information about that code, such as a missing sym-
+r1 . Since C2 covers at radius r2 , there exists c2 ∈ C2 with        bol, a forbidden pattern, a cover of deep holes, or a compatible
+dh (x2 , c2 ) ≤ r2 .                                                 coloring. Such information cannot be recovered from a bare
+     The product codeword sumWord(c1 , c2 ) belongs to C1 ×          numerical inequality Kq (n, r) ≤ U.
+C2 because (c1 , c2 ) ∈ C1 ×s C2 and the product code is its
+image. By the distance-additivity lemma,                             7.1 Indexed concatenation
+                                                                    The concatenation rule is the most informative numerical rela-
+        dh x, sumWord(c1 , c2 )
+                                                                    tion because its statement records more than a size inequality.
+             = dh sumWord(x1 , x2 ), sumWord(c1 , c2 )               It combines an outer cover over an alphabet of size Q with an
+          = dh (x1 , c1 ) + dh (x2 , c2 ) ≤ r1 + r2 .                explicit map from the Q outer symbols to q-ary inner blocks
+                                                                     of length m. A hypothesis says that every q-ary block is within
+Since x was arbitrary, the product code covers at radius r1 + r2 .   distance ρ of some indexed inner block. If the outer code cov-
+     The Lean proof follows this argument step by step. The          ers length N at radius R, then replacing each outer symbol by
+decomposition of x is done by defining x1 and x2 as local let-       the corresponding inner block gives a q-ary code of length
+bindings and proving the reassembly identity by funext with          mN and radius
+a case split on the sum type. Membership in the product code
+is reduced to the standard image/product membership lemmas.                Nρ + R(m − ρ).
+The distance bound uses the sum-word distance lemma and
+Nat.add le add.                                                      The term Nρ pays for approximating each target block by an
+     Remark on tightness. The radius r1 + r2 in Theorem 6.4          inner symbol. In the at most R blocks where the selected outer
+is in general not tight. The product code has size at most           codeword differs from that symbol word, the block cost can
+|C1 | · |C2 | and radius r1 + r2 ; it is not generally optimal for   rise from ρ to at most m, adding R(m − ρ).
+the combined space and radius. The theorem is therefore                   This theorem is intentionally stated with an explicit inner
+most useful as a composition tool, not as a direct method for        map rather than only a numerical certificate such as Kq (m, ρ) ≤
+constructing optimal codes.                                          Q. The numerical certificate proves that some inner code ex-
+     This product construction is the representative fully gen-      ists, but concatenation needs a fixed indexing of outer alphabet
+eral construction in the paper: define an operation on words,        symbols by inner blocks. This is a typical formalization point:
+                              Formal Foundations and Proof-Carrying Certificates for q-ary Covering Codes in Lean 4 — 13/20
+
+
+
+Rule family                       Certified effect                                      Proof idea                                                  Source
+Radius monotonicity               Kq (n, r) ≤ U ⇒ Kq (n, r + s) ≤ U; lower bounds move Hamming balls grow with the radius.                              radius rules
+                                  back from r + s to r.
+Puncturing                        Kq (n, r) ≤ U ⇒ Kq (n − t, r) ≤ U, with a lower-bound Delete t coordinates; for the upper bound, fill deleted coordi- length rules
+                                  converse.                                              nates before using the original cover.
+Free lengthening                  Kq (n, r) ≤ U ⇒ Kq (n + t, r) ≤ qt U, with lower bound Append all possible suffixes to each codeword.                 free lengthening
+                                  divided by qt using ceiling division.
+Dummy lengthening                 Kq (n, r) ≤ U ⇒ Kq (n + t, r + t) ≤ U, with a lower- Append fixed coordinates and spend at most one radius unit dummy lengthening
+                                  bound converse.                                        per new coordinate.
+Alphabet projection and expansion Project from q symbols to a ≤ q, or expand from q Use coordinatewise maps between finite alphabets and com- alphabet rules
+                                  symbols to Q ≤ sq with a factor sn .                   pare distances.
+Direct and repeated products      Upper bounds multiply and radii add; repeated prod- Specialize Section 6.4 to q-ary coordinate blocks: concatenate product rules
+                                  ucts give Kq (mn, mr) ≤ U m .                          independently covered coordinate blocks.
+Block grouping and ungrouping     Group m q-ary coordinates into one qm -ary coordinate, Compare block Hamming distance with coordinate Hamming block rules
+                                  or ungroup with radius multiplied by m.                distance.
+Concatenation                     An outer Q-ary cover and an indexed q-ary inner cover Approximate every target block by an inner symbol, then use concatenation
+                                  give a q-ary cover of length mN and radius Nρ +R(m− the outer cover to control the blocks whose chosen symbols
+                                  ρ).                                                    differ.
+Structural shortening             Explicit missing-symbol, fixed-coordinate, or pattern- A forced disagreement consumes radius before the shortened shortening
+                                  avoidance information can reduce both length and ra- coordinates are considered.
+                                  dius.
+Hole filling                      A code covering at radius r, plus a cover of its deep Use the union of the original code and the auxiliary hole- hole filling
+                                  holes at radius r − 1, gives a smaller-radius cover.   covering code.
+Colored product                   Matched color classes in two codes give a product code For every target pair, choose one color that supplies both colored product
+                                  using only same-color pairs.                           approximations.
+
+Table 2. Certified relation rules for transporting covering-code bounds. The table states the mathematical effect; each linked
+source declaration produces the corresponding Lean proof in the certificate interface.
+
+
+the certificate must carry the data that the construction ac-                                8. Case Study: Formalizing Published
+tually uses, not only the numerical bound suggested by the                                             Covering Codes
+construction.
+                                                                                        This section demonstrates the end-to-end workflow for for-
+7.2 Structural explicit-code rules                                                      malizing explicit covering codes from the published literature.
+Structural rules work from concrete codes. In the missing-                              The endpoint of the section is a collection of ordinary L EAN
+symbol shortening rule, for example, no codeword uses sym-                              theorems of type QaryKUpper; their database registration is
+bol a at coordinate j. Any target with symbol a at j therefore                          described separately in Section 9.
+disagrees with every codeword at that coordinate before the
+remaining coordinates are considered. Deleting coordinate j                             8.1 Source paper
+removes this forced disagreement and reduces the covering                               Van Laarhoven, Aarts, van Lint, and Wille [8] proved three
+radius by one. The pattern-avoidance version applies the same                           upper bounds for the football pool problem by exhibiting
+idea to several coordinates at once: if every codeword differs                          explicit covering codes:
+from a prescribed partial pattern in at least δ coordinates,
+those δ units of distance can be removed from the radius after                                K3 (6, 1) ≤ 73,            K3 (7, 1) ≤ 186,             K3 (8, 1) ≤ 486.
+deleting the pattern coordinates.                                                       All three bounds were obtained using simulated annealing.
+    Hole filling is another structural rule. If C already covers                        For n = 8, the search was carried out in a Blokhuis–Lam style
+the space at radius r, the only obstruction to a radius-(r − 1)                         setup involving a small set S and a matrix A; the authors then
+cover is the finite set of words not covered by C at radius r − 1.                      describe a systematic construction producing many distinct
+A second code D that covers exactly those deep holes at radius                          486-element covering codes from that result. The codes were
+r − 1 yields a radius-(r − 1) cover of size at most |C| + |D|.                          published as printed grid figures in the paper.
+Colored products likewise require side information: for every
+target pair, the left and right approximations must be available                        8.2 Data extraction
+with one shared color, so that their product codeword belongs                           The code data were transcribed from the published figures and
+to the same-color product.                                                              the Blokhuis–Lam style n = 8 construction in van Laarhoven
+    The relation layer changes the role of a certified database                         et al. into packed arrays in the van Laarhoven source module.
+entry. A primitive bound can serve not only as a final re-                              This transcription was an untrusted data-production step: it
+ported result, but also as a seed from which further certified                          was AI-assisted and manually corrected, and is not treated as
+bounds are obtained by applying relation rules. The next sec-                           a reproducible part of the artifact. The checked artifact starts
+tion demonstrates how published explicit code data become                               with the committed L EAN definitions of the finite sets. L EAN
+primitive upper-bound certificates; Section 9 then explains                             then verifies their cardinality and radius-one covering property
+how such certificates are registered and propagated by trace                            from finite certificates. Thus the formal theorem depends on
+replay.                                                                                 the machine-checked covering certificate, not on trusting the
+                                                                                        transcription process.
+                        Formal Foundations and Proof-Carrying Certificates for q-ary Covering Codes in Lean 4 — 14/20
+
+
+
+8.3 Lean encoding                                                   8.5 Certificate packaging
+A naive encoding of 486 codewords as a finset literal hits          Each explicit-code record bundles a finset code with its car-
+Lean’s elaboration recursion depth limit. The solution is to        dinality bound and covering proof. The record projection
+represent each word as a single natural number via the ternary      ExplicitQaryUpper.toUpper extracts the corresponding
+packing                                                             QaryKUpper proof term. This completes the code-specific
+                                                                    part of the formalization: the data extracted from the published
+                 n−1                                                figures has been reconstructed as a finite set of q-ary words
+      enc(w) = ∑ wi · 3i                                            and turned into machine-checked upper-bound certificates.
+                 i=0
+                                                                    The formal theorem asserts at most 486 codewords for the
+and store the codes as an Array N. The covering finset is           largest case; it does not certify row-for-row identity with the
+then reconstructed by codeFromPacked from the packed                printed grid.
+arrays; the largest one begins at vanLaarhoven8Packed.
+This representation scales better for large explicit code data      8.6 What this demonstrates
+because it avoids large finset literals and elaboration recursion   Three properties of the formalization workflow are illustrated
+limits.                                                             by this case study.
+    The covering proof does not ask Lean to search for a                Independent verification of published results. The ex-
+nearby codeword from scratch. For each ambient word, the            traction step detected errors in the initial transcription of the
+source stores a compact move certificate: either keep the word      printed figures. Machine verification provides a check on pub-
+itself, or change one coordinate to one ternary value. Lean         lished results that are rarely read in full detail by later readers.
+checks that the suggested move produces a packed word con-              Scalable Lean encoding. Packing codewords as natural
+tained in the code. A checked lemma then turns the Boolean          numbers and reconstructing the finset by unpacking the stored
+certificate pass into a CoversFinset proof. The cardinality         array entries and applying List.toFinset avoids large fin-
+proof is separate and uses the array length. The public decla-      set literals and keeps the source file manageable. The same
+rations listed in Appendix A package the resulting finite sets,     encoding can be reused for larger explicit q-ary codes, but it
+cardinality bounds, and covering proofs.                            only addresses source-size and elaboration bottlenecks; the
+                                                                    covering check itself still grows with the ambient space and
+                                                                    the number of codewords.
+8.4 Switchable finite proof mode and resource use
+                                                                        Finite proof modes. Computational upper-bound certifi-
+The linked wrapper tactic closes the finite Boolean checks.
+                                                                    cates reduce to a covering check over a finite domain, which
+By default it calls ordinary decide, so the resulting proof is
+                                                                    is decidable. The artifact source can replay the expensive
+replayed by Lean’s kernel reduction path. Setting the proof-
+                                                                    finite proof leaves either through Lean’s ordinary decide
+mode option to native mode switches the same proof leaves
+                                                                    path or, when the proof-mode option is enabled, through
+to native decide. This is useful for development and mea-
+                                                                    native decide. The latter is much faster for routine de-
+surement, but it uses Lean’s native compiled evaluator and
+                                                                    velopment, but it adds the trust assumption of Lean’s native
+therefore the trust boundary of Section 9.2.
+                                                                    compiled evaluation path. The general pattern is to keep the
+    Table 3 reports file-level compile measurements for three
+                                                                    external search or transcription untrusted while Lean checks
+expensive source files. Each file was checked by invoking
+                                                                    the resulting explicit certificate: extract the codewords, pack
+Lean through Lake with one worker, a 400 GiB memory cap,
+                                                                    them, verify the finite covering predicate, and wrap the re-
+profiling enabled, and the proof-mode option set either to
+                                                                    sult as an ExplicitQaryUpper. This should not be read
+kernel mode or to native mode. The runs were performed on a
+                                                                    as an automatic method for arbitrarily large covering-code
+server with two Intel Xeon Gold 6438M sockets, 64 physical
+                                                                    instances. A lower bound from an exhaustive non-existence
+cores / 128 hardware threads, and 512 GiB of RAM. All six
+                                                                    argument would require its own certificate format or formal
+runs completed successfully with exit code 0 and no timeout.
+                                                                    argument and is future work rather than a consequence of this
+The numbers are wall-clock and maximum resident set size
+                                                                    upper-bound wrapper.
+for whole-file checks, not per-theorem attributions.
+    These measurements explain why both modes are useful.
+Kernel mode gives the stronger proof-replay story, but it can         9. Certified Bounds and Proof-Carrying
+require hours and hundreds of GiB for the largest file-level                         Database
+checks in the present artifact. Native mode keeps the same          The preceding case study produced reusable Lean certificates
+finite certificate structure and is practical for routine devel-    from published covering codes. This section explains how
+opment, but uses the native-evaluation trust boundary. The          such certificates are combined with formal relation rules to
+wall-clock times in Table 3 should be read as representative        obtain further certified bounds. The point of the database is
+measurements rather than deterministic values; reruns on the        not merely to store numerical intervals. Each stored upper
+same server can vary by several minutes for the longest kernel      or lower bound carries a derivation trace whose replay con-
+checks and by a few seconds for native checks.                      structs a Lean proof of the corresponding QaryKUpper or
+                                                                    QaryKLower statement.
+                           Formal Foundations and Proof-Carrying Certificates for q-ary Covering Codes in Lean 4 — 15/20
+
+
+
+                                 Source file                        Kernel mode              Native mode
+                                                               Wall time      Max RSS     Wall time    Max RSS
+                                 SmallExplicitUpper.lean        99.5 min      58.7 GiB       24.0 s     3.76 GiB
+                                 SmallLowerBounds.lean           103.1 s      7.46 GiB       57.1 s     3.63 GiB
+                                 VanLaarhoven1989.lean          77.1 min     357.0 GiB       37.7 s     3.75 GiB
+
+Table 3. File-level resource measurements for the switchable finite proof mode. Kernel mode uses ordinary decide; native
+mode uses native decide. The van Laarhoven row aggregates the K3 (6, 1), K3 (7, 1), and K3 (8, 1) certificates in one source
+file.
+
+
+9.1 Certificate structure                                                        expensive finite leaves; only native proof-mode builds
+The database uses the same upper/lower certificate interface as                  use this additional trust assumption.
+the rest of the paper. Primitive leaves are ordinary Lean theo-
+rems: explicit codes give QaryKUpper proofs, while counting                    Thus the database is proof-carrying with respect to Lean
+or non-existence arguments give QaryKLower proofs. Rela-                   trace replay, while the computations that found, generated,
+tion rules from Section 7 transport such proofs between neigh-             or accelerated some leaves remain part of the stated trusted
+boring parameter triples. The trace layer records the sequence             infrastructure.
+of primitive leaves and relation applications; replaying the
+trace gives the proof object used by the public query result.              9.3 Imported explicit codes
+    Table 4 gives the main declaration-level audit map for                 The van Laarhoven certificates from Section 8.5 enter the
+this certificate layer. A broader artifact map is given in Ap-             database as primitive upper-bound leaves. The checked decla-
+pendix A.                                                                  rations n = 6, n = 7, and n = 8 prove K3 (6, 1) ≤ 73, K3 (7, 1) ≤
+    The precomputed table is an implementation of this certifi-            186, and K3 (8, 1) ≤ 486 in the certificate interface. Once regis-
+cate structure over the parameter box 0 ≤ q ≤ 21, 0 ≤ n ≤ 48,              tered as primitive sources, these theorems are propagated only
+and 0 ≤ r ≤ 48. It contains 52,822 entries serialized as Lean              through the generic relation rules; there is no van-Laarhoven-
+source in 212 generated chunks. The generator that writes                  specific recursion in the closure layer.
+these chunks is not verified. Its output is accepted as part of
+the artifact only because Lean type-checks the generated trace             9.4 A two-block cyclic upper bound for Kq (3, 1)
+values and the public query interface bestBounds obtains                   One primitive upper source deserves separate mention because
+proof fields by trace replay.                                              it is a uniform construction in q, not a list of isolated finite
+                                                                           codes. Split the alphabet {0, . . . , q − 1} into two consecutive
+9.2 Trust boundary                                                         blocks of sizes
+The formalization separates checked proof objects from the
+                                                                                 a = ⌊q/2⌋,           b = q − a = ⌈q/2⌉.
+computations and scripts that propose them.
+
+        • Handwritten mathematical theorems, including the ball-           For a nonempty block of size m, index the block by Z/mZ
+          volume formula, sphere-covering lower bound, product             and use the m2 length-three codewords
+          construction, small lower-bound arguments, and rela-
+                                                                                 (i, i + j, j)        (i, j ∈ Z/mZ),
+          tion theorems, are ordinary Lean declarations checked
+          by the kernel.                                                   with addition modulo m. Taking the union of this cyclic code
+        • Generated database entries are Lean source code con-             in the two blocks gives at most a2 + b2 codewords.
+          taining explicit LowerTrace and UpperTrace values.                    The covering argument is a small pigeonhole argument.
+          The generator is not itself verified; the generated entries      Any target word (x0 , x1 , x2 ) has at least two coordinates in the
+          are checked by Lean through trace typing and replay.             same block. If these are positions 0 and 1, choose i = x0 and
+                                                                            j = x1 − x0 inside that block; if they are positions 0 and 2,
+        • External transcription and generation steps, including           choose i = x0 and j = x2 ; and if they are positions 1 and 2,
+          the transcription for the van Laarhoven case study and           choose j = x2 and i = x1 − x2 . In each case the corresponding
+          the table generator, are untrusted producers of candi-           cyclic codeword agrees with the target in two coordinates and
+          date data or Lean source. Their output contributes to a          is therefore within Hamming distance one.
+          theorem only after the resulting Lean declarations are                The Lean theorem twoBlockCyclic331Upper_valid
+          accepted.                                                        proves, for every q, the certificate
+        • Goals closed with native decide use Lean’s native                      Kq (3, 1) ≤ (q/2)2 + (q − q/2)2 .
+          compiled evaluator rather than kernel normalization for
+          the finite decision procedure. The source supports both          Here q/2 is Lean’s natural-number floor division, so the two
+          ordinary decide replay and this faster native mode for           block sizes are ⌊q/2⌋ and ⌈q/2⌉. Thus the right-hand side is
+                                 Formal Foundations and Proof-Carrying Certificates for q-ary Covering Codes in Lean 4 — 16/20
+
+
+
+Claim                                              Lean declarations                        File                                    Trust boundary
+Upper, lower, and exact covering-number cer-       KUpper,        KLower,          KSpec,   CoveringCodes/CoveringNumber.lean       Handwritten Lean; ker-
+tificates                                          KSpec.ofUpperLower                                                               nel checked.
+Trace replay constructs bound proofs               UpperTrace.valid, LowerTrace.valid       CoveringCodes/Database/Trace.lean       Handwritten Lean; ker-
+                                                                                                                                    nel checked.
+Generated query results carry proof fields and     BestBounds,     BestBounds.consistent,   CoveringCodes/Database/Defs.lean,       Generated traces plus
+are internally consistent                          bestBounds, bestBounds_consistent        CoveringCodes/Database/GeneratedAPI.    checked replay.
+                                                                                            lean
+Explicit finite codes become upper-bound cer-      ExplicitQaryUpper,                       CoveringCodes/Database/ExplicitCode.    Finite checks use the
+tificates                                          ExplicitQaryUpper.toUpper                lean                                    proof mode stated in
+                                                                                                                                    Section 9.2.
+van Laarhoven bounds enter as checked upper-       vanLaarhoven6Upper_valid,                CoveringCodes/Database/Sources/         Committed           data
+bound theorems                                     vanLaarhoven7Upper_valid,                VanLaarhoven1989.lean                   checked by Lean; tran-
+                                                   vanLaarhoven8Upper_valid                                                         scription is untrusted.
+
+                                                 Table 4. Audit map for the proof-carrying database interface.
+
+
+⌈q2 /2⌉. The artifact proves this as an upper bound for every q.                    as primitive sources.
+It does not prove the corresponding lower bound, so it does not
+certify the exact value of Kq (3, 1) for all q. The comparison                      9.6 Closure and query consistency
+table agrees with this value for 2 ≤ q ≤ 21, but that table is                      The closure layer applies the certified relation rules to prim-
+used only as untrusted comparison data, not as a proof input.                       itive sources until no bound in the bounded parameter box
+                                                                                    improves. The current generated table records 52,822 entries.
+9.5 Selected database certificates                                                  A generated entry stores lower and upper traces, not just two
+                                                                                    natural numbers. When the public query bestBounds returns
+The database contains selected exact covering-number cer-
+                                                                                    a BestBounds record, its lower proof and upper proof
+tificates beyond the structural families of radius zero, large
+                                                                                    fields are obtained by replaying those traces.
+radius, and near diameter, and it also reports non-exact certi-
+                                                                                        The proof of consistency is mathematical rather than an
+fied intervals. These entries were useful development targets
+                                                                                    invariant of the table generator. The upper proof supplies a
+because they exercise both sides of the certificate interface:
+                                                                                    covering code C with |C| ≤ upper. The lower proof applies to
+an explicit covering code or construction for the upper bound,
+                                                                                    this same covering code and gives lower ≤ |C|. Transitivity
+and an independent lower-bound proof. Table 5 lists a com-
+                                                                                    gives lower ≤ upper. Appendix B records one generated-
+pact sample of representative query results. Exact rows are
+                                                                                    table run and the resulting trace-constructor counts.
+written with =, while non-exact interval rows are written with
+∈ [L,U]. The examples are not an exhaustive inventory of
+                                                                                    9.7 Path toward solver certificates
+the database; they were chosen to show exactness certificates,
+                                                                                    The same certificate interface can host computational certifi-
+sparse-slice lower bounds, explicit upper-bound seeds, and
+                                                                                    cates. An upper bound from a SAT or integer-programming
+automatic closure propagation.
+                                                                                    search can enter as an explicit code once Lean checks that
+     The concrete finite-code upper-bound seeds shown in Ta-                        the code covers the ambient space. A lower bound from
+ble 5 are checked by ordinary decide; they do not rely on                           an exhaustive non-existence search would enter as a named
+native decide. Sphere-covering exact rows pair those up-
+                                                                                    QaryKLower theorem, possibly through a dedicated certifi-
+per bounds with the formal ball-volume lower bound. The                             cate wrapper. In both cases the database stores the resulting
+parity-hole proof for K2 (5, 1) splits a hypothetical six-word                      theorem as a primitive leaf and lets the certified relation rules
+radius-one cover into even and odd centers and derives an un-                       propagate any derived bounds.
+covered parity class after a small finite check. The normalized-
+hole proof for K2 (6, 2) translates any three centers so that one
+is zero, then checks that two remaining centers cannot cover                                                10. Prior Art
+all length-six binary words at radius two. For K3 (3, 1), the                       The mathematical theory underlying this work is classical.
+overlap-counting lower-bound theorem formalizes the overlap                         The monograph of Cohen, Honkala, Litsyn, and Lobstein
+count showing that four ternary radius-one balls in length three                    remains the standard reference for covering codes, including
+cover at most 26 of the 27 words. For K4 (3, 1), the sparse-slice                   basic bounds, constructions, puncturing arguments, products,
+lower bound specializes a general length-three radius-one ar-                       and tables of known values [4]. Further work on q-ary upper
+gument: a sparse first-coordinate fiber forces many distinct                        bounds, the football-pool problem, and ternary covering codes
+last-two coordinate projections among the codewords.                                provides many of the concrete constructions and numerical
+     The provenance labels in the database name these proof                         targets that motivate this formalization [9, 1, 2, 8]. Recent
+mechanisms rather than external table references. This is in-                       work of Gijswijt and Polak strengthens semidefinite lower-
+tentional. External tables and local searches are useful for                        bound methods for covering codes [10].
+finding candidate triples and candidate codes, but the trusted                           The computational prior art is also substantial. Tables such
+artifact begins with the Lean definitions, the checked finite                       as Keri’s database record best known bounds for many triples
+covering predicates, and the lower-bound theorems registered                        (q, n, r) and are indispensable source material for new formal
+                         Formal Foundations and Proof-Carrying Certificates for q-ary Covering Codes in Lean 4 — 17/20
+
+
+
+                                  Lower certificate   Certified statement    Upper certificate
+                            sphere-covering bound        K2 (3, 1) = 2       constant-symbol code, Kq (n, r) ≤ q when q · (n − r − 1) < n
+                           binary parity-hole proof      K2 (5, 1) = 7       explicit binary radius-one code
+                      binary normalized-hole proof       K2 (6, 2) = 4       explicit binary radius-two code
+                            sphere-covering bound       K2 (7, 1) = 16       binary Hamming code
+                    ternary overlap-counting proof       K3 (3, 1) = 5       explicit ternary radius-one code
+                            sphere-covering bound        K3 (4, 1) = 9       ternary Hamming code
+                     sparse-slice proof for Kq (3, 1)    K4 (3, 1) = 8       explicit quaternary radius-one code
+                            sphere-covering bound       K4 (5, 1) = 64       quaternary Hamming radius-one code
+                            sphere-covering bound K5 (3, 1) ∈ [10, 13]       explicit quinary radius-one code
+                            sphere-covering bound K6 (4, 1) ∈ [62, 108]      explicit senary radius-one seed propagated by free lengthening ×q1
+                     sparse-slice proof for Kq (3, 1) K9 (3, 1) ∈ [36, 41]   explicit nonary radius-one code
+
+Table 5. Selected exact and interval certificates reported by the generated database. External tables were used only as untrusted
+target-selection aids; the statements shown here are certified by Lean proofs and database trace replay, but the intervals are not
+claimed to be best known values.
+
+
+certificates [11]. These tables and the papers behind them                             with eventual upstreaming.
+usually provide numerical bounds, explicit code data, program                              The contribution of this paper is therefore not a new the-
+output, or mathematical proofs. They do not, however, provide                          oretical bound. It is a formal interface that turns standard
+proof objects that can be checked by a theorem prover and                              covering-code ingredients into reusable Lean certificates: ex-
+composed with other certified bounds.                                                  plicit upper-bound witnesses, lower-bound predicates, exact-
+                                                                                       ness statements, certified relation rules, and trace-carrying
+10.1 Related formalization work                                                        database entries. In this sense the work sits between the clas-
+Coding theory has been formalized before, most substantially                           sical covering-code literature and future computational certifi-
+in the InfoTheo library for the Rocq/Coq proof-assistant                               cates: it formalizes enough of the theory to make published
+ecosystem [12]. That work develops a broad information-                                or solver-generated covering-code evidence checkable inside
+theoretic and coding-theoretic foundation, including linear                            Lean.
+error-correcting codes, the Hamming metric, minimum dis-
+tance, and families such as Hamming, Reed–Solomon, and
+BCH codes, together with LDPC decoder material. The em-                                          11. Discussion and Future Work
+phasis of that library is the error-correcting setting: encoding,                      This paper formalizes a foundation rather than a large table of
+decoding, minimum distance, and associated bounds.                                     new covering-code bounds. The main design choice is to sepa-
+     Existing proof-assistant formalizations of coding theory                          rate mathematical claims about Kq (n, r) into upper-bound cer-
+mainly develop the error-correcting, or packing, side of the                           tificates, lower-bound certificates, and exactness certificates.
+subject: linear codes, minimum distance, decoding, and clas-                           This separation proved useful throughout the development:
+sical code families. The present development formalizes the                            explicit codes, counting arguments, elementary exact values,
+covering side, where the central object is Kq (n, r) and the main                      and database entries can be checked independently and then
+proof objects are upper-, lower-, and exactness certificates for                       recombined when their numerical bounds meet.
+finite covers. We are not aware of previous formalizations of                               Several formalization lessons emerged from this choice.
+q-ary covering numbers, the sphere-covering lower bound, or                            First, treating Kq (n, r) through certificate predicates rather
+proof-carrying covering-code databases. The library reuses                             than an immediate minimum function kept upper-bound wit-
+finite-type and Hamming-distance infrastructure where pos-                             nesses and lower-bound arguments modular. This matters
+sible, but the covering predicates, certificate interface, and                         in the selected exact certificates, where explicit-code upper
+trace replay layer are specific to this development. The q-                            bounds and independent lower-bound proofs meet only at
+ary specialization uses Fin n → Fin q for arbitrary q, not only                        KSpec. Second, the representation Fin n → Fin q made edge
+finite-field alphabets.                                                                cases such as q = 0, n = 0, and r ≥ n part of the ordinary theo-
+     The contribution is also partly architectural. The formal-                        rem statements rather than external conventions. For example,
+ization separates upper-bound, lower-bound, and exactness                              the formal statements distinguish the empty positive-length
+certificates into independent predicates (KUpper, KLower,                              word space over Fin 0 from the unique length-zero word, so
+KSpec) and connects concrete bounds through a trace-carrying                           the boundary cases in Table 1 are theorems rather than side
+database whose entries replay to Lean proofs. This design                              conventions. Third, the trace layer showed a useful separation
+is intended to make later computational certificates, includ-                          between unverified producers of candidate data and checked
+ing exhaustive-search, integer-programming, or semidefinite-                           Lean proof replay: new sources can be added as local theorems
+programming certificates, attachable to the same interface                             while the database infrastructure propagates them through cer-
+without changing the trusted core. The present development                             tified relation rules. In particular, the table generator and the
+is written in the style of mathlib and reuses its Hamming-                             van Laarhoven transcription propose data, but a database entry
+distance and finite-type infrastructure [13]. It is not integrated                     contributes to a paper claim only after its trace or explicit-code
+into mathlib, but the definitions are designed to be compatible                        wrapper produces a Lean proof.
+                        Formal Foundations and Proof-Carrying Certificates for q-ary Covering Codes in Lean 4 — 18/20
+
+
+
+     The current formalization is intentionally conservative. It    to this base: published constructions, computational searches,
+covers finite Hamming spaces, closed balls, covering predi-         and stronger lower-bound arguments can be connected to
+cates, elementary exact cases, the q-ary ball-volume formula,       the same certificate interfaces once suitable Lean statements,
+the sphere-covering bound, a product construction, and a sub-       certificate formats, and trust boundaries are supplied.
+stantial layer of certified neighbor relations. These results are
+standard, but their formal versions make all hypotheses and
+edge cases explicit. In particular, cases such as q = 0, n = 0,             A. Artifact and Declaration Map
+and r ≥ n are not handled by informal convention; they are          Table 6 maps the main paper-level claims to Lean declarations
+consequences of the definitions used in Lean.                       and artifact files. The links point to the fixed artifact commit
+     The proof-carrying database is the other main outcome.         named in the artifact availability paragraph. Build and regen-
+Its purpose is not merely to store numbers, but to store bounds     eration instructions are in README.md; all paths are relative
+together with derivation traces that replay to Lean proofs.         to the repository root.
+This gives a reproducibility property that ordinary numerical
+tables usually do not provide: each reported database bound
+is returned with a trace that Lean can replay to a proof of the            B. Database Closure Diagnostics
+corresponding upper- or lower-bound predicate. This should          As a reproducibility check, the generated table artifact records
+be understood in the trust model of Section 9.2: the table          that lake exe table gen on the current source set gener-
+generator is not verified, and native-mode explicit-code leaves     ated 52,822 certified table entries and reached a fixpoint after
+rely on Lean’s native evaluation path. The current table is         46 passes. The executable reports “up to 52822 passes” be-
+still small as mathematical data, since it contains elementary      cause this is the coarse termination bound used by the fixpoint
+sources, selected exact covering-number certificates, table-        loop; in this run the table stabilizes much earlier. Here a fix-
+guided upper-bound seeds, and the three van Laarhoven upper-        point pass means one complete sweep of the closure loop, not
+bound certificates, rather than a reproduction of the known         one of the individual relation relaxations recorded by the trace
+covering-code tables. Its value is architectural: adding a new      constructors.
+source theorem exposes it to the existing closure machinery
+                                                                        Table 7 records the nonzero trace-constructor counts printed
+for the bounded parameter range currently generated.
+                                                                    by this run. These are recursive node counts over all selected
+     There are several natural directions for extending the for-    lower-bound and upper-bound traces in the generated table.
+malization. The first is to add more of the classical covering-     They are therefore diagnostics of the generated proof ob-
+code lower-bound theory, beyond the sphere-covering bound.          jects, not independent counts of mathematical improvements:
+This includes stronger combinatorial bounds and, in the longer      shared subtraces are counted each time they occur. The gen-
+term, LP or SDP bounds. Such results would require additional       erated output also reports zero-count constructors as audit
+formal infrastructure, but they fit the existing QaryKLower         information; such rows mean that the constructor is available
+interface.                                                          in the trace language but is not used by any winning trace for
+     A second direction is to import more explicit covering         the present source set and parameter range.
+codes from the literature. The van Laarhoven case study shows
+the basic workflow for moderate finite instances: extract the
+code data, encode it compactly, verify the finite covering                           Acknowledgements
+condition through the switchable proof mode, and register the
+                                                                    I thank Prof. Mathar, emeritus professor at RWTH Aachen
+resulting theorem as a primitive source. Scaling this process to
+                                                                    University, who introduced me to covering codes in his infor-
+substantially larger codes would require attention to runtime,
+                                                                    mation theory course. He was also an important mentor to me
+memory, and possibly more structured certificate formats; it
+                                                                    and taught me mathematical ways of thinking that I have been
+is not automatic from the present encoding alone.
+                                                                    able to apply throughout my life.
+     Finally, the database closure itself can be strengthened.          This work was partly funded by the Federal Ministry of
+The direct-product rule is already formalized, but it is not        Research, Technology and Space (BMFTR) in Germany un-
+used in the automatic fixpoint closure because of its cost.         der grant number 16KIS2240 of the SUSTAINET-guardian
+More selective search strategies, cached product applications,      project.
+or user-guided trace construction may make product-derived
+bounds practical without making table generation too expen-
+sive. Structural rules such as shortening, hole filling, concate-                  Author Contributions
+nation, and colored products also suggest a future database
+                                                                    Andreas Florath carried out the Lean formalization, devel-
+layer that stores not only numerical bounds but explicit code
+                                                                    oped the certificate interfaces and proof-carrying database,
+structure.
+                                                                    extracted and encoded the published covering-code examples,
+     Overall, the formalization establishes a machine-checked       ran the verification, and wrote the manuscript.
+base for q-ary covering codes in Lean. The next step is not to
+replace the existing covering-code literature, but to connect it
+                                Formal Foundations and Proof-Carrying Certificates for q-ary Covering Codes in Lean 4 — 19/20
+
+
+
+ Paper claim                               Lean declarations                           Artifact file                             Trust boundary
+ Finite Hamming spaces and q-ary words     Word, QaryWord, dist, qaryWord_card         CoveringCodes/Basic.lean               Handwritten Lean; ker-
+                                                                                                                              nel checked.
+ Covering predicates and exactness certifi- Covers, CoversFinset, KUpper, KLower, KSpec, CoveringCodes/Covers.lean,           Handwritten Lean; ker-
+ cates                                      KSpec.ofUpperLower                           CoveringCodes/CoveringNumber.lean    nel checked.
+ Structural exact cases                     qaryKSpec_zero_radius,                       CoveringCodes/SmallCases/ZeroRadius. Handwritten Lean; ker-
+                                            singleton_covers_of_card_le,                 lean,      CoveringCodes/SmallCases/ nel checked.
+                                            qaryKSpec_radius_nMinusOne                   LargeRadius.lean,     CoveringCodes/
+                                                                                       SmallCases/RadiusNMinusOne.lean
+ Ball volume and sphere-covering lower qaryBallVolume,     qaryBallVolume_eq_card, CoveringCodes/Bounds/Balls.          Handwritten Lean; ker-
+ bound                                 sphere_covering_bound                       lean,          CoveringCodes/Bounds/ nel checked.
+                                                                                       SphereCoveringBound.lean
+ Product construction and relation rules  productCode_covers,       upper_radius_mono, CoveringCodes/Constructions/Product. Handwritten Lean; ker-
+                                          upper_puncture,        upper_direct_product, lean, CoveringCodes/Relations/        nel checked.
+                                          upper_block_group
+ Selected small exact certificates        smallLowerBinary251Lower_valid,              CoveringCodes/Database/Sources/       Handwritten Lean plus
+                                          smallLowerBinary262Lower_valid,              SmallLowerBounds.lean, CoveringCodes/ finite checks; kernel
+                                          smallLowerTernary331Lower_valid,             Database/Sources/SparseSlicer.lean, checked unless native
+                                          sparseBound_valid                            CoveringCodes/Database/Sources/       proof mode is selected.
+                                                                                       SmallExplicitUpper.lean
+ Uniform two-block cyclic construction    twoBlockCyclic331Upper_valid                 CoveringCodes/Database/Sources/       Handwritten Lean; ker-
+                                                                                       TwoBlockCyclic.lean                   nel checked.
+ van Laarhoven upper-bound certificates   vanLaarhoven6Explicit,                       CoveringCodes/Database/Sources/       Committed           data
+                                          vanLaarhoven7Explicit,                       VanLaarhoven1989.lean                 checked by Lean; tran-
+                                          vanLaarhoven8Explicit,                                                             scription is untrusted.
+                                          vanLaarhoven6Upper_valid,
+                                          vanLaarhoven7Upper_valid,
+                                          vanLaarhoven8Upper_valid
+ Trace replay and generated query consis- UpperTrace.valid,          LowerTrace.valid, CoveringCodes/Database/Trace.lean,    Generated traces plus
+ tency                                    BestBounds.consistent,                       CoveringCodes/Database/Defs.lean,     checked replay; gener-
+                                          bestBounds_consistent                        CoveringCodes/Database/GeneratedAPI. ator is unverified.
+                                                                                       lean,         CoveringCodes/Database/
+                                                                                       GeneratedTable.lean
+
+                                Table 6. Map from paper-level claims to checked declarations and artifact files.
+
+
+        Trace constructor                         Recursive node count
+        UpperTrace.primitive                                   52,822
+        UpperTrace.lengthenFreeN                              296,174
+        UpperTrace.lengthenDummyN                              42,090
+        UpperTrace.alphabetExpand                                  402
+        LowerTrace.primitive                                   52,822
+        LowerTrace.radiusBack                                    3,069
+        LowerTrace.lengthBack                                    6,874
+        LowerTrace.lowerBlockGroup                                  34
+Table 7. Trace-constructor counts reported by lake exe
+table gen for the current generated database. Counts are
+recursive over all nodes in the selected traces.
+
+
+                           Use of AI Tools
+AI-based tools were used during several stages of this work,
+including drafting and revising parts of the manuscript, ex-
+ploring formulations of explanatory text, and assisting with
+software development tasks in the Lean formalization and
+supporting tooling. All mathematical statements, Lean code,
+proofs, citations, and manuscript text were reviewed and ac-
+cepted by the author, who takes full responsibility for the
+content of the paper.
+
+                      Competing Interests
+The author declares no competing interests.
+                      Formal Foundations and Proof-Carrying Certificates for q-ary Covering Codes in Lean 4 — 20/20
+
+
+
+                                                      References
+ [1]   H. Hämäläinen et al. “Football Pools—A Game for Mathematicians”. In: The American Mathematical Monthly 102.7
+       (1995), pp. 579–588. DOI: 10.1080/00029890.1995.12004624.
+ [2]   Laurent Habsieger. “Ternary Covering Codes”. In: The Electronic Journal of Combinatorics 3.2, R23 (1996). DOI:
+       10.37236/1281. URL: https://www.combinatorics.org/ojs/index.php/eljc/article/view/v3i2r23.
+ [3]   Richard W. Hamming. “Error Detecting and Error Correcting Codes”. In: The Bell System Technical Journal 29.2 (1950),
+       pp. 147–160. DOI: 10.1002/j.1538-7305.1950.tb00463.x.
+ [4]   Gérard Cohen et al. Covering Codes. Vol. 54. North-Holland Mathematical Library. Amsterdam: North-Holland, 1997.
+       541 pp. ISBN: 978-0-444-82511-7. URL: https://books.google.com/books?id=7KBYOt44sugC.
+ [5]   Leonardo de Moura and Sebastian Ullrich. “The Lean 4 Theorem Prover and Programming Language”. In: Automated
+       Deduction – CADE 28. Ed. by André Platzer and Geoff Sutcliffe. Vol. 12699. Lecture Notes in Computer Science. Cham:
+       Springer International Publishing, 2021, pp. 625–635. ISBN: 978-3-030-79876-5. DOI: 10.1007/978-3-030-79876-
+       5_37.
+ [6]   Florence Jessie MacWilliams and Neil James Alexander Sloane. The Theory of Error-Correcting Codes. Vol. 16.
+       North-Holland Mathematical Library. Amsterdam: North-Holland, 1977. 762 pp. ISBN: 978-0-444-85010-2.
+ [7]   Jacobus H. van Lint. Introduction to Coding Theory. Third. Vol. 86. Graduate Texts in Mathematics. Berlin, Heidelberg:
+       Springer, 1999. XIV+234. ISBN: 978-3-540-64133-9. DOI: 10.1007/978-3-642-58575-3.
+ [8]   P. J. M. van Laarhoven et al. “New Upper Bounds for the Football Pool Problem for 6, 7, and 8 Matches”. In: Journal of
+       Combinatorial Theory, Series A 52.2 (1989), pp. 304–312. DOI: 10.1016/0097-3165(89)90036-8.
+ [9]   Patric R. J. Östergård. “Upper bounds for q-ary covering codes”. In: IEEE Transactions on Information Theory 37.3
+       (1991), pp. 660–664. DOI: 10.1109/18.79926.
+[10] Dion Gijswijt and Sven Polak. Semidefinite Lower Bounds for Covering Codes. 2025. DOI: 10.48550/arXiv.2504.
+     01932. arXiv: 2504.01932 [math.CO]. URL: https://arxiv.org/abs/2504.01932.
+[11] Gerzson Kéri. Tables for Bounds on Covering Codes. URL: https://old.sztaki.hu/˜keri/codes/index.htm
+     (visited on 05/17/2026).
+[12] Reynald Affeldt, Jacques Garrigue, and Takafumi Saikawa. “A Library for Formalization of Linear Error-Correcting
+     Codes”. In: Journal of Automated Reasoning 64.6 (2020), pp. 1123–1164. DOI: 10.1007/s10817-019-09538-8.
+[13] The mathlib Community. “The Lean Mathematical Library”. In: Proceedings of the 9th ACM SIGPLAN International
+     Conference on Certified Programs and Proofs. CPP 2020. New York, NY, USA: Association for Computing Machinery,
+     2020, pp. 367–381. ISBN: 978-1-4503-7097-4. DOI: 10.1145/3372885.3373824.
+

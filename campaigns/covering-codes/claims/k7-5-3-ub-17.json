@@ -1,0 +1,161 @@
+{
+  "bound": {
+    "direction": "upper",
+    "parameters": {
+      "R": 3,
+      "n": 5,
+      "q": 7
+    },
+    "value": 17
+  },
+  "claim_id": "k7-5-3-ub-17",
+  "counterexample_search": {
+    "method": "claim de existência: o witness é o certificado; verificadores independentes procuram ponto descoberto (uncovered=0)",
+    "result": "uncovered=0 nos verificadores",
+    "status": "completed"
+  },
+  "created": "2026-10-06T03:03:51Z",
+  "created_by": "agente-c",
+  "created_role": "PROPOSER",
+  "depends_on": [],
+  "evidence": {
+    "counterexamples": [],
+    "experiments": [
+      "exp-prior-search-unrecorded",
+      "exp-structure-regeneration"
+    ],
+    "external_reproductions": [],
+    "formal": [
+      "f-k753-ub-17"
+    ],
+    "literature": [
+      "lit-keri-k7-5-3-ub"
+    ],
+    "proofs": [],
+    "verifier_runs": [],
+    "witnesses": [
+      "w-q7-n5-r3-m17"
+    ]
+  },
+  "formal_verification_blockers": [
+    "f-k753-ub-17: clean_build não é true",
+    "f-k753-ub-17: axiomas não registrados (`#print axioms` não foi capturado)",
+    "f-k753-ub-17: ambiente não registrado: falta lean_version",
+    "falta statement_review: o Lean certifica o enunciado formal, não que ele é o enunciado pretendido; um revisor humano/independente precisa ler"
+  ],
+  "history": [
+    {
+      "actor": "agente-c",
+      "from": null,
+      "reason": "criado",
+      "role": "PROPOSER",
+      "to": "IDEA",
+      "ts": "2026-10-06T03:03:51Z"
+    },
+    {
+      "actor": "agente-c",
+      "from": "IDEA",
+      "reason": "evidência anexada: witnesses=w-q7-n5-r3-m17",
+      "role": "PROPOSER",
+      "to": "IDEA",
+      "ts": "2026-10-06T03:03:51Z"
+    },
+    {
+      "actor": "agente-c",
+      "from": "IDEA",
+      "reason": "evidência anexada: experiments=exp-prior-search-unrecorded",
+      "role": "PROPOSER",
+      "to": "IDEA",
+      "ts": "2026-10-06T03:03:51Z"
+    },
+    {
+      "actor": "agente-c",
+      "from": "IDEA",
+      "reason": "evidência anexada: literature=lit-keri-k7-5-3-ub",
+      "role": "PROPOSER",
+      "to": "IDEA",
+      "ts": "2026-10-06T03:03:51Z"
+    },
+    {
+      "actor": "agente-c",
+      "from": "IDEA",
+      "reason": "evidência anexada: formal=f-k753-ub-17",
+      "role": "PROPOSER",
+      "to": "IDEA",
+      "ts": "2026-10-06T03:03:51Z"
+    },
+    {
+      "actor": "agente-c",
+      "from": "IDEA",
+      "reason": "evidência anexada: experiments=exp-structure-regeneration",
+      "role": "PROPOSER",
+      "to": "IDEA",
+      "ts": "2026-10-06T03:03:51Z"
+    },
+    {
+      "actor": "migrate_covering.py",
+      "from": "IDEA",
+      "reason": "verificadores de autores/grupos distintos, PASS válido e sem desacordo, neste run",
+      "role": "INDEPENDENT_VERIFIER",
+      "to": "INDEPENDENTLY_REPRODUCED",
+      "ts": "2026-10-06T03:03:51Z"
+    }
+  ],
+  "kind": "theorem",
+  "literature_comparison": {
+    "classificacao": "PREDECESSOR_ENCONTRADO",
+    "melhor_registrada": 17,
+    "melhor_registrada_fonte": [
+      "lit-keri-k7-5-3-ub (PDF 6-21_tables.pdf, Last-Modified 2009-10-15 (diretório e index.htm atualizados até 2011-11-25), 2009-10-15)"
+    ],
+    "nosso": 17,
+    "nota": "igual ao valor tabelado: predecessor encontrado na literatura registrada; não há novidade a confirmar",
+    "veredito": "igual"
+  },
+  "reviewed_by": [],
+  "scope": {
+    "assumptions": [],
+    "domain": "q=7, n=5, R=3",
+    "parameters": {
+      "M": 17,
+      "R": 3,
+      "n": 5,
+      "q": 7
+    },
+    "problem": "K_7(5,3) <= 17"
+  },
+  "sealed_evidence": {
+    "experiments": [
+      "exp-prior-search-unrecorded",
+      "exp-structure-regeneration"
+    ],
+    "formal": [
+      "f-k753-ub-17"
+    ],
+    "proofs": [],
+    "witnesses": [
+      "w-q7-n5-r3-m17"
+    ]
+  },
+  "sealed_sha256": "c2c5f7c57ad2f9becb2af00aa87329165caec9c5ec2d6ccd02e10c93ae6f52e4",
+  "statement": "Existe código C em (Z_7)^5 com |C| = 17 que cobre com raio 3 (data/codes/q7_n5_R3_M17.txt).",
+  "status": "INDEPENDENTLY_REPRODUCED",
+  "trust_boundary": [
+    {
+      "component": "tools/verify/verify.c compilado com gcc 13.3 (-Werror)",
+      "trusted_for": "que a marcação de bolas e a contagem de descobertos estão certas"
+    },
+    {
+      "component": "tools/campaign/verify_cover_dilation.py + numpy 2.4.6",
+      "trusted_for": "que a dilatação do grid está certa (2º verificador, independente em código)"
+    },
+    {
+      "component": "formato covering-code/v1 (docs/code-format.md)",
+      "trusted_for": "convenção de dígitos little-endian e do sha256 canônico"
+    },
+    {
+      "component": "literatura registrada (Kéri/Marosi), declarada",
+      "trusted_for": "só para a afirmação de que o valor é menor que o anterior, que o Lean não checa"
+    }
+  ]
+}

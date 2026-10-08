@@ -1,0 +1,441 @@
+[
+ {
+  "id": "K2(10,1)",
+  "ub_publicada": 120,
+  "fonte": "keri_2011",
+  "lb_publicada": 107,
+  "melhor_nosso_verificado_ou_null": null,
+  "M": null,
+  "sha256": null,
+  "verificadores_PASS": null,
+  "tentativas": [
+   {
+    "M": 120,
+    "secs": 30,
+    "melhor_descobertos": 23,
+    "iteracoes": 22256896,
+    "semente": 1,
+    "comando": "sa 2 10 1 120 30 1"
+   },
+   {
+    "M": 119,
+    "secs": 190,
+    "melhor_descobertos": 5,
+    "iteracoes": 148299520,
+    "semente": 1,
+    "comando": "sa 2 10 1 119 190 1"
+   }
+  ],
+  "estado": "SEM_MELHORA_NESTA_BUSCA"
+ },
+ {
+  "id": "K5(5,1)",
+  "ub_publicada": 184,
+  "fonte": "keri_2011",
+  "lb_publicada": 162,
+  "melhor_nosso_verificado_ou_null": null,
+  "M": null,
+  "sha256": null,
+  "verificadores_PASS": null,
+  "tentativas": [
+   {
+    "M": 184,
+    "secs": 30,
+    "melhor_descobertos": 21,
+    "iteracoes": 28033536,
+    "semente": 1,
+    "comando": "sa 5 5 1 184 30 1"
+   },
+   {
+    "M": 183,
+    "secs": 190,
+    "melhor_descobertos": 48,
+    "iteracoes": 142648064,
+    "semente": 1,
+    "comando": "sa 5 5 1 183 190 1"
+   }
+  ],
+  "estado": "SEM_MELHORA_NESTA_BUSCA"
+ },
+ {
+  "id": "K2(13,2)",
+  "ub_publicada": 128,
+  "fonte": "keri_2011",
+  "lb_publicada": 101,
+  "melhor_nosso_verificado_ou_null": null,
+  "M": null,
+  "sha256": null,
+  "verificadores_PASS": null,
+  "tentativas": [
+   {
+    "M": 128,
+    "secs": 30,
+    "melhor_descobertos": 602,
+    "iteracoes": 2216960,
+    "semente": 1,
+    "comando": "sa 2 13 2 128 30 1"
+   },
+   {
+    "M": 127,
+    "secs": 190,
+    "melhor_descobertos": 598,
+    "iteracoes": 14849280,
+    "semente": 1,
+    "comando": "sa 2 13 2 127 190 1"
+   }
+  ],
+  "estado": "SEM_MELHORA_NESTA_BUSCA"
+ },
+ {
+  "id": "K7(5,1)",
+  "ub_publicada": 769,
+  "fonte": "keri_2011",
+  "lb_publicada": 606,
+  "melhor_nosso_verificado_ou_null": null,
+  "M": null,
+  "sha256": null,
+  "verificadores_PASS": null,
+  "tentativas": [
+   {
+    "M": 769,
+    "secs": 15,
+    "melhor_descobertos": 975,
+    "iteracoes": 13752320,
+    "semente": 1,
+    "comando": "sa 7 5 1 769 15 1"
+   },
+   {
+    "M": 768,
+    "secs": 85,
+    "melhor_descobertos": 961,
+    "iteracoes": 76289792,
+    "semente": 1,
+    "comando": "sa 7 5 1 768 85 1"
+   }
+  ],
+  "estado": "SEM_MELHORA_NESTA_BUSCA"
+ },
+ {
+  "id": "K3(10,4)",
+  "ub_publicada": 36,
+  "fonte": "keri_2011",
+  "lb_publicada": 18,
+  "melhor_nosso_verificado_ou_null": null,
+  "M": null,
+  "sha256": null,
+  "verificadores_PASS": null,
+  "tentativas": [
+   {
+    "M": 36,
+    "secs": 15,
+    "melhor_descobertos": 248,
+    "iteracoes": 142336,
+    "semente": 1,
+    "comando": "sa 3 10 4 36 15 1"
+   },
+   {
+    "M": 35,
+    "secs": 85,
+    "melhor_descobertos": 317,
+    "iteracoes": 737792,
+    "semente": 1,
+    "comando": "sa 3 10 4 35 85 1"
+   }
+  ],
+  "estado": "SEM_MELHORA_NESTA_BUSCA"
+ },
+ {
+  "id": "K5(7,3)",
+  "ub_publicada": 100,
+  "fonte": "keri_2011",
+  "lb_publicada": 38,
+  "melhor_nosso_verificado_ou_null": null,
+  "M": null,
+  "sha256": null,
+  "verificadores_PASS": null,
+  "tentativas": [
+   {
+    "M": 100,
+    "secs": 15,
+    "melhor_descobertos": 77,
+    "iteracoes": 358912,
+    "semente": 1,
+    "comando": "sa 5 7 3 100 15 1"
+   },
+   {
+    "M": 99,
+    "secs": 85,
+    "melhor_descobertos": 68,
+    "iteracoes": 1896960,
+    "semente": 1,
+    "comando": "sa 5 7 3 99 85 1"
+   }
+  ],
+  "estado": "SEM_MELHORA_NESTA_BUSCA"
+ },
+ {
+  "id": "K2(17,5)",
+  "ub_publicada": 32,
+  "fonte": "keri_2011",
+  "lb_publicada": 20,
+  "melhor_nosso_verificado_ou_null": null,
+  "M": null,
+  "sha256": null,
+  "verificadores_PASS": null,
+  "tentativas": [
+   {
+    "M": 32,
+    "secs": 15,
+    "melhor_descobertos": 2343,
+    "iteracoes": 37120,
+    "semente": 1,
+    "comando": "sa 2 17 5 32 15 1"
+   },
+   {
+    "M": 31,
+    "secs": 85,
+    "melhor_descobertos": 2536,
+    "iteracoes": 196096,
+    "semente": 1,
+    "comando": "sa 2 17 5 31 85 1"
+   }
+  ],
+  "estado": "SEM_MELHORA_NESTA_BUSCA"
+ },
+ {
+  "id": "K2(18,2)",
+  "ub_publicada": 2944,
+  "fonte": "keri_2011",
+  "lb_publicada": 1702,
+  "melhor_nosso_verificado_ou_null": null,
+  "M": null,
+  "sha256": null,
+  "verificadores_PASS": null,
+  "tentativas": [
+   {
+    "M": 2944,
+    "secs": 15,
+    "melhor_descobertos": 9934,
+    "iteracoes": 1939200,
+    "semente": 1,
+    "comando": "sa 2 18 2 2944 15 1"
+   },
+   {
+    "M": 2943,
+    "secs": 85,
+    "melhor_descobertos": 9306,
+    "iteracoes": 10501120,
+    "semente": 1,
+    "comando": "sa 2 18 2 2943 85 1"
+   }
+  ],
+  "estado": "SEM_MELHORA_NESTA_BUSCA"
+ },
+ {
+  "id": "K2(19,3)",
+  "ub_publicada": 1024,
+  "fonte": "keri_2011",
+  "lb_publicada": 513,
+  "melhor_nosso_verificado_ou_null": null,
+  "M": null,
+  "sha256": null,
+  "verificadores_PASS": null,
+  "tentativas": [
+   {
+    "M": 1024,
+    "secs": 15,
+    "melhor_descobertos": 16263,
+    "iteracoes": 305152,
+    "semente": 1,
+    "comando": "sa 2 19 3 1024 15 1"
+   },
+   {
+    "M": 1023,
+    "secs": 85,
+    "melhor_descobertos": 15703,
+    "iteracoes": 1633280,
+    "semente": 1,
+    "comando": "sa 2 19 3 1023 85 1"
+   }
+  ],
+  "estado": "SEM_MELHORA_NESTA_BUSCA"
+ },
+ {
+  "id": "K3(12,1)",
+  "ub_publicada": 27702,
+  "fonte": "keri_2011",
+  "lb_publicada": 21531,
+  "melhor_nosso_verificado_ou_null": null,
+  "M": null,
+  "sha256": null,
+  "verificadores_PASS": null,
+  "tentativas": [
+   {
+    "M": 27702,
+    "secs": 15,
+    "melhor_descobertos": 46305,
+    "iteracoes": 12302848,
+    "semente": 1,
+    "comando": "sa 3 12 1 27702 15 1"
+   },
+   {
+    "M": 27701,
+    "secs": 85,
+    "melhor_descobertos": 41636,
+    "iteracoes": 66963200,
+    "semente": 1,
+    "comando": "sa 3 12 1 27701 85 1"
+   }
+  ],
+  "estado": "SEM_MELHORA_NESTA_BUSCA"
+ },
+ {
+  "id": "K2(20,5)",
+  "ub_publicada": 128,
+  "fonte": "keri_2011",
+  "lb_publicada": 62,
+  "melhor_nosso_verificado_ou_null": null,
+  "M": null,
+  "sha256": null,
+  "verificadores_PASS": null,
+  "tentativas": [
+   {
+    "M": 128,
+    "secs": 15,
+    "melhor_descobertos": 16573,
+    "iteracoes": 16640,
+    "semente": 1,
+    "comando": "sa 2 20 5 128 15 1"
+   },
+   {
+    "M": 127,
+    "secs": 85,
+    "melhor_descobertos": 15527,
+    "iteracoes": 88064,
+    "semente": 1,
+    "comando": "sa 2 20 5 127 85 1"
+   }
+  ],
+  "estado": "SEM_MELHORA_NESTA_BUSCA"
+ },
+ {
+  "id": "K5(9,2)",
+  "ub_publicada": 6375,
+  "fonte": "keri_2011",
+  "lb_publicada": 3367,
+  "melhor_nosso_verificado_ou_null": null,
+  "M": null,
+  "sha256": null,
+  "verificadores_PASS": null,
+  "tentativas": [
+   {
+    "M": 6375,
+    "secs": 15,
+    "melhor_descobertos": 114136,
+    "iteracoes": 819456,
+    "semente": 1,
+    "comando": "sa 5 9 2 6375 15 1"
+   },
+   {
+    "M": 6374,
+    "secs": 85,
+    "melhor_descobertos": 106599,
+    "iteracoes": 4442368,
+    "semente": 1,
+    "comando": "sa 5 9 2 6374 85 1"
+   }
+  ],
+  "estado": "SEM_MELHORA_NESTA_BUSCA"
+ },
+ {
+  "id": "K2(21,1)",
+  "ub_publicada": 122880,
+  "fonte": "keri_2011",
+  "lb_publicada": 96477,
+  "melhor_nosso_verificado_ou_null": null,
+  "M": null,
+  "sha256": null,
+  "verificadores_PASS": null,
+  "tentativas": [
+   {
+    "M": 122880,
+    "secs": 15,
+    "melhor_descobertos": 236762,
+    "iteracoes": 5865984,
+    "semente": 1,
+    "comando": "sa 2 21 1 122880 15 1"
+   },
+   {
+    "M": 122879,
+    "secs": 85,
+    "melhor_descobertos": 184693,
+    "iteracoes": 47177216,
+    "semente": 1,
+    "comando": "sa 2 21 1 122879 85 1"
+   }
+  ],
+  "estado": "SEM_MELHORA_NESTA_BUSCA"
+ },
+ {
+  "id": "K3(14,5)",
+  "ub_publicada": 243,
+  "fonte": "keri_2011",
+  "lb_publicada": 69,
+  "melhor_nosso_verificado_ou_null": null,
+  "M": null,
+  "sha256": null,
+  "verificadores_PASS": null,
+  "tentativas": [
+   {
+    "M": 243,
+    "secs": 15,
+    "melhor_descobertos": 7818,
+    "iteracoes": 6144,
+    "semente": 1,
+    "comando": "sa 3 14 5 243 15 1"
+   },
+   {
+    "M": 242,
+    "secs": 85,
+    "melhor_descobertos": 4845,
+    "iteracoes": 31744,
+    "semente": 1,
+    "comando": "sa 3 14 5 242 85 1"
+   }
+  ],
+  "estado": "SEM_MELHORA_NESTA_BUSCA"
+ },
+ {
+  "id": "K2(23,6)",
+  "ub_publicada": 224,
+  "fonte": "keri_2011",
+  "lb_publicada": 73,
+  "melhor_nosso_verificado_ou_null": null,
+  "M": null,
+  "sha256": null,
+  "verificadores_PASS": null,
+  "tentativas": [
+   {
+    "M": 224,
+    "secs": 15,
+    "melhor_descobertos": 42803,
+    "iteracoes": 2048,
+    "semente": 1,
+    "comando": "sa 2 23 6 224 15 1"
+   }
+  ],
+  "estado": "NAO_TENTADA"
+ },
+ {
+  "id": "K5(10,2)",
+  "ub_publicada": 23000,
+  "fonte": "keri_2011",
+  "lb_publicada": 13161,
+  "melhor_nosso_verificado_ou_null": null,
+  "M": null,
+  "sha256": null,
+  "verificadores_PASS": null,
+  "tentativas": [],
+  "estado": "NAO_TENTADA"
+ }
+]

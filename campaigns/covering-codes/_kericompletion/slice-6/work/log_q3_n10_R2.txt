@@ -1,0 +1,4 @@
+q=3 n=10 R=2 M=554 best_unc=2169 final_unc=2170 iters=15567872 secs=51
+cmd: sa 3 10 2 554 110 seed=11 cycles=3 T=0.35 0.15
+q=3 n=10 R=2 M=554 best_unc=2194 final_unc=2194 iters=15390720 secs=51
+cmd: sa 3 10 2 554 110 seed=12 cycles=3 T=0.25 0.1

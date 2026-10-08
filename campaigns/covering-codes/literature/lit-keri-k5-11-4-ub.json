@@ -1,0 +1,34 @@
+{
+  "assumptions": [
+    "edição = PDFs de 2009-10-15; 'Kéri 2011' do README/paper = o site atualizado em 2011-11, não tabelas novas",
+    "a origem de cada chave (artigo/livro) NÃO foi lida",
+    "valor transcrito do ledger do main, não conferido no PDF"
+  ],
+  "authors": [
+    "G. Kéri"
+  ],
+  "bound": {
+    "direction": "upper",
+    "parameters": {
+      "R": 4,
+      "n": 11,
+      "q": 5
+    },
+    "value": 3125
+  },
+  "claim_ids": [
+    "k5-11-4-ub-2875"
+  ],
+  "date_read": "2026-10-04",
+  "exact_bound": "K_5(11,4) <= 3125 (chave d)",
+  "exact_statement": "4-5_tables.pdf: linha K_5(11,4) = '535-3125' (chave da cota inferior y, da superior d). TRANSCRITO de ledger/cells.json do main (published.sources.keri_2011, que o repositório do Marosi transcreveu das tabelas do Kéri); o PDF NÃO foi aberto por esta campanha para esta célula (entrou no main depois da revisão Lit-CC); registro feito por migrate_covering.py em 2026-10-04.",
+  "formalized": false,
+  "literature_id": "lit-keri-k5-11-4-ub",
+  "open_questions": [],
+  "reproduced": false,
+  "title": "Tables for bounds on covering codes",
+  "url": "https://old.sztaki.hu/~keri/codes/4-5_tables.pdf",
+  "version": "PDF 4-5_tables.pdf, Last-Modified 2009-10-15 (diretório e index.htm atualizados até 2011-11-25)",
+  "version_date": "2009-10-15",
+  "year": 2009
+}

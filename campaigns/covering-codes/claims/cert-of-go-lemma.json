@@ -1,0 +1,82 @@
+{
+  "claim_id": "cert-of-go-lemma",
+  "counterexample_search": {
+    "method": "lema provado no kernel",
+    "result": "nenhum",
+    "status": "completed"
+  },
+  "created": "2026-10-06T03:03:50Z",
+  "created_by": "agente-c",
+  "created_role": "PROPOSER",
+  "depends_on": [],
+  "evidence": {
+    "counterexamples": [],
+    "experiments": [],
+    "external_reproductions": [],
+    "formal": [
+      "f-cert-of-go"
+    ],
+    "literature": [],
+    "proofs": [],
+    "verifier_runs": [],
+    "witnesses": []
+  },
+  "history": [
+    {
+      "actor": "agente-c",
+      "from": null,
+      "reason": "criado",
+      "role": "PROPOSER",
+      "to": "IDEA",
+      "ts": "2026-10-06T03:03:50Z"
+    },
+    {
+      "actor": "agente-c",
+      "from": "IDEA",
+      "reason": "evidência anexada: formal=f-cert-of-go",
+      "role": "PROPOSER",
+      "to": "IDEA",
+      "ts": "2026-10-06T03:03:50Z"
+    },
+    {
+      "actor": "migrate_covering.py",
+      "from": "IDEA",
+      "reason": "registro formal medido válido",
+      "role": "FORMALIZER",
+      "to": "PROVED",
+      "ts": "2026-10-06T03:03:50Z"
+    }
+  ],
+  "kind": "lemma",
+  "reviewed_by": [],
+  "scope": {
+    "assumptions": [],
+    "domain": "K3_Bridge",
+    "problem": "ponte checagem -> Covers (certificados por prefixos, CoveringHeavy)"
+  },
+  "sealed_evidence": {
+    "experiments": [],
+    "formal": [
+      "f-cert-of-go"
+    ],
+    "proofs": [],
+    "witnesses": []
+  },
+  "sealed_sha256": "1948412362e1d4b664f242f7c2d749ea0c25da4f09c3cd87d01891160fd26dcb",
+  "statement": "CoveringKernel.cert_of_go: a checagem booleana `go` verdadeira sobre uma lista estritamente crescente de M inteiros < q^n dá C com |C|=M e Covers R C.",
+  "status": "PROVED",
+  "trust_boundary": [
+    {
+      "component": "kernel do Lean 4 v4.34.1 + Mathlib v4.34.1 (lean-toolchain, lake-manifest.json)",
+      "trusted_for": "a correção das inferências e das decisões `decide +kernel`"
+    },
+    {
+      "component": "axiomas propext, Classical.choice, Quot.sound",
+      "trusted_for": "lógica clássica e extensionalidade (medido via #print axioms, no alvo padrão)"
+    },
+    {
+      "component": "definições Covers/IsK/ball/hammingDist (CoveringA2, CoveringA6, Mathlib)",
+      "trusted_for": "que o enunciado formal é o enunciado pretendido: REVISÃO HUMANA PENDENTE (README:73-74)"
+    }
+  ]
+}

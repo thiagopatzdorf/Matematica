@@ -1,0 +1,37 @@
+{
+  "bundle_sha256": "13ec54f0f3f152202ddbdcd937f6435ba65e1ebde9ed892ad1c99461b1a1bbf6",
+  "host_provenance": {
+    "boot_image": {
+      "digest": null,
+      "digest_nota": "o servidor de metadados não informa digest da imagem",
+      "source_image": "projects/ubuntu-os-cloud/global/images/ubuntu-2404-noble-amd64-v20260918"
+    },
+    "campos_ausentes": [],
+    "captured_at": "2026-10-04T17:17:41Z",
+    "captured_by_tool": true,
+    "cpu_platform": "Intel Broadwell",
+    "instance_name": "kr-teste-a",
+    "machine_type": "e2-highmem-4",
+    "numeric_instance_id": "5198467000349702121",
+    "project_id": "gen-lang-client-0503404929",
+    "provider": "GCP",
+    "registrado_de_outro_host": false,
+    "schema": "genesis-math/host-provenance/v1",
+    "source": "gce-metadata-server",
+    "zone": "southamerica-east1-a"
+  },
+  "schema": "genesis-math/provenance-bundle/v1",
+  "toolchain_provenance": {
+    "campos_ausentes": [],
+    "captured_at": "2026-10-04T17:17:42Z",
+    "captured_by_tool": true,
+    "commit_sha": "1a5fa268dc916fde689e6aa801e591ac3c863b36",
+    "lake_manifest_sha256": "88d3b3c8b56dbff5d6c7f63ac444982ed9152f874d27a8174c91544dfa90ed82",
+    "lake_version_literal": "Lake version 5.0.0-src+5045d00 (Lean version 4.34.1)",
+    "lean_toolchain_sha256": "d5edba4e4b8faad9c1baeadb265716d20d03be4d1a2647dc5e35b0c0325bea7b",
+    "lean_version_literal": "Lean (version 4.34.1, x86_64-unknown-linux-gnu, commit 5045d0056413266e57c625dcd7c365b10e377c52, Release)",
+    "schema": "genesis-math/toolchain-provenance/v1",
+    "tree_clean": true,
+    "tree_sha": "ffb6aa32317886bf1a077f2663dc96eb9279e8d8"
+  }
+}

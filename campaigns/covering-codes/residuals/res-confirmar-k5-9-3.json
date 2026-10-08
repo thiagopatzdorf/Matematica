@@ -1,0 +1,26 @@
+{
+  "claim_ids": [
+    "k5-9-3-ub-1250"
+  ],
+  "comparison": {
+    "k5-9-3-ub-1250": {
+      "classificacao": "MELHORA_APARENTE_A_CONFIRMAR",
+      "melhor_registrada": 1275,
+      "melhor_registrada_fonte": [
+        "lit-keri-k5-9-3-ub (PDF 4-5_tables.pdf, Last-Modified 2009-10-15 (diretório e index.htm atualizados até 2011-11-25), 2009-10-15)"
+      ],
+      "nosso": 1250,
+      "nota": "melhora aparente, a confirmar por revisão externa (não é afirmação de novidade: livros/artigos não lidos podem ter predecessor)",
+      "veredito": "melhor_que_a_registrada"
+    }
+  },
+  "created": "2026-10-06T02:39:44Z",
+  "created_by": "agente-c",
+  "instances": [
+    "k5-9-3"
+  ],
+  "kind": "melhora_aparente_a_confirmar",
+  "next_step": "ler Bhandari-Durairajan 1996 e Cohen et al. 1997",
+  "reason": "MELHORA_APARENTE_A_CONFIRMAR (nunca 'novidade'): 1250 < 1275 (Kéri, chave d = Bhandari-Durairajan 1996): Bhandari-Durairajan 1996 e Cohen et al. 1997 não lidos",
+  "residual_id": "res-confirmar-k5-9-3"
+}

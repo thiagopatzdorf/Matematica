@@ -1,0 +1,27 @@
+{
+  "M": 17,
+  "R": 3,
+  "canonical_sha256": "d4b4c2acda99bd2143572a0c2c73f9b9db07606090d0660fa3c43b838c7fe242",
+  "canonical_sha256_declared_in_structured": "d4b4c2acda99bd2143572a0c2c73f9b9db07606090d0660fa3c43b838c7fe242",
+  "claim_ids": [],
+  "created": "2026-10-06T02:39:44Z",
+  "created_by": "agente-c",
+  "format": "covering-code/v1 (lista plana, uma palavra por linha)",
+  "implementation": "tools/exatos/busca_local/sa.c (recozimento simulado, custo = pontos descobertos, lance = trocar um símbolo); gcc -O3, seed 12, T0 1.5; saída ordenada com sort",
+  "n": 5,
+  "parameters": {
+    "M": 17,
+    "R": 3,
+    "n": 5,
+    "q": 7
+  },
+  "path": "data/codes/q7_n5_R3_M17.txt",
+  "produced_by": "exp-prior-search-unrecorded",
+  "q": 7,
+  "sha256": "d4b4c2acda99bd2143572a0c2c73f9b9db07606090d0660fa3c43b838c7fe242",
+  "structured_description": {
+    "path": "data/structured/q7_n5_R3_M17.json",
+    "sha256": "234844bf074ee6ab6b95147aa77d3ea94ddd865486569e25ce91ba2816a0a890"
+  },
+  "witness_id": "w-q7-n5-r3-m17"
+}

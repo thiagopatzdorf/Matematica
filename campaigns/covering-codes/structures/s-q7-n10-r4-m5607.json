@@ -1,0 +1,24 @@
+{
+  "canonical_sha256": "7670a7bd3560fb6ba1ea6a68d7c6a6ec8853ab2d0406370cd2c80c0f12402fa5",
+  "created": "2026-10-06T02:39:44Z",
+  "created_by": "agente-c",
+  "format": "covering-code/v1",
+  "group": "Zq",
+  "kind": "code-structure",
+  "linear_base_dim": 3,
+  "linear_cosets": 16,
+  "patch_words": 119,
+  "provenance": {
+    "agent": "James.V1",
+    "command": "patch_inst 7 10 4 base.txt 7 k7104_T7.bin && rwls k7104_T7.bin -G 100000 -t 2400 -s 12 -k 94 -c 1",
+    "commit": null,
+    "date": "2026-10-04",
+    "generator": "tools/patch_setcover (feat/patch-setcover): a mesma base de 16 classes do q7_n10_R4_M5616; remendo refeito como set cover unicusto (patch_inst T=7 + rwls -G, gulosos aleatorizados)",
+    "notes": "16 classes laterais de um [10,3]_7 (3 síndromes órfãs, 1029 pontos) + 119 palavras. Detalhes em data/attack/q7_n10_R4_M5607.json e docs/attack/SETCOVER_2026-10-04.md. Verificado por tools/verify/verify.c e scripts/attack/verify_bfs. Não conferido no Lean.",
+    "repo_commit": null,
+    "seed": 12
+  },
+  "structure_id": "s-q7-n10-r4-m5607",
+  "subcode_blocks": [],
+  "witness": "w-q7-n10-r4-m5607"
+}

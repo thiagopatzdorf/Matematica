@@ -1,0 +1,29 @@
+{
+  "canonical_sha256": "aa388cc9642bc064527a0237b60522ba558491291a2adf02ab1e4d8d3f756c1f",
+  "created": "2026-10-06T02:39:44Z",
+  "created_by": "agente-c",
+  "format": "covering-code/v1",
+  "group": "Zq",
+  "kind": "code-structure",
+  "linear_base_dim": 3,
+  "linear_cosets": 3,
+  "patch_words": 4,
+  "provenance": {
+    "agent": "James.V1",
+    "command": "python3 scripts/search/gen.py data/search/p1285.json data/codes/q7_n9_R4_M1285.txt",
+    "commit": null,
+    "date": "2026-10-02",
+    "generator": "scripts/search/gen.py (3 cosets de [9,3]_7 H=[I6|A] + cosets de subcódigo + palavras soltas)",
+    "notes": "regenerado byte a byte (sha256 do arquivo 89cbd6b2...) a partir de p1285.json, copiado da VM lean-build2 (~/h/s2/b). Estrutura registrada com --dims 3,1 para bater com o gerador.",
+    "repo_commit": null,
+    "seed": null
+  },
+  "structure_id": "s-q7-n9-r4-m1285",
+  "subcode_blocks": [
+    {
+      "generators": 1,
+      "reps": 36
+    }
+  ],
+  "witness": "w-q7-n9-r4-m1285"
+}

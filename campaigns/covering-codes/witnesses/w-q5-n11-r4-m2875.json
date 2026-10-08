@@ -1,0 +1,27 @@
+{
+  "M": 2875,
+  "R": 4,
+  "canonical_sha256": "2a700e2f928a8d893e8863ee100c9514a8ffd65a480776682c7560c96029dc9b",
+  "canonical_sha256_declared_in_structured": "2a700e2f928a8d893e8863ee100c9514a8ffd65a480776682c7560c96029dc9b",
+  "claim_ids": [],
+  "created": "2026-10-06T02:39:44Z",
+  "created_by": "agente-c",
+  "format": "covering-code/v1 (lista plana, uma palavra por linha)",
+  "implementation": "scripts/attack (feat/ataque-celulas-2011): hsearch -> coset_sa t=4 em [11,4]_5 -> lift para [11,3]_5 -> coset_sa t=22 -> coset_wsa (w=21)",
+  "n": 11,
+  "parameters": {
+    "M": 2875,
+    "R": 4,
+    "n": 11,
+    "q": 5
+  },
+  "path": "data/codes/q5_n11_R4_M2875.txt",
+  "produced_by": "exp-prov-q5-n11-r4-m2875",
+  "q": 5,
+  "sha256": "e8ff1f41662ffc314686ea40241dbafcaac022acdb953f3d9e4ffc0b394cabe9",
+  "structured_description": {
+    "path": "data/structured/q5_n11_R4_M2875.json",
+    "sha256": "e99d1ff577340ab73be04cca884b605d3d772b75c14759cc41f5a5de65992db3"
+  },
+  "witness_id": "w-q5-n11-r4-m2875"
+}

@@ -1,0 +1,271 @@
+[
+ {
+  "id": "K2(11,1)",
+  "ub_publicada": 192,
+  "lb_publicada": 180,
+  "fonte": "keri_2011",
+  "melhor_nosso_verificado_ou_null": null,
+  "M": null,
+  "sha256": null,
+  "verificadores_PASS": [],
+  "tentativas": [
+   "q=2 n=11 R=1 M=191 best_unc=6 final_unc=6 iters=242984960 secs=111",
+   "cmd: sa 2 11 1 191 110 seed=11 cycles=3 T=0.35 0.15",
+   "q=2 n=11 R=1 M=191 best_unc=6 final_unc=6 iters=251732992 secs=111",
+   "cmd: sa 2 11 1 191 110 seed=12 cycles=3 T=0.25 0.1"
+  ],
+  "melhor_descobertos_min": 6,
+  "estado": "SEM_MELHORA_NESTA_BUSCA"
+ },
+ {
+  "id": "K2(12,2)",
+  "ub_publicada": 78,
+  "lb_publicada": 62,
+  "fonte": "keri_2011",
+  "melhor_nosso_verificado_ou_null": null,
+  "M": null,
+  "sha256": null,
+  "verificadores_PASS": [],
+  "tentativas": [
+   "q=2 n=12 R=2 M=77 best_unc=207 final_unc=207 iters=23273472 secs=111",
+   "cmd: sa 2 12 2 77 110 seed=11 cycles=3 T=0.35 0.15",
+   "q=2 n=12 R=2 M=77 best_unc=223 final_unc=223 iters=23617536 secs=111",
+   "cmd: sa 2 12 2 77 110 seed=12 cycles=3 T=0.25 0.1"
+  ],
+  "melhor_descobertos_min": 207,
+  "estado": "SEM_MELHORA_NESTA_BUSCA"
+ },
+ {
+  "id": "K5(6,2)",
+  "ub_publicada": 125,
+  "lb_publicada": 71,
+  "fonte": "keri_2011",
+  "melhor_nosso_verificado_ou_null": null,
+  "M": null,
+  "sha256": null,
+  "verificadores_PASS": [],
+  "tentativas": [
+   "q=5 n=6 R=2 M=124 best_unc=244 final_unc=244 iters=15927296 secs=111",
+   "q=5 n=6 R=2 M=124 best_unc=229 final_unc=229 iters=18123776 secs=51",
+   "cmd: sa 5 6 2 124 110 seed=11 cycles=3 T=0.35 0.15",
+   "q=5 n=6 R=2 M=124 best_unc=267 final_unc=267 iters=18505728 secs=51",
+   "cmd: sa 5 6 2 124 110 seed=12 cycles=3 T=0.25 0.1"
+  ],
+  "melhor_descobertos_min": 229,
+  "estado": "SEM_MELHORA_NESTA_BUSCA"
+ },
+ {
+  "id": "K3(9,3)",
+  "ub_publicada": 54,
+  "lb_publicada": 31,
+  "fonte": "keri_2011",
+  "melhor_nosso_verificado_ou_null": null,
+  "M": null,
+  "sha256": null,
+  "verificadores_PASS": [],
+  "tentativas": [
+   "q=3 n=9 R=3 M=53 best_unc=262 final_unc=262 iters=6331392 secs=51",
+   "cmd: sa 3 9 3 53 110 seed=11 cycles=3 T=0.35 0.15",
+   "q=3 n=9 R=3 M=53 best_unc=281 final_unc=281 iters=6482944 secs=51",
+   "cmd: sa 3 9 3 53 110 seed=12 cycles=3 T=0.25 0.1"
+  ],
+  "melhor_descobertos_min": 262,
+  "estado": "SEM_MELHORA_NESTA_BUSCA"
+ },
+ {
+  "id": "K3(10,2)",
+  "ub_publicada": 555,
+  "lb_publicada": 323,
+  "fonte": "keri_2011",
+  "melhor_nosso_verificado_ou_null": null,
+  "M": null,
+  "sha256": null,
+  "verificadores_PASS": [],
+  "tentativas": [
+   "q=3 n=10 R=2 M=554 best_unc=2169 final_unc=2170 iters=15567872 secs=51",
+   "cmd: sa 3 10 2 554 110 seed=11 cycles=3 T=0.35 0.15",
+   "q=3 n=10 R=2 M=554 best_unc=2194 final_unc=2194 iters=15390720 secs=51",
+   "cmd: sa 3 10 2 554 110 seed=12 cycles=3 T=0.25 0.1"
+  ],
+  "melhor_descobertos_min": 2169,
+  "estado": "SEM_MELHORA_NESTA_BUSCA"
+ },
+ {
+  "id": "K5(7,1)",
+  "ub_publicada": 3125,
+  "lb_publicada": 2765,
+  "fonte": "keri_2011",
+  "melhor_nosso_verificado_ou_null": null,
+  "M": null,
+  "sha256": null,
+  "verificadores_PASS": [],
+  "tentativas": [
+   "cmd: sa 5 7 1 3124 110 seed=11 cycles=3 T=0.35 0.15",
+   "cmd: sa 5 7 1 3124 110 seed=12 cycles=3 T=0.25 0.1"
+  ],
+  "melhor_descobertos_min": null,
+  "estado": "NAO_TENTADA",
+  "nota": "sa.c limita M<=1024; execução abortou (M=3124)"
+ },
+ {
+  "id": "K2(17,1)",
+  "ub_publicada": 8192,
+  "lb_publicada": 7426,
+  "fonte": "keri_2011",
+  "melhor_nosso_verificado_ou_null": null,
+  "M": null,
+  "sha256": null,
+  "verificadores_PASS": [],
+  "tentativas": [
+   "cmd: sa 2 17 1 8191 110 seed=11 cycles=3 T=0.35 0.15",
+   "cmd: sa 2 17 1 8191 110 seed=12 cycles=3 T=0.25 0.1"
+  ],
+  "melhor_descobertos_min": null,
+  "estado": "NAO_TENTADA",
+  "nota": "sa.c limita M<=1024; execução abortou (M=8191)"
+ },
+ {
+  "id": "K2(18,7)",
+  "ub_publicada": 12,
+  "lb_publicada": 9,
+  "fonte": "keri_2011",
+  "melhor_nosso_verificado_ou_null": null,
+  "M": null,
+  "sha256": null,
+  "verificadores_PASS": [],
+  "tentativas": [
+   "q=2 n=18 R=7 M=11 best_unc=1227 final_unc=1227 iters=116736 secs=51",
+   "cmd: sa 2 18 7 11 110 seed=11 cycles=3 T=0.35 0.15",
+   "q=2 n=18 R=7 M=11 best_unc=1049 final_unc=1049 iters=115712 secs=51",
+   "cmd: sa 2 18 7 11 110 seed=12 cycles=3 T=0.25 0.1"
+  ],
+  "melhor_descobertos_min": 1049,
+  "estado": "SEM_MELHORA_NESTA_BUSCA"
+ },
+ {
+  "id": "K2(19,5)",
+  "ub_publicada": 64,
+  "lb_publicada": 40,
+  "fonte": "keri_2011",
+  "melhor_nosso_verificado_ou_null": null,
+  "M": null,
+  "sha256": null,
+  "verificadores_PASS": [],
+  "tentativas": [
+   "q=2 n=19 R=5 M=63 best_unc=23450 final_unc=23450 iters=199680 secs=51",
+   "cmd: sa 2 19 5 63 110 seed=11 cycles=3 T=0.35 0.15",
+   "q=2 n=19 R=5 M=63 best_unc=23016 final_unc=23016 iters=200704 secs=51",
+   "cmd: sa 2 19 5 63 110 seed=12 cycles=3 T=0.25 0.1"
+  ],
+  "melhor_descobertos_min": 23016,
+  "estado": "SEM_MELHORA_NESTA_BUSCA"
+ },
+ {
+  "id": "K7(7,3)",
+  "ub_publicada": 343,
+  "lb_publicada": 127,
+  "fonte": "keri_2011",
+  "melhor_nosso_verificado_ou_null": null,
+  "M": null,
+  "sha256": null,
+  "verificadores_PASS": [],
+  "tentativas": [
+   "q=7 n=7 R=3 M=342 best_unc=2308 final_unc=2308 iters=891904 secs=51",
+   "cmd: sa 7 7 3 342 110 seed=11 cycles=3 T=0.35 0.15",
+   "q=7 n=7 R=3 M=342 best_unc=2555 final_unc=2555 iters=875520 secs=51",
+   "cmd: sa 7 7 3 342 110 seed=12 cycles=3 T=0.25 0.1"
+  ],
+  "melhor_descobertos_min": 2308,
+  "estado": "SEM_MELHORA_NESTA_BUSCA"
+ },
+ {
+  "id": "K2(20,8)",
+  "ub_publicada": 12,
+  "lb_publicada": 9,
+  "fonte": "keri_2011",
+  "melhor_nosso_verificado_ou_null": null,
+  "M": null,
+  "sha256": null,
+  "verificadores_PASS": [],
+  "tentativas": [
+   "q=2 n=20 R=8 M=11 best_unc=3112 final_unc=3112 iters=22528 secs=53",
+   "cmd: sa 2 20 8 11 110 seed=11 cycles=3 T=0.35 0.15",
+   "q=2 n=20 R=8 M=11 best_unc=3376 final_unc=3376 iters=21504 secs=51",
+   "cmd: sa 2 20 8 11 110 seed=12 cycles=3 T=0.25 0.1"
+  ],
+  "melhor_descobertos_min": 3112,
+  "estado": "SEM_MELHORA_NESTA_BUSCA"
+ },
+ {
+  "id": "K5(9,6)",
+  "ub_publicada": 12,
+  "lb_publicada": 10,
+  "fonte": "keri_2011",
+  "melhor_nosso_verificado_ou_null": null,
+  "M": null,
+  "sha256": null,
+  "verificadores_PASS": [],
+  "tentativas": [
+   "q=5 n=9 R=6 M=11 best_unc=2404 final_unc=2404 iters=23552 secs=52",
+   "cmd: sa 5 9 6 11 110 seed=11 cycles=3 T=0.35 0.15",
+   "q=5 n=9 R=6 M=11 best_unc=2488 final_unc=2488 iters=23552 secs=53",
+   "cmd: sa 5 9 6 11 110 seed=12 cycles=3 T=0.25 0.1"
+  ],
+  "melhor_descobertos_min": 2404,
+  "estado": "SEM_MELHORA_NESTA_BUSCA"
+ },
+ {
+  "id": "K2(22,7)",
+  "ub_publicada": 64,
+  "lb_publicada": 21,
+  "fonte": "keri_2011",
+  "melhor_nosso_verificado_ou_null": null,
+  "M": null,
+  "sha256": null,
+  "verificadores_PASS": [],
+  "tentativas": [
+   "q=2 n=22 R=7 M=63 best_unc=1421 final_unc=1421 iters=13312 secs=55",
+   "cmd: sa 2 22 7 63 110 seed=11 cycles=3 T=0.35 0.15",
+   "q=2 n=22 R=7 M=63 best_unc=1648 final_unc=1648 iters=12288 secs=51",
+   "cmd: sa 2 22 7 63 110 seed=12 cycles=3 T=0.25 0.1"
+  ],
+  "melhor_descobertos_min": 1421,
+  "estado": "SEM_MELHORA_NESTA_BUSCA"
+ },
+ {
+  "id": "K3(14,4)",
+  "ub_publicada": 729,
+  "lb_publicada": 273,
+  "fonte": "keri_2011",
+  "melhor_nosso_verificado_ou_null": null,
+  "M": null,
+  "sha256": null,
+  "verificadores_PASS": [],
+  "tentativas": [
+   "q=3 n=14 R=4 M=728 best_unc=67174 final_unc=67174 iters=202752 secs=51",
+   "cmd: sa 3 14 4 728 110 seed=11 cycles=3 T=0.35 0.15",
+   "q=3 n=14 R=4 M=728 best_unc=67775 final_unc=67775 iters=196608 secs=51",
+   "cmd: sa 3 14 4 728 110 seed=12 cycles=3 T=0.25 0.1"
+  ],
+  "melhor_descobertos_min": 67174,
+  "estado": "SEM_MELHORA_NESTA_BUSCA"
+ },
+ {
+  "id": "K2(23,8)",
+  "ub_publicada": 32,
+  "lb_publicada": 14,
+  "fonte": "keri_2011",
+  "melhor_nosso_verificado_ou_null": null,
+  "M": null,
+  "sha256": null,
+  "verificadores_PASS": [],
+  "tentativas": [
+   "q=2 n=23 R=8 M=31 best_unc=20740 final_unc=20740 iters=4096 secs=67",
+   "cmd: sa 2 23 8 31 110 seed=11 cycles=3 T=0.35 0.15",
+   "q=2 n=23 R=8 M=31 best_unc=17604 final_unc=17604 iters=4096 secs=66",
+   "cmd: sa 2 23 8 31 110 seed=12 cycles=3 T=0.25 0.1"
+  ],
+  "melhor_descobertos_min": 17604,
+  "estado": "SEM_MELHORA_NESTA_BUSCA"
+ }
+]

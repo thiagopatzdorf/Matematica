@@ -1,0 +1,312 @@
+[
+ {
+  "id": "K3(6,1)",
+  "ub_publicada": 73,
+  "fonte": "Kéri 2011 (tabelas, http://old.sztaki.hu/~keri/codes/)",
+  "lb_publicada": 71,
+  "melhor_nosso_verificado_ou_null": null,
+  "M": null,
+  "sha256": null,
+  "verificadores_PASS": [],
+  "tentativas": [
+   {
+    "comando": "work/sa q=3 n=6 R=1 M=72 semente=1 T0=0.5 T1=0.12",
+    "segundos": "90",
+    "M_alvo": 72,
+    "descobertos_final_e_melhor": "2 2"
+   },
+   {
+    "comando": "work/sa q=3 n=6 R=1 M=72 semente=2 T0=0.5 T1=0.12",
+    "segundos": "90",
+    "M_alvo": 72,
+    "descobertos_final_e_melhor": "2 2"
+   }
+  ],
+  "estado": "SEM_MELHORA_NESTA_BUSCA"
+ },
+ {
+  "id": "K7(4,1)",
+  "ub_publicada": 123,
+  "fonte": "Kéri 2011 (tabelas, http://old.sztaki.hu/~keri/codes/)",
+  "lb_publicada": 115,
+  "melhor_nosso_verificado_ou_null": null,
+  "M": null,
+  "sha256": null,
+  "verificadores_PASS": [],
+  "tentativas": [
+   {
+    "comando": "work/sa q=7 n=4 R=1 M=122 semente=1 T0=0.5 T1=0.12",
+    "segundos": null,
+    "M_alvo": 122,
+    "descobertos_final_e_melhor": "15 15"
+   }
+  ],
+  "estado": "SEM_MELHORA_NESTA_BUSCA"
+ },
+ {
+  "id": "K2(13,3)",
+  "ub_publicada": 42,
+  "fonte": "Kéri 2011 (tabelas, http://old.sztaki.hu/~keri/codes/)",
+  "lb_publicada": 28,
+  "melhor_nosso_verificado_ou_null": null,
+  "M": null,
+  "sha256": null,
+  "verificadores_PASS": [],
+  "tentativas": [
+   {
+    "comando": "work/sa q=2 n=13 R=3 M=41 semente=1 T0=0.5 T1=0.12",
+    "segundos": null,
+    "M_alvo": 41,
+    "descobertos_final_e_melhor": "136 136"
+   }
+  ],
+  "estado": "SEM_MELHORA_NESTA_BUSCA"
+ },
+ {
+  "id": "K2(14,1)",
+  "ub_publicada": 1408,
+  "fonte": "Kéri 2011 (tabelas, http://old.sztaki.hu/~keri/codes/)",
+  "lb_publicada": 1185,
+  "melhor_nosso_verificado_ou_null": null,
+  "M": null,
+  "sha256": null,
+  "verificadores_PASS": [],
+  "tentativas": [
+   {
+    "comando": "work/sa q=2 n=14 R=1 M=1407 semente=1 T0=0.5 T1=0.12",
+    "segundos": null,
+    "M_alvo": 1407,
+    "descobertos_final_e_melhor": "532 531"
+   }
+  ],
+  "estado": "SEM_MELHORA_NESTA_BUSCA"
+ },
+ {
+  "id": "K2(15,5)",
+  "ub_publicada": 16,
+  "fonte": "Kéri 2011 (tabelas, http://old.sztaki.hu/~keri/codes/)",
+  "lb_publicada": 12,
+  "melhor_nosso_verificado_ou_null": null,
+  "M": null,
+  "sha256": null,
+  "verificadores_PASS": [],
+  "tentativas": [
+   {
+    "comando": "work/sa q=2 n=15 R=5 M=15 semente=1 T0=0.5 T1=0.12",
+    "segundos": null,
+    "M_alvo": 15,
+    "descobertos_final_e_melhor": "312 312"
+   }
+  ],
+  "estado": "SEM_MELHORA_NESTA_BUSCA"
+ },
+ {
+  "id": "K2(16,2)",
+  "ub_publicada": 768,
+  "fonte": "Kéri 2011 (tabelas, http://old.sztaki.hu/~keri/codes/)",
+  "lb_publicada": 512,
+  "melhor_nosso_verificado_ou_null": null,
+  "M": null,
+  "sha256": null,
+  "verificadores_PASS": [],
+  "tentativas": [
+   {
+    "comando": "work/sa q=2 n=16 R=2 M=767 semente=1 T0=0.5 T1=0.12",
+    "segundos": null,
+    "M_alvo": 767,
+    "descobertos_final_e_melhor": "4132 4132"
+   }
+  ],
+  "estado": "SEM_MELHORA_NESTA_BUSCA"
+ },
+ {
+  "id": "K2(17,2)",
+  "ub_publicada": 1536,
+  "fonte": "Kéri 2011 (tabelas, http://old.sztaki.hu/~keri/codes/)",
+  "lb_publicada": 889,
+  "melhor_nosso_verificado_ou_null": null,
+  "M": null,
+  "sha256": null,
+  "verificadores_PASS": [],
+  "tentativas": [
+   {
+    "comando": "work/sa q=2 n=17 R=2 M=1535 semente=1 T0=0.5 T1=0.12",
+    "segundos": null,
+    "M_alvo": 1535,
+    "descobertos_final_e_melhor": "5372 5372"
+   }
+  ],
+  "estado": "SEM_MELHORA_NESTA_BUSCA"
+ },
+ {
+  "id": "K2(18,5)",
+  "ub_publicada": 64,
+  "fonte": "Kéri 2011 (tabelas, http://old.sztaki.hu/~keri/codes/)",
+  "lb_publicada": 28,
+  "melhor_nosso_verificado_ou_null": null,
+  "M": null,
+  "sha256": null,
+  "verificadores_PASS": [],
+  "tentativas": [
+   {
+    "comando": "work/sa q=2 n=18 R=5 M=63 semente=1 T0=0.5 T1=0.12",
+    "segundos": null,
+    "M_alvo": 63,
+    "descobertos_final_e_melhor": "1060 1060"
+   }
+  ],
+  "estado": "SEM_MELHORA_NESTA_BUSCA"
+ },
+ {
+  "id": "K5(8,1)",
+  "ub_publicada": 15625,
+  "fonte": "Kéri 2011 (tabelas, http://old.sztaki.hu/~keri/codes/)",
+  "lb_publicada": 12134,
+  "melhor_nosso_verificado_ou_null": null,
+  "M": null,
+  "sha256": null,
+  "verificadores_PASS": [],
+  "tentativas": [
+   {
+    "comando": "work/sa q=5 n=8 R=1 M=15624 semente=1 T0=0.5 T1=0.12",
+    "segundos": null,
+    "M_alvo": 15624,
+    "descobertos_final_e_melhor": "33563 33563"
+   }
+  ],
+  "estado": "SEM_MELHORA_NESTA_BUSCA"
+ },
+ {
+  "id": "K3(12,3)",
+  "ub_publicada": 657,
+  "fonte": "Kéri 2011 (tabelas, http://old.sztaki.hu/~keri/codes/)",
+  "lb_publicada": 282,
+  "melhor_nosso_verificado_ou_null": null,
+  "M": null,
+  "sha256": null,
+  "verificadores_PASS": [],
+  "tentativas": [
+   {
+    "comando": "work/sa q=3 n=12 R=3 M=656 semente=1 T0=0.5 T1=0.12",
+    "segundos": null,
+    "M_alvo": 656,
+    "descobertos_final_e_melhor": "11686 11686"
+   }
+  ],
+  "estado": "SEM_MELHORA_NESTA_BUSCA"
+ },
+ {
+  "id": "K2(20,7)",
+  "ub_publicada": 28,
+  "fonte": "Kéri 2011 (tabelas, http://old.sztaki.hu/~keri/codes/)",
+  "lb_publicada": 12,
+  "melhor_nosso_verificado_ou_null": null,
+  "M": null,
+  "sha256": null,
+  "verificadores_PASS": [],
+  "tentativas": [
+   {
+    "comando": "work/sa q=2 n=20 R=7 M=27 semente=1 T0=0.5 T1=0.12",
+    "segundos": null,
+    "M_alvo": 27,
+    "descobertos_final_e_melhor": "860 860"
+   }
+  ],
+  "estado": "SEM_MELHORA_NESTA_BUSCA"
+ },
+ {
+  "id": "K3(13,7)",
+  "ub_publicada": 12,
+  "fonte": "Kéri 2011 (tabelas, http://old.sztaki.hu/~keri/codes/)",
+  "lb_publicada": 9,
+  "melhor_nosso_verificado_ou_null": null,
+  "M": null,
+  "sha256": null,
+  "verificadores_PASS": [],
+  "tentativas": [
+   {
+    "comando": "work/sa q=3 n=13 R=7 M=11 semente=1 T0=0.5 T1=0.12",
+    "segundos": null,
+    "M_alvo": 11,
+    "descobertos_final_e_melhor": "9621 9621"
+   }
+  ],
+  "estado": "SEM_MELHORA_NESTA_BUSCA"
+ },
+ {
+  "id": "K2(21,8)",
+  "ub_publicada": 16,
+  "fonte": "Kéri 2011 (tabelas, http://old.sztaki.hu/~keri/codes/)",
+  "lb_publicada": 10,
+  "melhor_nosso_verificado_ou_null": null,
+  "M": null,
+  "sha256": null,
+  "verificadores_PASS": [],
+  "tentativas": [
+   {
+    "comando": "work/sa q=2 n=21 R=8 M=15 semente=1 T0=0.5 T1=0.12",
+    "segundos": null,
+    "M_alvo": 15,
+    "descobertos_final_e_melhor": "9781 9781"
+   }
+  ],
+  "estado": "SEM_MELHORA_NESTA_BUSCA"
+ },
+ {
+  "id": "K2(22,9)",
+  "ub_publicada": 12,
+  "fonte": "Kéri 2011 (tabelas, http://old.sztaki.hu/~keri/codes/)",
+  "lb_publicada": 9,
+  "melhor_nosso_verificado_ou_null": null,
+  "M": null,
+  "sha256": null,
+  "verificadores_PASS": [],
+  "tentativas": [
+   {
+    "comando": "work/sa q=2 n=22 R=9 M=11 semente=1 T0=0.5 T1=0.12",
+    "segundos": null,
+    "M_alvo": 11,
+    "descobertos_final_e_melhor": "13210 13210"
+   }
+  ],
+  "estado": "SEM_MELHORA_NESTA_BUSCA"
+ },
+ {
+  "id": "K7(8,2)",
+  "ub_publicada": 15129,
+  "fonte": "Kéri 2011 (tabelas, http://old.sztaki.hu/~keri/codes/)",
+  "lb_publicada": 5631,
+  "melhor_nosso_verificado_ou_null": null,
+  "M": null,
+  "sha256": null,
+  "verificadores_PASS": [],
+  "tentativas": [
+   {
+    "comando": "work/sa q=7 n=8 R=2 M=15128 semente=1 T0=0.5 T1=0.12",
+    "segundos": null,
+    "M_alvo": 15128,
+    "descobertos_final_e_melhor": "101826 101826"
+   }
+  ],
+  "estado": "SEM_MELHORA_NESTA_BUSCA"
+ },
+ {
+  "id": "K5(10,6)",
+  "ub_publicada": 45,
+  "fonte": "Kéri 2011 (tabelas, http://old.sztaki.hu/~keri/codes/)",
+  "lb_publicada": 16,
+  "melhor_nosso_verificado_ou_null": null,
+  "M": null,
+  "sha256": null,
+  "verificadores_PASS": [],
+  "tentativas": [
+   {
+    "comando": "work/sa q=5 n=10 R=6 M=44 semente=1 T0=0.5 T1=0.12",
+    "segundos": null,
+    "M_alvo": 44,
+    "descobertos_final_e_melhor": "573 573"
+   }
+  ],
+  "estado": "SEM_MELHORA_NESTA_BUSCA"
+ }
+]

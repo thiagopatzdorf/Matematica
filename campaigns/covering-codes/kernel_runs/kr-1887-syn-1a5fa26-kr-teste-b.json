@@ -1,0 +1,111 @@
+{
+  "axioms_allowlist": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+  ],
+  "build": {
+    "failures": 0,
+    "jobs": 8936,
+    "leaves": 4,
+    "status": "OK"
+  },
+  "claim_ids": [
+    "k7-8-3-ub-1887"
+  ],
+  "command": [
+    "lake",
+    "build",
+    "CoveringLean.Syn_K1887"
+  ],
+  "commit_sha": "1a5fa268dc916fde689e6aa801e591ac3c863b36",
+  "duration_s": 244.0,
+  "finished_at": "2026-10-04T17:17:50Z",
+  "host": {
+    "class": "gcp-e2-highmem-4",
+    "id": "kr-teste-b",
+    "note": "VM sob demanda criada para este teste",
+    "provenance": {
+      "boot_image": {
+        "digest": null,
+        "digest_nota": "o servidor de metadados não informa digest da imagem",
+        "source_image": "projects/ubuntu-os-cloud/global/images/ubuntu-2404-noble-amd64-v20260918"
+      },
+      "campos_ausentes": [],
+      "captured_at": "2026-10-04T17:17:50Z",
+      "captured_by_tool": true,
+      "cpu_platform": "Intel Broadwell",
+      "instance_name": "kr-teste-b",
+      "machine_type": "e2-highmem-4",
+      "numeric_instance_id": "1876810319497476070",
+      "project_id": "gen-lang-client-0503404929",
+      "provider": "GCP",
+      "registrado_de_outro_host": true,
+      "schema": "genesis-math/host-provenance/v1",
+      "source": "gce-metadata-server",
+      "zone": "southamerica-east1-b"
+    },
+    "provider": "GCP",
+    "ram_gb": 31,
+    "vcpu": 4
+  },
+  "independent_reproduction": false,
+  "lean_toolchain": "leanprover/lean4:v4.34.1",
+  "lean_version": "Lean (version 4.34.1, x86_64-unknown-linux-gnu, commit 5045d0056413266e57c625dcd7c365b10e377c52, Release)",
+  "mathlib_commit": "d13f23b723b8a846827a245b89c10fc7d3f11612",
+  "measured_by": {
+    "author": "agente Claude da sessão de 2026-10-04 (o mesmo autor dos claims; sem identidade humana)",
+    "origin": "execução própria em VM criada pela sessão (teste ponta a ponta); janela = início do script da VM até o fim do build, incluindo instalação do elan e `lake exe cache get`"
+  },
+  "native_decide_count": 0,
+  "native_decide_policy": "forbidden",
+  "raw_log": {
+    "local_sha256_calculado": "f5ef4e714b5c2e3cf7ddfd66e7cf176a9f8268b5bf629b282ce196a800aafe3f",
+    "persisted": true,
+    "sha256": "f5ef4e714b5c2e3cf7ddfd66e7cf176a9f8268b5bf629b282ce196a800aafe3f",
+    "sha256_prefix": "f5ef4e714b5c2e3c",
+    "size_bytes": 12622,
+    "storage": "pre_enviado (enviado por outro processo; existência NÃO verificada por esta ferramenta)",
+    "uri": "gs://factory-cauteloso-telemetria/matematica/kernel-runs/f5ef4e714b5c2e3cf7ddfd66e7cf176a9f8268b5bf629b282ce196a800aafe3f.log",
+    "verification": {
+      "checagem": "tamanho do objeto no armazenamento == tamanho do log local; nome do objeto contém o sha256",
+      "conferido_em": "2026-10-04 (hora do GET não registrada)",
+      "conferido_por": "sessão Claude 2026-10-04 via factory-01: upload com token de service account em memória; GET de metadados do objeto confirmou o tamanho 12622",
+      "modo": "pre_enviado"
+    }
+  },
+  "recorded_at": "2026-10-06T03:03:52Z",
+  "recorded_by": "agente-kr",
+  "run_id": "kr-1887-syn-1a5fa26-kr-teste-b",
+  "schema": "genesis-math/kernel-run/v1",
+  "sorry_count": 0,
+  "started_at": "2026-10-04T17:13:46Z",
+  "target": "CoveringLean.Syn_K1887",
+  "theorems": [
+    {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "print_axioms_output": "'Syn.K7_8_3_le_1887_syn' depends on axioms: [propext, Classical.choice, Quot.sound]",
+      "source_file": "CoveringLean/Syn_K1887.lean",
+      "source_sha256": "5e2891f664386232942bdc4e880e48ac8a479b7234368eeac818ca748b458aff",
+      "theorem": "Syn.K7_8_3_le_1887_syn"
+    }
+  ],
+  "toolchain_provenance": {
+    "campos_ausentes": [],
+    "captured_at": "2026-10-04T17:17:50Z",
+    "captured_by_tool": true,
+    "commit_sha": "1a5fa268dc916fde689e6aa801e591ac3c863b36",
+    "lake_manifest_sha256": "88d3b3c8b56dbff5d6c7f63ac444982ed9152f874d27a8174c91544dfa90ed82",
+    "lake_version_literal": "Lake version 5.0.0-src+5045d00 (Lean version 4.34.1)",
+    "lean_toolchain_sha256": "d5edba4e4b8faad9c1baeadb265716d20d03be4d1a2647dc5e35b0c0325bea7b",
+    "lean_version_literal": "Lean (version 4.34.1, x86_64-unknown-linux-gnu, commit 5045d0056413266e57c625dcd7c365b10e377c52, Release)",
+    "registrado_de_outro_host": true,
+    "schema": "genesis-math/toolchain-provenance/v1",
+    "tree_clean": true,
+    "tree_sha": "ffb6aa32317886bf1a077f2663dc96eb9279e8d8"
+  }
+}

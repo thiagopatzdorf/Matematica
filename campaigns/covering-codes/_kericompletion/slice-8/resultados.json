@@ -1,0 +1,185 @@
+[
+ {
+  "id": "K3(7,2)",
+  "ub_publicada": 34,
+  "fonte": "Kéri 2011 (tabelas, http://old.sztaki.hu/~keri/codes/)",
+  "melhor_nosso_verificado_ou_null": null,
+  "M": null,
+  "sha256": null,
+  "verificadores_PASS": [],
+  "tentativas": [
+   "sa_generico.c (SA, movimentos de vizinhança 1-2 coordenadas / ponto descoberto), M alvo=33, T0=1 T1=0.2 semente=7, 120s, 1 núcleo: melhor = 6 pontos descobertos (nunca 0)",
+   "calibragem: M=36 com T0=2/T1=0.4 chegou a 2 descobertos e com T0=1/T1=0.2 a 1; a busca nem alcança a cota da tabela (34), logo é fraca"
+  ],
+  "estado": "SEM_MELHORA_NESTA_BUSCA"
+ },
+ {
+  "id": "K2(12,4)",
+  "ub_publicada": 12,
+  "fonte": "Kéri 2011 (tabelas, http://old.sztaki.hu/~keri/codes/)",
+  "melhor_nosso_verificado_ou_null": null,
+  "M": null,
+  "sha256": null,
+  "verificadores_PASS": [],
+  "tentativas": [
+   "sa_generico.c (SA, movimentos de vizinhança 1-2 coordenadas / ponto descoberto), M alvo=11, T0=1 T1=0.2 semente=7, 120s, 1 núcleo: melhor = 28 pontos descobertos (nunca 0)"
+  ],
+  "estado": "SEM_MELHORA_NESTA_BUSCA"
+ },
+ {
+  "id": "K2(14,4)",
+  "ub_publicada": 28,
+  "fonte": "Kéri 2011 (tabelas, http://old.sztaki.hu/~keri/codes/)",
+  "melhor_nosso_verificado_ou_null": null,
+  "M": null,
+  "sha256": null,
+  "verificadores_PASS": [],
+  "tentativas": [
+   "sa_generico.c (SA, movimentos de vizinhança 1-2 coordenadas / ponto descoberto), M alvo=27, T0=1 T1=0.2 semente=7, 120s, 1 núcleo: melhor = 77 pontos descobertos (nunca 0)"
+  ],
+  "estado": "SEM_MELHORA_NESTA_BUSCA"
+ },
+ {
+  "id": "K3(9,4)",
+  "ub_publicada": 18,
+  "fonte": "Kéri 2011 (tabelas, http://old.sztaki.hu/~keri/codes/)",
+  "melhor_nosso_verificado_ou_null": null,
+  "M": null,
+  "sha256": null,
+  "verificadores_PASS": [],
+  "tentativas": [
+   "sa_generico.c (SA, movimentos de vizinhança 1-2 coordenadas / ponto descoberto), M alvo=17, T0=1 T1=0.2 semente=7, 120s, 1 núcleo: melhor = 117 pontos descobertos (nunca 0)"
+  ],
+  "estado": "SEM_MELHORA_NESTA_BUSCA"
+ },
+ {
+  "id": "K3(10,1)",
+  "ub_publicada": 3645,
+  "fonte": "Kéri 2011 (tabelas, http://old.sztaki.hu/~keri/codes/)",
+  "melhor_nosso_verificado_ou_null": null,
+  "M": null,
+  "sha256": null,
+  "verificadores_PASS": [],
+  "tentativas": [],
+  "estado": "NAO_TENTADA"
+ },
+ {
+  "id": "K7(6,2)",
+  "ub_publicada": 343,
+  "fonte": "Kéri 2011 (tabelas, http://old.sztaki.hu/~keri/codes/)",
+  "melhor_nosso_verificado_ou_null": null,
+  "M": null,
+  "sha256": null,
+  "verificadores_PASS": [],
+  "tentativas": [
+   "sa_generico.c (SA, movimentos de vizinhança 1-2 coordenadas / ponto descoberto), M alvo=342, T0=1 T1=0.2 semente=7, 150s, 1 núcleo: melhor = 7927 pontos descobertos (nunca 0)",
+   "base_search enum 7 6 2 2 5 5 (k=2,t=5): melhor 356 órfãs (nBc=1860); remendo (patch_opt) não executado"
+  ],
+  "estado": "SEM_MELHORA_NESTA_BUSCA"
+ },
+ {
+  "id": "K3(11,5)",
+  "ub_publicada": 27,
+  "fonte": "Kéri 2011 (tabelas, http://old.sztaki.hu/~keri/codes/)",
+  "melhor_nosso_verificado_ou_null": null,
+  "M": null,
+  "sha256": null,
+  "verificadores_PASS": [],
+  "tentativas": [
+   "sa_generico.c (SA, movimentos de vizinhança 1-2 coordenadas / ponto descoberto), M alvo=26, T0=1 T1=0.2 semente=7, 120s, 1 núcleo: melhor = 151 pontos descobertos (nunca 0)"
+  ],
+  "estado": "SEM_MELHORA_NESTA_BUSCA"
+ },
+ {
+  "id": "K5(8,3)",
+  "ub_publicada": 325,
+  "fonte": "Kéri 2011 (tabelas, http://old.sztaki.hu/~keri/codes/)",
+  "melhor_nosso_verificado_ou_null": null,
+  "M": null,
+  "sha256": null,
+  "verificadores_PASS": [],
+  "tentativas": [],
+  "estado": "NAO_TENTADA"
+ },
+ {
+  "id": "K2(19,2)",
+  "ub_publicada": 4096,
+  "fonte": "Kéri 2011 (tabelas, http://old.sztaki.hu/~keri/codes/)",
+  "melhor_nosso_verificado_ou_null": null,
+  "M": null,
+  "sha256": null,
+  "verificadores_PASS": [],
+  "tentativas": [],
+  "estado": "NAO_TENTADA"
+ },
+ {
+  "id": "K7(7,4)",
+  "ub_publicada": 49,
+  "fonte": "Kéri 2011 (tabelas, http://old.sztaki.hu/~keri/codes/)",
+  "melhor_nosso_verificado_ou_null": null,
+  "M": null,
+  "sha256": null,
+  "verificadores_PASS": [],
+  "tentativas": [
+   "base_search enum 7 7 1 4 6 5 (k=1,t=6), 120s timeout: 631 órfãs (nBc=66240); remendo não executado"
+  ],
+  "estado": "SEM_MELHORA_NESTA_BUSCA"
+ },
+ {
+  "id": "K3(13,5)",
+  "ub_publicada": 108,
+  "fonte": "Kéri 2011 (tabelas, http://old.sztaki.hu/~keri/codes/)",
+  "melhor_nosso_verificado_ou_null": null,
+  "M": null,
+  "sha256": null,
+  "verificadores_PASS": [],
+  "tentativas": [
+   "sa_generico.c (SA, movimentos de vizinhança 1-2 coordenadas / ponto descoberto), M alvo=107, T0=1 T1=0.2 semente=7, 150s, 1 núcleo: melhor = 2547 pontos descobertos (nunca 0)"
+  ],
+  "estado": "SEM_MELHORA_NESTA_BUSCA"
+ },
+ {
+  "id": "K2(21,4)",
+  "ub_publicada": 896,
+  "fonte": "Kéri 2011 (tabelas, http://old.sztaki.hu/~keri/codes/)",
+  "melhor_nosso_verificado_ou_null": null,
+  "M": null,
+  "sha256": null,
+  "verificadores_PASS": [],
+  "tentativas": [],
+  "estado": "NAO_TENTADA"
+ },
+ {
+  "id": "K2(22,6)",
+  "ub_publicada": 128,
+  "fonte": "Kéri 2011 (tabelas, http://old.sztaki.hu/~keri/codes/)",
+  "melhor_nosso_verificado_ou_null": null,
+  "M": null,
+  "sha256": null,
+  "verificadores_PASS": [],
+  "tentativas": [],
+  "estado": "NAO_TENTADA"
+ },
+ {
+  "id": "K3(14,2)",
+  "ub_publicada": 19683,
+  "fonte": "Kéri 2011 (tabelas, http://old.sztaki.hu/~keri/codes/)",
+  "melhor_nosso_verificado_ou_null": null,
+  "M": null,
+  "sha256": null,
+  "verificadores_PASS": [],
+  "tentativas": [],
+  "estado": "NAO_TENTADA"
+ },
+ {
+  "id": "K2(23,7)",
+  "ub_publicada": 64,
+  "fonte": "Kéri 2011 (tabelas, http://old.sztaki.hu/~keri/codes/)",
+  "melhor_nosso_verificado_ou_null": null,
+  "M": null,
+  "sha256": null,
+  "verificadores_PASS": [],
+  "tentativas": [],
+  "estado": "NAO_TENTADA"
+ }
+]

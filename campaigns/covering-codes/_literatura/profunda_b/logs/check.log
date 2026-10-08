@@ -1,0 +1,17 @@
+q5_n7_R2_M500 palavras 500 distintas 500
+  raio de cobertura medido 2 não cobertos com R: 0
+  |translações que preservam C| = 125
+q4_n10_R4_M192 palavras 192 distintas 192
+  raio de cobertura medido 4 não cobertos com R: 0
+  |translações xor que preservam C| = 64
+  ω*C é translação de C? (lam=2) False
+  ω*C é translação de C? (lam=3) False
+q5_n9_R3_M1250 palavras 1250 distintas 1250
+  raio de cobertura medido 3 não cobertos com R: 0
+  |translações que preservam C| = 625
+q5_n9_R5_M50 palavras 50 distintas 50
+  raio de cobertura medido 5 não cobertos com R: 0
+  |translações que preservam C| = 25
+q5_n9_R4_M250 palavras 250 distintas 250
+  raio de cobertura medido 4 não cobertos com R: 0
+  |translações que preservam C| = 125

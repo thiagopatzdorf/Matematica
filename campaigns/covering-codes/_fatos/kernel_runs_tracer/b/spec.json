@@ -1,0 +1,37 @@
+{
+ "claim_ids": [
+  "k7-8-3-ub-1887"
+ ],
+ "teoremas": [
+  {
+   "theorem": "Syn.K7_8_3_le_1887_syn",
+   "file": "CoveringLean/Syn_K1887.lean"
+  }
+ ],
+ "commit_sha": "1a5fa268dc916fde689e6aa801e591ac3c863b36",
+ "lean_version": "Lean (version 4.34.1, x86_64-unknown-linux-gnu, commit 5045d0056413266e57c625dcd7c365b10e377c52, Release)",
+ "lean_toolchain": "leanprover/lean4:v4.34.1",
+ "mathlib_commit": "d13f23b723b8a846827a245b89c10fc7d3f11612",
+ "command": [
+  "lake",
+  "build",
+  "CoveringLean.Syn_K1887"
+ ],
+ "target": "CoveringLean.Syn_K1887",
+ "leaves": 4,
+ "measured_by": {
+  "author": "agente Claude da sessão de 2026-10-04 (o mesmo autor dos claims; sem identidade humana)",
+  "origin": "execução própria em VM criada pela sessão (teste ponta a ponta); janela = início do script da VM até o fim do build, incluindo instalação do elan e `lake exe cache get`"
+ },
+ "run_id": "kr-1887-syn-1a5fa26-kr-teste-b",
+ "host": {
+  "class": "gcp-e2-highmem-4",
+  "id": "kr-teste-b",
+  "provider": "GCP",
+  "vcpu": 4,
+  "ram_gb": 31,
+  "note": "VM sob demanda criada para este teste"
+ },
+ "started_at": "2026-10-04T17:13:46Z",
+ "finished_at": "2026-10-04T17:17:50Z"
+}

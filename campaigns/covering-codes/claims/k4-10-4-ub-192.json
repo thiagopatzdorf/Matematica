@@ -1,0 +1,167 @@
+{
+  "bound": {
+    "direction": "upper",
+    "parameters": {
+      "R": 4,
+      "n": 10,
+      "q": 4
+    },
+    "value": 192
+  },
+  "claim_id": "k4-10-4-ub-192",
+  "counterexample_search": {
+    "method": "claim de existência: o witness é o certificado; verificadores independentes procuram ponto descoberto (uncovered=0)",
+    "result": "uncovered=0 nos verificadores",
+    "status": "completed"
+  },
+  "created": "2026-10-06T03:03:50Z",
+  "created_by": "agente-c",
+  "created_role": "PROPOSER",
+  "depends_on": [
+    "cert-of-go-lemma"
+  ],
+  "evidence": {
+    "counterexamples": [],
+    "experiments": [
+      "exp-prior-search-unrecorded",
+      "exp-structure-regeneration"
+    ],
+    "external_reproductions": [],
+    "formal": [
+      "f-heavy-k4-10-4-192"
+    ],
+    "literature": [
+      "lit-keri-k4-10-4-ub"
+    ],
+    "proofs": [],
+    "verifier_runs": [],
+    "witnesses": [
+      "w-q4-n10-r4-m192"
+    ]
+  },
+  "formal_verification_blockers": [
+    "f-heavy-k4-10-4-192: clean_build não é true",
+    "f-heavy-k4-10-4-192: axiomas não registrados (`#print axioms` não foi capturado)",
+    "f-heavy-k4-10-4-192: ambiente não registrado: falta lean_version",
+    "falta statement_review: o Lean certifica o enunciado formal, não que ele é o enunciado pretendido; um revisor humano/independente precisa ler"
+  ],
+  "history": [
+    {
+      "actor": "agente-c",
+      "from": null,
+      "reason": "criado",
+      "role": "PROPOSER",
+      "to": "IDEA",
+      "ts": "2026-10-06T03:03:50Z"
+    },
+    {
+      "actor": "agente-c",
+      "from": "IDEA",
+      "reason": "evidência anexada: witnesses=w-q4-n10-r4-m192",
+      "role": "PROPOSER",
+      "to": "IDEA",
+      "ts": "2026-10-06T03:03:50Z"
+    },
+    {
+      "actor": "agente-c",
+      "from": "IDEA",
+      "reason": "evidência anexada: experiments=exp-prior-search-unrecorded",
+      "role": "PROPOSER",
+      "to": "IDEA",
+      "ts": "2026-10-06T03:03:50Z"
+    },
+    {
+      "actor": "agente-c",
+      "from": "IDEA",
+      "reason": "evidência anexada: literature=lit-keri-k4-10-4-ub",
+      "role": "PROPOSER",
+      "to": "IDEA",
+      "ts": "2026-10-06T03:03:50Z"
+    },
+    {
+      "actor": "agente-c",
+      "from": "IDEA",
+      "reason": "evidência anexada: formal=f-heavy-k4-10-4-192",
+      "role": "PROPOSER",
+      "to": "IDEA",
+      "ts": "2026-10-06T03:03:50Z"
+    },
+    {
+      "actor": "agente-c",
+      "from": "IDEA",
+      "reason": "evidência anexada: experiments=exp-structure-regeneration",
+      "role": "PROPOSER",
+      "to": "IDEA",
+      "ts": "2026-10-06T03:03:50Z"
+    },
+    {
+      "actor": "migrate_covering.py",
+      "from": "IDEA",
+      "reason": "verificadores de autores/grupos distintos, PASS válido e sem desacordo, neste run",
+      "role": "INDEPENDENT_VERIFIER",
+      "to": "INDEPENDENTLY_REPRODUCED",
+      "ts": "2026-10-06T03:03:50Z"
+    }
+  ],
+  "kind": "theorem",
+  "literature_comparison": {
+    "classificacao": "MELHORA_APARENTE_A_CONFIRMAR",
+    "melhor_registrada": 208,
+    "melhor_registrada_fonte": [
+      "lit-keri-k4-10-4-ub (PDF 4-5_tables.pdf, Last-Modified 2009-10-15 (diretório e index.htm atualizados até 2011-11-25), 2009-10-15)"
+    ],
+    "nosso": 192,
+    "nota": "melhora aparente, a confirmar por revisão externa (não é afirmação de novidade: livros/artigos não lidos podem ter predecessor)",
+    "veredito": "melhor_que_a_registrada"
+  },
+  "reviewed_by": [],
+  "scope": {
+    "assumptions": [],
+    "domain": "q=4, n=10, R=4",
+    "parameters": {
+      "M": 192,
+      "R": 4,
+      "n": 10,
+      "q": 4
+    },
+    "problem": "K_4(10,4) <= 192"
+  },
+  "sealed_evidence": {
+    "experiments": [
+      "exp-prior-search-unrecorded",
+      "exp-structure-regeneration"
+    ],
+    "formal": [
+      "f-heavy-k4-10-4-192"
+    ],
+    "proofs": [],
+    "witnesses": [
+      "w-q4-n10-r4-m192"
+    ]
+  },
+  "sealed_sha256": "22ee3c91dcf5320a45df2c80cfed34d9e4a4a0f844d81a77f13bd6bab4ab38fd",
+  "statement": "Existe código C em (Z_4)^10 com |C| = 192 que cobre com raio 4 (data/codes/q4_n10_R4_M192.txt).",
+  "status": "INDEPENDENTLY_REPRODUCED",
+  "trust_boundary": [
+    {
+      "component": "tools/verify/verify.c compilado com gcc 13.3 (-Werror)",
+      "trusted_for": "que a marcação de bolas e a contagem de descobertos estão certas"
+    },
+    {
+      "component": "tools/campaign/verify_cover_dilation.py + numpy 2.4.6",
+      "trusted_for": "que a dilatação do grid está certa (2º verificador, independente em código)"
+    },
+    {
+      "component": "formato covering-code/v1 (docs/code-format.md)",
+      "trusted_for": "convenção de dígitos little-endian e do sha256 canônico"
+    },
+    {
+      "component": "Lean kernel (CoveringKernel.K4_10_4_le_192_kernel), medido só na VM do autor (MEASURED_ON_EXTERNAL_VM), não reproduzido aqui (~9,3 h de CPU (README.md: `lake build CoveringHeavy` 1 h 54 min de relógio, pico 9,4 GB por processo))",
+      "trusted_for": "mesmo código, certificado por prefixos"
+    },
+    {
+      "component": "literatura registrada (Kéri/Marosi), declarada",
+      "trusted_for": "só para a afirmação de que o valor é menor que o anterior, que o Lean não checa"
+    }
+  ]
+}

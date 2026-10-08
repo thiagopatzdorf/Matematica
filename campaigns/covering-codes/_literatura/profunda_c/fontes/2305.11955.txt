@@ -1,0 +1,1013 @@
+                                                  New bounds for covering codes of radius 3 and
+                                                             codimension 3t + 1 ∗
+arXiv:2305.11955v1 [math.CO] 19 May 2023
+
+
+
+
+                                                                          Alexander A. Davydov
+                                                               E-mail address: alexander.davydov121@gmail.com
+                                                             Stefano Marcugini and Fernanda Pambianco
+                                                 Department of Mathematics and Computer Science, Perugia University,
+                                                                       Perugia, 06123, Italy
+                                                      E-mail address: {stefano.marcugini, fernanda.pambianco}@unipg.it
+
+                                              Abstract. The smallest possible length of a q-ary linear code of covering radius R
+                                           and codimension (redundancy) r is called the length function and is denoted by `q (r, R).
+                                           In this work, for q an arbitrary prime power, we obtain the following new constructive
+                                           upper bounds on `q (3t + 1, 3):
+                                                                  √
+                                                                  3
+                                                                                  p
+                                                     • `q (r, 3) / k · q (r−3)/3 · 3 ln q, r = 3t + 1, t ≥ 1, q ≥ dW(k)e,
+                                                      18 < k ≤ 20.339, W(k) is a decreasing function of k;
+                                                                  √                 p
+                                                     • `q (r, 3) / 18 · q (r−3)/3 · 3 ln q, r = 3t + 1, t ≥ 1, q large enough.
+                                                                  3
+
+
+
+
+                                           For t = 1, we use a one-to-one correspondence between codes of covering radius 3 and
+                                           codimension 4, and 2-saturating sets in the projective space PG(3, q). A new construc-
+                                           tion providing sets of small size is proposed. The codes, obtained by geometrical methods,
+                                           are taken as the starting ones in the lift-constructions (so-called “q m -concatenating con-
+                                           structions”) to obtain infinite families of codes with radius 3 and growing codimension
+                                           r = 3t + 1, t ≥ 1. The new bounds are essentially better than the known ones.
+                                               Keywords: Covering code, the length function, saturating set, elliptic quadric, pro-
+                                           jective space.
+                                               Mathematics Subject Classification (2010). 94B05, 51E21, 51E22
+                                             ∗
+                                               The research of S. Marcugini and F. Pambianco was supported in part by the Italian National
+                                           Group for Algebraic and Geometric Structures and their Applications (GNSAGA - INDAM) (Contract
+                                           No. U-UFMBAZ-2019-000160, 11.02.2019) and by University of Perugia (Project No. 98751: Strutture
+                                           Geometriche, Combinatoria e loro Applicazioni, Base Research Fund 2017-2019).
+
+
+                                                                                          1
+1     Introduction
+Let Fq be the Galois field with q elements. Let F∗q = Fq \ 0. Let Fqn be the n-dimensional
+vector space over Fq . A linear code in Fqn with codimension (redundancy) r, minimum
+distance d, and covering radius R is said to be an [n, n − r, d]q R code; d is omitted when
+not relevant. All words in Fqr can be obtained as a linear combination of at most R
+columns of a parity check matrix of an [n, n − r, d]q R code. Also, for this code, the space
+Fqn is covered by spheres of radius R centered at the codewords. For an introduction to
+coding theory, see [28, 32].
+    The minimum length n such that an [n, n−r]q R code exists is called the length function
+and is denoted by `q (r, R). If covering radius and codimension are fixed then the covering
+problem for codes is that of finding codes with small length. Codes investigated from the
+point of view of the covering problem are called covering codes. Studying covering codes
+is a classical combinatorial problem. Covering codes are connected with many areas of
+theory and practice, see e.g. [8, Section 1.2], [17, Introduction], [7]. For an introduction
+to coverings of Hamming spaces over finite fields and covering codes, see [6, 8, 12, 31, 35].
+    This paper is devoted to the upper bound on the length function `q (3t + 1, 3), t ≥ 1.
+    Let PG(N, q) be the N -dimensional projective space over the Galois field Fq . To
+obtain bounds on `q (4, 3) we use 2-saturating sets in PG(3, q). A point set S ⊂ PG(3, q)
+is 2-saturating if any point of PG(3, q) belongs to a plane generated by three non-collinear
+points of S. Let sq (3, 2) be the smallest size of a 2-saturating set in PG(3, q).
+    If the positions of a column of a parity check matrix of an [n, n − 4]q 3 code are treated
+as homogeneous coordinates of a point in PG(3, q) then the matrix defines a 2-saturating
+n-set in PG(3, q), and vice versa. So, there is a one-to-one correspondence between
+[n, n − 4]q 3 codes and 2-saturating n-sets in PG(3, q). Therefore, `q (4, 3) = sq (3, 2).
+    For an introduction to geometries over finite fields and their connections with coding
+theory, see [12, 22, 23, 25–27, 30].
+    Throughout the paper, c is a constant independent of q but it is possible that c is
+dependent on r and R. In [3, 15], [20, Proposition 4.2.1], see also the references therein,
+the following lower bound is considered:
+
+                            `q (r, R) ≥ cq (r−R)/R , R and r fixed.                         (1.1)
+
+In [12], the bound (1.1) is given in another (asymptotic) form. Let t, s be integer. Let q 0
+be a prime power. In the literature, the bound (1.1) is achieved in the following cases:
+                                                                              0
+       r 6= tR, q = (q 0 )R [12, 20, 21, 24]; R = sR0 , r = tR + s, q = (q 0 )R [12, 14];
+       r = tR, q is an arbitrary prime power [11, 12, 14, 18, 19].
+
+   In the general case, for arbitrary r, R, q, in particular when r 6= tR and q is an arbitrary
+prime power, the problem of achieving the bound (1.1) is open.
+
+                                               2
+    For r = tR + 1, in [1–5, 15, 16, 33] (for R = 2, 3) and [17] (for R ≥ 3) upper bounds of
+the following form are obtained:
+                                            p
+             `q (tR + 1, R) ≤ cq (r−R)/R · R ln q, q is an arbitrary prime power.       (1.2)
+                                                                                     √
+In the bounds (1.2), the “price” of the non-restrict structure of q is the factor R ln q.
+    In this paper, see Sections 3.4 and 3.5, for q an arbitrary prime power, we obtain the
+following new constructive upper bounds on `q (3t + 1, 3) of the form (1.2):
+                         √3
+                                        p
+           • `q (r, 3) / k · q (r−3)/3 · 3 ln q, r = 3t + 1, t ≥ 1, q ≥ dW(k)e,
+             18 < k ≤ 20.339, W(k) is a decreasing function of k;
+                         √                p
+           • `q (r, 3) / 18 · q (r−3)/3 · 3 ln q, r = 3t + 1, t ≥ 1, q large enough.
+                          3
+
+
+
+
+     We consider the case t = 1 in projective geometry language. We propose a step-by-
+step algorithm obtaining a 2-saturating n-set in PG(3, q) that is a subset of an elliptic
+quadric and corresponds to an [n, n − 4, 4]q 3 code, see Section 2. Estimates of the size of
+the obtained set give the bounds on `q (4, 3), see Section 3.
+     For t ≥ 2, we use the lift-constructions for covering codes. These constructions are
+variants of the so-called “q m -concatenating constructions” proposed in [10] and devel-
+oped in [11–13, 16–19], see also the references therein and [6], [8, Section 5.4]. The
+q m -concatenating constructions obtain infinite families of covering codes with growing
+codimension using a starting code with a small one. We take the [n, n − 4, 4]q 3 codes
+with t = 1 as the starting ones for the q m -concatenating constructions and obtain infinite
+families of covering codes with growing codimension r = 3t + 1, t ≥ 1. These families
+provide the constructive upper bounds on `q (3t + 1, 3), t ≥ 1.
+     The new bounds are essentially better than the best known ones of [17]; for details
+see the figures and the table in Section 3 and the figure and the relations in Section 5. In
+particular, in the region 14983 ≤ q < 5 · 106 , the ratio of values of the known and new
+upper bounds lies in the region 2.167 . . . 1.96 and the asymptotic ratio is ≈ 1.89.
+     The 2-saturating n-set in PG(3, q), obtained in Section 2 of this work, corresponds
+to an [n, n − 4, 4]q 3 code with r = 4 and d = 4, whereas the known bound for r = 4 is
+provided by a code with d = 3.
+     Note also that, for small q in the region 7577 < q ≤ 7949, we obtain by computer
+search new small 2-saturating sets in PG(3, q), see Section 3.6.
+     The paper is organized as follows. In Section 2, a construction of 2-saturating sets
+in PG(3, q) is proposed. In Section 3, estimates of sizes of 2-saturating sets in PG(3, q),
+obtained by the proposed construction, and new bounds on `q (4, 3) are considered. In
+Section 4, with the help of the q m -concatenating lift-constructions the new bounds on
+`q (3t + 1, 3), t ≥ 1, are obtained. Finally, in Section 5, the best known upper bounds
+of [17] are given and are compared with the new ones.
+
+
+                                             3
+2     A construction of 2-saturating sets in PG(3, q)
+We say that a point P of PG(3, q) is covered by a point set K ⊂ PG(3, q) if P lies in a
+plane through 3 non-collinear points of K or on a line through 2 points of K. In these
+cases, we say also that the set K covers the point P . Obviously, all points of K are covered
+by K.
+    Let Q ⊂ PG(3, q) be an elliptic quadric [25]; then #Q = q 2 + 1. Let Bu ∈ PG(3, q) be
+a point of Q. So, Q = {B1 , B2 , . . . , Bq2 +1 }. We construct a 2-saturating set as a subset
+of the elliptic quadric by a step-by-step iterative process which adds a new point to the
+current set in every step.
+    Let w > 0 be a fixed integer. Consider the (w + 1)-st step of the process. This step
+starts from a w-subset Kw = {B1 , B2 , . . . , Bw } ⊂ Q obtained in the previous w steps. Let
+Bw+1 ∈ Q \ Kw be the point that will be added to the subset in the (w + 1)-st step, i.e.
+Kw+1 = Kw ∪ {Bw+1 }. Let Uw and Uw+1 be the subset of points of P G(3, q) that are not
+covered by Kw and Kw ∪ {Bw+1 }, respectively. Clearly, Uw+1 ⊆ Uw .
+    To obtain the next subset Kw+1 , we can add to Kw any of q 2 + 1 − w points of Q \ Kw .
+Thus, there exist q 2 + 1 − w distinct points that can be taken as Bw+1 .
+    Let ∆(H) be the number of the new covered points of P G(3, q) in the (w + 1)-st step
+after adding a point H ∈ Q \ Kw to Kw . Let N (H) be the set of new points of P G(3, q)
+covered by Kw ∪ {H} with H ∈ Q \ Kw . Obviously, #N (H) = ∆(H). Introduce the point
+             ∪
+multiset Nw+1    such that
+                                 [                           X
+                        ∪                             ∪
+                      Nw+1  ,           N (H), #Nw+1     =         ∆(H).
+                              H∈Q\Kw                         H∈Q\Kw
+
+    Let P ∈ Uw be a point that is not covered by Kw . Let Sw (P ) be the number of the
+                                  ∪
+inclusions of P to the multiset Nw+1 when one sequentially adds all points H of Q \ Kw
+to Kw to obtain variants Kw+1 = Kw ∪ {H}. Let Swmin , min Sw (P ). Then
+                                                               P ∈Uw
+                                       X
+                              ∪
+                           #Nw+1 =             Sw (P ) ≥ Swmin · #Uw .                   (2.1)
+                                       P ∈Uw
+
+   Let ∆aver
+          w+1 be the average number of new covered points in the (w+1)-st step calculated
+over all #Q \ Kw = q 2 + 1 − w possible points H. By (2.1),
+                                           ∪
+                                       #Nw+1      Swmin · #Uw
+                            ∆aver
+                             w+1 =              ≥             .                          (2.2)
+                                     q2 + 1 − w   q2 + 1 − w
+Obviously, there exists a point H ∗ ∈ Q \ Kw providing the inequality ∆(H ∗ ) ≥ ∆aver
+                                                                                     
+                                                                                 w+1 .
+We take this point H ∗ as Bw+1 . Then, by (2.2),
+                                                min
+                                                                Swmin · #Uw
+                                                            
+                                      aver     Sw · #Uw
+      ∆(Bw+1 ) = #Uw − #Uw+1 ≥ ∆w+1 ≥                         ≥             ;     (2.3)
+                                                 q2 + 1 − w     q2 + 1 − w
+
+                                                 4
+                            Swmin · #Uw                             S min
+                                                                         
+              #Uw+1 ≤ #Uw −                         ≤ #Uw       1− 2 w          .     (2.4)
+                            q2 + 1 − w                            q +1−w
+   The iterative process ends when #Uw+1 ≤ 1. Then one should add one point of Q to
+Kw to obtain a 2-saturating set.
+
+Theorem 2.1. The 2-saturating n-set obtained by the construction above corresponds to
+an [n, n − 4, 4]q 3 code with minimum distance d = 4.
+
+Proof. All the points of the 2-saturating n-set belong to the elliptic quadric Q.
+
+
+3     Estimates of sizes of 2-saturating sets in PG(3, q)
+      and new bounds on `q (4, 3)
+Let θN,q = (q N +1 − 1)/(q − 1) be the number of points in the projective space PG(N, q).
+Obviously, any three points of Q cover some plane; therefore
+
+                                 #U3 = θ3,q − θ2,q = q 3 .                            (3.1)
+
+   We consider√our new√bounds in the form (1.2). For this, note that if r = 4, R = 3,
+then q (r−R)/R · R ln q = 3 q ln q.
+
+3.1    Estimates of Swmin
+Many important properties of the elliptic quadric are given in [25, Section 16]. In partic-
+ular, a plane containing at least two points of Q intersects Q in a (q + 1)-arc. Through
+every point of Q we have one tangent plane and q(q + 1) secant planes. We have no planes
+external to Q.
+
+Lemma 3.1. Let A1 and A2 be two (q + 1)-arcs that are intersections of Q and planes
+π1 and π2 , respectively. Then #(A1 ∩ A2 ) = 2, 1, 0 if π1 6= π2 and the intersection line
+π1 ∩ π2 is a bisecant, a tangent, and an external line to Q, respectively.
+
+Proof. It easy to see that A1 ∩ A2 = π1 ∩ π2 ∩ Q and the lemma follows immediately.
+
+Lemma 3.2. Let a point P of PG(3, q) be not covered by Kw . It is possible P ∈ Q and
+P ∈
+  / Q as well. Then
+                                            
+                     min   w          w           w
+                    Sw ≥        q−           if 2    − 1 ≤ q;                   (3.2)
+                           2          2           2
+                         q2 − 1
+                                     
+                     min              w
+                    Sw ≥        if 2     − 1 > q and q is odd;                  (3.3)
+                            4         2
+
+                                            5
+                                    2
+                                        
+                                q       w
+                        Swmin ≥    if 2    − 1 > q and q is even.                           (3.4)
+                                 4      2
+Proof. Let π(T, Q, R) be the plane through three distinct points T,       Q, R of P G(3, q). Let
+                                                                       w
+πw = {π(Bi , Bj , Bk )|1 ≤ i < j < k ≤ w} be the multiset of 3 planes through three
+distinct points of Kw . For 1 ≤ i < j ≤ w, we have π(Bi , Bj , P ) ∈  / πw otherwise the point
+P would be covered by Kw .
+    We consider the (q + 1)-arc Ai,j (P ) , π(Bi , Bj , P ) ∩ Q; then Ai,j (P ) ∩ Kw = {Bi , Bj }.
+                                                                      ∪
+Every point Ai,j (P )\{Bi , Bj } provides the inclusion of P into Nw+1     when one sequentially
+adds all points H of Q \ Kw to Kw to obtain variants Kw+1 = Kw ∪ H. If P ∈ Q then one
+                                                                                             ∪
+of these points is P . So, for a fixed pair (i, j), we have q − 1 inclusions of P into Nw+1   .
+                                                          w
+    To estimate Sw (P ), we should consider all the 2 pairs (i, j) and take into account
+all the intersections points of the arcs Ai,j (P ) for distinct (i, j) with each other. Let
+Πw (P ) , {π(Bi , Bj , P ) | 1 ≤ i < j ≤ w}. If two planes from Πw (P ) coincide with each
+other then we have a plane containing P and three or four points of Kw ; it implies that
+P is covered by Kw , contradiction. So, all the planes of Πw (P ) are pairwise distinct.
+    The set Πw (P ) defines the w2 -set Aw (P ) of the (q − 1)-arcs such that Aw (P ) ,
+{(π(Bi , Bj , P ) ∩ Q) \ {Bi , Bj } | 1 ≤ i < j ≤ w}.
+    By Lemma 3.1, two arcs from Aw (P ) intersect each other in at most two points. To
+obtain a lower bound of Sw (P ) we can assume that any two arcs of Aw (P ) intersect each
+other in two points. Moreover, for P ∈      / Q, we can assume that all intersection points in
+all pair of the arcs are distinct. This is the worst case. But, for P ∈ Q, one intersection
+point is the same for all pairs, it is P . Therefore, the lower bound for P ∈    / Q is less than
+the one for P ∈ Q and we can consider only P ∈       / Q.
+    Let P ∈ / Q. We take n arcs from Aw (P ). We assume that every arc intersects all n − 1
+other arcs in two points and all the intersection points are distinct; it is the worst case for
+the value of Sw (P ). As (q − 1) − 2(n − 1) must be ≥ 0, the considered case is possible if
+2n−1 ≤ q. In all n arcs, the total number of the intersection points is 2 n2 = n(n−1). The
+            of distinct points inwthe union of n the arcs is n(q − 1) − n(n − 1) = n(q − n).
+total number
+         w
+    If 2 2 −   1 ≤ q we put n = 2 that proves (3.2).
+            w
+    Let 2 2 − 1 > q.
+    Let q be odd. We put n = (q + 1)/2 that implies (q − 1) − 2(n − 1) = 0, n(q − n) =
+  2
+(q − 1)/4. So, (3.3) is proved.
+    If q is even, we put n = q/2 that gives (q − 1) − 2(n − 1) = 1, n(q − n) = q 2 /4, and
+proves (3.4).
+
+3.2    Implicit Bound A
+By above, in particular by (2.4) and (3.1), the implicit Bound A can be given as follows:
+                                   min         
+             3                      Sw · #Uw
+    #U3 = q , #Uw+1 = #Uw −                       , #UwqA +1 ≤ 1, nA      A
+                                                                   4,q , wq + 1.    (3.5)
+                                    q2 + 1 − w
+
+                                                6
+We put w = 3, #U3 = q 3 , and then, sequentially increasing w by 1, we calculate #Uw+1 ,
+as it is written in (3.5), until for some w we obtain #Uw+1 ≤ 1; we denote this w as wqA ;
+also, let nA       A
+           4,q , wq + 1. We have obtained the implicit upper Bound A
+
+                                 s(2, 3) = `q (4, 3) ≤ nA
+                                                        4,q .                           (3.6)
+                                                                   √
+For illustration and comparison, the Bound A in the form nA         3
+                                                              4,q / q ln q is shown by the
+                                                      5
+second curve in Figure 1, in the region 7951 ≤ q < 10 , and the bottom curve in Figure 2,
+where 105 < q < 5 · 106 . The curves are obtained using Sw from
+                                                              √  Lemma 3.2. By Figure 1,
+                  5                                       A
+for 7951 ≤ q < 10 , the Bound A takes the values 3.38 ' n4,q / q ln q ' 2.79. By Figure 2,
+                                                              3
+                                                                      √
+for 105 < q < 5 · 106 , the Bound A takes the values 2.79 ' nA        3
+                                                                4,q / q ln q ' 2.63. Other
+curves in the figures will be explained below.
+
+3.3    Implicit Bound B
+By (2.4) and (3.1),
+                                                         w 
+                                      Swmin                          Sjmin
+                                                       Y                     
+                                                        3
+             #Uw+1 ≤ #Uw 1 −                          ≤q    1−                     .    (3.7)
+                                   q2 + 1 − w               j=3
+                                                                  q2 + 1 − w
+
+Similarly to Section 3.2, we put w = 3, #U3 = q 3 ; then, sequentially increasing w by 1,
+we calculate #Uw+1 by (3.7), until for some w we obtain #Uw+1 ≤ 1.
+    Let q0 be a value such that for q ≥ q0 in all steps of the considered process we have
+2 2j − 1 ≤ q and use the variant of Sjmin as in (3.2). Then, for q ≥ q0 we have
+                                     w          j
+                                                           j
+                                                               !
+                                    Y                 q −
+                    #Uw+1 ≤ #U3            1− 22            2
+                                                                   = q 3 fq (w),      (3.8)
+                                    j=3
+                                                q +1−j
+                              w         j
+                                                  j
+                                                      !
+                             Y              q −
+                    fq (w) ,      1− 22            2
+                                                          .                           (3.9)
+                             j=3
+                                        q   + 1 −   j
+
+Lemma 3.3. Let q ≥ q0 . To provide #Uw+1 ≤ q 3 fq (w) ≤ 1 it is sufficient to take w
+satisfying the inequality
+                                            0.3w5
+                               (w − 1)3 −         ≥ 18q ln q.                          (3.10)
+                                              q
+Proof. By (3.9) and the inequality 1 − x < exp(−x), we have
+             w                                Y w                               
+            Y        j(j − 1) (2q − j(j − 1))              j(j − 1)(2q − j(j − 1))
+   fq (w) =      1−                            <     exp −
+            j=3
+                          4(q 2 + 1 − j)         j=3
+                                                                4(q 2 + 1 − j)
+
+                                              7
+     7
+
+    6.5
+
+     6
+
+    5.5
+
+     5
+
+    4.5
+
+     4
+
+    3.5
+
+     3
+
+    2.5
+
+          0   1       2      3       4        5     6       7      8       9      10
+                                                                                  104
+                                                                     √
+Figure 1: Upper bounds on the length function `q (4, 3) divided by 3 q ln q: implicit
+Bound A (3.5)–(3.6) for 7951 ≤ q < 105 (the second curve), computer Bound E (3.25) for
+13 ≤ q ≤ 7949 (the bottom curve) vs the known bound (5.1)–(5.2) for 14983 ≤ q < 105
+(the top curve)
+
+
+
+
+                                          8
+    6.5
+
+
+      6
+
+
+    5.5
+
+
+      5
+
+
+    4.5
+
+
+      4
+
+
+    3.5
+
+
+      3
+
+
+    2.5
+
+
+      2
+          0   0.5      1      1.5     2      2.5      3      3.5      4     4.5      5
+                                                                                         106
+                                                                        √
+Figure 2: Upper bounds on the length function `q (4, 3) divided by 3 q ln q: implicit
+Bound A (3.5)–(3.6) (the bottom, solid curve), implicit Bound B (3.10)–(3.11) (the  √ sec-
+                                                                            C       3
+ond, dashed curve), and explicit Bound C (points 1, 2, and 3 correspond to n4,q (k)/ q ln q
+with k = 20.339, 20, and 19.7, by Table 1) vs the known bound (5.1)–(5.2) (the top, solid
+curve), 105 < q < 5 · 106
+
+
+
+
+                                            9
+         w                                                  w
+                                                                                          !
+         Y        j(j − 1)(2q − j(j − 1))                     X j(j − 1)(2q − j(j − 1))
+      <     exp −                                   = exp −                                   .
+        j=3
+                            4q 2                               j=3
+                                                                          4q 2
+
+After simple transformations, using the results of [29, Section 1.2.3.1], we obtain
+   w                       w
+   X                       X                  w3 − w − 6   (w − 1)3
+         j(j − 1) = −2 +        j(j − 1) =               >          ;
+   j=3                     j=1
+                                                  3           3
+    w                         w
+   X                         X     w5 w3 2w            w5
+         j 2 (j − 1)2 = −4 +      j 2 (j − 1)2 =
+                                       −   +     −4<      ;
+   j=3                 j=1
+                                   5     3    15        5
+                 w − w − 6 3w5 − 5w3 + 2w − 60
+                  3
+                                                          (w − 1)3    w5
+                                                                        
+  fq (w) < exp −           +                     < exp −           +         .
+                    6q            60q 2                      6q      20q 2
+
+Taking the logarithm of both the parts of the inequality q 3 fq (w) ≤ 1, we obtain
+
+                                              (w − 1)3    w5
+                                   3 ln q −            +       ≤ 0,
+                                                 6q      20q 2
+that implies the assertion.
+    Let wqB be the smallest integer satisfying the inequality (3.10) under the condition
+2 w2 − 1 ≤ q. Let nB
+                           B
+                    4,q , wq + 1, where “+1” takes into account that #Uw+1 ≤ 1. We
+have obtained the implicit upper Bound B:
+
+                                     sq (2, 3) = `q (4, 3) ≤ nB
+                                                              4,q .                           (3.11)
+
+   Now we will estimate the value of q0 . If w2 − w − 1 ≤ q, then 2 w2 − 1 ≤ q. So, we
+                                                                      
+                   √
+can consider w ≤ q. Let δ(q) be the difference between the left and right parts of the
+                                            √
+inequality (3.10) under condition that w = q. In other words,
+                                       √              √
+                               δ(q) , ( q − 1)3 − 0.3q q − 18q ln q.
+
+Considering the corresponding derivatives, it can be shown that for q ≥ 88274 we have
+δ(q) > 0. For simplicity of presentation, we can put q0 = 105 .          √
+    For illustration and comparison, the Bound B in the form nB          3
+                                                                    4,q / q ln q is shown by
+the second, dashed curve in Figure 2, where q0 = 105 < q <     √  5 · 106 . By Figure 2, for
+  5              6                                        B
+10 < q < 5 · 10 , the Bound B takes the values 2.964 ' n4,q / q ln q ' 2.7.
+                                                                3
+
+
+
+
+3.4      Explicit Bound C
+                                                                    √
+We will find the solution of the inequality (3.10) in the form w = d 3 kq√
+                                                                         ln q e, where k > 0
+is independent of q. For the convenience of research we write w = 3 kq ln q + 1. The
+
+                                                    10
+inequality (3.10) takes the form
+                                                √
+                                            0.3( 3 kq ln q + 1)5
+                          (k − 18)q ln q −                       ≥0                (3.12)
+                                                     q
+                     √      √
+that implies k > 18, 3 k > 3 18 ≈ 2.6207. Let  > 0 be an arbitrary constant independent
+of q. Let V be a value such that
+                     p                         p
+               0.302( 3 (18 + )q ln q)5 ≥ 0.3( 3 (18 + )q ln q + 1)5 if q > V.   (3.13)
+Considering the corresponding derivatives, it can be shown that V = 1516750. So, we can
+consider the inequality
+                                   √
+                             0.302( 3 kq ln q )5
+            (k − 18)q ln q −                     ≥ 0, q > V = 1516750, k > 18.    (3.14)
+                                     q
+If (3.14) holds, then (3.12) holds also. We denote
+                                         3
+                                                 ln2 q
+                                
+                                  k − 18    1
+                     F (k, q) ,                −       , q > V, k > 18.                (3.15)
+                                   0.302    k5     q
+The inequality (3.14) is equivalent to F (k, q) ≥ 0. The derivative of F (k, q) with respect
+to q is
+                          d             ln q(ln q − 2)
+                             F (k, q) =                > 0, q > V.                     (3.16)
+                          dq                  q2
+So, F (k, q) is an increasing function of q for a fixed k and q > V. Therefore, for q > V, the
+equation F (k, q) = 0 with a fixed k has only one solution with respect to q. We denote this
+solution W(k). As W(k) can be non-integer, below we use dW(k)e. By above, dW(k)e
+is the smallest integer q satisfying (3.14) for the fixed k. Thus, for q ≥ dW(k)e ≥ W(k),
+the inequality (3.14) holds under the condition dW(k)e > V = 1516750.
+    By (3.15), the equation F (k, q) = 0 can be written in the form
+                                                  3
+                                ln2 q
+                                        
+                                          k − 18      1
+                                      =                  , k > 18.                      (3.17)
+                                  q        0.302      k5
+Note that this equation is connected with Lambert W function, see e.g. [9].
+   By above we have the theorem.
+Theorem 3.4. (explicit Bound C) Let W(k) be the solution with respect√to q of the
+equation (3.17). Let k > 18 be such that W(k) > V = 1516750. Let wqC (k) , 3 kq ln q + 1,
+                          √
+nC          C
+ 4,q (k) , wq (k) + 1 =
+                           3
+                             kq ln q + 2. Then
+                                                    p
+                sq (2, 3) = `q (4, 3) ≤ nC4,q (k) =
+                                                    3
+                                                      kq ln q + 2 for q ≥ dW(k)e. (3.18)
+We call nC
+         4,q (k) explicit Bound C.
+
+
+                                             11
+Example 3.5. Some values of √    dW(k)e are given in Table 1. Also, in the 3-rd column of
+                         C       3
+the table the values of n4,q (k)/ q ln q are written such that
+                             nC4,q (k)
+                                        √
+                                        3      2
+                             √
+                             3
+                                       = k+ √
+                                            3
+                                                     , q = dW(k)e.                                (3.19)
+                                q ln q        q ln q
+They are useful, in particular, for comparison with the known results, see Section
+                                                                             √      5, the
+                                                                      C      3
+4-th and 5-th columns of Table 1, and Figure 2, where the values of n4,q (k)/ q ln q with
+k = 20.339, 20, 19.7 are presented.
+
+                                                                                √
+Table 1: Values of dW(k)e for 18.0001 ≤ k ≤ 20.340 and values of nC     4,q (k)/ 3 q ln q,
+      √
+nknw                              knw   C
+ 4,q / q ln q (the known bound), n4,q /n4,q (k) for q = dW(k)e, 18.0001 ≤ k ≤ 20.339.
+      3
+
+
+(V = 1516750)
+                                                                 nC
+                                                                  4,q (k)   nknw
+                                                                              4,q       nknw
+                                                                                         4,q
+          k                            dW(k)e                    √
+                                                                 3          √
+                                                                            3          nC
+                                                                   q ln q     q ln q    4,q (k)
+          20.340          1515738 ≈ 1.516 · 106 < V
+          20.339          1517567 ≈ 1.518 · 106 > V             2.7368      5.2500     1.9183
+          20.335          1524915 ≈ 1.525 · 106 > V             2.7367      5.2495     1.9182
+          20              2374364 ≈ 2.374 · 106 > V             2.7205      5.2087     1.9146
+          19.7            3820987 ≈ 3.821 · 106 > V             2.7059      5.1716     1.9112
+          19             19178705 ≈ 1.918 · 107 > V             2.6713      5.0828     1.9027
+          18.5          171670620 ≈ 1.717 · 108 > V             2.6461      5.0180     1.8963
+          18.1       30640000001 ≈ 3.064 · 1010 > V             2.6258      4.9659     1.8912
+          18.05     294427001643 ≈ 2.944 · 1011 > V             2.6233      4.9593     1.8905
+          18.01   52060446118120 ≈ 5.206 · 1013 > V             2.6212      4.9542     1.8900
+          18.001                 ≈ 7.880 · 1016 > V             2.6208      4.9530     1.8899
+          18.0001                ≈ 1.109 · 1020 > V             2.6207      4.9529     1.8899
+
+
+   The derivative of F (k, q) with respect to k is
+                              (k − 18)2 90
+                                                
+                 d
+                   F (k, q) =                 − 2 > 0, 18 < k ≤ 20.339.                           (3.20)
+                dk             0.3023 k 5   k
+    By (3.20), F (k, q) is an increasing function of k for a fixed q. Let F (k 0 , q 0 ) = 0 and
+let k 00 > k 0 . Then F (k 00 , q 0 ) > 0. As, by (3.16), F (k, q) is an increasing function of q for a
+fixed k, there exists q 00 < q 0 such that F (k 00 , q 00 ) = 0. So, W(k) is a decreasing function of
+k and, therefore, dW (k)e is a non-increasing function of k.
+    As dW(k)e should be > V, by Table 1 we are interested for 18.0001 ≤ k ≤ 20.339.
+    Finally, we have
+                              nC4,q (k)
+                                          √
+                                          3
+                          lim √
+                              3
+                                        =   k, 20.339 ≥ k > 18, k fixed.                          (3.21)
+                         q→∞     q ln q
+
+                                                  12
+3.5    Asymptotic Bound D
+The inequality (3.14) can be written in the form
+                                s        
+                                    2   2
+                                 3 k ln q
+       q ln q (k − 18) − 0.302k           ≥ 0, q > V, 18 < k ≤ 20.339.                (3.22)
+                                      q
+
+We have
+                                      s
+                                      3   k 2 ln2 q
+                        lim 0.302k                  = 0, 18 < k ≤ 20.339.
+                        q→∞                    q
+Therefore, for q large enough, the inequality (3.22) holds; together with it, the√inequalities
+(3.14) and (3.12) hold also. Thus (see the beginning of Section 3.4), for w = 3 kq ln q + 1,
+18 < k ≤ 20.339, the inequality (3.10) holds if q is large enough. We takep k = 18+ε where
+ε > 0 is an arbitrary small constant independent of q. Let wqD , 3 (18 + ε)q ln q + 1.
+Then
+                                            p
+    sq (2, 3) = `q (4, 3) ≤ nD      D
+                             4,q , wq + 1 =
+                                            3
+                                              (18 + ε)q ln q + 2 for q large enough.   (3.23)
+We call nD
+         4,q asymptotic Bound D. We have
+
+                                         nD
+                                          4,q
+                                                  √
+                                                  3
+                                lim    √
+                                       3
+                                                =   18 ≈ 2.6207.                        (3.24)
+                              q→∞, ε→0   q ln q
+
+3.6    Bound E for relatively small q
+In [4, 15–17, 19], see also the references therein, small 2-saturating sets in PG(3, q) for the
+region 13 ≤ q ≤ 7577 are obtained by computer search using the so-called “algorithms
+with the fixed order of points (FOP)” and “randomized greedy algorithms”. These algo-
+rithms are described in detail in [4, 15].
+    In this paper, we continue the computer search and obtain new small 2-saturating sets
+in PG(3, q) for the region 7577 < q ≤ 7949.
+    We denote by sq (3, 2) the size of the smallest known 2-saturating sets in PG(3, q). The
+sets obtained in [4, 15–17, 19] and in this paper (one set of [34] is used also) provide the
+following theorem.
+Theorem 3.6. In the projective space PG(3, q), for the smallest size sq (3, 2) of a 2-
+saturating set the following upper bound holds:
+                                                    
+                                       p            2.61 if 13 ≤ q ≤ 4373
+                                                    
+                               E      E 3        E
+      sq (3, 2) ≤ sq (3, 2) ≤ n4,q , c4 q ln q, c4 = 2.65 if 4373 < q ≤ 7723 .        (3.25)
+                                                    
+                                                    2.69 if 7723 < q ≤ 7949
+                                                                   √
+   For illustration and comparison, the Bound E in the form nE4,q / 3 q ln q is shown by the
+bottom curve in Figure 1, in the region 13 ≤ q < 7949.
+
+                                                 13
+4      Codes with growing codimension r = 3t + 1, t ≥ 1
+For upper bounds on the length function `q (r, 3), r = 3t + 1 ≥ 7, an important tool
+is given by the inductive lifting constructions of [16, 19] which provide Proposition 4.1.
+These constructions are variants of q m -concatenating constructions [10–13, 16–19]. We
+denote
+
+         ∆(r, q) , 3 q (r−7)/3 + 2 q (r−10)/3 + δr,13 , δi,j is the Kronecker symbol.
+                                          
+
+
+Proposition 4.1. [16, Proposition 21], [19, Theorem 14] Let an [n0 , n0 − 4]q 3 code with
+n0 < q exist. Then there is an infinite family of [n, n − r]q 3 codes with parameters
+
+                         n = n0 q (r−4)/3 + ∆(r, q), r = 3t + 1 ≥ 4, t ≥ 1.                             (4.1)
+
+Corollary 4.2. Let n0 = n•4,q ∈ {nA                  B      D      E              C               A      B
+                                              4,q , n4,q , n4,q , n4,q } or n0 = n4,q (k), where n4,q , n4,q ,
+                                                                                       •
+nD        E            C                                                                        C
+  4,q , n4,q ,and n4,q (k) are given in Section 3. Let the region of q for n4,q and n4,q (k) be as
+in Section 3. Then, for the same region of q, there is an infinite family of [nr,q , n•r,q − r]q 3
+                                                                                              •
+
+or [nC            C
+        r,q (k), nr,q (k) − r]q 3 codes with r = 3t + 1 ≥ 4, t ≥ 1, and length
+
+
+    n•r,q = n•4,q q (r−4)/3 + ∆(r, q), n•4,q ∈ {nA          B      E
+                                                     4,q , n4,q , n4,q };                     (4.2)
+                 √3
+                                    p
+    nC
+     r,q (k) =       k · q (r−3)/3 · 3 ln q + 2q (r−4)/3 + ∆(r, q), 18 < k ≤ 20.339, q ≥ dW(k)e;
+                                                                                              (4.3)
+                 √                        p
+    nDr,q (k) =
+                  3
+                     18 + ε · q (r−3)/3 · 3 ln q + 2q (r−4)/3 + ∆(r, q), q large enough.      (4.4)
+                                                                               •
+Proof. By Section 3, for all nA      B      C         D      E
+                              4,q , n4,q , n4,q (k), n4,q , n4,q we have n0 = n4,q < q and n0 =
+ C
+n4,q (k) < q.
+    By (3.21), (3.24), (4.3), (4.4), for r = 3t + 1 ≥ 4, t ≥ 2, we have
+
+                 nCr,q (k)                  nC4,q (k)
+                                                             √3
+         lim  (r−3)/3
+                         √       = lim   (4−3)/3
+                                                   √     =      k, 18 < k ≤ 20.339, k fixed;
+        q→∞ q          · ln q q→∞ q
+                         3
+                                                  · ln q
+                                                    3
+
+
+                         nDr,q                         nD4,q
+                                                                      √
+                                                                      3
+          lim                  √     =    lim                √     =    18 ≈ 2.6207.         (4.5)
+        q→∞, ε→0 q (r−3)/3 · 3 ln q    q→∞, ε→0 q (4−3)/3 · 3 ln q
+
+
+
+5      Comparison with the known results
+As far as the authors know, the best known bounds on `q (3t + 1, 3) are given in [17] where
+for R = 3, r = 3t + 1, t ≥ 1, the following results are obtained:
+                      p                                   p              r−4
+  `q (4, 3) ≤ Ωλ,3 (q) 3 q ln q + 6, `q (r, 3) ≤ (Ωλ,3 (q) 3 q ln q + 6)q 3 + 3θt−1,q , (5.1)
+
+
+                                                     14
+                                                                      s
+                               36                                λ 3 ln2 q
+                                                                  2
+                                                                                               2
+  Ωλ,3 (q) , λ +                                , Υλ,3 (q) ,             , βλ,3 (q) , λ − √        .
+                    2
+                   βλ,3 (q) 2 − 1q − Υλ,3 (q)                    2     q                    3
+                                                                                              q ln q
+
+Here λ > 0 is a positive constant independent of q, its value can be assigned arbitrarily.
+The bounds (5.1) hold if q > dye where y is a solution of the equation Υλ,3 (y) = 1 under
+the condition y > e2 [17, (3.7), Remark 6.4].             √
+   In [17, Section 6, Table 1], it is shown that λ = 3 36 minimizes Ωλ,3 ; for this λ, the
+bounds (5.1) hold if q ≥ 14983. We denote
+                        p                             r−4
+    nknw     √
+     4,q , Ω 3 36,3 (q)
+                        3
+                          q ln q + 6, nknw    knw
+                                       r,q , n4,q · q
+                                                       3  + 3θt−1,q , r = 3t + 1, t ≥ 1, (5.2)
+
+where “knw” notes the√      known results. For illustration and comparison, the known bound
+n4,q in the form n4,q / q ln q is shown by the top curve in Figure 1, for 14983 ≤ q < 105 ,
+  knw                knw 3
+
+and Figure 2, for 105 < q <   √   5 · 106 . By Figure 1, for 14983 ≤ q < 105 , the known bound
+takes values 6.80 ' nknw       3
+                         4,q / q ln q√   ' 5.75. By Figure 2, for 105 < q < 5 · 106 , the known
+bound takes values 5.75 ' nknw          3
+                                  4,q / q ln q ' 5.2.
+     The ratio n4,q /n4,q of the known upper bound nknw
+                 knw    A
+                                                           4,q (5.1)–(5.2) on the length function
+`q (4, 3) and the new one nA     4,q in the  region 14983  ≤ q < 5 · 106 is shown in Figure 3,
+where the ratio lies in ≈ 2.167 . . . ≈ 1.96. The ratio nknw          C
+                                                                4,q /n4,q (k) of the known bound
+                      C
+and the new one n4,q (k) in the region 1517567 < q is shown in Table 1 where it lies in
+≈ 1.918 . . . ≈ 1.89.
+     By Table 1, (4.5), (5.1), for asymptotic estimates we have
+
+                            nknw
+                             4,q                    nknw
+                                                      r,q        3√3
+                      lim √          =  lim     (r−3)/3
+                                                          √    =     36 ≈ 4.953;                  (5.3)
+                     q→∞   3
+                             q ln q    q→∞    q         · ln q
+                                                          3
+                                                                 2
+                                nknw
+                                 4,q
+                                              √3
+                        lim       D
+                                      ≈   1.5    2 ≈ 1.8899.                                      (5.4)
+                     q→∞, ε→0 n
+                                  4,q
+
+   By Figures 1–3, Table 1, and (5.4), one sees that the new bounds are essentially better
+than the known ones.
+
+
+References
+ [1] D. Bartoli, A.A. Davydov, M. Giulietti, S. Marcugini and F. Pambianco, New
+     upper bounds on the smallest size of a saturating set in a projective plane,
+     in 2016 XV Int. Symp. Problems of Redundancy in Inform. and Control Sys-
+     tems (REDUNDANCY), IEEE, St. Petersburg, Russia, Sept. 2016, 18–22. https :
+     //doi.org/10.1109/RED.2016.7779320
+
+
+                                                   15
+2.15
+
+
+
+
+ 2.1
+
+
+
+
+2.05
+
+
+
+
+  2
+
+
+
+
+1.95
+       0    0.5      1      1.5      2      2.5      3      3.5      4      4.5      5
+                                                                                    106
+
+Figure 3: The ratio nknw       A                                      knw
+                         4,q /n4,q of the known [17] upper bound n4,q (5.1)–(5.2) on the
+length function `q (4, 3) and the new one nA 4,q (3.5)–(3.6), 14983 ≤ q < 5 · 10
+                                                                                6
+
+
+
+
+ [2] D. Bartoli, A. A. Davydov, M. Giulietti, S. Marcugini and F. Pambianco, New bounds
+     for linear codes of covering radius 2, in Coding Theory and Applications (Proc. 5th
+     Int. Castle Meeting, ICMCTA 2017) (eds. Á. I. Barbero, V. Skachek, Ø. Ytrehus),
+     Vihula, Estonia, Aug. 2017, Lecture Notes in Computer Science, Springer, Cham,
+     10495, 1–10 (2017) https : //doi.org/10.1007/978 − 3 − 319 − 66278 − 7 1
+
+ [3] D. Bartoli, A.A. Davydov, M. Giulietti, S. Marcugini and F. Pambianco, New bounds
+     for linear codes of covering radii 2 and 3. Crypt. Commun. 11(5), 903–920 (2019)
+     https : //doi.org/10.1007/s12095 − 018 − 0335 − 0
+
+ [4] D. Bartoli, A.A. Davydov, S. Marcugini and F. Pambianco, Tables, bounds and
+     graphics of short linear codes with covering radius 3 and codimension 4 and 5,
+     arXiv:1712.07078 [cs IT] (2020) https : //arxiv.org/abs/1712.07078
+
+                                          16
+ [5] E. Boros, T. Szőnyi and K. Tichler, On defining sets for projective planes, Discrete
+     Math., 303, 17-31 (2005) https : //doi.org/10.1016/j.disc.2004.12.015
+
+ [6] R.A. Brualdi, S. Litsyn and V. Pless, Covering radius. In: V.S. Pless, W.C. Huffman
+     (eds.) Handbook of coding theory, vol. 1, pp. 755–826. Elsevier, Amsterdam (1998)
+
+ [7] H. Chen, L. Qu, C. Li, S. Lyu and L. Xu, Generalized Singleton type upper bounds,
+     arXiv:2208.01138 [cs IT] (2020) https : //arxiv.org/abs/2208.01138
+
+ [8] G. Cohen, I. Honkala, S. Litsyn and A. Lobstein, Covering codes, North-Holland
+     Mathematical Library, vol. 54. Elsevier, Amsterdam, The Netherlands (1997)
+
+ [9] R.M. Corless, G.H. Gonnet, D.E.G. Hare, D.J. Jeffrey and D.E. Knuth, On the
+     Lambert W function (PostScript), Adv. Computat. Math., 5(1), 329–359 (1996)
+     https : //doi.org/10.1007/BF02124750
+
+[10] A.A. Davydov, Construction of linear covering codes, Problems Inform. Transmiss.
+     26, 317–331 (1990) https : //www.researchgate.net/publication/268619798
+
+[11] A.A. Davydov, Constructions and families of covering codes and saturated sets of
+     points in projective geometry, IEEE Trans. Inform. Theory, 41(6), 2071–2080 (1995)
+     https : //doi.org/10.1109/18.476339
+
+[12] A.A. Davydov, M. Giulietti, S. Marcugini and F. Pambianco, Linear nonbinary cov-
+     ering codes and saturating sets in projective spaces, Adv. Math. Commun. 5(1),
+     119–147 (2011) https : //doi.org/10.3934/amc.2011.5.119
+
+[13] A.A. Davydov, S. Marcugini and F. Pambianco, Linear codes with covering radius 2,
+     3, and saturating sets in projective geometry, IEEE Trans. Inform. Theory, 50(3),
+     537–541 (2004) https : //doi.org/10.1109/TIT.2004.825503
+
+[14] A.A. Davydov, S. Marcugini and F. Pambianco, New covering codes of radius R,
+     codimension tR and tR + R2 , and saturating sets in projective spaces, Des. Codes
+     Cryptogr., 87, 2771–2792 (2019) https : //doi.org/10.1007/s10623 − 019 − 00649 − 2
+
+[15] A.A. Davydov, S. Marcugini and F. Pambianco, New bounds for linear codes
+     of covering radius 3 and 2-saturating sets in projective spaces, in Proc.
+     2019 XVI Int. Symp. Problems Redundancy Inform. Control Systems (REDUN-
+     DANCY), Moscow, Russia, Oct. 2019, IEEE Xplore, 47–52 (2020) https :
+     //doi.org/10.1109/REDUNDANCY48165.2019.9003348
+
+[16] A.A. Davydov, S. Marcugini and F. Pambianco, Bounds for complete arcs in
+     PG(3,q) and covering codes of radius 3, codimension 4, under a certain probabilis-
+     tic conjecture, Computational Science and Its Applications – ICCSA 2020. ICCSA
+
+                                           17
+    2020. Lecture Notes in Computer Science, vol 12249, pp 107–122. Springer, Cham.
+    https : //link.springer.com/chapter/10.1007/978 − 3 − 030 − 58799 − 4 8
+
+[17] A.A. Davydov, S. Marcugini and F. Pambianco, Upper bounds on the length func-
+     tion for covering codes with covering radius R and codimension tR + 1, Adv. Math.
+     Commun., 17(1), 98–118 (2023) https : //doi.org/10.3934/amc.2021074
+
+[18] A.A. Davydov and P.R.J. Östergård, Linear codes with covering radius R = 2, 3
+     and codimension tR, IEEE Trans. Inform. Theory, 47(1), 416–421 (2001) https :
+     //doi.org/10.1109/18.904551
+
+[19] A.A. Davydov and P.R.J. Östergård, Linear codes with covering radius 3, Designs,
+     Codes and Cryptography, 54(3), 253–271 (2010) https : //doi.org/10.1007/s10623 −
+     009 − 9322 − y
+
+[20] L. Denaux, Constructing saturating sets in projective spaces using subgeometries,
+     Des. Codes Cryptogr., 90(9), 2113—2144 (2022) https : //doi.org/10.1007/s10623 −
+     021 − 00951 − y
+
+[21] L. Denaux, Higgledy-piggledy sets in projective spaces of small dimension, Electron.
+     J. Combin. 29(3), #P3.29 (2022) https : //doi.org/10.37236/10736
+
+[22] T. Etzion and L. Storme, Galois geometries and coding theory, Des. Codes Cryptogr.,
+     78, 311–350 (2016) https : //doi.org/10.1007/s10623 − 015 − 0156 − 5
+
+[23] M. Giulietti, The geometry of covering codes: small complete caps and sat-
+     urating sets in Galois spaces, in Surveys in Combinatorics 2013, (eds. S. R.
+     Blackburn, R. Holloway and M. Wildon) London Math. Soc., Lecture Note
+     Series, 409, Cambridge University Press, Cambridge (2013), 51–90. https :
+     //doi.org/10.1017/CBO9781139506748.003
+
+[24] T. Héger and Z. Nagy, Short minimal codes and covering codes via strong blocking
+     sets in projective spaces, IEEE Trans. Inform. Theory, 68(2), 881–890 (2022) https :
+     //doi.org/10.1109/TIT.2021.3123730
+
+[25] J.W.P. Hirschfeld, Finite Projective Spaces of Three Dimensions, Oxford University
+     Press, Oxford, 1985.
+
+[26] J.W.P. Hirschfeld, Projective Geometries Over Finite Fields. Oxford mathematical
+     monographs, Clarendon Press, Oxford, 2nd edn. (1998)
+
+[27] J.W.P. Hirschfeld and L. Storme, The packing problem in statistics, coding theory
+     and finite projective spaces: Update 2001, in (eds. A. Blokhuis, J.W.P. Hirschfeld,
+     D. Jungnickel, J.A. Thas), Finite Geometries (Proc. 4th Isle of Thorns Conf.,
+
+                                           18
+    July 16-21, 2000), Develop. Math., 3, Kluwer, Dordrecht, 2001, 201–246. https :
+    //doi.org/10.1007/978 − 1 − 4613 − 0283 − 4 13
+
+[28] W.C. Huffman and V.S. Pless, Fundamentals of Error-Correcting Codes, Cambridge
+     University Press, 2003
+
+[29] A. Jeffrey and H.H. Dai, Handbook of Mathematical Formulas and Integrals, 4-th
+     edition, Elsevier, Academic Press, Amsterdam, 2008.
+
+[30] I. Landjev and L. Storme, Galois geometry and coding theory, in Current Research
+     Topics in Galois geometry, (eds. J. De Beule, L. Storme), Chapter 8, NOVA Aca-
+     demic, New York, 2011, 187–214.
+
+[31] A. Lobstein, Covering radius, an online bibliography (2019),               https    :
+     //www.lri.fr/˜lobstein/bib − a − jour.pdf
+
+[32] F.J. MacWilliams and N.J.A. Sloane, The Theory of Error-Correcting Codes, third
+     ed., North- Holland, Amsterdam, The Netherlands, 1981
+
+[33] Z.L. Nagy, Saturating sets in projective planes and hypergraph covers. Discrete Math.
+     341(4), 1078–1083 (2018) https : //doi.org/10.1016/j.disc.2018.01.011
+
+[34] A. Sonnino, Transitive P SL(2, 7)-invariant 42-arcs in 3-dimensional projective
+     spaces, Designs, Codes and Cryptography, 72(2), 455–463 (2014). https :
+     //doi.org/10.1007/s10623 − 012 − 9778 − z
+
+[35] R. Struik, Covering Codes, Ph.D thesis, Eindhoven University of Technology, The
+     Netherlands, 1994. https : //doi.org/10.6100/IR425174
+
+
+
+
+                                           19
+

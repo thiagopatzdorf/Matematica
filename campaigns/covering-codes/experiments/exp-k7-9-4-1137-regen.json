@@ -1,0 +1,40 @@
+{
+  "command": [
+    "python3",
+    "scripts/search/gen.py",
+    "data/search/p1137.json",
+    "<saída>"
+  ],
+  "created": "2026-10-06T02:39:44Z",
+  "created_by": "agente-c",
+  "description": "Regenera o código de 1137 palavras com o gerador versionado a partir de data/search/p1137.json e compara com o witness: byte a byte (identico_byte_a_byte) e como CONJUNTO de palavras (sha256 canônico; a ordem das linhas pode diferir). Isto reproduz a ESTRUTURA do código, não a busca que achou os parâmetros p<M>.json.",
+  "experiment_id": "exp-k7-9-4-1137-regen",
+  "implementation": "scripts/search/gen.py",
+  "instances": [
+    "k7-9-4"
+  ],
+  "kind": "search",
+  "ranges": null,
+  "repo_commit": "0bb66b85a2f98ba1242d7fb0d4d543c8915ad7d0",
+  "result": {
+    "executado_neste_run": true,
+    "identico_byte_a_byte": false,
+    "mesmo_conjunto_de_palavras": true,
+    "rc": 0,
+    "sha256_canonico_regenerado": "df3e8d527bc393a9680fe4b2b39e7bde088ab6a02f2f94ee26019a5efc05a102",
+    "sha256_canonico_witness": "df3e8d527bc393a9680fe4b2b39e7bde088ab6a02f2f94ee26019a5efc05a102",
+    "sha256_regenerado": "1f4646fe602dcb44eb6fd4b47bbc2bd8acf983d340a30e1d1de8b00ee3b05be8",
+    "sha256_witness": "df3e8d527bc393a9680fe4b2b39e7bde088ab6a02f2f94ee26019a5efc05a102",
+    "stdout": "1137 1137"
+  },
+  "source_files": [
+    {
+      "path": "scripts/search/gen.py",
+      "sha256": "9f4b725a8fcc0ce22dc0a98ab56e932fbaa31db954b7493a9383ff18a28f024c"
+    },
+    {
+      "path": "data/search/p1137.json",
+      "sha256": "49386c272283dae7c5901a28ac8b917afa352fc0752649c6d5d4f21effd0c2cd"
+    }
+  ]
+}

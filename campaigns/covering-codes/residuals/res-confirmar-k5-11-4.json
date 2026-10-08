@@ -1,0 +1,26 @@
+{
+  "claim_ids": [
+    "k5-11-4-ub-2875"
+  ],
+  "comparison": {
+    "k5-11-4-ub-2875": {
+      "classificacao": "MELHORA_APARENTE_A_CONFIRMAR",
+      "melhor_registrada": 3125,
+      "melhor_registrada_fonte": [
+        "lit-keri-k5-11-4-ub (PDF 4-5_tables.pdf, Last-Modified 2009-10-15 (diretório e index.htm atualizados até 2011-11-25), 2009-10-15)"
+      ],
+      "nosso": 2875,
+      "nota": "melhora aparente, a confirmar por revisão externa (não é afirmação de novidade: livros/artigos não lidos podem ter predecessor)",
+      "veredito": "melhor_que_a_registrada"
+    }
+  },
+  "created": "2026-10-06T02:39:44Z",
+  "created_by": "agente-c",
+  "instances": [
+    "k5-11-4"
+  ],
+  "kind": "melhora_aparente_a_confirmar",
+  "next_step": "ler a fonte da chave d do Kéri e o Cohen et al. 1997; procurar tabelas posteriores a 2011 para K_5(11,4)",
+  "reason": "MELHORA_APARENTE_A_CONFIRMAR (nunca 'novidade'): 2875 < 3125 (Kéri, chave d): o artigo/livro da chave d e o Cohen et al. 1997 não foram lidos; trabalho posterior a 2011 fora do arXiv não foi conferido; os códigos só foram verificados por programas deste repositório e a busca que os produziu não é reexecutada aqui; o valor do Kéri vem do ledger do main (transcrição do repositório do Marosi), o PDF não foi aberto por esta campanha",
+  "residual_id": "res-confirmar-k5-11-4"
+}

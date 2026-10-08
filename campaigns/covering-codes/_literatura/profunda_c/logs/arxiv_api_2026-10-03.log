@@ -1,0 +1,98 @@
+== abs:"covering code" AND abs:"covering radius"
+2026-09-13 2609.16078v1 Further results on binary codes of covering radius 2 and saturating sets in projective spaces
+2026-08-25 2608.24856v2 The Optimal Asymptotic Rate of Generalized Covering Codes
+2026-08-12 2608.12595v1 On Nearly-Perfect Covering Codes Beyond Radius One
+2026-07-16 2607.14840v2 Covering Sequences and Covering-Sequences Codes
+2026-01-01 2601.00435v2 On the burst-covering radius of binary cyclic codes
+2025-11-04 2511.02542v1 New upper bounds for binary linear covering codes
+2025-04-02 2504.01932v2 Semidefinite lower bounds for covering codes
+2025-02-12 2502.08424v2 Constructions of Covering Sequences and Arrays
+2024-05-01 2405.00258v2 On Nearly Perfect Covering Codes
+2024-04-21 2404.13674v2 On de Bruijn Covering Sequences and Arrays
+2023-10-04 2310.02715v2 Further results on covering codes with radius R and codimension tR + 1
+2022-10-02 2210.00531v1 The Second-Order Football-Pool Problem and the Optimal Rate of Generalized-Covering Codes
+2022-08-01 2208.01138v6 Generalized Singleton Type Upper Bounds
+2022-06-25 2206.12668v3 Covering $b$-Symbol Metric Codes and the Generalized Singleton Bound
+2022-03-31 2203.16901v6 Improved Lower Bounds on the Domination Number of Hypercubes and Binary Codes with Covering Radius One
+== all:"covering codes" AND all:q-ary
+2026-08-25 2608.24856v2 The Optimal Asymptotic Rate of Generalized Covering Codes
+2026-08-20 2608.19872v3 New upper and lower bounds on covering codes K_q(n,R) for alphabets of size 5 &lt;= q &lt;= 21
+2026-06-13 2606.15379v1 New bounds for covering codes under insertions or deletions
+2026-06-08 2606.09600v1 Formal Foundations and Proof-Carrying Certificates for q-ary Covering Codes in Lean 4
+2026-01-09 2601.05581v3 Strong Singleton-Like Bounds, Quasi-Perfect Codes and Distance-Optimal Codes in the Sum-Rank Metric
+2025-04-02 2504.01932v2 Semidefinite lower bounds for covering codes
+2023-10-04 2310.02715v2 Further results on covering codes with radius R and codimension tR + 1
+2023-05-19 2305.11955v1 New bounds for covering codes of radius 3 and codimension 3t+1
+2021-08-31 2108.13609v2 Upper bounds on the length function for covering codes with covering radius $R$ and codimension $tR+1$
+2018-08-28 1808.09301v2 New covering codes of radius $R$, codimension $tR$ and $tR+\frac{R}{2}$, and saturating sets in projective spa
+2003-10-24 math/0310385v2 De Bruijn Cycles for Covering Codes
+== all:Marosi AND all:covering
+2026-08-20 2608.19872v3 New upper and lower bounds on covering codes K_q(n,R) for alphabets of size 5 &lt;= q &lt;= 21
+== all:Keri AND all:covering
+2026-08-20 2608.19872v3 New upper and lower bounds on covering codes K_q(n,R) for alphabets of size 5 &lt;= q &lt;= 21
+2024-03-28 2403.19464v1 Quantitatively rating galaxy simulations against real observations with anomaly detection
+2022-12-13 2212.06869v1 Hyperion: The origin of the stars A far-UV space telescope for high-resolution spectroscopy over wide fields
+2022-09-20 2209.09627v1 Droplet charging in stratiform clouds
+2019-11-25 1911.10740v4 The FLASHES Survey I: Integral Field Spectroscopy of the CGM around 48 $z=2.3-3.1$ QSOs
+2015-11-17 1511.05400v1 Concurrent tests of Lorentz invariance in $β$-decay experiments
+2012-05-16 1205.3678v2 Edge Ideals of Weighted Graphs
+2011-12-23 1112.5584v3 Measurement of the virtual-photon asymmetry A2 and the spin-structure function g2 of the proton
+2011-03-29 1103.5704v2 Inclusive Measurements of Inelastic Electron and Positron Scattering from Unpolarized Hydrogen and Deuterium T
+2009-12-01 0912.0201v1 LSST Science Book, Version 2.0
+2009-07-01 0907.0169v1 Technical Design Report for the PANDA Solenoid and Dipole Spectrometer Magnets
+== all:"direct sum" AND all:"covering codes"
+== all:"amalgamated direct sum"
+2014-10-05 1410.1189v1 Amalgamated direct sums of operator spaces
+== all:"normal code" AND all:covering
+2026-08-08 2608.08001v2 Reinhardt's Maximum-Perimeter Polygon Problem for n=16, 32, and 64
+== all:"saturating sets" AND all:projective
+2026-09-13 2609.16078v1 Further results on binary codes of covering radius 2 and saturating sets in projective spaces
+2026-07-07 2607.05706v1 Rigid ternary relations in finite-dimensional Hilbert-space Grassmannians
+2026-06-15 2606.16669v1 A geometric approach to generalized covering radii of linear codes
+2026-02-18 2602.16324v1 Case Study: Saturations as Explicit Models in Equational Theories
+2023-10-04 2310.02715v2 Further results on covering codes with radius R and codimension tR + 1
+2023-06-29 2306.17081v2 Saturating linear sets of minimal rank
+2023-05-19 2305.11955v1 New bounds for covering codes of radius 3 and codimension 3t+1
+2021-09-01 2109.00584v2 Small Strong Blocking Sets by Concatenation
+2021-08-31 2108.13609v2 Upper bounds on the length function for covering codes with covering radius $R$ and codimension $tR+1$
+2021-03-12 2103.07393v2 Short minimal codes and covering codes via strong blocking sets in projective spaces
+2021-01-29 2101.12722v2 On the weight distribution of the cosets of MDS codes
+2020-11-22 2011.11101v1 On cutting blocking sets and their codes
+2020-08-31 2008.13459v3 Constructing saturating sets in projective spaces using subgeometries
+2018-08-28 1808.09301v2 New covering codes of radius $R$, codimension $tR$ and $tR+\frac{R}{2}$, and saturating sets in projective spa
+2017-02-25 1702.07939v1 Upper bounds on the smallest size of a saturating set in projective planes and spaces of even dimension
+== all:"length function" AND all:covering
+2026-09-13 2609.16078v1 Further results on binary codes of covering radius 2 and saturating sets in projective spaces
+2026-08-31 2608.30752v1 Quasi-convexity of energy functions along Teichmüller geodesics
+2026-05-14 2605.14850v1 The Complexity of Nested Reset Counter Systems
+2026-01-09 2601.05581v3 Strong Singleton-Like Bounds, Quasi-Perfect Codes and Distance-Optimal Codes in the Sum-Rank Metric
+2025-11-04 2511.02542v1 New upper bounds for binary linear covering codes
+2024-10-20 2410.15535v2 On the Area of Immersed Minimal Annuli in a Slab
+2024-02-28 2402.18676v2 Determining surfaces by short curves and applications
+2023-11-14 2311.07831v3 Covering Codes, List-Decodable Codes and Strong Singleton-Like Bounds in the Sum-Rank Metric
+2023-10-25 2311.12863v1 Functions of a Single Variable
+2023-10-04 2310.02715v2 Further results on covering codes with radius R and codimension tR + 1
+2023-06-07 2306.04514v3 Grading of affine Weyl semi-groups of Kac-Moody type
+2023-05-19 2305.11955v1 New bounds for covering codes of radius 3 and codimension 3t+1
+2023-04-17 2304.08617v2 Classification of the conjugacy classes of $\widetilde{\mathrm{SL}}(2,\mathbb{R})$
+2021-08-31 2108.13609v2 Upper bounds on the length function for covering codes with covering radius $R$ and codimension $tR+1$
+2018-08-28 1808.09301v2 New covering codes of radius $R$, codimension $tR$ and $tR+\frac{R}{2}$, and saturating sets in projective spa
+== all:"football pool"
+2025-04-02 2504.01932v2 Semidefinite lower bounds for covering codes
+2022-10-02 2210.00531v1 The Second-Order Football-Pool Problem and the Optimal Rate of Generalized-Covering Codes
+== all:"covering codes" AND all:"upper bound"
+2026-09-13 2609.16078v1 Further results on binary codes of covering radius 2 and saturating sets in projective spaces
+2026-08-20 2608.19872v3 New upper and lower bounds on covering codes K_q(n,R) for alphabets of size 5 &lt;= q &lt;= 21
+2026-08-01 2608.00691v1 Odd-Cycle Span Defect: A Polynomial Lower Bound and a Square-Root Upper Bound
+2026-06-28 2606.29236v1 Near-Optimal Covering Sequences
+2026-06-15 2606.16688v1 A Lean-Certified Proof of $K_8(4, 2) = 23$
+2026-06-08 2606.09600v1 Formal Foundations and Proof-Carrying Certificates for q-ary Covering Codes in Lean 4
+2026-05-18 2605.19094v1 A Note on the Asymptotic Least Density of Covering Codes in $[q]^n$
+2026-01-09 2601.05581v3 Strong Singleton-Like Bounds, Quasi-Perfect Codes and Distance-Optimal Codes in the Sum-Rank Metric
+2025-11-04 2511.02542v1 New upper bounds for binary linear covering codes
+2025-02-12 2502.08424v2 Constructions of Covering Sequences and Arrays
+2024-10-21 2410.15839v2 Covering Codes as Near-Optimal Quantizers for Distributed Testing Against Independence
+2024-05-01 2405.00258v2 On Nearly Perfect Covering Codes
+2024-04-21 2404.13674v2 On de Bruijn Covering Sequences and Arrays
+2023-11-14 2311.07831v3 Covering Codes, List-Decodable Codes and Strong Singleton-Like Bounds in the Sum-Rank Metric
+2023-10-04 2310.02715v2 Further results on covering codes with radius R and codimension tR + 1

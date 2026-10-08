@@ -1,0 +1,4 @@
+q=2 n=22 R=7 M=63 best_unc=1421 final_unc=1421 iters=13312 secs=55
+cmd: sa 2 22 7 63 110 seed=11 cycles=3 T=0.35 0.15
+q=2 n=22 R=7 M=63 best_unc=1648 final_unc=1648 iters=12288 secs=51
+cmd: sa 2 22 7 63 110 seed=12 cycles=3 T=0.25 0.1

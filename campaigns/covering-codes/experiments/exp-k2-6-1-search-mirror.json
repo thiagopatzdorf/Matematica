@@ -1,0 +1,75 @@
+{
+  "created": "2026-10-06T02:39:44Z",
+  "created_by": "agente-c",
+  "description": "Busca exaustiva com poda do argumento K_2(6,1) >= 12 (WLOG a palavra 63 no código): espelho Python do SearchCore.chkN do Lean. `6 10`: nenhuma cobertura com 11 palavras; `6 10 2`: 38 estados na fronteira (= os 38 G610_Chunk); controle positivo `6 11` acha cobertura de 12.",
+  "experiment_id": "exp-k2-6-1-search-mirror",
+  "implementation": "scripts/k261/sc_ref.py (COMPARTILHA a lógica do SearchCore.chkN: não é verificação independente do teorema Lean)",
+  "instances": [
+    "k2-6-1"
+  ],
+  "kind": "exhaustive",
+  "ranges": {
+    "R": 1,
+    "centros_livres": 10,
+    "espaco": "todas as 64 palavras",
+    "n": 6,
+    "palavra_fixa": 63,
+    "profundidade_fronteira": 2,
+    "q": 2
+  },
+  "repo_commit": "0bb66b85a2f98ba1242d7fb0d4d543c8915ad7d0",
+  "result": {
+    "executado_neste_run": true,
+    "runs": [
+      {
+        "command": [
+          "python3",
+          "scripts/k261/sc_ref.py",
+          "6",
+          "10"
+        ],
+        "frontier_len": 0,
+        "nodes": 436727,
+        "ok": true,
+        "output_sha256": "3a14bc64a4695d36ebee470073d22a76862b397478960eeb7bc7be4ce9951e86",
+        "rc": 0,
+        "runtime_s": 0.625
+      },
+      {
+        "command": [
+          "python3",
+          "scripts/k261/sc_ref.py",
+          "6",
+          "10",
+          "2"
+        ],
+        "frontier_len": 38,
+        "nodes": 46,
+        "ok": true,
+        "output_sha256": "18f3372618dd7dac806f8de54f4ec2215ed135c0c06e1bc5df5dd06e519ffbf8",
+        "rc": 0,
+        "runtime_s": 0.019
+      },
+      {
+        "command": [
+          "python3",
+          "scripts/k261/sc_ref.py",
+          "6",
+          "11"
+        ],
+        "frontier_len": 0,
+        "nodes": 46542,
+        "ok": false,
+        "output_sha256": "362a9bfe245d51e5f1c96ec407d1f5e4e121f481b3b0dd86f692c175cf611525",
+        "rc": 0,
+        "runtime_s": 0.08
+      }
+    ]
+  },
+  "source_files": [
+    {
+      "path": "scripts/k261/sc_ref.py",
+      "sha256": "a1db82950eaa26f800800b500ab763cbb14269232fa9343b2de15ccfe6909503"
+    }
+  ]
+}

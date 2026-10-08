@@ -1,0 +1,21 @@
+2fc92770217c3428c3b0d15abb13df3ce3e364ce225e6be3fb8481d23bad12dd  4-5_tables.pdf
+6191ab9410329cc1887e903b06d1969e1b1602bfa70456a357eaad7768805c62  6-21_tables.pdf
+cce0402d5a8e93b7d94afd71237a51d307b714cfdbbca7059461f44c74b4d3ac  2_tables.pdf
+5d8636704a11837fc4b8d5e19e30be64a333f7442a8b072cfe165f0a76b1971c  k_6-21.pdf
+b70664cffeee952b427a28db4bf7a6dff7a0d8a92bc771050a7331946f575fff  keri.htm
+a06745ec16587767a9aa4448b6550346526c13c7df2d15a3eb2a60115439db84  k_normality.pdf
+366a1cee908e96d391557994cffb5ee3488f6c76c94f797332c1b42f52704eb5  k_survey.pdf
+1b0dbbb1bad9c86d056706acd217ff887970d2c1fa7fb3f152732b0945eabf83  k_biblio.pdf
+99731b24f934760ebb05af52a0b64ab4d31c77aa91d565b2494c69dacb15c1f8  marv1.pdf
+5df8288772f0f6bfaa897e1a9f3689d19ab06fa7ae7c566cd7003b6d0caa46b1  marv2.pdf
+42cc6b49871fe2c25dbf86e0035ddbc95dac42f5dffe46a81acc9ec0f37f0334  marv3.pdf
+3f4847a328152c97978ef3344e424e30a8df95fb421285e3890332e136903721  arxiv.org_pdf_0904.3835v1.pdf
+8f8f1200c6827a4722d3d42199b7cabf3976164a601fe645bfe175436cde6bf1  arxiv.org_pdf_1808.09301.pdf
+a213991dad147c43ce62907f8060cbcf28a787488226bcdaa41a265f9b6e5b1c  arxiv.org_pdf_2310.02715.pdf
+a6147ac6bb7b269c8235fd7430daa5b84e63aadd108c389d3145a0f64ed2016e  arxiv.org_pdf_2108.13609.pdf
+9ed36f7c072c6d18e8968cea6d7cd8557339777ce5a988ca651806f889f11823  arxiv.org_pdf_1712.07078.pdf
+47dfd1a83b92d96d7cb102a2bf31a9a8eb3eaed95c02a4ebe9a3f9fc0e5b1701  lob.pdf
+# baixados em 2026-10-03 de: old.sztaki.hu/~keri/codes/{2_tables,4-5_tables,6-21_tables}.pdf, index.htm, normality.pdf, survey.pdf, biblio.pdf;
+# old.sztaki.hu/~keri/unmixed/bounds/6-21.pdf (edicao 2006-01-26, salvo como k_6-21.pdf);
+# arxiv.org/pdf/2608.19872v1|v2|v3; arxiv.org/pdf/0904.3835v1 (unica versao; v2/v3 = 404); 1808.09301 (v2); 2310.02715; 2108.13609; 1712.07078;
+# www.lri.fr/~lobstein/bib-a-jour.pdf (bibliografia Lobstein, ult. atualizacao 2023-01-10)

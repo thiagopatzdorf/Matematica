@@ -37,6 +37,6 @@ Reconstruir: `elan`, `lake exe cache get`, `lake build` dentro do tar. Evite `de
 
 ## O que não está provado
 
-- Nenhum teto. Em particular, `K_7(9,4) ≤ 1351` não é teorema: o código que sustentaria esse número não está neste arquivo e não foi reconstruído.
-- `K_2(6,1) ≥ 11` continua condicional. `A6d_SearchHeavy.lean` está no tar e **não compila**: a busca exaustiva no kernel estourou a memória. Enquanto `refuted 64 7 bm6 nbr6 10 0 = true` não for um teorema, a cota vale como verificação computacional, não como prova formal.
+- Nenhum teto, **nesta página** (tar do commit `54424602`). No repositório atual `K_7(9,4) ≤ 1351` é teorema do alvo pesado (`CoveringKernel.K7_9_4_le_1351_kernel`, `K3_K7_9_4_Final.lean`, código em `C1_Data_K7_9_4.lean`); o `lake build CoveringHeavy` (~12,4 h de CPU) não foi reproduzido na campanha de auditoria, então os axiomas dele constam como declarados.
+- `K_2(6,1) ≥ 11` era condicional **no tar do commit `54424602`**: `A6d_SearchHeavy.lean` não compila (a busca exaustiva no kernel estourou a memória) e só `refuted 64 7 bm6 nbr6 10 0 = true` a sustentaria. No repositório atual deixou de ser: `CoveringA6.K_2_6_1_ge_11` (`A6e_Excess.lean`) prova a cota sem hipótese e sem busca, por contagem dupla do excesso, e `K_2(6,1) = 12` é `SC.K_2_6_1_eq12` (alvo pesado). `A6d_SearchHeavy.lean` ficou obsoleto.
 - O Lean não confere os códigos grandes palavra por palavra, nem decide se a cota é nova na literatura.

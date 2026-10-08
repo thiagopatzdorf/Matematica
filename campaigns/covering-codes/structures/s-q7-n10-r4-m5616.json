@@ -1,0 +1,24 @@
+{
+  "canonical_sha256": "750cae3ba3ded64eef208548f6e3c8fe0356c0b599ab3f605aac6fd175a78a5e",
+  "created": "2026-10-06T02:39:44Z",
+  "created_by": "agente-c",
+  "format": "covering-code/v1",
+  "group": "Zq",
+  "kind": "code-structure",
+  "linear_base_dim": 3,
+  "linear_cosets": 16,
+  "patch_words": 128,
+  "provenance": {
+    "agent": "James.V1",
+    "command": null,
+    "commit": null,
+    "date": "2026-10-03",
+    "generator": "scripts/attack (feat/ataque-celulas-2011): hsearch -> base_search eval t=2 em [10,4]_7 -> lift para [10,3]_7 -> coset_sa t=16 -> patch_opt (lift por x_6)",
+    "notes": "16 classes laterais de um [10,3]_7 (3 síndromes órfãs, 1029 pontos) + 128 palavras. Detalhes e síndromes em data/attack/q7_n10_R4_M5616.json. Verificado por scripts/attack/verify_bfs e tools/verify/verify.c. Não conferido no Lean.",
+    "repo_commit": null,
+    "seed": null
+  },
+  "structure_id": "s-q7-n10-r4-m5616",
+  "subcode_blocks": [],
+  "witness": "w-q7-n10-r4-m5616"
+}

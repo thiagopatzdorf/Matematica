@@ -1,0 +1,4 @@
+q=5 n=9 R=6 M=11 best_unc=2404 final_unc=2404 iters=23552 secs=52
+cmd: sa 5 9 6 11 110 seed=11 cycles=3 T=0.35 0.15
+q=5 n=9 R=6 M=11 best_unc=2488 final_unc=2488 iters=23552 secs=53
+cmd: sa 5 9 6 11 110 seed=12 cycles=3 T=0.25 0.1

@@ -1,0 +1,419 @@
+                               Bounds on K6 (n, R)
+ (lower and upper bounds on the size of senary optimal covering codes)
+
+        n             R=1                     R=2                 R=3
+        1               11
+        2              611                    11
+        3             g 18 g                   6                   11
+        4             i 72 i                k 15 n                 6
+        5          r 330–414 l            m 36–66 n              k 12 q
+        6         r 1578–1840 l         m 133–274 q            m 24–41 q
+        7        q 7777–11040 e         y 528–1296 f           m 70–246 e
+        8       y 41991–62208 j         y 2276–5184 f         m 246–1080 f
+        9      u 219096–324864 j      y 10900–29808 f         y 921–4752 f
+       10     y 1209324–1866240 j     y 53463–132480 f       y 3815–19347 k
+
+        n        R=4            R=5            R=6           R=7          R=8
+        4          11
+        5           6           11
+        6        k 10 n          6               11
+        7      m 18–36 n        61                6            11
+        8      m 46–216 e    m 15–30 z           611            6         11
+        9     m 136–738 f    m 32–144 j       k 12–22 q         6         6
+       10     s 417–2952 f   m 83–615 f       m 25–72 n     k 12–18 r     6
+
+
+                               Bounds on K7 (n, R)
+(lower and upper bounds on the size of septenary optimal covering codes)
+
+     n               R=1                      R=2                  R=3
+     1                 11
+     2                715                   11
+     3               g 25 g                 7                        11
+     4            b 115–123 l           b 17–19 n                    7
+     5            r 606–769 l           m 55–97 n                k 15–17 q
+     6           r 3412–4435 l         m 233–343 p               m 36–77 q
+     7         r 19818–31045 e        x 1035–2401 e             m 127–343 c
+     8            h 117649 h          x 5457–15129 f            y 457–2337 f
+     9        u 733726–823543 e      s 29889–94587 f           y 2077–8575 f
+    10       u 4630843–5764801 e    x 168042–420175 q         y 10577–42189 f
+
+   n            R=4             R=5              R=6           R=7         R=8
+   4              11
+   5              7               11
+   6          k 13–15 n            7               11
+   7          m 25–49 p         k 11 n             7             11
+   8         m 76–343 c       m 20–49 c            71             7            11
+   9        m 264–1843 f      m 52–323 f       m 17–37 n         715           7
+  10        y 1007–6517 f    m 160–1225 f      m 39–175 o     k 15–33 z        7
+
+
+                                          1
+                          Bounds on K8 (n, R)
+(lower and upper bounds on the size of octonary optimal covering codes)
+
+   n             R=1                    R=2                 R=3
+   1               11
+   2               822                   11
+   3             g 32 g                   8                  11
+   4          b 171–192 l             b 22–23 n               8
+   5            i 1024 i             m 83–128 n           b 17–22 q
+   6         r 6626–8192 e           m 382–512 p         m 52–107 q
+   7        r 44237–63488 j         y 1984–4096 e        m 196–512 c
+   8       r 302036–342272 l       y 11766–29920 j      y 829–4096 c
+   9          h 2097152 h         y 75783–174080 j     y 4523–16384 f
+  10    y 15339169–16777216 e    y 478586–1048576 f    y 25767–98304 f
+
+  n         R=4            R=5           R=6            R=7       R=8
+  4           11
+  5           8              11
+  6       k 15–20 n          8             11
+  7      m 37–92 n       k 14–16 n          8            11
+  8     m 118–512 c      m 29–90 z       k 12 n           8        11
+  9     s 409–2944 f     m 80–384 j    m 22–48 n         81         8
+ 10    y 2045–11776 f   m 287–2461 f   m 58–342 n     m 20–44 z    822
+
+
+                          Bounds on K9 (n, R)
+(lower and upper bounds on the size of novenary optimal covering codes)
+
+   n            R=1                    R=2                 R=3
+   1              11
+   2              930                  11
+   3            g 41 g                 9                     11
+   4            i 243 i              b 27 n                   9
+   5        b 1641–1809 l         m 113–189 n             b 21–27 c
+   6       r 11877–16010 l        m 585-729 p            m 71–147 q
+   7      r 89526–135594 j       y 3536–6561 e          m 308–729 c
+   8     r 690377–875259 l      x 23184–59049 e        x 1413–6561 c
+   9    r 5415428–6053198 l    y 165310–439587 f       y 8544–29889 f
+  10        h 43046721 h      y 1206918–3272481 f     x 54144–177147 f
+
+ n          R=4            R=5           R=6           R=7        R=8
+ 4           11
+ 5            9              11
+ 6        k 18–24 q          9             11
+ 7       m 51–120 n      k 16–21 n         9             11
+ 8      m 181–729 c      m 39–120 c    k 15–17 n          9        11
+ 9      s 703–5103 f    m 120–729 c    m 31–81 q       k 13 n      9
+10     y 3872–19683 f   m 481–3969 f   m 87–477 n     m 25–77 z    91
+
+
+                                   2
+                         Bounds on K10 (n, R)
+ (lower and upper bounds on the size of denary optimal covering codes)
+
+ n             R=1                        R=2                  R=3
+ 1               11
+ 2              1042                     11
+ 3             g 50 g                    10                      11
+ 4          b 334–352 l                b 34 n                    10
+ 5         b 2501–2944 l            m 149–250 n               b 26–32 q
+ 6           i 20000 i              m 890–1350 q             m 92–209 q
+ 7      r 167925–200000 e          y 5676–13500 e           m 451–1350 c
+ 8     r 1442623–2000000 e        y 42772–123904 f         y 2415–11968 f
+ 9    r 12608696–15614398 l     x 333560–1000000 f        y 15959–67500 f
+10   r 111688312–123456288 l    a 2676660–7040000 f      y 110867–475200 f
+
+ n        R=4            R=5               R=6            R=7        R=8
+ 4         11
+ 5         10              11
+ 6      b 21–28 q          10                 11
+ 7     m 66–168 n      k 19–26 n              10           11
+ 8    m 265–1156 f     m 48–168 c         k 17–22 n        10          11
+ 9    s 1130–8500 f   m 174–1088 f       m 39–114 q     k 16-18 n      10
+10   y 6886–45900 f   y 632–7106 f       m 122–826 n   m 33–110 z    k 14 n
+
+
+                         Bounds on K11 (n, R)
+(lower and upper bounds on the size of undenary optimal covering codes)
+
+      n           R=1                    R=2                 R=3
+      1             11
+      2            1156                11
+      3           g 61 g               11                    11
+      4        b 444–485 l           b 41 n                  11
+      5       b 3661–4309 l        m 208–365 q            b 31–38 q
+      6     b 32211–35315 l      m 1276–2343 q          m 119–275 q
+      7    r 296388–388465 e     y 9106–14641 p         m 636–2343 c
+      8   r 2806050–4198148 l   s 74415–161051 e       y 3732–14641 c
+
+      n      R=4            R=5             R=6        R=7    R=8
+      4       11
+      5       11             11
+      6    b 25–33 q         11               11
+      7   m 84–216 n     k 22–31 n            11        11
+      8   m 374–1681 f   m 64–216 c       k 20–27 n     11      11
+
+
+
+
+                                     3
+                              Bounds on K12 (n, R)
+(lower and upper bounds on the size of duodenary optimal covering codes)
+
+     n              R=1                    R=2                R=3
+     1                11
+     2               1277                   11
+     3              g 72 g                  12                11
+     4              i 576 i               b 48 n              12
+     5             i 5184 i            m 256–468 n         b 37–43 z
+     6         b 49767–58880 l        m 1764–3884 q      m 144–384 j
+     7        b 497664–706560 e      y 14036–26920 k     m 878–3456 f
+     8       r 5146894–7558272 j    y 123772–323040 e   y 5577–26920 c
+
+         n        R=4            R=5         R=6        R=7    R=8
+         4         11
+         5          12            11
+         6      k 30–41 q         12           11
+         7     m 104–264 n    b 25–36 n        12        11
+         8     m 513–2304 f   m 78–264 c   k 23–32 n     12     11
+
+
+                              Bounds on K13 (n, R)
+(lower and upper bounds on the size of tredenary optimal covering codes)
+
+    n                R=1                   R=2                R=3
+    1                  11
+    2                13101                  11
+    3                g 85 g                 13                11
+    4             b 733–765 l             b 57 n              13
+    5            b 7141–7654 l         m 311–583 q         b 43–48 q
+    6           b 74259–92535 l       x 2169–6127 q      m 193–495 q
+    7         b 804469–1202955 e     x 20189–47111 q    m 1198–4294 n
+    8        r 8988848–12259982 l   x 197563–371293 p   x 8086–28561 p
+
+         n        R=4            R=5         R=6        R=7    R=8
+         4         11
+         5          13            11
+         6      k 35–46 q         13          11
+         7     m 132–356 q    b 29–42 n       13         11
+         8     m 684–3249 f   m 98–356 c   b 25–37 n     13     11
+
+
+
+
+                                       4
+                                Bounds on K14 (n, R)
+(lower and upper bounds on the size of quattuordenary optimal covering codes)
+
+       n               R=1                     R=2                 R=3
+       1                 11
+       2               14135                   11
+       3               g 98 g                  14                 11
+       4            b 915–984 l              b 66 n                14
+       5          b 9605–10858 l         m 381–686 n           b 50–54 n
+       6        b 107565–130665 l        y 2955–7203 j        m 235–610 q
+       7       b 1254923–1829310 e     y 29273–78934 q       m 1570–4802 n
+       8           i 15059072 i       y 305294–671728 k     y 11878–51670 k
+
+           n       R=4               R=5         R=6        R=7     R=8
+           4        11
+           5        14               11
+           6     b 40–52 q           14            11
+           7    m 162–448 q      k 34–48 n         14        11
+           8    m 917–4356 f    m 119–448 c     b 29–42 n    14      11
+
+
+                                Bounds on K15 (n, R)
+  (lower and upper bounds on the size of quindenary optimal covering codes)
+
+     n              R=1                        R=2                 R=3
+     1                11
+     2              15176                     11
+     3             g 113 g                    15                    11
+     4             i 1125 i                 b 75 n                  15
+     5        b 12657–14289 l            m 465–855 n            b 57–59 n
+     6           i 151875 i             y 3812–10625 j         m 291–730 q
+     7      b 1898438–2278125 e        y 41361–127125 f       s 1745–6497 n
+     8     b 24408483–26150859 l      x 457584–1166533 k     y 16380–84375 f
+
+         n          R=4              R=5          R=6       R=7     R=8
+         4           11
+         5           15              11
+         6        b 46–59 c          15            11
+         7      m 192–519 n      k 39–54 n          15        11
+         8      m 1181–5625 f   m 141–519 c     b 33–49 n     15      11
+
+
+
+
+                                           5
+                            Bounds on K16 (n, R)
+ (lower and upper bounds on the size of sexdenary optimal covering codes)
+
+    n            R=1                      R=2                R=3
+    1             11
+    2            16231                    11
+    3           g 128 g                   16                  11
+    4       b 1366–1416 l             b 86–87 n               16
+    5          i 16384 i            m 576–1024 n            b 64 n
+    6     b 209716–223360 l         x 4848–10752 j       m 344–896 j
+    7    b 2796203–3573760 e      y 55600–172032 e      s 2226–8192 n
+    8   b 38347923–43810816 l    y 669207–1954905 k    y 22167–123192 f
+
+        n       R=4             R=5          R=6       R=7    R=8
+        4        11
+        5        16              11
+        6     b 52–64 c          16            11
+        7   m 227–611 q      k 44–60 n         16       11
+        8   m 1507–7569 f   m 168–611 c    k 38–56 n    16      11
+
+
+                            Bounds on K17 (n, R)
+(lower and upper bounds on the size of septemdenary optimal covering codes)
+
+    n           R=1                       R=2                R=3
+    1            11
+    2           17297                    11
+    3          g 145 g                   17                   11
+    4       b 1638–1743 l             b 97–99 n               17
+    5      b 20881–22033 l          m 671–1241 n            b 73 n
+    6     b 283972–319925 l        y 6260–14424 q        m 407–1241 e
+    7    b 4022929–5438725 e      y 75429–252735 f      s 2806–10657 n
+    8   b 58619811–70994315 l    x 955978–3038049 f    x 29478–172557 f
+
+        n       R=4             R=5         R=6        R=7    R=8
+        4        11
+        5        17             11
+        6     k 59–73 c          17            11
+        7   m 271–703 q      b 49–66 n         17       11
+        8   y 1458–9801 f   m 198–703 c    k 43–63 n    17      11
+
+
+
+
+                                      6
+                            Bounds on K18 (n, R)
+ (lower and upper bounds on the size of octodenary optimal covering codes)
+
+   n            R=1                       R=2                 R=3
+   1              11
+   2            18385                     11
+   3           g 162 g                    18                   11
+   4           i 1944 i              b 109–111 n               18
+   5       b 26245–28904 l          m 807–1458 n             b 82 n
+   6      b 377914–442240 l         y 7741–15309 j        m 471–1353 j
+   7    b 5668704–7960320 e       y 100579–275562 e      s 3492–13122 n
+   8   b 87460005–110939643 l    y 1339650–3779136 f    y 39755–215784 f
+
+       n        R=4             R=5         R=6         R=7   R=8
+       4          11
+       5          18            11
+       6      k 66–80 n          18            11
+       7    m 316–774 q      b 55–72 n         18       11
+       8   s 1839–12321 f   m 233–774 c    k 48–70 n    18      11
+
+
+                            Bounds on K19 (n, R)
+(lower and upper bounds on the size of undevicenary optimal covering codes)
+
+  n             R=1                       R=2                 R=3
+  1              11
+  2             19490                      11
+  3            g 181 g                     19                  11
+  4         b 2287-2359 l              b 121–123 n             19
+  5        b 32581–35881 l            m 957–1779 y           b 91 n
+  6       b 495220–571300 l          x 9479–20890 q       m 557–1568 q
+  7     b 7840981–10854700 e       x 128972–396910 e     x 4237–18737 n
+  8    b 127695963–164570091 l    x 1842639–5564881 f   y 51278–290157 f
+
+       n        R=4             R=5         R=6         R=7   R=8
+       4         11
+       5         19             11
+       6      b 73–86 n         19             11
+       7    m 367–866 q      b 61–81 n         19       11
+       8   y 2256–15129 f   m 271–866 c    k 53–77 n    19      11
+
+
+
+
+                                      7
+                            Bounds on K20 (n, R)
+  (lower and upper bounds on the size of vicenary optimal covering codes)
+
+  n               R=1                      R=2                R=3
+  1                11
+  2               20627                   11
+  3              g 200 g                  20                   11
+  4          b 2667-2816 l            b 134–135 n               20
+  5             i 40000 i            m 1088–2000 j           b 100 n
+  6            i 640000 i           y 11778–28160 q       m 650–1600 j
+  7     b 10666667–12800000 e      y 167165–563200 f     x 5174–21202 n
+  8    b 182857143–223741497 l    y 2495614–7929856 f   y 65351–380160 f
+
+       n        R=4            R=5           R=6        R=7    R=8
+       4         11
+       5         20              11
+       6      b 81–93 n          20           11
+       7    m 419–979 q      k 68–89 n         20        11
+       8   y 2760–18225 f   m 312–979 c    b 58–84 n     20     11
+
+
+                            Bounds on K21 (n, R)
+(lower and upper bounds on the size of viginti-unary optimal covering codes)
+
+   n            R=1                      R=2                  R=3
+   1              11
+   2            21792                    11
+   3           g 221 g                    21                   11
+   4           i 3087 i                b 147 n                 21
+   5      b 48621–50796 l           m 1257–2381 y          b 111–114 n
+   6     b 816821–856885 l         y 14131–37481 q        m 738–2058 j
+   7   b 14294354–17994585 e      y 213881–571438 j      x 6249–28812 j
+   8        i 257298363 i        x 3329193–9529569 f    x 82341–453789 f
+
+       n        R=4            R=5           R=6        R=7    R=8
+       4         11
+       5         21              11
+       6      b 89–99 n          21            11
+       7    m 497–1029 n     k 75–98 n          21       11
+       8   s 3288–21609 e   m 354–1029 c    b 64–91 n    21      11
+
+
+
+
+                                     8
+Key to the tables for Kq (n, R), q ≥ 6
+
+
+             Lower bounds
+ unmarked    trivial
+ a           sphere-covering bound
+ b           (Rodemich, 1970)
+ g           (Kalbfleisch–Stanton, 1969)
+ h           Hamming code
+ i           (Blokhuis–Lam, 1984)
+ k           (Haas–Schlage-Puchta–Quistorff, 2008–2009)
+ m           (Haas–Halupczok–Schlage-Puchta, 2009)
+ q           non-existence of perfect code
+ r           (Quistorff, 2001)
+ s           (Lang–Quistorff–Schneider, 2006–2007)
+ u           (Haas, 2000)
+ x           (Chen–Honkala, 1990)
+ y           improved sphere-covering bound
+
+             Upper bounds
+ unmarked    trivial
+ c           Kq (n + 1, R + 1) ≤ Kq (n, R)
+ e           Kq (n + 1, R) ≤ qKq (n, R)
+ f           direct sum
+ g           (Kalbfleisch–Stanton, 1969)
+ h           Hamming code
+ i           (Blokhuis–Lam, 1984)
+ j           Ktq (n, 1) ≤ tn−1 Kq (n, 1) or Ktq (n, R) ≤ σt (n, n − R)Kq (n, R)
+ k           using known bound for the same n, R and smaller q
+ l           constructions using adjoint codes
+ n           (Kéri–Östergård, 2005)
+ o           (Östergård, 1999)
+ p           linear code
+ q           (Rivas Soriano, 2005–2008)
+ r           (Quistorff–Schlage-Puchta, 2008)
+ y           (Li–Ji-Yin, 2008)
+ z           (Kéri, 2009)
+
+
+
+
+                                         9
+

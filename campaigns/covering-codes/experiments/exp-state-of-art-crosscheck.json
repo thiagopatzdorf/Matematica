@@ -1,0 +1,182 @@
+{
+  "created": "2026-10-06T02:39:44Z",
+  "created_by": "agente-c",
+  "description": "Confere STATE_OF_ART.md (main v0.5, revisão de 2026-10-02) contra os registros de literatura desta campanha (fontes lidas por Lit-CC em 2026-10-03). O documento NÃO é fonte primária e não vira evidência por existir; afirmação sem registro correspondente fica SEM_REGISTRO. Não afirma novidade: STATE_OF_ART.md, VALIDATION.md e o paper dizem 'o menor que encontramos nas fontes revisadas', e o próprio documento lista o que não checou (Google Scholar, bases pagas, teses, periódico, páginas pessoais).",
+  "experiment_id": "exp-state-of-art-crosscheck",
+  "implementation": "regex + comparação com literature/ em tools/campaign/migrate_covering.py",
+  "instances": [
+    "k7-9-4"
+  ],
+  "kind": "symbolic",
+  "ranges": null,
+  "repo_commit": "0bb66b85a2f98ba1242d7fb0d4d543c8915ad7d0",
+  "result": {
+    "executado_neste_run": true,
+    "itens": [
+      {
+        "afirmacao": "menor UB publicado = 1475 (Marosi v2)",
+        "confere": true,
+        "esperado_pelo_STATE_OF_ART": 1475,
+        "presente_no_STATE_OF_ART": true,
+        "registro_da_campanha": 1475,
+        "veredito": "CONFERE"
+      },
+      {
+        "afirmacao": "menor UB publicado = 1475 (Marosi v3, versão atual)",
+        "confere": true,
+        "esperado_pelo_STATE_OF_ART": 1475,
+        "presente_no_STATE_OF_ART": true,
+        "registro_da_campanha": 1475,
+        "veredito": "CONFERE"
+      },
+      {
+        "afirmacao": "v1 do Marosi = 1743",
+        "confere": true,
+        "esperado_pelo_STATE_OF_ART": 1743,
+        "presente_no_STATE_OF_ART": true,
+        "registro_da_campanha": 1743,
+        "veredito": "CONFERE"
+      },
+      {
+        "afirmacao": "v1 de 2026-08-20",
+        "confere": true,
+        "esperado_pelo_STATE_OF_ART": "2026-08-20",
+        "presente_no_STATE_OF_ART": true,
+        "registro_da_campanha": "2026-08-20",
+        "veredito": "CONFERE"
+      },
+      {
+        "afirmacao": "v2 de 2026-08-23",
+        "confere": true,
+        "esperado_pelo_STATE_OF_ART": "2026-08-23",
+        "presente_no_STATE_OF_ART": true,
+        "registro_da_campanha": "2026-08-23",
+        "veredito": "CONFERE"
+      },
+      {
+        "afirmacao": "v3 de 2026-09-02",
+        "confere": true,
+        "esperado_pelo_STATE_OF_ART": "2026-09-02",
+        "presente_no_STATE_OF_ART": true,
+        "registro_da_campanha": "2026-09-02",
+        "veredito": "CONFERE"
+      },
+      {
+        "afirmacao": "Kéri: UB 1843 (soma direta)",
+        "confere": true,
+        "esperado_pelo_STATE_OF_ART": 1843,
+        "presente_no_STATE_OF_ART": true,
+        "registro_da_campanha": 1843,
+        "veredito": "CONFERE"
+      },
+      {
+        "afirmacao": "cota inferior 264 (Haas-Halupczok-Schlage-Puchta 2009, chave m do Kéri)",
+        "confere": true,
+        "esperado_pelo_STATE_OF_ART": 264,
+        "presente_no_STATE_OF_ART": true,
+        "registro_da_campanha": 264,
+        "veredito": "CONFERE"
+      },
+      {
+        "afirmacao": "Kéri: PDF de 2009-10-15",
+        "confere": true,
+        "esperado_pelo_STATE_OF_ART": "2009-10-15",
+        "presente_no_STATE_OF_ART": true,
+        "registro_da_campanha": "2009-10-15",
+        "veredito": "CONFERE"
+      },
+      {
+        "afirmacao": "cota de esfera = 221",
+        "confere": true,
+        "esperado_pelo_STATE_OF_ART": 221,
+        "presente_no_STATE_OF_ART": true,
+        "registro_da_campanha": 221,
+        "veredito": "CONFERE"
+      },
+      {
+        "afirmacao": "Δ = 1843 - 1475 = 368 (-368 na Tabela 1 do Marosi)",
+        "confere": true,
+        "esperado_pelo_STATE_OF_ART": 368,
+        "presente_no_STATE_OF_ART": true,
+        "registro_da_campanha": 368,
+        "veredito": "CONFERE"
+      },
+      {
+        "afirmacao": "368/1843 arredondado a 20.0%",
+        "confere": true,
+        "esperado_pelo_STATE_OF_ART": 20.0,
+        "presente_no_STATE_OF_ART": true,
+        "registro_da_campanha": 20.0,
+        "veredito": "CONFERE"
+      },
+      {
+        "afirmacao": "sha256 do anexo M1475 começa em b3e60549 e termina em ac6ace (Marosi v2/v3)",
+        "confere": true,
+        "esperado_pelo_STATE_OF_ART": true,
+        "presente_no_STATE_OF_ART": true,
+        "registro_da_campanha": true,
+        "veredito": "CONFERE"
+      },
+      {
+        "afirmacao": "v4 do Marosi não existe (404)",
+        "confere": true,
+        "esperado_pelo_STATE_OF_ART": true,
+        "presente_no_STATE_OF_ART": true,
+        "registro_da_campanha": true,
+        "veredito": "CONFERE"
+      },
+      {
+        "afirmacao": "nenhum resultado registrado abaixo de 1475 para K_7(9,4)",
+        "confere": true,
+        "esperado_pelo_STATE_OF_ART": 1475,
+        "presente_no_STATE_OF_ART": true,
+        "registro_da_campanha": 1475,
+        "veredito": "CONFERE"
+      },
+      {
+        "afirmacao": "Gijswijt-Polak cobrem só q <= 5 (não citam K_7(9,4))",
+        "confere": true,
+        "esperado_pelo_STATE_OF_ART": true,
+        "presente_no_STATE_OF_ART": true,
+        "registro_da_campanha": true,
+        "veredito": "CONFERE"
+      },
+      {
+        "afirmacao": "Florath (repositório): K_7(9,4) <= 2401 por lengthenFreeN",
+        "confere": null,
+        "esperado_pelo_STATE_OF_ART": 2401,
+        "presente_no_STATE_OF_ART": true,
+        "registro_da_campanha": null,
+        "veredito": "SEM_REGISTRO (não confirmado por esta campanha)"
+      },
+      {
+        "afirmacao": "Mapika/coldcase: arquivos de K7(9,4) de 1475 a 1843, commit 56a8cce",
+        "confere": null,
+        "esperado_pelo_STATE_OF_ART": "56a8cce",
+        "presente_no_STATE_OF_ART": true,
+        "registro_da_campanha": null,
+        "veredito": "SEM_REGISTRO (não confirmado por esta campanha)"
+      },
+      {
+        "afirmacao": "o código M1475 do Marosi cobre os 7^9 pontos (reverificado pelo autor do STATE_OF_ART com numpy)",
+        "confere": null,
+        "esperado_pelo_STATE_OF_ART": true,
+        "presente_no_STATE_OF_ART": true,
+        "registro_da_campanha": null,
+        "veredito": "SEM_REGISTRO (não confirmado por esta campanha)"
+      }
+    ],
+    "resumo": {
+      "confere": 16,
+      "diverge": 0,
+      "nao_encontrada": 0,
+      "sem_registro": 3
+    }
+  },
+  "source_files": [
+    {
+      "path": "docs/literatura/STATE_OF_ART.md",
+      "sha256": "1100964503da6a45e582ab77036c05df0a92af2e7da15f931786edb350bcf8ff"
+    }
+  ]
+}

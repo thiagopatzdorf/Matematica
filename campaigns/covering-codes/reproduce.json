@@ -1,0 +1,144 @@
+{
+  "campaign_id": "covering-codes",
+  "schema": "genesis-math/reproduce/v1",
+  "steps": [
+    {
+      "id": "ambiente",
+      "report_versions": [
+        "cc",
+        "python3",
+        "go",
+        "rustc"
+      ],
+      "requires": [
+        "cc",
+        "python3",
+        "go",
+        "rustc",
+        "cargo",
+        "pytest"
+      ],
+      "type": "ambiente"
+    },
+    {
+      "id": "hashes-dos-witnesses",
+      "type": "hashes"
+    },
+    {
+      "command": [
+        "bash",
+        "tools/verify/check_all.sh"
+      ],
+      "id": "check-all-verify-c",
+      "timeout_s": 600,
+      "type": "dados"
+    },
+    {
+      "command": [
+        "python3",
+        "scripts/codes/build_structured.py",
+        "--check"
+      ],
+      "id": "estrutura-regenera",
+      "timeout_s": 600,
+      "type": "gerador"
+    },
+    {
+      "command": [
+        "python3",
+        "-m",
+        "unittest",
+        "tests.test_code_format.GeneratorsRegenerateTheCodes",
+        "-v"
+      ],
+      "id": "gerador-1285",
+      "timeout_s": 600,
+      "type": "gerador"
+    },
+    {
+      "command": [
+        "python3",
+        "scripts/search/gen.py",
+        "data/search/p1137.json",
+        "/tmp/covering_p1137_regen.txt"
+      ],
+      "id": "gerador-1137",
+      "timeout_s": 120,
+      "type": "gerador"
+    },
+    {
+      "command": [
+        "python3",
+        "scripts/k261/sc_ref.py",
+        "6",
+        "10",
+        "2"
+      ],
+      "id": "espelho-busca-k2-6-1",
+      "timeout_s": 120,
+      "type": "gerador"
+    },
+    {
+      "command": [
+        "python3",
+        "-m",
+        "pytest",
+        "-q",
+        "tests"
+      ],
+      "id": "testes-pytest",
+      "timeout_s": 1800,
+      "type": "teste"
+    },
+    {
+      "id": "verificadores-gerais-sobre-witnesses",
+      "type": "verificadores",
+      "verifiers": [
+        "verify-c",
+        "verify-py-dilation",
+        "verify-rust",
+        "verify-cleanroom"
+      ]
+    },
+    {
+      "id": "verificadores-k794-sobre-witnesses-k7-9-4",
+      "subjects": [
+        "w-q7-n9-r4-m1351",
+        "w-q7-n9-r4-m1285",
+        "w-q7-n9-r4-m1141",
+        "w-q7-n9-r4-m1137",
+        "w-q7-n9-r4-m1134"
+      ],
+      "type": "verificadores",
+      "verifiers": [
+        "verify-val-bruteforce",
+        "verify-val-balls",
+        "verify-val-bfs"
+      ]
+    },
+    {
+      "id": "lake-build-alvo-padrao",
+      "lean_root": ".",
+      "nota": "alvo padrão CoveringLean (8944 jobs, com SynCheck/SynBridge)",
+      "opcional": true,
+      "target": null,
+      "type": "lean_build"
+    },
+    {
+      "id": "lake-build-coveringsyn",
+      "lean_root": ".",
+      "nota": "os 10 teoremas por síndromes (lib CoveringSyn do lakefile.toml; ~10 min de relógio para os cinco primeiros, mais ~25 min para os cinco de v0.6/v0.7); CoveringHeavy (~9,3 h de CPU) NÃO está aqui",
+      "opcional": true,
+      "target": "CoveringSyn",
+      "type": "lean_build"
+    },
+    {
+      "id": "axiomas-dos-registros-formais",
+      "type": "axiomas"
+    },
+    {
+      "id": "auditoria-da-cadeia",
+      "type": "auditoria"
+    }
+  ]
+}

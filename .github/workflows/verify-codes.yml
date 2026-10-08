@@ -7,6 +7,7 @@ on:
     paths:
       - "data/**"
       - "tools/**"
+      - "campaigns/**"
       - "scripts/codes/**"
       - "scripts/search/**"
       - "scripts/loop/**"
@@ -23,6 +24,7 @@ on:
     paths:
       - "data/**"
       - "tools/**"
+      - "campaigns/**"
       - "scripts/codes/**"
       - "scripts/search/**"
       - "scripts/loop/**"

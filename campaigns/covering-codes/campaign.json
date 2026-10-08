@@ -1,0 +1,177 @@
+{
+  "campaign_id": "covering-codes",
+  "created": "2026-10-06T02:39:44Z",
+  "data_root": "../..",
+  "domain": "covering codes K_q(n,R)",
+  "last_anchor": {
+    "hash": "38a7108528b07a20110f1224ce9da28e5846d6cbb0b1c10f7c7f39be2977581d",
+    "hmac": null,
+    "seq": 681,
+    "ts": "2026-10-06T03:03:53Z"
+  },
+  "lean_toolchain": "leanprover/lean4:v4.34.1",
+  "schema": "genesis-math/campaign/v1",
+  "title": "Covering codes: campanha piloto (cotas de esfera, K_2(6,1), K_7(9,4) e outros códigos)",
+  "universe": {
+    "descricao": "Células (q,n,R) tratadas pela campanha: as 13 de data/codes (8 com teorema da cota de esfera no Lean) e K_2(6,1). 'Resolvida' = K_q(n,R) determinado (lb = ub). Só K_2(6,1). As demais têm faixa [lb, ub] aberta.",
+    "estado_minimo_resolvido": "EXHAUSTIVE_BOUNDED",
+    "instancias": [
+      {
+        "R": 1,
+        "id": "k2-6-1",
+        "lb_formal_esfera": null,
+        "lb_formal_melhor": 11,
+        "n": 6,
+        "q": 2,
+        "size": 6,
+        "ub_formal_lean": 12,
+        "ub_verificado_melhor": 12
+      },
+      {
+        "R": 4,
+        "id": "k4-10-4",
+        "lb_formal_esfera": 51,
+        "lb_formal_melhor": 51,
+        "n": 10,
+        "q": 4,
+        "size": 10,
+        "ub_formal_lean": null,
+        "ub_verificado_melhor": 192
+      },
+      {
+        "R": 2,
+        "id": "k5-7-2",
+        "lb_formal_esfera": 215,
+        "lb_formal_melhor": 215,
+        "n": 7,
+        "q": 5,
+        "size": 7,
+        "ub_formal_lean": null,
+        "ub_verificado_melhor": 500
+      },
+      {
+        "R": 3,
+        "id": "k5-9-3",
+        "lb_formal_esfera": 327,
+        "lb_formal_melhor": 327,
+        "n": 9,
+        "q": 5,
+        "size": 9,
+        "ub_formal_lean": null,
+        "ub_verificado_melhor": 1250
+      },
+      {
+        "R": 4,
+        "id": "k5-9-4",
+        "lb_formal_esfera": 52,
+        "lb_formal_melhor": 52,
+        "n": 9,
+        "q": 5,
+        "size": 9,
+        "ub_formal_lean": null,
+        "ub_verificado_melhor": 250
+      },
+      {
+        "R": 5,
+        "id": "k5-9-5",
+        "lb_formal_esfera": 12,
+        "lb_formal_melhor": 12,
+        "n": 9,
+        "q": 5,
+        "size": 9,
+        "ub_formal_lean": null,
+        "ub_verificado_melhor": 50
+      },
+      {
+        "R": 4,
+        "id": "k5-10-4",
+        "lb_formal_esfera": 158,
+        "lb_formal_melhor": 158,
+        "n": 10,
+        "q": 5,
+        "size": 10,
+        "ub_formal_lean": null,
+        "ub_verificado_melhor": 625
+      },
+      {
+        "R": 5,
+        "id": "k5-10-5",
+        "lb_formal_esfera": null,
+        "lb_formal_melhor": null,
+        "n": 10,
+        "q": 5,
+        "size": 10,
+        "ub_formal_lean": 162,
+        "ub_verificado_melhor": 162
+      },
+      {
+        "R": 4,
+        "id": "k5-11-4",
+        "lb_formal_esfera": null,
+        "lb_formal_melhor": null,
+        "n": 11,
+        "q": 5,
+        "size": 11,
+        "ub_formal_lean": 2875,
+        "ub_verificado_melhor": 2875
+      },
+      {
+        "R": 3,
+        "id": "k7-5-3",
+        "lb_formal_esfera": null,
+        "lb_formal_melhor": null,
+        "n": 5,
+        "q": 7,
+        "size": 5,
+        "ub_formal_lean": null,
+        "ub_verificado_melhor": 17
+      },
+      {
+        "R": 4,
+        "id": "k7-6-4",
+        "lb_formal_esfera": null,
+        "lb_formal_melhor": null,
+        "n": 6,
+        "q": 7,
+        "size": 6,
+        "ub_formal_lean": null,
+        "ub_verificado_melhor": 14
+      },
+      {
+        "R": 3,
+        "id": "k7-8-3",
+        "lb_formal_esfera": 439,
+        "lb_formal_melhor": 439,
+        "n": 8,
+        "q": 7,
+        "size": 8,
+        "ub_formal_lean": 1887,
+        "ub_verificado_melhor": 1887
+      },
+      {
+        "R": 4,
+        "id": "k7-9-4",
+        "lb_formal_esfera": 221,
+        "lb_formal_melhor": 221,
+        "n": 9,
+        "q": 7,
+        "size": 9,
+        "ub_formal_lean": 1134,
+        "ub_verificado_melhor": 1134
+      },
+      {
+        "R": 4,
+        "id": "k7-10-4",
+        "lb_formal_esfera": null,
+        "lb_formal_melhor": null,
+        "n": 10,
+        "q": 7,
+        "size": 10,
+        "ub_formal_lean": 5607,
+        "ub_verificado_melhor": 5607
+      }
+    ],
+    "tipo": "finito",
+    "total": 14
+  }
+}
